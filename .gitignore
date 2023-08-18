@@ -16,6 +16,6 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-.classpath
-.project
-.settings/org.eclipse.jdt.core.prefs
+./classpath
+./project
+./settings
