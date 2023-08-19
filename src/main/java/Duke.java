@@ -1,7 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     static String chatbotName="Andrew Tate";
+    static ArrayList<String> tasks = new ArrayList<String>();
 
     public static void main(String[] args){
         Scanner myScanner = new Scanner(System.in);
@@ -13,9 +15,16 @@ public class Duke {
             String commandGiven = myScanner.nextLine();
             if (commandGiven.equals("bye")) {
                 break;
-            }else{
+            }else if(commandGiven.equals("list")) {
                 System.out.println("____________________________________________________________");
-                System.out.println(commandGiven);
+                for (int i=0;i<tasks.size(); i++){
+                    System.out.println(i+1 + ". " + tasks.get(i));
+                }
+                System.out.println("____________________________________________________________");
+            }else{
+                tasks.add(commandGiven);
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + commandGiven);
                 System.out.println("____________________________________________________________");
             }
         }
