@@ -8,5 +8,7 @@ public class Duke {
                         "█     ▐   ▐      ▐        █         █\n" +
                         "▐                         ▐         ▐\n";
         System.out.println("Hello from\n" + logo);
+        System.out.println("What can I do for you?");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
