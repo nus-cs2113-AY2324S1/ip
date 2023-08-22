@@ -7,5 +7,11 @@ public class Duke {
             + "/      | |   |   _   |   \\__|     |   __   |   _   |       |\n"
             + "|____ /|_|   |__| |__|\\_____|_____|__|  |__|__| |__|__|\\___|\n";
         System.out.println("Hello from\n" + logo);
+        System.out.println("------------------------------------------------------------");
+        System.out.println("Hello! I'm Spaceman");
+        System.out.println("What can I do for you?");
+        System.out.println("------------------------------------------------------------");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("------------------------------------------------------------");
     }
 }
