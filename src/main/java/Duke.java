@@ -27,12 +27,23 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
 
+        int listIdx = 0;
+        String[] listItems = new String[100];
+
         printWelcome();
 
         line = in.nextLine().trim();
         while (line.equals("bye") == false) {
             System.out.println(LINE);
-            System.out.println("\t" + line);
+            if (line.equals("list")) {
+                for (int i = 0; i < listIdx; i++) {
+                    System.out.printf("%d. %s\n", i+1, listItems[i]);
+                }
+            } else {
+                listItems[listIdx] = line;
+                listIdx++;
+                System.out.println("\tadded: " + line);
+            }
             System.out.println(LINE);
 
             line = in.nextLine().trim();
