@@ -2,8 +2,11 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static final String LINE = "\t____________________________________________________________";
+    public static final String LINE = "____________________________________________________________";
 
+    public static void println(String line) {
+        System.out.println("\t" + line);
+    }
     public static void printWelcome() {
 
         String bob = "\t   ___    ___  ___ \n"
@@ -12,15 +15,15 @@ public class Duke {
                 + "\t/ \\/  \\/ \\_// \\/  \\\n"
                 + "\t\\_____/\\___/\\_____/\n";
 
-        System.out.println(LINE);
-        System.out.println("\tHello! I'm\n" + bob);
-        System.out.println("\tWhat can I do for you?");
-        System.out.println(LINE);
+        println(LINE);
+        println("Hello! I'm\n" + bob);
+        println("What can I do for you?");
+        println(LINE);
     }
 
     public static void printFarewell() {
-        System.out.println("\tBye. Hope to see you again soon!");
-        System.out.println(LINE);
+        println("Bye. Hope to see you again soon!");
+        println(LINE);
     }
 
     public static void main(String[] args) {
@@ -28,23 +31,36 @@ public class Duke {
         Scanner in = new Scanner(System.in);
 
         int listIdx = 0;
-        String[] listItems = new String[100];
+        Task[] listItems = new Task[100];
+        int markIdx;
 
         printWelcome();
 
         line = in.nextLine().trim();
         while (line.equals("bye") == false) {
-            System.out.println(LINE);
+            println(LINE);
             if (line.equals("list")) {
                 for (int i = 0; i < listIdx; i++) {
-                    System.out.printf("%d. %s\n", i+1, listItems[i]);
+                    println(String.format("%d. %s", i+1, listItems[i].getTask()));
                 }
+            } else if (line.substring(0, 4).equals("mark")) {
+                markIdx = Integer.parseInt(line.split(" ")[1]) - 1;
+                listItems[markIdx].setIsDone(true);
+
+                println("Nice! I've marked this task as done: ");
+                println(listItems[markIdx].getTask());
+            } else if (line.substring(0, 6).equals("unmark")) {
+                markIdx = Integer.parseInt(line.split(" ")[1]) - 1;
+                listItems[markIdx].setIsDone(false);
+
+                println("Nice! I've marked this task as undone: ");
+                println(listItems[markIdx].getTask());
             } else {
-                listItems[listIdx] = line;
-                listIdx++;
-                System.out.println("\tadded: " + line);
+                    listItems[listIdx] = new Task(line);
+                    listIdx++;
+                    println("added: " + line);
             }
-            System.out.println(LINE);
+            println(LINE);
 
             line = in.nextLine().trim();
         }
