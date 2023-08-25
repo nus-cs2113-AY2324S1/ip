@@ -11,6 +11,9 @@ public class Duke {
     }
     public static void printList(List<String> list, int length){
         if (list.isEmpty()) {
+            printHorizontalLines(length);
+            System.out.println("List is empty. Enter a text to add to the list.");
+            printHorizontalLines(length);
             return;
         } else {
             printHorizontalLines(length);
@@ -21,13 +24,15 @@ public class Duke {
         }
     }
     public static void main(String[] args) {
-        int length = 30;
+        int length = 50;
         //String[] textList = new String[100];
         List<String> textList = new ArrayList<>();
 
         printHorizontalLines(length);
         System.out.println("Hi! I'm Joshua");
         System.out.println("What can I do for you?");
+        System.out.println();
+        System.out.println("To exit, enter 'bye'. To view list, enter 'list'");
         printHorizontalLines(length);
 
         Scanner scanner = new Scanner(System.in);
