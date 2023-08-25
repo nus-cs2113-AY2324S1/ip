@@ -2,37 +2,63 @@ import java.util.Scanner;
 
 public class Duke {
 
-    static String[] tasks = new String[100];
-    static int taskCount = 0;
+    static Task[] tasks = new Task[100];
 
     public static void addTask(String task) {
         System.out.println("added: " + task);
-        tasks[taskCount] = task;
-        taskCount++;
+        tasks[Task.getTaskCount()] = new Task(task);
     }
 
     public static void listTask() {
-        for(int i=0; i<taskCount; i++) {
+        for(int i=0; i<Task.getTaskCount(); i++) {
             System.out.print(i+1);
-            System.out.println(". " + tasks[i]);
+            if (tasks[i].getDone()) {
+                System.out.print(". [X] ");
+            } else {
+                System.out.print(". [ ] ");
+            }
+            System.out.println(tasks[i].getName());
+        }
+    }
+
+    public static void toggleDone(String taskNumber, boolean toggle) {
+        try {
+            int taskId = Integer.parseInt(taskNumber);
+            if (taskId > Task.getTaskCount() || taskId <= 0) {
+                System.out.println("Task out of range!");
+            } else {
+                tasks[taskId-1].setDone(toggle);
+                if (toggle) {
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[X] " + tasks[taskId-1].getName());
+                } else {
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("[ ] " + tasks[taskId-1].getName());
+                }
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task number!");
         }
     }
 
     public static void processCommand(String line) {
         Scanner textIn = new Scanner(System.in);
-        while (true) {
-            String command = textIn.nextLine();
-            if (command.equals("bye")) {
+        String command = "";
+        while (!command.equals("bye")) {
+            command = textIn.nextLine();
+            String[] tokens = command.split(" ");
+            System.out.println(line);
+            switch (tokens[0]) {
+            case "list": listTask();
                 break;
-            } else if (command.equals("list")) {
-                System.out.println(line);
-                listTask();
-                System.out.println(line);
-            } else {
-                System.out.println(line);
-                addTask(command);
-                System.out.println(line);
+            case "mark": toggleDone(tokens[1], true);
+                break;
+            case "unmark": toggleDone(tokens[1], false);
+                break;
+            default: addTask(command);
+                break;
             }
+            System.out.println(line);
         }
     }
 
@@ -47,7 +73,6 @@ public class Duke {
         System.out.println("Hello! I'm soccat!\nWhat can I do for you?");
         System.out.println(line);
         processCommand(line);
-        System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
     }
