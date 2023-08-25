@@ -1,3 +1,5 @@
+package dawson;
+
 public class Dawson {
     public static void main(String[] args) {
         String welcomeText = "____________________________________________________________\n" + 
