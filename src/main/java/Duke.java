@@ -5,9 +5,6 @@ public class Duke {
         System.out.println("Hello! I'm JARVIS");
         System.out.println("What can I do for you?");
 
-<<<<<<< HEAD
-        //Print newline to seperate greetings and goodbye
-        System.out.println();
 
         Echo respond = new Echo();
         respond.echoBack();
@@ -15,9 +12,6 @@ public class Duke {
 
 
 
-=======
-        Echo respond = new Echo();
-        respond.echoBack();
->>>>>>> Attempt_1
+
     }
 }
