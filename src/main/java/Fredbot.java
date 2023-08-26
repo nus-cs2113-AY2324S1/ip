@@ -1,15 +1,16 @@
 import java.util.Scanner;
 
 public class Fredbot {
-    public static int numTask = 0;
-    public static void addTasks(String tasks[], String task) {
-        tasks[numTask] = task;
-        numTask++;
+    public static void addTasks(Task[] tasks, String task) {
+        int numTask = Task.getNumTask();
+        tasks[numTask] = new Task(task);
+        Task.setNumTask(numTask+1);
     }
-    public static void printTasks(String tasks[]) {
+    public static void printTasks(Task[] tasks) {
         StringBuilder tasklist = new StringBuilder();
+        int numTask = Task.getNumTask();
         for (int i = 0; i < numTask; i++) {
-            tasklist.append("    ").append(i + 1).append(". ").append(tasks[i]).append("\n");
+            tasklist.append("    ").append(i + 1).append(". ").append(tasks[i].getTaskDesc()).append("\n");
         }
         printMessage(tasklist.toString());
     }
@@ -25,7 +26,7 @@ public class Fredbot {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         // System.out.println("Hello from\n" + logo);
-        String tasks[] = new String[100];
+        Task[] tasks = new Task[100];
         String greeting = "     Hello! I'm Fredbot\n" +
                 "     What can I do for you?";
         String farewell = "     Bye. Hope to see you again soon!";

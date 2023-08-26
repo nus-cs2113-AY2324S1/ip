@@ -2,7 +2,7 @@ public class Task {
     private String taskDesc;
     private boolean done;
 
-    private static int numTask;
+    private static int numTask = 0;
 
     public Task(String taskDesc) {
         this.taskDesc = taskDesc;
