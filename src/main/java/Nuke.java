@@ -20,7 +20,7 @@ public class Nuke {
             "⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠁";
     private static boolean running = true;
 
-    private static ArrayList<String> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -40,10 +40,25 @@ public class Nuke {
                 running = false;
             } else if(input.equals("list")) {
                 for(int i = 0; i < tasks.size(); i++) {
-                    System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+                    Task task = tasks.get(i);
+                    if(task.isDone()) {
+                        System.out.printf("%d.[X] %s\n", i + 1, task.getName());
+                    } else {
+                        System.out.printf("%d.[ ] %s\n", i + 1, task.getName());
+                    }
                 }
+            } else if(input.startsWith("mark ")) {
+                int idx = Integer.parseInt(input.substring(5)) - 1;
+                tasks.get(idx).setDone(true);
+                System.out.println("[☢] Nice! I've marked this task as done:");
+                System.out.println("  [X] " + tasks.get(idx).getName());
+            } else if(input.startsWith("unmark ")) {
+                int idx = Integer.parseInt(input.substring(7)) - 1;
+                tasks.get(idx).setDone(false);
+                System.out.println("[☢] OK, I've marked this task as not done yet:");
+                System.out.println("  [ ] " + tasks.get(idx).getName());
             } else {
-                tasks.add(input);
+                tasks.add(new Task(input));
                 System.out.println("added: " + input);
             }
         }
