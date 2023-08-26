@@ -20,7 +20,7 @@ public class Nuke {
             "⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠁";
     private static boolean running = true;
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -35,32 +35,59 @@ public class Nuke {
         while(running) {
             System.out.print("> ");
             String input = in.nextLine();
-            if(input.equals("bye")) {
-                System.out.println("[☢] Bye. Hope to see you again soon!");
-                running = false;
-            } else if(input.equals("list")) {
-                for(int i = 0; i < tasks.size(); i++) {
-                    Task task = tasks.get(i);
-                    if(task.isDone()) {
-                        System.out.printf("%d.[X] %s\n", i + 1, task.getName());
-                    } else {
-                        System.out.printf("%d.[ ] %s\n", i + 1, task.getName());
-                    }
-                }
-            } else if(input.startsWith("mark ")) {
-                int idx = Integer.parseInt(input.substring(5)) - 1;
-                tasks.get(idx).setDone(true);
-                System.out.println("[☢] Nice! I've marked this task as done:");
-                System.out.println("  [X] " + tasks.get(idx).getName());
-            } else if(input.startsWith("unmark ")) {
-                int idx = Integer.parseInt(input.substring(7)) - 1;
-                tasks.get(idx).setDone(false);
-                System.out.println("[☢] OK, I've marked this task as not done yet:");
-                System.out.println("  [ ] " + tasks.get(idx).getName());
-            } else {
-                tasks.add(new Task(input));
-                System.out.println("added: " + input);
-            }
+            runCommand(input);
         }
+    }
+
+    private static void runCommand(String line) {
+        String[] words = line.split(" ");
+        String type = words[0];
+        // String[] args = Arrays.copyOfRange(words, 1, words.length);
+
+        int idx;
+        switch(type) {
+        case "bye":
+            System.out.println("[☢] Bye. Hope to see you again soon!");
+            running = false;
+            break;
+        case "list":
+            listTask();
+            break;
+        case "mark":
+            idx = Integer.parseInt(words[1]) - 1;
+            markTask(idx);
+            break;
+        case "unmark":
+            idx = Integer.parseInt(words[1]) - 1;
+            unmarkTask(idx);
+            break;
+        default:
+            addTask(line);
+        }
+    }
+
+    private static void addTask(String taskName) {
+        tasks.add(new Task(taskName));
+        System.out.println("added: " + taskName);
+    }
+
+    private static void listTask() {
+        for(int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String mark = task.isDone()? "X" : " ";
+            System.out.printf("%d.[%s] %s\n", i + 1, mark, task.getName());
+        }
+    }
+
+    private static void markTask(int idx) {
+        tasks.get(idx).setDone(true);
+        System.out.println("[☢] Nice! I've marked this task as done:");
+        System.out.println("  [X] " + tasks.get(idx).getName());
+    }
+
+    private static void unmarkTask(int idx) {
+        tasks.get(idx).setDone(false);
+        System.out.println("[☢] OK, I've marked this task as not done yet:");
+        System.out.println("  [ ] " + tasks.get(idx).getName());
     }
 }
