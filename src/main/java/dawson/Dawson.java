@@ -12,11 +12,12 @@ public class Dawson {
      * 
      * @param text
      */
-    public static void printText(String text) {
+    public static void printText(String text, boolean... tab) {
         String line = "\t_______________________________________________________" + System.lineSeparator();
-        
+        String tabString = tab.length > 0 ? " " : "\t ";
+
         System.out.println(line);
-        System.out.println("\t " + text);
+        System.out.println(tabString + text);
         System.out.println(line);
     }
 
@@ -35,12 +36,10 @@ public class Dawson {
         Command newCommand = new Echo("");
         Scanner scanner = new Scanner(System.in);
 
+        TaskList taskList = new TaskList();
         while (!(newCommand instanceof Exit)) {
             String nextLineString = scanner.nextLine().toLowerCase().trim();
-            String[] split = nextLineString.split("\\s+");
-
-            String commandString = split[0];
-            newCommand = Command.commandChecker(commandString, nextLineString);
+            newCommand = Command.getCommand(nextLineString, taskList);
             newCommand.execute();
         }
 
