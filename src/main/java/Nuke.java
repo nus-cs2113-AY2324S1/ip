@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nuke {
@@ -19,6 +20,8 @@ public class Nuke {
             "⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠁";
     private static boolean running = true;
 
+    private static ArrayList<String> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
@@ -35,8 +38,13 @@ public class Nuke {
             if(input.equals("bye")) {
                 System.out.println("[☢] Bye. Hope to see you again soon!");
                 running = false;
+            } else if(input.equals("list")) {
+                for(int i = 0; i < tasks.size(); i++) {
+                    System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+                }
             } else {
-                System.out.println(input);
+                tasks.add(input);
+                System.out.println("added: " + input);
             }
         }
     }
