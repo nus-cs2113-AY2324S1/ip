@@ -10,7 +10,13 @@ public class Fredbot {
         StringBuilder tasklist = new StringBuilder();
         int numTask = Task.getNumTask();
         for (int i = 0; i < numTask; i++) {
-            tasklist.append("    ").append(i + 1).append(". ").append(tasks[i].getTaskDesc()).append("\n");
+            tasklist.append("    ").append(i + 1).append(".[");
+            if (tasks[i].isDone()) {
+                tasklist.append("X");
+            } else {
+                tasklist.append(" ");
+            }
+            tasklist.append("] ").append(tasks[i].getTaskDesc()).append("\n");
         }
         printMessage(tasklist.toString());
     }
