@@ -35,8 +35,7 @@ public class Duke {
         System.out.println("Hello! I'm Magpie");
         System.out.println("What can I do for you?\n");
         System.out.println("____________________________________________________________\n");
-
-
+        
         echoInput();
 
     }
