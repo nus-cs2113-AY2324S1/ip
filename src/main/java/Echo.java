@@ -1,11 +1,8 @@
 import java.util.Scanner;
 
-
 public class Echo {
     private String bye;
     private String text;
-
-
 
 public Echo() {
     bye ="bye";
@@ -31,8 +28,4 @@ public void echoBack(){
 
     }
 }
-
-
-
-
 }
