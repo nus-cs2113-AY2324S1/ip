@@ -16,11 +16,11 @@ public class Task {
         this.description = description;
     }
 
-    public String isDone() {
+    public String getStatusIcon() {
 
         String done = " ";
 
-        if (isDone == true){
+        if (isDone == true) {
             done = "X";
         }
         return done;
