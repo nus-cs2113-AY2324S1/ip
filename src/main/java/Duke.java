@@ -6,7 +6,7 @@ public class Duke {
                 + " | |_| | (_) | | | | | |\n"
                 + " |____/ \\___/|_| |_| |_|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Dom");
+        System.out.println("Hello! I'm Dom!");
         System.out.println("What can I do for you?");
 
         System.out.println(("Bye. Hope to see you again soon"));
