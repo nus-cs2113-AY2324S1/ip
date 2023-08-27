@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+enum MarkOrUnmark {
+    MARK,
+    UNMARK
+}
 
 public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
@@ -16,12 +20,12 @@ public class Duke {
 
             if (input.equals("list")) {
                 listTasks();
-            } else if (input.startsWith("mark")) {
+            } else if (input.startsWith("mark ")) {
                 int taskIdx = Integer.parseInt(input.substring(5)) - 1;
-                markTask(taskIdx);
-            } else if (input.startsWith("unmark")) {
+                markOrUnmarkTask(MarkOrUnmark.MARK, taskIdx);
+            } else if (input.startsWith("unmark ")) {
                 int taskIdx = Integer.parseInt(input.substring(7)) - 1;
-                unmarkTask(taskIdx);
+                markOrUnmarkTask(MarkOrUnmark.UNMARK, taskIdx);
             } else if (input.equals("bye")) {
                 break;
             } else {
@@ -46,8 +50,15 @@ public class Duke {
         printHorizontalLine();
     }
 
-    private static void markTask(int taskIdx) {
-        if (taskIdx >= tasks.size() || taskIdx < 0) {
+    private static void markOrUnmarkTask(MarkOrUnmark markOrUnmark, int taskIdx) {
+        if (tasks.isEmpty()) {
+            printHorizontalLine();
+            System.out.println("    Sorry, there are no tasks yet!");
+            System.out.println("    Add a task and then try again.");
+            printHorizontalLine();
+
+            return;
+        } else if (taskIdx >= tasks.size() || taskIdx < 0) {
             printHorizontalLine();
             System.out.println("    Sorry, the chosen task index is invalid!");
             System.out.println("    Task index must be between 1 (inclusive) and " + tasks.size() +
@@ -58,31 +69,14 @@ public class Duke {
         }
 
         Task selectedTask = tasks.get(taskIdx);
-        selectedTask.setIsDone(true);
+        selectedTask.setIsDone(markOrUnmark == MarkOrUnmark.MARK);
 
         printHorizontalLine();
-        System.out.println("    Nice! I've marked this task as done:");
-        System.out.println("      [" + selectedTask.getStatusIcon() + "] " +
-                selectedTask.getDescription());
-        printHorizontalLine();
-    }
-
-    private static void unmarkTask(int taskIdx) {
-        if (taskIdx >= tasks.size() || taskIdx < 0) {
-            printHorizontalLine();
-            System.out.println("    Sorry, the chosen task index is invalid!");
-            System.out.println("    Task index must be between 1 (inclusive) and " + tasks.size() +
-                    " (inclusive).");
-            printHorizontalLine();
-
-            return;
+        if (markOrUnmark == MarkOrUnmark.UNMARK) {
+            System.out.println("    Nice! I've marked this task as done:");
+        } else {
+            System.out.println("    OK, I've marked this task as not done yet:");
         }
-
-        Task selectedTask = tasks.get(taskIdx);
-        selectedTask.setIsDone(false);
-
-        printHorizontalLine();
-        System.out.println("    OK, I've marked this task as not done yet:");
         System.out.println("      [" + selectedTask.getStatusIcon() + "] " +
                 selectedTask.getDescription());
         printHorizontalLine();
