@@ -22,6 +22,14 @@ public void echoBack(){
         newList.listTask();
         echoBack();
     }
+    else if(text.startsWith(newList.marker)){
+        newList.mark(text);
+        echoBack();
+    }
+    else if(text.startsWith(newList.unmarked)){
+        newList.unmark(text);
+        echoBack();
+    }
     else {
        newList. addTask(text);
         echoBack();
