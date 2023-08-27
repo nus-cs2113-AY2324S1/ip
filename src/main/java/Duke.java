@@ -8,7 +8,10 @@ public class Duke {
         System.out.println("____________________________________________________________");
 
         for(int i =0; i< tasks.size();i++){
-            System.out.println(i+1+"." + tasks.get(i));
+
+            Task item = (Task) tasks.get(i);
+
+            System.out.println(i+1+".[" + item.isDone() + "] "  + item.getDescription());
         }
 
         System.out.println("____________________________________________________________\n");
@@ -27,9 +30,31 @@ public class Duke {
 
             if (input.equals("list")){
                 printTasks(tasks);
+            } else if (input.contains("unmark") || input.contains("mark")) {
+                String[] splitInput = input.split(" ");
+                int index = Integer.parseInt(splitInput[1]) - 1;
+                Task item = (Task) tasks.get(index);
+
+                System.out.println("____________________________________________________________");
+
+                if (input.contains("unmark")){
+                    System.out.print("OK, I've marked this task as not done yet:\n");
+                    item.setDone(false);
+                }
+                else{
+                    System.out.print("Nice! I've marked this task as done:\n");
+                    item.setDone(true);
+                }
+
+                System.out.println("[" + item.isDone() + "] "  + item.getDescription());
+                System.out.println("____________________________________________________________\n");
+
             }
+
             else{
-                tasks.add(input);
+
+                Task newTask = new Task(input, false);
+                tasks.add(newTask);
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + input);
                 System.out.println("____________________________________________________________\n");
@@ -51,7 +76,7 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        List<String> tasks = new ArrayList<String>();
+        List<Task> tasks = new ArrayList<>();
 
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Magpie");
