@@ -1,8 +1,20 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Duke {
+    public static void printTasks(List tasks){
 
-    public static void echoInput(){
+        System.out.println("____________________________________________________________");
+
+        for(int i =0; i< tasks.size();i++){
+            System.out.println(i+1+"." + tasks.get(i));
+        }
+
+        System.out.println("____________________________________________________________\n");
+    }
+
+    public static void echoInput(List tasks){
 
 
         String input = "";
@@ -12,9 +24,17 @@ public class Duke {
 
         while(!(input.equals("bye"))){
 
-            System.out.println("____________________________________________________________");
-            System.out.println(input);
-            System.out.println("____________________________________________________________\n");
+
+            if (input.equals("list")){
+                printTasks(tasks);
+            }
+            else{
+                tasks.add(input);
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + input);
+                System.out.println("____________________________________________________________\n");
+
+            }
 
             input = in.nextLine();
         }
@@ -31,12 +51,14 @@ public class Duke {
 
     public static void main(String[] args) {
 
+        List<String> tasks = new ArrayList<String>();
+
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Magpie");
         System.out.println("What can I do for you?\n");
         System.out.println("____________________________________________________________\n");
-        
-        echoInput();
+
+        echoInput(tasks);
 
     }
 
