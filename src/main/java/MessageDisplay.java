@@ -14,12 +14,31 @@ public class MessageDisplay {
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void echo(){
+//    public static void echo(){
+//        String userInput = "";
+//        while(!userInput.equals("bye")){
+//            userInput = input.nextLine();r
+//            System.out.println("    ____________________________________________________________");
+//            System.out.println("OuO you said " + userInput + "!");
+//            System.out.println("    ____________________________________________________________");
+//        }
+//        displayCLosingMessage();
+//    }
+
+    public static void addInput(){
         String userInput = "";
         while(!userInput.equals("bye")){
             userInput = input.nextLine();
             System.out.println("    ____________________________________________________________");
-            System.out.println("OuO you said " + userInput + "!");
+            if(userInput.equals("bye")){
+                break;
+            }
+            else if(userInput.equals("list")){
+                InputList.printInputList();
+            } else {
+                InputList.addToInputList(userInput);
+                System.out.println("I have added: " + userInput + "! OwO");
+            }
             System.out.println("    ____________________________________________________________");
         }
         displayCLosingMessage();
