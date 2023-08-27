@@ -57,7 +57,7 @@ public void listTask(){
     }
 
     }
-    public void unMark(String input){
+    public void unmark(String input){
         if(input.startsWith("unmark")){
             int dividerPosition = input.indexOf(" ");
             String taskNumberString = input.substring(dividerPosition + 1);
