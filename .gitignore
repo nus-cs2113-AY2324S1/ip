@@ -16,6 +16,6 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-./classpath
-./project
+/.classpath
+/.project
 ./settings
