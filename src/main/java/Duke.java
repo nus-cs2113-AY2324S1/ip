@@ -29,17 +29,35 @@ public class Duke {
     }
 
     public static boolean handleCommand(String command){
-        switch(command.toLowerCase()){
+        String[] parsedCommand = parseCommand(command);
+        switch(parsedCommand[0].toLowerCase()){
         case "bye":
             sayBye();
             return false;
         case "list":
             tasks.listTasks();
             break;
+        case "mark":
+            tasks.setTaskIsDone(Integer.parseInt(parsedCommand[1]), true);
+            break;
+        case "unmark":
+            tasks.setTaskIsDone(Integer.parseInt(parsedCommand[1]), false);
+            break;
         default:
-            tasks.addTask(command);
+            tasks.addTask(parsedCommand[0]);
         }
         return true;
+    }
+
+    public static String[] parseCommand(String command){
+        String[] commandArray = command.split(" ");
+        String arg1= commandArray[0].toLowerCase();
+        if(arg1.equals("mark") || arg1.equals("unmark")){
+            return commandArray;
+        }
+        else{
+            return new String[]{command};
+        }
     }
 
 
@@ -50,7 +68,7 @@ public class Duke {
         String command;
 
         do {
-            command= scanner.nextLine();
+            command = scanner.nextLine();
         } while(handleCommand(command));
 
 

@@ -10,4 +10,11 @@ public class Task {
     public String getDescription() {
         return description;
     }
+    public void setIsDone(boolean isDone){
+        this.isDone = isDone;
+    }
+
+    public String getIsDone(){
+        return (isDone ? "X" : " ");
+    }
 }
