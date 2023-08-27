@@ -6,7 +6,6 @@ import java.util.Scanner;
 
     public Echo() {
         bye ="bye";
-
     }
 
     toDoList newList  = new toDoList();

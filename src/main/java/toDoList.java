@@ -39,8 +39,7 @@ public void listTask(){
         System.out.println( j + 1 + "." + Arrays.toString(answer[j].markAsDone) + " " + answer[j].toBeDone);
 
     }
-
-    }
+}
 
 
     public void mark(String input){
