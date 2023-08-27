@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-	static String[] toDoList = new String[100];
+	static Task[] toDoList = new Task[100];
 	static int size = 0;
 	
     public static void main(String[] args) {
@@ -12,9 +12,19 @@ public class Duke {
         while (!command.equals("bye")) {
         	if (command.equals("list"))
         		printToDoList();
+        	else if (command.contains("unmark")) {
+        		String[] mark = command.split(" ");
+        		int index = Integer.parseInt(mark[1]) - 1;
+        		toDoList[index].unmarkDone();
+        	}
+        	else if (command.contains("mark")) {
+        		String[] mark = command.split(" ");
+        		int index = Integer.parseInt(mark[1]) - 1;
+        		toDoList[index].markDone();
+        	}
         	else {
-        		toDoList[size++] = command;
-        		respond("added: " + command);
+        		toDoList[size++] = new Task(command);
+        		respond(" added: " + command);
         	}
         	command = input.nextLine();
         }
@@ -46,9 +56,11 @@ public class Duke {
     }
     
     public static void printToDoList() {
+    	
     	printLines();
+    	System.out.println("     " + "Here's your tasks:");
     	for (int i = 0; i < size; i++)
-    		System.out.println("    " + Integer.toString(i + 1) + ". " + toDoList[i]);
+    		System.out.println("     " + Integer.toString(i + 1) + "." + toDoList[i]);
     	printLines();
     }
 }
