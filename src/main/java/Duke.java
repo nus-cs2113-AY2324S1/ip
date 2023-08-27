@@ -5,6 +5,8 @@ public class Duke {
     final static String BOT_NAME= "Elgin";
     final static String SEPARATOR = "____________________________________________________________";
 
+    static TaskManager tasks = new TaskManager();
+
     public static void formatPrint(String[] lines){
         System.out.println("\t"+SEPARATOR);
         for(String line:lines){
@@ -31,8 +33,11 @@ public class Duke {
         case "bye":
             sayBye();
             return false;
+        case "list":
+            tasks.listTasks();
+            break;
         default:
-            formatPrint(command);
+            tasks.addTask(command);
         }
         return true;
     }
@@ -47,6 +52,7 @@ public class Duke {
         do {
             command= scanner.nextLine();
         } while(handleCommand(command));
+
 
     }
 }
