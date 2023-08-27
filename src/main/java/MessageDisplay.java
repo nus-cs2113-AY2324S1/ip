@@ -10,7 +10,7 @@ public class MessageDisplay {
         System.out.println("    Hello from\n" + logo);
         System.out.println("    ____________________________________________________________");
         System.out.println("    今日は! I am Rene Kokoro!");
-        System.out.println("    How may I assist you today? *blushes*");
+        System.out.println("    Let me record your tasks!! *blushes*");
         System.out.println("    ____________________________________________________________");
     }
 
@@ -27,17 +27,30 @@ public class MessageDisplay {
 
     public static void addInput(){
         String userInput = "";
+        int taskIndex = 0;
         while(!userInput.equals("bye")){
             userInput = input.nextLine();
             System.out.println("    ____________________________________________________________");
-            if(userInput.equals("bye")){
-                break;
-            }
-            else if(userInput.equals("list")){
-                InputList.printInputList();
-            } else {
-                InputList.addToInputList(userInput);
-                System.out.println("I have added: " + userInput + "! OwO");
+            switch (userInput.split(" ")[0]) {
+                case "bye":
+                    break;
+                case "list":
+                    TaskList.printTaskList();
+                    break;
+                case "mark":
+                    taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                    TaskList.markTaskAsDone(taskIndex);
+                    System.out.printf("    Roger that! I have marked the following task as done >w< !\n    '%s'\n", TaskList.viewTaskByIndex(taskIndex));
+                    break;
+                case "unmark":
+                    taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                    TaskList.markTaskAsNotDone(taskIndex);
+                    System.out.printf("    Roger that! I have unmarked the following task as done >w< !\n    '%s'\n", TaskList.viewTaskByIndex(taskIndex));
+                    break;
+                default:
+                    TaskList.addToTaskList(userInput);
+                    System.out.println("I have added: " + userInput + "! OwO");
+                    break;
             }
             System.out.println("    ____________________________________________________________");
         }
