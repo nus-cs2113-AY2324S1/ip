@@ -33,7 +33,6 @@ public void listTask(){
     }
     Task[] answer = (Arrays.copyOf(taskList,taskList.length - count));
 
-
     System.out.println("Here are the tasks in your list");
     for(int j = 0; j < answer.length; j += 1){
 

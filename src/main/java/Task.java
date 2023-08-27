@@ -3,7 +3,6 @@ public class Task {
     private boolean completed;
     public String[] markAsDone;
 
-
     public Task(String newTask) {
         toBeDone = newTask;
         completed = false;
@@ -14,7 +13,6 @@ public class Task {
         completed = true;
         markAsDone[0] ="X";
     }
-
 
     public void setNotDone(){
         completed = false;
