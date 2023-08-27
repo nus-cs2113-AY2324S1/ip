@@ -1,10 +1,10 @@
 public class Task {
 	protected String description;
-	protected boolean taskDone;
+	protected boolean done;
 	
 	public Task(String description) {
 		this.description = description;
-		this.taskDone = false;
+		this.done = false;
 	}
 	
 	public String getDescription() {
@@ -16,28 +16,26 @@ public class Task {
 	}
 	
 	public boolean isDone() {
-		return taskDone;
+		return done;
 	}
 	
-	public void markDone() {
-		taskDone = true;
+	public void setDone(boolean status) {
 		System.out.println("    ____________________________________________________________");
-		System.out.println("       Nice! I've marked this task as done:");
-		System.out.println("       " + this);
-		System.out.println("    ____________________________________________________________");
-	}
-	
-	public void unmarkDone() {
-		taskDone = false;
-		System.out.println("    ____________________________________________________________");
-		System.out.println("       OK, I've marked this task as not done yet:");
+		if (status) {
+			done = true;
+			System.out.println("     Nice! I've marked this task as done:");
+		} else {
+			done = false;
+			System.out.println("     OK, I've marked this task as not done yet:");
+		}
 		System.out.println("       " + this);
 		System.out.println("    ____________________________________________________________");
 	}
 	
 	public String toString() {
-		if (taskDone)
+		if (this.isDone()) {
 			return "[X" + "] " + description;
+		}
 		return "[ " + "] " + description;
 	}
 }

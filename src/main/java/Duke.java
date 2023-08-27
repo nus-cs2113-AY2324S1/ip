@@ -10,19 +10,17 @@ public class Duke {
         String command = input.nextLine();
         
         while (!command.equals("bye")) {
-        	if (command.equals("list"))
+        	if (command.equals("list")) {
         		printToDoList();
-        	else if (command.contains("unmark")) {
+        	} else if (command.contains("mark")) {
         		String[] mark = command.split(" ");
         		int index = Integer.parseInt(mark[1]) - 1;
-        		toDoList[index].unmarkDone();
-        	}
-        	else if (command.contains("mark")) {
-        		String[] mark = command.split(" ");
-        		int index = Integer.parseInt(mark[1]) - 1;
-        		toDoList[index].markDone();
-        	}
-        	else {
+        		if (mark[0].equals("mark")) {
+        			toDoList[index].setDone(true);
+        		} else {
+        			toDoList[index].setDone(false);
+        		}
+        	} else {
         		toDoList[size++] = new Task(command);
         		respond(" added: " + command);
         	}
@@ -59,8 +57,9 @@ public class Duke {
     	
     	printLines();
     	System.out.println("     " + "Here's your tasks:");
-    	for (int i = 0; i < size; i++)
+    	for (int i = 0; i < size; i++) {
     		System.out.println("     " + Integer.toString(i + 1) + "." + toDoList[i]);
+    	}
     	printLines();
     }
 }
