@@ -39,27 +39,37 @@ public class Duke {
         line = in.nextLine().trim();
         while (line.equals("bye") == false) {
             println(LINE);
+
             if (line.equals("list")) {
+
                 for (int i = 0; i < listIdx; i++) {
                     println(String.format("%d. %s", i+1, listItems[i].getTask()));
                 }
+
             } else if (line.substring(0, 4).equals("mark")) {
+
                 markIdx = Integer.parseInt(line.split(" ")[1]) - 1;
                 listItems[markIdx].setIsDone(true);
 
                 println("Nice! I've marked this task as done: ");
                 println(listItems[markIdx].getTask());
+
             } else if (line.substring(0, 6).equals("unmark")) {
+
                 markIdx = Integer.parseInt(line.split(" ")[1]) - 1;
                 listItems[markIdx].setIsDone(false);
 
                 println("Nice! I've marked this task as undone: ");
                 println(listItems[markIdx].getTask());
+
             } else {
-                    listItems[listIdx] = new Task(line);
-                    listIdx++;
-                    println("added: " + line);
+
+                listItems[listIdx] = new Task(line);
+                listIdx++;
+                println("added: " + line);
+
             }
+
             println(LINE);
 
             line = in.nextLine().trim();
