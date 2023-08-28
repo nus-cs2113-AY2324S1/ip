@@ -42,8 +42,8 @@ public class Duke {
 
         //Functionalities of ChatBot
         //Echo.Echo();
-        List.List();
-        //Task.Task();
+        //List.List();
+        Task.Task();
 
         //ChatBot Ending
         printHorizontalLines();
