@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        final String logo = "MudMud";
+        final String NAME = "MudMud";
 
         Scanner in = new Scanner(System.in);
         String input = "";
@@ -11,7 +11,7 @@ public class Duke {
         int tasksCount = 0;
 
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tOh hello! I'm " + logo + ".");
+        System.out.println("\tOh hello! I'm " + NAME + ".");
         System.out.println("\tPlease input a task to put into a list.");
         System.out.println("\tTo see the contents of the list, input \"list\".");
         System.out.println("\tTo exit the program, input \"bye\".");
