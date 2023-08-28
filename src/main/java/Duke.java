@@ -12,7 +12,9 @@ public class Duke {
 
         System.out.println("\t____________________________________________________________");
         System.out.println("\tOh hello! I'm " + logo + ".");
-        System.out.println("\tPlease input something and I will repeat it for you.");
+        System.out.println("\tPlease input a task to put into a list.");
+        System.out.println("\tTo see the contents of the list, input \"list\".");
+        System.out.println("\tTo exit the program, input \"bye\".");
         System.out.println("\t____________________________________________________________");
 
         while (!input.equals("bye")) {
