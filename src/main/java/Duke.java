@@ -1,6 +1,13 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    public static void printTasks(String[] tasks, int tasksCount) {
+        for (int i = 1; i <= tasksCount; i++) {
+            System.out.println("\t" + i + ". " + tasks[i - 1]);
+        }
+    }
+
     public static void main(String[] args) {
         final String NAME = "MudMud";
 
@@ -24,9 +31,7 @@ public class Duke {
             if (input.equals("bye")) {
                 System.out.println("\tGoodbye! I am going to sleep now.");
             } else if (input.equals("list")) {
-                for (int i = 1; i <= tasksCount; i++) {
-                    System.out.println("\t" + i + ". " + tasks[i - 1]);
-                }
+                printTasks(tasks, tasksCount);
             } else {
                 tasks[tasksCount] = input;
                 tasksCount++;
