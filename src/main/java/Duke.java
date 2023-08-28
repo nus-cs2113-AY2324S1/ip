@@ -12,7 +12,7 @@ public class Duke {
                 + tasks[index - 1].getDescription());
     }
 
-    public static void setUnMarkAsDone(Task[] tasks, String input) {
+    public static void setUnmarkAsDone(Task[] tasks, String input) {
         int dividerPosition = input.indexOf(" ");
         int index = Integer.parseInt(input.substring(dividerPosition + 1));
         tasks[index - 1].unmarkAsDone();
@@ -57,7 +57,7 @@ public class Duke {
             } else if (input.startsWith("mark")) {
                 setMarkAsDone(tasks, input);
             } else if (input.startsWith("unmark")) {
-                setUnMarkAsDone(tasks, input);
+                setUnmarkAsDone(tasks, input);
             } else {
                 tasks[tasksCount] = new Task(input);
                 tasksCount++;
