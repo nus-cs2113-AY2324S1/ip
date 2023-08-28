@@ -33,24 +33,21 @@ public class Zen {
                 System.out.println("    Farewell, my friend! Until our laughter intertwines again");
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
                 break;
-            }
-            else if (line.equals("list")) { // list tasks
+            } else if (line.equals("list")) { // list tasks
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
                 System.out.println("    Here are the tasks in your list:");
                 for (int i = 0; i < tasks.length; i++) {
                     if (tasks[i] != null) {
                         if (taskStatus[i] == 1) {
                             System.out.println("    " + (i + 1) + ". [X] " + tasks[i]);
-                        }
-                        else {
+                        } else {
                             System.out.println("    " + (i + 1) + ". [ ] " + tasks[i]);
                         }
                     }
                 }
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
                 continue;
-            }
-            else if (line.contains("unmark")) { // mark task as done
+            } else if (line.contains("unmark")) { // mark task as done
                 int taskNumber = Integer.parseInt(line.substring(7));
                 taskStatus[taskNumber - 1] = 0;
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
@@ -58,8 +55,7 @@ public class Zen {
                 System.out.println("      [ ] " + tasks[taskNumber - 1]);
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
                 continue;
-            }
-            else if (line.contains("mark")) { // mark task as done
+            } else if (line.contains("mark")) { // mark task as done
                 int taskNumber = Integer.parseInt(line.substring(5));
                 taskStatus[taskNumber - 1] = 1;
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
@@ -67,8 +63,7 @@ public class Zen {
                 System.out.println("      [X] " + tasks[taskNumber - 1]);
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
                 continue;
-            }
-            else { // add task
+            } else { // add task
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
                 System.out.println("    added: " + line);
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
