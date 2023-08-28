@@ -2,9 +2,20 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static void setMarkAsDone(Task[] tasks, String input) {
+        int dividerPosition = input.indexOf(" ");
+        int index = Integer.parseInt(input.substring(dividerPosition + 1));
+        tasks[index - 1].markAsDone();
+
+        System.out.println("\tYay! You have completed this task:");
+        System.out.println("\t\t[" + tasks[index - 1].getStatusIcon() + "] "
+                + tasks[index - 1].getDescription());
+    }
+
     public static void printTasks(Task[] tasks, int tasksCount) {
         for (int i = 1; i <= tasksCount; i++) {
-            System.out.println("\t" + i + ". " + tasks[i - 1].getDescription());
+            System.out.println("\t" + i + ".[" + tasks[i - 1].getStatusIcon() + "] "
+                    + tasks[i - 1].getDescription());
         }
     }
 
@@ -32,6 +43,8 @@ public class Duke {
                 System.out.println("\tGoodbye! I am going to sleep now.");
             } else if (input.equals("list")) {
                 printTasks(tasks, tasksCount);
+            } else if (input.startsWith("mark")) {
+                setMarkAsDone(tasks, input);
             } else {
                 tasks[tasksCount] = new Task(input);
                 tasksCount++;
