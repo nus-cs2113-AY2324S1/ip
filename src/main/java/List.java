@@ -13,7 +13,7 @@ public class List {
             } else if (list[listCount].contains("list")) {
                 Duke.printHorizontalLines();
                 for (int i = 0; i < listCount; i++) {
-                    System.out.println(list[i]);
+                    System.out.println(i+1 + ". " + list[i]);
                 }
                 Duke.printHorizontalLines();
             } else {
@@ -27,3 +27,5 @@ public class List {
         return;
     }
 }
+
+
