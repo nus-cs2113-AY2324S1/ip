@@ -23,6 +23,7 @@ public class Duke {
     }
 
     public static void printTasks(Task[] tasks, int tasksCount) {
+        System.out.println("\tHere are your tasks you have inputted:");
         for (int i = 1; i <= tasksCount; i++) {
             System.out.println("\t" + i + ".[" + tasks[i - 1].getStatusIcon() + "] "
                     + tasks[i - 1].getDescription());
