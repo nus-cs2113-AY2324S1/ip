@@ -6,7 +6,7 @@ public class notChatGPT {
         isRunning = true;
         introMessage.displayIntroMessage();
         while (isRunning) {
-            String userInput = UserInput.getUserInput();
+            String[] userInput = UserInput.getUserInput();
             commandResponse.respond(userInput);
         }
     }
