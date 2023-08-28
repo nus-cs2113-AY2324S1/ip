@@ -2,6 +2,19 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String[] TASKS = new String[100];
+    private static int taskCount = 0;
+    public static void getTasks() {
+        printHorizontalLine();
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println(i + ". " + TASKS[i]);
+        }
+        printHorizontalLine();
+    }
+    public static void addTask(String task) {
+        TASKS[taskCount] = task;
+        taskCount++;
+    }
     public static void echo(String command) {
         printHorizontalLine();
         System.out.println(command);
@@ -61,11 +74,20 @@ public class Duke {
 
         greet();
         command = in.nextLine();
-        while (!command.equals("bye")) {
-            echo(command);
+        while(true) {
+            switch(command) {
+                case "list":
+                    getTasks();
+                    break;
+                case "bye":
+                    farewell();
+                    return;
+                default:
+                    addTask(command);
+                    echo("added: " + command);
+                    break;
+            }
             command = in.nextLine();
         }
-
-        farewell();
     }
 }
