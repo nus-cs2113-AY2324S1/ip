@@ -14,9 +14,22 @@ public class Chatty {
         System.out.println("____________________________________________________________\n");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+        String[] tasks = new String[100];
+        int taskCount = 0;
         while (!input.equalsIgnoreCase("bye")){
+            if (input.equalsIgnoreCase("list")) {
+                System.out.println("____________________________________________________________");
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+                System.out.println("____________________________________________________________");
+                input = scanner.nextLine();
+                continue;
+            }
             System.out.println("____________________________________________________________");
-            System.out.println(input);
+            tasks[taskCount]=input;
+            taskCount++;
+            System.out.println("added: "+input);
             System.out.println("____________________________________________________________\n");
             input = scanner.nextLine();
         }
