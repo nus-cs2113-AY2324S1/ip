@@ -9,7 +9,7 @@ public class Duke {
 
         System.out.println("\t____________________________________________________________");
         System.out.println("\tOh hello! I'm " + logo + ".");
-        System.out.println("\tHow can I help you?");
+        System.out.println("\tPlease input something and I will repeat it for you.");
         System.out.println("\t____________________________________________________________");
 
         while (!input.equals("bye")) {
