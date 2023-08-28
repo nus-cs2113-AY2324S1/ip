@@ -1,12 +1,6 @@
 import java.util.Scanner;
 
 public class Echo {
-    public static void printHorizontalLines() {
-        for (int i = 0; i < 60; i++) {
-            System.out.print("_");
-        }
-        System.out.print("\n");
-    }
 
     public static void Echo() {
         String line;
@@ -17,9 +11,9 @@ public class Echo {
             if (line.contains("bye")) {
                 break;
             }
-            printHorizontalLines();
+            Duke.printHorizontalLines();
             System.out.println(line);
-            printHorizontalLines();
+            Duke.printHorizontalLines();
         }
 
         return;
