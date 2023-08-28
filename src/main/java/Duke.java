@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void printTasks(String[] tasks, int tasksCount) {
+    public static void printTasks(Task[] tasks, int tasksCount) {
         for (int i = 1; i <= tasksCount; i++) {
-            System.out.println("\t" + i + ". " + tasks[i - 1]);
+            System.out.println("\t" + i + ". " + tasks[i - 1].getDescription());
         }
     }
 
@@ -14,7 +14,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String input = "";
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int tasksCount = 0;
 
         System.out.println("\t____________________________________________________________");
@@ -33,7 +33,7 @@ public class Duke {
             } else if (input.equals("list")) {
                 printTasks(tasks, tasksCount);
             } else {
-                tasks[tasksCount] = input;
+                tasks[tasksCount] = new Task(input);
                 tasksCount++;
                 System.out.println("\tI have added \""  + input + "\" into the list.");
             }
