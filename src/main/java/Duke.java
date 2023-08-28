@@ -2,17 +2,19 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Duke {
-    private static final String[] TASKS = new String[100];
+    private static final Task[] TASKS = new Task[100];
     private static int taskCount = 0;
     public static void getTasks() {
         printHorizontalLine();
+        System.out.println("These are the chores you have at hand, mortal:");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println(i + ". " + TASKS[i]);
+            System.out.println((i + 1) + ". " + TASKS[i].toString());
         }
         printHorizontalLine();
     }
     public static void addTask(String task) {
-        TASKS[taskCount] = task;
+        Task newTask = new Task(task);
+        TASKS[taskCount] = newTask;
         taskCount++;
     }
     public static void echo(String command) {
@@ -75,17 +77,28 @@ public class Duke {
         greet();
         command = in.nextLine();
         while(true) {
-            switch(command) {
-                case "list":
-                    getTasks();
-                    break;
-                case "bye":
-                    farewell();
-                    return;
-                default:
-                    addTask(command);
-                    echo("added: " + command);
-                    break;
+            if (command.equals("list")) {
+                getTasks();
+            } else if (command.equals("bye")) {
+                farewell();
+                return;
+            } else if (command.startsWith("mark ")) {
+                String remainder = command.substring(5);
+                int taskNumber;
+                try {
+                    taskNumber = Integer.parseInt(remainder);
+                    if (taskNumber > taskCount) {
+                        echo("Please enter a valid task number mortal. You do not have this many tasks!");
+                    } else {
+                        TASKS[taskNumber - 1].markAsDone();
+                        echo("Consider it done:\n" + TASKS[taskNumber - 1].toString());
+                    }
+                } catch (NumberFormatException e) {
+                    echo("Please enter a valid task number mortal.");
+                }
+            } else {
+                addTask(command);
+                echo("added: " + command);
             }
             command = in.nextLine();
         }
