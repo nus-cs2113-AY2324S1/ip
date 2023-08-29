@@ -1,20 +1,36 @@
 import java.util.Scanner;
 
 public class Duke {
-    // Scanner for Level-1 Echo
     private static Scanner scanner = new Scanner(System.in);
 
     public static String getUserInput() {
         return scanner.nextLine();
     }
 
-    public static void printUserInput(String output) {
+    public static void printUserInput(String output, int listIndex, String[] items) {
         if(output.toLowerCase().equals("bye")){
-            output = " Bye. Hope to see you again soon! ";
+            System.out.println("____________________________________________________________\n" +
+                    " Bye. Hope to see you again soon! " + "\n" +
+                    "____________________________________________________________\n");
         }
-        System.out.println("____________________________________________________________\n" +
-                " " + output + "\n" +
-                "____________________________________________________________\n");
+        else if(output.toLowerCase().equals("list")){
+            System.out.println("____________________________________________________________\n");
+            displayList(listIndex, items);
+            System.out.println("____________________________________________________________\n");
+        }
+        else{
+            System.out.println("____________________________________________________________\n" +
+                    " added: " + output + "\n" +
+                    "____________________________________________________________\n");
+        }
+
+    }
+
+    public static void displayList(int listIndex, String[] items){
+        // print out the full list with indexing
+        for(int i = 0; i < listIndex; i++){
+            System.out.println(i+1 + " " + items[i] + "\n");
+        }
     }
 
     public static void closeScanner() {
@@ -37,11 +53,16 @@ public class Duke {
                 " What can I do for you?\n" +
                 "____________________________________________________________\n" );
 
-        // Level-1 Echo
         String userInput;
+        int indexList = 0; // index for list of user inputs
+        String[] inputList = new String[100]; // list to store up to 101 user inputs
         do{
             userInput = getUserInput();
-            printUserInput(userInput);
+            if(!userInput.equals("list")){
+                inputList[indexList] = userInput;
+                indexList++;
+            }
+            printUserInput(userInput, indexList, inputList);
         }while(!userInput.equals("bye"));
         closeScanner();
     }
