@@ -10,18 +10,20 @@ public class Duke {
         + "\n" + lineDivider);
     }
 
-    public static void addItem(String in, String[] itemList, int i) {
-        itemList[i] = in;
+    public static void addItem(String in, Task[] itemList, int i) {
+        itemList[i] = new Task(in);
 
         System.out.println(lineDivider + "\n"
         + "added: " + in
         + "\n" + lineDivider);
     }
 
-    public static void listItems(String[] itemList, int i) {
+    public static void listItems(Task[] itemList, int i) {
         System.out.println(lineDivider);
         for(int j = 0; j < i; j += 1) {
-            System.out.println((j + 1) + ". " + itemList[j]);
+            System.out.println((j + 1)
+                    + ". [" + (itemList[j].getDone() ? "X" : "") + "]"
+                    + itemList[j].getName());
         }
         System.out.println(lineDivider);
     }
@@ -38,7 +40,7 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String buf = in.nextLine();
-        String[] itemList = new String[100];
+        Task[] itemList = new Task[100];
         int i = 0; //current index in itemlist
 
         while(!buf.toLowerCase().equals("bye")){
@@ -60,3 +62,4 @@ public class Duke {
                 + "    _____________________________________");
     }
 }
+
