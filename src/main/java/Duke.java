@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+    // Scanner for Level-1 Echo
     private static Scanner scanner = new Scanner(System.in);
 
     public static String getUserInput() {
@@ -36,12 +37,12 @@ public class Duke {
                 " What can I do for you?\n" +
                 "____________________________________________________________\n" );
 
+        // Level-1 Echo
         String userInput;
         do{
             userInput = getUserInput();
             printUserInput(userInput);
         }while(!userInput.equals("bye"));
-
         closeScanner();
     }
 }
