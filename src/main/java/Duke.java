@@ -18,11 +18,29 @@ public class Duke {
         + "\n" + lineDivider);
     }
 
+    public static void markTask(Task[] itemList, int i) {
+        itemList[i - 1].setDone(true);
+
+        System.out.println(lineDivider + "\n"
+                + "Nice, I've marked this task as done:\n"
+                + "    [X] " + itemList[i - 1].getName() + "\n"
+                + lineDivider);
+    }
+
+    public static void unmarkTask(Task[] itemList, int i) {
+        itemList[i - 1].setDone(false);
+
+        System.out.println(lineDivider + "\n"
+                + "Alright, I've unmarked this task as done:"
+                + "    [ ] " + itemList[i - 1].getName() + "\n"
+                + lineDivider);
+    }
+
     public static void listItems(Task[] itemList, int i) {
         System.out.println(lineDivider);
         for(int j = 0; j < i; j += 1) {
             System.out.println((j + 1)
-                    + ". [" + (itemList[j].getDone() ? "X" : "") + "]"
+                    + ". [" + (itemList[j].getDone() ? "X" : " ") + "] "
                     + itemList[j].getName());
         }
         System.out.println(lineDivider);
@@ -41,13 +59,23 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String buf = in.nextLine();
         Task[] itemList = new Task[100];
-        int i = 0; //current index in itemlist
+        int i = 0; //current index in itemList
 
-        while(!buf.toLowerCase().equals("bye")){
-            switch (buf.toLowerCase()) {
+        while(!buf.equalsIgnoreCase("bye")){
+            switch(buf.toLowerCase().split(" ")[0]) {
 
                 case "list":
                     listItems(itemList, i);
+                    break;
+
+                case "mark":
+                    markTask(itemList,
+                            Integer.parseInt(buf.split(" ")[1]));
+                    break;
+
+                case "unmark":
+                    unmarkTask(itemList,
+                            Integer.parseInt(buf.split(" ")[1]));
                     break;
 
                 default:
