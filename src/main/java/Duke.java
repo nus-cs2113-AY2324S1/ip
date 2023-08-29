@@ -65,7 +65,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         String startMessage = "____________________________________________________________\n"+
-                 "Hello! I'm [YOUR CHATBOT NAME]\n"+
+                 "Hello! I'm Chatty\n"+
                  "What can I do for you?\n"+
                 "____________________________________________________________";
 
