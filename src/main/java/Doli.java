@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -17,12 +18,23 @@ public class Doli {
         printLine();
         System.out.println("\nHello! My name is\n" + design + "What can I do for you?");
         printLine();
+        String[] agenda = new String[100];
+        int numberOfItems = 0;
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
         while (line.trim().equalsIgnoreCase("bye") == false){
-            System.out.println(line);
+            if (line.trim().equalsIgnoreCase("list")){
+                String[] list = Arrays.copyOf(agenda, numberOfItems);
+                for (int i = 0; i < list.length; i++){
+                    System.out.println(String.format("%d. ", i + 1) + list[i]);
+                }
+            } else {
+                agenda[numberOfItems] = line;
+                numberOfItems++;
+                System.out.println("added: " + line);
+            }
             printLine();
             line = in.nextLine();
         }
