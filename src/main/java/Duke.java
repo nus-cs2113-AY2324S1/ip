@@ -22,16 +22,39 @@ public class Duke {
         String input;
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
-        List<String> list = new ArrayList<String>();
+        List<Task> list = new ArrayList<Task>();
         do{
             System.out.println(horizontal_line);
-            if(input.toLowerCase().equals("list")){
+            switch(input.toLowerCase().split(" ")[0]){
+            case "list":
                 for(int i = 0; i<list.size(); i++){
-                    System.out.println((i+1) + ". " + list.get(i));
+                    System.out.println((i+1) + "." + list.get(i).getStatus());
                 }
-            } else{
+                break;
+            case "mark":
+                int index = Integer.parseInt(input.split(" ")[1]);
+                if(index<1 || index > list.size()){
+                    System.out.println("I am sorry, but this task does not exist");
+                } else{
+                    System.out.println("Great! I have marked this task as done:");
+                    list.get(index-1).setDone(true);
+                    System.out.println(list.get(index-1).getStatus());
+                }
+                break;
+            case "unmark":
+                index = Integer.parseInt(input.split(" ")[1]);
+                if(index<1 || index > list.size()) {
+                    System.out.println("I am sorry, but this task does not exist");
+                } else {
+                    System.out.println("Alright, I have marked this task as not done:");
+                    list.get(index - 1).setDone(false);
+                    System.out.println(list.get(index - 1).getStatus());
+                }
+                break;
+            default:
                 System.out.println("Added: " + input);
-                list.add(input);
+                list.add(new Task(input));
+                break;
             }
             System.out.println(horizontal_line);
             input = in.nextLine();
