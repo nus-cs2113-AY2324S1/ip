@@ -1,7 +1,6 @@
-import java.util.Random;
 import java.util.Scanner;
 
-public class Duke {
+public class CSGPT {
     private static final Task[] TASKS = new Task[100];
     private static int taskCount = 0;
     public static void getTasks() {
