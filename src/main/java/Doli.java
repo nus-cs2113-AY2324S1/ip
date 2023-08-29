@@ -1,8 +1,12 @@
+import java.util.Scanner;
+
+
 public class Doli {
     public static void printLine() {
         for (int i = 50; i > 0; i--) {
             System.out.print("_");
         }
+        System.out.println("");
     }
     public static void main(String[] args) {
         String design = " ____       _    \n" +
@@ -13,7 +17,17 @@ public class Doli {
         printLine();
         System.out.println("\nHello! My name is\n" + design + "What can I do for you?");
         printLine();
-        System.out.println("\nIt was a pleasure, bye. See you later!");
+        String line;
+        Scanner in = new Scanner(System.in);
+        line = in.nextLine();
+
+        while (line.trim().equalsIgnoreCase("bye") == false){
+            System.out.println(line);
+            printLine();
+            line = in.nextLine();
+        }
         printLine();
+        System.out.println("\nIt was a pleasure, bye. See you later!");
+
     }
 }
