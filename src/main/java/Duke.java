@@ -9,7 +9,7 @@ public class Duke {
 
     public static void formatPrint(String[] lines){
         System.out.println("\t"+SEPARATOR);
-        for(String line:lines){
+        for (String line:lines){
             System.out.println("\t"+line);
         }
         System.out.println("\t"+SEPARATOR);
@@ -21,7 +21,11 @@ public class Duke {
         System.out.println("\t"+SEPARATOR);
     }
     public static void sayGreeting(){
-        formatPrint(new String[]{"Hello! I'm " + BOT_NAME, "What can I do for you?"});
+        String[] toPrint = new String[]{
+                "Hello! I'm " + BOT_NAME,
+                "What can I do for you?"
+        };
+        formatPrint(toPrint);
     }
 
     public static void sayBye(){
@@ -45,13 +49,14 @@ public class Duke {
             break;
         default:
             tasks.addTask(parsedCommand[0]);
+            break;
         }
         return true;
     }
 
     public static String[] parseCommand(String command){
         String[] commandArray = command.split(" ");
-        String arg1= commandArray[0].toLowerCase();
+        String arg1 = commandArray[0].toLowerCase();
         if(arg1.equals("mark") || arg1.equals("unmark")){
             return commandArray;
         }
