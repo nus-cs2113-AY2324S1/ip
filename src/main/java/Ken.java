@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Ken {
     public static void main(String[] args) {
         String logo = " _   __ ______  __    __\n"
                     + "| | / /|  ____||  \\  |  |\n"
@@ -17,15 +17,29 @@ public class Duke {
                 + line);
 
         Scanner scan = new Scanner(System.in);
+        String[] storage = new String[100];
+        int count = 0;
         while (true) {
             String input = scan.nextLine();
-            if (input.equals("bye")) {
+            switch(input) {
+            case "list":
+                System.out.println(line);
+                for (int i = 0; i < count; i++) {
+                    System.out.println((i + 1) + ". " + storage[i]);
+                }
+                System.out.println(line);
+                break;
+            case "bye":
                 System.out.println(line
-                    + "Bye. Hope to see you again soon!\n"
-                    + line);
+                        + "Bye. Hope to see you again soon!\n"
+                        + line);
                 return;
+            default:
+                storage[count] = input;
+                System.out.println(line + "added: " + input + "\n" + line);
+                count++;
+                break;
             }
-            System.out.println(line + input + "\n" + line);
 
         }
 
