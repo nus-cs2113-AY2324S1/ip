@@ -23,9 +23,9 @@ public class Task {
         isDone = done;
     }
 
-    public String getStatus(){
+    public String getStatus() {
         String ex = " ";
-        if(isDone){
+        if(isDone) {
             ex = "x";
         }
         return ("["+ex+"] "+description);
