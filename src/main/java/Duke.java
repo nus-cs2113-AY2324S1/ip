@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static String[] records = new String[100];;
+    private static Task[] records = new Task[100];
     private static int recordsNum = 0;
 
     public static String generateResponse(String input){
@@ -11,15 +11,41 @@ public class Duke {
         if(trimmedInput.equals("bye")){
             return endMessage;
         }
+
         if(trimmedInput.equals("list")){
             System.out.println("\t____________________________________________________________");
             for(int i = 0; i < recordsNum; i++){
-                System.out.println("\t" + Integer.toString(i + 1) + ". " + records[i]);
+                System.out.println("\t" + Integer.toString(i + 1) + ". [" + records[i].getStatusIcon() + "] " + records[i].getDescription());
             }
             System.out.println("\t____________________________________________________________");
             return "";
         }
-        records[recordsNum] = input;
+
+        if(trimmedInput.contains("unmark")){
+            int numIdx = trimmedInput.indexOf(" ");
+            int taskNum = Integer.parseInt(trimmedInput.substring(numIdx+1));
+            records[taskNum-1].setUndone();
+            System.out.println("\t____________________________________________________________");
+            for(int i = 0; i < recordsNum; i++){
+                System.out.println("\t" + Integer.toString(i + 1) + ". [" + records[i].getStatusIcon() + "] " + records[i].getDescription());
+            }
+            System.out.println("\t____________________________________________________________");
+            return "";
+        }
+
+        if(trimmedInput.contains("mark")){
+            int numIdx = trimmedInput.indexOf(" ");
+            int taskNum = Integer.parseInt(trimmedInput.substring(numIdx+1));
+            records[taskNum-1].setDone();
+            System.out.println("\t____________________________________________________________");
+            for(int i = 0; i < recordsNum; i++){
+                System.out.println("\t" + Integer.toString(i + 1) + ". [" + records[i].getStatusIcon() + "] " + records[i].getDescription());
+            }
+            System.out.println("\t____________________________________________________________");
+            return "";
+        }
+        Task task = new Task(input);
+        records[recordsNum] = task;
         recordsNum ++;
         return "added: " + input;
     }
@@ -61,8 +87,6 @@ public class Duke {
         response = generateResponse("bye");
         printMessage(response);
 
-
-
-
     }
 }
+
