@@ -1,8 +1,15 @@
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Herbert {
 
-    public static void greeting() {
+    private ArrayList<String> history;
+
+    public Herbert() {
+        this.history = new ArrayList<>();
+        this.sayHello();
+    }
+
+    public void sayHello() {
         String logo = "(   )                           (   )                          (   )       \n"
                 + " | | .-.     .--.    ___ .-.     | |.-.     .--.    ___ .-.     | |_       \n"
                 + " | |/   \\   /    \\  (   )   \\    | /   \\   /    \\  (   )   \\   (   __)     \n"
@@ -19,34 +26,38 @@ public class Herbert {
         System.out.println("___________________________________________________________________________");
         System.out.println("\tHello! I'm Herbert.\n\tWhat can I do for you?");
         System.out.println("___________________________________________________________________________");
-        System.out.println();
     }
 
-    public static void exit() {
+    public void sayGoodbye() {
         System.out.println("___________________________________________________________________________");
         System.out.println("\tBye. Hope to see you again soon!");
         System.out.println("___________________________________________________________________________");
     }
 
-    public static void main(String[] args) {
-        greeting();
-
-        Scanner scan = new Scanner(System.in);
-
-        String line;
-        while (scan.hasNextLine()) {
-            line = scan.nextLine();
-
-            if (line.equalsIgnoreCase("bye")) {
-                exit();
-                break;
-            }
-
+    public int processLine(String line) {
+        if (line.equalsIgnoreCase("bye")) {
+            sayGoodbye();
+            return 1;
+        } else if (line.equalsIgnoreCase("list")) {
+            list();
+        } else {
+            this.history.add(line);
             System.out.println("___________________________________________________________________________");
-            System.out.println("\t" + line);
+            System.out.println("\tAdded: " + line);
             System.out.println("___________________________________________________________________________");
-            System.out.println();
         }
+
+        return 0;
     }
+
+    public void list() {
+        System.out.println("___________________________________________________________________________");
+        for (int i = 0; i < history.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + history.get(i));
+        }
+        System.out.println("___________________________________________________________________________");
+    }
+
+
 }
 
