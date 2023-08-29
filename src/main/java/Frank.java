@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Frank {
     public static void main(String[] args) {
 
@@ -21,6 +22,17 @@ public class Frank {
 
         System.out.println(solidLine + logo + solidLine);
         System.out.println("Hello user, I'm FRANK! Nice to meet you!\n" + solidLine);
-        System.out.println("Goodbye User, zai jian yong ze, sampai jumpa lagi user \n" + solidLine);
+
+        // Echo
+        Scanner input = new Scanner(System.in);
+        String command;
+        do{
+            command = input.nextLine();
+            if(command.equals("bye")){
+                System.out.println(solidLine + "\nGoodbye User, zai jian yong ze, sampai jumpa lagi user \n" + solidLine);
+            } else {
+                System.out.println(solidLine + command + solidLine);
+            }
+        } while(!command.equals("bye"));
     }
 }
