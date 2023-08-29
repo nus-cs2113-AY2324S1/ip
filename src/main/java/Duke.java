@@ -2,12 +2,29 @@ import java.util.Scanner;
 
 public class Duke {
 
+    static String lineDivider = "    _____________________________________";
+
     public static void echo(String in) {
-        System.out.println("    _____________________________________\n"
+        System.out.println(lineDivider + "\n"
         + in
-        + "\n    _____________________________________");
+        + "\n" + lineDivider);
     }
 
+    public static void addItem(String in, String[] itemList, int i) {
+        itemList[i] = in;
+
+        System.out.println(lineDivider + "\n"
+        + "added: " + in
+        + "\n" + lineDivider);
+    }
+
+    public static void listItems(String[] itemList, int i) {
+        System.out.println(lineDivider);
+        for(int j = 0; j < i; j += 1) {
+            System.out.println((j + 1) + ". " + itemList[j]);
+        }
+        System.out.println(lineDivider);
+    }
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -21,9 +38,21 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String buf = in.nextLine();
+        String[] itemList = new String[100];
+        int i = 0; //current index in itemlist
 
         while(!buf.toLowerCase().equals("bye")){
-            echo(buf);
+            switch (buf.toLowerCase()) {
+
+                case "list":
+                    listItems(itemList, i);
+                    break;
+
+                default:
+                    addItem(buf, itemList, i);
+                    i += 1;
+                    break;
+            }
             buf = in.nextLine();
         }
 
