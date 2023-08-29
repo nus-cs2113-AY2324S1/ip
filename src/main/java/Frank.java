@@ -30,12 +30,19 @@ public class Frank {
         String command;
         do{
             command = input.nextLine();
-            switch (command) {
+            String[] commands = command.split(" "); // if mark or unmark will be followed by an int
+            switch (commands[0]) {
             case "bye":
                 System.out.println(solidLine + "\nGoodbye User, zai jian yong ze, sampai jumpa lagi user \n" + solidLine);
                 break;
             case "list":
                 user.printTodos();
+                break;
+            case "mark":
+                user.markTodo(Integer.parseInt(commands[1]),true);
+                break;
+            case "unmark":
+                user.markTodo(Integer.parseInt(commands[1]),false);
                 break;
             default:
                 user.addTodo(command);
