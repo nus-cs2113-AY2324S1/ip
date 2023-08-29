@@ -6,48 +6,42 @@ public class Duke {
 
     public static String generateResponse(String input){
         String endMessage = "Bye. Hope to see you again soon!";
-
         String trimmedInput = input.trim();
         if(trimmedInput.equals("bye")){
             return endMessage;
         }
 
         if(trimmedInput.equals("list")){
-            System.out.println("\t____________________________________________________________");
-            for(int i = 0; i < recordsNum; i++){
-                System.out.println("\t" + Integer.toString(i + 1) + ". [" + records[i].getStatusIcon() + "] " + records[i].getDescription());
-            }
-            System.out.println("\t____________________________________________________________");
+            printAllTasks();
             return "";
         }
 
+        int numIdx = trimmedInput.indexOf(" ");
+        int taskNum = Integer.parseInt(trimmedInput.substring(numIdx+1));
+
         if(trimmedInput.contains("unmark")){
-            int numIdx = trimmedInput.indexOf(" ");
-            int taskNum = Integer.parseInt(trimmedInput.substring(numIdx+1));
             records[taskNum-1].setUndone();
-            System.out.println("\t____________________________________________________________");
-            for(int i = 0; i < recordsNum; i++){
-                System.out.println("\t" + Integer.toString(i + 1) + ". [" + records[i].getStatusIcon() + "] " + records[i].getDescription());
-            }
-            System.out.println("\t____________________________________________________________");
+            printAllTasks();
             return "";
         }
 
         if(trimmedInput.contains("mark")){
-            int numIdx = trimmedInput.indexOf(" ");
-            int taskNum = Integer.parseInt(trimmedInput.substring(numIdx+1));
             records[taskNum-1].setDone();
-            System.out.println("\t____________________________________________________________");
-            for(int i = 0; i < recordsNum; i++){
-                System.out.println("\t" + Integer.toString(i + 1) + ". [" + records[i].getStatusIcon() + "] " + records[i].getDescription());
-            }
-            System.out.println("\t____________________________________________________________");
+            printAllTasks();
             return "";
         }
-        Task task = new Task(input);
-        records[recordsNum] = task;
+        Task todo = new Task(input);
+        records[recordsNum] = todo;
         recordsNum ++;
         return "added: " + input;
+    }
+
+    private static void printAllTasks() {
+        System.out.println("\t____________________________________________________________");
+        for(int i = 0; i < recordsNum; i++){
+            System.out.println("\t" + i+1 + ". [" + records[i].getStatusIcon() + "] " + records[i].getDescription());
+        }
+        System.out.println("\t____________________________________________________________");
     }
 
     public static void printMessage(String message){
