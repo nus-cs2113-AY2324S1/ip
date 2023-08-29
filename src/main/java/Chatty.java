@@ -46,13 +46,14 @@ public class Chatty {
                 System.out.println("____________________________________________________________\n");
                 input = scanner.nextLine();
                 continue;
+            } else {
+                System.out.println("____________________________________________________________");
+                tasks[taskCount] = new Task(input);
+                taskCount++;
+                System.out.println("added: " + input);
+                System.out.println("____________________________________________________________\n");
+                input = scanner.nextLine();
             }
-            System.out.println("____________________________________________________________");
-            tasks[taskCount] = new Task(input);
-            taskCount++;
-            System.out.println("added: "+input);
-            System.out.println("____________________________________________________________\n");
-            input = scanner.nextLine();
         }
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
