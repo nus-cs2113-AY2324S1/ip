@@ -1,4 +1,4 @@
-import java.sql.SQLOutput;
+import java.util.Scanner;
 
 public class Herbert {
 
@@ -14,19 +14,39 @@ public class Herbert {
                 + " | |  | |  '  `-' /  | |         ' `-' ;  '  `-' /  | |         ' `-' ;    \n"
                 + "(___)(___)  `.__.'  (___)         `.__.    `.__.'  (___)         `.__.     \n";
 
-        System.out.println("Hello from\n" + logo);
 
+        System.out.println(System.lineSeparator() + logo);
         System.out.println("___________________________________________________________________________");
-        System.out.println(" Hello! I'm Herbert.\n What can I do for you?");
+        System.out.println("\tHello! I'm Herbert.\n\tWhat can I do for you?");
         System.out.println("___________________________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println("___________________________________________________________________________");
+        System.out.println();
+    }
 
-
+    public static void exit() {
+        System.out.println("___________________________________________________________________________");
+        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("___________________________________________________________________________");
     }
 
     public static void main(String[] args) {
         greeting();
+
+        Scanner scan = new Scanner(System.in);
+
+        String line;
+        while (scan.hasNextLine()) {
+            line = scan.nextLine();
+
+            if (line.equalsIgnoreCase("bye")) {
+                exit();
+                break;
+            }
+
+            System.out.println("___________________________________________________________________________");
+            System.out.println("\t" + line);
+            System.out.println("___________________________________________________________________________");
+            System.out.println();
+        }
     }
 }
 
