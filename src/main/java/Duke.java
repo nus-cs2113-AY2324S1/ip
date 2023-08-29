@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static String[] records = new String[100];;
+    private static int recordsNum = 0;
+
     public static String generateResponse(String input){
         String endMessage = "Bye. Hope to see you again soon!";
 
@@ -8,7 +11,17 @@ public class Duke {
         if(trimmedInput.equals("bye")){
             return endMessage;
         }
-        return input;
+        if(trimmedInput.equals("list")){
+            System.out.println("\t____________________________________________________________");
+            for(int i = 0; i < recordsNum; i++){
+                System.out.println("\t" + Integer.toString(i + 1) + ". " + records[i]);
+            }
+            System.out.println("\t____________________________________________________________");
+            return "";
+        }
+        records[recordsNum] = input;
+        recordsNum ++;
+        return "added: " + input;
     }
 
     public static void printMessage(String message){
@@ -18,6 +31,7 @@ public class Duke {
 
     }
     public static void main(String[] args) {
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -33,14 +47,19 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println(startMessage);
         Scanner in = new Scanner(System.in);
-        String line;
+        String line = in.nextLine();
         String response;
-        do{
-            line = in.nextLine();
-            response = generateResponse(line);
-            printMessage(response);
+        while(! line.trim().contains("bye")){
 
-        }while(line.equals(response));
+            response = generateResponse(line);
+            if(!response.isEmpty()) {
+                printMessage(response);
+            }
+            line = in.nextLine();
+
+        }
+        response = generateResponse("bye");
+        printMessage(response);
 
 
 
