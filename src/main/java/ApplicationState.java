@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class ApplicationState {
     private static ApplicationState appState = null;
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> TASKS = new ArrayList<>();
 
     private ApplicationState() {
     }
@@ -15,17 +15,17 @@ public class ApplicationState {
     }
 
     public void addTask(String task) {
-        this.tasks.add(new Task(task));
+        this.TASKS.add(new Task(task));
     }
 
     public ArrayList<Task> getTasks() {
-        return this.tasks;
+        return this.TASKS;
     }
 
     public Task getTask(int pos) {
-        if (pos < 0 || pos >= this.tasks.size()) {
+        if (pos < 0 || pos >= this.TASKS.size()) {
             return null;
         }
-        return this.tasks.get(pos);
+        return this.TASKS.get(pos);
     }
 }
