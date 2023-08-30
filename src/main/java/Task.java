@@ -1,6 +1,7 @@
 public class Task {
     private boolean isComplete;
     private String name;
+
     public Task(String name) {
         this.name = name;
         this.isComplete = false;
@@ -19,7 +20,6 @@ public class Task {
     }
 
     public void setComplete(boolean complete) {
-        System.out.println("here");
         isComplete = complete;
     }
 }

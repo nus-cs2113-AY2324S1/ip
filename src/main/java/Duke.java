@@ -5,6 +5,10 @@ public class Duke {
 
     private ArrayList<Task> list = new ArrayList<>();
 
+    public Duke() {
+        respond("Hello! I'm Mark\nWhat can I do for you?");
+    }
+
     public void addToList(Task task) {
         list.add(task);
     }
@@ -28,23 +32,16 @@ public class Duke {
             }
         }
     }
-
     public void respond(String s) {
         System.out.println("____________________________________________________________\n" +
                 s + "\n" +
                 "____________________________________________________________");
     }
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
         Duke bot = new Duke();
-        bot.respond("Hello! I'm Mark\nWhat can I do for you?");
         Scanner sc = new Scanner(System.in);
         String in = sc.nextLine();
+        
         while(!in.equals("bye")) {
             if (in.equals("list")) {
                 bot.printList();
