@@ -2,41 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static Scanner scanner = new Scanner(System.in);
-
-    public static String getUserInput() {
-        return scanner.nextLine();
-    }
-
-    public static void printUserInput(String output, int listIndex, ArrayList<String> items) {
-        if(output.toLowerCase().equals("bye")){
-            System.out.println("____________________________________________________________\n" +
-                    " Bye. Hope to see you again soon! " + "\n" +
-                    "____________________________________________________________\n");
-        }
-        else if(output.toLowerCase().equals("list")){
-            System.out.println("____________________________________________________________\n");
-            displayList(listIndex, items);
-            System.out.println("____________________________________________________________\n");
-        }
-        else{
-            System.out.println("____________________________________________________________\n" +
-                    " added: " + output + "\n" +
-                    "____________________________________________________________\n");
-        }
-    }
-
-    public static void displayList(int listIndex, ArrayList<String> items){
-        // print out the full list with indexing
-        for(int i = 0; i < listIndex; i++){
-            System.out.println(i+1 + ". " + items.get(i) + "\n");
-        }
-    }
-
-    public static void closeScanner() {
-        scanner.close();
-    }
-
     public static void main(String[] args) {
 
         String logo = "\n" +
@@ -48,23 +13,44 @@ public class Duke {
         "                 \\/       \\/                       \\/ \n";
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________\n" +
-                " Hello! I'm JARVIS \n" +
-                " What can I do for you?\n" +
+                " Hi Sir! I'm JARVIS \n" +
+                " What can I do for you today?\n" +
                 "____________________________________________________________\n" );
 
-        ArrayList<String> taskList = new ArrayList<>(); // Array of tasks (Strings)
-
-        String userInput;
-        int indexList = 0; // index for list of user inputs
-
-        do{
-            userInput = getUserInput();
-            if(!userInput.equals("list")){
-                taskList.add(userInput);
-                indexList++;
+        ArrayList<Task> taskList = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        String userInput = sc.nextLine();
+        while(!userInput.equals("bye")){
+            System.out.println("____________________________________________________________");
+            if(userInput.equals("list")){
+                System.out.println("Here's your tasks!");
+                for(int i = 0; i < taskList.size(); i++){
+                    int indexNum = i + 1;
+                    System.out.println(taskList.get(i).formatForList(indexNum));
+                }
             }
-            printUserInput(userInput, indexList, taskList);
-        }while(!userInput.equals("bye"));
-        closeScanner();
+            else if(userInput.startsWith("mark ")){
+                int index = Integer.parseInt(userInput.substring(5)) - 1;
+                if(taskList.size() <= index){
+                    System.out.println("Invalid task number " + (index + 1) + ". Try Again!");
+                    System.out.println("____________________________________________________________");
+                    userInput = sc.nextLine();
+                    continue;
+                }
+                System.out.println("I've marked these tasks as done");
+                taskList.get(index).markAsDone();
+                System.out.println(taskList.get(index).formatForMark(index + 1));
+
+            }
+            else{
+                System.out.println("added: " + userInput);
+                taskList.add(new Task(userInput));
+            }
+            System.out.println("____________________________________________________________");
+            userInput = sc.nextLine();
+        }
+        System.out.println("--------------------------------------\n" +
+                "Good bye sir! Have a good day" + "\n"
+                + "--------------------------------------");
     }
 }
