@@ -22,7 +22,12 @@ public class Duke {
             String userInput = getInput();
             String[] inputTokens = userInput.split(" ");
 
-            Function<String, Void> command = commands.get(inputTokens.length > 0 ? inputTokens[0] : userInput);
+            if (userInput.strip().isEmpty() || inputTokens.length == 0) {
+                printWrapped("Please provide an input!");
+                continue;
+            }
+
+            Function<String, Void> command = commands.get(inputTokens[0].toLowerCase());
             if (command == null) {
                 addTaskFlow(userInput);
                 continue;
