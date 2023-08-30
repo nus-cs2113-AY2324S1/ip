@@ -21,14 +21,14 @@ public class Duke {
         }
     }
 
-    public static void toggleDone(String taskNumber, boolean toggle) {
+    public static void toggleDone(String taskNumber, boolean isDone) {
         try {
             int taskId = Integer.parseInt(taskNumber);
             if (taskId > Task.getTaskCount() || taskId <= 0) {
                 System.out.println("Task out of range!");
             } else {
-                tasks[taskId-1].setDone(toggle);
-                if (toggle) {
+                tasks[taskId-1].setDone(isDone);
+                if (isDone) {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("[X] " + tasks[taskId-1].getName());
                 } else {
@@ -63,11 +63,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
         String line = "____________________________________________________________";
         System.out.println(line);
         System.out.println("Hello! I'm soccat!\nWhat can I do for you?");
