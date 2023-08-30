@@ -7,14 +7,14 @@ import java.util.stream.Collectors;
 
 public class Duke {
     private static boolean ended = false;
-    private final static Scanner scanner = new Scanner(System.in);
-    private final static HashMap<String, Function<String, Void>> commands = new HashMap<>();
+    private final static Scanner SCANNER = new Scanner(System.in);
+    private final static HashMap<String, Function<String, Void>> COMMANDS = new HashMap<>();
 
     public static void main(String[] args) {
-        commands.put("bye", (e) -> bye());
-        commands.put("list", (e) -> listTasksFlow());
-        commands.put("mark", Duke::markTaskFlow);
-        commands.put("unmark", Duke::unmarkTaskFlow);
+        COMMANDS.put("bye", (e) -> bye());
+        COMMANDS.put("list", (e) -> listTasksFlow());
+        COMMANDS.put("mark", Duke::markTaskFlow);
+        COMMANDS.put("unmark", Duke::unmarkTaskFlow);
 
         greet();
         while (!ended) {
@@ -27,7 +27,7 @@ public class Duke {
                 continue;
             }
 
-            Function<String, Void> command = commands.get(inputTokens[0].toLowerCase());
+            Function<String, Void> command = COMMANDS.get(inputTokens[0].toLowerCase());
             if (command == null) {
                 addTaskFlow(userInput);
                 continue;
@@ -39,7 +39,7 @@ public class Duke {
     }
 
     public static String getInput() {
-        return scanner.nextLine();
+        return SCANNER.nextLine();
     }
 
     public static void addTaskFlow(String input) {

@@ -8,8 +8,9 @@ public class ApplicationState {
     }
 
     public static ApplicationState getAppState() {
-        if (appState == null)
+        if (appState == null) {
             appState = new ApplicationState();
+        }
         return appState;
     }
 
@@ -22,8 +23,9 @@ public class ApplicationState {
     }
 
     public Task getTask(int pos) {
-        if (pos < 0 || pos >= this.tasks.size())
+        if (pos < 0 || pos >= this.tasks.size()) {
             return null;
+        }
         return this.tasks.get(pos);
     }
 }
