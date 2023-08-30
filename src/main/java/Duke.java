@@ -3,6 +3,17 @@ import java.util.Scanner;
 public class Duke {
     private static boolean isFinished = false;
 
+    private static final Scanner in = new Scanner(System.in);
+
+    public static String getInput() {
+        String line;
+        line = in.nextLine();
+        if (line.equals("bye")) {
+            exit();
+        }
+        return line;
+    }
+
     public static void exit() {
         System.out.println("Squeeze the day! Until we meet again, stay fresh and zesty!");
         System.out.println("\uD83C\uDF4B \uD83C\uDF4B \uD83C\uDF4B");
@@ -43,20 +54,32 @@ public class Duke {
         System.out.println("How can I add some zest to your day?");
         System.out.println("\uD83C\uDF4B \uD83C\uDF4B \uD83C\uDF4B \n");
 
-        String line;
-        Scanner in = new Scanner(System.in);
-        line = in.nextLine();
+        String[] tasks = new String[100];
+        int tasksNum = 0;
 
-        if (line.equals("bye")) {
-            exit();
-        }
+        String input;
+        input = getInput();
 
         while (!isFinished) {
-            System.out.println(line);
-            System.out.println("\uD83C\uDF4B \n");
-            line = in.nextLine();
-            if (line.equals("bye")) {
-                exit();
+            if (input.equals("list")) {
+                if (tasksNum == 0) {
+                    System.out.println("Your list is on a lemonade break right now.");
+                } else {
+                    int index = 1;
+                    for (int i = 0; i < tasksNum; i++) {
+                        System.out.println(index + ". " + tasks[index - 1]);
+                        index++;
+                    }
+                }
+                System.out.println("\uD83C\uDF4B \n");
+                input = getInput();
+            } else {
+
+                tasks[tasksNum] = input;
+                System.out.println(input + " has been squeezed into your list!");
+                System.out.println("\uD83C\uDF4B \n");
+                tasksNum++;
+                input = getInput();
             }
         }
     }
