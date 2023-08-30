@@ -3,15 +3,21 @@ import java.util.Scanner;
 public class Duke {
     private static boolean isFinished = false;
 
-    private static final Scanner in = new Scanner(System.in);
+    private static final Scanner IN = new Scanner(System.in);
 
     public static String getInput() {
         String line;
-        line = in.nextLine();
+        line = IN.nextLine();
         if (line.equals("bye")) {
             exit();
         }
         return line;
+    }
+
+    public static String listEmptyGetNewCommand() {
+        System.out.println("Your list is on a lemonade break right now.");
+        System.out.println("\uD83C\uDF4B \n");
+        return getInput();
     }
 
     public static void exit() {
@@ -63,7 +69,7 @@ public class Duke {
         while (!isFinished) {
             if (input.equals("list")) {
                 if (tasksNum <= 0) {
-                    System.out.println("Your list is on a lemonade break right now.");
+                    input = listEmptyGetNewCommand();
                 } else {
                     System.out.println("Your list is looking citrusy-fresh: ");
                     int index = 1;
@@ -71,14 +77,12 @@ public class Duke {
                         System.out.println(index + ". [" +tasks[index - 1].getStatusIcon() + "] " + tasks[index - 1].description);
                         index++;
                     }
-                }
-                System.out.println("\uD83C\uDF4B \n");
-                input = getInput();
-            } else if (input.matches(".*\\bmark\\b.*")) {
-                if (tasksNum <= 0) {
-                    System.out.println("Your list is on a lemonade break right now.");
                     System.out.println("\uD83C\uDF4B \n");
                     input = getInput();
+                }
+            } else if (input.matches(".*\\bmark\\b.*")) {
+                if (tasksNum <= 0) {
+                    input = listEmptyGetNewCommand();
                 } else {
                     int index = Integer.parseInt(input.replaceAll("[^0-9]", ""));
                     if (index > tasksNum) {
@@ -95,9 +99,7 @@ public class Duke {
                 }
             } else if (input.matches(".*\\bunmark\\b.*")) {
                 if (tasksNum <= 0) {
-                    System.out.println("Your list is on a lemonade break right now.");
-                    System.out.println("\uD83C\uDF4B \n");
-                    input = getInput();
+                    input = listEmptyGetNewCommand();
                 } else {
                     int index = Integer.parseInt(input.replaceAll("[^0-9]", ""));
                     if (index > tasksNum) {
