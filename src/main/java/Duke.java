@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,21 +56,15 @@ public class Duke {
 
         String userInput;
         int indexList = 0; // index for list of user inputs
-//        t.markAsDone();
-//        System.out.println(t.getStatusIcon());
 
         do{
             userInput = getUserInput();
             if(!userInput.equals("list")){
-                Task t = new Task(userInput); // add a new task
-//                taskList[indexList] = userInput;
                 taskList.add(userInput);
                 indexList++;
             }
             printUserInput(userInput, indexList, taskList);
         }while(!userInput.equals("bye"));
         closeScanner();
-
-
     }
 }
