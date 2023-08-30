@@ -1,10 +1,10 @@
 public class Task {
     protected String name;
-    protected Boolean done;
+    protected Boolean isDone;
 
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getName() {
@@ -12,14 +12,14 @@ public class Task {
     }
 
     public String getNameWithStatus() {
-        return String.format("[%s] %s", this.done ? "X" : " ", this.name);
+        return String.format("[%s] %s", this.isDone ? "X" : " ", this.name);
     }
 
     public void markDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmarkDone() {
-        this.done = false;
+        this.isDone = false;
     }
 }
