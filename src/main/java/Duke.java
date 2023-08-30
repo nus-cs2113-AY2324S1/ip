@@ -1,3 +1,5 @@
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -7,7 +9,7 @@ public class Duke {
         return scanner.nextLine();
     }
 
-    public static void printUserInput(String output, int listIndex, String[] items) {
+    public static void printUserInput(String output, int listIndex, ArrayList<String> items) {
         if(output.toLowerCase().equals("bye")){
             System.out.println("____________________________________________________________\n" +
                     " Bye. Hope to see you again soon! " + "\n" +
@@ -23,13 +25,12 @@ public class Duke {
                     " added: " + output + "\n" +
                     "____________________________________________________________\n");
         }
-
     }
 
-    public static void displayList(int listIndex, String[] items){
+    public static void displayList(int listIndex, ArrayList<String> items){
         // print out the full list with indexing
         for(int i = 0; i < listIndex; i++){
-            System.out.println(i+1 + " " + items[i] + "\n");
+            System.out.println(i+1 + ". " + items.get(i) + "\n");
         }
     }
 
@@ -47,26 +48,27 @@ public class Duke {
         "\\________\\____|__  /____|_  /  \\___/   |___/_______  /\n" +
         "                 \\/       \\/                       \\/ \n";
         System.out.println("Hello from\n" + logo);
-
         System.out.println("____________________________________________________________\n" +
                 " Hello! I'm JARVIS \n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________\n" );
 
+        ArrayList<String> taskList = new ArrayList<>(); // Array of tasks (Strings)
+
         String userInput;
         int indexList = 0; // index for list of user inputs
-        String[] inputList = new String[100]; // list to store up to 101 user inputs
-
-//        Task t = new Task("read book");
 //        t.markAsDone();
+//        System.out.println(t.getStatusIcon());
 
         do{
             userInput = getUserInput();
             if(!userInput.equals("list")){
-                inputList[indexList] = userInput;
+                Task t = new Task(userInput); // add a new task
+//                taskList[indexList] = userInput;
+                taskList.add(userInput);
                 indexList++;
             }
-            printUserInput(userInput, indexList, inputList);
+            printUserInput(userInput, indexList, taskList);
         }while(!userInput.equals("bye"));
         closeScanner();
 
