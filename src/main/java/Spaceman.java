@@ -9,7 +9,7 @@ public class Spaceman {
             + "/      | |   |   _   |   \\__|     |   __   |   _   |       |\n"
             + "|____ /|_|   |__| |__|\\_____|_____|__|  |__|__| |__|__|\\___|\n";
 
-        String[] itemList = new String[100];
+        Task[] taskList = new Task[100];
         int count = 0;
 
         System.out.println("Hello from\n" + logo);
@@ -23,9 +23,15 @@ public class Spaceman {
         String text = sc.nextLine();
         while (!text.equals("bye")) {
             if (text.equals("list")) {
-                printList(itemList, count);
-            } else{
-                addToList(itemList, text, count);
+                printList(taskList);
+            } else if (text.startsWith("mark")) {
+                String[] markDetails = text.split(" ");
+                markTask(taskList, Integer.parseInt(markDetails[1]));
+            } else if (text.startsWith("unmark")) {
+                String[] unMarkDetails = text.split(" ");
+                unMarkTask(taskList, Integer.parseInt(unMarkDetails[1]));
+            } else {
+                addToList(taskList, text);
                 count++;
             }
             text = sc.nextLine();
@@ -36,18 +42,42 @@ public class Spaceman {
         System.out.println("------------------------------------------------------------");
     }
 
-    public static void addToList(String[] itemList, String item, int count){
-        itemList[count] = item;
+    public static void addToList(Task[] taskList, String taskName){
+        Task task = new Task(taskName);
+        taskList[Task.getTaskCount()-1] = task;
         System.out.println("------------------------------------------------------------");
-        System.out.println("added: " + item);
+        System.out.println("added: " + taskName);
         System.out.println("------------------------------------------------------------");
     }
 
-    public static void printList(String[] items, int count){
+    public static void printList(Task[] tasks){
+        String mark;
         System.out.println("------------------------------------------------------------");
-        for (int i = 0; i < count; i++){
-            System.out.println(i + 1 + ". " + items[i]);
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < Task.getTaskCount(); i++){
+            if (tasks[i].getTaskStatus()){
+                mark = "X";
+            } else {
+                mark = " ";
+            }
+            System.out.println(i + 1 + ". [" + mark + "] " + tasks[i].getTaskName());
         }
+        System.out.println("------------------------------------------------------------");
+    }
+
+    public static void markTask(Task[] tasks, int taskIndex){
+        tasks[taskIndex-1].markTask();
+        System.out.println("------------------------------------------------------------");
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  [X] " + tasks[taskIndex-1].getTaskName());
+        System.out.println("------------------------------------------------------------");
+    }
+
+    public static void unMarkTask(Task[] tasks, int taskIndex){
+        tasks[taskIndex-1].unMarkTask();
+        System.out.println("------------------------------------------------------------");
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("  [ ] " + tasks[taskIndex-1].getTaskName());
         System.out.println("------------------------------------------------------------");
     }
 
