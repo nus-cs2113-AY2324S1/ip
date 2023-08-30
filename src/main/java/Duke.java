@@ -56,6 +56,10 @@ public class Duke {
         String userInput;
         int indexList = 0; // index for list of user inputs
         String[] inputList = new String[100]; // list to store up to 101 user inputs
+
+//        Task t = new Task("read book");
+//        t.markAsDone();
+
         do{
             userInput = getUserInput();
             if(!userInput.equals("list")){
@@ -65,5 +69,7 @@ public class Duke {
             printUserInput(userInput, indexList, inputList);
         }while(!userInput.equals("bye"));
         closeScanner();
+
+
     }
 }
