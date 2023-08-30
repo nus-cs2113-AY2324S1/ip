@@ -1,18 +1,21 @@
 public class Task {
-    private String tasks;
+    private final String tasks;
+    private boolean isMarked;
 
-    public Task(){
-
-    }
     public Task(String tasks) {
         this.tasks = tasks;
+        this.isMarked = false;
     }
 
     public String getTasks() {
         return tasks;
     }
 
-    public void setTasks(String tasks) {
-        this.tasks = tasks;
+    public boolean isMarked() {
+        return isMarked;
+    }
+
+    public void setMarked(boolean marked) {
+        isMarked = marked;
     }
 }
