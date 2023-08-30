@@ -17,15 +17,35 @@ public class Chattie {
         System.out.println("\t____________________________________________________________");
     }
 
-    public static void chattieList(String[] list, int count) {
+    public static void chattieList(Task[] list, int count) {
+        System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < count; i++) {
-            System.out.println("\t" + (i+1) + ". " + list[i]);
+            System.out.print("\t" + (i+1) + ". ");
+            if(list[i].isDone()) {
+                System.out.print("[X] ");
+            } else {
+                System.out.print("[ ] ");
+            }
+            System.out.print(list[i].getTask() + "\n");
+        }
+    }
+
+    public static void chattieMark(Task[] list, String[] command) {
+        int taskNum = Integer.parseInt(command[1]) - 1;
+        if(command[0].equalsIgnoreCase("mark")) {
+            list[taskNum].setDone(true);
+            System.out.println("\tNice! I've marked this task as done:");
+            System.out.println("\t[X] " + list[taskNum].getTask());
+        } else {
+            list[taskNum].setDone(false);
+            System.out.println("\tOK, I've marked this task as not done yet:");
+            System.out.println("\t[ ] " + list[taskNum].getTask());
         }
     }
     public static void main(String[] args) {
 
         int count = 0;
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -43,10 +63,13 @@ public class Chattie {
 
             if(line.equals("list")) {
                 chattieList(list, count);
+            } else if(line.contains("mark") || line.contains("unmark")) {
+                String[] command = line.split(" ");
+                chattieMark(list, command);
             } else {
-                list[count] = line;
+                list[count] = new Task(line);
+                System.out.println("\tadded: " + list[count].getTask());
                 count++;
-                System.out.println("\tadded: " + line);
             }
 
             System.out.println("\t____________________________________________________________");
