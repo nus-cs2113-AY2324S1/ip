@@ -31,8 +31,10 @@ public class Duke {
             }
             else if(userInput.startsWith("mark ")){
                 int index = Integer.parseInt(userInput.substring(5)) - 1;
+                // begin index at end of "mark ", subtract 1 to index-0 format
                 if(taskList.size() <= index){
                     System.out.println("Invalid task number " + (index + 1) + ". Try Again!");
+                    // index + 1 to reflect back to index-1 format
                     System.out.println("____________________________________________________________");
                     userInput = sc.nextLine();
                     continue;
