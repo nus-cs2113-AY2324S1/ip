@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Doli {
 
-    // method to print a horizontal dashed line to separate fields
+    /** Prints a horizontal dashed line intended to separate fields */
     public static void printLine() {
         for (int i = 50; i > 0; i--) {
             System.out.print("_");
@@ -14,7 +14,7 @@ public class Doli {
     }
     public static void main(String[] args) {
 
-        // Welcome design and introduction to the chatbot
+        // Welcome design and introduction to the chatbot.
 
         String design = " ____       _    \n" +
                 "|  _  \\    | | [_]\n" +
@@ -31,9 +31,8 @@ public class Doli {
         int numberOfItems = 0;
         Task[] tasks = new Task[100];
 
-        while (line.trim().equalsIgnoreCase("bye") == false){
-
-            if (line.trim().toLowerCase().contains("mark")){
+        while (line.trim().equalsIgnoreCase("bye") == false) {
+            if (line.trim().toLowerCase().contains("mark")) {
                 int taskNumber = Integer.parseInt(line.substring(line.indexOf(" ")+1));
                 if (taskNumber > numberOfItems) {
                     System.out.println("The specific task has not yet been added to your list.");
@@ -48,11 +47,11 @@ public class Doli {
                 line = in.nextLine();
                 continue;
             }
-
-            if (line.trim().equalsIgnoreCase("list")){
+            if (line.trim().equalsIgnoreCase("list")) {
                 Task[] array = Arrays.copyOf(tasks, numberOfItems);
-                for (int i = 0; i < array.length; i++){
-                    System.out.println(String.format("%d. [%c] ", i + 1, array[i].getStatusIcon()) + array[i].getDescription());
+                for (int i = 0; i < array.length; i++) {
+                    System.out.println(String.format("%d. [%c] ", i + 1,
+                            array[i].getStatusIcon()) + array[i].getDescription());
                 }
             } else {
                 tasks[numberOfItems] = new Task(line);
