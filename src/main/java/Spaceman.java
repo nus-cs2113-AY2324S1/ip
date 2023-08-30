@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Spaceman {
     public static void main(String[] args) {
         String logo = "  ____  _____   ___    _____ _____ __    __   ___   __   __\n"
             + "/     /|  __ \\ /   \\  /   __|     |  \\  /  | /   \\ |  \\ |  |\n"
