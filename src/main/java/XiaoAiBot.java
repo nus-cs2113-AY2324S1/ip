@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class XiaoAiBot {
     private final String BOT_NAME = "XiaoAi";
     private final String SPLIT_LINE = "____________________________________________";
@@ -6,15 +8,48 @@ public class XiaoAiBot {
 
     private final String QUIT_MESSAGE = "See you next time, master!";
 
-    private void sendMessages(String... messages) {
+    public CommandHandler getCommandHandler() {
+        return commandHandler;
+    }
+
+    private CommandHandler commandHandler = new CommandHandler(this);
+    private Scanner scanner = new Scanner(System.in);
+
+    public void setShouldQuit(boolean shouldQuit) {
+        this.shouldQuit = shouldQuit;
+    }
+
+    private boolean shouldQuit = false;
+
+    private void initialize() {
+        // for further modification
+    }
+
+    public void sendMessages(String... messages) {
         for (String message : messages) {
             System.out.println(message);
         }
         System.out.println(SPLIT_LINE);
     }
 
+    public String readLine() {
+        try {
+            return scanner.nextLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public void start() {
+        initialize();
         sendMessages(GREET_MESSAGE);
+
+        while (!shouldQuit) {
+            String command = readLine();
+            commandHandler.handleCommand(command);
+        }
+
         sendMessages(QUIT_MESSAGE);
     }
 }
