@@ -1,13 +1,22 @@
 import java.util.Scanner;
 
 public class List {
-    public static void List() {
+    public static void makeList() {
         String[] list = new String[100];
         int listCount = 0;
         Scanner in = new Scanner(System.in);
 
+        Duke.bootUp();
         while (true) {
-            list[listCount] = in.nextLine().trim();
+            String inputBuffer = in.nextLine().trim();
+            Scanner bufferScanner = new Scanner(inputBuffer);
+            if (!bufferScanner.hasNext()) {
+                System.out.println("Please input a valid input");
+                continue;
+            } else {
+                list[listCount] = inputBuffer;
+            }
+
             if (list[listCount].contains("bye")) {
                 break;
             } else if (list[listCount].contains("list")) {
@@ -23,7 +32,7 @@ public class List {
                 listCount++;
             }
         }
-
+        Duke.shutDown();
         return;
     }
 }
