@@ -23,26 +23,32 @@ public class Alan {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    public static void echoUserInput() {
-        String userLine;
-        Scanner userInput = new Scanner(System.in);
+    public static void main(String[] args) {
+        String[] taskList = new String[100];
+        int currentTaskListIndex = 0;
 
-        System.out.print("Input: ");
-        userLine = userInput.nextLine();
+        printGreet();
 
-        printHorizontalLine();
-        if (userLine.equals("bye")) {
-            printExit();
-        } else {
-            System.out.println(userLine);
+        String userInput = " ";
+        Scanner in = new Scanner(System.in);
+
+        while(!userInput.equals("bye")) {
+            System.out.print("Input: ");
+            userInput = in.nextLine();
             printHorizontalLine();
-            echoUserInput();
+
+            if (userInput.equals("list")) {
+                for (int i = 0; i < currentTaskListIndex; i++) {
+                    System.out.println((i + 1) + ". " + taskList[i]);
+                }
+            } else {
+                taskList[currentTaskListIndex] = userInput;
+                currentTaskListIndex++;
+                System.out.println("added: " + userInput);
+            }
+            printHorizontalLine();
         }
 
-    }
-
-    public static void main(String[] args) {
-        printGreet();
-        echoUserInput();
+        printExit();
     }
 }
