@@ -14,8 +14,8 @@ public class List {
     @Override
     public String toString() {
         String output = "";
-        for (String item : items) {
-            output = item + "\n";
+        for (int i = 1; i <= items.size(); i++) {
+            output = output + i + ". " + this.items.get(i-1) + "\n";
         }
         return output;
     }
