@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Chatbot {
     public static void main(String[] args) {
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int numOfTasks = 0;
 
         String greetingMsg = "____________________________________________________________\n" +
@@ -20,14 +20,34 @@ public class Chatbot {
         while(!input.equals("bye")) {
             if( input.equals("list") ) {
                 System.out.println("____________________________________________________________");
+                System.out.println(" Here are the tasks in your list:");
                 for(int i=0; i<numOfTasks; i++){
-                    System.out.println( (i+1) + ". " + tasks[i] );
+                    System.out.println( " " + (i+1) + ".["  + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription() );
                 }
                 System.out.println("____________________________________________________________");
-
+            } else if ( input.startsWith("mark ") ) {
+                String number = input.replace("mark ", "").trim();
+                int markTaskNo = Integer.parseInt(number);
+                if( markTaskNo > 0 ) {
+                    tasks[markTaskNo-1].markAsDone();
+                }
+                System.out.println("____________________________________________________________");
+                System.out.println(" Nice! I've marked this task as done:");
+                System.out.println( "   ["  + tasks[markTaskNo-1].getStatusIcon() + "] " + tasks[markTaskNo-1].getDescription() );
+                System.out.println("____________________________________________________________");
+            } else if ( input.startsWith("unmark ") ) {
+                String number = input.replace("unmark ", "").trim();
+                int unmarkTaskNo = Integer.parseInt(number);
+                if( unmarkTaskNo > 0 ) {
+                    tasks[unmarkTaskNo-1].markAsUndone();
+                }
+                System.out.println("____________________________________________________________");
+                System.out.println(" OK, I've marked this task as not done yet:");
+                System.out.println( "   ["  + tasks[unmarkTaskNo-1].getStatusIcon() + "] " + tasks[unmarkTaskNo-1].getDescription() );
+                System.out.println("____________________________________________________________");
             } else {
-                // if not bye, list, then the command by default is add
-                tasks[numOfTasks] = input;
+                // if not bye, list, mark, then the command by default is add
+                tasks[numOfTasks] = new Task(input);
                 numOfTasks++;
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + input);
