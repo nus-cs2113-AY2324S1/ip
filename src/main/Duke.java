@@ -7,15 +7,22 @@ public class Duke {
     public static final String LINE_DIVIDER = "----------------------------------------";
 
     public static void markList(ArrayList<Task> toDoList, String position, boolean status) {
-        int index = Integer.parseInt(position) - 1;
-        Task event = toDoList.get(index);
-        event.setCompleted(status);
-        toDoList.set(index, event);
-        if(event.isCompleted()) {
-            System.out.println("[X] " + event.getName());
-        } else {
-            System.out.println("[ ] " + event.getName());
+        try {
+            int index = Integer.parseInt(position) - 1;
+            Task event = toDoList.get(index);
+            event.setCompleted(status);
+            toDoList.set(index, event);
+            if(event.isCompleted()) {
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("[X] " + event.getName());
+            } else {
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("[ ] " + event.getName());
+            }
+        } catch (Exception exception) {
+            System.out.println("Invalid Input");
         }
+        
     }
 
     public static void printList(ArrayList<Task> toDoList, Iterator<Task> toDoListIter) {
@@ -43,24 +50,28 @@ public class Duke {
         String userInput = input.nextLine();
         while(!(userInput.equals("bye"))) {
             System.out.println(LINE_DIVIDER);
-            if(userInput.equals("list")) {
-                toDoListIter = toDoList.iterator();
-                printList(toDoList, toDoListIter);
-            } else if (userInput.contains("unmark")) {
-                System.out.println("OK, I've marked this task as not done yet:");
-                String[] userInputList = userInput.split(" ");
-                markList(toDoList, userInputList[1], false);
-            } else if(userInput.contains("mark")) {
-                System.out.println("Nice! I've marked this task as done:");
-                String[] userInputList = userInput.split(" ");
-                markList(toDoList, userInputList[1], true);
+            if(userInput.split(" ").length == 1) {
+                if(userInput.equals("list")) {
+                    toDoListIter = toDoList.iterator();
+                    printList(toDoList, toDoListIter);
+                } else {
+                    System.out.println("added: " + userInput);
+                    toDoList.add(new Task(userInput));
+                }
             } else {
-                System.out.println("added: " + userInput);
-                toDoList.add(new Task(userInput));
+                if (userInput.contains("unmark")) {
+                    String[] userInputList = userInput.split(" ");
+                    markList(toDoList, userInputList[1], false);
+                } else if(userInput.contains("mark")) {
+
+                    String[] userInputList = userInput.split(" ");
+                    markList(toDoList, userInputList[1], true);
+                }
             }
             System.out.println(LINE_DIVIDER);
             userInput = input.nextLine();
         }
+        input.close();
         System.out.println(LINE_DIVIDER);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE_DIVIDER);
