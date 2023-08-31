@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/**
+ * Task class
+ * including description and check whether it has been completed
+ */
 class Task{
     protected String description;
     protected boolean isDone;
@@ -26,17 +30,19 @@ class Task{
     }
 
 }
+
 public class Duke {
+    /* print a line starts with four spaces*/
     static void printLine(String s){
         System.out.println("     " + s);
     }
 
+    /* simple function that returns if the string is numeric*/
     static boolean isNumeric(String s){
         try{
             Integer.parseInt(s);
             return true;
-        }
-        catch(NumberFormatException e){
+        } catch(NumberFormatException e){
             return false;
         }
     }
