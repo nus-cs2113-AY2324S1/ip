@@ -1,5 +1,18 @@
+import java.lang.String;
+import java.lang.System;
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
-        System.out.println("Hello! I'm IP\nWhat can I do for you?\n\nBye. Hope to see you again soon!");
+        Manager manager = new Manager();
+        Scanner s = new Scanner(System.in);
+        System.out.println(
+                "Hello! I'm IP\n" +
+                "What can I do for you?"
+                );
+        while (true) {
+            String input = s.nextLine();
+            manager.process(input);
+        }
     }
 }
