@@ -5,6 +5,8 @@ import dawson.TaskList;
 public abstract class Command {
     private static final String ADD_COMMAND = "add";
     private static final String LIST_COMMAND = "list";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
     private static final String EXIT_COMMAND = "bye";
     
     public static Command getCommand(String input, TaskList taskList) {
@@ -15,6 +17,8 @@ public abstract class Command {
         switch (commandString) {
             case ADD_COMMAND: return new Add(item, taskList);
             case LIST_COMMAND: return new List(taskList);
+            case MARK_COMMAND: return new Mark(item, taskList);
+            case UNMARK_COMMAND: return new Unmark(item, taskList);
             case EXIT_COMMAND: return new Exit();
             default: return new Echo(input);
         }
