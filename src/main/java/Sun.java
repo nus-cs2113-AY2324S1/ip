@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Sun {
     public static void main(String[] args) {
         String logo = " ____               \n"
@@ -12,8 +14,18 @@ public class Sun {
         System.out.println("____________________________________________________________");
 
         //
+        Scanner scanner = new Scanner(System.in);
+        String command;
+        do {
+            command = scanner.nextLine();
+            System.out.println("> " + command);
+            System.out.println("____________________________________________________________");
+        } while (!command.equals("bye"));
 
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
+
+        scanner.close();
     }
 }
+
