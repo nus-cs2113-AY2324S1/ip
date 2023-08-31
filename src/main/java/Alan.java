@@ -1,4 +1,7 @@
+import java.util.Scanner;
+
 public class Alan {
+
     public static void printGreet() {
         printHorizontalLine();
         String man = " @/\n" +
@@ -20,8 +23,26 @@ public class Alan {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
+    public static void echoUserInput() {
+        String userLine;
+        Scanner userInput = new Scanner(System.in);
+
+        System.out.print("Input: ");
+        userLine = userInput.nextLine();
+
+        printHorizontalLine();
+        if (userLine.equals("bye")) {
+            printExit();
+        } else {
+            System.out.println(userLine);
+            printHorizontalLine();
+            echoUserInput();
+        }
+
+    }
+
     public static void main(String[] args) {
         printGreet();
-        printExit();
+        echoUserInput();
     }
 }
