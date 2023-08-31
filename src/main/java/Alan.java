@@ -1,5 +1,6 @@
 public class Alan {
     public static void printGreet() {
+        printHorizontalLine();
         String man = " @/\n" +
                      "/| \n" +
                      "/ \\";
@@ -7,10 +8,12 @@ public class Alan {
         System.out.println(man);
         System.out.println("Hello! I'm Alan");
         System.out.println("What can I do for you?");
+        printHorizontalLine();
     }
 
     public static void printExit() {
         System.out.println("Bye. Hope to see you again soon!");
+        printHorizontalLine();
     }
 
     public static void printHorizontalLine() {
@@ -18,10 +21,7 @@ public class Alan {
     }
 
     public static void main(String[] args) {
-        printHorizontalLine();
         printGreet();
-        printHorizontalLine();
         printExit();
-        printHorizontalLine();
     }
 }
