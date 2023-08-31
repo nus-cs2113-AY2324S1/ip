@@ -16,6 +16,11 @@ public class Add extends Command {
 
     @Override
     public void execute() {
+        if (item.equals("")) {
+            Dawson.printText("Empty string detected!");
+            return;
+        }
+        
         Task newTask = new Task(item);
         list.add(newTask);
         Dawson.printText("Added: " + item);

@@ -39,6 +39,8 @@ public class Dawson {
         TaskList taskList = new TaskList();
         while (!(newCommand instanceof Exit)) {
             String nextLineString = scanner.nextLine().toLowerCase().trim();
+            if (nextLineString.equals("")) continue; // Ignore empty string
+
             newCommand = Command.getCommand(nextLineString, taskList);
             newCommand.execute();
         }
