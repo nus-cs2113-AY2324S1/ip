@@ -12,14 +12,27 @@ public class Sun {
         System.out.println("Hello! I'm Sun!");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-
-        //
         Scanner scanner = new Scanner(System.in);
+        String[] tasks = new String[100];
+        int taskCount = 0;
         String command;
-        do {
+        do{
             command = scanner.nextLine();
-            System.out.println("> " + command);
-            System.out.println("____________________________________________________________");
+            if (!command.equals("bye")) {
+                if (command.equals("list")) {
+                    System.out.println("____________________________________________________________");
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
+                    System.out.println("____________________________________________________________");
+                } else {
+                    tasks[taskCount] = command;
+                    taskCount++;
+                    System.out.println("____________________________________________________________");
+                    System.out.println("> added: " + command);
+                    System.out.println("____________________________________________________________");
+                }
+            }
         } while (!command.equals("bye"));
 
         System.out.println("Bye. Hope to see you again soon!");
