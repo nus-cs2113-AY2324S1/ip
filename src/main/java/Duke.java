@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Duke {
 
+    public static List<Task> tasks = new ArrayList<Task>();
 
-    public static List<String> saved_inputs = new ArrayList<String>();
-
-    public static void print_saved_inputs() {
-        for (int i = 0; i < saved_inputs.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, saved_inputs.get(i));
+    public static void print_tasks() {
+        System.out.println("\tHere are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("\t\t%d. [%s] %s\n", i + 1, tasks.get(i).getStatusIcon(), tasks.get(i).getDescription());
         }
     }
 
@@ -19,16 +19,36 @@ public class Duke {
 
         Scanner input = new Scanner(System.in);
 
-        String user_input = input.nextLine();
-        while (!user_input.equals("bye")) {
+        String user_input;
+
+        do {
+            user_input = input.nextLine();
             if (user_input.equals("list")) {
-                print_saved_inputs();
+                print_tasks();
+            } else if (user_input.startsWith("mark ")) {
+                int index = Integer.parseInt(user_input.split(" ")[1]);
+                if (index < 0 || index > tasks.size()) {
+                    System.out.println("\tPlease enter a valid index.");
+                    continue;
+                }
+                tasks.get(index - 1).markAsDone();
+                System.out.println("\tNice! I've marked this task as done:");
+                System.out.printf("\t\t [%s] %s\n", tasks.get(index - 1).getStatusIcon(), tasks.get(index - 1).getDescription());
+            } else if (user_input.startsWith("unmark ")) {
+                int index = Integer.parseInt(user_input.split(" ")[1]);
+                if (index < 0 || index > tasks.size()) {
+                    System.out.println("Please enter a valid index.");
+                    continue;
+                }
+                tasks.get(index - 1).markAsUndone();
+                System.out.println("\tOk! I've marked this task as not done yet:");
+                System.out.printf("\t\t [%s] %s\n", tasks.get(index - 1).getStatusIcon(), tasks.get(index - 1).getDescription());
             } else {
-                saved_inputs.add(user_input);
+                tasks.add(new Task(user_input));
                 System.out.printf("\tadded: %s\n", user_input);
             }
-            user_input = input.nextLine();
         }
+        while (!user_input.equals("bye"));
 
         System.out.println("\tBye hope to see you again\n");
     }
