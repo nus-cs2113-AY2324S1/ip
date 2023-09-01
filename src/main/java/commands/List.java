@@ -1,4 +1,4 @@
-package dawson.commands;
+package commands;
 
 import dawson.Dawson;
 import dawson.TaskList;

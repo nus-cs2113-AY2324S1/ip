@@ -1,15 +1,15 @@
-package dawson.commands;
+package commands;
 
-import dawson.TaskList;
 import dawson.Dawson;
+import dawson.TaskList;
 
-public class Mark extends Command {
+public class Unmark extends Command {
 
     private String indexString;
     private TaskList taskList;
 
-    public Mark(String indexString, TaskList taskList) {
-        this.indexString = indexString;
+    public Unmark(String index, TaskList taskList) {
+        this.indexString = index;
         this.taskList = taskList;
     }
 
@@ -32,10 +32,10 @@ public class Mark extends Command {
         }
 
         // Execute the mark as done
-        String updatedTask = taskList.markAsDoneIndex(index);
-        String doneText = "Nice! I've marked this task as done: " + System.lineSeparator();
+        String updatedTask = taskList.unmarkIndex(index);
+        String doneText = "Ok, I've marked this task as not done yet: " + System.lineSeparator();
         doneText += "\t " + updatedTask;
         Dawson.printText(doneText);
     }
-
+    
 }

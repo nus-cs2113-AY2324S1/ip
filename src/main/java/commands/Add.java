@@ -1,4 +1,4 @@
-package dawson.commands;
+package commands;
 
 import dawson.Dawson;
 import dawson.Task;
@@ -20,7 +20,7 @@ public class Add extends Command {
             Dawson.printText("Empty string detected!");
             return;
         }
-        
+
         Task newTask = new Task(item);
         list.add(newTask);
         Dawson.printText("Added: " + item);
