@@ -29,14 +29,20 @@ public class Neo {
                 System.out.println("OK, I've marked this task as not done yet: ");
                 System.out.println("    " + list[listIndex]);
                 line = in.nextLine();
+            } else if (line.startsWith("deadline")) {
+                int byIndex = line.indexOf("/by") + 4;
+                String description = line.substring(9, byIndex - 5);
+                String by = line.substring(byIndex);
+                list[Task.getTotalTasks()] = new Deadline(description, by);
+                list[Task.getTotalTasks() - 1].printAddedTask();
+                line = in.nextLine();
             } else {
                 String description = line;
                 if (line.startsWith("todo")) {
                     description = line.substring(5);
                 }
                 list[Task.getTotalTasks()] = new Todo(description);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("    " + list[Task.getTotalTasks() - 1]);
+                list[Task.getTotalTasks() - 1].printAddedTask();
                 line = in.nextLine();
             }
         }
