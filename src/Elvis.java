@@ -1,4 +1,4 @@
-public class Duke {
+public class Elvis {
     public static void printHorizontalLines() {
         for (int i = 0; i < 60; i++) {
             System.out.print("_");

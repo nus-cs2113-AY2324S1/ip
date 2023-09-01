@@ -6,7 +6,7 @@ public class List {
         int listCount = 0;
         Scanner in = new Scanner(System.in);
 
-        Duke.bootUp();
+        Elvis.bootUp();
         while (true) {
             String inputBuffer = in.nextLine().trim();
             Scanner bufferScanner = new Scanner(inputBuffer);
@@ -20,19 +20,19 @@ public class List {
             if (list[listCount].contains("bye")) {
                 break;
             } else if (list[listCount].contains("list")) {
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
                 for (int i = 0; i < listCount; i++) {
                     System.out.println(i+1 + ". " + list[i]);
                 }
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
             } else {
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
                 System.out.println("added: " + list[listCount]);
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
                 listCount++;
             }
         }
-        Duke.shutDown();
+        Elvis.shutDown();
         return;
     }
 }

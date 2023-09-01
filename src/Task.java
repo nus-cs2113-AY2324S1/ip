@@ -20,7 +20,7 @@ public class Task {
      */
     public static void manageTask() {
         Scanner in = new Scanner(System.in);    //Scanner for standard input
-        Duke.bootUp();
+        Elvis.bootUp();
         while (true) {
             String inputBuffer = in.nextLine(); //Scans for the input
             Scanner bufferScanner = new Scanner(inputBuffer);   //All inputs first stored in inputBuffer
@@ -39,16 +39,16 @@ public class Task {
                 break;
             } else if (inputBuffer.equals("list")) {
                 if (listCount == 0) {
-                    Duke.printHorizontalLines();
+                    Elvis.printHorizontalLines();
                     System.out.println("Nothing to list");
-                    Duke.printHorizontalLines();
+                    Elvis.printHorizontalLines();
                     continue;
                 }
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
                 for (int i = 0; i < listCount; i++) {
                     System.out.println(i + 1 + "." + "[" + list[i].getStatus() + "] " + list[i].getToDo());
                 }
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
             } else if (firstWord.equals("unmark") && hasInteger && !bufferScanner.hasNext()) {
                 int nthTask = numberInput - 1;
                 if (numberInput > listCount || nthTask < 0 || listCount == 0) {
@@ -56,10 +56,10 @@ public class Task {
                     continue;
                 }
                 list[nthTask].setStatus(false);
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(nthTask + 1 + "." + "[" + list[nthTask].getStatus() + "] " + list[nthTask].getToDo());
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
             } else if (firstWord.equals("mark") && hasInteger && !bufferScanner.hasNext()) {
                 int nthTask = numberInput - 1;
                 if (numberInput > listCount || nthTask < 0 || listCount == 0) {
@@ -67,19 +67,19 @@ public class Task {
                     continue;
                 }
                 list[nthTask].setStatus(true);
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(nthTask + 1 + "." + "[" + list[nthTask].getStatus() + "] " + list[nthTask].getToDo());
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
             } else {
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
                 list[listCount] = new Task(inputBuffer.trim());
                 System.out.println("added: " + list[listCount].getToDo());
-                Duke.printHorizontalLines();
+                Elvis.printHorizontalLines();
                 listCount++;
             }
         }
-        Duke.shutDown();
+        Elvis.shutDown();
         return;
     }
 

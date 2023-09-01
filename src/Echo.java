@@ -6,7 +6,7 @@ public class Echo {
         String line;
         Scanner in = new Scanner(System.in);
 
-        Duke.bootUp();
+        Elvis.bootUp();
         while (true) {
             String inputBuffer = in.nextLine().trim();
             Scanner bufferScanner = new Scanner(inputBuffer);
@@ -20,11 +20,11 @@ public class Echo {
             if (line.contains("bye")) {
                 break;
             }
-            Duke.printHorizontalLines();
+            Elvis.printHorizontalLines();
             System.out.println(line);
-            Duke.printHorizontalLines();
+            Elvis.printHorizontalLines();
         }
-        Duke.shutDown();
+        Elvis.shutDown();
         return;
     }
 }
