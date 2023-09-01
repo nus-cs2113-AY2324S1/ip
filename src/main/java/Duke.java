@@ -61,15 +61,19 @@ public class Duke {
 
         while (true){
             String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("bye")){
-                exit();
-                break;
-            } else if (input.equalsIgnoreCase("list")){
-                listItems(itemList, itemCount);
-            } else {
-                itemList[itemCount] = input;
-                echo("added: "+input);
-                itemCount++;
+            if (input.startsWith("mark ")){
+                int indexPosition = Integer.parseInt(input.substring(5));
+                markItem(itemList, indexPosition-1, true);
+            } else if (input.startsWith("unmark ")){
+                int indexPosition = Integer.parseInt(input.substring(7));
+                markItem(itemList, indexPosition-1, false);
+            }else {
+                if (input.equalsIgnoreCase("bye")) {
+                    exit();
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    listItems(itemList, itemCount);
+                } else {
                     Task task = new Task(input);
                     itemList[itemCount] = task;
                     echo("added: " + task.description);
