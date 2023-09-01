@@ -10,4 +10,6 @@ public class DefaultStrings {
             splittingLine;
     public static String endString = splittingLine + "\t Bye. I know you don\'t want me. Never come back.\n" + splittingLine;
     public static String addedString = splittingLine + "\t At your command, goshujin-sama: ";
+    public static String markedString = splittingLine + "\t Congwats on finishing za tawsk: ";
+    public static String unmarkedString = splittingLine + "\t WHY HAVE YOU FORSAKEN ME";
 }

@@ -22,8 +22,10 @@ public class CommandHandler {
     * @see Message echoed in console.
     */
     public int ParseCommand(String command) {
-        switch (command) {
-            default:
+        String[] commandArray = command.split(" "); // Split input into array of strings
+        switch (commandArray[0]) { // Check first word of input for command
+
+            default: // Add task
                 Task newTask = new Task();
                 newTask.setName(command);
                 taskList.addTask(newTask);
@@ -37,6 +39,16 @@ public class CommandHandler {
 
             case Constants.listCommand:
                 taskList.listTasks();
+                return Constants.stayFlag;
+
+            case Constants.markCommand:
+                int taskNumber = Integer.parseInt(commandArray[1]);
+                taskList.markTask(taskNumber);
+                return Constants.stayFlag;
+
+            case Constants.unmarkCommand:
+                taskNumber = Integer.parseInt(commandArray[1]);
+                taskList.unmarkTask(taskNumber);
                 return Constants.stayFlag;
 
         }
