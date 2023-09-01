@@ -25,7 +25,9 @@ public class Duke {
     public static void printLine(){
         System.out.println("    ____________________________________________________________");
     }
+    public static void echo(String input){
         printLine();
+        System.out.println("    "+input);
         printLine();
         printLine();
         printLine();
