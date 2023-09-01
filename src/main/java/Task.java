@@ -1,30 +1,33 @@
 class Task {
     private final String task;
-    private int id;
-    private boolean done;
+    private boolean isDone;
 
-    public Task(String task, int id) {
+    public Task(String task) {
         this.task = task;
-        this.id = id;
-        this.done = false;
+        this.isDone = false;
     }
 
-    public static Task createTask(String task, int id) {
-        return new Task(task, id);
+    public static Task createTask(String task) {
+        return new Task(task);
     }
 
-    public void setDone() {
-        this.done = true;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.task.equals(obj);
     }
 
     @Override
     public String toString() {
-        String output = "";
-        if (done) {
-            output = id + "." + "[X] " + this.task;
+        StringBuilder output;
+        if (isDone) {
+            output = new StringBuilder("[X] ");
         } else {
-            output = id + "." + "[ ] " + this.task;
+            output = new StringBuilder("[ ] ");
         }
-        return output;
+        return output.append(this.task).toString();
     }
 }
