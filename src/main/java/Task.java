@@ -30,4 +30,9 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public void printAddedTask() {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + this);
+    }
 }
