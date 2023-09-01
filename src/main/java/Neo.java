@@ -18,24 +18,21 @@ public class Neo {
                     System.out.println(list[i].description);
                 }
                 line = in.nextLine();
-            }
-            else if (line.startsWith("mark")) {
+            } else if (line.startsWith("mark")) {
                 String[] words = line.split(" ");
                 int listIndex = Integer.parseInt(words[1]) - 1;
                 list[listIndex].setDone(true);
                 System.out.println("Nice! I've marked this task as done: ");
                 System.out.println("    [X] " + list[listIndex].description);
                 line = in.nextLine();
-            }
-            else if (line.startsWith("unmark")) {
+            } else if (line.startsWith("unmark")) {
                 String[] words = line.split(" ");
                 int listIndex = Integer.parseInt(words[1]) - 1;
                 list[listIndex].setDone(false);
                 System.out.println("OK, I've marked this task as not done yet: ");
                 System.out.println("    [ ] " + list[listIndex].description);
                 line = in.nextLine();
-            }
-            else {
+            } else {
                 list[Task.getTotalTasks()].description = line;
                 Task.incrementTotalTasks();
                 System.out.println("added: " + line);
