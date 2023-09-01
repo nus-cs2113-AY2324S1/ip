@@ -17,7 +17,7 @@ public class TaskList {
 
     public void listTasks(){
         System.out.print(DefaultStrings.splittingLine);
-        for (int i = 0; i < this.tasks.size(); i++){
+        for (int i = 1; i <= this.tasks.size(); i++){
             System.out.println("\t" + i + ". " + this.tasks.get(i).getName());
         }
         System.out.println(DefaultStrings.splittingLine);
