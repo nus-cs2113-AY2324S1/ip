@@ -1,12 +1,18 @@
+package careo;
+
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 enum MarkOrUnmark {
     MARK,
     UNMARK
 }
 
+
 public class Duke {
+    /** ArrayList of all tasks that have been added. */
     private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void main(String[] args) {
@@ -37,6 +43,9 @@ public class Duke {
     }
 
 
+    /**
+     * Prints a list of all tasks and their status.
+     */
     private static void listTasks() {
         int counter = 1;
 
@@ -50,6 +59,14 @@ public class Duke {
         printHorizontalLine();
     }
 
+
+    /**
+     * Marks or unmarks a task from tasks and prints a confirmation. Handles invalid indexes and
+     * prints a warning in that case.
+     *
+     * @param markOrUnmark Whether the task should be marked or unmarked.
+     * @param taskIdx      Index (zero-based) of the task that should be marked/unmarked in tasks.
+     */
     private static void markOrUnmarkTask(MarkOrUnmark markOrUnmark, int taskIdx) {
         if (tasks.isEmpty()) {
             printHorizontalLine();
@@ -58,7 +75,8 @@ public class Duke {
             printHorizontalLine();
 
             return;
-        } else if (taskIdx >= tasks.size() || taskIdx < 0) {
+        }
+        if (taskIdx >= tasks.size() || taskIdx < 0) {
             printHorizontalLine();
             System.out.println("    Sorry, the chosen task index is invalid!");
             System.out.println("    Task index must be between 1 (inclusive) and " + tasks.size() +
@@ -82,6 +100,11 @@ public class Duke {
         printHorizontalLine();
     }
 
+    /**
+     * Adds a new task to tasks and prints a confirmation.
+     *
+     * @param taskDescription Description of the task that shall be added.
+     */
     private static void addTask(String taskDescription) {
         Task newTask = new Task(taskDescription);
         tasks.add(newTask);
@@ -91,6 +114,9 @@ public class Duke {
         printHorizontalLine();
     }
 
+    /**
+     * Prints a polite introduction and offer for help.
+     */
     private static void printIntroduction() {
         printHorizontalLine();
         System.out.println("    Hello! I'm Careo");
@@ -99,12 +125,19 @@ public class Duke {
     }
 
 
+    /**
+     * Prints a polite goodbye message.
+     */
     private static void printFarewell() {
         printHorizontalLine();
         System.out.println("    Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
 
+
+    /**
+     * Prints a line of dashes indented by four spaces.
+     */
     private static void printHorizontalLine() {
         System.out.println("    " + "-".repeat(76));
     }

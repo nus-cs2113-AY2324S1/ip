@@ -1,5 +1,10 @@
+package careo;
+
+
 public class Task {
+    /** Textual description of the task */
     protected String description;
+    /** Whether the task has been completed */
     protected boolean isDone;
 
     public Task(String description) {
@@ -7,6 +12,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Generates and returns a status icon based on whether the task is done.
+     *
+     * @return "X" if the task is done, " " otherwise
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
