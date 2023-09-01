@@ -34,7 +34,7 @@ public class Duke {
         greeting();
 
         Scanner scanner = new Scanner(System.in);
-        String[] itemList = new String[100];
+        Task[] itemList = new Task[100];
         int itemCount = 0;
 
         while (true){
