@@ -31,26 +31,29 @@ public class CommandHandler {
                 taskList.addTask(newTask);
                 System.out.println(DefaultStrings.addedString + command);
                 System.out.println(DefaultStrings.splittingLine);
-                return Constants.stayFlag;
+
+            /**Checks for command keywords
+             * and executes corresponding methods
+             * from TaskList class if found.
+             */
 
             case Constants.endCommand:
                 System.out.println(DefaultStrings.endString);
-                return Constants.exitFlag;
+                return Constants.exitFlag; // Exit program
 
             case Constants.listCommand:
                 taskList.listTasks();
-                return Constants.stayFlag;
 
             case Constants.markCommand:
                 int taskNumber = Integer.parseInt(commandArray[1]);
                 taskList.markTask(taskNumber);
-                return Constants.stayFlag;
 
             case Constants.unmarkCommand:
                 taskNumber = Integer.parseInt(commandArray[1]);
                 taskList.unmarkTask(taskNumber);
-                return Constants.stayFlag;
-
         }
+
+        return Constants.stayFlag; // Continue program
+        
     }   
 }
