@@ -2,48 +2,42 @@ import java.util.Scanner;
 
 public class Duke {
 
-    static String lineDivider = "    _____________________________________";
-
-    public static void echo(String in) {
-        System.out.println(lineDivider + "\n"
-        + in
-        + "\n" + lineDivider);
-    }
+    static final String LINE_DIVIDER = "    _____________________________________";
 
     public static void addItem(String in, Task[] itemList, int i) {
         itemList[i] = new Task(in);
 
-        System.out.println(lineDivider + "\n"
+        System.out.println(LINE_DIVIDER + "\n"
         + "added: " + in
-        + "\n" + lineDivider);
+        + "\n" + LINE_DIVIDER);
     }
 
     public static void markTask(Task[] itemList, int i) {
         itemList[i - 1].setDone(true);
 
-        System.out.println(lineDivider + "\n"
+        System.out.println(LINE_DIVIDER + "\n"
                 + "Nice, I've marked this task as done:\n"
                 + "    [X] " + itemList[i - 1].getName() + "\n"
-                + lineDivider);
+                + LINE_DIVIDER);
     }
 
     public static void unmarkTask(Task[] itemList, int i) {
         itemList[i - 1].setDone(false);
 
-        System.out.println(lineDivider + "\n"
-                + "Alright, I've unmarked this task as done:"
+        System.out.println(LINE_DIVIDER + "\n"
+                + "Alright, I've unmarked this task as done:\n"
                 + "    [ ] " + itemList[i - 1].getName() + "\n"
-                + lineDivider);
+                + LINE_DIVIDER);
     }
 
     public static void listItems(Task[] itemList, int i) {
-        System.out.println(lineDivider);
+        System.out.println(LINE_DIVIDER);
         for(int j = 0; j < i; j += 1) {
             System.out.println((j + 1)
                     + ". [" + (itemList[j].getDone() ? "X" : " ") + "] "
                     + itemList[j].getName());
         }
-        System.out.println(lineDivider);
+        System.out.println(LINE_DIVIDER);
     }
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -54,12 +48,12 @@ public class Duke {
 
         System.out.println("Hello! I'm Axel!\n"
                 + "What can I do for you?\n"
-                + "    _____________________________________");
+                + LINE_DIVIDER);
 
         Scanner in = new Scanner(System.in);
         String buf = in.nextLine();
         Task[] itemList = new Task[100];
-        int i = 0; //current index in itemList
+        int i = 0; // current index in itemList
 
         while(!buf.equalsIgnoreCase("bye")){
             switch(buf.toLowerCase().split(" ")[0]) {
@@ -87,7 +81,7 @@ public class Duke {
         }
 
         System.out.println("Bye. Hope to see you again soon!\n"
-                + "    _____________________________________");
+                + LINE_DIVIDER);
     }
 }
 
