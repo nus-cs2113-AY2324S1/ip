@@ -34,5 +34,11 @@ public class Task {
     public void printAddedTask() {
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + this);
+        System.out.print("Now you have " + getTotalTasks());
+        if (getTotalTasks() == 1) {
+            System.out.println(" task in the list.");
+        } else {
+            System.out.println(" tasks in the list.");
+        }
     }
 }
