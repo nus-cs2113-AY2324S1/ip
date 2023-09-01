@@ -36,23 +36,48 @@ public class MessageDisplay {
                     break;
                 case "list":
                     TaskList.printTaskList();
+                    System.out.println("    ____________________________________________________________");
                     break;
                 case "mark":
                     taskIndex = Integer.parseInt(userInput.split(" ")[1]);
                     TaskList.markTaskAsDone(taskIndex);
-                    System.out.printf("    Roger that! I have marked the following task as done >w< !\n    '%s'\n", TaskList.viewTaskByIndex(taskIndex));
+                    System.out.printf("    Roger that! I have marked the following task as done >w< !\n" +
+                            "      '%s'\n", TaskList.viewTaskByIndex(taskIndex));
+                    System.out.println("    ____________________________________________________________");
                     break;
                 case "unmark":
                     taskIndex = Integer.parseInt(userInput.split(" ")[1]);
                     TaskList.markTaskAsNotDone(taskIndex);
-                    System.out.printf("    Roger that! I have unmarked the following task as done >w< !\n    '%s'\n", TaskList.viewTaskByIndex(taskIndex));
+                    System.out.printf("    Roger that! I have unmarked the following task as done >w< !\n" +
+                            "      '%s'\n", TaskList.viewTaskByIndex(taskIndex));
+                    System.out.println("    ____________________________________________________________");
+                    break;
+                case "todo":
+                    TaskList.addToTaskList(userInput, Task.TaskType.TODO);
+                    System.out.println("    I have added the following task OwO:");
+                    System.out.printf("      [T][] %s\n", TaskList.viewTaskByIndex(TaskList.getTaskListSize() - 1));
+                    System.out.println("    Now you have " + TaskList.getTaskListSize() + " tasks in the list! UWU");
+                    System.out.println("    ____________________________________________________________");
+                    break;
+                case "deadline":
+                    TaskList.addToTaskList(userInput, Task.TaskType.DEADLINE);
+                    System.out.println("    I have added the following task OwO:");
+                    System.out.printf("      [T][] %s\n", TaskList.viewTaskByIndex(TaskList.getTaskListSize() - 1));
+                    System.out.println("    Now you have " + TaskList.getTaskListSize() + " tasks in the list! UWU");
+                    System.out.println("    ____________________________________________________________");
+                    break;
+                case "event":
+                    TaskList.addToTaskList(userInput, Task.TaskType.EVENT);
+                    System.out.println("    I have added the following task OwO:");
+                    System.out.printf("      [T][] %s\n", TaskList.viewTaskByIndex(TaskList.getTaskListSize() - 1));
+                    System.out.println("    Now you have " + TaskList.getTaskListSize() + " tasks in the list! UWU");
+                    System.out.println("    ____________________________________________________________");
                     break;
                 default:
-                    TaskList.addToTaskList(userInput);
-                    System.out.println("I have added: " + userInput + "! OwO");
+                    System.out.println("    Pwease enter a valid command :0");
+                    System.out.println("    ____________________________________________________________");
                     break;
             }
-            System.out.println("    ____________________________________________________________");
         }
         displayCLosingMessage();
     }

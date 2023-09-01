@@ -1,19 +1,57 @@
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 public class TaskList {
     private static Task[] allTasks = {}; //array of inputs
 
-    public static void addToTaskList(String input){
+    public static void addToTaskList(String input, Task.TaskType taskType){
         Task[] newTaskList = new Task[allTasks.length+1];
         System.arraycopy(allTasks, 0, newTaskList, 0, allTasks.length);
-        newTaskList[allTasks.length] = new Task(input);
+        switch (taskType){
+            case TODO:
+                String toDoDescription = input.split("todo")[1].strip();
+                newTaskList[allTasks.length] = new ToDo(toDoDescription);
+                break;
+            case DEADLINE:
+                String[] deadlineDetails = input.split("deadline")[1].strip().split("/");
+                String deadlineDescription = deadlineDetails[0].strip();
+                String deadlineTiming = deadlineDetails[1].strip().split("by")[1].strip();;
+                newTaskList[allTasks.length] = new Deadline(deadlineDescription, deadlineTiming);
+                break;
+            case EVENT:
+                String[] eventDetails = input.split("event")[1].strip().split("/");
+                String eventDescription = eventDetails[0].strip();
+                String eventStartTiming = eventDetails[1].strip().split("from")[1].strip();
+                String eventEndTiming = eventDetails[2].strip().split("to")[1].strip();;
+                newTaskList[allTasks.length] = new Event(eventDescription, eventStartTiming, eventEndTiming);
+                break;
+        }
         allTasks = newTaskList;
     }
 
     public static void printTaskList(){
         for(int i = 0; i<allTasks.length; i++) {
-            if (allTasks[i].taskDone()) {
-                System.out.printf("    %d: [X] %s%n", i, allTasks[i].taskInput());
-            } else {
-                System.out.printf("    %d: [] %s%n", i, allTasks[i].taskInput());
+            switch(allTasks[i].getTaskType()) {
+                case TODO:
+                    if (allTasks[i].taskIsDone()) {
+                        System.out.printf("    %d: [T][X] %s\n", i, allTasks[i].getTaskDescription());
+                    } else {
+                        System.out.printf("    %d: [T][] %s\n", i, allTasks[i].getTaskDescription());
+                    }
+                    break;
+                case DEADLINE:
+                    if (allTasks[i].taskIsDone()) {
+                        System.out.printf("    %d: [D][X] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                    } else {
+                        System.out.printf("    %d: [D][] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                    }
+                    break;
+                case EVENT:
+                    if (allTasks[i].taskIsDone()) {
+                        System.out.printf("    %d: [E][X] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                    } else {
+                        System.out.printf("    %d: [E][] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                    }
+                    break;
             }
         }
     }
@@ -36,11 +74,21 @@ public class TaskList {
     }
     public static String viewTaskByIndex(int index){
         if(index>allTasks.length-1){
-            System.out.println("Ohnuuu! Please enter valid task number *sobs*");
             return "**Task Not Found**";
         }
         else{
-            return allTasks[index].taskInput();
+            switch(allTasks[index].getTaskType()) {
+                case TODO:
+                    return allTasks[index].getTaskDescription();
+                case DEADLINE:
+                case EVENT:
+                    return allTasks[index].getTaskDescription() + " " + allTasks[index].getTaskTiming();
+                default:
+                    return "**Task Not Found**";
+            }
         }
+    }
+    public static int getTaskListSize(){
+        return allTasks.length;
     }
 }
