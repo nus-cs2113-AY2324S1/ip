@@ -37,7 +37,9 @@ public class Duke {
                 exit();
                 break;
             } else {
-                echo(input);
+                itemList[itemCount] = input;
+                echo("added: "+input);
+                itemCount++;
             }
         }
     }
