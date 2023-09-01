@@ -3,9 +3,9 @@ package Duchess;
 
 /** Class to handle commands and to return exit conditions */
 public class CommandHandler {
-    
-    /** Exit flag to return to main program */
-    private static int willExit = 0;
+
+    /** List of tasks user needs to keep track of */
+    private static TaskList taskList = new TaskList();
 
     /** Constructor class to be declared. */
     public CommandHandler(){
@@ -24,16 +24,21 @@ public class CommandHandler {
     public int ParseCommand(String command) {
         switch (command) {
             default:
-                String echoOutString = DefaultStrings.splittingLine + "\t "
-                        + command + "\n" + DefaultStrings.splittingLine;
-                System.out.println(echoOutString);
-                willExit = 0;
+                Task newTask = new Task();
+                newTask.setName(command);
+                taskList.addTask(newTask);
+                System.out.println(DefaultStrings.addedString + command);
+                System.out.println(DefaultStrings.splittingLine);
+                return Constants.stayFlag;
 
             case Constants.endCommand:
                 System.out.println(DefaultStrings.endString);
-                willExit = 1;
+                return Constants.exitFlag;
+
+            case Constants.listCommand:
+                taskList.listTasks();
+                return Constants.stayFlag;
 
         }
-        return willExit;
     }   
 }

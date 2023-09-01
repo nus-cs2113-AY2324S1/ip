@@ -13,9 +13,9 @@ public class Duchess {
         System.out.println(DefaultStrings.logo);
         CommandHandler ActiveCommandHandler = new CommandHandler();
         Scanner sc = new Scanner(System.in);
-        int endProgram = 0;
+        int endProgram = Constants.stayFlag;
 
-        while (endProgram == 0) {
+        while (endProgram == Constants.stayFlag) {
             String command = sc.nextLine();
             endProgram = ActiveCommandHandler.ParseCommand(command);
         }

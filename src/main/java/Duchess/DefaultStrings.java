@@ -9,4 +9,5 @@ public class DefaultStrings {
             "\t What can I do for youwu?\n" +
             splittingLine;
     public static String endString = splittingLine + "\t Bye. I know you don\'t want me. Never come back.\n" + splittingLine;
+    public static String addedString = splittingLine + "\t At your command, goshujin-sama: ";
 }
