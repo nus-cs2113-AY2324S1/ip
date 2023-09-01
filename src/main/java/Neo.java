@@ -29,10 +29,19 @@ public class Neo {
                 System.out.println("OK, I've marked this task as not done yet: ");
                 System.out.println("    " + list[listIndex]);
                 line = in.nextLine();
+            } else if (line.startsWith("event")) {
+                int fromIndex = line.indexOf("/from");
+                int toIndex = line.indexOf("/to");
+                String description = line.substring(6, fromIndex - 1);
+                String from = line.substring(fromIndex + 6, toIndex - 1);
+                String to = line.substring(toIndex + 4);
+                list[Task.getTotalTasks()] = new Event(description, from, to);
+                list[Task.getTotalTasks() - 1].printAddedTask();
+                line = in.nextLine();
             } else if (line.startsWith("deadline")) {
-                int byIndex = line.indexOf("/by") + 4;
-                String description = line.substring(9, byIndex - 5);
-                String by = line.substring(byIndex);
+                int byIndex = line.indexOf("/by");
+                String description = line.substring(9, byIndex - 1);
+                String by = line.substring(byIndex + 4);
                 list[Task.getTotalTasks()] = new Deadline(description, by);
                 list[Task.getTotalTasks() - 1].printAddedTask();
                 line = in.nextLine();
