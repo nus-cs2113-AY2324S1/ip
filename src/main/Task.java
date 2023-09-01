@@ -20,6 +20,8 @@ public class Task {
         this.completed = completed;
     }
 
-    
+    public String toString() {
+        return "[" + (completed ? "X" : " ") + "] " + name;
+    }
 
 }

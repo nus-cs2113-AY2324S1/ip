@@ -6,18 +6,18 @@ public class Duke {
     public static final String BOT_NAME = "JS";
     public static final String LINE_DIVIDER = "----------------------------------------";
 
-    public static void markList(ArrayList<Task> toDoList, String position, boolean status) {
+    public static void markList(ArrayList<Task> taskList, String position, boolean status) {
         try {
             int index = Integer.parseInt(position) - 1;
-            Task event = toDoList.get(index);
+            Task event = taskList.get(index);
             event.setCompleted(status);
-            toDoList.set(index, event);
+            taskList.set(index, event);
             if(event.isCompleted()) {
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[X] " + event.getName());
+                System.out.println(event);
             } else {
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("[ ] " + event.getName());
+                System.out.println(event);
             }
         } catch (Exception exception) {
             System.out.println("Invalid Input");
@@ -25,54 +25,114 @@ public class Duke {
         
     }
 
-    public static void printList(ArrayList<Task> toDoList, Iterator<Task> toDoListIter) {
+    public static void printList(ArrayList<Task> taskList) {
         System.out.println("Here are the task in your list:");
-        for(int i = 1; toDoListIter.hasNext() ; i++) {
-            Task event = toDoListIter.next();
-            System.out.print(i + ".[");
-            if(event.isCompleted()) {
-                System.out.print("X");
+        Iterator<Task> taskListIter = taskList.iterator();
+        for(int i = 1; taskListIter.hasNext() ; i++) {
+            Task event = taskListIter.next();
+            System.out.println(i + "." + event);
+        }
+    }
+
+    public static void printListLength(ArrayList<Task> taskList) {
+        System.out.println("Now you have " + taskList.size() + " task in the list");
+    }
+
+    public static void printNewTask(ArrayList<Task> taskList, Task task) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        printListLength(taskList);
+    }
+
+
+    public static void addDeadlineToList(ArrayList<Task> taskList, String arguments) {
+        try {
+            String[] argumentsList = arguments.split(" /by ");
+            Deadline newDeadline = new Deadline(argumentsList[0], argumentsList[1]);
+            taskList.add(newDeadline);
+            printNewTask(taskList, newDeadline);
+        } catch (Exception exception) {
+            System.out.println("Invalid Input");
+        }
+    }
+
+    public static void addEventToList(ArrayList<Task> taskList, String arguments) {
+        try {
+            String[] argumentsList = arguments.split(" /from ");
+            String description = argumentsList[0];
+            argumentsList = argumentsList[1].split(" /to ");
+            Event newEvent = new Event(description, argumentsList[0], argumentsList[1]);
+            taskList.add(newEvent);
+            printNewTask(taskList, newEvent);
+        } catch (Exception exception) {
+            System.out.println("Invalid Input");
+        }
+    }
+
+    public static void addToDoToList(ArrayList<Task> taskList, String arguments) {
+        try {
+            if(arguments.isBlank()){
+                System.out.println("Invalid Input");
             } else {
-                System.out.print(" ");
+                ToDo newToDo = new ToDo(arguments);
+                taskList.add(newToDo);
+                printNewTask(taskList, newToDo);
             }
-            System.out.println("] " + event.getName());
+            
+        } catch (Exception e) {
+            System.out.println("Invalid Input");
         }
     }
     
     public static void main(String[] args) {
-        ArrayList<Task> toDoList = new ArrayList<Task>();
-        Iterator<Task> toDoListIter = toDoList.iterator();
+        String userInput, command;
+        String arguments = "";
+        ArrayList<Task> taskList = new ArrayList<Task>();
         System.out.println(LINE_DIVIDER);
         System.out.println("Hello! I'm " + BOT_NAME);
         System.out.println("What can I do for you?");
         System.out.println(LINE_DIVIDER);
         Scanner input = new Scanner(System.in);
-        String userInput = input.nextLine();
-        while(!(userInput.equals("bye"))) {
-            System.out.println(LINE_DIVIDER);
-            if(userInput.split(" ").length == 1) {
-                if(userInput.equals("list")) {
-                    toDoListIter = toDoList.iterator();
-                    printList(toDoList, toDoListIter);
-                } else {
-                    System.out.println("added: " + userInput);
-                    toDoList.add(new Task(userInput));
-                }
-            } else {
-                if (userInput.contains("unmark")) {
-                    String[] userInputList = userInput.split(" ");
-                    markList(toDoList, userInputList[1], false);
-                } else if(userInput.contains("mark")) {
-
-                    String[] userInputList = userInput.split(" ");
-                    markList(toDoList, userInputList[1], true);
-                }
+        do {
+            userInput = input.nextLine();
+            command = userInput.split(" ", 2)[0];
+            if(userInput.split(" ", 2).length != 1) {
+                arguments = userInput.split(" ", 2)[1];
+            }
+            switch(command) {
+            case "list":
+                System.out.println(LINE_DIVIDER);
+                printList(taskList);
+                break;
+            case "bye":
+                break;
+            case "todo":
+                System.out.println(LINE_DIVIDER);
+                addToDoToList(taskList, arguments);
+                break;
+            case "event":
+                System.out.println(LINE_DIVIDER);
+                addEventToList(taskList, arguments);
+                break;
+            case "deadline":
+                System.out.println(LINE_DIVIDER);
+                addDeadlineToList(taskList, arguments);
+                break;
+            case "unmark":
+                System.out.println(LINE_DIVIDER);
+                markList(taskList, arguments, false);
+                break;
+            case "mark":
+                System.out.println(LINE_DIVIDER);
+                markList(taskList, arguments, true);
+                break;
+            default:
+                System.out.println(LINE_DIVIDER);
+                System.out.println("Invalid command");
             }
             System.out.println(LINE_DIVIDER);
-            userInput = input.nextLine();
-        }
+        } while (!(command.equals("bye")));
         input.close();
-        System.out.println(LINE_DIVIDER);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE_DIVIDER);
     }
