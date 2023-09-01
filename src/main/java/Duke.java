@@ -37,7 +37,19 @@ public class Duke {
             System.out.println("    "+indexNo+"."+itemList[i].getStatusIcon()+" "+itemList[i].description);
         }
         printLine();
+    }
+
+    public static void markItem(Task[] itemList, int itemCount, boolean isMark){
         printLine();
+        if (isMark) {
+            itemList[itemCount].isDone = true;
+            System.out.println("    Nice! I've marked this task as done:");
+            System.out.println("       " + itemList[itemCount].getStatusIcon() + " " + itemList[itemCount].description);
+        } else {
+            itemList[itemCount].isDone = false;
+            System.out.println("    OK, I've marked this task as not done yet:");
+            System.out.println("       " + itemList[itemCount].getStatusIcon() + " " + itemList[itemCount].description);
+        }
         printLine();
     }
     public static void main(String[] args) {
