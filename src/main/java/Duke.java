@@ -5,8 +5,10 @@ public class Duke {
     private static int recordsNum = 0;
 
     public static String generateResponse(String input){
-        String endMessage = "Bye. Hope to see you again soon!";
+
         String trimmedInput = input.trim();
+        String endMessage = "Bye. Hope to see you again soon!";
+
         if(trimmedInput.equals("bye")){
             return endMessage;
         }
@@ -16,39 +18,50 @@ public class Duke {
             return "";
         }
 
-        int numIdx = trimmedInput.indexOf(" ");
-        int taskNum = Integer.parseInt(trimmedInput.substring(numIdx+1));
+        int spaceIdx = trimmedInput.indexOf(" ");
+        int numStartIdx = spaceIdx + 1;
+        String taskNumString = trimmedInput.substring(numStartIdx);
+        int taskNum;
 
         if(trimmedInput.contains("unmark")){
+            taskNum = Integer.parseInt(taskNumString);
             records[taskNum-1].setUndone();
             printAllTasks();
             return "";
         }
-
         if(trimmedInput.contains("mark")){
+            taskNum = Integer.parseInt(taskNumString);
             records[taskNum-1].setDone();
             printAllTasks();
             return "";
         }
+        return createNewTask(input);
+    }
+
+    private static String createNewTask(String input) {
         Task todo = new Task(input);
         records[recordsNum] = todo;
-        recordsNum ++;
+        recordsNum++;
         return "added: " + input;
     }
 
     private static void printAllTasks() {
-        System.out.println("\t____________________________________________________________");
+        printLine();
         for(int i = 0; i < recordsNum; i++){
-            System.out.println("\t" + i+1 + ". [" + records[i].getStatusIcon() + "] " + records[i].getDescription());
+            String taskIndexString = Integer.toString(i + 1);
+            String checkBox = "[" + records[i].getStatusIcon() + "]";
+            String taskDescription = records[i].getDescription();
+            System.out.println("\t " + taskIndexString + " " + checkBox + " " + taskDescription );
         }
-        System.out.println("\t____________________________________________________________");
+        printLine();
     }
-
     public static void printMessage(String message){
-        System.out.println("\t____________________________________________________________");
+        printLine();
         System.out.println("\t" + message);
+        printLine();
+    }
+    private static void printLine(){
         System.out.println("\t____________________________________________________________");
-
     }
     public static void main(String[] args) {
 
@@ -80,7 +93,6 @@ public class Duke {
         }
         response = generateResponse("bye");
         printMessage(response);
-
     }
 }
 
