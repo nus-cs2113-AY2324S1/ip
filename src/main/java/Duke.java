@@ -10,10 +10,28 @@ public class Duke {
                 + "                          __/ |\n"
                 + "                         |___/";
         System.out.println("    Hello from\n" + logo);
-        System.out.println("    ____________________________________________________________");
+        printLine();
         System.out.println("    Hello! I'm Bobby");
         System.out.println("    What can I do for you?");
+        printLine();
+    }
+
+    public static void exit(){
+        printLine();
+        System.out.println("    Bye. Hope to see you again soon!");
+        printLine();
+    }
+
+    public static void printLine(){
         System.out.println("    ____________________________________________________________");
+    }
+        printLine();
+        printLine();
+        printLine();
+        printLine();
+        printLine();
+        printLine();
+        greeting();
 
         Scanner scanner = new Scanner(System.in);
         String[] itemList = new String[100];
