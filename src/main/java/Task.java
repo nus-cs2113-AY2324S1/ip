@@ -1,14 +1,16 @@
 class Task {
     private final String task;
+    private int id;
     private boolean done;
 
-    public Task(String task) {
+    public Task(String task, int id) {
         this.task = task;
+        this.id = id;
         this.done = false;
     }
 
-    public static Task createTask(String task) {
-        return new Task(task);
+    public static Task createTask(String task, int id) {
+        return new Task(task, id);
     }
 
     public void setDone() {
@@ -19,9 +21,9 @@ class Task {
     public String toString() {
         String output = "";
         if (done) {
-            output = "[X] " + this.task;
+            output = id + "." + "[X] " + this.task;
         } else {
-            output = "[ ] " + this.task;
+            output = id + "." + "[ ] " + this.task;
         }
         return output;
     }

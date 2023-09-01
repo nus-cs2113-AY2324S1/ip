@@ -8,14 +8,14 @@ public class List {
     }
 
     public void add(String task) {
-        this.tasks.add(Task.createTask(task));
+        this.tasks.add(Task.createTask(task, this.tasks.size() + 1));
     }
 
     @Override
     public String toString() {
         String output = "Here are the tasks in your list: \n";
         for (int i = 1; i <= tasks.size(); i++) {
-            output = output + i + "." + this.tasks.get(i-1) + "\n";
+            output = this.tasks.get(i-1) + "\n";
         }
         return output;
     }
