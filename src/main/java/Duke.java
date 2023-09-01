@@ -24,32 +24,20 @@ public class Duke {
             		}
         		} else if (mark[0].equals("todo")) {
         			String description = String.join(" ", Arrays.copyOfRange(mark, 1, mark.length));
-        			Task task = new ToDo(description);
-        			addTask(task);
+        			Task toDoTask = new ToDo(description);
+        			addTask(toDoTask);
         		} else if (mark[0].equals("deadline")) {
         			String[] descAndDue = getDeadlineDescription(mark);
-        			Task task = new Deadline(descAndDue[0], descAndDue[1]);
-        			addTask(task);
+        			Task deadlineTask = new Deadline(descAndDue[0], descAndDue[1]);
+        			addTask(deadlineTask);
         		} else if (mark[0].equals("event")) {
         			String[] info = getEventDescription(mark);
-        			Task task = new Event(info[0], info[1], info[2]);
-        			addTask(task);
+        			Task eventTask = new Event(info[0], info[1], info[2]);
+        			addTask(eventTask);
         		} else {
-        			System.out.println("This was your command: " + command);
+        			System.out.println(command);
         		}
         	}
-        		/**if (command.contains("mark")) {
-        		String[] mark = command.split(" ");
-        		if (mark[0].equals("mark")) {
-        			toDoList[index].setDone(true);
-        		} else {
-        			toDoList[index].setDone(false);
-        		}
-        	} else if (command.contains("todo")) {
-        		String[] mark = command.split(" ");
-        		//Task task = new Task(command);
-        		//toDoList[size++] = task;
-        		//addTask(task);**/
         	command = input.nextLine();
         }
         sayGoodbye();
@@ -102,11 +90,11 @@ public class Duke {
     	String due = "";
     	String desc = "";
     	for (int i = 1; i < description.length; i++) {
-    		if (description[i].equals("/by")) {
+    		if (!description[i].equals("/by")) {
+    			desc += description[i] + " ";
+    		} else {
     			due += String.join(" ", Arrays.copyOfRange(description, i + 1, description.length));
     			break;
-    		} else {
-    			desc += description[i] + " ";
     		}
     	}
     	String[] descAndDue = {desc, due};
