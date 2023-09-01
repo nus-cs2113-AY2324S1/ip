@@ -29,7 +29,13 @@ public class Duke {
         printLine();
         System.out.println("    "+input);
         printLine();
+    }
+    public static void listItems(Task[] itemList, int itemCount){
         printLine();
+        for (int i  = 0; i < itemCount; i++){
+            int indexNo = i+1;
+            System.out.println("    "+indexNo+"."+itemList[i].getStatusIcon()+" "+itemList[i].description);
+        }
         printLine();
         printLine();
         printLine();
