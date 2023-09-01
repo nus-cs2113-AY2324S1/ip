@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Duke {
-    public static void greeting(){
+    public static void printGreeting(){
         String logo = "______       _     _\n"
                 + "| ___ \\     | |   | |\n"
                 + "| |_/ / ___ | |__ | |__  _   _\n"
@@ -16,7 +16,7 @@ public class Duke {
         printLine();
     }
 
-    public static void exit(){
+    public static void exitChatbot(){
         printLine();
         System.out.println("    Bye. Hope to see you again soon!");
         printLine();
@@ -53,7 +53,7 @@ public class Duke {
         printLine();
     }
     public static void main(String[] args) {
-        greeting();
+        printGreeting();
 
         Scanner scanner = new Scanner(System.in);
         Task[] itemList = new Task[100];
@@ -69,7 +69,7 @@ public class Duke {
                 markItem(itemList, indexPosition-1, false);
             }else {
                 if (input.equalsIgnoreCase("bye")) {
-                    exit();
+                    exitChatbot();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
                     listItems(itemList, itemCount);
