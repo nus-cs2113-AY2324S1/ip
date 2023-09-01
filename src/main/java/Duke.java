@@ -52,6 +52,9 @@ public class Duke {
                 itemCount++;
                     Task task = new Task(input);
                     itemList[itemCount] = task;
+                    echo("added: " + task.description);
+                    itemCount++;
+                }
             }
         }
     }
