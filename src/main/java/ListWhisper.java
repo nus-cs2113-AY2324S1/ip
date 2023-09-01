@@ -2,7 +2,7 @@ import java.lang.String;
 import java.lang.System;
 import java.util.Scanner;
 
-public class Duke {
+public class ListWhisper {
     public static void main(String[] args) {
         Manager manager = new Manager();
         Scanner s = new Scanner(System.in);
