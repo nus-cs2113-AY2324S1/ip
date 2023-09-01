@@ -12,6 +12,14 @@ public class Duke {
         System.out.println("    "+input);
         System.out.println("    ____________________________________________________________");
     }
+    public static void listItems(String[] itemList, int itemCount){
+        System.out.println("    ____________________________________________________________");
+        for (int i  = 0; i < itemCount; i++){
+            int indexNo = i+1;
+            System.out.println("    "+indexNo+". "+itemList[i]);
+        }
+        System.out.println("    ____________________________________________________________");
+    }
     public static void main(String[] args) {
         String logo = "______       _     _\n"
                 + "| ___ \\     | |   | |\n"
