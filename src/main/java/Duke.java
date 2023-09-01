@@ -31,6 +31,8 @@ public class Duke {
         printLine();
         printLine();
         printLine();
+    }
+    public static void main(String[] args) {
         greeting();
 
         Scanner scanner = new Scanner(System.in);
@@ -48,6 +50,8 @@ public class Duke {
                 itemList[itemCount] = input;
                 echo("added: "+input);
                 itemCount++;
+                    Task task = new Task(input);
+                    itemList[itemCount] = task;
             }
         }
     }
