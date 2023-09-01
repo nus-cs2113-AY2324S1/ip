@@ -28,6 +28,9 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
+        String[] itemList = new String[100];
+        int itemCount = 0;
+
         while (true){
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("bye")){
