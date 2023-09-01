@@ -54,9 +54,9 @@ public class Zran {
 
         while(!(input = in.nextLine()).equals("bye")){
             if(input.startsWith("mark ")) {
-                items[Integer.parseInt(input.substring(5)) - 1].isDone = true;
+                items[Integer.parseInt(input.substring(5)) - 1].markAsDone();
             } else if(input.startsWith("unmark ")) {
-                items[Integer.parseInt(input.substring(7)) - 1].isDone = false;
+                items[Integer.parseInt(input.substring(7)) - 1].unmarkTask();
             } else if(!input.equals("list")){
                 Task task = new Task(input);
                 items[index++] = task;
