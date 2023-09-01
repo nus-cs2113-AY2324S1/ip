@@ -13,8 +13,8 @@ public class List extends Command {
 
     @Override
     public void execute() {
-        String listString = list.toString();
-        Dawson.printText(listString, true);
+        String[] listString = list.getTaskStrings();
+        Dawson.printText(listString);
     }
     
 }

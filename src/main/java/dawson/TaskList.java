@@ -1,5 +1,8 @@
 package dawson;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class TaskList {
     private Task[] taskList;
     private int size;
@@ -30,18 +33,20 @@ public class TaskList {
         return taskList[index].toString();
     }
 
-    @Override
-    public String toString() {
+    public String[] getTaskStrings() {
         if (size == 0) {
-            return "\t Empty list!";
+            return new String[]{"Empty list!"};
         }
 
-        String result = "\t Here are the tasks in your list: " + System.lineSeparator();
+        List<String> result = new ArrayList<String>();
+        result.add("Here are the tasks in your list: ");
+        
         for (int i = 0; i < size; i++) {
-            String task = taskList[i].toString();
-            String line = String.format("\t %d. %s", i + 1, task);
-            result += line + System.lineSeparator();
+            String line = String.format("%d. %s", i + 1, taskList[i]);
+            result.add(line);
         }
-        return result;
+
+        String[] resultStrings = new String[result.size()];
+        return result.toArray(resultStrings);
     }
 }

@@ -12,26 +12,40 @@ public class Dawson {
      * 
      * @param text
      */
-    public static void printText(String text, boolean... tab) {
+    public static void printText(String text) {
         String line = "\t_______________________________________________________" + System.lineSeparator();
-        String tabString = tab.length > 0 ? " " : "\t ";
 
         System.out.println(line);
-        System.out.println(tabString + text);
+        System.out.println("\t " + text);
+        System.out.println(line);
+    }
+
+    public static void printText(String[] texts) {
+        String line = "\t_______________________________________________________" + System.lineSeparator();
+
+        System.out.println(line);
+        for (String text : texts) {
+            System.out.println("\t " + text);
+        }
         System.out.println(line);
     }
 
     public static void main(String[] args) {
 
-        String dawsonText = 
-            "\t ██████╗░░█████╗░░██╗░░░░░░░██╗░██████╗░█████╗░███╗░░██╗" + System.lineSeparator() +
-            "\t ██╔══██╗██╔══██╗░██║░░██╗░░██║██╔════╝██╔══██╗████╗░██║" + System.lineSeparator() +
-            "\t ██║░░██║███████║░╚██╗████╗██╔╝╚█████╗░██║░░██║██╔██╗██║" + System.lineSeparator() +
-            "\t ██║░░██║██╔══██║░░████╔═████║░░╚═══██╗██║░░██║██║╚████║" + System.lineSeparator() +
-            "\t ██████╔╝██║░░██║░░╚██╔╝░╚██╔╝░██████╔╝╚█████╔╝██║░╚███║" + System.lineSeparator() +
-            "\t ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═════╝░░╚════╝░╚═╝░░╚══╝" + System.lineSeparator();
-        String welcomeText =  System.lineSeparator() + "\t What can I do for you?";
-        printText("Hello! My name is: " + System.lineSeparator() + dawsonText + welcomeText);
+        String introText = "Hello! My name is: ";
+        String welcomeText = "What can I do for you?";
+        String[] dawsonText = {
+            introText,
+            "██████╗░░█████╗░░██╗░░░░░░░██╗░██████╗░█████╗░███╗░░██╗",
+            "██╔══██╗██╔══██╗░██║░░██╗░░██║██╔════╝██╔══██╗████╗░██║",
+            "██║░░██║███████║░╚██╗████╗██╔╝╚█████╗░██║░░██║██╔██╗██║",
+            "██║░░██║██╔══██║░░████╔═████║░░╚═══██╗██║░░██║██║╚████║",
+            "██████╔╝██║░░██║░░╚██╔╝░╚██╔╝░██████╔╝╚█████╔╝██║░╚███║",
+            "╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═════╝░░╚════╝░╚═╝░░╚══╝",
+            "",
+            welcomeText
+        };
+        printText(dawsonText);
 
         Command newCommand = new Echo("");
         Scanner scanner = new Scanner(System.in);
