@@ -39,14 +39,14 @@ public class MessageDisplay {
                     System.out.println("    ____________________________________________________________");
                     break;
                 case "mark":
-                    taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                    taskIndex = Integer.parseInt(userInput.split("mark")[1].strip());
                     TaskList.markTaskAsDone(taskIndex);
                     System.out.printf("    Roger that! I have marked the following task as done >w< !\n" +
                             "      '%s'\n", TaskList.viewTaskByIndex(taskIndex));
                     System.out.println("    ____________________________________________________________");
                     break;
                 case "unmark":
-                    taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                    taskIndex = Integer.parseInt(userInput.split("unmark")[1].strip());
                     TaskList.markTaskAsNotDone(taskIndex);
                     System.out.printf("    Roger that! I have unmarked the following task as done >w< !\n" +
                             "      '%s'\n", TaskList.viewTaskByIndex(taskIndex));
@@ -62,14 +62,14 @@ public class MessageDisplay {
                 case "deadline":
                     TaskList.addToTaskList(userInput, Task.TaskType.DEADLINE);
                     System.out.println("    I have added the following task OwO:");
-                    System.out.printf("      [T][] %s\n", TaskList.viewTaskByIndex(TaskList.getTaskListSize() - 1));
+                    System.out.printf("      [D][] %s\n", TaskList.viewTaskByIndex(TaskList.getTaskListSize() - 1));
                     System.out.println("    Now you have " + TaskList.getTaskListSize() + " tasks in the list! UWU");
                     System.out.println("    ____________________________________________________________");
                     break;
                 case "event":
                     TaskList.addToTaskList(userInput, Task.TaskType.EVENT);
                     System.out.println("    I have added the following task OwO:");
-                    System.out.printf("      [T][] %s\n", TaskList.viewTaskByIndex(TaskList.getTaskListSize() - 1));
+                    System.out.printf("      [E][] %s\n", TaskList.viewTaskByIndex(TaskList.getTaskListSize() - 1));
                     System.out.println("    Now you have " + TaskList.getTaskListSize() + " tasks in the list! UWU");
                     System.out.println("    ____________________________________________________________");
                     break;
