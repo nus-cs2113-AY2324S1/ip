@@ -1,26 +1,6 @@
 import java.util.Scanner;
 public class Duke {
-
-    public static void exit(){
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Bye. Hope to see you again soon!");
-        System.out.println("    ____________________________________________________________");
-    }
-
-    public static void echo(String input){
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    "+input);
-        System.out.println("    ____________________________________________________________");
-    }
-    public static void listItems(String[] itemList, int itemCount){
-        System.out.println("    ____________________________________________________________");
-        for (int i  = 0; i < itemCount; i++){
-            int indexNo = i+1;
-            System.out.println("    "+indexNo+". "+itemList[i]);
-        }
-        System.out.println("    ____________________________________________________________");
-    }
-    public static void main(String[] args) {
+    public static void greeting(){
         String logo = "______       _     _\n"
                 + "| ___ \\     | |   | |\n"
                 + "| |_/ / ___ | |__ | |__  _   _\n"
