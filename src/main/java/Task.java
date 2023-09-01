@@ -19,9 +19,15 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        incrementTotalTasks();
     }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
