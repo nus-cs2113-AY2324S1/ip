@@ -44,6 +44,8 @@ public class Duke {
             if (input.equalsIgnoreCase("bye")){
                 exit();
                 break;
+            } else if (input.equalsIgnoreCase("list")){
+                listItems(itemList, itemCount);
             } else {
                 itemList[itemCount] = input;
                 echo("added: "+input);
