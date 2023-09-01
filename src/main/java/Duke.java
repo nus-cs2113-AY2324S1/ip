@@ -72,7 +72,7 @@ public class Duke {
         selectedTask.setIsDone(markOrUnmark == MarkOrUnmark.MARK);
 
         printHorizontalLine();
-        if (markOrUnmark == MarkOrUnmark.UNMARK) {
+        if (markOrUnmark == MarkOrUnmark.MARK) {
             System.out.println("    Nice! I've marked this task as done:");
         } else {
             System.out.println("    OK, I've marked this task as not done yet:");
