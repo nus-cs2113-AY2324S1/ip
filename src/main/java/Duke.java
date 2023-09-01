@@ -1,4 +1,17 @@
+import java.util.Scanner;
 public class Duke {
+
+    public static void exit(){
+        System.out.println("____________________________________________________________");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void echo(String input){
+        System.out.println("____________________________________________________________");
+        System.out.println(input);
+        System.out.println("____________________________________________________________");
+    }
     public static void main(String[] args) {
         String logo = "______       _     _\n"
                 + "| ___ \\     | |   | |\n"
@@ -13,7 +26,16 @@ public class Duke {
         System.out.println("Hello! I'm Bobby");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+
+        Scanner scanner = new Scanner(System.in);
+        while (true){
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("bye")){
+                exit();
+                break;
+            } else {
+                echo(input);
+            }
+        }
     }
 }
