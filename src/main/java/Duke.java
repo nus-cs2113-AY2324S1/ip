@@ -1,50 +1,6 @@
 import java.util.Scanner;  // Import the Scanner class
 public class Duke {
 
-    //Create a task class
-    public static class Task {
-        private String taskName;
-        private boolean isDone;
-        public Task(String taskName){
-            this.taskName = taskName;
-            this.isDone = false;
-        }
-        //method to mark as done
-        public void markAsDone(){
-            this.isDone = true;
-        }
-        //method to mark as not done
-        public void markAsNotDone(){
-            this.isDone = false;
-        }
-        //toString method to print the status of the task followed by the task name
-        public String toString(){
-            if(this.isDone){
-                return "[X] " + this.taskName;
-            }else{
-                return "[ ] " + this.taskName;
-            }
-        }
-    }
-    //Function to check if an input has mark as the first word
-    public static boolean isMark(String input){
-        if(input.length()>=4){
-            if("mark".equalsIgnoreCase(input.substring(0,4))){
-                return true;
-            }
-        }
-        return false;
-    }
-    //Function to check if an input has unmark as the first word
-    public static boolean isUnmark(String input){
-        if(input.length()>=6){
-            if("unmark".equalsIgnoreCase(input.substring(0,6))){
-                return true;
-            }
-        }
-        return false;
-    }
-
     //Initialize create a list of tasks
     public static Task[] tasks = new Task[100];
     public static int taskCount = 0;
@@ -65,11 +21,11 @@ public class Duke {
         Scanner userScan = new Scanner(System.in);  // Create scanner object
         String userInput = userScan.nextLine();  // Get user input
 
-        //Echo the arguments provided unless it is "bye" which quits the program
-        while(!"bye".equalsIgnoreCase(userInput)){
+        //Check the arguments provided unless it is "bye" which quits the program
+        while( !(Check.isBye(userInput)) ){
 
             //If userInput is "list" print all tasks
-            if("list".equalsIgnoreCase(userInput)){
+            if(Check.isList(userInput)){
                 //Print out the list of tasks
                 System.out.println("Here are the tasks in your list:");
                 for(int i=0;i<taskCount;i++){
@@ -79,7 +35,7 @@ public class Duke {
             }
 
             //If userInput is "unmark" get the task number and unmark the task as done
-            else if(isUnmark(userInput)){
+            else if(Check.isUnmark(userInput)){
                 //get the task number
                 int taskNumber = Integer.parseInt(userInput.substring(7));
                 //mark the task as done
@@ -91,7 +47,7 @@ public class Duke {
             }
 
             //If userInput is "mark" get the task number and mark the task as done
-            else if(isMark(userInput)){
+            else if(Check.isMark(userInput)){
                 //get the task number
                 int taskNumber = Integer.parseInt(userInput.substring(5));
                 //mark the task as done
@@ -100,6 +56,55 @@ public class Duke {
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(tasks[taskNumber-1]);
                 userInput = userScan.nextLine();  // Get user input again              
+            }
+
+            //If userInput is "todo" add a todo task to the list
+            else if(Check.isTodo(userInput)){
+                //get the task name
+                String taskName = userInput.substring(5);
+                //create a todo task
+                tasks[taskCount] = new Todo(taskName);
+                //increment the task count
+                taskCount++;
+                //print out the task that was added
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount-1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                userInput = userScan.nextLine();  // Get user input again
+            }
+
+            //If userInput is "deadline" add a deadline task to the list
+            else if(Check.isDeadline(userInput)){
+                //get the task name
+                String taskName = userInput.substring(9,userInput.indexOf("/"));
+                //get the deadline string without any "/"
+                String deadline = userInput.substring(userInput.indexOf("/")).replace("/","");
+                //create a deadline task
+                tasks[taskCount] = new Deadline(taskName,deadline);
+                //increment the task count
+                taskCount++;
+                //print out the task that was added
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount-1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                userInput = userScan.nextLine();  // Get user input again
+            }
+
+            //If userInput is "event" add an event task to the list
+            else if(Check.isEvent(userInput)){
+                //get the task name
+                String taskName = userInput.substring(6,userInput.indexOf("/"));
+                //get the event time without any "/"
+                String eventTime = userInput.substring(userInput.indexOf("/")).replace("/","");
+                //create an event task
+                tasks[taskCount] = new Event(taskName,eventTime);
+                //increment the task count
+                taskCount++;
+                //print out the task that was added
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount-1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                userInput = userScan.nextLine();  // Get user input again
             }
 
             //If userInput is not any of the commands add the task to the list
