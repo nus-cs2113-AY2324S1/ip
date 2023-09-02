@@ -3,6 +3,8 @@ package dawson;
 import java.util.List;
 import java.util.ArrayList;
 
+import tasks.Task;
+
 public class TaskList {
     private Task[] taskList;
     private int size;

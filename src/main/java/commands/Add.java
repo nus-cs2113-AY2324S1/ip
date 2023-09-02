@@ -1,8 +1,8 @@
 package commands;
 
 import dawson.Dawson;
-import dawson.Task;
 import dawson.TaskList;
+import tasks.Task;
 
 public class Add extends Command {
 
