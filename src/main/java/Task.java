@@ -11,12 +11,12 @@ public class Task {
         return this.taskName;
     }
 
-    public boolean getIsDone() {
-        return this.isDone;
-    }
-
     public void setTaskName(String taskName) {
         this.taskName = taskName;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     public void setIsDone(boolean isDone) {
