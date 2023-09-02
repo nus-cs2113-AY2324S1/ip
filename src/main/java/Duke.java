@@ -9,15 +9,15 @@ public class Duke {
             this.taskName = taskName;
             this.isDone = false;
         }
-        //mark as done
+        //method to mark as done
         public void markAsDone(){
             this.isDone = true;
         }
-        //mark as not done
+        //method to mark as not done
         public void markAsNotDone(){
             this.isDone = false;
         }
-        //get the status of the task and the task name
+        //toString method to print the status of the task followed by the task name
         public String toString(){
             if(this.isDone){
                 return "[X] " + this.taskName;
@@ -26,7 +26,7 @@ public class Duke {
             }
         }
     }
-    //check if an input has mark as the first word
+    //Function to check if an input has mark as the first word
     public static boolean isMark(String input){
         if(input.length()>=4){
             if("mark".equalsIgnoreCase(input.substring(0,4))){
@@ -35,7 +35,7 @@ public class Duke {
         }
         return false;
     }
-    //check if an input has unmark as the first word
+    //Function to check if an input has unmark as the first word
     public static boolean isUnmark(String input){
         if(input.length()>=6){
             if("unmark".equalsIgnoreCase(input.substring(0,6))){
@@ -45,7 +45,7 @@ public class Duke {
         return false;
     }
 
-    //create a list of tasks
+    //Initialize create a list of tasks
     public static Task[] tasks = new Task[100];
     public static int taskCount = 0;
 
@@ -67,6 +67,8 @@ public class Duke {
 
         //Echo the arguments provided unless it is "bye" which quits the program
         while(!"bye".equalsIgnoreCase(userInput)){
+
+            //If userInput is "list" print all tasks
             if("list".equalsIgnoreCase(userInput)){
                 //Print out the list of tasks
                 System.out.println("Here are the tasks in your list:");
@@ -75,6 +77,8 @@ public class Duke {
                 }
                 userInput = userScan.nextLine();  // Get user input again
             }
+
+            //If userInput is "unmark" get the task number and unmark the task as done
             else if(isUnmark(userInput)){
                 //get the task number
                 int taskNumber = Integer.parseInt(userInput.substring(7));
@@ -85,6 +89,8 @@ public class Duke {
                 System.out.println(tasks[taskNumber-1]);
                 userInput = userScan.nextLine();  // Get user input again              
             }
+
+            //If userInput is "mark" get the task number and mark the task as done
             else if(isMark(userInput)){
                 //get the task number
                 int taskNumber = Integer.parseInt(userInput.substring(5));
@@ -95,17 +101,22 @@ public class Duke {
                 System.out.println(tasks[taskNumber-1]);
                 userInput = userScan.nextLine();  // Get user input again              
             }
+
+            //If userInput is not any of the commands add the task to the list
             else{
                 System.out.println("added: " + userInput); // Print user input
                 //add to task list
                 tasks[taskCount]=new Task(userInput);
                 taskCount++;
                 userInput = userScan.nextLine();  // Get user input again
+            
             }
         }
+
+        //Print out a goodbye message
         System.out.println("Bye. Hope to see you again soon!");
         
-        //close the scanner
+        //Close the scanner
         userScan.close();
 
     }
