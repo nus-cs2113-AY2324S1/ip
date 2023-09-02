@@ -9,6 +9,36 @@ public class Duke {
         return input.substring(dividerPosition + 1);
     }
 
+    public static void addTask(String input) {
+        tasks[tasksCount] = new Task(input);
+        tasksCount++;
+    }
+
+    public static void addTodo(String input) {
+        tasks[tasksCount] = new Todo(divideInput(input));
+        tasksCount++;
+    }
+
+    public static void addDeadline(String input) {
+        input = divideInput(input);
+        int byPosition = input.indexOf("/by");
+
+        tasks[tasksCount] = new Deadline(input.substring(0, byPosition - 1),
+                input.substring(byPosition + 4));
+        tasksCount++;
+    }
+
+    public static void addEvent(String input) {
+        input = divideInput(input);
+        int fromPosition = input.indexOf("/from");
+        int toPosition = input.indexOf("/to");
+
+        tasks[tasksCount] = new Event(input.substring(0, fromPosition - 1),
+                input.substring(fromPosition + 6, toPosition - 1),
+                input.substring(toPosition + 4));
+        tasksCount++;
+    }
+
     public static void setMarkAsDone(String input) {
         int index = Integer.parseInt(divideInput(input)) - 1;
         tasks[index].markAsDone();
@@ -25,6 +55,13 @@ public class Duke {
         System.out.println("\tOh no! It seems that you haven't finish this task:");
         System.out.print("\t\t");
         System.out.println(tasks[index]);
+    }
+
+    public static void printRecentTask(Task task) {
+        System.out.println("\tI have added the following task into the list:");
+        System.out.println("\t\t" + task);
+        System.out.println("\tI took a peak at the list and you have " + tasksCount
+                + (tasksCount == 1 ? " task" : " tasks") + " currently.");
     }
 
     public static void printTasks() {
@@ -60,10 +97,18 @@ public class Duke {
                 setMarkAsDone(input);
             } else if (input.startsWith("unmark")) {
                 setUnmarkAsDone(input);
+            } else if (input.startsWith("todo")) {
+                addTodo(input);
+                printRecentTask(tasks[tasksCount - 1]);
+            } else if (input.startsWith("deadline")) {
+                addDeadline(input);
+                printRecentTask(tasks[tasksCount - 1]);
+            } else if (input.startsWith("event")) {
+                addEvent(input);
+                printRecentTask(tasks[tasksCount - 1]);
             } else {
-                tasks[tasksCount] = new Task(input);
-                tasksCount++;
-                System.out.println("\tI have added \""  + input + "\" into the list.");
+                addTask(input);
+                printRecentTask(tasks[tasksCount - 1]);
             }
 
             System.out.println("\t" + HORIZONTAL_LINE);
