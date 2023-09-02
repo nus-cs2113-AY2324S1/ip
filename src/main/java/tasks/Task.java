@@ -1,6 +1,6 @@
 package tasks;
 
-public class Task {
+abstract public class Task {
 
     protected String description;
     protected boolean isDone;
@@ -34,5 +34,5 @@ public class Task {
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);
     }
-    
+
 }
