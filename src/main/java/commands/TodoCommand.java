@@ -2,14 +2,14 @@ package commands;
 
 import dawson.Dawson;
 import dawson.TaskList;
-import tasks.Task;
+import tasks.Todo;
 
-public class Add extends Command {
+public class TodoCommand extends Command {
 
     private String payload;
     private TaskList list;
 
-    public Add(String payload, TaskList list) {
+    public TodoCommand(String payload, TaskList list) {
         this.payload = payload;
         this.list = list;
     }
@@ -21,9 +21,8 @@ public class Add extends Command {
             return;
         }
 
-        Task newTask = new Task(payload);
+        Todo newTask = new Todo(payload);
         list.add(newTask);
-        Dawson.printText("Added: " + payload);
     }
 
 }
