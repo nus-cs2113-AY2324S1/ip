@@ -2,9 +2,13 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void setMarkAsDone(Task[] tasks, String input) {
+    public static String divideInput(String input) {
         int dividerPosition = input.indexOf(" ");
-        int index = Integer.parseInt(input.substring(dividerPosition + 1));
+        return input.substring(dividerPosition + 1);
+    }
+
+    public static void setMarkAsDone(Task[] tasks, String input) {
+        int index = Integer.parseInt(divideInput(input));
         tasks[index - 1].markAsDone();
 
         System.out.println("\tYay! You have completed this task:");
@@ -13,8 +17,7 @@ public class Duke {
     }
 
     public static void setUnmarkAsDone(Task[] tasks, String input) {
-        int dividerPosition = input.indexOf(" ");
-        int index = Integer.parseInt(input.substring(dividerPosition + 1));
+        int index = Integer.parseInt(divideInput(input));
         tasks[index - 1].unmarkAsDone();
 
         System.out.println("\tOh no! It seems that you haven't finish this task:");
