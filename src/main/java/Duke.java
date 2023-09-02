@@ -1,14 +1,16 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Duke {
 
-    public static void drawLine() {  // Draw horizontal lines
+    public static void drawLine() {
         for (int i = 0; i < 30; i++) {
             System.out.print("_");
         }
         System.out.println();
     }
 
-    public static void hiDude() {  // Print logo and hello message
+    public static void hiDude() {
         String logo = "###            #        \n"
                 + "#  #           #        \n"
                 + "#  #  #  #   ###   ##   \n"
@@ -17,40 +19,62 @@ public class Duke {
                 + "###    ###   ###   ##   \n";
         System.out.println("Hello from\n" + logo);
         drawLine();
-        System.out.println("Hello! I'm your best Dude:)");
+        System.out.println("Hello! I'm your best Dude :)");
         System.out.println("What can I do for you?");
         drawLine();
     }
 
-    public static void storeDude() {  // Add and list some tasks
+    public static void storeDude() {
         Scanner scan = new Scanner(System.in);
-        String input = null;
-        String[] list = new String[100];
-        int curPos = 0;  // Initialise current position
-        int index = 1;  // Set index for the list
+        String input = scan.nextLine();
+        ArrayList<Task> tasks = new ArrayList<>();
+        int curPos = 0;
 
-        while(true) {
-            input = scan.nextLine();
+        while (!(input.isEmpty())) {
             drawLine();
-            if(input.equals("bye")) {
+            if (input.equals("bye")) {
                 byeDude();
                 break;
-            } else if(input.equals("list")) {
-                for(int i = 0; i < curPos; i++) {
-                    System.out.println(index + ". " + list[index-1]);
-                    index++;
+            } else if (input.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < curPos; i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i).getStatusIcon() + " " + tasks.get(i).description);
                 }
-                drawLine();
+            } else if (input.startsWith("mark") || input.startsWith("unmark")) {
+                String[] arrOfInput = input.split(" ", 2);
+                if (arrOfInput.length < 2) {
+                    System.out.println("Please specify the task index.");
+                } else {
+                    try {
+                        int index = Integer.parseInt(arrOfInput[1]) - 1;
+                        if (index < 0 || index >= curPos) {
+                            System.out.println("Task index out of range.");
+                        } else {
+                            if (input.startsWith("mark")) {
+                                tasks.get(index).isDone = true;
+                                System.out.println("Nice! I've marked this task as done:");
+                            } else {
+                                tasks.get(index).isDone = false;
+                                System.out.println("OK, I've marked this task as not done yet:");
+                            }
+                            System.out.println("   " + tasks.get(index).getStatusIcon() + " " + tasks.get(index).description);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid task index format.");
+                    }
+                }
             } else {
-                list[curPos] = input;
-                curPos++;
                 System.out.println("added: " + input);
-                drawLine();
+                tasks.add(new Task(input));
+                curPos++;
             }
+            drawLine();
+            input = scan.nextLine();
         }
+        scan.close();
     }
 
-    public static void byeDude() {  // Print goodbye message
+    public static void byeDude() {
         System.out.println("Bye. Hope to see you again soon!");
         drawLine();
     }
