@@ -1,12 +1,12 @@
 public class Task {
     private String taskDesc;
-    private boolean done;
+    private boolean isDone;
 
     private static int numTask = 0;
 
     public Task(String taskDesc) {
         this.taskDesc = taskDesc;
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getTaskDesc() {
@@ -17,12 +17,12 @@ public class Task {
         this.taskDesc = taskDesc;
     }
 
-    public boolean isDone() {
-        return done;
+    public boolean getDone() {
+        return isDone;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public static int getNumTask() {
