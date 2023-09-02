@@ -31,7 +31,8 @@ public class Zen {
         int taskCount = 0;
         do {
             line = input.nextLine();
-            if (line.equals("bye")) { // exit
+            String[] inputWords = line.split(" ");
+            if (inputWords[0].equals("bye")) { // exit
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
                 System.out.println("    Farewell, my friend! Until our laughter intertwines again");
                 System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
