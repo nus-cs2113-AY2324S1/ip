@@ -1,9 +1,15 @@
 import java.util.Scanner;
 
 public class FredBot {
-    public static void addTasks(Task[] tasks, String task) {
+    public static void addTask(Task[] tasks, String task) {
         int numTask = Task.getNumTask();
         tasks[numTask] = new Task(task);
+        Task.setNumTask(numTask+1);
+    }
+
+    public static void addTodo(Task[] tasks, String task) {
+        int numTask = Task.getNumTask();
+        tasks[numTask] = new Todo(task);
         Task.setNumTask(numTask+1);
     }
 
@@ -58,8 +64,11 @@ public class FredBot {
             } else if (line.startsWith("unmark")) {
                 int index = Integer.parseInt(line.substring(7));
                 changeStatus(tasks, false, index);
+            } else if (line.startsWith("todo")){
+                addTodo(tasks, line.substring(5));
+                printMessage("    added: " + line.substring(5));
             } else {
-                addTasks(tasks, line);
+                addTask(tasks, line);
                 printMessage("    added: " + line);
             }
             line = in.nextLine();
