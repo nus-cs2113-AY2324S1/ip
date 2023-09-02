@@ -5,11 +5,11 @@ import dawson.Dawson;
 
 public class Mark extends Command {
 
-    private String indexString;
+    private String payload;
     private TaskList taskList;
 
-    public Mark(String indexString, TaskList taskList) {
-        this.indexString = indexString;
+    public Mark(String payload, TaskList taskList) {
+        this.payload = payload;
         this.taskList = taskList;
     }
 
@@ -18,7 +18,7 @@ public class Mark extends Command {
         // Convert index into integer, ensure it is valid integer
         int index;
         try {
-            index = Integer.parseInt(indexString);
+            index = Integer.parseInt(payload);
         } catch (NumberFormatException e) {
             Dawson.printText("Invalid index! Unable to parse into integer");
             return;
@@ -27,7 +27,7 @@ public class Mark extends Command {
         // Check if index exists in tasklist
         index--; // Convert to 0-base indexing
         if (!taskList.isIndexValid(index)) {
-            Dawson.printText(indexString + " index out of range of task list!");
+            Dawson.printText(payload + " index out of range of task list!");
             return;
         }
 
