@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 public class Zen {
-    public static void main(String[] args) {
+
+    public static void printInitializeTitle() {
         System.out.println(System.lineSeparator() + "        ,----,                   ,--.                 ,---._                             ,/   .`|                     ");
         System.out.println("      .'   .`|    ,---,.       ,--.'|               .-- -.' \\     ,---,.  .--.--.      ,`   .'  :   ,---,.,-.----.    ");
         System.out.println("   .'   .'   ;  ,'  .' |   ,--,:  : |               |    |   :  ,'  .' | /  /    '.  ;    ;     / ,'  .' |\\    /  \\   ");
@@ -17,6 +18,9 @@ public class Zen {
         System.out.println(";   |  .'     |   | ,'  ;   |.'               \\    \\      ,'  |   | ,'                          |   | ,'  |   |.'     ");
         System.out.println("`---'         `----'    '---'                  ---....--'    `----'                            `----'    `---'       ");
         System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
+    }
+    public static void main(String[] args) {
+        printInitializeTitle();
         System.out.println("    Greetings, dear traveler! I am ZEN JESTER");
         System.out.println("    How may I bring mirth to your day?");
         System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
