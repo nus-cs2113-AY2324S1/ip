@@ -8,28 +8,28 @@ public class Duke {
     }
 
     public static void setMarkAsDone(Task[] tasks, String input) {
-        int index = Integer.parseInt(divideInput(input));
-        tasks[index - 1].markAsDone();
+        int index = Integer.parseInt(divideInput(input)) - 1;
+        tasks[index].markAsDone();
 
         System.out.println("\tYay! You have completed this task:");
-        System.out.println("\t\t[" + tasks[index - 1].getStatusIcon() + "] "
-                + tasks[index - 1].getDescription());
+        System.out.print("\t\t");
+        System.out.println(tasks[index]);
     }
 
     public static void setUnmarkAsDone(Task[] tasks, String input) {
-        int index = Integer.parseInt(divideInput(input));
-        tasks[index - 1].unmarkAsDone();
+        int index = Integer.parseInt(divideInput(input)) - 1;
+        tasks[index].unmarkAsDone();
 
         System.out.println("\tOh no! It seems that you haven't finish this task:");
-        System.out.println("\t\t[" + tasks[index - 1].getStatusIcon() + "] "
-                + tasks[index - 1].getDescription());
+        System.out.print("\t\t");
+        System.out.println(tasks[index]);
     }
 
     public static void printTasks(Task[] tasks, int tasksCount) {
         System.out.println("\tHere are your tasks you have inputted:");
         for (int i = 1; i <= tasksCount; i++) {
-            System.out.println("\t" + i + ".[" + tasks[i - 1].getStatusIcon() + "] "
-                    + tasks[i - 1].getDescription());
+            System.out.print("\t" + i + ".");
+            System.out.println(tasks[i - 1]);
         }
     }
 
