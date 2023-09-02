@@ -4,12 +4,14 @@ public class FredBot {
     public static void addTask(Task[] tasks, String task) {
         int numTask = Task.getNumTask();
         tasks[numTask] = new Task(task);
+        printAddTask("      " + tasks[numTask].toString());
         Task.setNumTask(numTask+1);
     }
 
     public static void addTodo(Task[] tasks, String task) {
         int numTask = Task.getNumTask();
         tasks[numTask] = new Todo(task);
+        printAddTask("      " + tasks[numTask].toString());
         Task.setNumTask(numTask+1);
     }
 
@@ -34,6 +36,11 @@ public class FredBot {
             taskList.append("    ").append(number).append(tasks[i].toString()); // Can be formatted
         }
         printMessage(taskList.toString());
+    }
+
+    public static void printAddTask(String message) {
+        printMessage("    Got it. I've added this task:\n" + message + "    " +
+                "Now you have " + Task.getNumTask() + " tasks in the list\n");
     }
     public static void printMessage(String message) {
         System.out.print("    ____________________________________________________________\n");
@@ -66,10 +73,8 @@ public class FredBot {
                 changeStatus(tasks, false, index);
             } else if (line.startsWith("todo")){
                 addTodo(tasks, line.substring(5));
-                printMessage("    added: " + line.substring(5));
             } else {
                 addTask(tasks, line);
-                printMessage("    added: " + line);
             }
             line = in.nextLine();
         }
