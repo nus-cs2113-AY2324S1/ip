@@ -12,17 +12,24 @@ public class TaskManager {
         allTasksDescription[0] = "Here are the tasks in your list:";
 
         for (int i=0; i<totalTasks; i++){
-            allTasksDescription[i+1] = (i+1) + ".[" + tasks[i].getIsDone()
-                    + "] " + tasks[i].getDescription();
+            allTasksDescription[i+1] = (i+1) + "." + tasks[i];
         }
         Duke.formatPrint(allTasksDescription);
     }
 
     public void addTask(String description){
-        Task task = new Task(description);
-        tasks[totalTasks] = task;
-        totalTasks++;
-        Duke.formatPrint("added: "+description);
+        Todo task = new Todo(description);
+        incrementAndPrintNewTask(task);
+    }
+
+    public void addTask(String description, String by){
+        Deadline task = new Deadline(description, by);
+        incrementAndPrintNewTask(task);
+    }
+
+    public void addTask(String description, String from, String to){
+        Event task = new Event(description, from, to);
+        incrementAndPrintNewTask(task);
     }
 
     public void setTaskIsDone(int idx, boolean isDone){
@@ -33,7 +40,23 @@ public class TaskManager {
                 : "OK, I've marked this task as not done yet:";
         String[] messages = new String[]{
                 doneMsg,
-                "\t[" + tasks[idx].getIsDone() + "] " + tasks[idx].getDescription()
+                "\t" + tasks[idx]
+        };
+        Duke.formatPrint(messages);
+    }
+
+    public String getNumberOfTasks(){
+        String taskWord = totalTasks > 1 ? " tasks" : " task";
+        return "Now you have " + totalTasks + taskWord + " in the list.";
+    }
+
+    public void incrementAndPrintNewTask(Task t){
+        tasks[totalTasks] = t;
+        totalTasks++;
+        String[] messages = new String[]{
+                "Got it. I've added this task:",
+                "\t" + t,
+                getNumberOfTasks()
         };
         Duke.formatPrint(messages);
     }

@@ -1,6 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String type;
 
     public Task(String description){
         this.description = description;
@@ -16,5 +17,13 @@ public class Task {
 
     public String getIsDone(){
         return (isDone ? "X" : " ");
+    }
+
+    public String getType(){
+        return type;
+    }
+
+    public String toString(){
+        return "[" + getType() + "][" + getIsDone() + "] " + getDescription();
     }
 }
