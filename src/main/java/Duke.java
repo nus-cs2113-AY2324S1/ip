@@ -17,23 +17,34 @@ public class Duke {
                 + "###    ###   ###   ##   \n";
         System.out.println("Hello from\n" + logo);
         drawLine();
-        System.out.println("Hello! I'm your best Dude.");
+        System.out.println("Hello! I'm your best Dude:)");
         System.out.println("What can I do for you?");
         drawLine();
     }
 
-    public static void echoDude() {  // Echo the input
+    public static void storeDude() {  // Add and list some tasks
         Scanner scan = new Scanner(System.in);
-        String echo = null;
+        String input = null;
+        String[] list = new String[100];
+        int curPos = 0;  // Initialise current position
+        int index = 1;  // Set index for the list
 
         while(true) {
-            echo = scan.nextLine();
+            input = scan.nextLine();
             drawLine();
-            if(echo.equals("bye")) {
+            if(input.equals("bye")) {
                 byeDude();
                 break;
+            } else if(input.equals("list")) {
+                for(int i = 0; i < curPos; i++) {
+                    System.out.println(index + ". " + list[index-1]);
+                    index++;
+                }
+                drawLine();
             } else {
-                System.out.println(echo);
+                list[curPos] = input;
+                curPos++;
+                System.out.println("added: " + input);
                 drawLine();
             }
         }
@@ -46,6 +57,6 @@ public class Duke {
 
     public static void main(String[] args) {
         hiDude();
-        echoDude();
+        storeDude();
     }
 }
