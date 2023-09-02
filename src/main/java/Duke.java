@@ -6,6 +6,8 @@ public class Duke {
     public static int taskCount = 0;
 
     public static void main(String[] args) {
+
+        //Print out the logo
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -31,7 +33,8 @@ public class Duke {
                 for(int i=0;i<taskCount;i++){
                     System.out.println((i+1) + ". " + tasks[i]);
                 }
-                userInput = userScan.nextLine();  // Get user input again
+                //Get user input again
+                userInput = userScan.nextLine();  
             }
 
             //If userInput is "unmark" get the task number and unmark the task as done
@@ -43,7 +46,8 @@ public class Duke {
                 //print out the task that was marked as done
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks[taskNumber-1]);
-                userInput = userScan.nextLine();  // Get user input again              
+                //Get user input again
+                userInput = userScan.nextLine();          
             }
 
             //If userInput is "mark" get the task number and mark the task as done
@@ -55,7 +59,8 @@ public class Duke {
                 //print out the task that was marked as done
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(tasks[taskNumber-1]);
-                userInput = userScan.nextLine();  // Get user input again              
+                //Get user input again
+                userInput = userScan.nextLine();              
             }
 
             //If userInput is "todo" add a todo task to the list
@@ -70,7 +75,8 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(tasks[taskCount-1]);
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
-                userInput = userScan.nextLine();  // Get user input again
+                //Get user input again
+                userInput = userScan.nextLine();  
             }
 
             //If userInput is "deadline" add a deadline task to the list
@@ -87,7 +93,8 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(tasks[taskCount-1]);
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
-                userInput = userScan.nextLine();  // Get user input again
+                //Get user input again
+                userInput = userScan.nextLine();  
             }
 
             //If userInput is "event" add an event task to the list
@@ -104,7 +111,8 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(tasks[taskCount-1]);
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
-                userInput = userScan.nextLine();  // Get user input again
+                //Get user input again
+                userInput = userScan.nextLine();  
             }
 
             //If userInput is not any of the commands add the task to the list
@@ -113,9 +121,10 @@ public class Duke {
                 //add to task list
                 tasks[taskCount]=new Task(userInput);
                 taskCount++;
-                userInput = userScan.nextLine();  // Get user input again
-            
+                //Get user input again
+                userInput = userScan.nextLine();  
             }
+
         }
 
         //Print out a goodbye message
