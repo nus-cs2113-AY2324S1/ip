@@ -35,15 +35,15 @@ public class Dawson {
         String introText = "Hello! My name is: ";
         String welcomeText = "What can I do for you?";
         String[] dawsonText = {
-            introText,
-            "██████╗░░█████╗░░██╗░░░░░░░██╗░██████╗░█████╗░███╗░░██╗",
-            "██╔══██╗██╔══██╗░██║░░██╗░░██║██╔════╝██╔══██╗████╗░██║",
-            "██║░░██║███████║░╚██╗████╗██╔╝╚█████╗░██║░░██║██╔██╗██║",
-            "██║░░██║██╔══██║░░████╔═████║░░╚═══██╗██║░░██║██║╚████║",
-            "██████╔╝██║░░██║░░╚██╔╝░╚██╔╝░██████╔╝╚█████╔╝██║░╚███║",
-            "╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═════╝░░╚════╝░╚═╝░░╚══╝",
-            "",
-            welcomeText
+                introText,
+                "██████╗░░█████╗░░██╗░░░░░░░██╗░██████╗░█████╗░███╗░░██╗",
+                "██╔══██╗██╔══██╗░██║░░██╗░░██║██╔════╝██╔══██╗████╗░██║",
+                "██║░░██║███████║░╚██╗████╗██╔╝╚█████╗░██║░░██║██╔██╗██║",
+                "██║░░██║██╔══██║░░████╔═████║░░╚═══██╗██║░░██║██║╚████║",
+                "██████╔╝██║░░██║░░╚██╔╝░╚██╔╝░██████╔╝╚█████╔╝██║░╚███║",
+                "╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═════╝░░╚════╝░╚═╝░░╚══╝",
+                "",
+                welcomeText
         };
         printText(dawsonText);
 
@@ -52,8 +52,10 @@ public class Dawson {
 
         TaskList taskList = new TaskList();
         while (!(newCommand instanceof Exit)) {
-            String nextLineString = scanner.nextLine().toLowerCase().trim();
-            if (nextLineString.equals("")) continue; // Ignore empty string
+            String nextLineString = scanner.nextLine().trim();
+            if (nextLineString.equals("")) {
+                continue; // Ignore empty string
+            }
 
             newCommand = Command.getCommand(nextLineString, taskList);
             newCommand.execute();
