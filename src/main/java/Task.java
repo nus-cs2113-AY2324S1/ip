@@ -41,6 +41,6 @@ public class Task {
         } else {
             status = "[ ]";
         }
-        return status + this.taskDesc + "\n";
+        return status + this.taskDesc;
     }
 }
