@@ -24,13 +24,7 @@ public class FredBot {
         taskList.append("    Here are the tasks in your list\n");
         int numTask = Task.getNumTask();
         for (int i = 0; i < numTask; i++) {
-            taskList.append("    ").append(i + 1).append(".[");
-            if (tasks[i].getDone()) {
-                taskList.append("X");
-            } else {
-                taskList.append(" ");
-            }
-            taskList.append("] ").append(tasks[i].getTaskDesc()).append("\n");
+            taskList.append("    ").append(tasks[i].toString());
         }
         printMessage(taskList.toString());
     }

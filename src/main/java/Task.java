@@ -32,4 +32,15 @@ public class Task {
     public static void setNumTask(int numTask) {
         Task.numTask = numTask;
     }
+
+    @Override
+    public String toString() {
+        String status = null;
+        if (this.isDone){
+            status = "[X]";
+        } else {
+            status = "[ ]";
+        }
+        return status + this.taskDesc + "\n";
+    }
 }
