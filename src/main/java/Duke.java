@@ -1,13 +1,15 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static Task[] tasks = new Task[100];
+    private static int tasksCount = 0;
 
     public static String divideInput(String input) {
         int dividerPosition = input.indexOf(" ");
         return input.substring(dividerPosition + 1);
     }
 
-    public static void setMarkAsDone(Task[] tasks, String input) {
+    public static void setMarkAsDone(String input) {
         int index = Integer.parseInt(divideInput(input)) - 1;
         tasks[index].markAsDone();
 
@@ -16,7 +18,7 @@ public class Duke {
         System.out.println(tasks[index]);
     }
 
-    public static void setUnmarkAsDone(Task[] tasks, String input) {
+    public static void setUnmarkAsDone(String input) {
         int index = Integer.parseInt(divideInput(input)) - 1;
         tasks[index].unmarkAsDone();
 
@@ -25,7 +27,7 @@ public class Duke {
         System.out.println(tasks[index]);
     }
 
-    public static void printTasks(Task[] tasks, int tasksCount) {
+    public static void printTasks() {
         System.out.println("\tHere are your tasks you have inputted:");
         for (int i = 1; i <= tasksCount; i++) {
             System.out.print("\t" + i + ".");
@@ -40,9 +42,6 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String input = "";
 
-        Task[] tasks = new Task[100];
-        int tasksCount = 0;
-
         System.out.println("\t" + HORIZONTAL_LINE);
         System.out.println("\tOh hello! I'm " + NAME + ".");
         System.out.println("\tHow can I help you today?");
@@ -56,11 +55,11 @@ public class Duke {
             if (input.equals("bye")) {
                 System.out.println("\tGoodbye! I am going to sleep now.");
             } else if (input.equals("list")) {
-                printTasks(tasks, tasksCount);
+                printTasks();
             } else if (input.startsWith("mark")) {
-                setMarkAsDone(tasks, input);
+                setMarkAsDone(input);
             } else if (input.startsWith("unmark")) {
-                setUnmarkAsDone(tasks, input);
+                setUnmarkAsDone(input);
             } else {
                 tasks[tasksCount] = new Task(input);
                 tasksCount++;
