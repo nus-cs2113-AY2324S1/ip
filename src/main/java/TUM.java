@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TUM {
-    public static void greetings() {
+    public static void greetToUsers() {
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm TUM");
         System.out.println(" What can I do for you?");
@@ -11,7 +11,7 @@ public class TUM {
     }
     public static void main(String[] args) {
         List<Task> taskList = new LinkedList<>();
-        greetings();
+        greetToUsers();
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
