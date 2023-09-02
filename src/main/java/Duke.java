@@ -1,63 +1,117 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Duke {
-    public static void printTasks(List tasks){
+
+    private static Task[] tasks = new Task[100];
+
+    private static int taskCount = 0;
+    public static void printTasks(){
 
         System.out.println("____________________________________________________________");
 
-        for(int i =0; i< tasks.size(); i++) {
+        for(int i =0; i< taskCount; i++) {
 
-            Task item = (Task) tasks.get(i);
-
-            System.out.println(i+1+".[" + item.getStatusIcon() + "] "  + item.getDescription());
+            Task item = tasks[i];
+            System.out.println(i+1 + ". " + item.toString());
         }
 
         System.out.println("____________________________________________________________\n");
     }
 
-    public static void readInput(List tasks) {
+    public static void addTask(Task t){
+
+        tasks[taskCount] = t;
+        taskCount++;
+
+        System.out.println("____________________________________________________________\n");
+        System.out.println("Got it. I've added this task: ");
+        System.out.println("  " + t.toString());
+        System.out.println("Now you have " + taskCount + " task(s) in the list.");
+        System.out.println("____________________________________________________________\n");
+
+    }
+
+    public static void readInput() {
 
 
         String input = "";
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
 
-        while(!(input.equals("bye"))) {
+        String[] splitInput = input.split(" ");
 
-            if (input.equals("list")) {
-                printTasks(tasks);
-            } else if (input.contains("unmark") || input.contains("mark")) {
-                String[] splitInput = input.split(" ");
-                int index = Integer.parseInt(splitInput[1]) - 1;
-                Task item = (Task) tasks.get(index);
+        String command = splitInput[0];
+        String arguments = input.substring(command.length());
 
-                System.out.println("____________________________________________________________");
 
-                if (input.contains("unmark")) {
-                    System.out.print("OK, I've marked this task as not done yet:\n");
-                    item.setDone(false);
-                } else {
-                    System.out.print("Nice! I've marked this task as done:\n");
-                    item.setDone(true);
-                }
 
-                System.out.println("[" + item.getStatusIcon() + "] "  + item.getDescription());
+        int index;
+
+
+        while(!(command.equals("bye"))){
+
+            switch(command){
+
+            case "list":
+                printTasks();
+                break;
+
+            case "todo":
+                Task newTask = new Todo(arguments);
+                addTask(newTask);
+                break;
+
+            case "deadline":
+
+
+                int byIndex = arguments.indexOf("/by");
+
+                String by = arguments.substring(byIndex+3);
+                String description = arguments.substring(0,byIndex);
+
+                newTask = new Deadline(description, by.trim());
+                addTask(newTask);
+                break;
+            case "event":
+
+
+                int fromIndex = arguments.indexOf("/from");
+                int toIndex = arguments.indexOf("/to");
+
+                String from = arguments.substring(fromIndex+5, toIndex);
+                String to = arguments.substring(toIndex+3);
+                String eventName = arguments.substring(0,fromIndex);
+
+                newTask = new Event(eventName,from.trim(),to.trim());
+                addTask(newTask);
+                break;
+
+            case "mark":
+                index = Integer.parseInt(splitInput[1]) - 1;
+                Task item = tasks[index];
                 System.out.println("____________________________________________________________\n");
-
-            } else {
-
-                Task newTask = new Task(input, false);
-                tasks.add(newTask);
-                System.out.println("____________________________________________________________");
-                System.out.println("added: " + input);
+                System.out.print("Nice! I've marked this task as done:\n");
+                item.setDone(true);
+                System.out.println(item.toString());
                 System.out.println("____________________________________________________________\n");
-
+                break;
+            case "unmark":
+                index = Integer.parseInt(splitInput[1]) - 1;
+                item = tasks[index];
+                System.out.println("____________________________________________________________\n");
+                System.out.print("OK, I've marked this task as not done yet:\n");
+                item.setDone(false);
+                System.out.println(item.toString());
+                System.out.println("____________________________________________________________\n");
+                break;
             }
 
             input = in.nextLine();
+            splitInput = input.split(" ");
+            command = splitInput[0];
+            arguments = input.substring(command.length());
         }
+
 
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
@@ -71,14 +125,13 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        List<Task> tasks = new ArrayList<>();
 
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Magpie");
         System.out.println("What can I do for you?\n");
         System.out.println("____________________________________________________________\n");
 
-        readInput(tasks);
+        readInput();
 
     }
 

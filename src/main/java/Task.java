@@ -3,9 +3,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description, boolean isDone) {
+    public Task(String description) {
         this.description = description;
-        this.isDone = isDone;
+        this.isDone = false;
     }
 
     public String getDescription() {
@@ -29,4 +29,12 @@ public class Task {
     public void setDone(boolean done) {
         isDone = done;
     }
+
+    @Override
+    public String toString(){
+        return "[" + getStatusIcon() + "] " + description;
+    }
+
+
+
 }
