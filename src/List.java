@@ -33,6 +33,5 @@ public class List {
             }
         }
         Elvis.shutDown();
-        return;
     }
 }

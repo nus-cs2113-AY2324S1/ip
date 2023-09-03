@@ -2,8 +2,9 @@ import java.util.Scanner;
 
 //Task Class that stores the descriptions of task and whether it has been done
 public class Task {
-    private static int listCount = 0;
-    private static final Task[] list = new Task[100]; //Keeps track of all Task Instances made
+    public static Scanner in = new Scanner(System.in);  //Scanner for Input
+    private static int listCount = 0;                   //Counter for the list filled up
+    private static final Task[] list = new Task[100];   //Keeps track of all Task Instances made
     protected String description;
     protected boolean isDone;
 
@@ -21,23 +22,24 @@ public class Task {
         } else {                //Print out everything in the list
             Elvis.printHorizontalLines();
             System.out.println("Here are the tasks in your list: ");
+
             for (int i = 0; i < listCount; i++) {
-                System.out.println(i + 1 + "." + "[" + list[i].getTaskType() + "]" +
-                        "[" + list[i].getStatus() + "] " + list[i].getDescription());
+                System.out.print(i + 1 + "." + "[" + list[i].getTaskType() + "]");
+                System.out.print("[" + list[i].getStatus() + "] " + list[i].getDescription());
+
+                // Check if the task is of type 'D' (Deadlines) and cast it to Deadlines if so
+                if (list[i] instanceof Deadlines) {
+                    Deadlines deadlineTask = (Deadlines) list[i];
+                    System.out.println(" (by: " + deadlineTask.getDate() + ")");
+                } else if (list[i] instanceof Events) {
+                    Events eventTask = (Events) list[i];
+                    System.out.println(" (from: " + eventTask.getStartTime() + " to: " + eventTask.getEndTime() + ")");
+                } else {
+                    System.out.println("");
+                }
             }
             Elvis.printHorizontalLines();
         }
-    }
-
-    public static void insertToDo(String inputBuffer) {
-        Elvis.printHorizontalLines();
-        list[listCount] = new ToDo(inputBuffer.trim().replace("todo ", ""));
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[" + 'T' + "]" +
-                "[" + list[listCount].getStatus() + "] " + list[listCount].getDescription());
-        System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
-        Elvis.printHorizontalLines();
-        listCount++;
     }
 
     public static void markTask(int numberInput) {
@@ -68,13 +70,24 @@ public class Task {
         Elvis.printHorizontalLines();
     }
 
+    public static void insertToDo(String inputBuffer) {
+        Elvis.printHorizontalLines();
+        list[listCount] = new ToDo(inputBuffer.trim().replace("todo ", ""));
+        System.out.println("Got it. I've added this task:");
+        System.out.println("[" + 'T' + "]" +
+                "[" + list[listCount].getStatus() + "] " + list[listCount].getDescription());
+        System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
+        Elvis.printHorizontalLines();
+        listCount++;
+    }
+
     public static void insertDeadline(String inputBuffer) {
         Elvis.printHorizontalLines();
         String date = inputBuffer.substring(inputBuffer.indexOf("/by") + 3).trim();
         String deadlineWithDate = inputBuffer.replace("deadline ", "").trim();
         String deadline = deadlineWithDate.substring(0, deadlineWithDate.indexOf("/by")).trim();
 
-        list[listCount] = new Deadlines(deadline);
+        list[listCount] = new Deadlines(deadline, date);
         System.out.println("Got it. I've added this task:");
         System.out.println("[" + 'D' + "]" +
                 "[" + list[listCount].getStatus() + "] " + list[listCount].getDescription() +
@@ -91,7 +104,7 @@ public class Task {
         String eventWithTime = inputBuffer.replace("event ", "").trim();
         String event = eventWithTime.substring(0, eventWithTime.indexOf("/from")).trim();
 
-        list[listCount] = new Events(event);
+        list[listCount] = new Events(event, startTime, endTime);
         System.out.println("Got it. I've added this task:");
         System.out.println("[" + 'D' + "]" +
                 "[" + list[listCount].getStatus() + "] " + list[listCount].getDescription() +
@@ -103,17 +116,15 @@ public class Task {
 
     public static void manageTask() {
         Elvis.bootUp();
-        Scanner in = new Scanner(System.in);    //Scanner for I/O
-        while (true) {
-            //System.out.println("listCount: " + Integer.toString(listCount));
-            if (!in.hasNext()) { //Checks for the case when there is no input
-                System.out.println("Invalid input!");
-                continue;
-            }
 
+        while (true) {
             //Preparation stage
             String inputBuffer = in.nextLine(); //Scans I/O and all input stored in inputBuffer
             Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
+            if (!bufferScanner.hasNext()) { //Checks for the case when there is no input
+                System.out.println("Invalid input!");
+                continue;
+            }
             String firstWord = bufferScanner.next().trim();     //Stores first word in the input
             boolean hasInteger = bufferScanner.hasNextInt();    //Indicates that some integer was input
             int numberInput = -1;    //Stores the number input
@@ -162,18 +173,15 @@ public class Task {
     public char getTaskType() {
         return '?';
     }
+
+    public String getDate() {
+        return "?";
+    }
+    public String getStartTime() {
+        return "?";
+    }
+
+    public String getEndTime() {
+        return "?";
+    }
 }
-
-
-
-/************************************************ GRAVEYARD ************************************************
- *         Scanner in = new Scanner(System.in);    //Scanner for I/O
- *         while (true) {
- *             String inputBuffer = in.nextLine(); //Scans for the input and all inputs first stored in inputBuffer
- *
- *             Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
- *             if (!bufferScanner.hasNext()) { //Checks for the case when there is no input
- *                 System.out.println("Please input a valid input");
- *                 continue;
- *             }
- */

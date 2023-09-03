@@ -25,6 +25,5 @@ public class Echo {
             Elvis.printHorizontalLines();
         }
         Elvis.shutDown();
-        return;
     }
 }
