@@ -27,8 +27,13 @@ public class Soccat {
         System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
     }
 
-    public static void listTask() {
-        for(int i=0; i<Task.getTaskCount(); i++) {
+    public static void listTasks() {
+        int taskCount = Task.getTaskCount();
+        if (taskCount == 0) {
+            System.out.println("Great, You have no tasks for now!");
+            return;
+        }
+        for(int i=0; i<taskCount; i++) {
             System.out.print(i+1);
             System.out.println(". " + tasks[i]);
         }
@@ -50,7 +55,7 @@ public class Soccat {
 
     public static void processCommand(String line) {
         Scanner textIn = new Scanner(System.in);
-        String command = "";
+        String command = null;
         while (true) {
             command = textIn.nextLine();
             if (command.equals("bye")) {
@@ -59,7 +64,7 @@ public class Soccat {
             String[] tokens = command.split(" ");
             System.out.println(line);
             switch (tokens[0]) {
-            case "list": listTask();
+            case "list": listTasks();
                 break;
             case "todo":
             case "deadline":
@@ -70,6 +75,7 @@ public class Soccat {
             case "unmark": toggleDone(tokens[1], false);
                 break;
             default:
+                System.out.println("Sorry, I could not recognize your command.");
                 break;
             }
             System.out.println(line);
