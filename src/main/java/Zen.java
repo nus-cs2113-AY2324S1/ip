@@ -2,6 +2,14 @@ import java.util.Scanner;
 
 public class Zen {
 
+    public static void printSeperatorLine() {
+        System.out.println(System.lineSeparator() + "\t-------------------------------------------------------------");
+    }
+
+    public static void printEnclosedText() {
+        // To be implemented, after I figure out how to use higher order function in java
+    }
+
     public static void printInitializeTitle() {
         System.out.println(System.lineSeparator() + "        ,----,                   ,--.                 ,---._                             ,/   .`|                     ");
         System.out.println("      .'   .`|    ,---,.       ,--.'|               .-- -.' \\     ,---,.  .--.--.      ,`   .'  :   ,---,.,-.----.    ");
@@ -17,13 +25,13 @@ public class Zen {
         System.out.println("|   :     .'  |   :   .''   : |              \\    \\         ; |   :   .'  `--'---'     '---'    |   :   .':   : :-'   ");
         System.out.println(";   |  .'     |   | ,'  ;   |.'               \\    \\      ,'  |   | ,'                          |   | ,'  |   |.'     ");
         System.out.println("`---'         `----'    '---'                  ---....--'    `----'                            `----'    `---'       ");
-        System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
+        printSeperatorLine();
     }
     public static void main(String[] args) {
         printInitializeTitle();
-        System.out.println("    Greetings, dear traveler! I am ZEN JESTER");
-        System.out.println("    How may I bring mirth to your day?");
-        System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
+        System.out.println("\tGreetings, dear traveler! I am ZEN JESTER");
+        System.out.println("\tHow may I bring mirth to your day?");
+        printSeperatorLine();
 
         Scanner input = new Scanner(System.in);
         String line = "";
@@ -33,44 +41,40 @@ public class Zen {
             line = input.nextLine();
             String[] inputWords = line.split(" ");
             if (inputWords[0].equals("bye")) { // exit
-                System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
-                System.out.println("    Farewell, my friend! Until our laughter intertwines again");
-                System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
+                printSeperatorLine();
+                System.out.println("\tFarewell, my friend! Until our laughter intertwines again");
+                printSeperatorLine();
                 break;
-            } else if (line.equals("list")) { // list tasks
-                System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
-                System.out.println("    Here are the tasks in your list:");
+            } else if (inputWords[0].equals("list")) { // list tasks
+                printSeperatorLine();
+                System.out.println("\tHere are the tasks in your list:");
                 for (int i = 0; i < tasks.length; i++) {
                     if (tasks[i] != null) {
                         if (tasks[i].getIsDone() == true) {
-                            System.out.println("    " + (i + 1) + ". [X] " + tasks[i].getTaskName());
+                            System.out.println("\t" + (i + 1) + ". [X] " + tasks[i].getTaskName());
                         } else {
-                            System.out.println("    " + (i + 1) + ". [ ] " + tasks[i].getTaskName());
+                            System.out.println("\t" + (i + 1) + ". [ ] " + tasks[i].getTaskName());
                         }
                     }
                 }
-                System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
+                printSeperatorLine();
                 continue;
-            } else if (line.contains("unmark")) { // mark task as done
+            } else if (inputWords[0].equals("unmark")) { // mark task as done
                 int taskNumber = Integer.parseInt(line.substring(7));
-                tasks[taskNumber - 1].setIsDone(false);
-                System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
-                System.out.println("    Nice! I've marked this task as undone:");
-                System.out.println("      [ ] " + tasks[taskNumber - 1].getTaskName());
-                System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
+                printSeperatorLine();
+                tasks[taskNumber - 1].markAsUndone();
+                printSeperatorLine();
                 continue;
-            } else if (line.contains("mark")) { // mark task as done
+            } else if (inputWords[0].equals("mark")) { // mark task as done
                 int taskNumber = Integer.parseInt(line.substring(5));
-                tasks[taskNumber - 1].setIsDone(true);
-                System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
-                System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("      [X] " + tasks[taskNumber - 1].getTaskName());
-                System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
+                printSeperatorLine();
+                tasks[taskNumber - 1].markAsDone();
+                printSeperatorLine();
                 continue;
             } else { // add task
-                System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
-                System.out.println("    added: " + line);
-                System.out.println(System.lineSeparator() + "   -------------------------------------------------------------");
+                printSeperatorLine();
+                System.out.println("\tadded: " + line);
+                printSeperatorLine();
                 tasks[taskCount] = new Task(line);
                 taskCount++;
             }
