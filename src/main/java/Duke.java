@@ -44,8 +44,11 @@ public class Duke {
     public static void processCommand(String line) {
         Scanner textIn = new Scanner(System.in);
         String command = "";
-        while (!command.equals("bye")) {
+        while (true) {
             command = textIn.nextLine();
+            if (command.equals("bye")) {
+                break;
+            }
             String[] tokens = command.split(" ");
             System.out.println(line);
             switch (tokens[0]) {
