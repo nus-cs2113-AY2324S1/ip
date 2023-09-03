@@ -4,7 +4,7 @@ public class Duke {
     private static Task[] tasks = new Task[100];
     private static int tasksCount = 0;
 
-    public static String divideInput(String input) {
+    public static String splitInput(String input) {
         int dividerPosition = input.indexOf(" ");
         return input.substring(dividerPosition + 1);
     }
@@ -15,46 +15,49 @@ public class Duke {
     }
 
     public static void addTodo(String input) {
-        tasks[tasksCount] = new Todo(divideInput(input));
+        tasks[tasksCount] = new Todo(splitInput(input));
         tasksCount++;
     }
 
     public static void addDeadline(String input) {
-        input = divideInput(input);
-        int byPosition = input.indexOf("/by");
+        final String BY_KEYWORD = " /by ";
 
-        tasks[tasksCount] = new Deadline(input.substring(0, byPosition - 1),
-                input.substring(byPosition + 4));
+        input = splitInput(input);
+        int byPosition = input.indexOf(BY_KEYWORD);
+
+        tasks[tasksCount] = new Deadline(input.substring(0, byPosition),
+                input.substring(byPosition + BY_KEYWORD.length()));
         tasksCount++;
     }
 
     public static void addEvent(String input) {
-        input = divideInput(input);
-        int fromPosition = input.indexOf("/from");
-        int toPosition = input.indexOf("/to");
+        final String FROM_KEYWORD = " /from ";
+        final String TO_KEYWORD = " /to ";
 
-        tasks[tasksCount] = new Event(input.substring(0, fromPosition - 1),
-                input.substring(fromPosition + 6, toPosition - 1),
-                input.substring(toPosition + 4));
+        input = splitInput(input);
+        int fromPosition = input.indexOf(FROM_KEYWORD);
+        int toPosition = input.indexOf(TO_KEYWORD);
+
+        tasks[tasksCount] = new Event(input.substring(0, fromPosition),
+                input.substring(fromPosition + FROM_KEYWORD.length(), toPosition),
+                input.substring(toPosition + TO_KEYWORD.length()));
         tasksCount++;
     }
 
     public static void setMarkAsDone(String input) {
-        int index = Integer.parseInt(divideInput(input)) - 1;
+        int index = Integer.parseInt(splitInput(input)) - 1;
         tasks[index].markAsDone();
 
         System.out.println("\tYay! You have completed this task:");
-        System.out.print("\t\t");
-        System.out.println(tasks[index]);
+        System.out.println("\t\t" + tasks[index]);
     }
 
     public static void setUnmarkAsDone(String input) {
-        int index = Integer.parseInt(divideInput(input)) - 1;
+        int index = Integer.parseInt(splitInput(input)) - 1;
         tasks[index].unmarkAsDone();
 
         System.out.println("\tOh no! It seems that you haven't finish this task:");
-        System.out.print("\t\t");
-        System.out.println(tasks[index]);
+        System.out.println("\t\t" + tasks[index]);
     }
 
     public static void printRecentTask(Task task) {
@@ -67,8 +70,7 @@ public class Duke {
     public static void printTasks() {
         System.out.println("\tHere are your tasks you have inputted:");
         for (int i = 1; i <= tasksCount; i++) {
-            System.out.print("\t" + i + ".");
-            System.out.println(tasks[i - 1]);
+            System.out.println("\t" + i + "." + tasks[i - 1]);
         }
     }
 
