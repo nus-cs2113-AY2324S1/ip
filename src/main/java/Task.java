@@ -22,16 +22,25 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("\tNice! I've marked this task as done:\n\t  [" + this.getStatusIcon() + "] " + this.getDescription());
+        System.out.println("\tNice! I've marked this task as done:\n\t  " + this);
     }
 
     public void unmarkTask() {
         this.isDone = false;
-        System.out.println("\tNice! I've marked this task as done:\n\t  [" + this.getStatusIcon() + "] " + this.getDescription());
+        System.out.println("\tNice! I've marked this task as done:\n\t  " + this);
     }
 
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
+    }
+
+    public void printAddedTask() {
+        System.out.print("\tGot it. I've added this task:\n\t  " + this + "\n\tNow you have " + getNumTasks());
+        if (getNumTasks() > 1) {
+            System.out.println(" tasks in this list.");
+        } else {
+            System.out.println(" task in this list.");
+        }
     }
 }

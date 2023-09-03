@@ -22,16 +22,20 @@ public class RC {
             } else if (line.equals("list")) {
                 printTaskList(tasks);
             } else if (line.startsWith("mark")) {
-                String index = line.substring(line.length() - 1);
-                int taskNum = Integer.parseInt(index) - 1;
+                String taskIndex = line.substring(line.length() - 1);
+                int taskNum = Integer.parseInt(taskIndex) - 1;
                 tasks.get(taskNum).markAsDone();
             } else if (line.startsWith("unmark")) {
-                String index = line.substring(line.length() - 1);
-                int taskNum = Integer.parseInt(index) - 1;
+                String taskIndex = line.substring(line.length() - 1);
+                int taskNum = Integer.parseInt(taskIndex) - 1;
                 tasks.get(taskNum).unmarkTask();
             } else {
-                System.out.println("\tadded: " + line);
-                tasks.add(new Task(line));
+                String description = line;
+                if (line.startsWith("todo")) {
+                    description = line.substring(5);
+                }
+                tasks.add(new Todo(description));
+                tasks.get(tasks.size() - 1).printAddedTask();
             }
         }
         System.out.println("\tBye. Hope to see you again soon!\n");
