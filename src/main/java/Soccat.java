@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Soccat {
 
     static Task[] tasks = new Task[100];
 
