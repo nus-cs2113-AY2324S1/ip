@@ -25,19 +25,21 @@ public class Task {
     
     public void markAsDone() {
         this.isDone = true;
-        printTask();
     }
 
     public void markAsUndone() {
         this.isDone = false;
-        printTask();
+    }
+
+    public String getCompletedString() {
+        if (this.isDone == true) {
+            return "[X] ";
+        } else {
+            return "[ ] ";
+        }
     }
 
     public void printTask() {
-        if (this.isDone == true) {
-            System.out.println("\t[X] " + this.taskName);
-        } else {
-            System.out.println("\t[ ] " + this.taskName);
-        }
+        System.out.println("\t" + getCompletedString() + this.taskName);
     }
 }

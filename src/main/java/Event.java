@@ -23,4 +23,9 @@ public class Event extends Task {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+    @Override
+    public void printTask() {
+        System.out.println("\t[E]" + getCompletedString() + getTaskName() + " (from: " + getStartTime() + " to " + getEndTime() + ")");
+    }
 }

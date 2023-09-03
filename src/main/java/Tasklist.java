@@ -34,11 +34,8 @@ public class Tasklist {
     
     public void printTaskList() {
         for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getIsDone() == true) {
-                System.out.println("\t" + (i + 1) + ". [X] " + taskList.get(i).getTaskName());
-            } else {
-                System.out.println("\t" + (i + 1) + ". [ ] " + taskList.get(i).getTaskName());
-            }
+            System.out.print("\t" + (i + 1) + ".");
+            taskList.get(i).printTask();
         }
     }
 }

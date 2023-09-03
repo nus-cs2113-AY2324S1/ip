@@ -14,4 +14,8 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    @Override
+    public void printTask() {
+        System.out.println("\t[D]" + getCompletedString() + getTaskName() + " (by: " + getDeadline() + ")");
+    }
 }
