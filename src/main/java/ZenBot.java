@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Zen {
+public class ZenBot {
 
     public static void printSeperatorLine() {
         System.out.println(System.lineSeparator() + "\t-------------------------------------------------------------");
@@ -50,8 +50,8 @@ public class Zen {
                 tasks.addTask(new Todo(taskName));
 
                 printSeperatorLine();
-                System.out.println("\tadded: " + taskName);
-                System.out.println("\tNow you have " + tasks.getTaskListSize() + " tasks in the list.");
+                System.out.println("\tBehold, a new endeavor enters the realm: " + taskName);
+                System.out.println("\tThe grand tally of tasks has reached a harmonious count of " + tasks.getTaskListSize() + " in all.");
                 printSeperatorLine();
                 continue;
             } else if (line.startsWith("deadline")) { // add deadline task
@@ -60,8 +60,8 @@ public class Zen {
                 tasks.addTask(new Deadline(taskName, deadline));
 
                 printSeperatorLine();
-                System.out.println("\tadded: " + taskName);
-                System.out.println("\tNow you have " + tasks.getTaskListSize() + " tasks in the list.");
+                System.out.println("\tBehold, a new endeavor enters the realm: " + taskName);
+                System.out.println("\tThe grand tally of tasks has reached a harmonious count of " + tasks.getTaskListSize() + " in all.");
                 printSeperatorLine();
                 continue;
             } else if (line.startsWith("event")) { // add event task
@@ -71,13 +71,13 @@ public class Zen {
                 tasks.addTask(new Event(taskName, startTime, endTime));
 
                 printSeperatorLine();
-                System.out.println("\tadded: " + taskName);
-                System.out.println("\tNow you have " + tasks.getTaskListSize() + " tasks in the list.");
+                System.out.println("\tBehold, a new endeavor enters the realm: " + taskName);
+                System.out.println("\tThe grand tally of tasks has reached a harmonious count of " + tasks.getTaskListSize() + " in all.");
                 printSeperatorLine();
                 continue;
             } else if (line.startsWith("list")) { // list tasks
                 printSeperatorLine();
-                System.out.println("\tHere are the tasks in your list:");
+                System.out.println("\tAllow me to unveil the tasks dwelling within your list:");
                 tasks.printTaskList();
                 printSeperatorLine();
                 continue;
@@ -85,7 +85,7 @@ public class Zen {
                 int taskNumber = Integer.parseInt(line.substring(7));
                 tasks.markTaskAsUndone(taskNumber);
                 printSeperatorLine();
-                System.out.println("\tNice! I've marked this task as undone:");
+                System.out.println("\tAh, chuckles! I've playfully returned this task to its untamed state:");
                 tasks.getTask(taskNumber).printTask();
                 printSeperatorLine();
                 continue;
@@ -93,12 +93,12 @@ public class Zen {
                 int taskNumber = Integer.parseInt(line.substring(5));
                 tasks.markTaskAsDone(taskNumber);
                 printSeperatorLine();
-                System.out.println("\tNice! I've marked this task as done:");
+                System.out.println("\tHuzzah! I've adorned this task with the badge of completion:");
                 tasks.getTask(taskNumber).printTask();
                 printSeperatorLine();
                 continue;
             } else {
-                System.out.println("\tI'm sorry, I don't understand what you mean");
+                System.out.println("\tAh, my apologies, but the riddles of your words elude my jestful grasp.");
             }
         }
     }
