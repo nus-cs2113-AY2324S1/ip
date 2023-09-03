@@ -8,7 +8,7 @@ public class Duke {
     private static int taskCount = 0;
 
     public static String getInput() {
-        System.out.println("\uD83C\uDF4B \n");
+        System.out.println("\uD83C\uDF4B\n");
         String line;
         line = IN.nextLine();
         if (line.equals("bye")) {
@@ -18,15 +18,15 @@ public class Duke {
     }
 
     public static String listEmptyGetNewCommand() {
-        System.out.println("Your list is on a lemonade break right now.");
+        System.out.println("Your basket is on a lemonade break right now.");
         return getInput();
     }
 
     public static void printAddedTask() {
-        System.out.println("Got it! This task has been squeezed into your list: ");
+        System.out.println("Got it! This task has been squeezed into your basket:");
         System.out.println("\t" + tasks[taskCount].toString());
         taskCount++;
-        System.out.println("Now you have " + taskCount + " fruitful tasks in your list!");
+        System.out.println("Now you have " + taskCount + " fruitful tasks in your basket!");
     }
 
     public static void exit() {
@@ -77,7 +77,7 @@ public class Duke {
                 if (taskCount <= 0) {
                     input = listEmptyGetNewCommand();
                 } else {
-                    System.out.println("Your list is looking citrusy-fresh: ");
+                    System.out.println("Your basket is looking citrusy-fresh:");
                     int index = 1;
                     for (int i = 0; i < taskCount; i++) {
                         System.out.println(index + "." + tasks[i].toString());
@@ -95,7 +95,7 @@ public class Duke {
                         input = getInput();
                     } else {
                         tasks[index - 1].markAsDone();
-                        System.out.println("Great job! This task is now juiced: ");
+                        System.out.println("Great job! This task is now juiced:");
                         System.out.println("[" + tasks[index - 1].getStatusIcon() + "] " + tasks[index - 1].description);
                         input = getInput();
                     }
@@ -110,7 +110,7 @@ public class Duke {
                         input = getInput();
                     } else {
                         tasks[index - 1].markAsNotDone();
-                        System.out.println("No problem! This task is back into the basket: ");
+                        System.out.println("No problem! This task is back into the basket:");
                         System.out.println("[" + tasks[index - 1].getStatusIcon() + "] " + tasks[index - 1].description);
                         input = getInput();
                     }
