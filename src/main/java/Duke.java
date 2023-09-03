@@ -1,37 +1,38 @@
-/* */
-import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
-    public static final String line = "__________________________________________";
-    public static void main(String[] args) {
+    
+    public static void printLine() {
+        final String line = "__________________________________________";
         System.out.println(line);
+    }
+    public static void main(String[] args) {
+        printLine();
         System.out.println("Hello! I'm Chat0PT");
         System.out.println("What can I do for you?");
-        System.out.println(line);
-        String input;
+        printLine();
         ArrayList<Task> currentTask = new ArrayList<>();
-        while(true){
+        while(true) {
             Scanner in = new Scanner(System.in);
-            input = in.nextLine();
-            System.out.println(line);
-            switch(input){
+            String input = in.nextLine();
+            printLine();
+            switch(input) {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
-                System.out.println(line);
+                printLine();
                 return;
             case "list":
                 int i = 1;
-                for (Task t: currentTask){
-                    if (t.isMarked()){
+                for (Task t: currentTask) {
+                    if (t.isMarked()) {
                         System.out.println(i + ". [X] " + t.getTasks());
                     }
-                    else{
+                    else {
                         System.out.println(i + ". [ ] " + t.getTasks());
                     }
                     i++;
                 }
-                System.out.println(line);
+                printLine();
                 break;
             default:
                 String[] splitString = input.split(" ");
@@ -45,7 +46,7 @@ public class Duke {
                         } else {
                             System.out.println("Are you sure that task exists?");
                         }
-                        System.out.println(line);
+                        printLine();
                     } else if (splitString[0].equals("unmark")) {
                         int num = Integer.parseInt(splitString[1]) - 1;
                         if (num < currentTask.size()) {
@@ -55,20 +56,18 @@ public class Duke {
                         } else {
                             System.out.println("Are you sure that task exists?");
                         }
-                        System.out.println(line);
-                    }
-                    else{
+                        printLine();
+                    } else {
                         Task t = new Task(input);
                         currentTask.add(t);
                         System.out.println("added: " + input);
-                        System.out.println(line);
+                        printLine();
                     }
-                }
-                else {
+                } else {
                     Task t = new Task(input);
                     currentTask.add(t);
                     System.out.println("added: " + input);
-                    System.out.println(line);
+                    printLine();
                 }
             }
 
