@@ -37,7 +37,8 @@ public class Duke {
         }
         scanner.close();
    }
-    public static void printLines(int l, char c){
+
+   public static void printLines(int l, char c){
         for (int i = 0; i < l; i++){
             System.out.print(c);
         }
