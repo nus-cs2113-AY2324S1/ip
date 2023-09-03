@@ -6,9 +6,9 @@ public class Todo extends Task{
     @Override
     public String toString() {
         if (super.getDone()) {
-            return "[T][X] " + super.getName();
+            return "[T][X] " + super.toString();
         } else {
-            return "[T][ ] " + super.getName();
+            return "[T][ ] " + super.toString();
         }
     }
 }

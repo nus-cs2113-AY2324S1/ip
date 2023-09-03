@@ -6,19 +6,31 @@ public class Duke {
 
     public static void addTask(String command, String type) {
         String task = command.replace(type, "").strip();
-        System.out.println("Got it. I've added this task: " + task);
-        tasks[Task.getTaskCount()] = new Task(task);
+        int taskIndex = Task.getTaskCount();
+        switch(type) {
+        case "todo":
+            tasks[taskIndex] = new Todo(task);
+            break;
+        case "deadline":
+            String[] deadlineTokens = task.split(" /by ");
+            tasks[taskIndex] = new Deadline(deadlineTokens[0], deadlineTokens[1]);
+            break;
+        case "event":
+            String[] eventTokens = task.split(" /");
+            String from = eventTokens[1].replace("from ", "");
+            String by = eventTokens[2].replace("to ", "");
+            tasks[taskIndex] = new Event(eventTokens[0], from, by);
+            break;
+        }
+        System.out.println("Got it. I've added this task: ");
+        System.out.println("\t" + tasks[taskIndex]);
+        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
     }
 
     public static void listTask() {
         for(int i=0; i<Task.getTaskCount(); i++) {
             System.out.print(i+1);
-            if (tasks[i].getDone()) {
-                System.out.print(". [X] ");
-            } else {
-                System.out.print(". [ ] ");
-            }
-            System.out.println(tasks[i].getName());
+            System.out.println(". " + tasks[i]);
         }
     }
 
@@ -29,13 +41,7 @@ public class Duke {
                 System.out.println("Task out of range!");
             } else {
                 tasks[taskId-1].setDone(isDone);
-                if (isDone) {
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[X] " + tasks[taskId-1].getName());
-                } else {
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("[ ] " + tasks[taskId-1].getName());
-                }
+                System.out.println(tasks[taskId-1]);
             }
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
