@@ -11,7 +11,7 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return super.toString() + System.lineSeparator() + "[D][" + super.getStatusIcon() + "]" + description
-                + " (by:" + getDate()+ ")" + System.lineSeparator() + "Now you have " + super.getNumberOfTasks() + " tasks in the list.";
+        return super.toString() + System.lineSeparator() + "[D][" + getStatusIcon() + "]" + description
+                + " (by:" + getDate()+ ")" + System.lineSeparator() + "Now you have " + getNumberOfTasks() + " tasks in the list.";
     }
 }

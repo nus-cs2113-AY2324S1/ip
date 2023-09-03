@@ -1,5 +1,56 @@
 import java.util.Scanner;
 public class LinguoBot {
+    private static void printTaskList(Task[] taskList, int itemCount) {
+        System.out.println("-------------------------");
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < itemCount; i++) {
+            Task task = taskList[i];
+            String taskType = task instanceof Todo ? "T" :
+                    task instanceof Deadline ? "D" : "E";
+            String taskStatus = task.getStatusIcon();
+            String taskDescription = task.getDescription();
+            String taskDetails = "";
+
+            if (task instanceof Deadline) {
+                taskDetails = "(by:" + ((Deadline)task).getDate() + ")";
+            } else if (task instanceof Event) {
+                taskDetails = "(from:" + ((Event)taskList[i]).getFrom() + "to:" + ((Event)taskList[i]).getTo() + ")";
+//                        Event eventTask = (Event)taskList[i];
+//                        taskDetails = "(from:" + eventTask.getFrom() + "to:" + eventTask.getTo() + ")";
+            }
+            System.out.println((i + 1) + ".[" + taskType + "][" + taskStatus + "]" + taskDescription + " " + taskDetails);
+        }
+        System.out.println("-------------------------");
+    }
+
+    private static void markTaskAsDone(Task[] taskList, int index) {
+        if (index >= 0 && index < taskList.length && taskList[index] != null) {
+            taskList[index].markAsDone();
+            System.out.println("-------------------------");
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("[" + taskList[index].getStatusIcon() + "] " + taskList[index].getDescription());
+            System.out.println("-------------------------");
+        } else {
+            System.out.println("-------------------------");
+            System.out.println("Invalid task index.");
+            System.out.println("-------------------------");
+        }
+    }
+
+    private static void markTaskAsUndone(Task[] taskList, int index) {
+        if (index >= 0 && index < taskList.length && taskList[index] != null) {
+            taskList[index].markAsUndone();
+            System.out.println("-------------------------");
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("[" + taskList[index].getStatusIcon() + "] " + taskList[index].getDescription());
+            System.out.println("-------------------------");
+        } else {
+            System.out.println("-------------------------");
+            System.out.println("Invalid task index.");
+            System.out.println("-------------------------");
+        }
+    }
+
     public static void main(String[] args) {
         String logo = " \n" +
                 "                                       \n" +
@@ -19,74 +70,39 @@ public class LinguoBot {
 
         while (true) {
             String line = in.nextLine();
-            Task newTask = new Task(line);
+//            Task newTask = new Task(line);
 
             if (line.equals("list")) {
-                System.out.println("-------------------------");
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < itemCount; i++) {
-                    String taskType = taskList[i] instanceof Todo ? "T" :
-                            taskList[i] instanceof Deadline ? "D" : "E";
-                    String taskStatus = taskList[i].getStatusIcon();
-                    String taskDescription = taskList[i].getDescription();
-                    String taskDetails = "";
-
-                    if (taskList[i] instanceof Deadline) {
-                        taskDetails = "(by:" + ((Deadline) taskList[i]).getDate() + ")";
-                    } else if (taskList[i] instanceof Event) {
-                        taskDetails = "(from:" + ((Event) taskList[i]).getFrom() + "to:" + ((Event) taskList[i]).getTo() + ")";
-//                        Event eventTask = (Event) taskList[i];
-//                        taskDetails = "(from:" + eventTask.getFrom() + "to:" + eventTask.getTo() + ")";
-                    }
-
-                    System.out.println((i + 1) + ".[" + taskType + "][" + taskStatus + "]" + taskDescription + " " + taskDetails);
-                }
-                System.out.println("-------------------------");
-            }
-            if (line.startsWith("mark")) {
+                printTaskList(taskList, itemCount);
+            } else if (line.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(line.substring(5)) - 1;
-                if (taskIndex >= 0 && taskIndex < itemCount) {
-                    taskList[taskIndex].markAsDone();
-                    System.out.println("-------------------------");
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[" + taskList[taskIndex].getStatusIcon() + "] " + taskList[taskIndex].getDescription());
-                    System.out.println("-------------------------");
-                } else {
-                    System.out.println("-------------------------");
-                    System.out.println("Invalid task index.");
-                    System.out.println("-------------------------");
-                }
-            }
-            if (line.startsWith("unmark")) {
+                markTaskAsDone(taskList, taskIndex);
+            } else if (line.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(line.substring(7)) - 1;
-                if (taskIndex >= 0 && taskIndex < itemCount) {
-                    taskList[taskIndex].markAsUndone();
-                    System.out.println("-------------------------");
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("[" + taskList[taskIndex].getStatusIcon() + "] " + taskList[taskIndex].getDescription());
-                    System.out.println("-------------------------");
-                } else {
-                    System.out.println("-------------------------");
-                    System.out.println("Invalid task index.");
-                    System.out.println("-------------------------");
-                }
-            }
-            if (line.contains("bye")) {
+                markTaskAsUndone(taskList, taskIndex);
+            } else if (line.contains("bye")) {
                 System.out.println("-------------------------");
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("-------------------------");
                 break;
-            }
-            else if (!line.contains("list") && !line.startsWith("mark") && !line.startsWith("unmark") && !line.contains("bye")) {
+            } else if (!line.contains("list") && !line.startsWith("mark") && !line.startsWith("unmark") && !line.contains("bye")) {
                 if (line.startsWith("todo")) {
                     taskList[itemCount] = new Todo(line.substring(4));
                 } else if (line.startsWith("deadline")) {
-                    int index = line.indexOf("by");
-                    taskList[itemCount] = new Deadline(line.substring(8,index-1), line.substring(index + 2));
+                    int index_by = line.indexOf("by");
+                    if (index_by == -1) {
+                        // Handle the case when "by" is missing
+                        System.out.println("Invalid input. Please include 'by' for deadlines.");
+                    }
+                    taskList[itemCount] = new Deadline(line.substring(8, index_by - 1), line.substring(index_by + 2));
                 } else if (line.startsWith("event")) {
-                    int index = line.indexOf("from");
-                    int index_v2 = line.indexOf("to");
-                    taskList[itemCount] = new Event(line.substring(5,index-1),line.substring(index + 4, index_v2),line.substring(index_v2 + 2));
+                    int index_from = line.indexOf("from");
+                    int index_to = line.indexOf("to", index_from);
+                    if (index_from == -1 || index_to == -1) {
+                        // Handle the case when "from" or "to" is missing
+                        System.out.println("Invalid input. Please include both 'from' and 'to' for events.");
+                    }
+                    taskList[itemCount] = new Event(line.substring(5, index_from - 1), line.substring(index_from + 4, index_to), line.substring(index_to + 2));
                 }
                 System.out.println("-------------------------");
                 System.out.println(taskList[itemCount]);
