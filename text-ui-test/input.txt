@@ -1,12 +1,13 @@
-todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-todo join sprts club
-todo borrow book
-mark 1
+   todo borrow book    
+   deadline return book /by Sunday   
+   event project meeting     /from Mon 2pm     /to 4pm   
+    todo join sprts club
+todo borrow book  
+   mark 1
 mark 4
+   event go to workshop /from Tmr 1pm    /to 3pm    
 list
-mark 6
+    mark 6     
 unmark 6
 unmark 1
 list

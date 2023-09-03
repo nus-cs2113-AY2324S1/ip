@@ -26,74 +26,74 @@ ____________________________________________________________
 Hello! I'm ELVIS
 What can I do for you?
 ____________________________________________________________
-listCount: 0
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] borrow book
-Now you have 1 tasks in the list.
+Now you have 1 task(s) in the list.
 ____________________________________________________________
-listCount: 1
 ____________________________________________________________
 Got it. I've added this task:
 [D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
+Now you have 2 task(s) in the list.
 ____________________________________________________________
-listCount: 2
 ____________________________________________________________
 Got it. I've added this task:
 [D][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
+Now you have 3 task(s) in the list.
 ____________________________________________________________
-listCount: 3
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] join sprts club
-Now you have 4 tasks in the list.
+Now you have 4 task(s) in the list.
 ____________________________________________________________
-listCount: 4
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] borrow book
-Now you have 5 tasks in the list.
+Now you have 5 task(s) in the list.
 ____________________________________________________________
-listCount: 5
 ____________________________________________________________
 Nice! I've marked this task as done:
 1.[T][X] borrow book
 ____________________________________________________________
-listCount: 5
 ____________________________________________________________
 Nice! I've marked this task as done:
 4.[T][X] join sprts club
 ____________________________________________________________
-listCount: 5
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] go to workshop (from: Tmr 1pm to: 3pm)
+Now you have 6 task(s) in the list.
+____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list: 
 1.[T][X] borrow book
-2.[D][ ] return book
-3.[E][ ] project meeting
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 4.[T][X] join sprts club
 5.[T][ ] borrow book
+6.[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
 ____________________________________________________________
-listCount: 5
-No such Task!
-listCount: 5
-No such Task!
-listCount: 5
+____________________________________________________________
+Nice! I've marked this task as done:
+6.[E][X] go to workshop
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+6.[E][ ] go to workshop
+____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
 1.[T][ ] borrow book
 ____________________________________________________________
-listCount: 5
 ____________________________________________________________
 Here are the tasks in your list: 
 1.[T][ ] borrow book
-2.[D][ ] return book
-3.[E][ ] project meeting
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 4.[T][X] join sprts club
 5.[T][ ] borrow book
+6.[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
 ____________________________________________________________
-listCount: 5
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
