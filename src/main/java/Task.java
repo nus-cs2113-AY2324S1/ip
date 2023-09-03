@@ -31,6 +31,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return name;
+        return ((isDone) ? "[X] " : "[ ] ") + name;
     }
 }

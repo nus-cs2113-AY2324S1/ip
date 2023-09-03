@@ -9,11 +9,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String deadline = super.toString() + " (by: " + by + ")";
-        if (super.getDone()) {
-            return "[D][X] " + deadline;
-        } else {
-            return "[D][ ] " + deadline;
-        }
+        String deadline = " (by: " + by + ")";
+        return "[D]" + super.toString() + deadline;
     }
 }

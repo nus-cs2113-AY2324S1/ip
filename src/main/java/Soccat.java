@@ -44,10 +44,10 @@ public class Soccat {
             int taskId = Integer.parseInt(taskNumber);
             if (taskId > Task.getTaskCount() || taskId <= 0) {
                 System.out.println("Task out of range!");
-            } else {
-                tasks[taskId-1].setDone(isDone);
-                System.out.println(tasks[taskId-1]);
+                return;
             }
+            tasks[taskId-1].setDone(isDone);
+            System.out.println(tasks[taskId-1]);
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
         }
@@ -84,11 +84,8 @@ public class Soccat {
 
     public static void main(String[] args) {
         String line = "____________________________________________________________";
-        System.out.println(line);
-        System.out.println("Hello! I'm soccat!\nWhat can I do for you?");
-        System.out.println(line);
+        System.out.println(line + "Hello! I'm soccat!\nWhat can I do for you?" + line);
         processCommand(line);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
+        System.out.println("Bye. Hope to see you again soon!" + line);
     }
 }
