@@ -35,7 +35,7 @@ Now you have 1 fruitful tasks in your basket!
 ?
 
 Your basket is looking citrusy-fresh:
-1.[T][ ] borrow book
+1. [T][ ] borrow book
 ?
 
 Got it! This task has been squeezed into your basket:
