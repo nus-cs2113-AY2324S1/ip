@@ -16,7 +16,6 @@ public class Alan {
 
     public static void printExit() {
         System.out.println("Bye. Hope to see you again soon!");
-        printHorizontalLine();
     }
 
     public static void printHorizontalLine() {
@@ -32,14 +31,15 @@ public class Alan {
         String userInput = " ";
         Scanner in = new Scanner(System.in);
 
-        while(!userInput.equals("bye")) {
+        do {
             //Read user input
             System.out.print("Input: ");
             userInput = in.nextLine();
 
             printHorizontalLine();
-
-            if (userInput.equals("list")) {     //print the tasks in the lists
+            if (userInput.equals("bye")) {
+                printExit();
+            } else if (userInput.equals("list")) {     //print the tasks in the lists
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 1; i < currentTaskListIndex; i++) {
                     System.out.println((i) + ". [" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
@@ -68,9 +68,10 @@ public class Alan {
                 currentTaskListIndex++;
                 System.out.println("added: " + userInput);
             }
-            printHorizontalLine();
-        }
 
-        printExit();
+            printHorizontalLine();
+
+        } while(!userInput.equals("bye"));
+
     }
 }
