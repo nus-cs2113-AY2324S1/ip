@@ -4,8 +4,9 @@ public class Duke {
 
     static Task[] tasks = new Task[100];
 
-    public static void addTask(String task) {
-        System.out.println("added: " + task);
+    public static void addTask(String command, String type) {
+        String task = command.replace(type, "").strip();
+        System.out.println("Got it. I've added this task: " + task);
         tasks[Task.getTaskCount()] = new Task(task);
     }
 
@@ -54,11 +55,15 @@ public class Duke {
             switch (tokens[0]) {
             case "list": listTask();
                 break;
+            case "todo":
+            case "deadline":
+            case "event": addTask(command, tokens[0]);
+                break;
             case "mark": toggleDone(tokens[1], true);
                 break;
             case "unmark": toggleDone(tokens[1], false);
                 break;
-            default: addTask(command);
+            default:
                 break;
             }
             System.out.println(line);
