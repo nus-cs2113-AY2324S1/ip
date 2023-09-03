@@ -25,13 +25,11 @@ public class Task {
     
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("\tNice! I've marked this task as undone:");
         printTask();
     }
 
     public void markAsUndone() {
         this.isDone = false;
-        System.out.println("\tNice! I've marked this task as done:");
         printTask();
     }
 

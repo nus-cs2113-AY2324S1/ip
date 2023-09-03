@@ -35,11 +35,12 @@ public class Zen {
 
         Scanner input = new Scanner(System.in);
         String line = "";
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
-        do {
+        Tasklist tasks = new Tasklist();
+
+        while (!line.equals("bye")) {
             line = input.nextLine();
             String[] inputWords = line.split(" ");
+
             if (inputWords[0].equals("bye")) { // exit
                 printSeperatorLine();
                 System.out.println("\tFarewell, my friend! Until our laughter intertwines again");
@@ -48,36 +49,29 @@ public class Zen {
             } else if (inputWords[0].equals("list")) { // list tasks
                 printSeperatorLine();
                 System.out.println("\tHere are the tasks in your list:");
-                for (int i = 0; i < tasks.length; i++) {
-                    if (tasks[i] != null) {
-                        if (tasks[i].getIsDone() == true) {
-                            System.out.println("\t" + (i + 1) + ". [X] " + tasks[i].getTaskName());
-                        } else {
-                            System.out.println("\t" + (i + 1) + ". [ ] " + tasks[i].getTaskName());
-                        }
-                    }
-                }
+                tasks.printTaskList();
                 printSeperatorLine();
                 continue;
             } else if (inputWords[0].equals("unmark")) { // mark task as done
                 int taskNumber = Integer.parseInt(line.substring(7));
                 printSeperatorLine();
-                tasks[taskNumber - 1].markAsUndone();
+                System.out.println("\tNice! I've marked this task as undone:");
                 printSeperatorLine();
+                tasks.markTaskAsUndone(taskNumber);
                 continue;
             } else if (inputWords[0].equals("mark")) { // mark task as done
                 int taskNumber = Integer.parseInt(line.substring(5));
                 printSeperatorLine();
-                tasks[taskNumber - 1].markAsDone();
+                System.out.println("\tNice! I've marked this task as done:");
                 printSeperatorLine();
+                tasks.markTaskAsDone(taskNumber);
                 continue;
             } else { // add task
                 printSeperatorLine();
                 System.out.println("\tadded: " + line);
                 printSeperatorLine();
-                tasks[taskCount] = new Task(line);
-                taskCount++;
+                tasks.addTask(new Task(line));
             }
-        } while (!line.equals("bye"));
+        }
     }
 }
