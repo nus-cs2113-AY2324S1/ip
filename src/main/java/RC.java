@@ -2,6 +2,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RC {
+    public static void printTaskList(ArrayList<Task> tasks) {
+        System.out.println("\tHere are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("\t" + (i + 1) + "." + tasks.get(i));
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("\tHello! I'm RC\n\tWhat can I do for you?\n");
         Scanner in = new Scanner(System.in);
@@ -13,7 +20,7 @@ public class RC {
             if (line.equals("bye")) {
                 break;
             } else if (line.equals("list")) {
-                Task.printTaskList(tasks);
+                printTaskList(tasks);
             } else if (line.startsWith("mark")) {
                 String index = line.substring(line.length() - 1);
                 int taskNum = Integer.parseInt(index) - 1;
