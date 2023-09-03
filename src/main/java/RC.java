@@ -29,10 +29,18 @@ public class RC {
                 String taskIndex = line.substring(line.length() - 1);
                 int taskNum = Integer.parseInt(taskIndex) - 1;
                 tasks.get(taskNum).unmarkTask();
+            } else if (line.startsWith("deadline")) {
+                int splitIndex = line.indexOf("/");
+                final int beginIndex = 9;
+                String description = line.substring(beginIndex, splitIndex);
+                String by = line.substring(splitIndex + 4);
+                tasks.add(new Deadline(description, by));
+                tasks.get(tasks.size() - 1).printAddedTask();
             } else {
                 String description = line;
                 if (line.startsWith("todo")) {
-                    description = line.substring(5);
+                    final int beginIndex = 5;
+                    description = line.substring(beginIndex);
                 }
                 tasks.add(new Todo(description));
                 tasks.get(tasks.size() - 1).printAddedTask();
