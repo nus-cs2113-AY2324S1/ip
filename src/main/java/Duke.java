@@ -43,12 +43,12 @@ public class Duke {
     }
 
     public static void addTaskFlow(String input) {
-        ApplicationState.getAppState().addTask(input);
+        Task.addTask(new Task(input));
         printWrapped("added: " + input);
     }
 
     public static Void listTasksFlow() {
-        ArrayList<Task> tasks = ApplicationState.getAppState().getTasks();
+        ArrayList<Task> tasks = Task.getTasks();
         int idx = 1;
         ProgramConstants.printSeparator();
         for (Task task : tasks) {
@@ -65,7 +65,7 @@ public class Duke {
             return null;
         }
 
-        Task task = ApplicationState.getAppState().getTask(--taskNumber);
+        Task task = Task.getTask(--taskNumber);
         if (task == null) {
             printWrapped("Failed to mark task as done...");
             return null;
@@ -84,7 +84,7 @@ public class Duke {
             return null;
         }
 
-        Task task = ApplicationState.getAppState().getTask(--taskNumber);
+        Task task = Task.getTask(--taskNumber);
         if (task == null) {
             printWrapped("Failed to mark task as undone...");
             return null;
