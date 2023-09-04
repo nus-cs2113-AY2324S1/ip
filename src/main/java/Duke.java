@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -14,6 +16,8 @@ public class Duke {
             "\t       |___/                        ";
 
     final private static String pythonEmoji = "\uD83D\uDC0D";
+
+    final static private List<String> commandsList = new ArrayList<>();
     final private static Scanner in = new Scanner(System.in);
 
     private static void printHorizontalLine() {
@@ -33,10 +37,19 @@ public class Duke {
         do {
             inputCommand = in.nextLine();
             printHorizontalLine();
-            if (inputCommand.equals("bye")) {
+            switch (inputCommand) {
+            case "bye":
                 System.out.printf("\t%s: Bye. See you again when you run the program again!\n", pythonEmoji);
-            } else {
+                break;
+            case "list":
+                System.out.printf("\t%s: You have %d tasks to do!\n", pythonEmoji, commandsList.size());
+                for(int taskNo = 1; taskNo <= commandsList.size(); taskNo++) {
+                    System.out.printf("\t\t\t%d. %s\n", taskNo, commandsList.get(taskNo - 1));
+                }
+                break;
+            default:
                 System.out.printf("\t%s: %s\n", pythonEmoji, inputCommand);
+                commandsList.add(inputCommand);
             }
             printHorizontalLine();
         } while(!inputCommand.equals("bye"));
