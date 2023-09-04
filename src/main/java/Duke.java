@@ -1,11 +1,13 @@
-import java.util.Scanner;
+
+
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     /*
      * This method prints the greetings message when the user starts the program.
      */
-    public static void greetings() {
+    public static void greet() {
         String logo = "  ____                  \n"
                 + " |  _ \\  ___  _ __ ___  \n"
                 + " | | | |/ _ \\| '_ ` _ \\ \n"
@@ -34,7 +36,7 @@ public class Duke {
      */
     public static void echo(String input) {
         System.out.println(input);
-    };
+    }
 
     /*
      * This method prints the list of tasks.
@@ -52,10 +54,10 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        greetings(); // when user runs the program, UI greets user
+        greet(); // when user runs the program, UI greets user
 
         try (Scanner givenTask = new Scanner(System.in)) {  
-            ArrayList<Task> tasks = new ArrayList<>();
+            ArrayList<Task> tasks = new ArrayList<Task>();
 
             while (true) {
                 String command = givenTask.nextLine();
