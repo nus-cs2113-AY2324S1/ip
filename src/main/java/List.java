@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class List {
+class List {
     ArrayList<Task> tasks;
 
     public List() {
