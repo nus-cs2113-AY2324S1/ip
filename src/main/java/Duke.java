@@ -83,11 +83,26 @@ public class Duke {
                 println(listItems[listIdx-1].getTaskAdded(listIdx));
 
             } else if (command.equals("deadline")) {
+
                 int byIdx = line.indexOf("/by");
                 String description = line.substring(line.indexOf(" ")+1, byIdx-1);
                 String deadline = line.substring(byIdx+ "/by ".length());
 
                 listItems[listIdx] = new Deadline(description, deadline);
+                listIdx++;
+
+                println(listItems[listIdx-1].getTaskAdded(listIdx));
+
+            } else if (command.equals("event")) {
+
+                int startIdx = line.indexOf("/from");
+                int endIdx = line.indexOf("/to");
+
+                String description = line.substring(line.indexOf(" ")+1, startIdx-1);
+                String start = line.substring(startIdx+ "/from ".length(), endIdx-1);
+                String end = line.substring(endIdx+ "/to ".length());
+
+                listItems[listIdx] = new Event(description, start, end);
                 listIdx++;
 
                 println(listItems[listIdx-1].getTaskAdded(listIdx));
