@@ -6,13 +6,16 @@ import java.util.function.Function;
 public class Duke {
     private static boolean ended = false;
     private final static Scanner SCANNER = new Scanner(System.in);
-    private final static HashMap<String, Function<String, Void>> COMMANDS = new HashMap<>();
+    private final static HashMap<String, Function<Command, Void>> COMMANDS = new HashMap<>();
 
     public static void main(String[] args) {
         COMMANDS.put("bye", (e) -> bye());
         COMMANDS.put("list", (e) -> listTasksFlow());
         COMMANDS.put("mark", Duke::markTaskFlow);
         COMMANDS.put("unmark", Duke::unmarkTaskFlow);
+        COMMANDS.put("deadline", Duke::addTaskFlow);
+        COMMANDS.put("event", Duke::addTaskFlow);
+        COMMANDS.put("todo", Duke::addTaskFlow);
 
         greet();
         while (!ended) {
@@ -26,13 +29,13 @@ public class Duke {
                 continue;
             }
 
-            Function<String, Void> command = COMMANDS.get(userCommand.getCommandWord());
+            Function<Command, Void> command = COMMANDS.get(userCommand.getCommandWord());
             if (command == null) {
-                addTaskFlow(userCommand.getOriginalCommand());
+                printWrapped("Unknown command...");
                 continue;
             }
 
-            command.apply(userCommand.getArguments());
+            command.apply(userCommand);
         }
     }
 
@@ -40,9 +43,29 @@ public class Duke {
         return SCANNER.nextLine();
     }
 
-    public static void addTaskFlow(String input) {
-        Task.addTask(new Task(input));
-        printWrapped("added: " + input);
+    public static Void addTaskFlow(Command command) {
+        Task newTask = null;
+        switch (command.getCommandWord()) {
+        case "deadline":
+            newTask = new Deadline(command.getArguments(), command.getOptions("by"));
+            break;
+        case "event":
+            newTask = new Event(command.getArguments(), command.getOptions("from"),  command.getOptions("to"));
+            break;
+        case "todo":
+            newTask = new Todo(command.getArguments());
+        }
+        if (newTask != null && newTask.isValid()) {
+            Task.addTask(newTask);
+            printAddedTask(newTask);
+        } else {
+            printWrapped("Failed to add new task...");
+        }
+        return null;
+    }
+
+    private static void printAddedTask(Task task) {
+        printWrapped("added: " + task);
     }
 
     public static Void listTasksFlow() {
@@ -50,14 +73,14 @@ public class Duke {
         int idx = 1;
         ProgramConstants.printSeparator();
         for (Task task : tasks) {
-            System.out.printf("%d. %s\n", idx++, task.getNameWithStatus());
+            System.out.printf("%d. %s\n", idx++, task);
         }
         ProgramConstants.printSeparator();
         return null;
     }
 
-    public static Void markTaskFlow(String taskNumberStr) {
-        int taskNumber = parsePositiveNumber(taskNumberStr);
+    public static Void markTaskFlow(Command command) {
+        int taskNumber = parsePositiveNumber(command.getArguments());
         if (taskNumber == -1) {
             printWrapped("Failed to mark task as done...");
             return null;
@@ -70,13 +93,13 @@ public class Duke {
         }
 
         task.markDone();
-        String printOut = String.format("Nice I've marked this task as done:\n%s", task.getNameWithStatus());
+        String printOut = String.format("Nice I've marked this task as done:\n%s", task);
         printWrapped(printOut);
         return null;
     }
 
-    public static Void unmarkTaskFlow(String taskNumberStr) {
-        int taskNumber = parsePositiveNumber(taskNumberStr);
+    public static Void unmarkTaskFlow(Command command) {
+        int taskNumber = parsePositiveNumber(command.getArguments());
         if (taskNumber == -1) {
             printWrapped("Failed to mark task as undone...");
             return null;
@@ -89,7 +112,7 @@ public class Duke {
         }
 
         task.unmarkDone();
-        String printOut = String.format("OK, I've marked this task as not done yet:\n%s", task.getNameWithStatus());
+        String printOut = String.format("OK, I've marked this task as not done yet:\n%s", task);
         printWrapped(printOut);
         return null;
     }

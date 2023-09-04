@@ -26,6 +26,15 @@ public class Task {
         this.isDone = false;
     }
 
+    @Override
+    public String toString() {
+        return getNameWithStatus();
+    }
+
+    public boolean isValid() {
+        return name != null && !name.isBlank();
+    }
+
     public static void addTask(Task task) {
         ArrayList<Task> tasks = getTasks();
         tasks.add(task);
