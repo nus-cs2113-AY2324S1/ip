@@ -1,6 +1,21 @@
 import java.util.Scanner;
 
 public class Alice {
+    private static final String LINE = "____________________________________________________________\n";
+    private static Task[] tasks = new Task[100];
+    private static int numberOfTask = 0;
+
+    /**
+     *
+     * List all tasks that have been added by user.
+     *
+     */
+    public static void listTasks(){
+        for (int i=0; i<numberOfTask; i++){
+            System.out.println("[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+        }
+        System.out.println(LINE);
+    }
 
     /**
      *
@@ -9,39 +24,39 @@ public class Alice {
      *
      */
     public static void main(String[] args) {
-        String line = "____________________________________________________________\n";
-        String helloMessage = " Hi there, I'm Alice, a chat bot!\n What can I do for you?\n";
-        Task[] tasks = new Task[100];
+        String helloMessage = " Hi fellow citizen, I am Alice, and you're in my wonderland :)\n What can I do for you?\n";
         Task newTask;
-        int numberOfTask = 0;
         int taskNumber;
+
         Scanner in = new Scanner(System.in);
-        System.out.println(helloMessage + line);
+        System.out.println(helloMessage + LINE);
         String userInput = in.nextLine();
+        String actionOfInput;
+
         while (!(userInput.equals("bye"))){
-            if (userInput.equals("list")){
-                for (int i=0; i<numberOfTask; i++){
-                    System.out.println("[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
-                }
-                System.out.println(line);
-            } else if (userInput.contains("unmark")){
-                userInput = userInput.substring(7);
-                taskNumber = Integer.parseInt(userInput) - 1;
+            actionOfInput = userInput.split(" ")[0];
+            switch (actionOfInput){
+            case "list":
+                listTasks();
+                break;
+            case "unmark":
+                taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 tasks[taskNumber].unmarkStatusIcon();
-            } else if (userInput.contains("mark")){
-                userInput= userInput.substring(5);
-                taskNumber = Integer.parseInt(userInput) - 1;
+                break;
+            case "mark":
+                taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 tasks[taskNumber].markStatusIcon();
-            } else{ //add new task to list
+                break;
+            default:
                 newTask = new Task(userInput);
                 tasks[numberOfTask] = newTask;
                 numberOfTask++;
-                System.out.println(" added: " + userInput + "\n" + line);
+                System.out.println(" added: " + userInput + "\n" + LINE);
             }
             userInput = in.nextLine();
         }
 
-        String byeMessage = " Bye. Hope to see you again soon!\n";
-        System.out.println(byeMessage + line);
+        String byeMessage = " Bye for now... We will miss you:( See you again very soon!\n";
+        System.out.println(byeMessage + LINE);
     }
 }
