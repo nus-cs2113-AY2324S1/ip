@@ -17,7 +17,7 @@ public class Duke {
 
     final private static String pythonEmoji = "\uD83D\uDC0D";
 
-    final static private List<String> commandsList = new ArrayList<>();
+    final static private List<Task> taskList = new ArrayList<>();
     final private static Scanner in = new Scanner(System.in);
 
     private static void printHorizontalLine() {
@@ -33,25 +33,67 @@ public class Duke {
         System.out.printf("\t%s: What can I do for you?\n", pythonEmoji);
         printHorizontalLine();
 
-        String inputCommand;
+        String inputLine;
         do {
-            inputCommand = in.nextLine();
+            inputLine = in.nextLine();
+            String inputCommand = inputLine.split(" ")[0];
             printHorizontalLine();
             switch (inputCommand) {
             case "bye":
                 System.out.printf("\t%s: Bye. See you again when you run the program again!\n", pythonEmoji);
                 break;
             case "list":
-                System.out.printf("\t%s: You have %d tasks to do!\n", pythonEmoji, commandsList.size());
-                for(int taskNo = 1; taskNo <= commandsList.size(); taskNo++) {
-                    System.out.printf("\t\t\t%d. %s\n", taskNo, commandsList.get(taskNo - 1));
+                System.out.printf("\t%s: You have %d tasks to do!\n", pythonEmoji, taskList.size());
+                for(int taskNo = 1; taskNo <= taskList.size(); taskNo++) {
+                    System.out.printf("\t\t\t%d. [%s] %s\n",
+                            taskNo, taskList.get(taskNo - 1).getStatusIcon(),
+                            taskList.get(taskNo - 1).getDescription());
                 }
                 break;
+            case "mark": {
+                int taskNo = Integer.parseInt(inputLine.split(" ")[1]);
+                if (taskNo > taskList.size()) {
+                    System.out.printf("\t%s: Are you from the future?\n", pythonEmoji);
+                    break;
+                }
+                if (taskList.get(taskNo - 1).isDone()) {
+                    System.out.printf("\t%s: Are you from the past?\n", pythonEmoji);
+                    System.out.printf("\t\tTask: \"%s\" is already done!!!\n",
+                            taskList.get(taskNo - 1).getDescription());
+                    break;
+                }
+                taskList.get(taskNo - 1).setDone(true);
+                System.out.printf("\t%s: Good job completing the task!\n", pythonEmoji);
+                System.out.printf("\t\t\t[%s] %s\n",
+                        taskList.get(taskNo - 1).getStatusIcon(),
+                        taskList.get(taskNo - 1).getDescription());
+                break;
+            }
+            case "unmark": {
+                int taskNo = Integer.parseInt(inputLine.split(" ")[1]);
+                if (taskNo > taskList.size()) {
+                    System.out.printf("\t%s: Are you from the future?\n", pythonEmoji);
+                    break;
+                }
+                if (!taskList.get(taskNo - 1).isDone()) {
+                    System.out.printf("\t%s: Alas! Only the completed tasks can be unmarked!\n", pythonEmoji);
+                    System.out.printf("\t\tTask: \"%s\" is already sitting idle. Get started...!!!\n",
+                            taskList.get(taskNo - 1).getDescription());
+                    break;
+                }
+                taskList.get(taskNo - 1).setDone(false);
+                System.out.printf("\t%s: Its okay! To err is human! Unmarked!\n", pythonEmoji);
+                System.out.printf("\t\t\t[%s] %s\n",
+                        taskList.get(taskNo - 1).getStatusIcon(),
+                        taskList.get(taskNo - 1).getDescription());
+                break;
+            }
             default:
-                System.out.printf("\t%s: %s\n", pythonEmoji, inputCommand);
-                commandsList.add(inputCommand);
+                System.out.printf("\t%s: %s\n", pythonEmoji, inputLine);
+                Task task = new Task(inputLine);
+                taskList.add(task);
             }
             printHorizontalLine();
-        } while(!inputCommand.equals("bye"));
+        } while(!inputLine.equals("bye"));
     }
 }
