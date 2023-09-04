@@ -9,12 +9,19 @@ public class Duke {
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 
+        String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+
         //message
         System.out.println("Hello! I'm Botbot");
         System.out.println("What can I do for you?");
+        System.out.println(line);
 
         //scan input
         Scanner scanner = new Scanner(System.in);
+
+        //create array for list
+        String[] list = new String[100];
+        int listSize = 0;
 
         while(true) {
             String input = scanner.nextLine();
@@ -22,9 +29,18 @@ public class Duke {
             if (input.equals("bye")) {
                 System.out.println("Bye! Hope to see you again soon!");
                 break;
-            } else {
+            } else if(input.equals("list")){
+                for(int i = 0; i < listSize; i++) {
+                    System.out.print((i+1) + ". ");
+                    System.out.println(list[i]);
+                }
+            }else{
                 //Echo input
-                System.out.println(input);
+                System.out.println("Added: " + input);
+                System.out.println(line);
+                //edit list array
+                list[listSize] = input;
+                listSize++;
             }
         }
 
