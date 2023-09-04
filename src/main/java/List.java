@@ -7,8 +7,25 @@ class List {
         this.tasks = new ArrayList<Task>(100);
     }
 
-    public void add(String task) {
-        this.tasks.add(Task.createTask(task));
+    public void add(String input) {
+        String[] splitInput = input.split(" ", 2);
+        String action = splitInput[0];
+        Task newTask= null;
+
+        System.out.println("Got it. I've added this task:");
+        if (action.equals("todo")) {
+            newTask = new Todo(splitInput[1]);
+        } else if (action.equals("deadline")) {
+            String[] command = splitInput[1].split("/by");
+            newTask = new Deadline(command[0], command[1]);
+        } else if (action.equals("event")) {
+            String[] command = splitInput[1].split("/");
+            newTask = new Event(command[0], command[1], command[2]);
+        }
+        this.tasks.add(newTask);
+        System.out.println(newTask);
+        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+
     }
 
     public void mark(int taskID) {

@@ -1,14 +1,12 @@
-class Task {
-    private final String task;
+abstract class Task {
+    private final String description;
     private boolean isDone;
+    private String type;
 
-    public Task(String task) {
-        this.task = task;
+    public Task(String description, String type) {
+        this.description = description;
+        this.type = type;
         this.isDone = false;
-    }
-
-    public static Task createTask(String task) {
-        return new Task(task);
     }
 
     public void setDone(boolean isDone) {
@@ -17,17 +15,18 @@ class Task {
 
     @Override
     public boolean equals(Object obj) {
-        return this.task.equals(obj);
+        return this.description.equals(obj);
     }
 
     @Override
     public String toString() {
-        StringBuilder output;
+        StringBuilder output = new StringBuilder("[");
+        output.append(this.type).append("]");
         if (isDone) {
-            output = new StringBuilder("[X] ");
+            output.append("[X] ");
         } else {
-            output = new StringBuilder("[ ] ");
+            output.append("[ ] ");
         }
-        return output.append(this.task).toString();
+        return output.append(this.description).toString();
     }
 }
