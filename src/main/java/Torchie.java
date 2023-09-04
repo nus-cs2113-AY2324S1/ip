@@ -39,12 +39,8 @@ public class Torchie {
 
     }
 
-    public static String[] getTaskStore() {
-        String[] taskListString  = new String[taskStore.length];
-        for (int i=0; i< taskStore.length; i++){
-            taskListString[i] = taskStore[i].toString();
-        }
-        return taskListString;
+    public static Task[] getTaskStore() {
+        return taskStore;
     }
 
     public static void setTaskStore(Task t) {
@@ -59,13 +55,13 @@ public class Torchie {
                 // only print valid tasks
                 break;
             }
-            System.out.println(( (i+1) + ".[" + list[i].getStatusIcon() + "] " + list[i].description));
+            System.out.println(( (i+1) + ".[" + list[i].getStatusIcon() + "] " + list[i].getDescription()));
         }
     }
 
     public static Task[] markItem(Task[] list, int itemNum){
         int index = itemNum - 1; // obtain index of item to mark
-        list[index].isDone = true;
+        list[index].setDone(true);
         System.out.println("Nice! I've marked this task as done: ");
         list[index].printTask();
         return list;
@@ -73,7 +69,7 @@ public class Torchie {
 
     public static Task[] unmarkItem(Task[] list, int itemNum){
         int index = itemNum - 1; // obtain index of item to unmark
-        list[index].isDone = false;
+        list[index].setDone(false);
         System.out.println("Ok, I've marked this task as not done yet: ");
         list[index].printTask();
         return list;
