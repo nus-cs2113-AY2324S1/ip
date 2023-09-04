@@ -22,13 +22,18 @@ public class Duke {
 
         while (true) {
             String input = scanner.nextLine();
-            if (input.equals("bye")) {
+            String[] command = input.split(" ");
+            if (command[0].equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!\n");
                 Utils.printDivider();
                 break;
-            } else if (input.equals("list")) {
+            } else if (command[0].equals("list")) {
                 toDoList.printList();
-            } else {
+            } else if (command[0].equals("mark")) {
+                toDoList.mark(Integer.parseInt(command[1]));
+            } else if (command[0].equals("unmark")) {
+                toDoList.unmark(Integer.parseInt(command[1]));
+            }else {
                 toDoList.addToList(input);
             }
 
