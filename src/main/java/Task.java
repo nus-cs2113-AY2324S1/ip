@@ -38,9 +38,9 @@ public class Task {
     public void printAddedTask() {
         System.out.print("\tGot it. I've added this task:\n\t  " + this + "\n\tNow you have " + getNumTasks());
         if (getNumTasks() > 1) {
-            System.out.println(" tasks in this list.");
+            System.out.println(" tasks in the list.");
         } else {
-            System.out.println(" task in this list.");
+            System.out.println(" task in the list.");
         }
     }
 }

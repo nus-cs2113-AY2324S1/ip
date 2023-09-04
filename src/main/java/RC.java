@@ -36,6 +36,15 @@ public class RC {
                 String by = line.substring(splitIndex + 4);
                 tasks.add(new Deadline(description, by));
                 tasks.get(tasks.size() - 1).printAddedTask();
+            } else if (line.startsWith("event")) {
+                int fromIndex = line.indexOf("/from");
+                int toIndex = line.indexOf("/to");
+                final int beginIndex = 6;
+                String description = line.substring(beginIndex, fromIndex);
+                String from = line.substring(fromIndex + 6, toIndex);
+                String to = line.substring(toIndex + 4);
+                tasks.add(new Event(description, from, to));
+                tasks.get(tasks.size() - 1).printAddedTask();;
             } else {
                 String description = line;
                 if (line.startsWith("todo")) {
