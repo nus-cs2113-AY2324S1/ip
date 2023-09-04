@@ -1,11 +1,11 @@
 public class Event extends Task {
-    protected String start;
-    protected String end;
+    protected String from;
+    protected String to;
 
-    public Event(String description, String start, String end) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
@@ -16,6 +16,6 @@ public class Event extends Task {
     @Override
     public String getTask() {
         return String.format("[%s][%s] %s (from: %s to: %s)",
-                getTypeIcon(), getStatusIcon(), description, start, end);
+                getTypeIcon(), getStatusIcon(), description, from, to);
     }
 }
