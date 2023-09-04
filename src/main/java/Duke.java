@@ -7,14 +7,13 @@ public class Duke {
     final private static String BOT_NAME = "Python";
     final private static int HORIZONTAL_LINE_LENGTH = 80;
 
-    final private static String pythonASCIIArt =
-            "\t ____        _   _                 \n" +
-            "\t|  _ \\ _   _| |_| |__   ___  _ __  \n" +
-            "\t| |_) | | | | __|  _ \\ / _ \\|  _ \\ \n" +
-            "\t|  __/| |_| | |_| | | | (_) | | | |\n" +
-            "\t|_|    \\__, |\\__|_| |_|\\___/|_| |_|\n" +
-            "\t       |___/                        ";
-
+    final private static String pythonAsciiArt =
+                    "\t ____        _   _                 \n" +
+                    "\t|  _ \\ _   _| |_| |__   ___  _ __  \n" +
+                    "\t| |_) | | | | __|  _ \\ / _ \\|  _ \\ \n" +
+                    "\t|  __/| |_| | |_| | | | (_) | | | |\n" +
+                    "\t|_|    \\__, |\\__|_| |_|\\___/|_| |_|\n" +
+                    "\t       |___/                        ";
     final private static String pythonEmoji = "\uD83D\uDC0D";
 
     final static private List<Task> tasks = new ArrayList<>();
@@ -25,9 +24,9 @@ public class Duke {
         Arrays.fill(horizontalLine, '—');
         System.out.println("\t" + new String(horizontalLine));
     }
-    
+
     public static void main(String[] args) {
-        System.out.println(pythonASCIIArt);
+        System.out.println(pythonAsciiArt);
         printHorizontalLine();
         System.out.printf("\t%s: Hello! I am a short Java Bot %s!\n", pythonEmoji, BOT_NAME);
         System.out.printf("\t%s: What can I do for you?\n", pythonEmoji);
@@ -44,9 +43,8 @@ public class Duke {
                 break;
             case "list":
                 System.out.printf("\t%s: You have %d tasks to do!\n", pythonEmoji, tasks.size());
-                for(int taskNo = 1; taskNo <= tasks.size(); taskNo++) {
-                    System.out.printf("\t\t\t%d. [%s] %s\n",
-                            taskNo, tasks.get(taskNo - 1).getStatusIcon(),
+                for (int taskNo = 1; taskNo <= tasks.size(); taskNo++) {
+                    System.out.printf("\t\t\t%d. [%s] %s\n", taskNo, tasks.get(taskNo - 1).getStatusIcon(),
                             tasks.get(taskNo - 1).getDescription());
                 }
                 break;
@@ -64,8 +62,7 @@ public class Duke {
                 }
                 tasks.get(taskNo - 1).setDone(true);
                 System.out.printf("\t%s: Good job completing the task!\n", pythonEmoji);
-                System.out.printf("\t\t\t[%s] %s\n",
-                        tasks.get(taskNo - 1).getStatusIcon(),
+                System.out.printf("\t\t\t[%s] %s\n", tasks.get(taskNo - 1).getStatusIcon(),
                         tasks.get(taskNo - 1).getDescription());
                 break;
             }
@@ -83,8 +80,7 @@ public class Duke {
                 }
                 tasks.get(taskNo - 1).setDone(false);
                 System.out.printf("\t%s: Its okay! To err is human! Unmarked!\n", pythonEmoji);
-                System.out.printf("\t\t\t[%s] %s\n",
-                        tasks.get(taskNo - 1).getStatusIcon(),
+                System.out.printf("\t\t\t[%s] %s\n", tasks.get(taskNo - 1).getStatusIcon(),
                         tasks.get(taskNo - 1).getDescription());
                 break;
             }
@@ -92,8 +88,9 @@ public class Duke {
                 System.out.printf("\t%s: %s\n", pythonEmoji, inputLine);
                 Task task = new Task(inputLine);
                 tasks.add(task);
+                break;
             }
             printHorizontalLine();
-        } while(!inputLine.equals("bye"));
+        } while (!inputLine.equals("bye"));
     }
 }
