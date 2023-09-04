@@ -1,9 +1,7 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Duke {
     private static boolean ended = false;
@@ -34,8 +32,7 @@ public class Duke {
                 continue;
             }
 
-            userInput = userCommand.getArguments();
-            command.apply(userInput);
+            command.apply(userCommand.getArguments());
         }
     }
 
