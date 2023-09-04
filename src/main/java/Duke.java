@@ -50,7 +50,7 @@ public class Duke {
             newTask = new Deadline(command.getArguments(), command.getOptions("by"));
             break;
         case "event":
-            newTask = new Event(command.getArguments(), command.getOptions("from"),  command.getOptions("to"));
+            newTask = new Event(command.getArguments(), command.getOptions("from"), command.getOptions("to"));
             break;
         case "todo":
             newTask = new Todo(command.getArguments());
@@ -65,7 +65,18 @@ public class Duke {
     }
 
     private static void printAddedTask(Task task) {
-        printWrapped("added: " + task);
+        int tasksCount = Task.getTasks().size();
+        String taskSummary = String.format(
+                "You now have %d %s in the list!",
+                tasksCount,
+                (tasksCount > 1) ? "tasks" : "task"
+        );
+
+        printWrapped(
+                "Great! I've added the following task:\n"
+                        + "\t" + task + "\n"
+                        + taskSummary
+        );
     }
 
     public static Void listTasksFlow() {
