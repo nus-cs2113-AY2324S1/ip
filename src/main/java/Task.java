@@ -1,5 +1,3 @@
-package src.main.java;
-
 public class Task {
     String line = "____________________________________________________________\n";
     protected String description;
