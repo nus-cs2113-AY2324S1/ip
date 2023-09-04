@@ -22,4 +22,13 @@ public class Task {
     public void setCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
+
+    public String getStatus(){
+        String status = " ";
+        if(this.isCompleted()){
+            status = "X";
+        }
+        String line = "[" + status + "] " + getDescription();
+        return line;
+    }
 }
