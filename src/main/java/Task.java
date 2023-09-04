@@ -1,5 +1,5 @@
 public class Task {
-    String line = "____________________________________________________________\n";
+    private static final String LINE = "____________________________________________________________\n";
     protected String description;
     protected boolean isDone;
 
@@ -14,12 +14,12 @@ public class Task {
 
     public void unmarkStatusIcon(){
         isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:\n[ ] " + getDescription() + "\n" + line);
+        System.out.println("OK, I've marked this task as not done yet:\n[ ] " + getDescription() + "\n" + LINE);
     }
 
     public void markStatusIcon(){
         isDone = true;
-        System.out.println("Nice! I've marked this task as done:\n[X] " + getDescription() + "\n" + line);
+        System.out.println("Nice! I've marked this task as done:\n[X] " + getDescription() + "\n" + LINE);
     }
 
     public String getDescription() {
