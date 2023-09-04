@@ -26,9 +26,19 @@ public class Duke {
         println(LINE);
     }
 
+    public static String getCommand(String input) {
+        if (input.contains(" ")) {
+            return input.substring(0, input.indexOf(" "));
+        }
+
+        return input;
+    }
+
     public static void main(String[] args) {
         String line;
         Scanner in = new Scanner(System.in);
+
+        String command;
 
         int listIdx = 0;
         Task[] listItems = new Task[100];
@@ -40,13 +50,15 @@ public class Duke {
         while (line.equals("bye") == false) {
             println(LINE);
 
-            if (line.equals("list")) {
+            command = getCommand(line);
+
+            if (command.equals("list")) {
 
                 for (int i = 0; i < listIdx; i++) {
                     println(String.format("%d. %s", i+1, listItems[i].getTask()));
                 }
 
-            } else if (line.substring(0, 4).equals("mark")) {
+            } else if (command.equals("mark")) {
 
                 markIdx = Integer.parseInt(line.split(" ")[1]) - 1;
                 listItems[markIdx].setIsDone(true);
@@ -54,7 +66,7 @@ public class Duke {
                 println("Nice! I've marked this task as done: ");
                 println(listItems[markIdx].getTask());
 
-            } else if (line.substring(0, 6).equals("unmark")) {
+            } else if (command.equals("unmark")) {
 
                 markIdx = Integer.parseInt(line.split(" ")[1]) - 1;
                 listItems[markIdx].setIsDone(false);
@@ -62,11 +74,20 @@ public class Duke {
                 println("Nice! I've marked this task as undone: ");
                 println(listItems[markIdx].getTask());
 
+            } else if (command.equals("todo")) {
+
+                String todo = line.substring(line.indexOf(" ")+1);
+                listItems[listIdx] = new Todo(todo);
+                listIdx++;
+
+                println(listItems[listIdx-1].getTaskAdded(listIdx));
+
             } else {
 
                 listItems[listIdx] = new Task(line);
                 listIdx++;
-                println("added: " + line);
+
+                println(listItems[listIdx-1].getTaskAdded(listIdx));
 
             }
 
