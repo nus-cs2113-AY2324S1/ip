@@ -6,22 +6,33 @@ public class Duke {
         System.out.println("Hello! I'm Calebra\nWhat can I do for you?");
         System.out.println("____________________________________________________________");
 
-
         Scanner input = new Scanner(System.in);
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         String line = input.nextLine();
         while (!line.equals("bye")) {
 
             System.out.println("____________________________________________________________");
-            if(line.equals("list")){
-                for(int i = 0; i < taskCount; i ++){
-                    System.out.println(i+1 + ". " + tasks[i]);
+            if (line.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println(i + 1 + ". " + tasks[i]);
                 }
-            }
-            else{
-                tasks[taskCount] = line;
+            } else if (line.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(line.substring(5)) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    tasks[taskIndex].markAsDone();
+                    System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex].toString());
+                }
+            } else if (line.startsWith("unmark")) { // Change from 'else' to 'else if'
+                int taskIndex = Integer.parseInt(line.substring(7)) - 1; // Change from 5 to 7
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    tasks[taskIndex].markAsNotDone(); // Change method name to markAsNotDone
+                    System.out.println("OK, I've marked this task as not done yet:\n" + tasks[taskIndex].toString());
+                }
+            } else {
+                tasks[taskCount] = new Task(line); // Create a new Task object
                 taskCount++;
                 System.out.print("Added: ");
                 System.out.println(line);
