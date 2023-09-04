@@ -82,6 +82,16 @@ public class Duke {
 
                 println(listItems[listIdx-1].getTaskAdded(listIdx));
 
+            } else if (command.equals("deadline")) {
+                int byIdx = line.indexOf("/by");
+                String description = line.substring(line.indexOf(" ")+1, byIdx-1);
+                String deadline = line.substring(byIdx+ "/by ".length());
+
+                listItems[listIdx] = new Deadline(description, deadline);
+                listIdx++;
+
+                println(listItems[listIdx-1].getTaskAdded(listIdx));
+
             } else {
 
                 listItems[listIdx] = new Task(line);
