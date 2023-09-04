@@ -20,20 +20,21 @@ public class Duke {
         while (!ended) {
             System.out.print("User: ");
             String userInput = getInput();
-            String[] inputTokens = userInput.split(" ");
+            Command userCommand = new Command(userInput);
+            userCommand.parse();
 
-            if (userInput.strip().isEmpty() || inputTokens.length == 0) {
+            if (userCommand.isEmpty()) {
                 printWrapped("Please provide an input!");
                 continue;
             }
 
-            Function<String, Void> command = COMMANDS.get(inputTokens[0].toLowerCase());
+            Function<String, Void> command = COMMANDS.get(userCommand.getCommandWord());
             if (command == null) {
-                addTaskFlow(userInput);
+                addTaskFlow(userCommand.getOriginalCommand());
                 continue;
             }
 
-            userInput = Arrays.stream(inputTokens).skip(1).collect(Collectors.joining(" "));
+            userInput = userCommand.getArguments();
             command.apply(userInput);
         }
     }
