@@ -17,7 +17,7 @@ public class Duke {
             if (line.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println(i + 1 + ". " + tasks[i]);
+                    System.out.println((i + 1) + ". " + tasks[i]);
                 }
             } else if (line.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(line.substring(5)) - 1;
@@ -25,14 +25,14 @@ public class Duke {
                     tasks[taskIndex].markAsDone();
                     System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex].toString());
                 }
-            } else if (line.startsWith("unmark")) { // Change from 'else' to 'else if'
-                int taskIndex = Integer.parseInt(line.substring(7)) - 1; // Change from 5 to 7
+            } else if (line.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(line.substring(7)) - 1;
                 if (taskIndex >= 0 && taskIndex < taskCount) {
-                    tasks[taskIndex].markAsNotDone(); // Change method name to markAsNotDone
+                    tasks[taskIndex].markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:\n" + tasks[taskIndex].toString());
                 }
             } else {
-                tasks[taskCount] = new Task(line); // Create a new Task object
+                tasks[taskCount] = new Task(line);
                 taskCount++;
                 System.out.print("Added: ");
                 System.out.println(line);
