@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static void printList(String[] storageArray, int num){
+        for(int i = 0; i < num; i ++){
+            System.out.println(i + 1 + "." + storageArray[i]);
+        }
+    }
     public static void main(String[] args) {
 
         String logoRyan = " ____  _          \n"
@@ -11,7 +16,8 @@ public class Duke {
 
         System.out.println("Hello from\n" + logoRyan);
 
-        // String[] storageArray() = new String[100];
+        String[] storageArray = new String[100];
+        int numOfItems = 0;
 
         String line = "Hello! I'm Ryan Loh \nWhat can I do for you?\n";
 
@@ -19,8 +25,20 @@ public class Duke {
 
         String userInput = scanner.nextLine();
         while (!userInput.equals("Bye")) {
-            System.out.println("      " + userInput);
-            userInput = scanner.nextLine(); 
+            if (userInput.equals("list")) {
+                System.out.println("Show the list");
+                printList(storageArray,numOfItems);
+            } else {
+                storageArray[numOfItems] = userInput;
+                System.out.println("added: " + storageArray[0]);
+                numOfItems += 1;
+            }
+
+            // if the the string is list, we print out the entire list
+            // if the string is bye, we exit the program
+            // else we just add it into the text
+            userInput = scanner.nextLine();
+
         }
         String lineBreak = "------------------------------ \n";
 
