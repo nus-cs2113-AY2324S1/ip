@@ -39,6 +39,14 @@ public class Torchie {
 
     }
 
+    public static String[] getTaskStore() {
+        String[] taskListString  = new String[taskStore.length];
+        for (int i=0; i< taskStore.length; i++){
+            taskListString[i] = taskStore[i].toString();
+        }
+        return taskListString;
+    }
+
     public static void setTaskStore(Task t) {
         taskStore[taskStoreSpace] = t;
         taskStoreSpace += 1;
