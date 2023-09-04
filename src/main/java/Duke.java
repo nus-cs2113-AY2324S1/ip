@@ -8,10 +8,24 @@ public class Duke {
 
 
         Scanner input = new Scanner(System.in);
+        String[] tasks = new String[100];
+        int taskCount = 0;
+
         String line = input.nextLine();
         while (!line.equals("bye")) {
-            System.out.println("____________________________________________________________\n");
-            System.out.println(line);
+
+            System.out.println("____________________________________________________________");
+            if(line.equals("list")){
+                for(int i = 0; i < taskCount; i ++){
+                    System.out.println(i+1 + ". " + tasks[i]);
+                }
+            }
+            else{
+                tasks[taskCount] = line;
+                taskCount++;
+                System.out.print("Added: ");
+                System.out.println(line);
+            }
             System.out.println("____________________________________________________________\n");
             line = input.nextLine();
         }
