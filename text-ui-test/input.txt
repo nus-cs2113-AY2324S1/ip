@@ -1,0 +1,19 @@
+todo welcome
+todo hi
+deadline
+deadline deadline task
+deadline bad /by
+deadline deadline task /by Week 4
+event
+event an event
+event an event      /from
+event an event      /from A
+event an event      /from A /to
+event an event working     /from A /to Z
+list
+mark 0
+mark 5
+mark 1
+mark 4
+list
+bye
