@@ -11,6 +11,14 @@ public class Task {
     public Task(){
     }
 
+    /** Constructor class to be declared
+     * @param name Name of task to be set
+     */
+
+    public Task(String name){
+        this.name = name;
+    }
+
     /** Sets name
      * @param name Name of task to be set
     */
@@ -42,12 +50,15 @@ public class Task {
         return this.done;
     }
 
-    /** Prints task with status */
-    public void printTask(){
+    /** Gets task as string
+     * @return name Name of task
+     */
+    @Override
+    public String toString(){
         if (this.done){
-            System.out.println("[X] " + this.name);
+            return ("[X] " + this.name);
         } else {
-            System.out.println("[ ] " + this.name);
+            return ("[ ] " + this.name);
         }
     }
 }

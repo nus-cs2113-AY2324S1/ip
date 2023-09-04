@@ -18,26 +18,25 @@ public class TaskList {
     public void listTasks(){
         System.out.print(DefaultStrings.splittingLine);
         for (int i = 1; i <= this.tasks.size(); i++){
-            System.out.print(i + ". ");
-            this.tasks.get(i-1).printTask();
+            System.out.println(i + ". " + this.tasks.get(i-1).toString());
         }
         System.out.println(DefaultStrings.splittingLine);
     }
 
     public void markTask(int taskNumber){
         this.tasks.get(taskNumber-1).markAsDone();
-        System.out.println(DefaultStrings.markedString);
-        System.out.print(taskNumber + ". ");
-        this.tasks.get(taskNumber-1).printTask();
-        System.out.println(DefaultStrings.splittingLine);
+        printTaskSkeleton(taskNumber, DefaultStrings.markedString);
     }
 
     public void unmarkTask(int taskNumber){
         this.tasks.get(taskNumber-1).markAsUndone();
-        System.out.println(DefaultStrings.unmarkedString);
-        System.out.print(taskNumber + ". ");
-        this.tasks.get(taskNumber-1).printTask();
-        System.out.println(DefaultStrings.splittingLine);
+        printTaskSkeleton(taskNumber, DefaultStrings.unmarkedString);
+    }
+
+    private void printTaskSkeleton(int taskNumber, String isMarkedString){
+        System.out.println(isMarkedString + taskNumber + ". "
+                + "\n" + this.tasks.get(taskNumber-1).toString()
+                + "\n" + DefaultStrings.splittingLine);
     }
 
 }
