@@ -18,14 +18,20 @@ public class Duke {
         System.out.println(prompt);
 
         Scanner scanner = new Scanner(System.in);
+        ToDoList toDoList = new ToDoList();
 
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!\n" + "___________________________________\n");
+                System.out.println("Bye. Hope to see you again soon!\n");
+                Utils.printDivider();
                 break;
+            } else if (input.equals("list")) {
+                toDoList.printList();
+            } else {
+                toDoList.addToList(input);
             }
-            Utils.echo(input);
+
 
         }
 
