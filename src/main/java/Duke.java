@@ -12,6 +12,39 @@ public class Duke {
         + "\n" + LINE_DIVIDER);
     }
 
+    public static void addTodo(String in, Task[] itemList, int i) {
+        itemList[i] = new ToDo(in);
+
+        System.out.println(LINE_DIVIDER + "\n"
+                + "Sure, I've added this task: " + in
+                + "\n" + LINE_DIVIDER);
+    }
+
+    public static void addEvent(String in, Task[] itemList, int i) {
+        String[] vals = in.split(" /");
+        String name = vals[0];
+        String from = vals[1];
+        String to = vals[2];
+
+        itemList[i] = new Event(name, from, to);
+
+        System.out.println(LINE_DIVIDER + "\n"
+                + "Sure, I've added this task: " + in
+                + "\n" + LINE_DIVIDER);
+    }
+
+    public static void addDeadline(String in, Task[] itemList, int i) {
+        String[] vals = in.split(" /");
+        String name = vals[0];
+        String by = vals[1];
+
+        itemList[i] = new Deadline(name, by);
+
+        System.out.println(LINE_DIVIDER + "\n"
+                + "Sure, I've added this task: " + in
+                + "\n" + LINE_DIVIDER);
+    }
+
     public static void markTask(Task[] itemList, int i) {
         itemList[i - 1].setDone(true);
 
@@ -70,6 +103,21 @@ public class Duke {
                 case "unmark":
                     unmarkTask(itemList,
                             Integer.parseInt(buf.split(" ")[1]));
+                    break;
+
+                case "todo":
+                    addTodo(buf, itemList, i);
+                    i += 1;
+                    break;
+
+                case "deadline":
+                    addDeadline(buf, itemList, i);
+                    i += 1;
+                    break;
+
+                case "event":
+                    addEvent(buf, itemList, i);
+                    i += 1;
                     break;
 
                 default:
