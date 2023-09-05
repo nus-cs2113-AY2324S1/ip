@@ -5,16 +5,23 @@ public class Duke {
         String intro = "Hello! I'm Wenny!\n"
                         + "How may I help you?\n";
         System.out.println(intro);
-        List list = new List();
+        Task tasks = new Task();
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
             if (userInput.equals("bye")) {
                 bye();
             } else if (userInput.equals("list")) {
-                list.print_list();
+                tasks.print_tasks();
             } else {
-                list.add_to_list(userInput);
+                String[] substr = userInput.split("\\s+");
+                if (substr[0].equals("mark")) {
+                    tasks.markAsDone(Integer.parseInt(substr[1]));
+                } else if (substr[0].equals("unmark")) {
+                    tasks.markAsUndone(Integer.parseInt(substr[1]));
+                } else {
+                    tasks.add_to_tasks(userInput);
+                }
             }
         }
     }
