@@ -10,19 +10,19 @@ public class Doli {
     }
     /** Prints the signature design of the chatbot */
     public static void printDesign() { //
-        String design = " ____       _    \n" +
+        String design = " ____       _\n" +
                 "|  _  \\    | | [_]\n" +
                 "| | | |____| |  _\n" +
-                "| |_| | [] | | | | \n" +
-                "|____/|____|__||_| \n\n";
-        System.out.println("\nHello! My name is\n" + design + "What can I do for you?");
+                "| |_| | [] | | | |\n" +
+                "|____/|____|__||_|\n";
+        System.out.printf("\nHello! My name is\n%s\nWhat can I do for you?\n", design);
     }
 
     public static void main(String[] args) {
 
-        printLine();
+        //printLine();
         printDesign();
-        printLine();
+        //printLine();
 
         int numberOfItems = 0;
         Task[] tasks = new Task[100];
