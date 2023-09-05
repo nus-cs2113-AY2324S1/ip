@@ -22,7 +22,7 @@ public class Botbot {
             } else {
                 list[itemIndex].unmark();
                 System.out.println("OK, I've marked this task as not done yet: ");
-                list[itemIndex].printTask();
+                System.out.println(list[itemIndex]);
                 System.out.println(line);
             }
         } else { //for command mark
@@ -35,10 +35,34 @@ public class Botbot {
             }else {
                 list[itemIndex].mark();
                 System.out.println("Nice! I've marked this task as done: ");
-                list[itemIndex].printTask();
+                System.out.println(list[itemIndex]);
                 System.out.println(line);
             }
         }
+    }
+
+    //method to add todo tasks
+    public static void todoTasks(String task) {
+        //instantiate new todo object
+        Todo todoTask = new Todo(task);
+        list[listSize] = todoTask;
+        listSize++;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(todoTask);
+        System.out.println("Now you have " + (listSize) + " tasks in the list.");
+        System.out.println(line);
+    }
+
+    //method to add deadline tasks
+    public static void deadlineTasks(String task, String deadline){
+        //instantiate new deadline object
+        Deadline deadlineTask = new Deadline(task, deadline);
+        list[listSize] = deadlineTask;
+        listSize++;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task + "by: (" + deadline + ")");
+        System.out.println("Now you have " + (listSize) + " tasks in the list.");
+        System.out.println(line);
     }
 
     //method to add task to list
@@ -64,6 +88,8 @@ public class Botbot {
 
         while(true) {
             String input = scanner.nextLine();
+            System.out.println(line);
+
             //for command bye
             if (input.equals("bye")) {
                 System.out.println("Bye! Hope to see you again soon!");
@@ -72,13 +98,27 @@ public class Botbot {
             } else if(input.equals("list")) {
                 for (int i = 0; i < listSize; i++) {
                     System.out.print((i + 1) + ". ");
-                    list[i].printTask();
+                    System.out.println(list[i]);
                 }
                 System.out.println(line);
+            //for marking/unmarking command
             }else if(input.contains("mark")){
                 markUnmarkTask(input);
+            //for todo commands
+            }else if(input.contains("todo")) {
+                todoTasks(input.substring(5));
+            //for deadline commands
+            }else if(input.contains("deadline")){
+                String[] parts = input.split("/by ");
+                String task = parts[0].substring("deadline ".length());
+                String deadline = parts[1];
+                deadlineTasks(task, deadline);
+//            //for event commands
+//            }else if(input.contains("events")){
+
             }else{
-                addTask(input);
+                    addTask(input);
+
             }
         }
 

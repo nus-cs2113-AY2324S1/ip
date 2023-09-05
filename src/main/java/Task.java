@@ -23,8 +23,8 @@ public class Task {
         this.isDone = true;
     }
 
-    //print task object
-    public void printTask() {
-        System.out.println("[" + this.getStatusIcon() + "] " + this.taskName);
+    @Override
+    public String toString(){
+        return "[" + this.getStatusIcon() + "] " + this.taskName;
     }
 }
