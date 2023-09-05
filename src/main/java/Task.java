@@ -9,9 +9,9 @@ public class Task {
 
     public String getStatusIcon() {
         if (isDone) {
-            return "X";
+            return "[X]";
         } else {
-            return " ";
+            return "[ ]";
         }
     }
 
