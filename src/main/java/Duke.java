@@ -20,38 +20,69 @@ public class Duke {
 
         int spaceIdx = trimmedInput.indexOf(" ");
         int numStartIdx = spaceIdx + 1;
-        String taskNumString = trimmedInput.substring(numStartIdx);
+        String removedInstructionString = trimmedInput.substring(numStartIdx);
+        String instructionString = trimmedInput.substring( 0, spaceIdx);
         int taskNum;
 
-        if(trimmedInput.contains("unmark")){
-            taskNum = Integer.parseInt(taskNumString);
+        if(instructionString.contains("unmark")){
+            taskNum = Integer.parseInt(removedInstructionString);
             records[taskNum-1].setUndone();
             printAllTasks();
             return "";
         }
-        if(trimmedInput.contains("mark")){
-            taskNum = Integer.parseInt(taskNumString);
+        if(instructionString.contains("mark")){
+            taskNum = Integer.parseInt(removedInstructionString);
             records[taskNum-1].setDone();
             printAllTasks();
             return "";
         }
-        return createNewTask(input);
+        createNewTask(instructionString, removedInstructionString);
+        return "";
     }
 
-    private static String createNewTask(String input) {
-        Task todo = new Task(input);
-        records[recordsNum] = todo;
+    private static void createNewTask(String instructionString, String removedInstructionString) {
+        Task task;
+        String taskDescription;
+        switch(instructionString) {
+        case "todo":
+            taskDescription = removedInstructionString;
+            task = new ToDo(taskDescription);
+            break;
+        case "deadline":
+            String dateIndicator = "/by";
+            int byIndex = removedInstructionString.indexOf(dateIndicator);
+            taskDescription = removedInstructionString.substring(0,byIndex).trim();
+            String byDate = removedInstructionString.substring(byIndex + dateIndicator.length()).trim();
+            task = new Deadline(taskDescription, byDate);
+            break;
+        case "event":
+            String startDateIndicator = "/from";
+            String endDateIndicator = "/to";
+            int fromIndex = removedInstructionString.indexOf(startDateIndicator);
+            int toIndex = removedInstructionString.indexOf(endDateIndicator);
+            taskDescription = removedInstructionString.substring(0,fromIndex).trim();
+            String fromDate = removedInstructionString.substring(fromIndex + startDateIndicator.length(), toIndex).trim();
+            String toDate = removedInstructionString.substring(toIndex + endDateIndicator.length());
+
+            task = new Event(taskDescription, fromDate, toDate);//need to divide the string and get the contents
+            break;
+        default:
+            return ;
+        }
+        records[recordsNum] = task;
         recordsNum++;
-        return "added: " + input;
+        printLine();
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t" + task);
+        System.out.println("\tNow you have " + recordsNum + " tasks in the list." );
+        printLine();
+        return ;
     }
 
     private static void printAllTasks() {
         printLine();
         for(int i = 0; i < recordsNum; i++){
-            String taskIndexString = Integer.toString(i + 1);
-            String checkBox = "[" + records[i].getStatusIcon() + "]";
-            String taskDescription = records[i].getDescription();
-            System.out.println("\t " + taskIndexString + " " + checkBox + " " + taskDescription );
+            System.out.println(records[i]);
         }
         printLine();
     }

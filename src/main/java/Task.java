@@ -14,9 +14,16 @@ public class Task {
         return this.description;
     }
     public void setDone(){
+
         this.isDone = true;
     }
     public void setUndone(){
         this.isDone = false;
+    }
+
+    @Override
+    public String toString(){
+        String marker = this.isDone? "x" : " ";
+        return "[" + marker + "] " + this.description;
     }
 }
