@@ -1,7 +1,7 @@
-public class Task {
+public abstract class Task {
 
-    private String description;
-    private boolean completed;
+    protected String description;
+    protected boolean completed;
 
     public Task(String description) {
         this.description = description;
@@ -27,4 +27,11 @@ public class Task {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
+    @Override
+    public String toString() {
+        return this.description;
+    }
+
+    public abstract String getCode();
 }

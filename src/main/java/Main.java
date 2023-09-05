@@ -11,8 +11,12 @@ public class Main {
         String line;
         while (scan.hasNextLine()) {
             line = scan.nextLine();
+            System.out.println();
 
-            if (herbert.processLine(line) == 1) return;
+            // User has inputted "bye"
+            if (herbert.processLine(line) == 1) {
+                break;
+            }
         }
     }
 
