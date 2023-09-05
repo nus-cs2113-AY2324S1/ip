@@ -1,4 +1,4 @@
-
+//package main.java;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -46,15 +46,24 @@ public class Duke {
             System.out.println(" No tasks.");
         } else {
             System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
-                System.out.println(" " + (i + 1) + "." + task.getStatusIcon() + " " + task.getDescription());
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String taskType = task instanceof Todo ? "[T]" : (task instanceof Deadline ? "[D]" : "[E]");
+            String statusIcon = task.getStatusIcon();
+            String description = task.getDescription();
+            
+            if (task instanceof Deadline) {
+                description += " (by: " + ((Deadline) task).getBy() + ")";
+            } else if (task instanceof Event) {
+                description += " (from: " + ((Event) task).getFrom() + " to: " + ((Event) task).getTo() + ")";
             }
+            
+            System.out.println(" " + (i + 1) + "." + taskType + statusIcon + " " + description);
         }
     }
-
+}
     public static void main(String[] args) {
-        greet(); // when user runs the program, UI greets user
+        greet();
 
         try (Scanner givenTask = new Scanner(System.in)) {  
             ArrayList<Task> tasks = new ArrayList<Task>();
@@ -62,8 +71,7 @@ public class Duke {
             while (true) {
                 String command = givenTask.nextLine();
                 System.out.println("____________________________________________________________");
-                
-                // if user inputs "bye", UI prints goodbye message and exits the program
+
                 if (command.equalsIgnoreCase("bye")) {
                     goodbye();
                     break;
@@ -109,6 +117,41 @@ public class Duke {
                         } else {
                             System.out.println(" Invalid task number.");
                         }
+                    }
+                } else if (command.startsWith("todo ")) {
+                    // Handle adding a ToDo task
+                    String description = command.substring(5); // Remove "todo "
+                    tasks.add(new Todo(description));
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + tasks.get(tasks.size() - 1));
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                } else if (command.startsWith("deadline ")) {
+                    String[] parts = command.substring(9).split(" /by ");
+                    if (parts.length == 2) {
+                        // Handle adding a Deadline task
+                        String description = parts[0];
+                        String by = parts[1];
+                        tasks.add(new Deadline(description, by));
+                        System.out.println(" Got it. I've added this task:");
+                        System.out.println("   " + tasks.get(tasks.size() - 1));
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    } else {
+                        System.out.println(" Invalid command.");
+                    }
+                } else if (command.startsWith("event ")) {
+                    // Handle adding an Event task
+                    String[] parts = command.substring(6).split(" /from ");
+                    if (parts.length == 2) {
+                        String description = parts[0];
+                        String[] timeParts = parts[1].split(" /to ");
+                        String from = timeParts[0];
+                        String to = timeParts[1];
+                        tasks.add(new Event(description, from, to));
+                        System.out.println(" Got it. I've added this task:");
+                        System.out.println("   " + tasks.get(tasks.size() - 1));
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    } else {
+                        System.out.println(" Invalid event command format.");
                     }
                 } else {
                     tasks.add(new Task(command));

@@ -20,7 +20,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toString() {
+        return getStatusIcon() + " " + this.description;
+    }
+
     public String getDescription() {
-        return description;
+        return this.description;
     }
 }
