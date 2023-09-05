@@ -1,16 +1,23 @@
+package Jarvis;
+
+import Tasks.Task;
+import Tasks.Todo;
+import Tasks.Deadline;
+import Tasks.Event;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Jarvis {
     public static void main(String[] args) {
 
         String logo = "\n" +
-        "     ____.  _____ ______________   ____.___  _________\n" +
-        "    |    | /  _  \\\\______   \\   \\ /   /|   |/   _____/\n" +
-        "    |    |/  /_\\  \\|       _/\\   Y   / |   |\\_____  \\ \n" +
-        "/\\__|    /    |    \\    |   \\ \\     /  |   |/        \\\n" +
-        "\\________\\____|__  /____|_  /  \\___/   |___/_______  /\n" +
-        "                 \\/       \\/                       \\/ \n";
+                "     ____.  _____ ______________   ____.___  _________\n" +
+                "    |    | /  _  \\\\______   \\   \\ /   /|   |/   _____/\n" +
+                "    |    |/  /_\\  \\|       _/\\   Y   / |   |\\_____  \\ \n" +
+                "/\\__|    /    |    \\    |   \\ \\     /  |   |/        \\\n" +
+                "\\________\\____|__  /____|_  /  \\___/   |___/_______  /\n" +
+                "                 \\/       \\/                       \\/ \n";
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________\n" +
                 " Hi Sir! I'm JARVIS \n" +
@@ -58,7 +65,7 @@ public class Duke {
                 System.out.println("    " + taskList.get(index));
             }
             else{
-                // To-do, Deadline & Events
+                // To-do, Tasks.Deadline & Events
                 System.out.println("Got it. I've added this task:");
                 if(userInput.startsWith("todo")){
                     Todo todo = new Todo(userInput.substring(5));
