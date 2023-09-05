@@ -11,17 +11,13 @@ public class Duke {
 
     public void addToList(Task task) {
         list.add(task);
+        respond("added: " + task.addMessage());
     }
     public void printList() {
         Task[] listAsArray = list.toArray(new Task[0]);
         String out = "";
         for (int i = 0; i < listAsArray.length; i++) {
-            out += (i == 0 ? "" : "\n") +
-                    (i + 1) +
-                    ". [" +
-                    (listAsArray[i].getIsComplete() ? "X" : " ") +
-                    "] " +
-                    listAsArray[i].getName();
+            out += (i == 0 ? "" : "\n") + (i + 1) + ". " + listAsArray[i].listText();
         }
         respond(out);
     }
@@ -29,13 +25,30 @@ public class Duke {
         for (Task task : list) {
             if (task.getName().equals(name)) {
                 task.setComplete(status);
+                if (status) {
+                    respond("Nice! I've marked this task as done:\n" +
+                            task.listText());
+                } else {
+                    respond("OK, I've marked this task as not done yet:\n" +
+                            task.listText());
+                }
             }
         }
     }
-    public void respond(String s) {
+    public void respond(String message) {
         System.out.println("____________________________________________________________\n" +
-                s + "\n" +
+                message + "\n" +
                 "____________________________________________________________");
+    }
+
+    public static String getTask(String command, String message) {
+        return message.substring(command.length() + 1,
+                (message.contains("/") ? message.indexOf("/") : message.length()));
+    }
+
+    public static String getTime(String message, String command) {
+        return message.substring(message.indexOf(command) + command.length() + 1,
+                (command.equals("/from") ? message.indexOf("/to") : message.length()));
     }
     public static void main(String[] args) {
         Duke bot = new Duke();
@@ -46,18 +59,25 @@ public class Duke {
             if (in.equals("list")) {
                 bot.printList();
             } else if (in.startsWith("mark")) {
-                String taskName = in.substring("mark".length() + 1);
+                String taskName = getTask("mark", in);
                 bot.updateTask(taskName, true);
-                bot.respond("Nice! I've marked this task as done:\n" +
-                        "[X] " + taskName);
             } else if (in.startsWith("unmark")) {
-                String taskName = in.substring("unmark".length() + 1);
+                String taskName = getTask("unmark", in);
                 bot.updateTask(taskName, false);
-                bot.respond("OK, I've marked this task as not done yet:\n" +
-                        "[ ] " + taskName);
+            } else if (in.startsWith("todo")) {
+                String taskName = getTask("todo", in);
+                bot.addToList(new Todo(taskName));
+            } else if (in.startsWith("deadline")) {
+                String taskName = getTask("deadline", in);
+                String by = getTime(in, "/by");
+                bot.addToList(new Deadline(taskName, by));
+            } else if (in.startsWith("event")) {
+                String taskName = getTask("event", in);
+                String from = getTime(in, "/from");
+                String to = getTime(in.substring(in.indexOf("/") + 1), "/to");
+                bot.addToList(new Event(taskName, from, to));
             } else {
                 bot.addToList(new Task(in));
-                bot.respond("added: " + in);
             }
             in = sc.nextLine();
         }
