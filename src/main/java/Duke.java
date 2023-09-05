@@ -43,6 +43,20 @@ public class Duke {
                 taskList.get(index).markAsDone();
                 System.out.println("    " + taskList.get(index));
             }
+            else if(userInput.startsWith("unmark ")){
+                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                // begin index at end of "mark ", subtract 1 to index-0 format
+                if(taskList.size() <= index){
+                    System.out.println("Invalid task number " + (index + 1) + ". Try Again!");
+                    // index + 1 to reflect back to index-1 format
+                    System.out.println("____________________________________________________________");
+                    userInput = sc.nextLine();
+                    continue;
+                }
+                System.out.println("Nice! I've unmarked:");
+                taskList.get(index).markAsUndone();
+                System.out.println("    " + taskList.get(index));
+            }
             else{
                 // To-do, Deadline & Events
                 System.out.println("Got it. I've added this task:");

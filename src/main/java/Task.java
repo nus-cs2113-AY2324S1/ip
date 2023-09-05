@@ -15,6 +15,10 @@ public class Task {
         this.isDone = true;
     }
 
+    public void markAsUndone(){
+        this.isDone = false;
+    }
+
 //    // Formats the task information for listing tasks with a status icon
 //    public String formatForList(int index) {
 //        return index + ". [" + getStatusIcon() + "]" + " " + description;
