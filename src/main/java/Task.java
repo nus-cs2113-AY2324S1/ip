@@ -8,6 +8,7 @@ public class Task {
         this.isDone = false;
     }
 
+    //check if task is marked or unmarked
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
