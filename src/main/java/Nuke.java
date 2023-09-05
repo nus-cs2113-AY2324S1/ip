@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Nuke {
@@ -42,7 +43,7 @@ public class Nuke {
     private static void runCommand(String line) {
         String[] words = line.split(" ");
         String type = words[0];
-        // String[] args = Arrays.copyOfRange(words, 1, words.length);
+        String[] args = Arrays.copyOfRange(words, 1, words.length);
 
         int idx;
         switch(type) {
@@ -61,17 +62,43 @@ public class Nuke {
             idx = Integer.parseInt(words[1]) - 1;
             unmarkTask(idx);
             break;
+        case "todo":
+            String todoName = String.join(" ", args);
+            addTask(new Todo(todoName));
+            break;
+        case "deadline":
+            int byIdx = Arrays.asList(args).indexOf("/by");
+            String[] deadlineNameArr = Arrays.copyOfRange(args, 0, byIdx);
+            String deadlineName = String.join(" ", deadlineNameArr);
+            String[] byArr = Arrays.copyOfRange(args, byIdx + 1, args.length);
+            String by = String.join(" ", byArr);
+            addTask(new Deadline(deadlineName, by));
+            break;
+        case "event":
+            int fromIdx = Arrays.asList(args).indexOf("/from");
+            int toIdx = Arrays.asList(args).indexOf("/to");
+            String[] eventNameArr = Arrays.copyOfRange(args, 0, fromIdx);
+            String eventName = String.join(" ", eventNameArr);
+            String[] fromArr = Arrays.copyOfRange(args, fromIdx + 1, toIdx);
+            String from = String.join(" ", fromArr);
+            String[] toArr = Arrays.copyOfRange(args, toIdx + 1, args.length);
+            String to = String.join(" ", toArr);
+            addTask(new Event(eventName, from, to));
+            break;
         default:
-            addTask(line);
+            addTask(new Task(line));
         }
     }
 
-    private static void addTask(String taskName) {
-        tasks.add(new Task(taskName));
-        System.out.println("added: " + taskName);
+    private static void addTask(Task task) {
+        tasks.add(task);
+        System.out.println("[☢] Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.printf("[☢] Now you have %d tasks in the list.\n", tasks.size());
     }
 
     private static void listTask() {
+        System.out.println("[☢] Here are the tasks in you list:");
         for(int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.printf("%d.%s\n", i + 1, task.toString());
