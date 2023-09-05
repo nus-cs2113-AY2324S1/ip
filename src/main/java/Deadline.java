@@ -1,3 +1,4 @@
+/** Subclass of Task, specifying tasks containing a deadline */
 public class Deadline extends Task{
     protected String deadline;
     public Deadline(String description, String deadline) {
@@ -5,7 +6,6 @@ public class Deadline extends Task{
         this.deadline = deadline;
     }
     public void setDeadline(String deadline) {
-
         this.deadline = deadline;
     }
     public String getDeadline() {

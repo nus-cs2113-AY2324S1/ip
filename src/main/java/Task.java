@@ -1,3 +1,4 @@
+/** Parent class defining a task with description, process and agenda overview */
 public class Task {
     private String description;
     private boolean isDone;
@@ -9,7 +10,7 @@ public class Task {
     }
 
     public char getStatusIcon() {
-        return (isDone ? 'X' : ' '); // mark done task with X
+        return (isDone ? 'X' : ' '); // return whether task is done or not
     }
     public void markTaskAsDone() {
         isDone = true;
@@ -17,10 +18,11 @@ public class Task {
     public void markTaskAsNotDone() {
         isDone = false;
     }
+    /** Retrieves the true task description from the user input */
     public String getDescription() {
         boolean containsTime = description.contains("/");
         String commandlessDescription = description.substring(description.indexOf(" "));
-        if (containsTime == true) {
+        if (containsTime) {
             return commandlessDescription.substring(0, commandlessDescription.indexOf('/'));
         } else {
             return commandlessDescription;
@@ -32,6 +34,7 @@ public class Task {
     public static int getNumberOfTotalTasks() {
         return numberOfTotalTasks;
     }
+    @Override
     public String toString() {
         String summary = String.format("[%c] %s", getStatusIcon(), getDescription());
         return summary;

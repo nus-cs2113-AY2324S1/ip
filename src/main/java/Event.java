@@ -1,4 +1,5 @@
-public class Event extends Task{
+/** Subclass of Task, specifying events with a start and ending time */
+public class Event extends Task {
     protected String startTime;
     protected String endTime;
     public Event(String description, String startTime, String endTime) {
@@ -17,11 +18,9 @@ public class Event extends Task{
         return timeInterval;
     }
     public void setStartTime(String startTime) {
-
         this.startTime = startTime;
     }
     public void setEndTime(String endTime) {
-
         this.endTime = endTime;
     }
     public void setTime(String startTime, String endTime) {

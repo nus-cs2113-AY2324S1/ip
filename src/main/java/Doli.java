@@ -1,21 +1,15 @@
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Scanner;
-
-
 public class Doli {
-
-    /**
-     * Prints a horizontal dashed line intended to separate fields
-     */
+    /** Prints a horizontal dashed line to separate fields */
     public static void printLine() {
         for (int i = 50; i > 0; i--) {
             System.out.print("_");
         }
         System.out.println("");
     }
-
-    public static void printDesign() {
+    /** Prints the signature design of the chatbot */
+    public static void printDesign() { //
         String design = " ____       _    \n" +
                 "|  _  \\    | | [_]\n" +
                 "| | | |____| |  _\n" +
@@ -40,6 +34,8 @@ public class Doli {
             String command = line.split(" ")[0].toLowerCase();
             String summaryResponse = String.format("\n" +
                     "Now you have a total of %d tasks in your agenda.", numberOfItems + 1);
+
+            /** Implemented commands so far: todo, event, deadline, list, mark, unmark */
             switch (command) {
             case "todo":
                 tasks[numberOfItems] = new ToDo(line);
@@ -99,6 +95,7 @@ public class Doli {
             printLine();
             line = in.nextLine();
         }
+        /** If the input by the user is bye, the system will greet and finish the process */
         System.out.println("\nIt was a pleasure, bye. See you later!");
         printLine();
     }
