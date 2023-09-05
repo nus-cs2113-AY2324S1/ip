@@ -3,61 +3,133 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Ken {
-    public static void main(String[] args) {
-        String logo = " _   __ ______  __    __\n"
-                    + "| | / /|  ____||  \\  |  |\n"
-                    + "| |/ / | |____ |   \\ |  |\n"
-                    + "|   /  |  ____||    \\|  |\n"
-                    + "| |\\ \\ | |____ |        |\n"
-                    + "|_| \\_\\|______||__|\\____|";
-        String line = "_______________________________________________\n";
-        System.out.println(logo);
+    private static final Task[] TASKS = new Task[100];
+    private static int taskSize = 0;
+    private static final String TODO = "todo";
+    private static final String DEADLINE = "deadline";
+    private static final String EVENT = "event";
+    private static final String LIST = "list";
+    private static final String MARK = "mark";
+    private static final String UNMARK = "unmark";
+    private static final String BYE = "bye";
 
-        System.out.println(line
-                + "Hello! I'm Ken!\n"
-                + "What can I do for you?\n"
-                + line);
+    public static void printLine() {
+        System.out.println("_____________________________________________________________");
+    }
+
+    public static void printTexts(String[] texts) {
+        printLine();
+        for (String text : texts) {
+            System.out.println("\t" + text);
+        }
+        printLine();
+    }
+
+    public static void main(String[] args) {
+        String greetingLogo = " ____  __.___________ _______   \n"
+                + "\t|    |/ _|\\_   _____/ \\      \\  \n"
+                + "\t|      <   |    __)_  /   |   \\ \n"
+                + "\t|    |  \\  |        \\/    |    \\\n"
+                + "\t|____|__ \\/_________/\\____|__  /\n"
+                + "\t\\/        \\/         \\/";
+
+        printTexts(new String[]{
+                "Greetings, fashionista! I'm",
+                greetingLogo,
+                "your dream planner extraordinaire. ",
+                "Ready to make your day as fabulous as a Barbie runway show?"
+                }
+        );
 
         Scanner scan = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
-        int count = 0;
+        String input = scan.nextLine();
         while (true) {
-            String[] input = scan.nextLine().split(" ");
-
-            switch(input[0]) {
-            case "list":
-                System.out.println(line + "Here are the tasks in your list:\n");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) +"." + tasks.get(i).toString());
+            switch (input.contains(" ") ? input.split(" ")[0] : input) {
+            case TODO:
+                String todoName = input.substring(TODO.length() + 1);
+                Todo todo = new Todo(todoName);
+                TASKS[taskSize] = todo;
+                taskSize++;
+                printTexts(new String[]{
+                        "Barbie-approved! You've added this glamorous task:",
+                        todo.toString(),
+                        "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
+                        }
+                );
+                break;
+            case DEADLINE:
+                String[] deadlineInfo = input.substring(DEADLINE.length() + 1).split(" /by", 2);
+                String deadlineName = deadlineInfo[0];
+                String by = deadlineInfo[1];
+                Deadline deadline = new Deadline(deadlineName, by);
+                TASKS[taskSize] = deadline;
+                taskSize++;
+                printTexts(new String[]{
+                                "Barbie-approved! You've added this glamorous task:",
+                                deadline.toString(),
+                                "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
+                        }
+                );
+                break;
+            case EVENT:
+                String[] eventInfo = input.substring(EVENT.length() + 1).split(" /from", 2);
+                String eventName = eventInfo[0];
+                String[] eventTimeline = eventInfo[1].split(" /to", 2);
+                String from = eventTimeline[0];
+                String to = eventTimeline[1];
+                Event event = new Event(eventName, from, to);
+                TASKS[taskSize] = event;
+                taskSize++;
+                printTexts(new String[]{
+                                "Barbie-approved! You've added this glamorous task:",
+                                event.toString(),
+                                "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
+                        }
+                );
+                break;
+            case LIST:
+                String[] text = new String[taskSize + 1];
+                text[0] = "Behold, your list of enchanting tasks!";
+                for (int i = 1; i <= taskSize; i++) {
+                    text[i] = "\t" + i +"." + TASKS[i - 1].toString();
                 }
-                System.out.println(line);
+                printTexts(text);
                 break;
-            case "mark":
-                int markNumber = Integer.parseInt(input[1]) - 1;
-                tasks.get(markNumber).markAsDone();
-                System.out.println(line + "Nice! I've marked this task as done:\n"
-                        + tasks.get(markNumber).toString() + "\n" + line);
+            case MARK:
+                String markTaskString = input.split(" ", 2)[1];
+                int markTaskNumber = Integer.parseInt(markTaskString) - 1;
+                TASKS[markTaskNumber].markAsDone();
+                printTexts(new String[] {
+                        "Barbie-tastic! You've completed this task with glamour!",
+                        TASKS[markTaskNumber].toString()
+                        }
+                );
                 break;
-            case "unmark":
-                int unmarkNumber = Integer.parseInt(input[1]) - 1;
-                tasks.get(unmarkNumber).unmarkAsDone();
-                System.out.println(line + "Ok, I've marked this task as not done yet:\n"
-                        + tasks.get(unmarkNumber).toString() + "\n" + line);
+            case UNMARK:
+                String unmarkTaskString = input.split(" ", 2)[1];
+                int unmarkTaskNumber = Integer.parseInt(unmarkTaskString) - 1;
+                TASKS[unmarkTaskNumber].unmarkAsDone();
+                printTexts(new String[] {
+                                "Back to the runway, darling! This task needs more Barbie magic!",
+                                TASKS[unmarkTaskNumber].toString()
+                        }
+                );
                 break;
-            case "bye":
-                System.out.println(line
-                        + "Bye. Hope to see you again soon!\n"
-                        + line);
+            case BYE:
+                String byeLogo = "  ___________________  _____ __________ ____  __.____    .___ _______    ________ \n"
+                        + "\t/   _____/\\______   \\/  _  \\\\______   \\    |/ _|    |   |   |\\      \\  /  _____/ \n"
+                        + "\t \\_____  \\  |     ___/  /_\\  \\|       _/      < |    |   |   |/   |   \\/   \\  ___ \n"
+                        + "\t /        \\ |    |  /    |    \\    |   \\    |  \\|    |___|   /    |    \\    \\_\\  \\\n"
+                        + "\t/_______  / |____|  \\____|__  /____|_  /____|__ \\_______ \\___\\____|__  /\\______  /\n"
+                        + "\t        \\/                  \\/       \\/        \\/       \\/           \\/        \\/ ";
+                printTexts(new String[]{
+                        "Until we meet again, my fellow dream chaser! Keep",
+                        byeLogo
+                        }
+                );
                 return;
-            default:
-                String taskName = String.join(" ", input);
-                Task task = new Task(taskName);
-                tasks.add(task);
-                System.out.println(line + "added: " + taskName + "\n" + line);
-                break;
             }
-
+            input = scan.nextLine();
         }
-
     }
 }
