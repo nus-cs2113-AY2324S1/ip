@@ -4,21 +4,17 @@ import java.util.Scanner;
 
 public class Nuke {
     public static String LOGO =
-            "⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⢀⣀⣠⣤⣤⣤⣤⣀⣀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⣠⡶⠟⠛⠉⠉⠉⠀⠈⠉⠉⠙⠛⠷⢦⡀\n" +
-            "⠀⠀⠀⠀⢀⣴⠟⢁⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣄⡀⠻⣦⡀\n" +
-            "⠀⠀⠀⣠⠟⢁⣴⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣦⠈⢻⡆\n" +
-            "⠀⠀⣰⠏⢠⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣷⠘⢷⡀\n" +
-            "⠀⢰⡟⠀⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⡆⣿⡆\n" +
-            "⠀⣾⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⠟⣀⣤⣄⠈⢿⣿⣿⣿⣿⣿⣿⣿⠀⢻⡆\n" +
-            "⠀⣿⠀⠘⠛⠛⠛⠛⠛⠛⠛⠃⢸⣿⣿⣿⣷⠀⠛⠛⠛⠛⠛⠛⠛⠃⠀⣿\n" +
-            "⠀⢻⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿\n" +
-            "⠀⠸⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣶⣶⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇\n" +
-            "⠀⠀⠹⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⣰⠇\n" +
-            "⠀⠀⠀⠘⢧⡀⠀⠀⠀⠀⠀⣠⣿⣿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⢀⣴⠏\n" +
-            "⠀⠀⠀⠀⠈⠻⢦⣀⠀⠀⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⣠⡾⠋\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠉⠛⠶⣦⣤⣀⣉⣉⣉⣉⣩⣤⣴⠶⠛⠁\n" +
-            "⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠁";
+            "     _.-^^---....,,--      \n" +
+            " _--                  --_  \n" +
+            "<                        >)\n" +
+            "|                         |\n" +
+            " \\._                   _./ \n" +
+            "    ```--. . , ; .--'''    \n" +
+            "          | |   |          \n" +
+            "       .-=||  | |=-.       \n" +
+            "       `-=#$%&%$#=-'       \n" +
+            "          | ;  :|          \n" +
+            " _____.,-#%&$@%#&#~,._____ \n";
     private static boolean running = true;
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
@@ -29,12 +25,11 @@ public class Nuke {
         // Welcome message
         System.out.println(LOGO);
         System.out.println();
-        System.out.println("[☢] Hello! I'm Nuke.");
-        System.out.println("[☢] What can I do for you?");
+        System.out.println("[@] Hello! I'm Nuke.");
+        System.out.println("[@] What can I do for you?");
 
         // Loop for user input
         while(running) {
-            System.out.print("> ");
             String input = in.nextLine();
             runCommand(input);
         }
@@ -48,7 +43,7 @@ public class Nuke {
         int idx;
         switch(type) {
         case "bye":
-            System.out.println("[☢] Bye. Hope to see you again soon!");
+            System.out.println("[@] Bye. Hope to see you again soon!");
             running = false;
             break;
         case "list":
@@ -92,13 +87,13 @@ public class Nuke {
 
     private static void addTask(Task task) {
         tasks.add(task);
-        System.out.println("[☢] Got it. I've added this task:");
+        System.out.println("[@] Got it. I've added this task:");
         System.out.println("  " + task);
-        System.out.printf("[☢] Now you have %d tasks in the list.\n", tasks.size());
+        System.out.printf("[@] Now you have %d tasks in the list.\n", tasks.size());
     }
 
     private static void listTask() {
-        System.out.println("[☢] Here are the tasks in you list:");
+        System.out.println("[@] Here are the tasks in you list:");
         for(int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.printf("%d.%s\n", i + 1, task.toString());
@@ -108,14 +103,14 @@ public class Nuke {
     private static void markTask(int idx) {
         Task task = tasks.get(idx);
         task.setDone(true);
-        System.out.println("[☢] Nice! I've marked this task as done:");
+        System.out.println("[@] Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
 
     private static void unmarkTask(int idx) {
         Task task = tasks.get(idx);
         task.setDone(false);
-        System.out.println("[☢] OK, I've marked this task as not done yet:");
+        System.out.println("[@] OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
     }
 }
