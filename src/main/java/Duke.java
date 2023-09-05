@@ -1,4 +1,3 @@
-import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 
 public class Duke {
@@ -24,40 +23,61 @@ public class Duke {
         // string to monitor current user input
         String userInput = scanner.nextLine();
 
-        // string array for storing all user inputs, and integer indexer to monitor size of array,
-        // assume user inputs do not exceed 100
-        String[] userInputs = new String[100];
-        int userInputsIndex = 0;
+        // Task array for storing all user inputted tasks, and integer indexer to monitor size of array,
+        // assume number of tasks do not exceed 100
+        Task[] tasks = new Task[100];
+        int tasksIndex = 0;
 
-        // exit if 'bye' command is given, else keep prompting for user input
-        while(!userInput.equalsIgnoreCase("bye"))
-        {
+        // if 'bye' command is given exit program, else keep prompting for user input
+        while(!userInput.equalsIgnoreCase("bye")) {
 
-            // if list command is given, list out all previous user inputs,
-            // else proceed to store it in the string array userInputs
-            if (userInput.equalsIgnoreCase("list"))
-            {
-                // if list is empty, print 'no item' message instead of list items
-                if(userInputsIndex == 0)
-                {
+            // if 'list' command is given, list out all tasks
+            if (userInput.equalsIgnoreCase("list")) {
+                // if list is empty, print 'no item' message instead of tasks
+                if(tasksIndex == 0) {
                     System.out.println("No item stored in your list! :o");
                 }
-                else
-                {
+                else {
                     // custom message
                     System.out.println("Here are the item(s) in your list. :)");
-                    // print out list items and number each item
-                    for(int i = 0;i < userInputsIndex;i++)
-                    {
-                        System.out.println(i+1 + ". " + userInputs[i]);
+                    // print out tasks and number each task
+                    for(int i = 0;i < tasksIndex;i++) {
+                        System.out.println(i+1 + ". " + tasks[i]);
                     }
                 }
             }
-            else
-            {
-                userInputs[userInputsIndex] = userInput; // Store user input into array
-                userInputsIndex++; // Increase String array index\
+            // if 'mark' or 'unmark' command is given strictly with an integer, if integer is valid
+            // mark or unmark the corresponding task in tasks
+            else if(userInput.toLowerCase().matches("(mark|unmark) \\d+")) {
+                // split userInput into command and integer
+                String[] tokenizedUserInput = userInput.split(" ");
+                int selectedItem = Integer.parseInt(tokenizedUserInput[1]);
+                // check if integer given is in range of number of tasks
+                if(selectedItem > 0 & selectedItem <= tasksIndex) {
+                    // 'mark' case
+                    if(tokenizedUserInput[0].equalsIgnoreCase("mark")) {
+                        tasks[selectedItem-1].setMarked(true); // mark task
+                        System.out.println("Task " + selectedItem + " marked!\n" +
+                                tasks[selectedItem-1]);
+                    }
+                    // 'unmark' case
+                    else {
+                        tasks[selectedItem-1].setMarked(false); // unmark task
+                        System.out.println("Task " + selectedItem + " unmarked!\n" +
+                                tasks[selectedItem-1]);
+                    }
+                }
+                // not in range of number of tasks
+                else {
+                    System.out.println("Invalid integer input! :(");
+                }
             }
+            // if not unique command, taken as adding a new Task
+            else {
+                tasks[tasksIndex] = new Task(userInput); // Store user input into array
+                tasksIndex++; // Increase String array index
+            }
+
             partition();
 
             // prompt user for input and store it in userInput
@@ -67,12 +87,13 @@ public class Duke {
 
         // program exit statement
         System.out.println(" Bye. Hope to see you again soon! :D");
+
         partition();
         System.out.println("                          -END-                             ");
     }
 
     // private function to print a stream of underscores for partitioning robot conversation
-    private static void partition(){
+    private static void partition() {
         System.out.println("____________________________________________________________");
     }
 }
