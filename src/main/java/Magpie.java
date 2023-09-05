@@ -1,14 +1,12 @@
 import java.util.Scanner;
 
-public class Duke {
-
+public class Magpie {
     private static Task[] tasks = new Task[100];
-
     private static int taskCount = 0;
     public static void printTasks(){
 
         System.out.println("____________________________________________________________");
-
+        System.out.println("Here are the tasks in your list: ");
         for(int i =0; i< taskCount; i++) {
 
             Task item = tasks[i];
@@ -31,24 +29,48 @@ public class Duke {
 
     }
 
-    public static void readInput() {
+    public static void markTask(int index, boolean isDone){
+
+        Task item = tasks[index];
+        item.setDone(isDone);
+        System.out.println("____________________________________________________________\n");
+        if (isDone == true){
+            System.out.print("Nice! I've marked this task as done:\n");
+        }
+        else{
+            System.out.print("OK, I've marked this task as not done yet:\n");
+
+        }
+        System.out.println("  " + item.toString());
+        System.out.println("____________________________________________________________\n");
+    }
 
 
-        String input = "";
+    public static void main(String[] args) {
+
+
+        System.out.println("____________________________________________________________");
+        System.out.println(" __  __          _____ _____ _____ ______ ");
+        System.out.println("|  \\/  |   /\\   / ____|  __ \\_   _|  ____|");
+        System.out.println("| \\  / |  /  \\ | |  __| |__) || | | |__   ");
+        System.out.println("| |\\/| | / /\\ \\| | |_ |  ___/ | | |  __|  ");
+        System.out.println("| |  | |/ ____ \\ |__| | |    _| |_| |____ ");
+        System.out.println("|_|  |_/_/    \\_\\_____|_|   |_____|______|");
+        System.out.println("\nHello! I'm Magpie :)");
+        System.out.println("What can I do for you?\n");
+        System.out.println("____________________________________________________________\n");
+
+
         Scanner in = new Scanner(System.in);
+        String input = "";
         input = in.nextLine();
 
-        String[] splitInput = input.split(" ");
+        while(input.equals("bye") == false){
 
-        String command = splitInput[0];
-        String arguments = input.substring(command.length());
+            String[] splitInput = input.split(" ");
+            String command = splitInput[0];
+            String arguments = input.substring(command.length());
 
-
-
-        int index;
-
-
-        while(!(command.equals("bye"))){
 
             switch(command){
 
@@ -63,7 +85,6 @@ public class Duke {
 
             case "deadline":
 
-
                 int byIndex = arguments.indexOf("/by");
 
                 String by = arguments.substring(byIndex+3);
@@ -73,7 +94,6 @@ public class Duke {
                 addTask(newTask);
                 break;
             case "event":
-
 
                 int fromIndex = arguments.indexOf("/from");
                 int toIndex = arguments.indexOf("/to");
@@ -87,51 +107,24 @@ public class Duke {
                 break;
 
             case "mark":
-                index = Integer.parseInt(splitInput[1]) - 1;
-                Task item = tasks[index];
-                System.out.println("____________________________________________________________\n");
-                System.out.print("Nice! I've marked this task as done:\n");
-                item.setDone(true);
-                System.out.println(item.toString());
-                System.out.println("____________________________________________________________\n");
+                int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                markTask(markIndex,true);
                 break;
             case "unmark":
-                index = Integer.parseInt(splitInput[1]) - 1;
-                item = tasks[index];
-                System.out.println("____________________________________________________________\n");
-                System.out.print("OK, I've marked this task as not done yet:\n");
-                item.setDone(false);
-                System.out.println(item.toString());
-                System.out.println("____________________________________________________________\n");
+                int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
+                markTask(unmarkIndex, false);
                 break;
+            default:
+
             }
 
             input = in.nextLine();
-            splitInput = input.split(" ");
-            command = splitInput[0];
-            arguments = input.substring(command.length());
+
+
         }
-
-
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________\n");
-
-
-
-    }
-
-
-
-    public static void main(String[] args) {
-
-
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Magpie");
-        System.out.println("What can I do for you?\n");
-        System.out.println("____________________________________________________________\n");
-
-        readInput();
 
     }
 
