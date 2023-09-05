@@ -45,6 +45,7 @@ public class Botbot {
     public static void todoTasks(String task) {
         //instantiate new todo object
         Todo todoTask = new Todo(task);
+        //add to array
         list[listSize] = todoTask;
         listSize++;
         System.out.println("Got it. I've added this task:");
@@ -57,10 +58,24 @@ public class Botbot {
     public static void deadlineTasks(String task, String deadline){
         //instantiate new deadline object
         Deadline deadlineTask = new Deadline(task, deadline);
+        //add to array
         list[listSize] = deadlineTask;
         listSize++;
         System.out.println("Got it. I've added this task:");
-        System.out.println(task + "by: (" + deadline + ")");
+        System.out.println(deadlineTask);
+        System.out.println("Now you have " + (listSize) + " tasks in the list.");
+        System.out.println(line);
+    }
+
+    //method to add eventTask
+    public static void eventTask(String task, String from, String to){
+        //instantiate new event object
+        Event eventTask = new Event(task, from, to);
+        //add to array
+        list[listSize] = eventTask;
+        listSize++;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(eventTask);
         System.out.println("Now you have " + (listSize) + " tasks in the list.");
         System.out.println(line);
     }
@@ -113,12 +128,15 @@ public class Botbot {
                 String task = parts[0].substring("deadline ".length());
                 String deadline = parts[1];
                 deadlineTasks(task, deadline);
-//            //for event commands
-//            }else if(input.contains("events")){
-
+            //for event commands
+            }else if(input.contains("event")){
+                String[] parts = input.split("/");
+                String task = parts[0].substring("event ".length());
+                String from = parts[1].substring("from ".length());
+                String to = parts[2].substring("to ".length());
+                eventTask(task, from, to);
             }else{
                     addTask(input);
-
             }
         }
 
