@@ -79,14 +79,16 @@ public class Nuke {
     }
 
     private static void markTask(int idx) {
-        tasks.get(idx).setDone(true);
+        Task task = tasks.get(idx);
+        task.setDone(true);
         System.out.println("[☢] Nice! I've marked this task as done:");
-        System.out.println("  [X] " + tasks.get(idx).getName());
+        System.out.println("  " + task);
     }
 
     private static void unmarkTask(int idx) {
-        tasks.get(idx).setDone(false);
+        Task task = tasks.get(idx);
+        task.setDone(false);
         System.out.println("[☢] OK, I've marked this task as not done yet:");
-        System.out.println("  [ ] " + tasks.get(idx).getName());
+        System.out.println("  " + task);
     }
 }
