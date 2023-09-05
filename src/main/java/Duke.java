@@ -13,6 +13,7 @@ public class Duke {
         list.add(task);
         respond("added: " + task.addMessage());
     }
+
     public void printList() {
         Task[] listAsArray = list.toArray(new Task[0]);
         String out = "";
@@ -21,6 +22,7 @@ public class Duke {
         }
         respond(out);
     }
+
     public void updateTask(String name, boolean status) {
         for (Task task : list) {
             if (task.getName().equals(name)) {
@@ -35,6 +37,7 @@ public class Duke {
             }
         }
     }
+
     public void respond(String message) {
         System.out.println("____________________________________________________________\n" +
                 message + "\n" +
@@ -50,6 +53,7 @@ public class Duke {
         return message.substring(message.indexOf(command) + command.length() + 1,
                 (command.equals("/from") ? message.indexOf("/to") : message.length()));
     }
+
     public static void main(String[] args) {
         Duke bot = new Duke();
         Scanner sc = new Scanner(System.in);
@@ -59,22 +63,22 @@ public class Duke {
             if (in.equals("list")) {
                 bot.printList();
             } else if (in.startsWith("mark")) {
-                String taskName = getTask("mark", in);
+                String taskName = getTask("mark", in).trim();
                 bot.updateTask(taskName, true);
             } else if (in.startsWith("unmark")) {
-                String taskName = getTask("unmark", in);
+                String taskName = getTask("unmark", in).trim();
                 bot.updateTask(taskName, false);
             } else if (in.startsWith("todo")) {
-                String taskName = getTask("todo", in);
+                String taskName = getTask("todo", in).trim();
                 bot.addToList(new Todo(taskName));
             } else if (in.startsWith("deadline")) {
-                String taskName = getTask("deadline", in);
+                String taskName = getTask("deadline", in).trim();
                 String by = getTime(in, "/by");
                 bot.addToList(new Deadline(taskName, by));
             } else if (in.startsWith("event")) {
-                String taskName = getTask("event", in);
-                String from = getTime(in, "/from");
-                String to = getTime(in.substring(in.indexOf("/") + 1), "/to");
+                String taskName = getTask("event", in).trim();
+                String from = getTime(in, "/from").trim();
+                String to = getTime(in.substring(in.indexOf("/") + 1), "/to").trim();
                 bot.addToList(new Event(taskName, from, to));
             } else {
                 bot.addToList(new Task(in));

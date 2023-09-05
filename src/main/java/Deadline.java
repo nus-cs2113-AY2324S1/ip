@@ -16,6 +16,6 @@ public class Deadline extends Task {
 
     @Override
     public String listText() {
-        return "[D] " + super.listText() + "(by: " + by + ")";
+        return "[D] " + super.listText() + " (by: " + by + ")";
     }
 }
