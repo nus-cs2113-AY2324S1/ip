@@ -22,4 +22,12 @@ public class Task {
     public void setDone(boolean done) {
         isDone = done;
     }
+
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + name;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
+    }
 }
