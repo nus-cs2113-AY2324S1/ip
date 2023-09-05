@@ -1,5 +1,15 @@
+import java.util.Arrays;
+
 public class Deadline extends Task {
     private String by;
+
+    public static Deadline parseDeadline(String arg) {
+        String[] args = arg.split(" /by ");
+        String name = args[0];
+        String by = args[1];
+
+        return new Deadline(name, by);
+    }
 
     public Deadline(String name, String by) {
         super(name);

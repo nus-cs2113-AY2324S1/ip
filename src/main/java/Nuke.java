@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Nuke {
@@ -38,7 +37,7 @@ public class Nuke {
     private static void runCommand(String line) {
         String[] words = line.split(" ");
         String type = words[0];
-        String[] args = Arrays.copyOfRange(words, 1, words.length);
+        String arg = line.substring(type.length()).strip();
 
         int idx;
         switch(type) {
@@ -58,27 +57,13 @@ public class Nuke {
             unmarkTask(idx);
             break;
         case "todo":
-            String todoName = String.join(" ", args);
-            addTask(new Todo(todoName));
+            addTask(Todo.parseTodo(arg));
             break;
         case "deadline":
-            int byIdx = Arrays.asList(args).indexOf("/by");
-            String[] deadlineNameArr = Arrays.copyOfRange(args, 0, byIdx);
-            String deadlineName = String.join(" ", deadlineNameArr);
-            String[] byArr = Arrays.copyOfRange(args, byIdx + 1, args.length);
-            String by = String.join(" ", byArr);
-            addTask(new Deadline(deadlineName, by));
+            addTask(Deadline.parseDeadline(arg));
             break;
         case "event":
-            int fromIdx = Arrays.asList(args).indexOf("/from");
-            int toIdx = Arrays.asList(args).indexOf("/to");
-            String[] eventNameArr = Arrays.copyOfRange(args, 0, fromIdx);
-            String eventName = String.join(" ", eventNameArr);
-            String[] fromArr = Arrays.copyOfRange(args, fromIdx + 1, toIdx);
-            String from = String.join(" ", fromArr);
-            String[] toArr = Arrays.copyOfRange(args, toIdx + 1, args.length);
-            String to = String.join(" ", toArr);
-            addTask(new Event(eventName, from, to));
+            addTask(Event.parseEvent(arg));
             break;
         default:
             addTask(new Task(line));
