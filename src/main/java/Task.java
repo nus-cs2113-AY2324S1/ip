@@ -15,13 +15,18 @@ public class Task {
         this.isDone = true;
     }
 
-    // Formats the task information for listing tasks with a status icon
-    public String formatForList(int index) {
-        return index + ". [" + getStatusIcon() + "]" + " " + description;
-    }
+//    // Formats the task information for listing tasks with a status icon
+//    public String formatForList(int index) {
+//        return index + ". [" + getStatusIcon() + "]" + " " + description;
+//    }
+//
+//    // Formats the task information for marking tasks as done with a status icon
+//    public String formatForMark(int index) {
+//        return " [" + getStatusIcon() + "]" + " " + description;
+//    }
 
-    // Formats the task information for marking tasks as done with a status icon
-    public String formatForMark(int index) {
-        return " [" + getStatusIcon() + "]" + " " + description;
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "]" + " " + this.description;
     }
 }

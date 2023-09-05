@@ -26,7 +26,7 @@ public class Duke {
                 System.out.println("Here's your tasks!");
                 for(int i = 0; i < taskList.size(); i++){
                     int indexNum = i + 1;
-                    System.out.println(taskList.get(i).formatForList(indexNum));
+                    System.out.println(indexNum + "." + taskList.get(i));
                 }
             }
             else if(userInput.startsWith("mark ")){
@@ -39,14 +39,45 @@ public class Duke {
                     userInput = sc.nextLine();
                     continue;
                 }
-                System.out.println("I've marked these tasks as done");
+                System.out.println("Nice! I've marked this task as done:");
                 taskList.get(index).markAsDone();
-                System.out.println(taskList.get(index).formatForMark(index + 1));
-
+                System.out.println("    " + taskList.get(index));
             }
             else{
-                System.out.println("added: " + userInput);
-                taskList.add(new Task(userInput));
+                // To-do, Deadline & Events
+                System.out.println("Got it. I've added this task:");
+                if(userInput.startsWith("todo")){
+                    Todo todo = new Todo(userInput.substring(5));
+                    taskList.add(todo);
+                    System.out.println("    " + todo);
+                }
+                else if (userInput.startsWith("deadline")){
+                    int lastIndex = userInput.lastIndexOf("/by"); // Use the lastIndexOf method to get the last occurrence of /by in the input string.
+                    if (lastIndex == -1) {
+                        System.out.println("Invalid format. Use: deadline <description> /by <time>");
+                    } else {
+                        String description = userInput.substring(8, lastIndex).trim();
+                        String time = userInput.substring(lastIndex + 3).trim();
+                        Deadline deadline = new Deadline(description, time);
+                        taskList.add(deadline);
+                        System.out.println("    " + deadline.toString());
+                    }
+                }
+                else if (userInput.startsWith("event")) {
+                    String[] parts = userInput.substring(5).trim().split("/from|/to", 3); //substring(5) to remove "event" prefix
+                    if (parts.length < 3) {
+                        System.out.println("Invalid format. Use: event <description> /from <start_time> /to <end_time>");
+                    } else {
+                        String description = parts[0].trim();
+                        String startTime = parts[1].trim();
+                        String endTime = parts[2].trim();
+                        String timeRange = startTime + " to " + endTime;
+                        Event event = new Event(description, timeRange);
+                        taskList.add(event);
+                        System.out.println("    " + event.toString());
+                    }
+                }
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             }
             System.out.println("____________________________________________________________");
             userInput = sc.nextLine();
