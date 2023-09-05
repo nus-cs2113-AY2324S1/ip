@@ -11,39 +11,44 @@ public class Duke {
         System.out.println("What can I do for you?");
 
         Task[] theList = new Task[100];
-        Scanner in = new Scanner(System.in);
-        int i = 0;
+        Scanner userInput = new Scanner(System.in);
+        int counter = 0;
 
-        String echo = in.nextLine();
+        String echo = userInput.nextLine();
 
         while (!echo.equals("bye")) {
             String[] words = echo.split(" "); //to identify usage of features "mark" & "unmark"
+
             if (echo.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
-                for (int j = 0; j < i; j += 1) {
-                    System.out.print((j + 1) + ".");
-                    theList[j].printTask();
+                for (int i = 0; i < counter; i += 1) {
+                    System.out.print((i + 1) + ".");
+                    theList[i].printTask();
                 }
+
             } else if (words[0].equals("mark")) {
                 int taskNumber = Integer.parseInt(words[1]) - 1;
                 System.out.println("Woohoo! You have accomplished:");
                 theList[taskNumber].markAsDone();
                 theList[taskNumber].printTask();
+
             } else if (words[0].equals("unmark")) {
                 int taskNumber = Integer.parseInt(words[1]) - 1;
                 System.out.println("HA! You still have to complete:");
                 theList[taskNumber].markAsIncomplete();
                 theList[taskNumber].printTask();
+
             } else {
-                theList[i] = new Task(echo);
+                theList[counter] = new Task(echo);
                 System.out.println("added: " + echo);
-                i += 1;
+                counter += 1;
             }
-            echo = in.nextLine();
+
+            echo = userInput.nextLine();
         }
 
         System.out.println("Bye. Hope to see you again soon!");
-        
-        in.close();
+
+        userInput.close();
     }
 }
