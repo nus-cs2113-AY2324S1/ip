@@ -17,12 +17,16 @@ public class Doli {
                 "|____/|____|__||_|\n";
         System.out.printf("\nHello! My name is\n%s\nWhat can I do for you?\n", design);
     }
+    /** If the input by the user is bye, the system will greet and finish the process */
+    public static void greetBye() {
+        System.out.println("\nIt was a pleasure, bye. See you later!");
+    }
 
     public static void main(String[] args) {
 
-        //printLine();
+        printLine();
         printDesign();
-        //printLine();
+        printLine();
 
         int numberOfItems = 0;
         Task[] tasks = new Task[100];
@@ -95,8 +99,7 @@ public class Doli {
             printLine();
             line = in.nextLine();
         }
-        /** If the input by the user is bye, the system will greet and finish the process */
-        System.out.println("\nIt was a pleasure, bye. See you later!");
+        greetBye();
         printLine();
     }
 }

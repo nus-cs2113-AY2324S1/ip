@@ -1,3 +1,4 @@
+__________________________________________________
 
 Hello! My name is
  ____       _
@@ -7,6 +8,7 @@ Hello! My name is
 |____/|____|__||_|
 
 What can I do for you?
+__________________________________________________
 Got it! I've added the following task to your agenda:
    [T] [ ]  borrow book
 Now you have a total of 1 tasks in your agenda.
