@@ -22,4 +22,10 @@ public class Task {
     public void setDone(boolean done) {
         this.done = done;
     }
+
+    @Override
+    public String toString() {
+        String mark = isDone()? "X" : " ";
+        return String.format("[%s] %s", mark, getName());
+    }
 }

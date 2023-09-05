@@ -74,8 +74,7 @@ public class Nuke {
     private static void listTask() {
         for(int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            String mark = task.isDone()? "X" : " ";
-            System.out.printf("%d.[%s] %s\n", i + 1, mark, task.getName());
+            System.out.printf("%d.%s\n", i + 1, task.toString());
         }
     }
 
