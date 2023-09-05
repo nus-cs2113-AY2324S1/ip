@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -30,12 +32,14 @@ public class Duke {
             printAllTasks();
             return "";
         }
+
         if(instructionString.contains("mark")){
             taskNum = Integer.parseInt(removedInstructionString);
             records[taskNum-1].setDone();
             printAllTasks();
             return "";
         }
+
         createNewTask(instructionString, removedInstructionString);
         return "";
     }
@@ -45,38 +49,60 @@ public class Duke {
         String taskDescription;
         switch(instructionString) {
         case "todo":
-            taskDescription = removedInstructionString;
-            task = new ToDo(taskDescription);
+            task = createToDo(removedInstructionString);
             break;
         case "deadline":
-            String dateIndicator = "/by";
-            int byIndex = removedInstructionString.indexOf(dateIndicator);
-            taskDescription = removedInstructionString.substring(0,byIndex).trim();
-            String byDate = removedInstructionString.substring(byIndex + dateIndicator.length()).trim();
-            task = new Deadline(taskDescription, byDate);
+            task = createDeadline(removedInstructionString);
             break;
         case "event":
-            String startDateIndicator = "/from";
-            String endDateIndicator = "/to";
-            int fromIndex = removedInstructionString.indexOf(startDateIndicator);
-            int toIndex = removedInstructionString.indexOf(endDateIndicator);
-            taskDescription = removedInstructionString.substring(0,fromIndex).trim();
-            String fromDate = removedInstructionString.substring(fromIndex + startDateIndicator.length(), toIndex).trim();
-            String toDate = removedInstructionString.substring(toIndex + endDateIndicator.length());
-
-            task = new Event(taskDescription, fromDate, toDate);//need to divide the string and get the contents
+            task = createEvent(removedInstructionString);
             break;
         default:
             return ;
         }
-        records[recordsNum] = task;
-        recordsNum++;
+        addTaskToList(task);
+        printTaskAdded(task);
+        return ;
+    }
+
+    private static void printTaskAdded(Task task) {
         printLine();
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t" + task);
         System.out.println("\tNow you have " + recordsNum + " tasks in the list." );
         printLine();
-        return ;
+    }
+
+    private static void addTaskToList(Task task) {
+        records[recordsNum] = task;
+        recordsNum++;
+    }
+
+    private static Task createEvent(String removedInstructionString) {
+        String startDateIndicator = "/from";
+        String endDateIndicator = "/to";
+
+        int fromIndex = removedInstructionString.indexOf(startDateIndicator);
+        int toIndex = removedInstructionString.indexOf(endDateIndicator);
+
+        String taskDescription = removedInstructionString.substring(0,fromIndex).trim();
+        String fromDate = removedInstructionString.substring(fromIndex + startDateIndicator.length(), toIndex).trim();
+        String toDate = removedInstructionString.substring(toIndex + endDateIndicator.length());
+
+        return new Event(taskDescription, fromDate, toDate);
+    }
+
+    private static Task createDeadline(String removedInstructionString) {
+        String dateIndicator = "/by";
+        int byIndex = removedInstructionString.indexOf(dateIndicator);
+        String taskDescription = removedInstructionString.substring(0,byIndex).trim();
+        String byDate = removedInstructionString.substring(byIndex + dateIndicator.length()).trim();
+        return new Deadline(taskDescription, byDate);
+    }
+
+
+    private static Task createToDo(String taskDescription) {
+        return new ToDo(taskDescription);
     }
 
     private static void printAllTasks() {
