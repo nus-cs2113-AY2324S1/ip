@@ -1,6 +1,6 @@
 public class Task {
     public  String toBeDone;
-    private boolean completed;
+    private boolean isCompleted;
     public String[] markAsDone;
     public String[] taskType;
     public String dueDate;
@@ -9,7 +9,7 @@ public class Task {
 
     public Task(String newTask) {
         toBeDone = newTask;
-        completed = false;
+        isCompleted = false;
         markAsDone = new String[1];
         markAsDone[0] = " ";
         taskType  = new String[1];
@@ -17,12 +17,12 @@ public class Task {
 
     }
     public void setDone(){
-        completed = true;
+        isCompleted = true;
         markAsDone[0] ="X";
     }
 
     public void setNotDone(){
-        completed = false;
+        isCompleted = false;
         markAsDone[0] =" ";
     }
 }

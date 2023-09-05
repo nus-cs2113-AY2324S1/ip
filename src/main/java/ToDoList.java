@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class toDoList {
+public class ToDoList {
     private Task[] taskList;
     private String[] markedTask;
     private int taskListTracker;
@@ -9,7 +9,7 @@ public class toDoList {
     public String unmarked;
     public String toDo;
 
-public toDoList(){
+public ToDoList(){
     taskList = new Task[100];
     markedTask = new String[100];
     taskListTracker = 0;
@@ -45,29 +45,29 @@ public void listTask(){
         }
         else if(answer[j].taskType[0] == "D"){
             System.out.println(j + 1 + "." + Arrays.toString(answer[j].taskType) +
-                    Arrays.toString(answer[j].markAsDone) + " " + answer[j].toBeDone +" (by: " + answer[j].dueDate + ")"
-            );
+                    Arrays.toString(answer[j].markAsDone)
+                    + " " + answer[j].toBeDone
+                    + " (by: " + answer[j].dueDate + ")");
         }
         else if (answer[j].taskType[0] == "E"){
             System.out.println(j + 1 + "." + Arrays.toString(answer[j].taskType) +
-                    Arrays.toString(answer[j].markAsDone) + " " + answer[j].toBeDone +" (from: " + answer[j].startTime +
-                    " to: "+ answer[j].endTime + ")");
-        }
-
+                    Arrays.toString(answer[j].markAsDone) + " " + answer[j].toBeDone
+                        + " (from: " + answer[j].startTime
+                        + " to: "+ answer[j].endTime + ")");
         }
     }
+}
     public void mark(String input){
-    if(input.startsWith("mark")) {
-        int dividerPosition = input.indexOf(" ");
-        String taskNumberString = input.substring(dividerPosition + 1);
-        int taskNumber = Integer.parseInt(taskNumberString.trim());
-        Task taskToBeMarked = taskList[taskNumber - 1];
-        taskToBeMarked.setDone();
-        System.out.println("Task Completed!");
-        System.out.println(Arrays.toString(taskToBeMarked.markAsDone) + " " + taskToBeMarked.toBeDone);
+        if(input.startsWith("mark")) {
+            int dividerPosition = input.indexOf(" ");
+            String taskNumberString = input.substring(dividerPosition + 1);
+            int taskNumber = Integer.parseInt(taskNumberString.trim());
+            Task taskToBeMarked = taskList[taskNumber - 1];
+            taskToBeMarked.setDone();
+            System.out.println("Task Completed!");
+            System.out.println(Arrays.toString(taskToBeMarked.markAsDone) + " " + taskToBeMarked.toBeDone);
     }
-
-    }
+}
     public void unmark(String input){
         if(input.startsWith("unmark")){
             int dividerPosition = input.indexOf(" ");
@@ -77,8 +77,6 @@ public void listTask(){
             taskToBeUnmarked.setNotDone();
             System.out.println("Task marked as uncompleted!");
             System.out.println(Arrays.toString(taskToBeUnmarked.markAsDone)+ " " + taskToBeUnmarked.toBeDone);
-
-
         }
     }
     public void addToDo(String incomingTask) {

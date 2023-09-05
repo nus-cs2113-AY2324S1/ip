@@ -8,14 +8,12 @@ import java.util.Scanner;
         bye ="bye";
     }
 
-    toDoList newList  = new toDoList();
+    ToDoList newList  = new ToDoList();
 
     public void echoBack(){
 
         Scanner in = new Scanner(System.in);
         String text = in.next();
-
-
 
         if(text.equals(bye)){
             System.out.println("Bye. Hope to see you again soon!");
@@ -28,7 +26,6 @@ import java.util.Scanner;
             in.useDelimiter("  ");
             String part =in.nextLine();
             newList.mark(text+part);
-
             echoBack();
         }
         else if(text.startsWith(newList.unmarked)){
@@ -46,19 +43,16 @@ import java.util.Scanner;
             echoBack();
         }
         else if (text.equals("deadline")){
-
             String[] task = in.nextLine().split("/by");
             newList.addDeadline(task[0],task[1]);
             echoBack();
         }
         else if (text.equals("event")){
-
             String[] task = in.nextLine().split("/from | /to");
             newList.addEvent(task[0],task[1],task[2]);
             echoBack();
         }
         else {
-
            echoBack();
 
         }
