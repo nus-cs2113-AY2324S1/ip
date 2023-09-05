@@ -2,13 +2,58 @@
 import java.util.Scanner;
 
 public class Botbot {
+    public static String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+
     //create array for list
     public static Task[] list = new Task[100];
     public static int listSize = 0;
 
-    public static void main(String[] args) {
-        String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    //method to mark or unmark task
+    public static void markUnmarkTask(String command){
+        int itemIndex; //int to store index of item to mark/unmark
+        //for command unmark
+        if(command.contains("unmark")){
+            //find the given index to unmark
+            itemIndex = Integer.parseInt(command.substring(7))-1;
+            //if given index is out of range
+            if (itemIndex>=listSize){
+                System.out.println("invalid list item");
+                return;
+            } else {
+                list[itemIndex].unmark();
+                System.out.println("OK, I've marked this task as not done yet: ");
+                list[itemIndex].printTask();
+                System.out.println(line);
+            }
+        } else { //for command mark
+            //find the given index to mark
+            itemIndex = Integer.parseInt(command.substring(5))-1;
+            //if given index is out of range
+            if (itemIndex>=listSize){
+                System.out.println("invalid list item");
+                return;
+            }else {
+                list[itemIndex].mark();
+                System.out.println("Nice! I've marked this task as done: ");
+                list[itemIndex].printTask();
+                System.out.println(line);
+            }
+        }
+    }
 
+    //method to add task to list
+    public static void addTask(String input){
+        //instantiate new Task object
+        Task newTask = new Task(input);
+        //Echo input
+        System.out.println("Added: " + input);
+        System.out.println(line);
+        //edit list array
+        list[listSize] = newTask;
+        listSize++;
+    }
+
+    public static void main(String[] args) {
         //message
         System.out.println("Hello! I'm Botbot");
         System.out.println("What can I do for you?");
@@ -31,42 +76,9 @@ public class Botbot {
                 }
                 System.out.println(line);
             }else if(input.contains("mark")){
-                int itemIndex; //int to store index of item to mark/unmark
-                //for command unmark
-                if(input.contains("unmark")){
-                    //find the given index to unmark
-                    itemIndex = Integer.parseInt(input.substring(7))-1;
-                    //if given index is out of range
-                    if (itemIndex>=listSize){
-                        System.out.println("invalid list item");
-                        return;
-                    }
-                    list[itemIndex].unmark();
-                    System.out.println("OK, I've marked this task as not done yet: ");
-                    list[itemIndex].printTask();
-                    System.out.println(line);
-                } else { //for command mark
-                    //find the given index to mark
-                    itemIndex = Integer.parseInt(input.substring(5))-1;
-                    //if given index is out of range
-                    if (itemIndex>=listSize){
-                        System.out.println("invalid list item");
-                        return;
-                    }
-                    list[itemIndex].mark();
-                    System.out.println("Nice! I've marked this task as done: ");
-                    list[itemIndex].printTask();
-                    System.out.println(line);
-                }
+                markUnmarkTask(input);
             }else{
-                //instantiate new Task object
-                Task newTask = new Task(input);
-                //Echo input
-                System.out.println("Added: " + input);
-                System.out.println(line);
-                //edit list array
-                list[listSize] = newTask;
-                listSize++;
+                addTask(input);
             }
         }
 
