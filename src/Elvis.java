@@ -1,6 +1,6 @@
 public class Elvis {
     //Logo for ELVIS the Chatbot
-    public static String logo =
+    public static final String LOGO =
             "\n" +
             "          _____                      _____            _____                      _____                      _____          \n" +
             "         /\\    \\                    /\\    \\          /\\    \\                    /\\    \\                    /\\    \\         \n" +
@@ -34,7 +34,7 @@ public class Elvis {
 
     public static void bootUp() {
         //ChatBot BootUp
-        System.out.println(logo);
+        System.out.println(LOGO);
         printHorizontalLines();
         System.out.println("Hello! I'm ELVIS");
         System.out.println("What can I do for you?");
@@ -53,6 +53,6 @@ public class Elvis {
         //Functionalities of ChatBot
         //Echo.shoutEcho();
         //List.makeList();
-        Task.manageTask();
+        TaskManager.manageTask();
     }
 }

@@ -1,7 +1,8 @@
-public class Deadlines extends Task {
-    private char taskType = 'D';
+public class Deadline extends Task {
+    private final char taskType = 'D';
     private String date;
-    public Deadlines(String description, String date) {
+
+    public Deadline(String description, String date) {
         super(description);
         this.date = date;
     }
