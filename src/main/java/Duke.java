@@ -3,10 +3,11 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+
         System.out.println("Hello my name is DUKE");
         System.out.println("What can I do for you today?");
 
-        ArrayList<String> commandList = new ArrayList<String>(100);
+        ArrayList<Task> tasks = new ArrayList<>(100);
 
         Scanner scan = new Scanner( System.in );
 
@@ -20,14 +21,38 @@ public class Duke {
                 break;
             }
 
-            if (!input.equals("list")){
-                commandList.add(input);
-                System.out.println("Added: " + input);
-            } else if (input.equals("list")){
-                for (int i = 0; i < commandList.size(); i++){
-                    String listItem = commandList.get(i);
-                    System.out.println(i + ": " + listItem);
+            if (input.equals("list")){
+                int numOfTasks = 0;
+
+                for (Task task: tasks){
+                    numOfTasks++;
+                    System.out.println(numOfTasks + ": " + task.getDescription());
                 }
+
+            } else if (input.toLowerCase().startsWith("mark ")){
+                String[] parts = input.split(" ");
+
+                int taskNum = Integer.parseInt(parts[1]);
+                Task markedTask = tasks.get(taskNum - 1);
+
+                markedTask.isDone = true;
+                System.out.println("Congrats I marked this class as done : " + markedTask.getDescription());
+
+            } else if (input.toLowerCase().startsWith("unmark ")) {
+                String[] parts = input.split(" ");
+
+                int taskNum = Integer.parseInt(parts[1]);
+                tasks.get(taskNum - 1).isDone = false;
+
+                Task unmarkedTask = tasks.get(taskNum - 1);
+
+                unmarkedTask.isDone = true;
+                System.out.println("I unmarked this class as done: " + unmarkedTask.getDescription());
+            } else {
+                // Add the task to the list
+                Task newTask = new Task(input);
+                tasks.add(newTask);
+                System.out.println("Added: " + input);
             }
 
 
