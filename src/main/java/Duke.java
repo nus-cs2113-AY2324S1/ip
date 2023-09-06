@@ -15,23 +15,88 @@ public class Duke {
         while(true) {
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
+            String[] splitInput = input.split(" ");
             printLine();
-            switch(input) {
+            switch(splitInput[0]) {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 printLine();
                 return;
             case "list":
                 int i = 1;
-                for (Task t: currentTask) {
-                    if (t.isMarked()) {
-                        System.out.println(i + ". [X] " + t.getTasks());
-                    }
-                    else {
-                        System.out.println(i + ". [ ] " + t.getTasks());
-                    }
-                    i++;
+                System.out.println("Here are the tasks in your list:");
+                for (Task tt : currentTask) {
+                    System.out.println(i + ". " + tt.toString());
                 }
+                printLine();
+                break;
+            case "todo":
+                StringBuilder newStr = new StringBuilder();
+                for (int j = 1; j < splitInput.length; j++) {
+                    newStr.append(" ").append(splitInput[j]);
+                }
+                Task tt = new Todo(newStr.toString());
+                currentTask.add(tt);
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                System.out.println("[T][ ]" + newStr);
+                System.out.println("Now you have " + currentTask.size() + " tasks in your list.");
+                printLine();
+                break;
+            case "deadline":
+                boolean byreached = false;
+                StringBuilder newDeadlineStr = new StringBuilder();
+                String deadline = "";
+                for (String word : splitInput) {
+                    if (word.equals("/by")) {
+                        byreached = true;
+                    } else {
+                        newDeadlineStr.append(" ").append(word);
+                    }
+                    if (byreached){
+                        deadline = word;
+                    }
+                }
+                Deadline newDeadlineTask = new Deadline(newDeadlineStr.toString(), deadline);
+                currentTask.add(newDeadlineTask);
+
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newDeadlineTask);
+                System.out.println("Now you have " + currentTask.size() + " tasks in your list.");
+                printLine();
+                break;
+            case "event":
+                int k = 1;
+                String currentWord = "";
+                StringBuilder event = new StringBuilder();
+                StringBuilder from = new StringBuilder();
+                String to ="";
+                while(k < splitInput.length){
+                    currentWord = splitInput[k];
+                    if(currentWord.equals("/from")) {
+                        while (!currentWord.equals("/to")) {
+                            k++;
+                            currentWord = splitInput[k];
+                            if(currentWord.equals("/to")){
+                                continue;
+                            }
+                            from.append(" ").append(currentWord);
+                        }
+                        k++;
+                        to = splitInput[k];
+                        continue;
+                    } else{
+                        event.append(" ").append(currentWord);
+                        k++;
+                    }
+                }
+                Event e = new Event(event.toString(), from.toString(),to);
+                currentTask.add(e);
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                System.out.println(e);
+                System.out.println("Now you have " + currentTask.size() + " tasks in your list.");
                 printLine();
                 break;
             default:
@@ -69,6 +134,7 @@ public class Duke {
                     System.out.println("added: " + input);
                     printLine();
                 }
+                break;
             }
 
         }

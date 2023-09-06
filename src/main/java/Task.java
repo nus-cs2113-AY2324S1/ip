@@ -18,4 +18,15 @@ public class Task {
     public void setMarked(boolean marked) {
         isMarked = marked;
     }
+
+    @Override
+    public String toString(){
+        String toReturn = "";
+        if(isMarked){
+            toReturn += "[X] ";
+        } else{
+            toReturn += "[ ] ";
+        }
+        return toReturn + tasks;
+    }
 }
