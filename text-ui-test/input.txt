@@ -1,5 +1,6 @@
-todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+todo Daniel Pappalardo: Answer CS2113 tutorial questions
+deadline weekly CS2113 quiz /by Monday 9pm
 list
+event CS2113 lecture /from Friday 4 /to 6 pm
 mark 1
+list

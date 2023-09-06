@@ -3,10 +3,7 @@ import java.util.Scanner;
 public class Doli {
     /** Prints a horizontal dashed line to separate fields */
     public static void printLine() {
-        for (int i = 50; i > 0; i--) {
-            System.out.print("_");
-        }
-        System.out.println("");
+        System.out.println("________________________________");
     }
     /** Prints the signature design of the chatbot */
     public static void printDesign() { //
@@ -48,15 +45,15 @@ public class Doli {
                 numberOfItems++;
                 break;
             case "event":
-                String startTime = line.substring(line.indexOf("/from") + 6, line.indexOf("/to"));
-                String endTime = line.substring(line.indexOf("/to") + 4);
+                String startTime = line.substring(line.indexOf("/from") + "/from ".length(), line.indexOf("/to"));
+                String endTime = line.substring(line.indexOf("/to") + "/to ".length());
                 tasks[numberOfItems] = new Event(line, startTime, endTime);
                 String eventText = tasks[numberOfItems].toString();
                 System.out.println(standardResponse + eventText + summaryResponse);
                 numberOfItems++;
                 break;
             case "deadline":
-                String deadline = line.substring(line.indexOf("/by") + 4);
+                String deadline = line.substring(line.indexOf("/by") + "/by ".length());
                 tasks[numberOfItems] = new Deadline(line, deadline);
                 String deadlineText = tasks[numberOfItems].toString();
                 System.out.println(standardResponse + deadlineText + summaryResponse);

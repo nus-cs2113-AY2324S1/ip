@@ -10,7 +10,7 @@ public class Task {
     }
 
     public char getStatusIcon() {
-        return (isDone ? 'X' : ' '); // return whether task is done or not
+        return (isDone ? 'X' : ' '); // returns a cross when the task is done and a blank else
     }
     public void markTaskAsDone() {
         isDone = true;

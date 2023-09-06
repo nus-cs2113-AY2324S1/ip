@@ -1,4 +1,4 @@
-__________________________________________________
+________________________________
 
 Hello! My name is
  ____       _
@@ -8,24 +8,29 @@ Hello! My name is
 |____/|____|__||_|
 
 What can I do for you?
-__________________________________________________
+________________________________
 Got it! I've added the following task to your agenda:
-   [T] [ ]  borrow book
+   [T] [ ]  Daniel Pappalardo: Answer CS2113 tutorial questions
 Now you have a total of 1 tasks in your agenda.
-__________________________________________________
+________________________________
 Got it! I've added the following task to your agenda:
-   [D] [ ]  return book  (by: Sunday)
+   [D] [ ]  weekly CS2113 quiz  (by: Monday 9pm)
 Now you have a total of 2 tasks in your agenda.
-__________________________________________________
-Got it! I've added the following task to your agenda:
-   [E] [ ]  project meeting  (from: Mon 2pm , to: 4pm)
-Now you have a total of 3 tasks in your agenda.
-__________________________________________________
+________________________________
 Here is an overview of your agenda:
-   1. [T] [ ]  borrow book
-   2. [D] [ ]  return book  (by: Sunday)
-   3. [E] [ ]  project meeting  (from: Mon 2pm , to: 4pm)
+   1. [T] [ ]  Daniel Pappalardo: Answer CS2113 tutorial questions
+   2. [D] [ ]  weekly CS2113 quiz  (by: Monday 9pm)
 Would you like to mark/unmark something?
-__________________________________________________
+________________________________
+Got it! I've added the following task to your agenda:
+   [E] [ ]  CS2113 lecture  (from: Friday 4 , to: 6 pm)
+Now you have a total of 3 tasks in your agenda.
+________________________________
 I've successfully marked task 1 as done.
-__________________________________________________
+________________________________
+Here is an overview of your agenda:
+   1. [T] [X]  Daniel Pappalardo: Answer CS2113 tutorial questions
+   2. [D] [ ]  weekly CS2113 quiz  (by: Monday 9pm)
+   3. [E] [ ]  CS2113 lecture  (from: Friday 4 , to: 6 pm)
+Would you like to mark/unmark something?
+________________________________
