@@ -25,6 +25,16 @@ public class Ken {
         printLine();
     }
 
+    public static void addTask(Task task) {
+        TASKS[taskSize] = task;
+        taskSize++;
+        printTexts(new String[] {
+                "Barbie-approved! You've added this glamorous task:",
+                task.toString(),
+                "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
+        });
+    }
+
     public static void main(String[] args) {
         String greetingLogo = " ____  __.___________ _______\n"
                 + "\t|    |/ _|\\_   _____/ \\      \\\n"
@@ -56,26 +66,14 @@ public class Ken {
             case TODO:
                 String todoName = input.substring(TODO.length() + 1);
                 Todo todo = new Todo(todoName);
-                TASKS[taskSize] = todo;
-                taskSize++;
-                printTexts(new String[] {
-                        "Barbie-approved! You've added this glamorous task:",
-                        todo.toString(),
-                        "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
-                });
+                addTask(todo);
                 break;
             case DEADLINE:
                 String[] deadlineInfo = input.substring(DEADLINE.length() + 1).split(" /by", 2);
                 String deadlineName = deadlineInfo[0];
                 String by = deadlineInfo[1];
                 Deadline deadline = new Deadline(deadlineName, by);
-                TASKS[taskSize] = deadline;
-                taskSize++;
-                printTexts(new String[] {
-                        "Barbie-approved! You've added this glamorous task:",
-                        deadline.toString(),
-                        "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
-                });
+                addTask(deadline);
                 break;
             case EVENT:
                 String[] eventInfo = input.substring(EVENT.length() + 1).split(" /from", 2);
@@ -84,13 +82,7 @@ public class Ken {
                 String from = eventTimeline[0];
                 String to = eventTimeline[1];
                 Event event = new Event(eventName, from, to);
-                TASKS[taskSize] = event;
-                taskSize++;
-                printTexts(new String[] {
-                        "Barbie-approved! You've added this glamorous task:",
-                        event.toString(),
-                        "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
-                });
+                addTask(event);
                 break;
             case LIST:
                 String[] texts = new String[taskSize + 1];
