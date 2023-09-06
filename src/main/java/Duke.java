@@ -4,44 +4,53 @@ public class Duke {
 
     static final String LINE_DIVIDER = "    _____________________________________";
 
+    public static String removeCommand(String in) {
+        int firstSpaceIndex = in.indexOf(" ") + 1;
+
+        return in.substring(firstSpaceIndex);
+    }
+
     public static void addItem(String in, Task[] itemList, int i) {
         itemList[i] = new Task(in);
 
         System.out.println(LINE_DIVIDER + "\n"
-        + "added: " + in
+        + "added:\n" + itemList[i].toString()
         + "\n" + LINE_DIVIDER);
     }
 
     public static void addTodo(String in, Task[] itemList, int i) {
-        itemList[i] = new ToDo(in);
+        itemList[i] = new ToDo(removeCommand(in));
 
         System.out.println(LINE_DIVIDER + "\n"
-                + "Sure, I've added this task: " + in
+                + "Sure, I've added this task:\n"
+                + "    " + itemList[i].toString()
                 + "\n" + LINE_DIVIDER);
     }
 
     public static void addEvent(String in, Task[] itemList, int i) {
         String[] vals = in.split(" /");
-        String name = vals[0];
-        String from = vals[1];
-        String to = vals[2];
+        String name = removeCommand(vals[0]);
+        String from = removeCommand(vals[1]);
+        String to = removeCommand(vals[2]);
 
         itemList[i] = new Event(name, from, to);
 
         System.out.println(LINE_DIVIDER + "\n"
-                + "Sure, I've added this task: " + in
+                + "Sure, I've added this task:\n"
+                + "    " + itemList[i].toString()
                 + "\n" + LINE_DIVIDER);
     }
 
     public static void addDeadline(String in, Task[] itemList, int i) {
         String[] vals = in.split(" /");
-        String name = vals[0];
-        String by = vals[1];
+        String name = removeCommand(vals[0]);
+        String by = removeCommand(vals[1]);
 
         itemList[i] = new Deadline(name, by);
 
         System.out.println(LINE_DIVIDER + "\n"
-                + "Sure, I've added this task: " + in
+                + "Sure, I've added this task:\n"
+                + "    " + itemList[i].toString()
                 + "\n" + LINE_DIVIDER);
     }
 
@@ -50,7 +59,7 @@ public class Duke {
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "Nice, I've marked this task as done:\n"
-                + "    [X] " + itemList[i - 1].getName() + "\n"
+                + "    " + itemList[i - 1].toString() + "\n"
                 + LINE_DIVIDER);
     }
 
@@ -59,7 +68,7 @@ public class Duke {
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "Alright, I've unmarked this task as done:\n"
-                + "    [ ] " + itemList[i - 1].getName() + "\n"
+                + "    " + itemList[i - 1].toString() + "\n"
                 + LINE_DIVIDER);
     }
 
@@ -67,8 +76,7 @@ public class Duke {
         System.out.println(LINE_DIVIDER);
         for(int j = 0; j < i; j += 1) {
             System.out.println((j + 1)
-                    + ". [" + (itemList[j].getDone() ? "X" : " ") + "] "
-                    + itemList[j].getName());
+                    + ". " + itemList[j].toString());
         }
         System.out.println(LINE_DIVIDER);
     }

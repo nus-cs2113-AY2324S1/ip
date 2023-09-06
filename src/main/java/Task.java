@@ -1,6 +1,6 @@
 public class Task {
-    private String name;
-    private boolean done;
+    protected String name;
+    protected boolean done;
 
     public Task(String name){
         this.name = name;
@@ -14,7 +14,13 @@ public class Task {
         return done;
     }
 
-    public String getName(){
-        return this.name;
+    @Override
+    public String toString(){
+        String out = "["
+                + (done ? "X" : " ")
+                + "] " + this.name;
+        return out;
     }
+
+
 }

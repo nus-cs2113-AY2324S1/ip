@@ -7,4 +7,14 @@ public class Event  extends Task {
         this.from = from;
         this.to = to;
     }
+
+    @Override
+    public String toString(){
+        String out = "[E]["
+                + (done ? "X" : " ")
+                + "] " + super.name
+                + " (from: " + from
+                + " to: " + to + ")";
+        return out;
+    }
 }
