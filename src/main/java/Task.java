@@ -1,4 +1,4 @@
-class Task {
+public class Task {
     protected String description;
     protected boolean isDone;
 
@@ -7,8 +7,12 @@ class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     public void markAsDone() {
@@ -17,5 +21,13 @@ class Task {
 
     public void markAsNotDone() {
         isDone = false;
+    }
+
+    public String getStatus() {
+        return (isDone ? "[X]" : "[ ]");
+    }
+
+    public String getType(){
+        return "0";
     }
 }
