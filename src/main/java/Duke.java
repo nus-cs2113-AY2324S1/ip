@@ -15,7 +15,20 @@ public class Duke {
     }
 
     public static void greetings() {
-        System.out.println("\tHello! I'm Richard\n");
+        String logo = "                                                  \n" +
+                "                                                     \n" +
+                "         $$\\  $$$$$$\\   $$$$$$\\   $$$$$$\\  $$\\   $$\\ \n" +
+                "         \\__|$$  __$$\\ $$  __$$\\ $$  __$$\\ $$ |  $$ |\n" +
+                "         $$\\ $$$$$$$$ |$$ |  \\__|$$ |  \\__|$$ |  $$ |\n" +
+                "         $$ |$$   ____|$$ |      $$ |      $$ |  $$ |\n" +
+                "         $$ |\\$$$$$$$\\ $$ |      $$ |      \\$$$$$$$ |\n" +
+                "         $$ | \\_______|\\__|      \\__|       \\____$$ |\n" +
+                "   $$\\   $$ |                              $$\\   $$ |\n" +
+                "   \\$$$$$$  |                              \\$$$$$$  |\n" +
+                "    \\______/                                \\______/ \n" +
+                "   \n";
+        System.out.println(logo);
+        System.out.println("\tHi I'm Jerry !");
         System.out.println("\tWhat can I do for you ?\n");
     }
 
