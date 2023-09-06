@@ -1,0 +1,11 @@
+todo test text UI
+deadline peer review /by Wednesday 9pm
+list
+event CS2113 lecture Friday /from 4 /to 6pm
+todo CS2113 Exercises
+mark 1
+mark 2
+list
+unmark 1
+list
+bye
