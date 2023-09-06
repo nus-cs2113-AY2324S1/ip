@@ -1,6 +1,7 @@
+import java.util.Arrays;
 import java.util.Scanner;
 public class Duke {
-    public static void printGreeting(){
+    public static void printGreeting() {
         String logo = "______       _     _\n"
                 + "| ___ \\     | |   | |\n"
                 + "| |_/ / ___ | |__ | |__  _   _\n"
@@ -16,30 +17,32 @@ public class Duke {
         printLine();
     }
 
-    public static void exitChatbot(){
+    public static void exitChatbot() {
         printLine();
         System.out.println("    Bye. Hope to see you again soon!");
         printLine();
     }
 
-    public static void printLine(){
+    public static void printLine() {
         System.out.println("    ____________________________________________________________");
     }
-    public static void echo(String input){
+
+    public static void echo(String input) {
         printLine();
-        System.out.println("    "+input);
+        System.out.println("    " + input);
         printLine();
     }
-    public static void listItems(Task[] itemList, int itemCount){
+
+    public static void listItems(Task[] itemList, int itemCount) {
         printLine();
-        for (int i  = 0; i < itemCount; i++){
-            int indexNo = i+1;
-            System.out.println("    "+indexNo+"."+itemList[i].getStatusIcon()+" "+itemList[i].description);
+        for (int i = 0; i < itemCount; i++) {
+            int indexNo = i + 1;
+            System.out.println("    " + indexNo + "." + itemList[i].getTaskTypeIcon() + itemList[i].getStatusIcon() + " " + itemList[i].description);
         }
         printLine();
     }
 
-    public static void markItem(Task[] itemList, int itemCount, boolean isMark){
+    public static void markItem(Task[] itemList, int itemCount, boolean isMark) {
         printLine();
         if (isMark) {
             itemList[itemCount].isDone = true;
@@ -52,6 +55,29 @@ public class Duke {
         }
         printLine();
     }
+
+    public static void addTaskCallback(Task[] itemList, int itemCount) {
+        printLine();
+        System.out.println("    Got it. I've added this task:");
+        switch (itemList[itemCount].taskType) {
+        case "todo":
+            System.out.print("      " + itemList[itemCount].getTaskTypeIcon() + itemList[itemCount].getStatusIcon() + " " + itemList[itemCount].description);
+            break;
+        case "deadline":
+            System.out.print("      " + itemList[itemCount].getTaskTypeIcon() + itemList[itemCount].getStatusIcon() + " " + itemList[itemCount].description
+            + "(by:"+itemList[itemCount].deadline+")");
+            break;
+        case "event":
+            System.out.print("      " + itemList[itemCount].getTaskTypeIcon() + itemList[itemCount].getStatusIcon() + " " + itemList[itemCount].description
+            + " (from: " + itemList[itemCount].from + " to: " + itemList[itemCount].to+")");
+            break;
+        }
+
+        System.out.println();
+        System.out.println("    Now you have " + (itemCount + 1) + " tasks in the list.");
+        printLine();
+    }
+
     public static void main(String[] args) {
         printGreeting();
 
@@ -59,27 +85,55 @@ public class Duke {
         Task[] itemList = new Task[100];
         int itemCount = 0;
 
-        while (true){
+        while (true) {
             String input = scanner.nextLine();
-            if (input.startsWith("mark ")){
+            if (input.startsWith("mark ")) {
                 int indexPosition = Integer.parseInt(input.substring(5));
-                markItem(itemList, indexPosition-1, true);
-            } else if (input.startsWith("unmark ")){
+                markItem(itemList, indexPosition - 1, true);
+            } else if (input.startsWith("unmark ")) {
                 int indexPosition = Integer.parseInt(input.substring(7));
-                markItem(itemList, indexPosition-1, false);
-            }else {
+                markItem(itemList, indexPosition - 1, false);
+            } else {
                 if (input.equalsIgnoreCase("bye")) {
                     exitChatbot();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
                     listItems(itemList, itemCount);
                 } else {
-                    Task task = new Task(input);
-                    itemList[itemCount] = task;
-                    echo("added: " + task.description);
-                    itemCount++;
+                    String[] userInput = input.trim().split("\\s+");
+                    String taskType = userInput[0];
+
+                    Task task = new Task("description", "taskType");
+                    switch (taskType) {
+                    case "todo":
+                        task.description = input.substring(5);
+                        task.taskType = taskType;
+                        itemList[itemCount] = task;
+                        addTaskCallback(itemList, itemCount);
+                        itemCount++;
+                        break;
+                    case "deadline":
+                        int slashIndex = input.indexOf('/');
+                        task.description = input.substring(9, slashIndex);
+                        task.taskType = taskType;
+                        task.deadline = input.substring(slashIndex).split("/by")[1];
+                        itemList[itemCount] = task;
+                        addTaskCallback(itemList, itemCount);
+                        itemCount++;
+                        break;
+                    case "event":
+                        String[] parts = input.split("event | /from | /to ");
+                        task.description = parts[1];
+                        task.taskType = taskType;
+                        task.from = parts[2];
+                        task.to = parts[3];
+                        itemList[itemCount] = task;
+                        addTaskCallback(itemList, itemCount);
+                        itemCount++;
+                    }
                 }
             }
         }
     }
 }
+//if (input.startsWith("todo"))
