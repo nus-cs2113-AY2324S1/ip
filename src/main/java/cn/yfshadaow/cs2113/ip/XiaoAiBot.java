@@ -13,9 +13,9 @@ public class XiaoAiBot {
     private final String QUIT_MESSAGE = "See you next time, master!";
 
 
-    private final List<String> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
-    public List<String> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
@@ -24,8 +24,8 @@ public class XiaoAiBot {
         return commandHandler;
     }
 
-    private CommandHandler commandHandler = new CommandHandler(this);
-    private Scanner scanner = new Scanner(System.in);
+    private final CommandHandler commandHandler = new CommandHandler(this);
+    private final Scanner scanner = new Scanner(System.in);
 
     public void setShouldQuit(boolean shouldQuit) {
         this.shouldQuit = shouldQuit;
