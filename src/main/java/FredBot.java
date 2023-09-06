@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class FredBot {
+
     public static void addTask(Task[] tasks, String task) {
         int numTask = Task.getNumTask();
         tasks[numTask] = new Task(task);
@@ -65,20 +66,17 @@ public class FredBot {
         System.out.println("    ____________________________________________________________\n");
     }
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        // System.out.println("Hello from\n" + logo);
-        Task[] tasks = new Task[100];
-        String GREETING = "     Hello! I'm Fredbot\n" +
+        final String GREETING = "     Hello! I'm Fredbot\n" +
                 "     What can I do for you?";
-        String FAREWELL = "     Bye. Hope to see you again soon!";
+        final String FAREWELL = "     Bye. Hope to see you again soon!";
+        Task[] tasks = new Task[100];
+
         printMessage(GREETING);
+
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
+
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 printTasks(tasks);
@@ -99,6 +97,7 @@ public class FredBot {
             }
             line = in.nextLine();
         }
+        
         printMessage(FAREWELL);
     }
 }
