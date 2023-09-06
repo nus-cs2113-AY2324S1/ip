@@ -4,7 +4,7 @@ public class Deadline extends Task {
     private String by;
 
     public static Deadline parseDeadline(String cmdBody) {
-        String[] args = cmdBody.split(" /by ");
+        String[] args = cmdBody.split(" +/by +");
         String name = args[0];
         String by = args[1];
 

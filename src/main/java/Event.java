@@ -3,7 +3,7 @@ public class Event extends Task {
     private String to;
 
     public static Event parseEvent(String cmdBody) {
-        String[] args = cmdBody.split(" /from | /to ");
+        String[] args = cmdBody.split(" +(/from|/to) +");
         String name = args[0];
         String from = args[1];
         String to = args[2];
