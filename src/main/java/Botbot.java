@@ -124,17 +124,26 @@ public class Botbot {
                 createTodoTasks(input.substring(5));
             //for deadline commands
             }else if(input.contains("deadline")){
-                String[] parts = input.split("/by ");
-                String task = parts[0].substring("deadline ".length());
-                String deadline = parts[1];
-                createDeadlineTasks(task, deadline);
+                if (!input.contains("/by")){
+                    System.out.println("Invalid input. No deadline.");
+                    return;
+                }else {
+                    String[] parts = input.split("/by ");
+                    String task = parts[0].substring("deadline ".length());
+                    String deadline = parts[1];
+                    createDeadlineTasks(task, deadline);
+                }
             //for event commands
             }else if(input.contains("event")){
-                String[] parts = input.split("/");
-                String task = parts[0].substring("event ".length());
-                String from = parts[1].substring("from ".length());
-                String to = parts[2].substring("to ".length());
-                createEventTask(task, from, to);
+                if (!input.contains("/from") || !input.contains("/to")){
+                    System.out.println("Invalid input. No duration.");
+                }else {
+                    String[] parts = input.split("/");
+                    String task = parts[0].substring("event ".length());
+                    String from = parts[1].substring("from ".length());
+                    String to = parts[2].substring("to ".length());
+                    createEventTask(task, from, to);
+                }
             }else{
                     addTask(input);
             }
