@@ -5,12 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-enum MarkOrUnmark {
-    MARK,
-    UNMARK
-}
-
-
 public class Duke {
     /** ArrayList of all tasks that have been added. */
     private static ArrayList<Task> tasks = new ArrayList<Task>();
@@ -21,25 +15,68 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        while (true) {
+        boolean shouldTerminate = false;
+
+        while (!shouldTerminate) {
             input = scanner.nextLine();
 
-            if (input.equals("list")) {
-                listTasks();
-            } else if (input.startsWith("mark ")) {
-                int taskIdx = Integer.parseInt(input.substring(5)) - 1;
-                markOrUnmarkTask(MarkOrUnmark.MARK, taskIdx);
-            } else if (input.startsWith("unmark ")) {
-                int taskIdx = Integer.parseInt(input.substring(7)) - 1;
-                markOrUnmarkTask(MarkOrUnmark.UNMARK, taskIdx);
-            } else if (input.equals("bye")) {
-                break;
-            } else {
-                addTask(input);
+            try {
+                shouldTerminate = processInput(input);
+            } catch (Exception e) {
+                printHorizontalLine();
+                System.out.println("    Invalid input!");
+                System.out.println(
+                        "    Please make sure that your input is in the proper format and try " +
+                                "again");
+                printHorizontalLine();
             }
+
         }
 
         printFarewell();
+    }
+
+    private static boolean processInput(String input) {
+        if (input.equals("list")) {
+            listTasks();
+        } else if (input.equals("bye")) {
+            return true;
+        } else if (input.startsWith("mark ")) {
+            int taskIdx = Integer.parseInt(input.substring(5)) - 1;
+            markOrUnmarkTask(MarkOrUnmark.MARK, taskIdx);
+        } else if (input.startsWith("unmark ")) {
+            int taskIdx = Integer.parseInt(input.substring(7)) - 1;
+            markOrUnmarkTask(MarkOrUnmark.UNMARK, taskIdx);
+        } else if (input.startsWith("deadline ")) {
+            String relevantInput = input.substring(9);
+
+            String[] parts = relevantInput.split("/");
+            String taskDescription = parts[0].strip();
+            String by = parts[1].substring(2).strip();
+
+            addTask(new Deadline(taskDescription, by));
+        } else if (input.startsWith("event ")) {
+            String relevantInput = input.substring(6);
+
+            String[] parts = relevantInput.split("/");
+            String taskDescription = parts[0].strip();
+            String from = parts[1].substring(4).strip();
+            String to = parts[2].substring(2).strip();
+
+            addTask(new Event(taskDescription, from, to));
+        } else if (input.startsWith("todo ")) {
+            String relevantInput = input.substring(5);
+
+            String taskDescription = relevantInput.strip();
+
+            addTask(new ToDo(taskDescription));
+        } else {
+            printHorizontalLine();
+            System.out.println("    Invalid command! Try again");
+            printHorizontalLine();
+        }
+
+        return false;
     }
 
 
@@ -51,9 +88,7 @@ public class Duke {
 
         printHorizontalLine();
         for (Task task : tasks) {
-            System.out.println(
-                    "    " + counter + ".[" + task.getStatusIcon() + "] " +
-                            task.getDescription());
+            System.out.println("    " + counter + "." + task);
             counter++;
         }
         printHorizontalLine();
@@ -95,22 +130,27 @@ public class Duke {
         } else {
             System.out.println("    OK, I've marked this task as not done yet:");
         }
-        System.out.println("      [" + selectedTask.getStatusIcon() + "] " +
-                selectedTask.getDescription());
+        System.out.println("      " + selectedTask.toString());
         printHorizontalLine();
     }
 
     /**
      * Adds a new task to tasks and prints a confirmation.
      *
-     * @param taskDescription Description of the task that shall be added.
+     * @param newTask The task that shall be added.
      */
-    private static void addTask(String taskDescription) {
-        Task newTask = new Task(taskDescription);
+    private static void addTask(Task newTask) {
         tasks.add(newTask);
 
         printHorizontalLine();
-        System.out.println("    added: " + newTask.getDescription());
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("      " + newTask.toString());
+        if (tasks.size() == 1) {
+            System.out.println("    Now you have 1 task in the list.");
+        } else {
+            System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+        }
+
         printHorizontalLine();
     }
 
