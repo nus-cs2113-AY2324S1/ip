@@ -3,8 +3,8 @@ public class Task {
     private boolean isCompleted;
 
     public Task(String description, boolean isCompleted) {
-        this.description = description;
-        this.isCompleted = isCompleted;
+        setDescription(description);
+        setCompleted(isCompleted);
     }
 
     public String getDescription() {
