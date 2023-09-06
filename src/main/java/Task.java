@@ -23,7 +23,8 @@ public class Task {
         isDone = done;
     }
 
-    public String getStatus() {
+    @Override
+    public String toString() {
         String ex = " ";
         if(isDone) {
             ex = "x";
