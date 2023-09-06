@@ -5,11 +5,12 @@ import java.util.List;
 public class CommandHandler {
 
     private final XiaoAiBot bot;
+
     public CommandHandler(XiaoAiBot bot) {
         this.bot = bot;
     }
 
-    public void handleCommand(String command){
+    public void handleCommand(String command) {
         if (command == null) {
             bot.sendMessage("Command is null!");
             return;
@@ -27,11 +28,56 @@ public class CommandHandler {
                 bot.setShouldQuit(true);
                 break;
             }
+            case "todo": {
+                Todo todo;
+                try {
+                    todo = Todo.parseTodo(args);
+                } catch (Exception e) {
+                    bot.sendMessage("Error parsing task");
+                    e.printStackTrace();
+                    break;
+                }
+                bot.getTasks().add(todo);
+                bot.sendMessageWithoutSplit("Got it. I've added this task:");
+                bot.sendMessageWithoutSplit(todo.toStringWithIsDone());
+                bot.sendMessage("Now you have " + bot.getTasks().size() + " tasks in the list.");
+                break;
+            }
+            case "deadline": {
+                Deadline deadline;
+                try {
+                    deadline = Deadline.parseDeadline(args);
+                } catch (Exception e) {
+                    bot.sendMessage("Error parsing task");
+                    e.printStackTrace();
+                    break;
+                }
+                bot.getTasks().add(deadline);
+                bot.sendMessageWithoutSplit("Got it. I've added this task:");
+                bot.sendMessageWithoutSplit(deadline.toStringWithIsDone());
+                bot.sendMessage("Now you have " + bot.getTasks().size() + " tasks in the list.");
+                break;
+            }
+            case "event": {
+                Event event;
+                try {
+                    event = Event.parseEvent(args);
+                } catch (Exception e) {
+                    bot.sendMessage("Error parsing task");
+                    e.printStackTrace();
+                    break;
+                }
+                bot.getTasks().add(event);
+                bot.sendMessageWithoutSplit("Got it. I've added this task:");
+                bot.sendMessageWithoutSplit(event.toStringWithIsDone());
+                bot.sendMessage("Now you have " + bot.getTasks().size() + " tasks in the list.");
+                break;
+            }
             case "mark": {
                 if (args.length != 1) {
                     bot.sendMessage("Incorrect arguments");
                 }
-                int index = 0;
+                int index;
                 try {
                     index = Integer.parseInt(args[0]);
                 } catch (Exception e) {
@@ -52,7 +98,7 @@ public class CommandHandler {
                 if (args.length != 1) {
                     bot.sendMessage("Incorrect arguments");
                 }
-                int index = 0;
+                int index;
                 try {
                     index = Integer.parseInt(args[0]);
                 } catch (Exception e) {
@@ -79,8 +125,7 @@ public class CommandHandler {
                 break;
             }
             default: {
-                bot.getTasks().add(new Task(command));
-                bot.sendMessage("added " + command);
+                bot.sendMessage("Unknown command");
             }
         }
     }

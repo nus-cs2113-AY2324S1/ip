@@ -45,6 +45,7 @@ public class XiaoAiBot {
     public void sendMessageWithoutSplit(String message) {
         System.out.println(message);
     }
+
     public void sendSplit() {
         System.out.println(SPLIT);
     }

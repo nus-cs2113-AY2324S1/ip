@@ -1,8 +1,8 @@
 package cn.yfshadaow.cs2113.ip;
 
-public class Task {
-    private boolean isDone = false;
-    private String name;
+public abstract class Task {
+    protected boolean isDone = false;
+    protected String name;
 
     public boolean isDone() {
         return isDone;
@@ -18,16 +18,6 @@ public class Task {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    public Task(String name) {
-        this.name = name;
-    }
-
-    public Task(String name, boolean isDone) {
-        this.name = name;
-        this.isDone = isDone;
     }
 
     public String toStringWithIsDone() {
