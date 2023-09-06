@@ -1,8 +1,8 @@
-package commands;
+package dawson.command;
 
 import dawson.Dawson;
 import dawson.TaskList;
-import tasks.Deadline;
+import dawson.task.Deadline;
 
 public class DeadlineCommand extends Command {
 
