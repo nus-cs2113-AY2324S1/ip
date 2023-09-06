@@ -46,7 +46,8 @@ public class ZenBot {
 
                 printSeperatorLine();
                 System.out.println("\tBehold, a new endeavor enters the realm: " + taskName);
-                System.out.println("\tThe grand tally of tasks has reached a harmonious count of " + tasks.getTaskListSize() + " in all.");
+                System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
+                System.out.println(tasks.getTaskListSize() + " in all.");
                 printSeperatorLine();
                 continue;
             } else if (input.getCommand().equals("deadline")) { // add deadline task
@@ -56,7 +57,8 @@ public class ZenBot {
 
                 printSeperatorLine();
                 System.out.println("\tBehold, a new endeavor enters the realm: " + taskName);
-                System.out.println("\tThe grand tally of tasks has reached a harmonious count of " + tasks.getTaskListSize() + " in all.");
+                System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
+                System.out.println(tasks.getTaskListSize() + " in all.");
                 printSeperatorLine();
                 continue;
             } else if (input.getCommand().equals("event")) { // add event task
@@ -67,7 +69,8 @@ public class ZenBot {
 
                 printSeperatorLine();
                 System.out.println("\tBehold, a new endeavor enters the realm: " + taskName);
-                System.out.println("\tThe grand tally of tasks has reached a harmonious count of " + tasks.getTaskListSize() + " in all.");
+                System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
+                System.out.println(tasks.getTaskListSize() + " in all.");
                 printSeperatorLine();
                 continue;
             } else if (input.getCommand().equals("list")) { // list tasks
