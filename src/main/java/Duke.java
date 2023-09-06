@@ -137,7 +137,9 @@ public class Duke {
             return taskNumber;
         }
 
-        if (taskNumber <= 0) return -1;
+        if (taskNumber <= 0){
+            return -1;
+        }
         return taskNumber;
     }
 
