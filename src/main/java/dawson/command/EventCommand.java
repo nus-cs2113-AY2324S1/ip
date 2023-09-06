@@ -1,6 +1,6 @@
 package dawson.command;
 
-import dawson.Dawson;
+import dawson.DawsonException;
 import dawson.TaskList;
 import dawson.task.Event;
 
@@ -18,13 +18,13 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws DawsonException {
         int from_position = payload.indexOf(FROM_DELIMITER);
         int to_position = payload.indexOf(TO_DELIMITER);
 
         if (from_position == -1 || to_position == -1) {
-            Dawson.printText("Invalid format for Event task!");
-            return;
+            String errorMsg = "Please include '/from' and '/to' for the start and end time!";
+            throw new DawsonException(errorMsg);
         }
 
         String taskString = payload.substring(0, from_position).trim();

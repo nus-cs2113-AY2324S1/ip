@@ -1,6 +1,6 @@
 package dawson.command;
 
-import dawson.Dawson;
+import dawson.DawsonException;
 import dawson.TaskList;
 import dawson.task.Deadline;
 
@@ -17,12 +17,12 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws DawsonException {
         int by_position = payload.indexOf(BY_DELIMITER);
 
         if (by_position == -1) {
-            Dawson.printText("Invalid format for Deadline task!");
-            return;
+            String errorMsg = "Please include '/by' followed by the deadline!";
+            throw new DawsonException(errorMsg);
         }
 
         String taskString = payload.substring(0, by_position).trim();

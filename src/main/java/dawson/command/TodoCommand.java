@@ -1,6 +1,6 @@
 package dawson.command;
 
-import dawson.Dawson;
+import dawson.DawsonException;
 import dawson.TaskList;
 import dawson.task.Todo;
 
@@ -15,10 +15,10 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws DawsonException {
         if (payload.equals("")) {
-            Dawson.printText("Empty string detected!");
-            return;
+            String errorMsg = "The description of a todo cannot be empty!";
+            throw new DawsonException(errorMsg);
         }
 
         Todo newTask = new Todo(payload);
