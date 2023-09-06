@@ -10,7 +10,6 @@ public class Spaceman {
             + "|____ /|_|   |__| |__|\\_____|_____|__|  |__|__| |__|__|\\___|\n";
 
         Task[] taskList = new Task[100];
-        int count = 0;
 
         System.out.println("Hello from\n" + logo);
         System.out.println("------------------------------------------------------------");
@@ -32,7 +31,6 @@ public class Spaceman {
                 unMarkTask(taskList, Integer.parseInt(unMarkDetails[1]));
             } else {
                 addToList(taskList, text);
-                count++;
             }
             text = sc.nextLine();
         }
@@ -43,10 +41,27 @@ public class Spaceman {
     }
 
     public static void addToList(Task[] taskList, String taskName){
-        Task task = new Task(taskName);
+        Task task;
+        int descriptionIndex = taskName.indexOf(" ");
+        if (taskName.startsWith("todo")) {
+            task = new Todo(taskName.substring(descriptionIndex+1));
+        } else if (taskName.startsWith("deadline")) {
+            int byIndex = taskName.indexOf("/");
+            task = new Deadline(taskName.substring(descriptionIndex+1, byIndex),
+                    taskName.substring(byIndex+4));
+        } else {
+            int start = taskName.indexOf("/");
+            int end = taskName.indexOf("/", start+1);
+            task = new Event(taskName.substring(descriptionIndex+1, start),
+                    taskName.substring(start+6, end),
+                    taskName.substring(end+4));
+        }
+
         taskList[Task.getTaskCount()-1] = task;
         System.out.println("------------------------------------------------------------");
-        System.out.println("added: " + taskName);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task.getDescription());
+        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
         System.out.println("------------------------------------------------------------");
     }
 
@@ -55,12 +70,7 @@ public class Spaceman {
         System.out.println("------------------------------------------------------------");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < Task.getTaskCount(); i++){
-            if (tasks[i].getTaskStatus()){
-                mark = "X";
-            } else {
-                mark = " ";
-            }
-            System.out.println(i + 1 + ". [" + mark + "] " + tasks[i].getTaskDescription());
+            System.out.println(i + 1 + ". " + tasks[i].getDescription());
         }
         System.out.println("------------------------------------------------------------");
     }
@@ -69,7 +79,7 @@ public class Spaceman {
         tasks[taskIndex-1].markTask();
         System.out.println("------------------------------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [X] " + tasks[taskIndex-1].getTaskDescription());
+        System.out.println("  [X] " + tasks[taskIndex-1].getDescription());
         System.out.println("------------------------------------------------------------");
     }
 
@@ -77,7 +87,7 @@ public class Spaceman {
         tasks[taskIndex-1].unMarkTask();
         System.out.println("------------------------------------------------------------");
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  [ ] " + tasks[taskIndex-1].getTaskDescription());
+        System.out.println("  [ ] " + tasks[taskIndex-1].getDescription());
         System.out.println("------------------------------------------------------------");
     }
 
