@@ -42,7 +42,7 @@ public class Botbot {
     }
 
     //method to add todo tasks
-    public static void todoTasks(String task) {
+    public static void createTodoTasks(String task) {
         //instantiate new todo object
         Todo todoTask = new Todo(task);
         //add to array
@@ -55,7 +55,7 @@ public class Botbot {
     }
 
     //method to add deadline tasks
-    public static void deadlineTasks(String task, String deadline){
+    public static void createDeadlineTasks(String task, String deadline){
         //instantiate new deadline object
         Deadline deadlineTask = new Deadline(task, deadline);
         //add to array
@@ -68,7 +68,7 @@ public class Botbot {
     }
 
     //method to add eventTask
-    public static void eventTask(String task, String from, String to){
+    public static void createEventTask(String task, String from, String to){
         //instantiate new event object
         Event eventTask = new Event(task, from, to);
         //add to array
@@ -121,25 +121,24 @@ public class Botbot {
                 markUnmarkTask(input);
             //for todo commands
             }else if(input.contains("todo")) {
-                todoTasks(input.substring(5));
+                createTodoTasks(input.substring(5));
             //for deadline commands
             }else if(input.contains("deadline")){
                 String[] parts = input.split("/by ");
                 String task = parts[0].substring("deadline ".length());
                 String deadline = parts[1];
-                deadlineTasks(task, deadline);
+                createDeadlineTasks(task, deadline);
             //for event commands
             }else if(input.contains("event")){
                 String[] parts = input.split("/");
                 String task = parts[0].substring("event ".length());
                 String from = parts[1].substring("from ".length());
                 String to = parts[2].substring("to ".length());
-                eventTask(task, from, to);
+                createEventTask(task, from, to);
             }else{
                     addTask(input);
             }
         }
-
         //close scanner
         scanner.close();
     }
