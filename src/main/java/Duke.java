@@ -25,18 +25,30 @@ public class Duke {
                     tasks[taskIndex].markAsDone();
                     System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex].toString());
                 }
-            } else if (line.startsWith("unmark")) {
-                int taskIndex = Integer.parseInt(line.substring(7)) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    tasks[taskIndex].markAsNotDone();
-                    System.out.println("OK, I've marked this task as not done yet:\n" + tasks[taskIndex].toString());
-                }
             } else {
-                tasks[taskCount] = new Task(line);
+                String[] parts = line.split(" ", 2);
+                String command = parts[0];
+                String taskDescription = parts.length > 1 ? parts[1] : "";
+
+                switch (command) {
+                case "todo":
+                    tasks[taskCount] = new TodoTask(taskDescription);
+                    break;
+                case "deadline":
+                    tasks[taskCount] = new DeadlineTask(taskDescription);
+                    break;
+                case "event":
+                    tasks[taskCount] = new EventTask(taskDescription);
+                    break;
+                default:
+                    System.out.println("Invalid command. Please use 'todo', 'deadline', 'event', or 'list'.");
+                }
                 taskCount++;
-                System.out.print("Added: ");
-                System.out.println(line);
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(tasks[taskCount - 1].toString());
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
             }
+
             System.out.println("____________________________________________________________\n");
             line = input.nextLine();
         }
@@ -45,6 +57,5 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println("Bye! Hope to see you again soon!");
         System.out.println("____________________________________________________________");
-
     }
 }
