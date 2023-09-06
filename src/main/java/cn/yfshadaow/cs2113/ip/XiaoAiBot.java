@@ -1,3 +1,5 @@
+package cn.yfshadaow.cs2113.ip;
+
 import java.util.Scanner;
 
 public class XiaoAiBot {

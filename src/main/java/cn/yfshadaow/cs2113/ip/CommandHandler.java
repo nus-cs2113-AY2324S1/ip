@@ -1,3 +1,7 @@
+package cn.yfshadaow.cs2113.ip;
+
+import cn.yfshadaow.cs2113.ip.XiaoAiBot;
+
 public class CommandHandler {
 
     private final XiaoAiBot bot;
