@@ -1,8 +1,7 @@
-public class Todo {
+public class Task {
     protected String description;
     protected boolean isDone;
-
-    public Todo(String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -14,5 +13,9 @@ public class Todo {
     }
     public String getDescription() {
         return description;
+    }
+    @Override
+    public String toString() {
+        return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 }

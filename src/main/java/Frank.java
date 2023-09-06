@@ -25,10 +25,11 @@ public class Frank {
         System.out.println("Hello user, I'm FRANK! Nice to meet you!\n" + solidLine);
 
         // Add, List
-        TodoList user = new TodoList();
+        TaskList user = new TaskList();
         Scanner input = new Scanner(System.in);
-        String command;
+        String command, description, startDate, endDate;
         do{
+            System.out.println("Available Commands: list, deadline, event, mark <index>, unmark <index>, <Todo> (default)");
             command = input.nextLine();
             String[] commands = command.split(" "); // if mark or unmark will be followed by an int
             switch (commands[0]) {
@@ -36,16 +37,33 @@ public class Frank {
                 System.out.println(solidLine + "\nGoodbye User, zai jian yong ze, sampai jumpa lagi user \n" + solidLine);
                 break;
             case "list":
-                user.printTodos();
+                user.printTasks();
+                break;
+            case "deadline":
+                System.out.println("Bisa! What is the task?");
+                description = input.nextLine();
+                System.out.println("Ke Yi! When is it due?");
+                // Due Date same as StartDate
+                startDate = input.nextLine();
+                user.addTask(new Deadline(description, startDate));
+                break;
+            case "event":
+                System.out.println("Boleh! What is the event?");
+                description = input.nextLine();
+                System.out.println("When does it start?");
+                startDate = input.nextLine();
+                System.out.println("When does it end?");
+                endDate = input.nextLine();
+                user.addTask(new Event(description, startDate, endDate));
                 break;
             case "mark":
-                user.markTodo(Integer.parseInt(commands[1]),true);
+                user.markTask(Integer.parseInt(commands[1]),true);
                 break;
             case "unmark":
-                user.markTodo(Integer.parseInt(commands[1]),false);
+                user.markTask(Integer.parseInt(commands[1]),false);
                 break;
             default:
-                user.addTodo(command);
+                user.addTask(new Todo(command));
                 break;
             }
         } while(!command.equals("bye"));
