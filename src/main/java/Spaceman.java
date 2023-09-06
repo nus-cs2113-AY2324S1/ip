@@ -42,19 +42,24 @@ public class Spaceman {
 
     public static void addToList(Task[] taskList, String taskName){
         Task task;
-        int descriptionIndex = taskName.indexOf(" ");
+        String description;
+        int descriptionIndex = taskName.indexOf(" ") + 1;
+
         if (taskName.startsWith("todo")) {
-            task = new Todo(taskName.substring(descriptionIndex+1));
+            description = taskName.substring(descriptionIndex);
+            task = new Todo(description);
         } else if (taskName.startsWith("deadline")) {
             int byIndex = taskName.indexOf("/");
-            task = new Deadline(taskName.substring(descriptionIndex+1, byIndex),
-                    taskName.substring(byIndex+4));
+            String by = taskName.substring(byIndex+4);
+            description = taskName.substring(descriptionIndex, byIndex-1);
+            task = new Deadline(description, by);
         } else {
-            int start = taskName.indexOf("/");
-            int end = taskName.indexOf("/", start+1);
-            task = new Event(taskName.substring(descriptionIndex+1, start),
-                    taskName.substring(start+6, end),
-                    taskName.substring(end+4));
+            int startIndex = taskName.indexOf("/");
+            int endIndex = taskName.indexOf("/", startIndex+1);
+            String startTime = taskName.substring(startIndex+6, endIndex);
+            String endTime = taskName.substring(endIndex+4);
+            description = taskName.substring(descriptionIndex, startIndex);
+            task = new Event(description, startTime, endTime);
         }
 
         taskList[Task.getTaskCount()-1] = task;
