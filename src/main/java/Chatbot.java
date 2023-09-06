@@ -22,7 +22,8 @@ public class Chatbot {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Here are the tasks in your list:");
                 for (int i = 0; i < numOfTasks; i++) {
-                    System.out.println(" " + (i + 1) + ".[" + tasks[i].getTypeIcon() + "][" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                    //System.out.println(" " + (i + 1) + ".[" + tasks[i].getTypeIcon() + "][" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                    System.out.println(" " + (i + 1) + "." + tasks[i]);
                 }
                 System.out.println("____________________________________________________________");
             } else if (input.startsWith("mark ")) {
@@ -46,47 +47,51 @@ public class Chatbot {
                 System.out.println("   [" + tasks[unmarkTaskNo - 1].getStatusIcon() + "] " + tasks[unmarkTaskNo - 1].getDescription());
                 System.out.println("____________________________________________________________");
             } else if ( input.startsWith("todo") ) {
-
                 String msg = input.replace("todo ", "").trim();
-                msg = msg.replace("deadline", "");
-                msg = msg.replace("event", "");
 
-                Task task = new Task(input, "T");
+                Task task = new Todo(msg);
                 tasks[numOfTasks] = task;
                 numOfTasks++;
 
                 System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task:");
-                System.out.println("   [" + task.getTypeIcon() + "][" + task.getStatusIcon() + "] " + task.getDescription());
+                System.out.println("   " + task);
                 System.out.println(" Now you have " + String.valueOf(numOfTasks) + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             }  else if ( input.startsWith("deadline") ) {
-                String msg = input.replace("deadline", "");
+                String msg = input.replace("deadline", "").trim();
+                String byDate = msg.substring(msg.indexOf("/by ") + 4).trim(); // will contain the byDate
+                String desc = msg.substring(0, msg.indexOf("/by")); // will contain the deadline description
 
-                Task task = new Task(input, "D");
+                Task task = new Deadline(desc, byDate);
                 tasks[numOfTasks] = task;
                 numOfTasks++;
 
                 System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task:");
-                System.out.println("   [" + task.getTypeIcon() + "][" + task.getStatusIcon() + "] " + task.getDescription());
+                System.out.println("   " + task);
                 System.out.println(" Now you have " + String.valueOf(numOfTasks) + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else if ( input.startsWith("event") ) {
-                String msg = input.replace("event", "");
+                String msg = input.replace("event", "").trim();
+                String dateRange = msg.substring(msg.indexOf("/from ") + 6).trim();
+                String fromDate = dateRange.substring(0, dateRange.indexOf("/to ")).trim();
+                String toDate = dateRange.substring(dateRange.indexOf("/to ") + 4).trim();
 
-                Task task = new Task(input, "E");
+                String desc = msg.substring(0, msg.indexOf("/from ")); // will contain the deadline description
+
+                Task task = new Event(desc, fromDate, toDate);
                 tasks[numOfTasks] = task;
                 numOfTasks++;
 
                 System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task:");
-                System.out.println("   [" + task.getTypeIcon() + "][" + task.getStatusIcon() + "] " + task.getDescription());
+                System.out.println("   " + task);
                 System.out.println(" Now you have " + String.valueOf(numOfTasks) + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else {
                 // if not bye, list, mark, then the command by default is add
-                tasks[numOfTasks] = new Task(input, "");
+                tasks[numOfTasks] = new Task(input);
                 numOfTasks++;
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + input);
