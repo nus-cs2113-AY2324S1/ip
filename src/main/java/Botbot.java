@@ -125,8 +125,7 @@ public class Botbot {
             //for deadline commands
             }else if(input.contains("deadline")){
                 if (!input.contains("/by")){
-                    System.out.println("Invalid input. No deadline.");
-                    return;
+                    System.out.println("Invalid input. No deadline/invalid format.");
                 }else {
                     String[] parts = input.split("/by ");
                     String task = parts[0].substring("deadline ".length());
@@ -136,7 +135,7 @@ public class Botbot {
             //for event commands
             }else if(input.contains("event")){
                 if (!input.contains("/from") || !input.contains("/to")){
-                    System.out.println("Invalid input. No duration.");
+                    System.out.println("Invalid input. No duration/invalid format.");
                 }else {
                     String[] parts = input.split("/");
                     String task = parts[0].substring("event ".length());
