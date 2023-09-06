@@ -1,14 +1,24 @@
 package cn.yfshadaow.cs2113.ip;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class XiaoAiBot {
     private final String BOT_NAME = "XiaoAi";
-    private final String SPLIT_LINE = "____________________________________________";
+    private final String SPLIT = "____________________________________________";
     private final String GREET_MESSAGE = "Welcome back, master!\n" +
             BOT_NAME + " here. What can I do for you?";
 
     private final String QUIT_MESSAGE = "See you next time, master!";
+
+
+    private final List<String> tasks = new ArrayList<>();
+
+    public List<String> getTasks() {
+        return tasks;
+    }
+
 
     public CommandHandler getCommandHandler() {
         return commandHandler;
@@ -27,11 +37,16 @@ public class XiaoAiBot {
         // for further modification
     }
 
-    public void sendMessages(String... messages) {
-        for (String message : messages) {
-            System.out.println(message);
-        }
-        System.out.println(SPLIT_LINE);
+    public void sendMessage(String message) {
+        sendMessageWithoutSplit(message);
+        sendSplit();
+    }
+
+    public void sendMessageWithoutSplit(String message) {
+        System.out.println(message);
+    }
+    public void sendSplit() {
+        System.out.println(SPLIT);
     }
 
     public String readLine() {
@@ -45,13 +60,13 @@ public class XiaoAiBot {
 
     public void start() {
         initialize();
-        sendMessages(GREET_MESSAGE);
+        sendMessage(GREET_MESSAGE);
 
         while (!shouldQuit) {
             String command = readLine();
             commandHandler.handleCommand(command);
         }
 
-        sendMessages(QUIT_MESSAGE);
+        sendMessage(QUIT_MESSAGE);
     }
 }
