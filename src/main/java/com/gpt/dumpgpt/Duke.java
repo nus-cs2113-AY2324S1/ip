@@ -83,12 +83,11 @@ public class Duke {
                 tasksCount,
                 (tasksCount > 1) ? "tasks" : "task"
         );
-
-        printWrapped(
-                "Great! I've added the following task:\n"
-                        + "\t" + task + "\n"
-                        + taskSummary
-        );
+        printWrapped(new String[]{
+                "Great! I've added the following task:",
+                "\t" + task.toString(),
+                taskSummary
+        });
     }
 
     public static Void listTasksFlow() {
@@ -116,8 +115,10 @@ public class Duke {
         }
 
         task.markDone();
-        String printOut = String.format("Nice I've marked this task as done:\n%s", task);
-        printWrapped(printOut);
+        printWrapped(new String[]{
+                "Nice I've marked this task as done:",
+                task.toString()
+        });
         return null;
     }
 
@@ -135,8 +136,10 @@ public class Duke {
         }
 
         task.unmarkDone();
-        String printOut = String.format("OK, I've marked this task as not done yet:\n%s", task);
-        printWrapped(printOut);
+        printWrapped(new String[]{
+                "OK, I've marked this task as not done yet:",
+                task.toString()
+        });
         return null;
     }
 
@@ -161,9 +164,19 @@ public class Duke {
         ProgramConstants.printSeparator();
     }
 
+    public static void printWrapped(String[] printOut) {
+        ProgramConstants.printSeparator();
+        for (String line : printOut) {
+            System.out.println(line);
+        }
+        ProgramConstants.printSeparator();
+    }
+
     public static void greet() {
-        String greeting = String.format("Hello I'm %s\n", ProgramConstants.BOT_NAME) + "What can I do for you?";
-        printWrapped(greeting);
+        printWrapped(new String[]{
+                String.format("Hello I'm %s", ProgramConstants.BOT_NAME),
+                "What can I do for you?"
+        });
     }
 
     public static Void bye() {
