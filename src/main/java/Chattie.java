@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Chattie {
 
-    public static void chattieGreeting(String line) {
+    public static void greetUser(String line) {
         line = line.toLowerCase();
 
         System.out.println("\t____________________________________________________________");
@@ -17,7 +17,7 @@ public class Chattie {
         System.out.println("\t____________________________________________________________");
     }
 
-    public static void chattieList(Task[] list, int count) {
+    public static void listTasks(Task[] list, int count) {
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < count; i++) {
             System.out.print("\t" + (i+1) + ". ");
@@ -29,35 +29,39 @@ public class Chattie {
         }
     }
 
-    public static int chattieTask(Task[] list, String line, int count) {
-        if (line.contains("todo")) {
-            list[count] = new Todo(line.substring(5));
-            System.out.println("\tGot it. I've added this task:");
-            System.out.println("\t  " + list[count]);
-            count++;
-            System.out.println("\tNow you have " + count + " tasks in the list.");
-        } else if (line.contains("deadline")) {
-            int slashIndex = line.indexOf("/");
-            list[count] = new Deadline(line.substring(9, slashIndex), line.substring(slashIndex + 3));
-            System.out.println("\tGot it. I've added this task:");
-            System.out.println("\t  " + list[count]);
-            count++;
-            System.out.println("\tNow you have " + count + " tasks in the list.");
-        } else if (line.contains("event")) {
-            int firstSlash = line.indexOf("/");
-            int secondSlash = line.indexOf("/", firstSlash + 1);
-            list[count] = new Event(line.substring(6, firstSlash),
-                    line.substring(firstSlash + 5, secondSlash),
-                    line.substring(secondSlash + 3));
-            System.out.println("\tGot it. I've added this task:");
-            System.out.println("\t  " + list[count]);
-            count++;
-            System.out.println("\tNow you have " + count + " tasks in the list.");
-        }
+    public static int addTodo(Task[] list, String line, int count) {
+        list[count] = new Todo(line.substring(5));
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t  " + list[count]);
+        count++;
+        System.out.println("\tNow you have " + count + " tasks in the list.");
         return count;
     }
 
-    public static void chattieMark(Task[] list, String[] command) {
+    public static int addDeadline(Task[] list, String line, int count) {
+        int slashIndex = line.indexOf("/");
+        list[count] = new Deadline(line.substring(9, slashIndex), line.substring(slashIndex + 3));
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t  " + list[count]);
+        count++;
+        System.out.println("\tNow you have " + count + " tasks in the list.");
+        return count;
+    }
+
+    public static int addEvent(Task[] list, String line, int count) {
+        int firstSlash = line.indexOf("/");
+        int secondSlash = line.indexOf("/", firstSlash + 1);
+        list[count] = new Event(line.substring(6, firstSlash),
+                line.substring(firstSlash + 5, secondSlash),
+                line.substring(secondSlash + 3));
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t  " + list[count]);
+        count++;
+        System.out.println("\tNow you have " + count + " tasks in the list.");
+        return count;
+    }
+
+    public static void markTask(Task[] list, String[] command) {
         int taskNum = Integer.parseInt(command[1]) - 1;
         if(command[0].equalsIgnoreCase("mark")) {
             list[taskNum].setDone(true);
@@ -82,7 +86,7 @@ public class Chattie {
         System.out.println("\t____________________________________________________________");
 
         line = in.nextLine();
-        chattieGreeting(line);
+        greetUser(line);
 
         line = in.nextLine();
 
@@ -90,12 +94,16 @@ public class Chattie {
             System.out.println("\t____________________________________________________________");
 
             if(line.equals("list")) {
-                chattieList(list, count);
+                listTasks(list, count);
             } else if(line.contains("mark") || line.contains("unmark")) {
                 String[] command = line.split(" ");
-                chattieMark(list, command);
-            } else if (line.contains("todo") || line.contains("deadline") || line.contains("event")) {
-                count = chattieTask(list, line, count);
+                markTask(list, command);
+            } else if (line.contains("todo")) {
+                count = addTodo(list, line, count);
+            } else if (line.contains("deadline")) {
+                count = addDeadline(list, line, count);
+            } else if (line.contains("event")) {
+                count = addEvent(list, line, count);
             } else {
                 list[count] = new Task(line);
                 System.out.println("\tadded: " + list[count].getTask());
