@@ -6,9 +6,7 @@ public class TaskList {
     public void printTasks() {
         System.out.print(solidLine);
         for(int i = 0; i < totalTasks; i++) {
-            System.out.println((i+1) + ". " + "[" +
-                    Tasks[i].getStatusIcon() + "] " +
-                    Tasks[i].getDescription());
+            System.out.println((i+1) + ". " + Tasks[i].toString() );
         }
         System.out.print(solidLine);
     }

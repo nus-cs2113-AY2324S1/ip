@@ -29,7 +29,7 @@ public class Frank {
         Scanner input = new Scanner(System.in);
         String command, description, startDate, endDate;
         do{
-            System.out.println("Available Commands: list, deadline, event, mark <index>, unmark <index>, <Todo> (default)");
+            System.out.println("Available Commands: list, deadline, event, mark <index>, unmark <index>, <Todo> (default), bye");
             command = input.nextLine();
             String[] commands = command.split(" "); // if mark or unmark will be followed by an int
             switch (commands[0]) {
