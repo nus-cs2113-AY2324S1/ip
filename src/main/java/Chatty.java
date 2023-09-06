@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class Chatty {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
@@ -76,7 +75,6 @@ public class Chatty {
             System.out.println("____________________________________________________________\n");
             input = scanner.nextLine();
         }
-
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
