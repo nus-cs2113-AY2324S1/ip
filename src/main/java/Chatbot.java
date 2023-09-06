@@ -18,36 +18,75 @@ public class Chatbot {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         while(!input.equals("bye")) {
-            if( input.equals("list") ) {
+            if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Here are the tasks in your list:");
-                for(int i=0; i<numOfTasks; i++){
-                    System.out.println( " " + (i+1) + ".["  + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription() );
+                for (int i = 0; i < numOfTasks; i++) {
+                    System.out.println(" " + (i + 1) + ".[" + tasks[i].getTypeIcon() + "][" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
                 }
                 System.out.println("____________________________________________________________");
-            } else if ( input.startsWith("mark ") ) {
+            } else if (input.startsWith("mark ")) {
                 String number = input.replace("mark ", "").trim();
                 int markTaskNo = Integer.parseInt(number);
-                if( markTaskNo > 0 ) {
-                    tasks[markTaskNo-1].markAsDone();
+                if (markTaskNo > 0) {
+                    tasks[markTaskNo - 1].markAsDone();
                 }
                 System.out.println("____________________________________________________________");
                 System.out.println(" Nice! I've marked this task as done:");
-                System.out.println( "   ["  + tasks[markTaskNo-1].getStatusIcon() + "] " + tasks[markTaskNo-1].getDescription() );
+                System.out.println("   [" + tasks[markTaskNo - 1].getStatusIcon() + "] " + tasks[markTaskNo - 1].getDescription());
                 System.out.println("____________________________________________________________");
-            } else if ( input.startsWith("unmark ") ) {
+            } else if (input.startsWith("unmark ")) {
                 String number = input.replace("unmark ", "").trim();
                 int unmarkTaskNo = Integer.parseInt(number);
-                if( unmarkTaskNo > 0 ) {
-                    tasks[unmarkTaskNo-1].markAsUndone();
+                if (unmarkTaskNo > 0) {
+                    tasks[unmarkTaskNo - 1].markAsUndone();
                 }
                 System.out.println("____________________________________________________________");
                 System.out.println(" OK, I've marked this task as not done yet:");
-                System.out.println( "   ["  + tasks[unmarkTaskNo-1].getStatusIcon() + "] " + tasks[unmarkTaskNo-1].getDescription() );
+                System.out.println("   [" + tasks[unmarkTaskNo - 1].getStatusIcon() + "] " + tasks[unmarkTaskNo - 1].getDescription());
+                System.out.println("____________________________________________________________");
+            } else if ( input.startsWith("todo") ) {
+
+                String msg = input.replace("todo ", "").trim();
+                msg = msg.replace("deadline", "");
+                msg = msg.replace("event", "");
+
+                Task task = new Task(input, "T");
+                tasks[numOfTasks] = task;
+                numOfTasks++;
+
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   [" + task.getTypeIcon() + "][" + task.getStatusIcon() + "] " + task.getDescription());
+                System.out.println(" Now you have " + String.valueOf(numOfTasks) + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            }  else if ( input.startsWith("deadline") ) {
+                String msg = input.replace("deadline", "");
+
+                Task task = new Task(input, "D");
+                tasks[numOfTasks] = task;
+                numOfTasks++;
+
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   [" + task.getTypeIcon() + "][" + task.getStatusIcon() + "] " + task.getDescription());
+                System.out.println(" Now you have " + String.valueOf(numOfTasks) + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if ( input.startsWith("event") ) {
+                String msg = input.replace("event", "");
+
+                Task task = new Task(input, "E");
+                tasks[numOfTasks] = task;
+                numOfTasks++;
+
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   [" + task.getTypeIcon() + "][" + task.getStatusIcon() + "] " + task.getDescription());
+                System.out.println(" Now you have " + String.valueOf(numOfTasks) + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else {
                 // if not bye, list, mark, then the command by default is add
-                tasks[numOfTasks] = new Task(input);
+                tasks[numOfTasks] = new Task(input, "");
                 numOfTasks++;
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + input);

@@ -1,10 +1,11 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-
-    public Task(String description) {
+    protected String type;
+    public Task(String description, String type) {
         this.description = description;
         this.isDone = false;
+        this.type = type;
     }
     public String getDescription() {
         return this.description;
@@ -18,5 +19,7 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    public String getTypeIcon() { return type; }
 
 }
