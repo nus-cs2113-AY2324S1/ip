@@ -1,6 +1,6 @@
 public class Todo extends Task {
-    public static Todo parseTodo(String arg) {
-        return new Todo(arg);
+    public static Todo parseTodo(String cmdBody) {
+        return new Todo(cmdBody);
     }
 
     public Todo(String name) {

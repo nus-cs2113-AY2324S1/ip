@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nuke {
-    public static String LOGO =
+    public static final String LOGO =
             "     _.-^^---....,,--      \n" +
             " _--                  --_  \n" +
             "<                        >)\n" +
@@ -14,7 +14,8 @@ public class Nuke {
             "       `-=#$%&%$#=-'       \n" +
             "          | ;  :|          \n" +
             " _____.,-#%&$@%#&#~,._____ \n";
-    private static boolean running = true;
+
+    private static boolean isRunning = true;
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
@@ -26,24 +27,26 @@ public class Nuke {
         System.out.println();
         System.out.println("[@] Hello! I'm Nuke.");
         System.out.println("[@] What can I do for you?");
+        System.out.println();
 
         // Loop for user input
-        while(running) {
+        while (isRunning) {
             String input = in.nextLine();
             runCommand(input);
+            System.out.println();
         }
     }
 
     private static void runCommand(String line) {
         String[] words = line.split(" ");
         String type = words[0];
-        String arg = line.substring(type.length()).strip();
+        String cmdBody = line.substring(type.length()).strip();
 
         int idx;
-        switch(type) {
+        switch (type) {
         case "bye":
             System.out.println("[@] Bye. Hope to see you again soon!");
-            running = false;
+            isRunning = false;
             break;
         case "list":
             listTask();
@@ -57,13 +60,13 @@ public class Nuke {
             unmarkTask(idx);
             break;
         case "todo":
-            addTask(Todo.parseTodo(arg));
+            addTask(Todo.parseTodo(cmdBody));
             break;
         case "deadline":
-            addTask(Deadline.parseDeadline(arg));
+            addTask(Deadline.parseDeadline(cmdBody));
             break;
         case "event":
-            addTask(Event.parseEvent(arg));
+            addTask(Event.parseEvent(cmdBody));
             break;
         default:
             addTask(new Task(line));
@@ -79,7 +82,7 @@ public class Nuke {
 
     private static void listTask() {
         System.out.println("[@] Here are the tasks in you list:");
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.printf("%d.%s\n", i + 1, task.toString());
         }
