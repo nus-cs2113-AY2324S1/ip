@@ -71,6 +71,13 @@ public class Chattie {
                 System.out.println("\t  " + list[count]);
                 count++;
                 System.out.println("\tNow you have " + count + " tasks in the list.");
+            } else if (line.contains("deadline")) {
+                int slashIndex = line.indexOf("/");
+                list[count] = new Deadline(line.substring(9, slashIndex), line.substring(slashIndex + 3));
+                System.out.println("\tGot it. I've added this task:");
+                System.out.println("\t  " + list[count]);
+                count++;
+                System.out.println("\tNow you have " + count + " tasks in the list.");
             } else {
                 list[count] = new Task(line);
                 System.out.println("\tadded: " + list[count].getTask());
