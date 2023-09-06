@@ -23,7 +23,7 @@ public class Task {
         this.name = name;
     }
 
-    public void setComplete(boolean complete) {
+    public void setIsComplete(boolean complete) {
         isComplete = complete;
     }
 

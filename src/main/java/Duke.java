@@ -25,7 +25,7 @@ public class Duke {
 
     public void updateTask(int index, boolean status) {
         Task task = list.get(index - 1);
-        task.setComplete(status);
+        task.setIsComplete(status);
         if (status) {
             respond("Nice! I've marked this task as done:\n" +
                     task.listText());
