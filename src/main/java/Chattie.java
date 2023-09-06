@@ -69,6 +69,7 @@ public class Chattie {
             System.out.println("\t" + list[taskNum]);
         }
     }
+    
     public static void main(String[] args) {
 
         int count = 0;
