@@ -59,6 +59,7 @@ public class Soccat {
         while (true) {
             command = textIn.nextLine();
             if (command.equals("bye")) {
+                System.out.println(line);
                 break;
             }
             String[] tokens = command.split(" ");
@@ -78,14 +79,13 @@ public class Soccat {
                 System.out.println("Sorry, I could not recognize your command.");
                 break;
             }
-            System.out.println(line);
         }
     }
 
     public static void main(String[] args) {
         String line = "____________________________________________________________";
-        System.out.println(line + "Hello! I'm soccat!\nWhat can I do for you?" + line);
+        System.out.println(line + "\nHello! I'm soccat!\nWhat can I do for you?\n" + line);
         processCommand(line);
-        System.out.println("Bye. Hope to see you again soon!" + line);
+        System.out.println("Bye. Hope to see you again soon!\n" + line);
     }
 }
