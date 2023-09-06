@@ -66,7 +66,6 @@ public class Spaceman {
     }
 
     public static void printList(Task[] tasks){
-        String mark;
         System.out.println("------------------------------------------------------------");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < Task.getTaskCount(); i++){
