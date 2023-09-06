@@ -5,7 +5,7 @@ import java.text.ParseException;
 
 public class Duke {
 
-    private static List<Task> tasks = new ArrayList<Task>();
+    private static final List<Task> tasks = new ArrayList<Task>();
 
     public static void listTasks() {
         System.out.println("\tHere are the tasks in your list:");
@@ -39,6 +39,26 @@ public class Duke {
         System.out.printf("\tNow you have %d tasks in the list.\n", tasks.size());
     }
 
+    public static void handleMarkTask(String userInput) throws IndexOutOfBoundsException {
+        int index = Integer.parseInt(userInput.split(" ")[1]);
+        if (index < 0 || index > tasks.size()) {
+            throw new IndexOutOfBoundsException("Please enter a valid index.");
+        }
+        tasks.get(index - 1).markAsDone();
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.printf("\t\t [%s] %s\n", tasks.get(index - 1).getStatusIcon(), tasks.get(index - 1).getDescription());
+    }
+
+    public static void handleUnmarkTask(String userInput) throws IndexOutOfBoundsException {
+        int index = Integer.parseInt(userInput.split(" ")[1]);
+        if (index < 0 || index > tasks.size()) {
+            throw new IndexOutOfBoundsException("Please enter a valid index.");
+        }
+        tasks.get(index - 1).markAsUndone();
+        System.out.println("\tOk! I've marked this task as not done yet:");
+        System.out.printf("\t\t [%s] %s\n", tasks.get(index - 1).getStatusIcon(), tasks.get(index - 1).getDescription());
+    }
+
     public static void main(String[] args) {
         greetings();
         Scanner input = new Scanner(System.in);
@@ -49,68 +69,54 @@ public class Duke {
             userInput = input.nextLine();
             firstWord = userInput.split(" ")[0];
             switch (firstWord) {
-                case "list": {
-                    listTasks();
-                    break;
+            case "list":
+                listTasks();
+                break;
+            case "mark":
+                try {
+                    handleMarkTask(userInput);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(e.getMessage());
                 }
-                case "mark": {
-                    int index = Integer.parseInt(userInput.split(" ")[1]);
-                    if (index < 0 || index > tasks.size()) {
-                        System.out.println("\tPlease enter a valid index.");
-                        continue;
-                    }
-                    tasks.get(index - 1).markAsDone();
-                    System.out.println("\tNice! I've marked this task as done:");
-                    System.out.printf("\t\t [%s] %s\n", tasks.get(index - 1).getStatusIcon(), tasks.get(index - 1).getDescription());
-                    break;
+                break;
+            case "unmark":
+                try {
+                    handleUnmarkTask(userInput);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(e.getMessage());
                 }
-                case "unmark": {
-                    int index = Integer.parseInt(userInput.split(" ")[1]);
-                    if (index < 0 || index > tasks.size()) {
-                        System.out.println("Please enter a valid index.");
-                        continue;
-                    }
-                    tasks.get(index - 1).markAsUndone();
-                    System.out.println("\tOk! I've marked this task as not done yet:");
-                    System.out.printf("\t\t [%s] %s\n", tasks.get(index - 1).getStatusIcon(), tasks.get(index - 1).getDescription());
-                    break;
+                break;
+            case "todo":
+                try {
+                    Todo newTask = Todo.fromString(userInput);
+                    tasks.add(newTask);
+                    confirmTaskAdded(newTask);
+                } catch (ParseException e) {
+                    System.out.println(e.getMessage());
                 }
-                case "todo": {
-                    try {
-                        Todo newTask = Todo.fromString(userInput);
-                        tasks.add(newTask);
-                        confirmTaskAdded(newTask);
-                        break;
-                    } catch (ParseException e) {
-                        System.out.println(e.getMessage());
-                        break;
-                    }
+                break;
+            case "deadline":
+                try {
+                    Deadline newTask = Deadline.fromString(userInput);
+                    tasks.add(newTask);
+                    confirmTaskAdded(newTask);
+                } catch (ParseException e) {
+                    System.out.println(e.getMessage());
                 }
-                case "deadline": {
-                    try {
-                        Deadline newTask = Deadline.fromString(userInput);
-                        tasks.add(newTask);
-                        confirmTaskAdded(newTask);
-                        break;
-                    } catch (ParseException e) {
-                        System.out.println(e.getMessage());
-                        break;
-                    }
+                break;
+            case "event":
+                try {
+                    Event newTask = Event.fromString(userInput);
+                    tasks.add(newTask);
+                    confirmTaskAdded(newTask);
+                } catch (ParseException e) {
+                    System.out.println(e.getMessage());
                 }
-                case "event": {
-                    try {
-                        Event newTask = Event.fromString(userInput);
-                        tasks.add(newTask);
-                        confirmTaskAdded(newTask);
-                        break;
-                    } catch (ParseException e) {
-                        System.out.println(e.getMessage());
-                        break;
-                    }
-                }
-                default: {
-                    System.out.println("\t'No command recognized");
-                }
+                break;
+            default: {
+                System.out.println("\t'No command recognized");
+                break;
+            }
             }
         }
         while (!userInput.equals("bye"));
