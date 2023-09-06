@@ -22,11 +22,10 @@ public class Chattie {
         for (int i = 0; i < count; i++) {
             System.out.print("\t" + (i+1) + ". ");
             if(list[i].isDone()) {
-                System.out.print("[X] ");
+                System.out.println(list[i]);
             } else {
-                System.out.print("[ ] ");
+                System.out.println(list[i]);
             }
-            System.out.print(list[i].getTask() + "\n");
         }
     }
 
@@ -35,11 +34,11 @@ public class Chattie {
         if(command[0].equalsIgnoreCase("mark")) {
             list[taskNum].setDone(true);
             System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t[X] " + list[taskNum].getTask());
+            System.out.println("\t" + list[taskNum]);
         } else {
             list[taskNum].setDone(false);
             System.out.println("\tOK, I've marked this task as not done yet:");
-            System.out.println("\t[ ] " + list[taskNum].getTask());
+            System.out.println("\t" + list[taskNum]);
         }
     }
     public static void main(String[] args) {
@@ -66,6 +65,12 @@ public class Chattie {
             } else if(line.contains("mark") || line.contains("unmark")) {
                 String[] command = line.split(" ");
                 chattieMark(list, command);
+            } else if (line.contains("todo")) {
+                list[count] = new Todo(line.substring(5));
+                System.out.println("\tGot it. I've added this task:");
+                System.out.println("\t  " + list[count]);
+                count++;
+                System.out.println("\tNow you have " + count + " tasks in the list.");
             } else {
                 list[count] = new Task(line);
                 System.out.println("\tadded: " + list[count].getTask());
