@@ -1,6 +1,7 @@
 package dawson.command;
 
 import dawson.Dawson;
+import dawson.DawsonException;
 import dawson.TaskList;
 
 public class Unmark extends Command {
@@ -14,21 +15,21 @@ public class Unmark extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws DawsonException {
         // Convert index into integer, ensure it is valid integer
         int index;
         try {
             index = Integer.parseInt(payload);
         } catch (NumberFormatException e) {
-            Dawson.printText("Invalid index! Unable to parse into integer");
-            return;
+            String errorMsg = "Invalid index! Unable to parse into integer";
+            throw new DawsonException(errorMsg);
         }
 
         // Check if index exists in tasklist
         index--; // Convert to 0-base indexing
         if (!taskList.isIndexValid(index)) {
-            Dawson.printText(payload + " index out of range of task list!");
-            return;
+            String errorMsg = payload + " index out of range of task list!";
+            throw new DawsonException(errorMsg);
         }
 
         // Execute the mark as done
