@@ -1,3 +1,12 @@
+package com.gpt.dumpgpt;
+
+import com.gpt.dumpgpt.command.Command;
+import com.gpt.dumpgpt.shared.ProgramConstants;
+import com.gpt.dumpgpt.task.Deadline;
+import com.gpt.dumpgpt.task.Event;
+import com.gpt.dumpgpt.task.Task;
+import com.gpt.dumpgpt.task.Todo;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -45,6 +54,7 @@ public class Duke {
 
     public static Void addTaskFlow(Command command) {
         Task newTask = null;
+
         switch (command.getCommandWord()) {
         case "deadline":
             newTask = new Deadline(command.getArguments(), command.getOptions("by"));
@@ -55,12 +65,14 @@ public class Duke {
         case "todo":
             newTask = new Todo(command.getArguments());
         }
+
         if (newTask != null && newTask.isValid()) {
             Task.addTask(newTask);
             printAddedTask(newTask);
         } else {
             printWrapped("Failed to add new task...");
         }
+
         return null;
     }
 

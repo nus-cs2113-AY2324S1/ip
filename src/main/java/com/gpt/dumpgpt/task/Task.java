@@ -1,3 +1,7 @@
+package com.gpt.dumpgpt.task;
+
+import com.gpt.dumpgpt.shared.ApplicationState;
+
 import java.util.ArrayList;
 
 public class Task {

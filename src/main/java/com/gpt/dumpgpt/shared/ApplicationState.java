@@ -1,3 +1,7 @@
+package com.gpt.dumpgpt.shared;
+
+import com.gpt.dumpgpt.task.Task;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

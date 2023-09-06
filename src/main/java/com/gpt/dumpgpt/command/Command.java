@@ -1,3 +1,5 @@
+package com.gpt.dumpgpt.command;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
