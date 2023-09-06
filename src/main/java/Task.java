@@ -21,8 +21,14 @@ public class Task {
         return isMarked;
     }
 
-    public String getTaskDescription(){
-        return description;
+    public String getDescription(){
+        String mark;
+        if (getTaskStatus()){
+            mark = "X";
+        } else {
+            mark = " ";
+        }
+        return "[" + mark + "] " + description;
     }
 
     public static int getTaskCount(){
