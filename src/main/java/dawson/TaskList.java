@@ -1,9 +1,10 @@
 package dawson;
 
 import java.util.List;
-import java.util.ArrayList;
 
-import tasks.Task;
+import dawson.task.Task;
+
+import java.util.ArrayList;
 
 public class TaskList {
     private Task[] taskList;

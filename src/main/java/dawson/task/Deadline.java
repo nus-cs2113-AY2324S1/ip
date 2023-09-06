@@ -1,4 +1,4 @@
-package tasks;
+package dawson.task;
 
 public class Deadline extends Task {
 

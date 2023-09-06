@@ -1,8 +1,8 @@
-package commands;
+package dawson.command;
 
 import dawson.Dawson;
 import dawson.TaskList;
-import tasks.Event;
+import dawson.task.Event;
 
 public class EventCommand extends Command {
 

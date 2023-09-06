@@ -2,9 +2,9 @@ package dawson;
 
 import java.util.Scanner;
 
-import commands.Command;
-import commands.Echo;
-import commands.Exit;
+import dawson.command.Command;
+import dawson.command.Echo;
+import dawson.command.Exit;
 
 public class Dawson {
     /**

@@ -1,8 +1,8 @@
-package commands;
+package dawson.command;
 
 import dawson.Dawson;
 import dawson.TaskList;
-import tasks.Todo;
+import dawson.task.Todo;
 
 public class TodoCommand extends Command {
 
