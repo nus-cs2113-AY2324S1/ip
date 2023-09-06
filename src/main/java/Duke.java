@@ -16,7 +16,7 @@ public class Duke {
             String input;
             input = scan.nextLine();
 
-            if (input.equals("bye")){
+            if (input.equalsIgnoreCase("bye")){
                 isEchoing = false;
                 break;
             }
@@ -33,10 +33,14 @@ public class Duke {
                 String[] parts = input.split(" ");
 
                 int taskNum = Integer.parseInt(parts[1]);
-                Task markedTask = tasks.get(taskNum - 1);
+                try {
+                    Task markedTask = tasks.get(taskNum - 1);
 
-                markedTask.isDone = true;
-                System.out.println("Congrats I marked this class as done : " + markedTask.getDescription());
+                    markedTask.isDone = true;
+                    System.out.println("Congrats I marked this class as done : " + markedTask.getDescription());
+                } catch (Exception ArrayIndexOutOfBoundsException){
+                    System.out.println("That task doesnt exist");
+                }
 
             } else if (input.toLowerCase().startsWith("unmark ")) {
                 String[] parts = input.split(" ");
@@ -44,10 +48,54 @@ public class Duke {
                 int taskNum = Integer.parseInt(parts[1]);
                 tasks.get(taskNum - 1).isDone = false;
 
-                Task unmarkedTask = tasks.get(taskNum - 1);
+                try {
+                    Task unmarkedTask = tasks.get(taskNum - 1);
 
-                unmarkedTask.isDone = true;
-                System.out.println("I unmarked this class as done: " + unmarkedTask.getDescription());
+                    unmarkedTask.isDone = false;
+                    System.out.println("I unmarked this class as done: " + unmarkedTask.getDescription());
+                } catch (Exception ArrayIndexOutOfBoundsException){
+                    System.out.println("That task doesnt exist");
+                }
+            } else if (input.toLowerCase().startsWith("deadline")){
+                try {
+                    String[] toDoSplit = input.split("/");
+                    //First part is task, and last is when by
+                    String desc = toDoSplit[0].substring(9).trim();  // removes "deadline
+                    Deadline deadline = new Deadline(desc, toDoSplit[1].trim());
+                    System.out.println(deadline.getDescription());
+
+                    tasks.add(deadline);
+
+                } catch (Exception ArrayIndexOutOfBoundsException){
+                    System.out.println("Put a / after your task if you want to add a todo");
+                }
+
+
+            } else if (input.toLowerCase().startsWith("event")){
+                try {
+                    String[] toDoSplit = input.split("/");
+                    //First part is task, and last is when by
+                    String desc = toDoSplit[0].substring(6).trim();
+                    Event event = new Event(desc, toDoSplit[1].trim(), toDoSplit[2].trim());
+                    System.out.println(event.getDescription());
+                    tasks.add(event);
+
+                } catch (Exception ArrayIndexOutOfBoundsException){
+                    System.out.println("Put a / after your task if you want to add a todo");
+                }
+
+
+            } else if (input.toLowerCase().startsWith("todo")) {
+                try {
+                    String desc = input.substring(4).trim();
+                    Todo todo = new Todo(desc);
+
+                    System.out.println(todo.getDescription());
+                    tasks.add(todo);
+
+                } catch (Exception e) {
+                    System.out.println("An error occurred while adding the todo.");
+                }
             } else {
                 // Add the task to the list
                 Task newTask = new Task(input);
@@ -61,7 +109,7 @@ public class Duke {
 
 
         }
-        System.out.println("Fine. If you have no ideas Imma head out");
+        System.out.println("Fine. If you have no ideas imma head out");
 
     }
 }
