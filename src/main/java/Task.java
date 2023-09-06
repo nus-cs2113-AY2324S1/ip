@@ -1,10 +1,10 @@
 public class Task {
     protected boolean isMarked;
-    protected String name;
+    protected String description;
     private static int count = 0;
 
-    public Task (String name){
-        this.name = name;
+    public Task (String description){
+        this.description = description;
         this.isMarked = false;
         count++;
     }
@@ -21,8 +21,8 @@ public class Task {
         return isMarked;
     }
 
-    public String getTaskName(){
-        return name;
+    public String getTaskDescription(){
+        return description;
     }
 
     public static int getTaskCount(){

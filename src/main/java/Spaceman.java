@@ -60,7 +60,7 @@ public class Spaceman {
             } else {
                 mark = " ";
             }
-            System.out.println(i + 1 + ". [" + mark + "] " + tasks[i].getTaskName());
+            System.out.println(i + 1 + ". [" + mark + "] " + tasks[i].getTaskDescription());
         }
         System.out.println("------------------------------------------------------------");
     }
@@ -69,7 +69,7 @@ public class Spaceman {
         tasks[taskIndex-1].markTask();
         System.out.println("------------------------------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [X] " + tasks[taskIndex-1].getTaskName());
+        System.out.println("  [X] " + tasks[taskIndex-1].getTaskDescription());
         System.out.println("------------------------------------------------------------");
     }
 
@@ -77,7 +77,7 @@ public class Spaceman {
         tasks[taskIndex-1].unMarkTask();
         System.out.println("------------------------------------------------------------");
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  [ ] " + tasks[taskIndex-1].getTaskName());
+        System.out.println("  [ ] " + tasks[taskIndex-1].getTaskDescription());
         System.out.println("------------------------------------------------------------");
     }
 
