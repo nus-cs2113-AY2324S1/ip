@@ -24,7 +24,8 @@ public class TaskManager {
             System.out.println("Nice! I've marked this task as done:");
             taskList.get(index).markAsDone();
             System.out.println("    " + taskList.get(index));
-        } else {
+        }
+        else {
             printInvalidTaskMessage(index);
         }
     }
@@ -34,7 +35,8 @@ public class TaskManager {
             System.out.println("Nice! I've unmarked:");
             taskList.get(index).markAsUndone();
             System.out.println("    " + taskList.get(index));
-        } else {
+        }
+        else {
             printInvalidTaskMessage(index);
         }
     }

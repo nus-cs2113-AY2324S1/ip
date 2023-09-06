@@ -41,7 +41,8 @@ public class UserInputHandler {
                 String description = userInput.substring(9, lastIndex).trim();
                 String time = userInput.substring(lastIndex + 4).trim();
                 taskManager.addDeadline(description, time);
-            } else {
+            }
+            else {
                 taskManager.displayInvalidFormatMessage("deadline");
             }
         });
@@ -53,7 +54,8 @@ public class UserInputHandler {
                 String startTime = parts[1].trim();
                 String endTime = parts[2].trim();
                 taskManager.addEvent(description, startTime, endTime);
-            } else {
+            }
+            else {
                 taskManager.displayInvalidFormatMessage("event");
             }
         });
@@ -67,7 +69,8 @@ public class UserInputHandler {
             Command command = commands.getOrDefault(getCommandWord(userInput), null);
             if (command != null) {
                 command.execute(userInput);
-            } else {
+            }
+            else {
                 System.out.println("Unknown command. Please try again.");
             }
 
@@ -84,7 +87,8 @@ public class UserInputHandler {
         try {
             if (startIndex < userInput.length()) {
                 return Integer.parseInt(userInput.substring(startIndex).trim()) - 1; // Convert to 0-indexed
-            } else {
+            }
+            else {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
