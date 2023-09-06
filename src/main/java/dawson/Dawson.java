@@ -58,7 +58,11 @@ public class Dawson {
             }
 
             newCommand = Command.getCommand(nextLineString, taskList);
-            newCommand.execute();
+            try {
+                newCommand.execute();
+            } catch (DawsonException e) {
+                printText(e.getMessage());
+            }
         }
 
         scanner.close();
