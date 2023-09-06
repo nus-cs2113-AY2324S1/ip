@@ -1,0 +1,7 @@
+todo Mark: Answer CS 2113 tutorial questions
+deadline weekly CS2113 quiz /by Monday 9pm
+list
+event CS 2113 lecture /from Friday 4 /to 6pm
+mark 1
+list
+bye

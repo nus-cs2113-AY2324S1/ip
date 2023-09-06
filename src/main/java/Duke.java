@@ -23,18 +23,15 @@ public class Duke {
         respond(out);
     }
 
-    public void updateTask(String name, boolean status) {
-        for (Task task : list) {
-            if (task.getName().equals(name)) {
-                task.setComplete(status);
-                if (status) {
-                    respond("Nice! I've marked this task as done:\n" +
-                            task.listText());
-                } else {
-                    respond("OK, I've marked this task as not done yet:\n" +
-                            task.listText());
-                }
-            }
+    public void updateTask(int index, boolean status) {
+        Task task = list.get(index - 1);
+        task.setComplete(status);
+        if (status) {
+            respond("Nice! I've marked this task as done:\n" +
+                    task.listText());
+        } else {
+            respond("OK, I've marked this task as not done yet:\n" +
+                    task.listText());
         }
     }
 
@@ -64,10 +61,10 @@ public class Duke {
                 bot.printList();
             } else if (in.startsWith("mark")) {
                 String taskName = getTask("mark", in);
-                bot.updateTask(taskName, true);
+                bot.updateTask(Integer.parseInt(taskName), true);
             } else if (in.startsWith("unmark")) {
                 String taskName = getTask("unmark", in);
-                bot.updateTask(taskName, false);
+                bot.updateTask(Integer.parseInt(taskName), false);
             } else if (in.startsWith("todo")) {
                 String taskName = getTask("todo", in);
                 bot.addToList(new Todo(taskName));
