@@ -154,20 +154,17 @@ public class Duke {
             bracketInfo = "";
         }
 
-        switch (type) {
-            case "Todo":
-                tasks[count] = new Todo(description);
-                break;
-            case "Deadline":
-                String by = bracketInfo.replace("/by", "").trim();
-                tasks[count] = new Deadline(description, by);
-                break;
-            case "Event":
-                String from = bracketInfo.split("/from")[1].split("/to")[0].trim();
-                String to = bracketInfo.split("/to")[1].trim();
-                tasks[count] = new Event(description, from, to);
-                break;
+        if (type.equals("Todo")) {
+            tasks[count] = new Todo(description);
+        } else if (type.equals("Deadline")) {
+            String by = bracketInfo.replace("/by", "").trim();
+            tasks[count] = new Deadline(description, by);
+        } else if (type.equals("Event")) {
+            String from = bracketInfo.split("/from")[1].split("/to")[0].trim();
+            String to = bracketInfo.split("/to")[1].trim();
+            tasks[count] = new Event(description, from, to);
         }
+
         System.out.println("Got it. I've added this task:\n"
                            + tasks[count]
                            + "\nNow you have "
