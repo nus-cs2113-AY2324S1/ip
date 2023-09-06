@@ -1,11 +1,11 @@
 public class Task {
     
     private String name;
-    private boolean completed;
+    private boolean isCompleted;
 
     public Task(String name) {
         this.name = name;
-        this.completed = false;
+        this.isCompleted = false;
     }
     public String getName() {
         return name;
@@ -14,14 +14,14 @@ public class Task {
         this.name = name;
     }
     public boolean isCompleted() {
-        return completed;
+        return isCompleted;
     }
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
     public String toString() {
-        return "[" + (completed ? "X" : " ") + "] " + name;
+        return "[" + (isCompleted ? "X" : " ") + "] " + name;
     }
 
 }

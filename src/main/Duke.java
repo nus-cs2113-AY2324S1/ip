@@ -26,7 +26,7 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(event);
             }
-        } catch (Exception exception) {
+        } catch (Exception exception) { // Need to change to specific error
             System.out.println("Invalid Input");
         }
     }
@@ -67,6 +67,13 @@ public class Duke {
         printListLength(taskList);
     }
 
+    public static void printBotMessage() {
+        System.out.println(LINE_DIVIDER);
+        System.out.println("Hello! I'm " + BOT_NAME);
+        System.out.println("What can I do for you?");
+        System.out.println(LINE_DIVIDER);
+    }
+
     /**
      * Add deadline to the ArrayList
      * 
@@ -79,7 +86,7 @@ public class Duke {
             Deadline newDeadline = new Deadline(argumentsList[0], argumentsList[1]);
             taskList.add(newDeadline);
             printNewTask(taskList, newDeadline);
-        } catch (Exception exception) {
+        } catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("Invalid Input");
         }
     }
@@ -98,7 +105,7 @@ public class Duke {
             Event newEvent = new Event(description, argumentsList[0], argumentsList[1]);
             taskList.add(newEvent);
             printNewTask(taskList, newEvent);
-        } catch (Exception exception) {
+        } catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("Invalid Input");
         }
     }
@@ -110,36 +117,32 @@ public class Duke {
      * @param arugments arguments of the commands that is used
      */
     public static void addToDoToList(ArrayList<Task> taskList, String arguments) {
-        try {
-            if(arguments.isBlank()){
-                System.out.println("Invalid Input");
-            } else {
-                ToDo newToDo = new ToDo(arguments);
-                taskList.add(newToDo);
-                printNewTask(taskList, newToDo);
-            }
-            
-        } catch (Exception e) {
+        if(arguments.isBlank()){
             System.out.println("Invalid Input");
+        } else {
+            ToDo newToDo = new ToDo(arguments);
+            taskList.add(newToDo);
+            printNewTask(taskList, newToDo);
         }
     }
-    
-    public static void main(String[] args) {
-        String userInput, command;
-        String arguments = "";
-        ArrayList<Task> taskList = new ArrayList<Task>();
-        System.out.println(LINE_DIVIDER);
-        System.out.println("Hello! I'm " + BOT_NAME);
-        System.out.println("What can I do for you?");
-        System.out.println(LINE_DIVIDER);
-        Scanner input = new Scanner(System.in);
+
+    /**
+     * Runs the chatbot
+     * 
+     * @param input scanner object that is used to get the user input
+     * @param taskList contains all the tasks stored.
+     */
+    public static void runBot(Scanner input, ArrayList<Task> taskList) {
+        String userInput, command, arguments;
+        userInput = command = arguments = "";
         do {
+            arguments = "";
             userInput = input.nextLine();
             command = userInput.split(" ", 2)[0];
             if(userInput.split(" ", 2).length != 1) {
                 arguments = userInput.split(" ", 2)[1];
             }
-            switch(command) {
+            switch (command) {
             case "list":
                 System.out.println(LINE_DIVIDER);
                 printList(taskList);
@@ -173,7 +176,17 @@ public class Duke {
             System.out.println(LINE_DIVIDER);
         } while (!(command.equals("bye")));
         input.close();
+    }
+
+    public static void printByeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE_DIVIDER);
+    }
+    public static void main(String[] args) {
+        ArrayList<Task> taskList = new ArrayList<Task>();
+        Scanner input = new Scanner(System.in);
+        printBotMessage();
+        runBot(input, taskList);
+        printByeMessage();
     }
 }
