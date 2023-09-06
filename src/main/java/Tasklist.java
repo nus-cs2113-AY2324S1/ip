@@ -38,4 +38,14 @@ public class Tasklist {
             taskList.get(i).printTask();
         }
     }
+
+    public ArrayList<Task> searchTasks(String searchString) {
+        ArrayList<Task> searchResults = new ArrayList<Task>();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getTaskName().contains(searchString)) {
+                searchResults.add(taskList.get(i));
+            }
+        }
+        return searchResults;
+    }
 }
