@@ -40,29 +40,29 @@ public class Ken {
                 + "\t/_______  / |____|  \\____|__  /____|_  /____|__ \\_______ \\___\\____|__  /\\______  /\n"
                 + "\t        \\/                  \\/       \\/        \\/       \\/           \\/        \\/";
 
-        printTexts(new String[]{
+        printTexts(new String[] {
                 "Greetings, fashionista! I'm",
                 greetingLogo,
                 "your dream planner extraordinaire.",
                 "Ready to make your day as fabulous as a Barbie runway show?"
-                }
-        );
+        });
+
 
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
         while (true) {
-            switch (input.contains(" ") ? input.split(" ")[0] : input) {
+            String command = input.contains(" ") ? input.split(" ")[0] : input;
+            switch (command) {
             case TODO:
                 String todoName = input.substring(TODO.length() + 1);
                 Todo todo = new Todo(todoName);
                 TASKS[taskSize] = todo;
                 taskSize++;
-                printTexts(new String[]{
+                printTexts(new String[] {
                         "Barbie-approved! You've added this glamorous task:",
                         todo.toString(),
                         "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
-                        }
-                );
+                });
                 break;
             case DEADLINE:
                 String[] deadlineInfo = input.substring(DEADLINE.length() + 1).split(" /by", 2);
@@ -71,12 +71,11 @@ public class Ken {
                 Deadline deadline = new Deadline(deadlineName, by);
                 TASKS[taskSize] = deadline;
                 taskSize++;
-                printTexts(new String[]{
-                                "Barbie-approved! You've added this glamorous task:",
-                                deadline.toString(),
-                                "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
-                        }
-                );
+                printTexts(new String[] {
+                        "Barbie-approved! You've added this glamorous task:",
+                        deadline.toString(),
+                        "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
+                });
                 break;
             case EVENT:
                 String[] eventInfo = input.substring(EVENT.length() + 1).split(" /from", 2);
@@ -87,20 +86,19 @@ public class Ken {
                 Event event = new Event(eventName, from, to);
                 TASKS[taskSize] = event;
                 taskSize++;
-                printTexts(new String[]{
-                                "Barbie-approved! You've added this glamorous task:",
-                                event.toString(),
-                                "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
-                        }
-                );
+                printTexts(new String[] {
+                        "Barbie-approved! You've added this glamorous task:",
+                        event.toString(),
+                        "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
+                });
                 break;
             case LIST:
-                String[] text = new String[taskSize + 1];
-                text[0] = "Behold, your list of enchanting tasks!";
+                String[] texts = new String[taskSize + 1];
+                texts[0] = "Behold, your list of enchanting tasks!";
                 for (int i = 1; i <= taskSize; i++) {
-                    text[i] = "\t" + i +"." + TASKS[i - 1].toString();
+                    texts[i] = "\t" + i +"." + TASKS[i - 1].toString();
                 }
-                printTexts(text);
+                printTexts(texts);
                 break;
             case MARK:
                 String markTaskString = input.split(" ", 2)[1];
@@ -109,25 +107,22 @@ public class Ken {
                 printTexts(new String[] {
                         "Barbie-tastic! You've completed this task with glamour!",
                         TASKS[markTaskNumber].toString()
-                        }
-                );
+                });
                 break;
             case UNMARK:
                 String unmarkTaskString = input.split(" ", 2)[1];
                 int unmarkTaskNumber = Integer.parseInt(unmarkTaskString) - 1;
                 TASKS[unmarkTaskNumber].unmarkAsDone();
                 printTexts(new String[] {
-                                "Back to the runway, darling! This task needs more Barbie magic!",
-                                TASKS[unmarkTaskNumber].toString()
-                        }
-                );
+                        "Back to the runway, darling! This task needs more Barbie magic!",
+                        TASKS[unmarkTaskNumber].toString()
+                });
                 break;
             case BYE:
-                printTexts(new String[]{
+                printTexts(new String[] {
                         "Until we meet again, my fellow dream chaser! Keep",
                         byeLogo
-                        }
-                );
+                });
                 return;
             }
             input = scan.nextLine();
