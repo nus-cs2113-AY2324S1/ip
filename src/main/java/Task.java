@@ -27,4 +27,13 @@ public class Task {
     public void setDone(boolean done) {
         isDone = done;
     }
+
+    @Override
+    public String toString() {
+        if (isDone) {
+            return "[X] " + getTask();
+        } else {
+            return "[ ] " + getTask();
+        }
+    }
 }
