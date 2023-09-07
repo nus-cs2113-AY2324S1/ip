@@ -112,10 +112,8 @@ public class Duke {
                         break;
                     case "deadline":
                         int slashIndex = input.indexOf('/');
-                        task.description = input.substring(9, slashIndex);
-                        task.taskType = taskType;
-                        task.deadline = input.substring(slashIndex).split("/by")[1];
-                        itemList[itemCount] = task;
+                        Deadline deadline = new Deadline(input.substring(9, slashIndex), input.substring(slashIndex).split("/by")[1]);
+                        itemList[itemCount] = deadline;
                         addTaskCallback(itemList, itemCount);
                         itemCount++;
                         break;
