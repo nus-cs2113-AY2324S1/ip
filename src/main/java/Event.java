@@ -5,8 +5,6 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
-
-        Task.numberOfTasks ++;
     }
     public String getFrom() {
         return from;
@@ -19,6 +17,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return super.toString() + System.lineSeparator() + "[E][" + getStatusIcon() + "]" + description
-                + " (from:" + getFrom() + "to:" + getTo() + ")" + System.lineSeparator() + "Now you have " + getNumberOfTasks() + " tasks in the list.";
+                + " (from:" + getFrom() + "to:" + getTo() + ")" + System.lineSeparator() + "Now you have " + numberOfTasks + " tasks in the list.";
     }
 }
