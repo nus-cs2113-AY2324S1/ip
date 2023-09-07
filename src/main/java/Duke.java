@@ -129,8 +129,6 @@ public class Duke {
                     break;
 
                 default:
-                    addItem(buf, itemList, i);
-                    i += 1;
                     break;
             }
             buf = in.nextLine();
