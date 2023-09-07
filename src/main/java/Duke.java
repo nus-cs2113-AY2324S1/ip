@@ -78,6 +78,28 @@ public class Duke {
         printLine();
     }
 
+    public static void addTasks(Task[] taskList, String input, String[] userInput, int taskCount){
+        switch (userInput[0]) {
+        case "todo":
+            Task todo = new ToDo(input.substring(5));
+            taskList[taskCount] = todo;
+            addTaskCallback(taskList, taskCount);
+            break;
+        case "deadline":
+            int slashIndex = input.indexOf('/');
+            Deadline deadline = new Deadline(input.substring(9, slashIndex), input.substring(slashIndex).split("/by")[1]);
+            taskList[taskCount] = deadline;
+            addTaskCallback(taskList, taskCount);
+            break;
+        case "event":
+            String[] parts = input.split("event | /from | /to ");
+            Task event = new Event(parts[1], parts[2], parts[3]);
+            taskList[taskCount] = event;
+            addTaskCallback(taskList, taskCount);
+        }
+
+    }
+
     public static void main(String[] args) {
         printGreeting();
 
