@@ -112,8 +112,8 @@ public class Duke {
         printGreeting();
 
         Scanner scanner = new Scanner(System.in);
-        Task[] itemList = new Task[100];
-        int itemCount = 0;
+        Task[] taskList = new Task[100];
+        int taskCount = 0;
 
         while (true) {
             String input = scanner.nextLine();
