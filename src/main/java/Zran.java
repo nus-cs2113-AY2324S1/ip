@@ -36,8 +36,7 @@ public class Zran {
             for(Task item : items){
                 if((item != null)) {
                     System.out.print("    "+ ++index + ". ");
-                    System.out.print(item.description);
-                    System.out.println(" [" + item.getStatusIcon() + "]");
+                    System.out.println(item.toString());
                 }
             }
             System.out.println("    ____________________________________________________________");
@@ -58,7 +57,7 @@ public class Zran {
             } else if(input.startsWith("unmark ")) {
                 items[Integer.parseInt(input.substring(7)) - 1].unmarkTask();
             } else if(!input.equals("list")){
-                Task task = new Task(input);
+                Task task = addTaskByType(input);
                 items[index++] = task;
             }
             echo(input, items);
@@ -66,4 +65,31 @@ public class Zran {
 
         System.out.printf((outputFormat) + "%n", "Goodbye <3 have a great day ahead!");
     }
+
+    // The function 'addTaskByType' is used to add an item into the task list by their task type
+    public static Task addTaskByType(String input) {
+        Task task = null;
+        char taskType = input.charAt(0);
+        switch (taskType) {
+        case 't':
+            task = new ToDos(input.substring(5));
+            break;
+        case 'd':
+            int byIndex = input.indexOf("/by");
+            String description = input.substring(9, byIndex).trim();
+            String by = input.substring(byIndex + 3).trim();
+            task = new Deadline(description, by);
+            break;
+        case 'e':
+            int fromIndex = input.indexOf("/from");
+            int toIndex = input.indexOf("/to");
+            String descriptionE = input.substring(5, fromIndex).trim();
+            String from = input.substring(fromIndex + 5, toIndex).trim();
+            String to = input.substring(toIndex + 3).trim();
+            task = new Event(descriptionE, from, to);
+            break;
+        }
+        return task;
+    }
+
 }
