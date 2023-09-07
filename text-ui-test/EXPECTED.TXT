@@ -2,3 +2,5 @@ Hello! I'm JARVIS
 What can I do for you?
 added:  cry
 Now you have 1 tasks in the list.
+added:  smile
+Now you have 2 tasks in the list.
