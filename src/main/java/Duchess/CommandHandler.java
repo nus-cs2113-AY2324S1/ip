@@ -76,11 +76,8 @@ public class CommandHandler {
                 System.out.println(DefaultStrings.splittingLine);
                 break;
             
-            default: // Add task
-                Task newTask = new Task(command);
-                taskList.addTask(newTask);
-                System.out.println(DefaultStrings.addedString + command);
-                System.out.println(DefaultStrings.splittingLine);
+            default: // Unrecognisedcommand
+                System.out.println(DefaultStrings.unrecognisedString);
                 break;
         } 
 

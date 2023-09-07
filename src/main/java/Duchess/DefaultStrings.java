@@ -12,4 +12,5 @@ public class DefaultStrings {
     public static final String addedString = splittingLine + "\t At your command, goshujin-sama: ";
     public static final String markedString = splittingLine + "\t Congwats on finishing za tawsk: ";
     public static final String unmarkedString = splittingLine + "\t WHY HAVE YOU FORSAKEN ME";
+    public static final String unrecognisedString = splittingLine + "\t I don\'t understand what you\'re saying, goshujin-sama.\n" + splittingLine;
 }
