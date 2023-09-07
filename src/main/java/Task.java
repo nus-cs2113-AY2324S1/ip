@@ -1,5 +1,3 @@
-import javax.xml.namespace.QName;
-
 public class Task {
     protected String description;
     protected boolean isDone;

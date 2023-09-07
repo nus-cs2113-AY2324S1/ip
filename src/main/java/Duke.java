@@ -8,7 +8,31 @@ public class Duke {
     public static String LINE_DIVIDER = "____________________________________________________________";
     public static int FIRST_INDEX=0;
     public static int SECOND_INDEX=1;
+    public static String ASCII_ART =
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠁⠀⠀⣸⣷⣦⡉⢿⣿⣿⣿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⡆⠀⠀⢺⣿⣿⣿⣿⣄⢻⣿⣿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠐⠸⠀⠘⣿⣿⣿⣿⣿⣧⢿⣿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠇⠀⡀⠁⠀⠁⠈⠘⠉⠉⠉⠉⠈⢿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⢷⡀⠀⠀⠀⠘⣆⠀⠀⠀⠰⣾⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠻⣾⣶⠀⠀⠉⢴⣿⡏⢹⣿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠘⠁⠀⢄⠨⣄⠻⢡⣾⣿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⣇⠀⠀⠀⠀⠀⠶⠃⢠⣾⣿⣿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠻⡷⠀⢀⡀⣤⣤⡖⣿⣿⣿⣿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠈⠻⢿⣿⣦⣿⢣⣿⣿⣿⣿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠋⠀⠙⢿⣿⣿⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⣿⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⡆⠰⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡄⠹⠀⠀⠀⠀⠀⢶⣄⠀⠀⠀⠹⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⣿⠟⠀⠀⠀⠀⣿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⢿\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣏⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⠀⠀⠀⠀⢸\n" +
+            "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠁⠀⠠⠞⣻⡗⠶⣶⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠋⠀⠀⠀⠀⢀\n" +
+            "⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠄⠒⠚⣿⣧⡹⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼\n" +
+            "⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⢸⣦⠀⢀⡉⢿⣷⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣿⣿\n" +
+            "⣿⣿⣿⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠘⣿⣇⢸⣷⣦⡝⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣟";
 
+    /* Pretty prints a remark after adding any tasks */
     public static void printRemark(Task task){
         System.out.println(LINE_DIVIDER);
         System.out.println("Got it. I've add this task:");
@@ -17,20 +41,25 @@ public class Duke {
         System.out.println(LINE_DIVIDER);
     }
 
-    public static void handleTodo(String[] arguments){
+    /* Pretty prints the error when exception is caught */
+    public static void printErrorPrompt(Exception e){
+        System.out.println(LINE_DIVIDER);
+        System.out.println("Error: " + e);
+        System.out.println(LINE_DIVIDER);
+    }
+
+    public static void addTodoInList(String[] arguments){
         try{
             String taskDescription = String.join(" ", arguments);
             ToDo newToDo = new ToDo(taskDescription);
             TASKS.add(newToDo);
             printRemark(newToDo);
         }catch (Exception e){
-            System.out.println(LINE_DIVIDER);
-            System.out.println("Error with the arguments, please try again.");
-            System.out.println(LINE_DIVIDER);
+            printErrorPrompt(e);
         }
     }
 
-    public static void handleDeadline(String[] arguments){
+    public static void addDeadlineInList(String[] arguments){
         try{
             String argumentsString = String.join(" ", arguments);
             String[] argumentList = argumentsString.split(" /by ");
@@ -41,13 +70,11 @@ public class Duke {
             printRemark(newDeadline);
 
         } catch (Exception e){
-            System.out.println(LINE_DIVIDER);
-            System.out.println("Error with the arguments, please try again.");
-            System.out.println(LINE_DIVIDER);
+            printErrorPrompt(e);
         }
     }
 
-    public static void handleEvent(String[] arguments){
+    public static void addEventInList(String[] arguments){
         try{
             String argumentsString = String.join(" ", arguments);
             String[] argumentList = argumentsString.split(" /from ");
@@ -60,13 +87,12 @@ public class Duke {
             printRemark(newEvent);
 
         } catch (Exception e){
-            System.out.println(LINE_DIVIDER);
-            System.out.println("Error with the arguments, please try again.");
-            System.out.println(LINE_DIVIDER);
+            printErrorPrompt(e);
         }
     }
 
-    public static void markTask(String[] arguments){
+    /* Marks the task from {@code arguments} as complete */
+    public static void markTaskComplete(String[] arguments){
         try{
             int taskIndex = Integer.parseInt(arguments[FIRST_INDEX]);
             Task taskToMark = TASKS.get(taskIndex-1);
@@ -77,13 +103,12 @@ public class Duke {
             System.out.println(LINE_DIVIDER);
 
         }catch(Exception e){
-            System.out.println(LINE_DIVIDER);
-            System.out.println("Invalid index, or other error!");
-            System.out.println(LINE_DIVIDER);
+            printErrorPrompt(e);
         }
     }
 
-    public static void unmarkTask(String[] arguments){
+    /* Marks the task from {@code arguments} as incomplete */
+    public static void unmarkTaskIncomplete(String[] arguments){
         try{
             int taskIndex = Integer.parseInt(arguments[FIRST_INDEX]);
             Task taskToUnmark = TASKS.get(taskIndex-1);
@@ -94,13 +119,11 @@ public class Duke {
             System.out.println(LINE_DIVIDER);
 
         }catch(Exception e){
-            System.out.println(LINE_DIVIDER);
-            System.out.println("Invalid index, or other error!");
-            System.out.println(LINE_DIVIDER);
+            printErrorPrompt(e);
         }
     }
 
-    public static void printList(){
+    public static void printTaskList(){
         System.out.println(LINE_DIVIDER);
         for (int i = 0; i < TASKS.size(); i++) {
             Task task = TASKS.get(i);
@@ -111,43 +134,47 @@ public class Duke {
 
     public static void main(String[] args){
         Scanner myScanner = new Scanner(System.in);
+        System.out.println(ASCII_ART);
         System.out.println(LINE_DIVIDER);
-        System.out.println("Hello! I'm " + CHATBOTNAME);
+        System.out.println("Hello! I'm the top G " + CHATBOTNAME);
         System.out.println("What can I do for you?");
         System.out.println(LINE_DIVIDER);
 
-        label:
+        whileLoop:
         while (true){
+            System.out.print("> ");
             String commandGiven = myScanner.nextLine();
-            String[] splitCommand = commandGiven.split("\\s+"); // split by space
-            String actionCommand = splitCommand[FIRST_INDEX];
+            String[] arguments = commandGiven.split("\\s+"); // split by space
+            String actionCommand = arguments[FIRST_INDEX];
+            actionCommand = actionCommand.toLowerCase(); // make sure all same case to account for typing error
 
             switch (actionCommand) {
                 case "todo":
-                    handleTodo(Arrays.copyOfRange(splitCommand, SECOND_INDEX, splitCommand.length));
+                    // passing subarray of arguments without the 1st
+                    addTodoInList(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
                     break;
 
                 case "deadline":
-                    handleDeadline(Arrays.copyOfRange(splitCommand, SECOND_INDEX, splitCommand.length));
+                    addDeadlineInList(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
                     break;
 
                 case "event":
-                    handleEvent(Arrays.copyOfRange(splitCommand, SECOND_INDEX, splitCommand.length));
+                    addEventInList(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
                     break;
 
                 case "bye":
-                    break label;
+                    break whileLoop; // exit from while loop, as switch/case has its own break
 
                 case "list":
-                    printList();
+                    printTaskList();
                     break;
 
                 case "mark":
-                    markTask(Arrays.copyOfRange(splitCommand, SECOND_INDEX, splitCommand.length));
+                    markTaskComplete(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
                     break;
 
                 case "unmark":
-                    unmarkTask(Arrays.copyOfRange(splitCommand, SECOND_INDEX, splitCommand.length));
+                    unmarkTaskIncomplete(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
                     break;
 
                 default:
@@ -158,7 +185,7 @@ public class Duke {
             }
         }
         System.out.println(LINE_DIVIDER);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye, hope to see you again soon!");
         System.out.println(LINE_DIVIDER);
     }
 }
