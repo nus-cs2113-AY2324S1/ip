@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
+
 public class Duke {
     public static void printGreeting() {
         String logo = "______       _     _\n"
