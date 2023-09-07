@@ -4,7 +4,18 @@ public class Event extends Deadline {
 //event project meeting /from Mon 2pm /to 4pm
     public Event(String description, String dates) {
         super(description, dates);
+        setDates(dates);
+    }
 
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setDates(String dates) {
         int spaceCut = dates.indexOf(" ");
         dates = dates.substring(spaceCut + 1);
 
@@ -14,25 +25,11 @@ public class Event extends Deadline {
 
         spaceCut = dates.indexOf(" ");
         endDate = dates.substring(spaceCut + 1);
-/*
-        int spaceCut = taskDeadline.indexOf(" ");
-        taskDeadline = taskDeadline.substring(spaceCut + 1);
-        //this.dates = dates;
-
- */
-    }
-
-    public String getBy() {
-        return startDate;
-    }
-
-    public void setBy(String by) {
-        this.startDate = by;
     }
 
     @Override
     public String toString() {
-        super.toString();
+        //super.toString();
         String isDoneString;
 
         if (isDone()) {
@@ -41,6 +38,6 @@ public class Event extends Deadline {
             isDoneString = "[ ]";
         }
 
-        return "[E]" + isDoneString + description + "(from: " + startDate + "to: " + endDate + ")";
+        return "[E]" + isDoneString + description + "(from: " + getStartDate() + "to: " + getEndDate() + ")";
     }
 }

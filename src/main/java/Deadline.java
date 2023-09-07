@@ -3,21 +3,21 @@ public class Deadline extends Todo {
 
     public Deadline(String description, String date) {
         super(description);
-        int spaceCut = date.indexOf(" ");
-        byDate = date.substring(spaceCut + 1);
+        setByDate(date);
     }
 
     public String getByDate() {
         return byDate;
     }
 
-    public void setByDate(String byDate) {
-        this.byDate = byDate;
+    public void setByDate(String date) {
+        int spaceCut = date.indexOf(" ");
+        byDate = date.substring(spaceCut + 1);
     }
 
     @Override
     public String toString() {
-        super.toString();
+        //super.toString();
         String isDoneString;
 
         if (isDone()) {
@@ -26,6 +26,6 @@ public class Deadline extends Todo {
             isDoneString = "[ ]";
         }
 
-        return "[D]" + isDoneString + description + "(do by: " + byDate + ")";
+        return "[D]" + isDoneString + description + "(do by: " + getByDate() + ")";
     }
 }

@@ -5,19 +5,10 @@ public class Todo extends Task {
         super(description);
         //isDone = false;
     }
-/*
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-*/
 
     @Override
     public String toString() {
-        super.toString();
+        //super.toString();
         String isDoneString;
 
         if (isDone()) {
