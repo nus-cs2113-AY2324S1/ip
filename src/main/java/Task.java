@@ -1,3 +1,7 @@
+/**
+ * The task object contains the subclasses ToDo, Deadline and Event, and has the members
+ * name and completion status that is shared among all subclasses.
+ */
 public class Task {
     private String name;
     private boolean isDone;

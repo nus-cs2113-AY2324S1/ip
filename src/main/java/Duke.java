@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.List;
 
+/**
+ *
+ * The main program that controls all classes, inputs and outputs.
+ */
 public class Duke {
     static final int LENGTH = 50;
 
@@ -40,7 +44,7 @@ public class Duke {
                 unmark(inputWords, taskList);
                 break;
             default:
-                System.out.println("Invalid command. Try again.");
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 break;
             }
         }
@@ -53,7 +57,7 @@ public class Duke {
             taskList.addTask(todo);
             printAddedTask(todo, taskList);
         } else {
-            System.out.println("Please provide a description for the 'todo' task.");
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
         }
     }
 
@@ -66,7 +70,7 @@ public class Duke {
             taskList.addTask(deadline);
             printAddedTask(deadline, taskList);
         } else {
-            System.out.println("Invalid 'deadline' format. Use 'deadline <description> /by <date>'");
+            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
     }
 
@@ -81,7 +85,7 @@ public class Duke {
             taskList.addTask(event);
             printAddedTask(event, taskList);
         } else {
-            System.out.println("Invalid 'event' format. Use 'event <description> /from <start time> /to <end time>'");
+            System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
         }
     }
 
