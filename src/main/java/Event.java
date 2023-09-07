@@ -38,6 +38,6 @@ public class Event extends Deadline {
             isDoneString = "[ ]";
         }
 
-        return "[E]" + isDoneString + description + "(from: " + getStartDate() + "to: " + getEndDate() + ")";
+        return "[E]" + isDoneString + getDescription() + "(from: " + getStartDate() + "to: " + getEndDate() + ")";
     }
 }

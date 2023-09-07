@@ -26,6 +26,6 @@ public class Deadline extends Todo {
             isDoneString = "[ ]";
         }
 
-        return "[D]" + isDoneString + description + "(do by: " + getByDate() + ")";
+        return "[D]" + isDoneString + getDescription() + "(do by: " + getByDate() + ")";
     }
 }

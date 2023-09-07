@@ -17,6 +17,6 @@ public class Todo extends Task {
             isDoneString = "[ ]";
         }
 
-        return "[T]" + isDoneString + description;
+        return "[T]" + isDoneString + getDescription();
     }
 }
