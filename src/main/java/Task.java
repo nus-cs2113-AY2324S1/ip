@@ -32,4 +32,8 @@ public class Task {
     public static int getNumberOfTask() {
         return numberOfTask;
     }
+    public String toString() {
+
+        return "[" + getStatusIcon() + "]" + " " + getDescription();
+    }
 }
