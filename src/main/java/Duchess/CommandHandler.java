@@ -58,7 +58,7 @@ public class CommandHandler {
 
             case Constants.deadlineCommand:
                 String deadlineName = command.substring(9, command.indexOf(Constants.deadlineTime) - 1);
-                String deadlineTime = command.substring(command.indexOf(Constants.deadlineTime) + 4);
+                String deadlineTime = command.substring(command.indexOf(Constants.deadlineTime) + Constants.deadlineTime.length() + 1);
                 Task newDeadline = new Deadline(deadlineName, deadlineTime);
                 taskList.addTask(newDeadline);
                 System.out.println(DefaultStrings.addedString + newDeadline.toString());
@@ -67,8 +67,9 @@ public class CommandHandler {
 
             case Constants.eventCommand:
                 String eventName = command.substring(6, command.indexOf(Constants.eventStartTime) - 1);
-                String eventStartTime = command.substring(command.indexOf(Constants.eventStartTime) + 6, command.indexOf(Constants.eventEndTime) - 1);
-                String eventEndTime = command.substring(command.indexOf(Constants.eventEndTime) + 4);
+                String eventStartTime = command.substring(command.indexOf(Constants.eventStartTime) + 
+                        Constants.eventStartTime.length() + 1, command.indexOf(Constants.eventEndTime) - 1);
+                String eventEndTime = command.substring(command.indexOf(Constants.eventEndTime) + Constants.eventEndTime.length() + 1);
                 Task newEvent = new Event(eventName, eventStartTime, eventEndTime);
                 taskList.addTask(newEvent);
                 System.out.println(DefaultStrings.addedString + newEvent.toString());
