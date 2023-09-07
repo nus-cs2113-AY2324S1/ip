@@ -119,11 +119,8 @@ public class Duke {
                         break;
                     case "event":
                         String[] parts = input.split("event | /from | /to ");
-                        task.description = parts[1];
-                        task.taskType = taskType;
-                        task.from = parts[2];
-                        task.to = parts[3];
-                        itemList[itemCount] = task;
+                        Task event = new Event(parts[1], parts[2], parts[3]);
+                        itemList[itemCount] = event;
                         addTaskCallback(itemList, itemCount);
                         itemCount++;
                     }
@@ -132,4 +129,3 @@ public class Duke {
         }
     }
 }
-//if (input.startsWith("todo"))
