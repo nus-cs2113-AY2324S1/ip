@@ -27,54 +27,62 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void echo(String input) {
+    public static void listItems(Task[] taskList, int taskCount) {
         printLine();
-        System.out.println("    " + input);
-        printLine();
-    }
-
-    public static void listItems(Task[] itemList, int itemCount) {
-        printLine();
-        for (int i = 0; i < itemCount; i++) {
+        for (int i = 0; i < taskCount; i++) {
             int indexNo = i + 1;
-            System.out.println("    " + indexNo + "." + itemList[i].getTaskTypeIcon() + itemList[i].getStatusIcon() + " " + itemList[i].description);
+            switch (taskList[i].taskType){
+            case "todo":
+                System.out.println("    " + indexNo + "." + taskList[i].getTaskTypeIcon() + taskList[i].getStatusIcon() + " " + taskList[i].description);
+                break;
+            case "deadline":
+                System.out.println("    " + indexNo + "." + taskList[i].getTaskTypeIcon() + taskList[i].getStatusIcon() + " " + taskList[i].description
+                        + "(by:"+taskList[i].deadline+")");
+                break;
+            case "event":
+                System.out.println("    " + indexNo + "." + taskList[i].getTaskTypeIcon() + taskList[i].getStatusIcon() + " " + taskList[i].description
+                        + " (from: " + taskList[i].from + " to: " + taskList[i].to+")");
+                break;
+            }
+
+
         }
         printLine();
     }
 
-    public static void markItem(Task[] itemList, int itemCount, boolean isMark) {
+    public static void markItem(Task[] taskList, int taskCount, boolean isMark) {
         printLine();
         if (isMark) {
-            itemList[itemCount].isDone = true;
+            taskList[taskCount].isDone = true;
             System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("       " + itemList[itemCount].getStatusIcon() + " " + itemList[itemCount].description);
+            System.out.println("       " + taskList[taskCount].getStatusIcon() + " " + taskList[taskCount].description);
         } else {
-            itemList[itemCount].isDone = false;
+            taskList[taskCount].isDone = false;
             System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("       " + itemList[itemCount].getStatusIcon() + " " + itemList[itemCount].description);
+            System.out.println("       " + taskList[taskCount].getStatusIcon() + " " + taskList[taskCount].description);
         }
         printLine();
     }
 
-    public static void addTaskCallback(Task[] itemList, int itemCount) {
+    public static void addTaskCallback(Task[] taskList, int taskCount) {
         printLine();
         System.out.println("    Got it. I've added this task:");
-        switch (itemList[itemCount].taskType) {
+        switch (taskList[taskCount].taskType) {
         case "todo":
-            System.out.print("      " + itemList[itemCount].getTaskTypeIcon() + itemList[itemCount].getStatusIcon() + " " + itemList[itemCount].description);
+            System.out.print("      " + taskList[taskCount].getTaskTypeIcon() + taskList[taskCount].getStatusIcon() + " " + taskList[taskCount].description);
             break;
         case "deadline":
-            System.out.print("      " + itemList[itemCount].getTaskTypeIcon() + itemList[itemCount].getStatusIcon() + " " + itemList[itemCount].description
-            + "(by:"+itemList[itemCount].deadline+")");
+            System.out.print("      " + taskList[taskCount].getTaskTypeIcon() + taskList[taskCount].getStatusIcon() + " " + taskList[taskCount].description
+            + "(by:"+taskList[taskCount].deadline+")");
             break;
         case "event":
-            System.out.print("      " + itemList[itemCount].getTaskTypeIcon() + itemList[itemCount].getStatusIcon() + " " + itemList[itemCount].description
-            + " (from: " + itemList[itemCount].from + " to: " + itemList[itemCount].to+")");
+            System.out.print("      " + taskList[taskCount].getTaskTypeIcon() + taskList[taskCount].getStatusIcon() + " " + taskList[taskCount].description
+            + " (from: " + taskList[taskCount].from + " to: " + taskList[taskCount].to+")");
             break;
         }
 
         System.out.println();
-        System.out.println("    Now you have " + (itemCount + 1) + " tasks in the list.");
+        System.out.println("    Now you have " + (taskCount + 1) + " tasks in the list.");
         printLine();
     }
 
@@ -111,41 +119,20 @@ public class Duke {
             String input = scanner.nextLine();
             if (input.startsWith("mark ")) {
                 int indexPosition = Integer.parseInt(input.substring(5));
-                markItem(itemList, indexPosition - 1, true);
+                markItem(taskList, indexPosition - 1, true);
             } else if (input.startsWith("unmark ")) {
                 int indexPosition = Integer.parseInt(input.substring(7));
-                markItem(itemList, indexPosition - 1, false);
+                markItem(taskList, indexPosition - 1, false);
             } else {
                 if (input.equalsIgnoreCase("bye")) {
                     exitChatbot();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
-                    listItems(itemList, itemCount);
+                    listItems(taskList, taskCount);
                 } else {
                     String[] userInput = input.trim().split("\\s+");
-                    String taskType = userInput[0];
-
-                    switch (taskType) {
-                    case "todo":
-                        Task todo = new ToDo(input.substring(5));
-                        itemList[itemCount] = todo;
-                        addTaskCallback(itemList, itemCount);
-                        itemCount++;
-                        break;
-                    case "deadline":
-                        int slashIndex = input.indexOf('/');
-                        Deadline deadline = new Deadline(input.substring(9, slashIndex), input.substring(slashIndex).split("/by")[1]);
-                        itemList[itemCount] = deadline;
-                        addTaskCallback(itemList, itemCount);
-                        itemCount++;
-                        break;
-                    case "event":
-                        String[] parts = input.split("event | /from | /to ");
-                        Task event = new Event(parts[1], parts[2], parts[3]);
-                        itemList[itemCount] = event;
-                        addTaskCallback(itemList, itemCount);
-                        itemCount++;
-                    }
+                    addTasks(taskList, input, userInput, taskCount);
+                    taskCount++;
                 }
             }
         }
