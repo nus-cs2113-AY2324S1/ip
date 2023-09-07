@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 public class Duke {
     public static String BOT_NAME = "Amy"; // a constant bot name
     public static Task[] taskList = new Task[100]; // contains tasks
@@ -41,10 +41,12 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         //System.out.println("Hello from\n" + logo);
+
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm " + BOT_NAME);
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
+
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine(); // Read user input
@@ -66,6 +68,7 @@ public class Duke {
             }
             System.out.println("____________________________________________________________");
         }
+
         scanner.close();
 
         System.out.println("Bye. Hope to see you again soon!");
