@@ -1,13 +1,11 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    private int id;
     private static int numberOfTask = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.id = numberOfTask + 1;
         numberOfTask++;
     }
 
@@ -16,9 +14,6 @@ public class Task {
     }
     public String getDescription() {
         return description;
-    }
-    public int getId() {
-        return id;
     }
     public boolean getStatus() {
         return isDone;
