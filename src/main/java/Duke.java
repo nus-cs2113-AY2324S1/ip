@@ -103,12 +103,10 @@ public class Duke {
                     String[] userInput = input.trim().split("\\s+");
                     String taskType = userInput[0];
 
-                    Task task = new Task("description", "taskType");
                     switch (taskType) {
                     case "todo":
-                        task.description = input.substring(5);
-                        task.taskType = taskType;
-                        itemList[itemCount] = task;
+                        Task todo = new ToDo(input.substring(5));
+                        itemList[itemCount] = todo;
                         addTaskCallback(itemList, itemCount);
                         itemCount++;
                         break;
