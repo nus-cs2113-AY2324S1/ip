@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
 
-    static final String LINE_DIVIDER = "    _____________________________________";
+    public static final String LINE_DIVIDER = "    _____________________________________";
 
-    public static String removeCommand(String in) {
+    public static String RemoveCommandWord(String in) {
         int firstSpaceIndex = in.indexOf(" ") + 1;
 
         return in.substring(firstSpaceIndex);
@@ -19,7 +19,7 @@ public class Duke {
     }
 
     public static void addTodo(String in, Task[] itemList, int i) {
-        itemList[i] = new ToDo(removeCommand(in));
+        itemList[i] = new ToDo(RemoveCommandWord(in));
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "Sure, I've added this task:\n"
@@ -29,9 +29,9 @@ public class Duke {
 
     public static void addEvent(String in, Task[] itemList, int i) {
         String[] vals = in.split(" /");
-        String name = removeCommand(vals[0]);
-        String from = removeCommand(vals[1]);
-        String to = removeCommand(vals[2]);
+        String name = RemoveCommandWord(vals[0]);
+        String from = RemoveCommandWord(vals[1]);
+        String to = RemoveCommandWord(vals[2]);
 
         itemList[i] = new Event(name, from, to);
 
@@ -43,8 +43,8 @@ public class Duke {
 
     public static void addDeadline(String in, Task[] itemList, int i) {
         String[] vals = in.split(" /");
-        String name = removeCommand(vals[0]);
-        String by = removeCommand(vals[1]);
+        String name = RemoveCommandWord(vals[0]);
+        String by = RemoveCommandWord(vals[1]);
 
         itemList[i] = new Deadline(name, by);
 
@@ -81,11 +81,6 @@ public class Duke {
         System.out.println(LINE_DIVIDER);
     }
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
 
         System.out.println("Hello! I'm Axel!\n"
                 + "What can I do for you?\n"
@@ -99,37 +94,37 @@ public class Duke {
         while(!buf.equalsIgnoreCase("bye")){
             switch(buf.toLowerCase().split(" ")[0]) {
 
-                case "list":
-                    listItems(itemList, i);
-                    break;
+            case "list":
+                listItems(itemList, i);
+                break;
 
-                case "mark":
-                    markTask(itemList,
-                            Integer.parseInt(buf.split(" ")[1]));
-                    break;
+            case "mark":
+                markTask(itemList,
+                        Integer.parseInt(buf.split(" ")[1]));
+                break;
 
-                case "unmark":
-                    unmarkTask(itemList,
-                            Integer.parseInt(buf.split(" ")[1]));
-                    break;
+            case "unmark":
+                unmarkTask(itemList,
+                        Integer.parseInt(buf.split(" ")[1]));
+                break;
 
-                case "todo":
-                    addTodo(buf, itemList, i);
-                    i += 1;
-                    break;
+            case "todo":
+                addTodo(buf, itemList, i);
+                i += 1;
+                break;
 
-                case "deadline":
-                    addDeadline(buf, itemList, i);
-                    i += 1;
-                    break;
+            case "deadline":
+                addDeadline(buf, itemList, i);
+                i += 1;
+                break;
 
-                case "event":
-                    addEvent(buf, itemList, i);
-                    i += 1;
-                    break;
+            case "event":
+                addEvent(buf, itemList, i);
+                i += 1;
+                break;
 
-                default:
-                    break;
+            default:
+                break;
             }
             buf = in.nextLine();
         }
