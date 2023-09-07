@@ -1,36 +1,5 @@
 import java.util.Scanner;
 
-/**
- * Task class
- * including description and check whether it has been completed
- */
-class Task{
-    protected String description;
-    protected boolean isDone;
-
-    public Task(String description){
-        this.description = description;
-        this.isDone = false;
-    }
-
-    public String getStatusIcon(){
-        return (isDone ? "X" : " ");
-    }
-
-    public String getDescription(){
-        return description;
-    }
-
-    public void doMark(){
-        isDone = true;
-    }
-
-    public void unMark(){
-        isDone = false;
-    }
-
-}
-
 public class Duke {
     /* print a line starts with four spaces*/
     static void printLine(String s){
@@ -71,7 +40,8 @@ public class Duke {
                 }
                 else{
                     for(int i=0;i<tasks_size;i++){
-                        printLine(String.format("%d.[", i+1) + tasks[i].getStatusIcon() + "] "  + tasks[i].getDescription());
+                        printLine(String.format("%d.[%s][%s] %s",
+                                i+1, tasks[i].getTypeIcon(), tasks[i].getStatusIcon(), tasks[i].getDescription()));
                     }
                 }
                 System.out.println("    ____________________________________________________________\n");
@@ -120,6 +90,25 @@ public class Duke {
                 tasks[mark_idx].unMark();
                 printLine(" [" + tasks[mark_idx].getStatusIcon() + "] " + tasks[mark_idx].getDescription());
                 System.out.println("    ____________________________________________________________\n");
+            }
+            else if(tokens[0].equals("todo")) {
+                // error handling
+                if (tokens.length != 2) {
+                    printLine("unexpected behavior: 'todo' needs more string");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                }
+
+                // make and add to list
+                printLine("Got it. I've added this task:");
+                Todo todo = new Todo(tokens[1]);
+                tasks[tasks_size++] = todo;
+
+                printLine(String.format("  [%s][%s] %s",
+                        todo.getTypeIcon(), todo.getStatusIcon(), todo.getDescription()));
+                printLine(String.format("Now you have %d tasks in the list.", tasks_size));
+                System.out.println("    ____________________________________________________________\n");
+
             }
             else{
                 printLine("added: " + cmd); // add list
