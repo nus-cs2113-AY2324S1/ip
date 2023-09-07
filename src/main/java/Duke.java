@@ -4,10 +4,13 @@ public class Duke {
     public static void main(String[] args) {
         String line = "____________________________________________________________";
         String logo = "Simon";
+
+        //Print out greeting when user starts the program.
         System.out.println("\t" + line);
         System.out.println("\t" + "Hello I'm " + logo);
         System.out.println("\t" + "What can I do for you?");
         System.out.println("\t" + line);
+
         String userInput;
         Task[] tasks = new Task[100];
 
@@ -18,8 +21,7 @@ public class Duke {
                 System.out.println("\t" + line);
                 System.out.println("\tHere are the tasks in your list:");
                 for (int i = 0; i < Task.getNumberOfTask(); i++) {
-                    System.out.print("\t" + (i + 1) + ".[" + tasks[i].getStatusIcon() + "]");
-                    System.out.println(" " + tasks[i].getDescription());
+                    System.out.println("\t" + (i + 1) + "." + tasks[i]);
                 }
                 System.out.println("\t" + line);
                 userInput = in.nextLine();
@@ -39,6 +41,42 @@ public class Duke {
                 System.out.println("\t" + line);
                 System.out.println("\tOkay, I've marked this task as not done yet:");
                 System.out.println("\t  [] " + tasks[target].getDescription());
+                System.out.println("\t" + line);
+                userInput = in.nextLine();
+            }
+            else if (userInput.startsWith("todo ")) {
+                tasks[Task.getNumberOfTask()] = new Todo(userInput.substring(5));
+                System.out.println("\t" + line);
+                System.out.println("\t" + "Got it. I've added this task:");
+                System.out.println("\t  " + tasks[Task.getNumberOfTask() - 1]);
+                System.out.println("\tNow you have " + Task.getNumberOfTask() + " tasks in the list.");
+                System.out.println("\t" + line);
+                userInput = in.nextLine();
+            }
+            else if (userInput.startsWith("event ")) {
+                int fromIndex = userInput.indexOf((" /from"));
+                int toIndex = userInput.indexOf(" /to");
+                String description = userInput.substring(6, fromIndex);
+                String from = userInput.substring(fromIndex + 7, toIndex);
+                String to = userInput.substring(toIndex + 5);
+                tasks[Task.getNumberOfTask()] = new Event(description, from, to);
+                System.out.println("\t" + line);
+                System.out.println("\t" + "Got it. I've added this task:");
+                System.out.println("\t  " + tasks[Task.getNumberOfTask() - 1]);
+                System.out.println("\tNow you have " + Task.getNumberOfTask() + " tasks in the list.");
+                System.out.println("\t" + line);
+                userInput = in.nextLine();
+
+            }
+            else if (userInput.startsWith("deadline ")) {
+                int byIndex = userInput.indexOf((" /by"));
+                String description = userInput.substring(9, byIndex);
+                String by = userInput.substring(byIndex + 5);
+                tasks[Task.getNumberOfTask()] = new Deadline(description, by);
+                System.out.println("\t" + line);
+                System.out.println("\t" + "Got it. I've added this task:");
+                System.out.println("\t  " + tasks[Task.getNumberOfTask() - 1]);
+                System.out.println("\tNow you have " + Task.getNumberOfTask() + " tasks in the list.");
                 System.out.println("\t" + line);
                 userInput = in.nextLine();
             }
