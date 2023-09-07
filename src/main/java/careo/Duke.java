@@ -36,6 +36,13 @@ public class Duke {
         printFarewell();
     }
 
+
+    /**
+     * Processes a line of text inputted by the user.
+     *
+     * @param input The input from the user.
+     * @return Whether the process-input-loop should be exited.
+     */
     private static boolean processInput(String input) {
         if (input.equals("list")) {
             listTasks();
@@ -130,7 +137,7 @@ public class Duke {
         } else {
             System.out.println("    OK, I've marked this task as not done yet:");
         }
-        System.out.println("      " + selectedTask.toString());
+        System.out.println("      " + selectedTask);
         printHorizontalLine();
     }
 

@@ -1,6 +1,7 @@
 package careo;
 
 public class Deadline extends Task {
+    /** By when the task must be completed */
     protected String by;
 
     public Deadline(String description, String by) {
