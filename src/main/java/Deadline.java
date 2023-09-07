@@ -1,3 +1,8 @@
+/**
+ *  Deadline class
+ *  extends Task class
+ *  tasks with deadline
+ */
 public class Deadline extends Task{
     protected String deadline;
 
