@@ -3,28 +3,6 @@ import java.util.ArrayList;
 
 public class Nuke {
 
-    public static class Task {
-        protected String description;
-        protected boolean isDone;
-
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "[X]" : "[ ]"); // mark done task with X
-        }
-
-        public void mark() {
-            this.isDone = true;
-        }
-
-        public void unmark() {
-            this.isDone = false;
-        }
-    }
-
     public static void printGreetingMessage() {
         printLine();
         System.out.println("     Hello! I'm Nuke\n" + "     What can I do for you?");
@@ -41,7 +19,47 @@ public class Nuke {
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void dialogue(ArrayList<Task> taskList) {
+    public static boolean checkTextForMark(String item) {
+        if (item.length() > 4 && item.substring(0, 4).equals("mark")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean checkTextForUnmark(String item) {
+        if (item.length() > 6 && item.substring(0, 6).equals("unmark")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean checkTextForTodo(String item) {
+        if (item.length() > 4 && item.substring(0, 4).equals("todo")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean checkTextForDeadline(String item) {
+        if (item.length() > 8 && item.substring(0, 8).equals("deadline")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean checkTextForEvent(String item) {
+        if (item.length() > 5 && item.substring(0, 5).equals("event")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void botDialogue(ArrayList<Task> taskList) {
         Scanner input = new Scanner(System.in);
         String item = input.nextLine();
         if (item.equals("bye")) {
@@ -49,25 +67,57 @@ public class Nuke {
             return;
         } else if (item.equals("list")) {
             list(taskList);
-        } else if (item.length() > 4 && item.substring(0, 4).equals("mark")) {
+        } else if (checkTextForMark(item)) {
             String[] splitItem = item.split(" ");
             int listIndex = Integer.parseInt(splitItem[1]);
             mark(taskList, listIndex);
-        } else if (item.length() > 6 && item.substring(0, 6).equals("unmark")) {
+        } else if (checkTextForUnmark(item)) {
             String[] splitItem = item.split(" ");
             int listIndex = Integer.parseInt(splitItem[1]);
             unmark(taskList, listIndex);
         } else {
             add(taskList, item);
         }
-        dialogue(taskList);
+        botDialogue(taskList);
+    }
+
+    public static void addTodo(ArrayList<Task> taskList, String item) {
+        String formattedString = item.replace("todo ", "");
+        String taskType = "[T]";
+        Task newTask = new Todo(formattedString, taskType);
+        taskList.add(newTask);
+        System.out.printf("     Got it. I've added this task:\n       %s\n     Now you have %d tasks in the list.\n", newTask, taskList.size());
+    }
+
+    public static void addDeadline(ArrayList<Task> taskList, String item) {
+        String formattedString[] = item.replace("deadline ", "").split("/");
+        String taskType = "[D]";
+        String deadlineDate = "(" + formattedString[1].replace("by", "by:") + ")";
+        Task newTask = new Deadline(formattedString[0], taskType, deadlineDate);
+        taskList.add(newTask);
+        System.out.printf("     Got it. I've added this task:\n       %s\n     Now you have %d tasks in the list.\n", newTask, taskList.size());
+    }
+
+    public static void addEvent(ArrayList<Task> taskList, String item) {
+        String formattedString[] = item.replace("event ", "").split("/");
+        String taskType = "[E]";
+        String eventFrom = formattedString[1].replace("from", "from:");
+        String eventTo = formattedString[2].replace("to", "to:");
+        String dateTime = "(" + eventFrom + eventTo + ")";
+        Task newTask = new Event(formattedString[0], taskType, dateTime);
+        taskList.add(newTask);
+        System.out.printf("     Got it. I've added this task:\n       %s\n     Now you have %d tasks in the list.\n", newTask, taskList.size());
     }
 
     public static void add(ArrayList<Task> taskList, String item) {
             printLine();
-            Task newTask = new Task(item);
-            taskList.add(newTask);
-            System.out.printf("     added: %s\n", item);
+            if (checkTextForTodo(item)) {
+                addTodo(taskList, item);
+            } else if (checkTextForDeadline(item)) {
+                addDeadline(taskList, item);
+            } else if (checkTextForEvent(item)) {
+                addEvent(taskList, item);
+            }
             printLine();
     }
 
@@ -75,7 +125,7 @@ public class Nuke {
         printLine();
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.printf("     %d.%s %s\n", i+1, taskList.get(i).getStatusIcon(), taskList.get(i).description);
+            System.out.printf("     %d.%s\n", i+1, taskList.get(i));
         }
         printLine();
     }
@@ -99,6 +149,6 @@ public class Nuke {
     public static void main(String[] args) {
         printGreetingMessage();
         ArrayList<Task> taskList = new ArrayList<Task>();
-        dialogue(taskList);
+        botDialogue(taskList);
     }
 }
