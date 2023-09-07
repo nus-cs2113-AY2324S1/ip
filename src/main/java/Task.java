@@ -1,9 +1,9 @@
 abstract class Task {
     private final String description;
     private boolean isDone;
-    private String type;
+    private TaskType type;
 
-    public Task(String description, String type) {
+    public Task(String description, TaskType type) {
         this.description = description;
         this.type = type;
         this.isDone = false;
@@ -22,6 +22,7 @@ abstract class Task {
     public String toString() {
         StringBuilder output = new StringBuilder("[");
         output.append(this.type).append("]");
+
         if (isDone) {
             output.append("[X] ");
         } else {
