@@ -1,7 +1,7 @@
 public class Event extends Deadline {
     protected String startDate;
     protected String endDate;
-//event project meeting /from Mon 2pm /to 4pm
+
     public Event(String description, String dates) {
         super(description, dates);
         setDates(dates);
