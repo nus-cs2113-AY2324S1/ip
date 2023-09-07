@@ -15,35 +15,71 @@ public class Duke {
         int counter = 0;
 
         String echo = userInput.nextLine();
+        int taskNumber;
 
         while (!echo.equals("bye")) {
             String[] words = echo.split(" "); //to identify usage of features "mark" & "unmark"
 
-            if (echo.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < counter; i += 1) {
-                    System.out.print((i + 1) + ".");
-                    theList[i].printTask();
-                }
+            switch (words[0]) {
+                case "list":
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < counter; i += 1) {
+                        System.out.print((i + 1) + ".");
+                        System.out.println(theList[i]);
+                    }
+                    break;
+                case "mark":
+                    taskNumber = Integer.parseInt(words[1]) - 1;
+                    System.out.println("Woohoo! You have accomplished:");
+                    theList[taskNumber].setDone(true);
+                    System.out.println(theList[taskNumber]);
+                    break;
+                case "unmark":
+                    taskNumber = Integer.parseInt(words[1]) - 1;
+                    System.out.println("HA! You still have to complete:");
+                    theList[taskNumber].setDone(false);
+                    System.out.println(theList[taskNumber]);
+                    break;
+                default:
+                    int spaceCut = echo.indexOf(" ");
+                    String taskType = echo.substring(0, spaceCut);
+                    String taskDescription = echo.substring(spaceCut);
+                    int slashCut = taskDescription.indexOf("/");
 
-            } else if (words[0].equals("mark")) {
-                int taskNumber = Integer.parseInt(words[1]) - 1;
-                System.out.println("Woohoo! You have accomplished:");
-                theList[taskNumber].markAsDone();
-                theList[taskNumber].printTask();
+                    //TaskType type = TaskType.words[0];
 
-            } else if (words[0].equals("unmark")) {
-                int taskNumber = Integer.parseInt(words[1]) - 1;
-                System.out.println("HA! You still have to complete:");
-                theList[taskNumber].markAsIncomplete();
-                theList[taskNumber].printTask();
+                    switch (taskType) {
+                        case "todo":
+                            theList[counter] = new Todo(taskDescription);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(theList[counter]);
+                            counter += 1;
+                            System.out.println("Now you have " + counter + " tasks in the list.");
+                            break;
+                        case "deadline":
+                            String taskDeadline = taskDescription.substring(slashCut);
+                            taskDescription = taskDescription.substring(0, slashCut);
 
-            } else {
-                theList[counter] = new Task(echo);
-                System.out.println("added: " + echo);
-                counter += 1;
+                            theList[counter] = new Deadline(taskDescription, taskDeadline);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(theList[counter]);
+                            counter += 1;
+                            System.out.println("Now you have " + counter + " tasks in the list.");
+                            break;
+                        case "event":
+                            String taskDuration = taskDescription.substring(slashCut);
+                            taskDescription = taskDescription.substring(0, slashCut);
+
+                            theList[counter] = new Event(taskDescription, taskDuration);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(theList[counter]);
+                            counter += 1;
+                            System.out.println("Now you have " + counter + " tasks in the list.");
+                            break;
+                        default:
+                            break;
+                    }
             }
-
             echo = userInput.nextLine();
         }
 
