@@ -110,6 +110,68 @@ public class Duke {
                 System.out.println("    ____________________________________________________________\n");
 
             }
+            else if(tokens[0].equals("deadline")){
+                // error handling
+                if (tokens.length != 2) {
+                    printLine("unexpected behavior: 'deadline' needs more string");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                }
+
+                // input format: description / deadline
+                String[] schedules = tokens[1].split("/", 2);
+
+                // error handling
+                if(schedules.length !=2 || !schedules[1].trim().startsWith("by")){
+                    printLine("unexpected behavior: 'deadline' needs input like (work/by time)");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                }
+
+                // make and add to list
+                printLine("Got it. I've added this task:");
+
+                Deadline deadline = new Deadline(schedules[0].trim(), schedules[1].trim().substring(2).trim());
+                tasks[tasks_size++] = deadline;
+
+                printLine(String.format("  [%s][%s] %s",
+                        deadline.getTypeIcon(), deadline.getStatusIcon(), deadline.getDescription()));
+                printLine(String.format("Now you have %d tasks in the list.", tasks_size));
+                System.out.println("    ____________________________________________________________\n");
+            }
+            else if(tokens[0].equals("event")){
+                // error handling
+                if (tokens.length != 2) {
+                    printLine("unexpected behavior: 'event' needs more string");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                }
+
+                // input format: description / deadline
+                String[] schedules = tokens[1].split("/", 3);
+
+                // error handling
+                if(schedules.length !=3 ||
+                        !schedules[1].trim().startsWith("from") ||
+                        !schedules[2].trim().startsWith("to")){
+                    printLine("unexpected behavior: 'event' needs input like (work/by time)");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                }
+
+                // make and add to list
+                printLine("Got it. I've added this task:");
+
+                Event event = new Event(schedules[0].trim(),
+                        schedules[1].trim().substring(4).trim(),
+                        schedules[2].trim().substring(2).trim());
+                tasks[tasks_size++] = event;
+
+                printLine(String.format("  [%s][%s] %s",
+                        event.getTypeIcon(), event.getStatusIcon(), event.getDescription()));
+                printLine(String.format("Now you have %d tasks in the list.", tasks_size));
+                System.out.println("    ____________________________________________________________\n");
+            }
             else{
                 printLine("added: " + cmd); // add list
                 tasks[tasks_size++] = new Task(cmd);
