@@ -1,7 +1,14 @@
 import java.util.Scanner;
 
+import org.w3c.dom.events.Event;
+
+import Objects.Deadlines;
+import Objects.Events;
+import Objects.Task;
+import Objects.ToDos;
+
 public class Duke {
-    
+
     /**
      * Prints a list of tasks with their status icons and descriptions.
      *
@@ -13,7 +20,7 @@ public class Duke {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < num; i++) {
             System.out.println(
-                    i + 1 + "." + "[" + storageArray[i].getStatusIcon() + "]" + storageArray[i].getDescription());
+                    i + 1 + "." + "[" + storageArray[i].getType() + "]"  + "[" + storageArray[i].getStatusIcon() + "]" + storageArray[i]);
         }
     }
 
@@ -25,13 +32,11 @@ public class Duke {
                 + "|  __/| | (_) | (__\n"
                 + "|_|   |_|\\___/ \\___|\n";
 
-        System.out.println("Hello from\n" + logoRyan);
-
         Task[] storageArray = new Task[100];
         int numOfItems = 0;
 
-        String line = "Hello! I'm Ryan Loh \nWhat can I do for you?\n";
-
+        String line = "Hello! I'm Ryan Loh \nWhat can I do for you?\nType anything to be added to your magic list :D\n";
+        System.out.println(line + logoRyan);
         Scanner scanner = new Scanner(System.in);
 
         String userInput = scanner.nextLine();
@@ -46,6 +51,7 @@ public class Duke {
                 printList(storageArray, numOfItems);
 
             } else if (initialWord.equals("mark")) {
+
                 System.out.println("mark " + words[1]);
                 int index = Integer.parseInt(words[1]);
                 // we need to check if its out of bounds first
@@ -74,6 +80,31 @@ public class Duke {
                     System.out.println(message);
                 }
 
+            } else if (initialWord.equals("todo")) {
+                String newWord = userInput.replace("todo ", "");
+                ToDos t = new ToDos(newWord);
+                storageArray[numOfItems] = t;
+                System.out.println("added: " + newWord);
+                numOfItems += 1;
+            } else if (initialWord.equals("deadline")) {
+                String newWord = userInput.replace("deadline ", "");
+                String[] deadlineArray = newWord.split("/");
+                Deadlines t = new Deadlines(deadlineArray[0],deadlineArray[1]);
+                storageArray[numOfItems] = t;
+                System.out.println("added: " + deadlineArray[0]);
+                numOfItems += 1;
+
+            } else if (initialWord.equals("event")) {
+                String newWord = userInput.replace("event ", "");
+                String[] firstSplit = newWord.split("/");
+                System.out.println(newWord);
+                Events t = new Events(firstSplit[0],firstSplit[1], firstSplit[2]);
+                storageArray[numOfItems] = t;
+                
+                numOfItems += 1;
+                System.out.println("added: " + firstSplit[0] + ", you have now " + numOfItems + " tasks");
+                
+
             } else {
                 Task t = new Task(userInput);
 
@@ -87,7 +118,7 @@ public class Duke {
         }
         String lineBreak = "------------------------------ \n";
 
-        System.out.println(line + lineBreak + "Bye. Hope to see you again soon!\n");
+        System.out.println(lineBreak + "Bye. Hope to see you again soon!\n");
 
         // Close the scanner when you're done with it
         scanner.close();
