@@ -44,10 +44,9 @@ public class Duke {
     /* Pretty prints the error when exception is caught */
     public static void printErrorPrompt(Exception e){
         System.out.println(LINE_DIVIDER);
-        System.out.println("Error: " + e);
+        System.out.println("Error: Invalid index or insufficient arguments provided!");
         System.out.println(LINE_DIVIDER);
     }
-
     public static void addTodoInList(String[] arguments){
         try{
             String taskDescription = String.join(" ", arguments);
