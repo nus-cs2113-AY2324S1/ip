@@ -134,7 +134,7 @@ public class Nuke {
         printLine();
         System.out.println("     Nice! I've marked this task as done:");
         taskList.get(listIndex - 1).mark();;
-        System.out.printf("       %s %s\n", taskList.get(listIndex - 1).getStatusIcon(), taskList.get(listIndex - 1).description);
+        System.out.printf("       %s\n", taskList.get(listIndex - 1));
         printLine();
     }
 
@@ -142,7 +142,7 @@ public class Nuke {
         printLine();
         System.out.println("     OK, I've marked this task as not done yet:");
         taskList.get(listIndex - 1).unmark();
-        System.out.printf("       %s %s\n", taskList.get(listIndex - 1).getStatusIcon(), taskList.get(listIndex - 1).description);
+        System.out.printf("       %s\n", taskList.get(listIndex - 1));
         printLine();
     }
 
