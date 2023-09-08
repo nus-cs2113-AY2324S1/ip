@@ -13,16 +13,15 @@ public class Todo extends Task {
     }
 
     public static Todo fromString(String userInput) throws ParseException {
-        Pattern pattern = Pattern.compile("todo (.+)");
+        Pattern pattern = Pattern.compile("(.+)");
         Matcher matcher = pattern.matcher(userInput);
-
         matcher.find();
 
         if (matcher.matches() && matcher.groupCount() == 1) {
             String description = matcher.group(1);
             return new Todo(description);
         } else {
-            throw new ParseException("\tInvalid todo format.", 0);
+            throw new ParseException("\tInvalid Todo format.", 0);
         }
     }
 }
