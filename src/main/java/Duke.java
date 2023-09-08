@@ -11,6 +11,7 @@ public class Duke {
         while (!line.equals("bye")){
             if (line.equals("list")) {
                 for (int i = 0; i < Task.listCount; ++i) {
+                    System.out.print(i+1 + ".");
                     System.out.println(list[i]);
                 }
             }
