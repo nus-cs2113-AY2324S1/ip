@@ -27,6 +27,7 @@ public class Duke {
                 System.out.println("Here are the tasks in your list:");
                 for (Task tt : currentTask) {
                     System.out.println(i + ". " + tt.toString());
+                    i++;
                 }
                 printLine();
                 break;
@@ -46,18 +47,21 @@ public class Duke {
             case "deadline":
                 boolean byreached = false;
                 StringBuilder newDeadlineStr = new StringBuilder();
-                String deadline = "";
+                StringBuilder deadline = new StringBuilder();
                 for (String word : splitInput) {
-                    if (word.equals("/by")) {
-                        byreached = true;
-                    } else {
+                    if (!word.equals("/by") && !byreached) {
                         newDeadlineStr.append(" ").append(word);
+                    } else {
+                        byreached = true;
+
                     }
                     if (byreached){
-                        deadline = word;
+                        if (!word.equals("/by")){
+                            deadline.append(" ").append(word);
+                        }
                     }
                 }
-                Deadline newDeadlineTask = new Deadline(newDeadlineStr.toString(), deadline);
+                Deadline newDeadlineTask = new Deadline(newDeadlineStr.toString(), deadline.toString());
                 currentTask.add(newDeadlineTask);
 
                 printLine();
@@ -71,7 +75,7 @@ public class Duke {
                 String currentWord = "";
                 StringBuilder event = new StringBuilder();
                 StringBuilder from = new StringBuilder();
-                String to ="";
+                String to = "";
                 while(k < splitInput.length){
                     currentWord = splitInput[k];
                     if(currentWord.equals("/from")) {
@@ -85,7 +89,6 @@ public class Duke {
                         }
                         k++;
                         to = splitInput[k];
-                        continue;
                     } else{
                         event.append(" ").append(currentWord);
                         k++;
