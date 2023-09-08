@@ -1,6 +1,11 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 public class Duke {
 	static Task[] toDoList = new Task[100];
 	static int size = 0;
