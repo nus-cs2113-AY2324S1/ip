@@ -5,7 +5,6 @@ public class Alice {
     private static Task[] tasks = new Task[100];
     private static int numberOfTask = 0;
 
-
     /**
      * List all tasks that have been added by user.
      */
