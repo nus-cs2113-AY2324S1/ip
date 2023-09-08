@@ -30,9 +30,9 @@ public class Duke {
     }
 
     public static void showTasks() {
-        String log = "Here are the tasks in your list:\n";
+        String log = "Here are the tasks in your list:";
         for (int i = 0; i < amount; i++) {
-            log += (i + 1) + "." + tasks[i].toString() + "\n";
+            log += "\n" + (i + 1) + "." + tasks[i].toString();
         }
         showLog(log);
     }
@@ -77,8 +77,10 @@ public class Duke {
                     break;
                 }
                 case "event": {
-                    int[] dividerPositions = new int[] { input.indexOf("/") };
-                    showLog(dividerPositions[0] + " " + dividerPositions[1] + " ");
+                    int[] dividerPositions = new int[] { input.indexOf("/"), 0 };
+                    // Try to find the second "/"
+                    String remainingString = input.substring(dividerPositions[0] + 1, input.length());
+                    dividerPositions[1] = dividerPositions[0] + 1 + remainingString.indexOf("/");
                     Task newTask = new Event(input.substring(6, dividerPositions[0] - 1),
                             input.substring(dividerPositions[0] + 6, dividerPositions[1] - 1),
                             input.substring(dividerPositions[1] + 3, input.length()));
