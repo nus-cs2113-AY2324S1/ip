@@ -33,8 +33,11 @@ public class Soccat {
             System.out.println("Great, You have no tasks for now!");
             return;
         }
+        int taskIndex;
         for(int i=0; i<taskCount; i++) {
-            System.out.print(i+1);
+            // Add 1 for 1-based indexing
+            taskIndex = i + 1;
+            System.out.print(taskIndex);
             System.out.println(". " + tasks[i]);
         }
     }
@@ -42,14 +45,18 @@ public class Soccat {
     public static void toggleDone(String taskNumber, boolean isDone) {
         try {
             int taskId = Integer.parseInt(taskNumber);
-            if (taskId > Task.getTaskCount() || taskId <= 0) {
-                System.out.println("Task out of range!");
+            if (taskId > Task.getTaskCount()) {
+                System.out.println("Task number out of range!");
                 return;
             }
-            tasks[taskId-1].setDone(isDone);
-            System.out.println(tasks[taskId-1]);
+            // Subtract 1 for array index
+            int taskIndex = taskId - 1;
+            tasks[taskIndex].setDone(isDone);
+            System.out.println(tasks[taskIndex]);
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Task number out of range!");
         }
     }
 
@@ -69,16 +76,20 @@ public class Soccat {
                 break;
             case "todo":
             case "deadline":
-            case "event": addTask(command, tokens[0]);
+            case "event":
+                addTask(command, tokens[0]);
                 break;
-            case "mark": toggleDone(tokens[1], true);
+            case "mark":
+                toggleDone(tokens[1], true);
                 break;
-            case "unmark": toggleDone(tokens[1], false);
+            case "unmark":
+                toggleDone(tokens[1], false);
                 break;
             default:
                 System.out.println("Sorry, I could not recognize your command.");
                 break;
             }
+            System.out.println(line);
         }
     }
 

@@ -16,9 +16,9 @@ public class Task {
         return isDone;
     }
 
-    public void setDone(Boolean done) {
-        isDone = done;
-        if (done) {
+    public void setDone(Boolean isDone) {
+        this.isDone = isDone;
+        if (isDone) {
             System.out.println("Nice! I've marked this task as done:");
         } else {
             System.out.println("OK, I've marked this task as not done yet:");
