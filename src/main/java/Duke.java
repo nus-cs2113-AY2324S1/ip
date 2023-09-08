@@ -3,7 +3,16 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Calebra\nWhat can I do for you?");
+        System.out.println("Hello! I'm");
+        System.out.println(" ________  ________  ________  ________     \n" +
+                "|\\   ____\\|\\   __  \\|\\   __  \\|\\   __  \\    \n" +
+                "\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\|\\  \\   \n" +
+                " \\ \\  \\    \\ \\   __  \\ \\   _  _\\ \\   __  \\  \n" +
+                "  \\ \\  \\____\\ \\  \\ \\  \\ \\  \\\\  \\\\ \\  \\ \\  \\ \n" +
+                "   \\ \\_______\\ \\__\\ \\__\\ \\__\\\\ _\\\\ \\__\\ \\__\\\n" +
+                "    \\|_______|\\|__|\\|__|\\|__|\\|__|\\|__|\\|__|\n" +
+                "                                            ");
+        System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
         Scanner input = new Scanner(System.in);
@@ -25,7 +34,15 @@ public class Duke {
                     tasks[taskIndex].markAsDone();
                     System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex].toString());
                 }
-            } else {
+
+            } else if (line.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(line.substring(7)) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    tasks[taskIndex].markAsNotDone();
+                    System.out.println("OK, I've marked this task as not done yet:\n" + tasks[taskIndex].toString());
+                }
+            }
+            else {
                 String[] parts = line.split(" ", 2);
                 String command = parts[0];
                 String taskDescription = parts.length > 1 ? parts[1] : "";
