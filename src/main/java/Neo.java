@@ -31,16 +31,43 @@ public class Neo {
         System.out.println("    " + list[listArrayIndex]);
     }
 
-    public static void addEvent(String line, Task[] list) {
-        int fromIndex = line.indexOf("/from");
-        int fromStringLength = 5;
-        int toIndex = line.indexOf("/to");
-        int toStringLength = 3;
-        int eventStringLength= 5;
+    public static void handleEvent(String line, Task[] list) {
+        try {
+            addEvent(line, list);
+        } catch (NeoException e) {
+            e.printException();
+        }
+    }
+    public static void catchFormatError(String line) throws NeoException{
+        if (!line.contains("/from")) {
+            throw new NeoException("/from", false);
+        }
+        if (!line.contains("/to")) {
+            throw new NeoException("/to", false);
+        }
+    }
 
-        String description = line.substring(eventStringLength + 1, fromIndex - 1);
-        String from = line.substring(fromIndex + fromStringLength + 1, toIndex - 1);
-        String to = line.substring(toIndex + toStringLength + 1);
+    public static void catchEmptyDescription(String field, String description) throws NeoException{
+        if (description.isBlank()) {
+            throw new NeoException(field, true);
+        }
+    }
+    public static void addEvent(String line, Task[] list) throws NeoException{
+        catchFormatError(line);
+
+        int fromIndex = line.indexOf("/from");
+        int toIndex = line.indexOf("/to");
+        int fromStringLength = 5;
+        int toStringLength = 3;
+        int eventStringLength = 5;
+
+        String description = line.substring(eventStringLength, fromIndex).trim();
+        String from = line.substring(fromIndex + fromStringLength, toIndex).trim();
+        String to = line.substring(toIndex + toStringLength).trim();
+
+        catchEmptyDescription("description", description);
+        catchEmptyDescription("/from", from);
+        catchEmptyDescription("/to", to);
 
         int taskArrayIndex = Task.getTotalTasks();
 
@@ -95,11 +122,10 @@ public class Neo {
                     unmarkTask(line, list);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! Please give the index of which task to unmark.");
-
                 }
                 line = in.nextLine();
             } else if (line.startsWith("event")) {
-                addEvent(line, list);
+                handleEvent(line, list);
                 line = in.nextLine();
             } else if (line.startsWith("deadline")) {
                 addDeadline(line, list);
