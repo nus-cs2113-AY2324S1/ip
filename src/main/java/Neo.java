@@ -12,23 +12,32 @@ public class Neo {
     }
 
     public static void markTask(String line, Task[] list) {
-        String[] words = line.split(" ");
-        int listIndex = Integer.parseInt(words[1]);
-        int listArrayIndex = listIndex - 1;
+        try {
+            String[] words = line.split(" ");
+            int listIndex = Integer.parseInt(words[1]);
+            int listArrayIndex = listIndex - 1;
 
-        list[listArrayIndex].setDone(true);
-        System.out.println("Nice! I've marked this task as done: ");
-        System.out.println("    " + list[listArrayIndex]);
+            list[listArrayIndex].setDone(true);
+            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println("    " + list[listArrayIndex]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! Please give the index of which task to mark.");
+        }
     }
 
     public static void unmarkTask(String line, Task[] list) {
-        String[] words = line.split(" ");
-        int listIndex = Integer.parseInt(words[1]);
-        int listArrayIndex = listIndex - 1;
+        try {
+            String[] words = line.split(" ");
+            int listIndex = Integer.parseInt(words[1]);
+            int listArrayIndex = listIndex - 1;
 
-        list[listArrayIndex].setDone(false);
-        System.out.println("OK, I've marked this task as not done yet: ");
-        System.out.println("    " + list[listArrayIndex]);
+            list[listArrayIndex].setDone(false);
+            System.out.println("OK, I've marked this task as not done yet: ");
+            System.out.println("    " + list[listArrayIndex]);
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! Please give the index of which task to unmark.");
+        }
     }
 
     public static void handleEvent(String line, Task[] list) {
@@ -123,34 +132,20 @@ public class Neo {
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 printList(list);
-                line = in.nextLine();
             } else if (line.startsWith("mark")) {
-                try {
-                    markTask(line, list);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("OOPS!!! Please give the index of which task to mark.");
-                }
-                line = in.nextLine();
+                markTask(line, list);
             } else if (line.startsWith("unmark")) {
-                try {
-                    unmarkTask(line, list);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("OOPS!!! Please give the index of which task to unmark.");
-                }
-                line = in.nextLine();
+                unmarkTask(line, list);
             } else if (line.startsWith("event")) {
                 handleEvent(line, list);
-                line = in.nextLine();
             } else if (line.startsWith("deadline")) {
                 handleDeadline(line, list);
-                line = in.nextLine();
             } else if (line.startsWith("todo")){
                 addTodo(line, list);
-                line = in.nextLine();
             } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                line = in.nextLine();
             }
+            line = in.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
