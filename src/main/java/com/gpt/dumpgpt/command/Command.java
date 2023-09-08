@@ -6,14 +6,14 @@ import java.util.HashMap;
 public class Command {
     private static final String DEFAULT_ARGS = "_ARGS";
     private final String ORIGINAL_INPUT;
+    private final HashMap<String, String> OPTIONS = new HashMap<>();
+    private final boolean IS_EMPTY;
     private String commandVerb;
     private String[] tokens;
-    private final HashMap<String, String> OPTIONS = new HashMap<>();
-    private boolean isEmpty = true;
 
     public Command(String originalInput) {
         this.ORIGINAL_INPUT = originalInput;
-        isEmpty = originalInput.isBlank();
+        IS_EMPTY = originalInput.isBlank();
     }
 
     public String getOriginalInput() {
@@ -33,7 +33,7 @@ public class Command {
     }
 
     public boolean isEmpty() {
-        return isEmpty;
+        return IS_EMPTY;
     }
 
     public void parse() {
@@ -45,7 +45,7 @@ public class Command {
     }
 
     public void parseTokens() {
-        if (isEmpty) {
+        if (IS_EMPTY) {
             return;
         }
 
