@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Dukey {
     private static void addTodo(String line, ArrayList<Task> tasks) {
         String description = line;
-        // case where "todo" is specified
+        // case where todo is specified
         if (line.startsWith("todo")) {
             final int beginIndex = 5;
             description = line.substring(beginIndex);
@@ -58,7 +58,7 @@ public class Dukey {
             System.out.println("Error: Invalid task index");
             return;
         }
-        tasks.get(taskNum).markAsDone();
+        tasks.get(taskNum).setDone();
     }
 
 
@@ -71,16 +71,16 @@ public class Dukey {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Dukey\nWhat can I do for you?\n");
+        System.out.println("Hey! I'm Dukey, your virtual assistant!\nWhat can I do for you?\n");
         Scanner in = new Scanner(System.in);
         String line;
         ArrayList<Task> tasks = new ArrayList<>();
 
+        // multiple if-else statements were used instead of a switch statement
+        // because when the line starts with a certain prefix,
+        // you cannot achieve that directly with a switch statement
         while (true) {
             line = in.nextLine();
-            // multiple if-else statements were used instead of a switch statement
-            // because when the line starts with a certain prefix,
-            // you cannot achieve that directly with a switch statement
             if (line.startsWith("bye")) {
                 System.out.println("Bye. Hope to see you again soon!\n");
                 return;

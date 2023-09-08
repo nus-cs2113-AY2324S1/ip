@@ -1,16 +1,18 @@
 public class Event extends Task {
     private String from;
-    private String to;
+    private String by;
 
-    public Event(String from, String to, String description) {
-        // call to the superclass (task) constructor
+    public Event(String from, String by, String description) {
+        // call by the superclass (task) constructor
         super(description);
         this.from = from;
-        this.to = to;
+        this.by = by;
     }
-    //to construct string representation of the object
+    // appends "[R]" to the beginning of the string.
+    // Then, it calls super.toString(), ie. it calls the toString() method of the superclass
+    // then adds the from and to timings
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.from + "to: " + this.to + " )";
+        return "[E]" + super.toString() + "(from: " + this.from + "to: " + this.by + " )";
     }
 }
