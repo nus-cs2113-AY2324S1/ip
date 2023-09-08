@@ -34,8 +34,8 @@ public class Task {
 	
 	public String toString() {
 		if (this.isDone()) {
-			return "[X" + "] " + description;
+			return "[X] " + description;
 		}
-		return "[ " + "] " + description;
+		return "[ ] " + description;
 	}
 }
