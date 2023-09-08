@@ -1,4 +1,6 @@
-import java.util.Scanner;
+import duke.commands.*;
+import duke.exceptions.*;
+
 
 public class Duke {
     public static void main(String[] args) throws DukeException {
