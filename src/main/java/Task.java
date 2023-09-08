@@ -12,7 +12,7 @@ public class Task {
         Task.totalTasks++;
     }
 
-    public void setDone(boolean done){
+    public void setDone(boolean done) {
         isDone = done;
     }
 
