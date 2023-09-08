@@ -18,7 +18,7 @@ public class Event extends Task {
     }
 
     public static Event fromString(String userInput) throws ParseException {
-        Pattern pattern = Pattern.compile("event (.+) /from (.+) /to (.+)");
+        Pattern pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
         Matcher matcher = pattern.matcher(userInput);
 
         if (matcher.matches() && matcher.groupCount() == 3) {
@@ -27,7 +27,7 @@ public class Event extends Task {
             String to = matcher.group(3);
             return new Event(description, from, to);
         } else {
-            throw new ParseException("\tInvalid event format.", 0);
+            throw new ParseException("\tInvalid Event format.", 0);
         }
     }
 }

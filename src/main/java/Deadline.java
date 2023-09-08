@@ -16,14 +16,14 @@ public class Deadline extends Task {
     }
 
     public static Deadline fromString(String userInput) throws ParseException {
-        Pattern pattern = Pattern.compile("deadline (.+) /by (.+)");
+        Pattern pattern = Pattern.compile("(.+) /by (.+)");
         Matcher matcher = pattern.matcher(userInput);
         if (matcher.matches() && matcher.groupCount() == 2) {
             String description = matcher.group(1);
             String by = matcher.group(2);
             return new Deadline(description, by);
         } else {
-            throw new ParseException("\tInvalid deadline format.", 0);
+            throw new ParseException("\tInvalid Deadline format.", 0);
         }
     }
 }
