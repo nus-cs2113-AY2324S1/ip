@@ -144,8 +144,11 @@ public class Neo {
             } else if (line.startsWith("deadline")) {
                 handleDeadline(line, list);
                 line = in.nextLine();
-            } else {
+            } else if (line.startsWith("todo")){
                 addTodo(line, list);
+                line = in.nextLine();
+            } else {
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 line = in.nextLine();
             }
         }
