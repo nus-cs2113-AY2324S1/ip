@@ -4,23 +4,25 @@ import java.util.Scanner;
 public class Dukey {
     private static void addTodo(String line, ArrayList<Task> tasks) {
         String description = line;
+        // case where "todo" is specified
         if (line.startsWith("todo")) {
             final int beginIndex = 5;
             description = line.substring(beginIndex);
         }
+        // default case
         tasks.add(new Todo(description));
-        tasks.get(tasks.size() - 1).printAddedTask();
+        tasks.get(tasks.size() - 1).printNewTask();
     }
 
     private static void addEvent(String line, ArrayList<Task> tasks) {
-        int fromIndex = line.indexOf("/from");
-        int toIndex = line.indexOf("/to");
+        int startIndexOfFrom = line.indexOf("/from");
+        int startIndexOfTo = line.indexOf("/to");
         final int beginIndex = 6;
-        String from = line.substring(fromIndex + 6, toIndex);
-        String to = line.substring(toIndex + 4);
-        String description = line.substring(beginIndex, fromIndex);
-        tasks.add(new Event(from, to,description));
-        tasks.get(tasks.size() - 1).printAddedTask();
+        String from = line.substring(startIndexOfFrom + 6, startIndexOfTo);
+        String to = line.substring(startIndexOfTo + 4);
+        String description = line.substring(beginIndex, startIndexOfFrom);
+        tasks.add(new Event(from, to, description));
+        tasks.get(tasks.size() - 1).printNewTask();
     }
 
     private static void addDeadline(String line, ArrayList<Task> tasks) {
@@ -29,7 +31,7 @@ public class Dukey {
         String description = line.substring(beginIndex, splitIndex);
         String by = line.substring(splitIndex + 4);
         tasks.add(new Deadline(description, by));
-        tasks.get(tasks.size() - 1).printAddedTask();
+        tasks.get(tasks.size() - 1).printNewTask();
     }
 
     private static void unmarkTask(String line, ArrayList<Task> tasks) {
