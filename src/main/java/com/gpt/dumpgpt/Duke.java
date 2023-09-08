@@ -14,6 +14,7 @@ import java.util.function.Function;
 
 public class Duke {
     private static boolean ended = false;
+    private final static int INVALID_TASK_NUM = -1;
     private final static Scanner SCANNER = new Scanner(System.in);
     private final static HashMap<String, Function<Command, Void>> COMMANDS = new HashMap<>();
 
@@ -106,7 +107,7 @@ public class Duke {
 
     public static Void markTaskFlow(Command command) {
         int taskNumber = parsePositiveNumber(command.getArguments());
-        if (taskNumber == -1) {
+        if (taskNumber == INVALID_TASK_NUM) {
             printWrapped("Failed to mark task as done...");
             return null;
         }
@@ -127,7 +128,7 @@ public class Duke {
 
     public static Void unmarkTaskFlow(Command command) {
         int taskNumber = parsePositiveNumber(command.getArguments());
-        if (taskNumber == -1) {
+        if (taskNumber == INVALID_TASK_NUM) {
             printWrapped("Failed to mark task as undone...");
             return null;
         }
@@ -147,7 +148,7 @@ public class Duke {
     }
 
     public static int parsePositiveNumber(String number) {
-        int taskNumber = -1;
+        int taskNumber = INVALID_TASK_NUM;
 
         try {
             taskNumber = Integer.parseInt(number);
@@ -156,7 +157,7 @@ public class Duke {
         }
 
         if (taskNumber <= 0) {
-            return -1;
+            return INVALID_TASK_NUM;
         }
         return taskNumber;
     }
