@@ -6,43 +6,98 @@ public class Duke {
 	static int size = 0;
 	
     public static void main(String[] args) {
-    	greetUser();
+		greetUser();
         Scanner input = new Scanner(System.in);
         String command = input.nextLine();
         
         while (!command.equals("bye")) {
+        	String strippedCommand = command.strip();
+    		String[] userCmd = strippedCommand.split(" ");
         	if (command.equals("list")) {
         		printToDoList();
-        	} else {
-        		String[] mark = command.split(" ");
-        		if (mark[0].contains("mark")) {
-            		int index = Integer.parseInt(mark[1]) - 1;
-        			if (mark[0].equals("mark")) {
+        	} else if (userCmd[0].contains("mark")) {
+        		try {
+        			int index = Integer.parseInt(userCmd[1]) - 1;
+        			if (userCmd[0].equals("mark")) {
             			toDoList[index].setDone(true);
             		} else {
             			toDoList[index].setDone(false);
             		}
-        		} else if (mark[0].equals("todo")) {
-        			String description = String.join(" ", Arrays.copyOfRange(mark, 1, mark.length));
+        		}
+        		catch (NumberFormatException e) {
+        			printLines();
+            		System.out.println("     Please specify the number of the task that you want to mark/unmark");
+            		printLines();
+            	}
+            	catch (NullPointerException e) {
+            		printLines();
+            		System.out.println("     Cannot mark/unmark a non-existent task");
+            		printLines();
+            	}
+        		catch (ArrayIndexOutOfBoundsException e) {
+        			printLines();
+            		System.out.println("     Please specify a number of the task that you want to mark/unmark");
+            		printLines();
+        		}
+    		} else if (userCmd[0].equals("todo")) {
+    			try {
+    				if (userCmd.length == 1) {
+    					throw new RemyException("Error: Your todo task description cannot be empty!!!");
+    				}
+        			String description = String.join(" ", Arrays.copyOfRange(userCmd, 1, userCmd.length));
         			Task toDoTask = new ToDo(description);
         			addTask(toDoTask);
-        		} else if (mark[0].equals("deadline")) {
-        			String[] descAndDue = getDeadlineDescription(mark);
+    			}
+    			catch (RemyException e) {
+    				printLines();
+    				System.out.println("     " + e.getMessage());
+    				printLines();
+    			}
+    		} else if (userCmd[0].equals("deadline")) {
+    			try {
+    				String[] descAndDue = getDeadlineDescription(userCmd);
+    				if (descAndDue[0] == "") {
+    					throw new RemyException("Error: Please specify a description for this deadline");
+    				}
+        			if (descAndDue[1] == "") {
+        				throw new RemyException("Error: Please specify a due date for this task with '/by'");
+        			}
         			Task deadlineTask = new Deadline(descAndDue[0], descAndDue[1]);
         			addTask(deadlineTask);
-        		} else if (mark[0].equals("event")) {
-        			String[] info = getEventDescription(mark);
+    			}
+    			catch (RemyException e) {
+    				printLines();
+    				System.out.println("     " + e.getMessage());
+    				printLines();
+    			}
+    		} else if (userCmd[0].equals("event")) {
+    			try {
+    				String[] info = getEventDescription(userCmd);
+    				if (info[0] == "" | info[1] == "" | info[2] == "") {
+    					throw new RemyException("Error: Please input your event in the right format");
+    				}
         			Task eventTask = new Event(info[0], info[1], info[2]);
         			addTask(eventTask);
-        		} else {
+    			}
+    			catch (RemyException e) {
+    				printLines();
+    				System.out.println("     " + e.getMessage());
+    				printLines();
+    			}
+    			catch (IllegalArgumentException e) {
+    				printLines();
+    				System.out.println("     Error: Please input your event in the right format");
+    				printLines();
+    			}
+    		} else {
         			System.out.println(command);
-        		}
-        	}
+    		}
         	command = input.nextLine();
-        }
-        sayGoodbye();
-        input.close();
-    }
+            }
+            
+        	sayGoodbye();
+            input.close();
+	}
     
     public static void greetUser() {
     	 printLines();
@@ -66,7 +121,6 @@ public class Duke {
     public static void addTask(Task task) {
     	toDoList[size++] = task;
     	printLines();
-    	//System.out.println("     Got it. I've added this task:\n       " + task.toString() + "\n     Now you have " + size + " tasks in the list.");
     	System.out.println("     Got it. I've added this task:");
     	System.out.println("       " + task);
     	System.out.println("     Now you have " + size + " tasks in the list.");
@@ -107,6 +161,10 @@ public class Duke {
     public static String[] getEventDescription(String[] description) {
     	int fromIndex = 0;
     	int toIndex = 0;
+    	String desc = "";
+    	String from = "";
+    	String to = "";
+    	
     	for (int i = 0; i < description.length; i++) {
     		if (description[i].equals("/from")) {
     			fromIndex = i;
@@ -115,9 +173,11 @@ public class Duke {
     			break;
     		}
     	}
-    	String desc = String.join(" ", Arrays.copyOfRange(description, 1, fromIndex));
-    	String from = String.join(" ", Arrays.copyOfRange(description, fromIndex + 1, toIndex));
-    	String to = String.join(" ", Arrays.copyOfRange(description, toIndex + 1, description.length));
+    	desc = String.join(" ", Arrays.copyOfRange(description, 1, fromIndex));
+		from = String.join(" ", Arrays.copyOfRange(description, fromIndex + 1, toIndex));
+		if (toIndex + 1 != description.length) {
+	    	to = String.join(" ", Arrays.copyOfRange(description, toIndex + 1, description.length));
+		}
     	String[] info = {desc, from, to};
     	return info;
     }
