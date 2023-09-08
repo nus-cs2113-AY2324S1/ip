@@ -12,7 +12,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return String.format("[D][%s] %s (by: %s)", this.getStatusIcon(), this.getDescription(), this.by);
     }
 
     public static Deadline fromString(String userInput) throws ParseException {

@@ -34,29 +34,22 @@ public class Duke {
 
 
     public static void confirmTaskAdded(Task newTask) {
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t\t" + newTask.toString());
-        System.out.printf("\tNow you have %d tasks in the list.\n", tasks.size());
+        System.out.printf("\tGot it. I've added this task:\n\t\t %s\n\tNow you have %d tasks in the list.\n", newTask.toString(), tasks.size());
     }
 
-    public static void handleMarkTask(String userInput) throws IndexOutOfBoundsException {
+    public static void handleToggleMarkTask(String userInput, Boolean isDone) throws IndexOutOfBoundsException {
         int index = Integer.parseInt(userInput.split(" ")[1]);
         if (index < 0 || index > tasks.size()) {
             throw new IndexOutOfBoundsException("Please enter a valid index.");
         }
-        tasks.get(index - 1).markAsDone();
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.printf("\t\t [%s] %s\n", tasks.get(index - 1).getStatusIcon(), tasks.get(index - 1).getDescription());
-    }
-
-    public static void handleUnmarkTask(String userInput) throws IndexOutOfBoundsException {
-        int index = Integer.parseInt(userInput.split(" ")[1]);
-        if (index < 0 || index > tasks.size()) {
-            throw new IndexOutOfBoundsException("Please enter a valid index.");
+        if (isDone) {
+            tasks.get(index - 1).markAsUndone();
+            System.out.println("\tNice! I've marked this task as not done yet:");
+        } else {
+            tasks.get(index - 1).markAsDone();
+            System.out.println("\tNice! I've marked this task as done:");
         }
-        tasks.get(index - 1).markAsUndone();
-        System.out.println("\tOk! I've marked this task as not done yet:");
-        System.out.printf("\t\t [%s] %s\n", tasks.get(index - 1).getStatusIcon(), tasks.get(index - 1).getDescription());
+        System.out.printf("\t\t %s\n", tasks.get(index - 1).toString());
     }
 
     public static void main(String[] args) {
@@ -74,14 +67,14 @@ public class Duke {
                 break;
             case "mark":
                 try {
-                    handleMarkTask(userInput);
+                    handleToggleMarkTask(userInput, false);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             case "unmark":
                 try {
-                    handleUnmarkTask(userInput);
+                    handleToggleMarkTask(userInput, true);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(e.getMessage());
                 }

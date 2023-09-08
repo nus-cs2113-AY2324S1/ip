@@ -9,7 +9,7 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return String.format("[T][%s] %s", this.getStatusIcon(), this.getDescription());
     }
 
     public static Todo fromString(String userInput) throws ParseException {
