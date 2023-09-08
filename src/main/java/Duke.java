@@ -16,14 +16,14 @@ public class Duke {
         }
     }
 
-    public static void sayHello() {
+    public static void showWelcomeMessage() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(LOGO);
         System.out.println("\tHi I'm Jerry !");
         System.out.println("\tWhat can I do for you ?\n");
     }
 
-    private static void sayGoodbye() {
+    private static void showGoodbyeMessage() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("\tBye hope to see you again\n");
         System.out.println(HORIZONTAL_LINE);
@@ -87,49 +87,62 @@ public class Duke {
         }
     }
 
-    private static void handleUserInput() {
+    private static String getUserInput() {
         Scanner in = new Scanner(System.in);
-        String input;
+        String userInput = in.nextLine().trim();
+        return userInput;
+    }
 
-        do {
+    private static String[] splitCommandWordAndArgs(String rawUserInput) {
+        final String[] split = rawUserInput.trim().split("\\s+", 2);
+        return split.length == 2 ? split : new String[] { split[0] , "" }; // else case: no parameters
+    }
+
+    private static void executeCommand(String userInputString) {
             System.out.println(HORIZONTAL_LINE);
-            input = in.nextLine().trim();
-            String[] parts = input.split(" ", 2);
-            String command = parts[0].toLowerCase();
-            String argument = null;
-            if (parts.length > 1) {
-                argument = parts[1];
-            }
-            switch (command) {
+            // String[] parts = input.split(" ", 2);
+            // String command = parts[0].toLowerCase();
+            // String argument = null;
+            // if (parts.length > 1) {
+            //     argument = parts[1];
+            // }
+            final String[] commandTypeAndParams = splitCommandWordAndArgs(userInputString);
+            final String commandType = commandTypeAndParams[0];
+            final String commandArgs = commandTypeAndParams[1];
+            switch (commandType) {
             case "list":
                 printList();
                 break;
             case "mark":
-                toggleTaskStatus(argument, false);
+                toggleTaskStatus(commandArgs, false);
                 break;
             case "unmark":
-                toggleTaskStatus(argument, true);
+                toggleTaskStatus(commandArgs, true);
                 break;
             case "todo":
-                addTodo(argument);
+                addTodo(commandArgs);
                 break;
             case "deadline":
-                addDeadline(argument);
+                addDeadline(commandArgs);
                 break;
             case "event":
-                addEvent(argument);
+                addEvent(commandArgs);
                 break;
+            case "bye":
+                showGoodbyeMessage();
+                System.exit(0);
             default:
                 System.out.println("\tUnknown command.");
                 break;
             }
-        } while (!input.equals("bye"));
         System.out.println(HORIZONTAL_LINE);
     }
 
     public static void main(String[] args) {
-        sayHello();
-        handleUserInput();
-        sayGoodbye();
+        showWelcomeMessage();
+        while (true) {
+            String userCommand = getUserInput();
+            executeCommand(userCommand);
+        }
     }
 }
