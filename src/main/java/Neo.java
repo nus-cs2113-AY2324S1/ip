@@ -84,10 +84,19 @@ public class Neo {
                 printList(list);
                 line = in.nextLine();
             } else if (line.startsWith("mark")) {
-                markTask(line, list);
+                try {
+                    markTask(line, list);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("OOPS!!! Please give the index of which task to mark.");
+                }
                 line = in.nextLine();
             } else if (line.startsWith("unmark")) {
-                unmarkTask(line, list);
+                try {
+                    unmarkTask(line, list);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("OOPS!!! Please give the index of which task to unmark.");
+
+                }
                 line = in.nextLine();
             } else if (line.startsWith("event")) {
                 addEvent(line, list);
