@@ -25,20 +25,22 @@ public class Duke {
             String userInput = getInput();
             Command userCommand = new Command(userInput);
             userCommand.parse();
-
             if (userCommand.isEmpty()) {
                 printWrapped("Please provide an input!");
                 continue;
             }
-
-            Function<Command, Void> command = COMMANDS.get(userCommand.getCommandVerb());
-            if (command == null) {
-                printWrapped("Unknown command...");
-                continue;
-            }
-
-            command.apply(userCommand);
+            executeCommand(userCommand);
         }
+    }
+
+    private static void executeCommand(Command userCommand) {
+        Function<Command, Void> command = COMMANDS.get(userCommand.getCommandVerb());
+        if (command == null) {
+            printWrapped("Unknown command...");
+            return;
+        }
+
+        command.apply(userCommand);
     }
 
     public static void registerCommands() {
