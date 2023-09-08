@@ -7,8 +7,7 @@ import java.util.HashMap;
 
 public class ApplicationState {
     private static ApplicationState appState = null;
-    private final HashMap<String, Object> states = new HashMap<>();
-    private final ArrayList<Task> TASKS = new ArrayList<>();
+    private final HashMap<String, Object> STATES = new HashMap<>();
 
     private ApplicationState() {
     }
@@ -21,13 +20,13 @@ public class ApplicationState {
     }
 
     public Object getStateObject(String key) {
-        if (!states.containsKey(key)) {
+        if (!STATES.containsKey(key)) {
             return null;
         }
-        return states.get(key);
+        return STATES.get(key);
     }
 
     public void setStateObject(String key, Object state) {
-        states.put(key, state);
+        STATES.put(key, state);
     }
 }

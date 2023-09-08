@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Command {
-    public static final String DEFAULT_ARGS = "_ARGS";
-    private String originalCommand;
-    private String commandWord;
+    private static final String DEFAULT_ARGS = "_ARGS";
+    private final String ORIGINAL_INPUT;
+    private String commandVerb;
     private String[] tokens;
     private final HashMap<String, String> OPTIONS = new HashMap<>();
-    private boolean isEmpty = false;
+    private boolean isEmpty = true;
 
-    public Command(String originalCommand) {
-        this.originalCommand = originalCommand;
-        isEmpty = originalCommand.isBlank();
+    public Command(String originalInput) {
+        this.ORIGINAL_INPUT = originalInput;
+        isEmpty = originalInput.isBlank();
     }
 
-    public String getOriginalCommand() {
-        return originalCommand;
+    public String getOriginalInput() {
+        return ORIGINAL_INPUT;
     }
 
-    public String getCommandWord() {
-        return commandWord;
+    public String getCommandVerb() {
+        return commandVerb;
     }
 
     public String getArguments() {
@@ -37,9 +37,9 @@ public class Command {
     }
 
     public void parse() {
-        tokens = originalCommand.split(" ");
+        tokens = ORIGINAL_INPUT.split(" ");
         if (tokens.length > 0) {
-            commandWord = tokens[0].strip().toLowerCase();
+            commandVerb = tokens[0].strip().toLowerCase();
         }
         parseTokens();
     }

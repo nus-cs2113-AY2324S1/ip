@@ -18,17 +18,9 @@ public class Duke {
     private final static HashMap<String, Function<Command, Void>> COMMANDS = new HashMap<>();
 
     public static void main(String[] args) {
-        COMMANDS.put("bye", (e) -> bye());
-        COMMANDS.put("list", (e) -> listTasksFlow());
-        COMMANDS.put("mark", Duke::markTaskFlow);
-        COMMANDS.put("unmark", Duke::unmarkTaskFlow);
-        COMMANDS.put("deadline", Duke::addTaskFlow);
-        COMMANDS.put("event", Duke::addTaskFlow);
-        COMMANDS.put("todo", Duke::addTaskFlow);
-
+        registerCommands();
         greet();
         while (!ended) {
-            System.out.print("User: ");
             String userInput = getInput();
             Command userCommand = new Command(userInput);
             userCommand.parse();
@@ -38,7 +30,7 @@ public class Duke {
                 continue;
             }
 
-            Function<Command, Void> command = COMMANDS.get(userCommand.getCommandWord());
+            Function<Command, Void> command = COMMANDS.get(userCommand.getCommandVerb());
             if (command == null) {
                 printWrapped("Unknown command...");
                 continue;
@@ -48,14 +40,25 @@ public class Duke {
         }
     }
 
+    public static void registerCommands() {
+        COMMANDS.put("bye", (e) -> bye());
+        COMMANDS.put("list", (e) -> listTasksFlow());
+        COMMANDS.put("mark", Duke::markTaskFlow);
+        COMMANDS.put("unmark", Duke::unmarkTaskFlow);
+        COMMANDS.put("deadline", Duke::addTaskFlow);
+        COMMANDS.put("event", Duke::addTaskFlow);
+        COMMANDS.put("todo", Duke::addTaskFlow);
+    }
+
     public static String getInput() {
+        System.out.print("User: ");
         return SCANNER.nextLine();
     }
 
     public static Void addTaskFlow(Command command) {
         Task newTask = null;
 
-        switch (command.getCommandWord()) {
+        switch (command.getCommandVerb()) {
         case "deadline":
             newTask = new Deadline(command.getArguments(), command.getOptions("by"));
             break;
