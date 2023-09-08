@@ -1,0 +1,7 @@
+list
+todo This Task
+deadline NewTask /by 3 Jan
+event work /from 3pm /to 5pm
+list
+mark 2
+list

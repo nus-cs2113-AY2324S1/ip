@@ -1,7 +1,48 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+__________________________________________
+Hello! I'm Chat0PT
+What can I do for you?
+__________________________________________
+list
+__________________________________________
+Here are the tasks in your list:
+__________________________________________
+todo This Task
+__________________________________________
+__________________________________________
+Got it. I've added this task:
+[T][ ] This Task
+Now you have 1 tasks in your list.
+__________________________________________
+deadline NewTask /by 3 Jan
+__________________________________________
+__________________________________________
+Got it. I've added this task:
+[D][ ]  deadline NewTask (by: 3 Jan)
+Now you have 2 tasks in your list.
+__________________________________________
+event work /from 3pm /to 5pm
+__________________________________________
+__________________________________________
+Got it. I've added this task:
+[E][ ]  work 5pm (from: 3pm to:5pm)
+Now you have 3 tasks in your list.
+__________________________________________
+list
+__________________________________________
+Here are the tasks in your list:
+1. [T][ ]  This Task
+2. [D][ ]  deadline NewTask (by: 3 Jan)
+3. [E][ ]  work 5pm (from: 3pm to:5pm)
+__________________________________________
+mark 2
+__________________________________________
+Nice! I've marked this task as done:
+[X]  deadline NewTask
+__________________________________________
+list
+__________________________________________
+Here are the tasks in your list:
+1. [T][ ]  This Task
+2. [D][X]  deadline NewTask (by: 3 Jan)
+3. [E][ ]  work 5pm (from: 3pm to:5pm)
+__________________________________________
