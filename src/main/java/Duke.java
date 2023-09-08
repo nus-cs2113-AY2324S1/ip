@@ -66,7 +66,10 @@ public class Duke {
     public static void addTask(Task task) {
     	toDoList[size++] = task;
     	printLines();
-    	System.out.println("     Got it. I've added this task:\n       " + task.toString() + "\n     Now you have " + size + " tasks in the list.");
+    	//System.out.println("     Got it. I've added this task:\n       " + task.toString() + "\n     Now you have " + size + " tasks in the list.");
+    	System.out.println("     Got it. I've added this task:");
+    	System.out.println("       " + task);
+    	System.out.println("     Now you have " + size + " tasks in the list.");
     	printLines();
     	System.out.println();
     }
