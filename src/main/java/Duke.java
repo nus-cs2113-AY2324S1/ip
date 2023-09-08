@@ -90,8 +90,9 @@ public class Duke {
     				printLines();
     			}
     		} else {
-        			System.out.println(command);
+    			invalidCommandResponse();
     		}
+        	
         	command = input.nextLine();
             }
             
@@ -136,9 +137,13 @@ public class Duke {
     
     public static void printToDoList() {
     	printLines();
-    	System.out.println("     " + "Here's your tasks:");
-    	for (int i = 0; i < size; i++) {
-    		System.out.println("     " + Integer.toString(i + 1) + "." + toDoList[i]);
+    	if (size != 0) {
+    		System.out.println("     " + "Here's your tasks:");
+        	for (int i = 0; i < size; i++) {
+        		System.out.println("     " + Integer.toString(i + 1) + "." + toDoList[i]);
+        	}
+    	} else {
+    		System.out.println("     You do not currently have any tasks!");
     	}
     	printLines();
     }
@@ -180,5 +185,11 @@ public class Duke {
 		}
     	String[] info = {desc, from, to};
     	return info;
+    }
+    
+    public static void invalidCommandResponse() {
+    	printLines();
+    	System.out.println("     Sorry I don't understand that command (◡︵◡)");
+    	printLines();
     }
 }
