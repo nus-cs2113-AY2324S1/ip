@@ -50,24 +50,23 @@ public class Command {
         }
 
         String optionKey = DEFAULT_ARGS;
-        ArrayList<String> currentSet = new ArrayList<>();
+        ArrayList<String> currentTokens = new ArrayList<>();
         for (int i = 1; i < tokens.length; ++i) {
             String token = tokens[i];
             if (token.startsWith("/")) {
-                addOption(optionKey, String.join(" ", currentSet));
+                addOption(optionKey, currentTokens);
                 optionKey = token.substring(1);
-                currentSet.clear();
-            } else {
-                currentSet.add(token);
+                currentTokens.clear();
+                continue;
             }
+            currentTokens.add(token);
         }
 
-        if (!currentSet.isEmpty()) {
-            addOption(optionKey, String.join(" ", currentSet));
-        }
+        addOption(optionKey, currentTokens);
     }
 
-    private void addOption(String key, String value) {
+    private void addOption(String key, ArrayList<String> tokens) {
+        String value = String.join(" ", tokens);
         if (key.isBlank() || value.isBlank()) {
             return;
         }
