@@ -1,5 +1,9 @@
 import java.util.Scanner;
 public class Neo {
+    public enum CommandType {
+        EVENT, DEADLINE, TODO
+    }
+
     public static void printList(Task[] list) {
         int listIndex = 1;
 
@@ -40,6 +44,44 @@ public class Neo {
         }
     }
 
+    public static void catchFormatError(CommandType type, String line) throws NeoException {
+        switch (type) {
+        case TODO:
+            if (line.contains("/from") || (line.contains("/to"))) {
+                throw new NeoException("/from", NeoException.ErrorType.MISUSE);
+            }
+            if (line.contains("/by")) {
+                throw new NeoException("/by", NeoException.ErrorType.MISUSE);
+            }
+            break;
+        case DEADLINE:
+            if (line.contains("/from") || (line.contains("/to"))) {
+                throw new NeoException("/from", NeoException.ErrorType.MISUSE);
+            }
+            if (!line.contains("/by")) {
+                throw new NeoException("/by", NeoException.ErrorType.FORMAT);
+            }
+            break;
+        case EVENT:
+            if (!line.contains("/from")) {
+                throw new NeoException("/from", NeoException.ErrorType.FORMAT);
+            }
+            if (!line.contains("/to")) {
+                throw new NeoException("/to", NeoException.ErrorType.FORMAT);
+            }
+            if (line.contains("/by")) {
+                throw new NeoException("/by", NeoException.ErrorType.MISUSE);
+            }
+            break;
+        }
+    }
+
+    public static void catchEmptyDescription(String field, String description) throws NeoException {
+        if (description.isBlank()) {
+            throw new NeoException(field, NeoException.ErrorType.EMPTY);
+        }
+    }
+
     public static void handleEvent(String line, Task[] list) {
         try {
             addEvent(line, list);
@@ -47,25 +89,9 @@ public class Neo {
             e.printException();
         }
     }
-    public static void catchFormatError(boolean isDeadline, String line) throws NeoException {
-        if (isDeadline && !line.contains("/by")) {
-            throw new NeoException("/by", false);
-        }
-        if (!isDeadline && !line.contains("/from")) {
-            throw new NeoException("/from", false);
-        }
-        if (!isDeadline && !line.contains("/to")) {
-            throw new NeoException("/to", false);
-        }
-    }
 
-    public static void catchEmptyDescription(String field, String description) throws NeoException{
-        if (description.isBlank()) {
-            throw new NeoException(field, true);
-        }
-    }
     public static void addEvent(String line, Task[] list) throws NeoException{
-        catchFormatError(false, line);
+        catchFormatError(CommandType.EVENT, line);
 
         int fromIndex = line.indexOf("/from");
         int toIndex = line.indexOf("/to");
@@ -86,6 +112,7 @@ public class Neo {
         list[taskArrayIndex] = new Event(description, from, to);
         list[taskArrayIndex].printAddedTask();
     }
+
     public static void handleDeadline(String line, Task[] list) {
         try {
             addDeadline(line, list);
@@ -93,8 +120,9 @@ public class Neo {
             e.printException();
         }
     }
+
     public static void addDeadline(String line, Task[] list) throws NeoException {
-        catchFormatError(true, line);
+        catchFormatError(CommandType.DEADLINE, line);
 
         int byIndex = line.indexOf("/by");
         int byStringLength = 3;
@@ -112,10 +140,21 @@ public class Neo {
         list[taskArrayIndex].printAddedTask();
     }
 
-    public static void addTodo(String line, Task[] list) {
+    public static void handleTodo(String line, Task[] list) {
+        try {
+            addTodo(line,list);
+        } catch (NeoException e) {
+            e.printException();
+        }
+    }
+    public static void addTodo(String line, Task[] list) throws NeoException {
+        catchFormatError(CommandType.TODO, line);
+
         int todoStringLength = 4;
 
-        String description = line.substring(todoStringLength + 1);
+        String description = line.substring(todoStringLength).trim();
+
+        catchEmptyDescription("description", description);
 
         int taskArrayIndex = Task.getTotalTasks();
 
@@ -141,7 +180,7 @@ public class Neo {
             } else if (line.startsWith("deadline")) {
                 handleDeadline(line, list);
             } else if (line.startsWith("todo")){
-                addTodo(line, list);
+                handleTodo(line, list);
             } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
