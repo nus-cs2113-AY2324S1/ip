@@ -6,7 +6,7 @@ public class Chatbot {
         System.out.println("Welcome back goshujin-sama, what can I do for you?");
         ResponseProcessor processor = new ResponseProcessor();
         waitForResponse(processor);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye masta!");
     }
     public static void waitForResponse(ResponseProcessor processor) {
         Scanner scanner = new Scanner(System.in);

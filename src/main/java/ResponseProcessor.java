@@ -1,54 +1,70 @@
 import java.util.ArrayList;
 import java.util.List;
 public class ResponseProcessor {
-    List<Task> taskList = new ArrayList<>();
+    taskProcessor taskHandler;
+
+    public ResponseProcessor() {
+        this.taskHandler = new taskProcessor();
+    }
     public void process(String response) {
         if ("list".equalsIgnoreCase(response)) {
-            int num = 0;
-            for (Task task : taskList) {
-                num += 1;
-                System.out.println(num + ". " + task.getStatus());
-            }
+            taskHandler.listProcessor(response);
         } else if (response.toLowerCase().startsWith("mark".toLowerCase())) {
             String value = response.split(" ")[1];
             if (isInt(value)) {
-                int number = Integer.parseInt(value) - 1;
-                if ((0 <= number) && (number < taskList.size())) {
-                    taskList.get(number).setCompleted(true);
-                    System.out.println("Nicu! I have marked this as done master!");
-                    System.out.println(taskList.get(number).getStatus());
-                } else {
-                    System.out.println("That is not a valid number masta!");
-                }
-            } else {
-                System.out.println("Please put in a number masta!");
+                taskHandler.markProcessor(Integer.parseInt(value) - 1);
             }
         } else if (response.toLowerCase().startsWith("unmark".toLowerCase())) {
             String value = response.split(" ")[1];
             if (isInt(value)) {
-                int number = Integer.parseInt(value) - 1;
-                if ((0 <= number) && (number < taskList.size())) {
-                    taskList.get(number).setCompleted(false);
-                    System.out.println("Okay master! I have marked this task as not done!");
-                    System.out.println(taskList.get(number).getStatus());
-                } else {
-                    System.out.println("That is not a valid number masta!");
-                }
-            } else {
-                System.out.println("Please put in a number masta!");
+                taskHandler.unmarkProcessor(Integer.parseInt(value) - 1);
             }
-        } else {
-            taskList.add(new Task(response, false));
-            System.out.println("added: " + response);
+        } else if (response.toLowerCase().startsWith("todo".toLowerCase())){
+            String temp = removeFirstWord(response);
+            if (isValidTask(temp)){
+                taskHandler.todoProcessor(temp);
+            }
+        } else if (response.toLowerCase().startsWith("event".toLowerCase())) {
+            String temp = removeFirstWord(response);
+            if (isValidTask(temp)){
+                taskHandler.eventProcessor(temp);
+            }
+        } else if (response.toLowerCase().startsWith("deadline".toLowerCase())) {
+            String temp = removeFirstWord(response);
+            if (isValidTask(temp)){
+                taskHandler.deadlineProcessor(temp);
+            }
+        } else{
+            System.out.println("I dont understand masta! Type a command uwu!");
         }
     }
 
     public Boolean isInt(String value){
         try {
             int num = Integer.parseInt(value);
-            return true;
+            if ((0 < num) && (num <= taskHandler.getSize())){
+                return true;
+            }
+            System.out.println("That is not a valid number masta!");
+            return false;
         } catch (NumberFormatException e) {
+            System.out.println("Please put in a number masta!");
             return false;
         }
+    }
+
+    public boolean isValidTask(String response){
+        if ("".equalsIgnoreCase(response)){
+            System.out.println("uwu master please put in the task name!");
+            return false;
+        }
+        return true;
+    }
+    public static String removeFirstWord(String str) {
+        int index = str.indexOf(" ");
+        if (index == -1) {
+            return "";
+        }
+        return str.substring(index + 1);
     }
 }
