@@ -1,27 +1,27 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
 
-    final static String BOT_NAME= "Elgin";
+    final static String BOT_NAME = "Elgin";
     final static String SEPARATOR = "____________________________________________________________";
 
     static TaskManager tasks = new TaskManager();
 
-    public static void formatPrint(String[] lines){
-        System.out.println("\t"+SEPARATOR);
-        for (String line:lines){
-            System.out.println("\t"+line);
+    public static void formatPrint(String[] lines) {
+        System.out.println("\t" + SEPARATOR);
+        for (String line : lines) {
+            System.out.println("\t" + line);
         }
-        System.out.println("\t"+SEPARATOR);
+        System.out.println("\t" + SEPARATOR);
     }
 
-    public static void formatPrint(String line){
-        System.out.println("\t"+SEPARATOR);
-        System.out.println("\t"+line);
-        System.out.println("\t"+SEPARATOR);
+    public static void formatPrint(String line) {
+        System.out.println("\t" + SEPARATOR);
+        System.out.println("\t" + line);
+        System.out.println("\t" + SEPARATOR);
     }
-    public static void sayGreeting(){
+
+    public static void sayGreeting() {
         String[] toPrint = new String[]{
                 "Hello! I'm " + BOT_NAME,
                 "What can I do for you?"
@@ -29,13 +29,13 @@ public class Duke {
         formatPrint(toPrint);
     }
 
-    public static void sayBye(){
+    public static void sayBye() {
         formatPrint("Bye. Hope to see you again soon!");
     }
 
-    public static boolean handleCommand(String command){
+    public static boolean handleCommand(String command) {
         String[] parsedCommand = parseCommand(command);
-        switch(parsedCommand[0].toLowerCase()){
+        switch (parsedCommand[0].toLowerCase()) {
         case "bye":
             sayBye();
             return false;
@@ -67,15 +67,14 @@ public class Duke {
         return true;
     }
 
-    public static String[] parseCommand(String command){
+    public static String[] parseCommand(String command) {
         String[] commandArray = command.split(" ", 2);
         String arg1 = commandArray[0].toLowerCase();
         boolean isMarkTask = arg1.equals("mark") || arg1.equals("unmark");
         boolean isAddTask = arg1.equals("todo") || arg1.equals("event") || arg1.equals("deadline");
-        if(isMarkTask || isAddTask){
+        if (isMarkTask || isAddTask) {
             return commandArray;
-        }
-        else{
+        } else {
             return new String[]{command};
         }
     }
@@ -89,7 +88,7 @@ public class Duke {
 
         do {
             command = scanner.nextLine();
-        } while(handleCommand(command));
+        } while (handleCommand(command));
 
 
     }

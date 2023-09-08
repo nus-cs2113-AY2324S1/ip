@@ -1,9 +1,9 @@
-public class Event extends Task{
+public class Event extends Task {
 
     protected String from;
     protected String to;
 
-    public Event(String description, String from, String to){
+    public Event(String description, String from, String to) {
         super(description);
         type = "E";
         this.from = from;
@@ -15,11 +15,11 @@ public class Event extends Task{
         return description + " (from: " + getFrom() + " to: " + getTo() + ")";
     }
 
-    public String getFrom(){
+    public String getFrom() {
         return from;
     }
 
-    public String getTo(){
+    public String getTo() {
         return to;
     }
 }

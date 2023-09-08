@@ -2,37 +2,37 @@ public class TaskManager {
     private Task[] tasks;
     private int totalTasks;
 
-    public TaskManager(){
+    public TaskManager() {
         this.tasks = new Task[100];
-        totalTasks=0;
+        totalTasks = 0;
     }
 
-    public void listTasks(){
-        String[] allTasksDescription = new String[totalTasks+1];
+    public void listTasks() {
+        String[] allTasksDescription = new String[totalTasks + 1];
         allTasksDescription[0] = "Here are the tasks in your list:";
 
-        for (int i=0; i<totalTasks; i++){
-            allTasksDescription[i+1] = (i+1) + "." + tasks[i];
+        for (int i = 0; i < totalTasks; i++) {
+            allTasksDescription[i + 1] = (i + 1) + "." + tasks[i];
         }
         Duke.formatPrint(allTasksDescription);
     }
 
-    public void addTask(String description){
+    public void addTask(String description) {
         Todo task = new Todo(description);
         incrementAndPrintNewTask(task);
     }
 
-    public void addTask(String description, String by){
+    public void addTask(String description, String by) {
         Deadline task = new Deadline(description, by);
         incrementAndPrintNewTask(task);
     }
 
-    public void addTask(String description, String from, String to){
+    public void addTask(String description, String from, String to) {
         Event task = new Event(description, from, to);
         incrementAndPrintNewTask(task);
     }
 
-    public void setTaskIsDone(int idx, boolean isDone){
+    public void setTaskIsDone(int idx, boolean isDone) {
         idx--;
         tasks[idx].setIsDone(isDone);
         String doneMsg = isDone
@@ -45,12 +45,12 @@ public class TaskManager {
         Duke.formatPrint(messages);
     }
 
-    public String getNumberOfTasks(){
+    public String getNumberOfTasks() {
         String taskWord = totalTasks > 1 ? " tasks" : " task";
         return "Now you have " + totalTasks + taskWord + " in the list.";
     }
 
-    public void incrementAndPrintNewTask(Task t){
+    public void incrementAndPrintNewTask(Task t) {
         tasks[totalTasks] = t;
         totalTasks++;
         String[] messages = new String[]{

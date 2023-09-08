@@ -3,7 +3,7 @@ public class Task {
     protected boolean isDone;
     protected String type;
 
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -11,19 +11,20 @@ public class Task {
     public String getDescription() {
         return description;
     }
-    public void setIsDone(boolean isDone){
+
+    public void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }
 
-    public String getIsDone(){
+    public String getIsDone() {
         return (isDone ? "X" : " ");
     }
 
-    public String getType(){
+    public String getType() {
         return type;
     }
 
-    public String toString(){
+    public String toString() {
         return "[" + getType() + "][" + getIsDone() + "] " + getDescription();
     }
 }
