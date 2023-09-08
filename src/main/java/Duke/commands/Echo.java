@@ -1,3 +1,6 @@
+package duke.commands;
+
+import duke.exceptions.*;
 import java.util.Scanner;
 
 public class Echo  {
