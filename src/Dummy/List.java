@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+//This was for WEEK 1, Code is not used
 public class List {
     public static void makeList() {
         String[] list = new String[100];

@@ -124,7 +124,7 @@ public class TaskManager {
                 numberInput = bufferScanner.nextInt();
             }
 
-            //Functionality
+            //Functionalities
             if (inputBuffer.contains("bye")) {  //Program exit
                 break;
             } else if (inputBuffer.equals("list")) {
