@@ -21,8 +21,7 @@ public class Task {
         isDone = false;
     }
 
-    @Override
     public String toString() {
-        return "Got it. I've added this task:";
+        return "[" + getStatusIcon() + "] " + description;
     }
 }

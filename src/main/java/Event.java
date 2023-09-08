@@ -16,7 +16,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + System.lineSeparator() + "[E][" + getStatusIcon() + "]" + description
-                + " (from:" + getFrom() + "to:" + getTo() + ")" + System.lineSeparator() + "Now you have " + numberOfTasks + " tasks in the list.";
+        return "[E][" + getStatusIcon() + "]" + description +
+                " (from:" + getFrom() + "to:" + getTo() + ")";
     }
 }

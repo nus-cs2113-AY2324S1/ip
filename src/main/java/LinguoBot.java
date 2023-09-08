@@ -8,17 +8,8 @@ public class LinguoBot {
         printLine();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < itemCount; i++) {
-            Task task = taskList[i];
-            String taskType = task instanceof Todo ? "T" :
-                    task instanceof Deadline ? "D" : "E";
-            String taskStatus = task.getStatusIcon();
-            String taskDetails = "";
-            if (task instanceof Deadline) {
-                taskDetails = "(by:" + ((Deadline)task).getDate() + ")";
-            } else if (task instanceof Event) {
-                taskDetails = "(from:" + ((Event)task).getFrom() + "to:" + ((Event)task).getTo() + ")";
-            }
-            System.out.println((i + 1) + ".[" + taskType + "][" + taskStatus + "]" + task.description + " " + taskDetails);
+            System.out.print((i + 1) + ". ");
+            System.out.println(taskList[i]);
         }
         printLine();
     }
@@ -28,7 +19,7 @@ public class LinguoBot {
             taskList[index].markAsDone();
             printLine();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[" + taskList[index].getStatusIcon() + "] " + taskList[index].description);
+            System.out.println(taskList[index]);
             printLine();
         } else {
             printLine();
@@ -42,7 +33,7 @@ public class LinguoBot {
             taskList[index].markAsUndone();
             printLine();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[" + taskList[index].getStatusIcon() + "] " + taskList[index].description);
+            System.out.println(taskList[index]);
             printLine();
         } else {
             printLine();
@@ -68,10 +59,15 @@ public class LinguoBot {
                 // Handle the case when "from" or "to" is missing
                 System.out.println("Invalid input. Please include both 'from' and 'to' for events.");
             }
-            taskList[itemCount] = new Event(line.substring(5, indexFrom - 1), line.substring(indexFrom + 4, indexTo), line.substring(indexTo + 2));
+            taskList[itemCount] = new Event(line.substring(5, indexFrom - 1), line.substring(indexFrom + 4, indexTo),
+                    line.substring(indexTo + 2));
+        } else {
+            taskList[itemCount] = new Task(line);
         }
         printLine();
+        System.out.println("Got it. I've added this task:");
         System.out.println(taskList[itemCount]);
+        System.out.println("Now you have " + Task.numberOfTasks + " tasks in the list.");
         printLine();
     }
 
