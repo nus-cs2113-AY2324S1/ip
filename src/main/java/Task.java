@@ -1,7 +1,7 @@
 public class Task {
     private static final String LINE = "____________________________________________________________\n";
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -12,14 +12,16 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void unmarkStatusIcon(){
-        isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:\n[ ] " + getDescription() + "\n" + LINE);
-    }
-
-    public void markStatusIcon(){
-        isDone = true;
-        System.out.println("Nice! I've marked this task as done:\n[X] " + getDescription() + "\n" + LINE);
+    public void setStatusIcon(String status) {
+        if (status.equals("mark")){
+            isDone = true;
+            System.out.println("Nice! I've marked this task as done:");
+        } else{
+            isDone = false;
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        System.out.println("   " + this.toString());
+        System.out.println(LINE);
     }
 
     public String getDescription() {
@@ -28,6 +30,12 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String toString() {
+        String typeOfTask = "[T]";
+        String statusOfTask = "[" + getStatusIcon() + "] ";
+        return typeOfTask + statusOfTask + getDescription();
     }
 }
 
