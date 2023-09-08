@@ -1,3 +1,6 @@
+//package src.main.java;
+//import src.main.frontend.*;
+
 public class Event extends Task {
     protected String from;
     protected String to;
