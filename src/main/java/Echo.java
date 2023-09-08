@@ -20,17 +20,21 @@ public class Echo  {
                 text = in.next();
 
             } else if (text.startsWith(newList.marker)) {
-
-
-                String part = in.nextLine();
-                newList.mark(text + part);
-                text = in.next();
+                try {
+                    String part = in.nextLine();
+                    newList.mark(text + part);
+                } catch(NumberFormatException e){
+                    System.out.println("Which task? Retype command as mark <task number>");
+                } text = in.next();
 
             } else if (text.startsWith(newList.unmarked)) {
-                String part = in.nextLine();
-                newList.unmark(text + part);
-                text = in.next();
+                try {
+                    String part = in.nextLine();
+                    newList.unmark(text + part);
+                }  catch(NumberFormatException e){
+                    System.out.println("Which task? Retype command as unmark <task number>");
 
+                } text = in.next();
             } else if (text.equals("todo")) {
                 String task = in.nextLine();
                 if (task.length() == 0) {
