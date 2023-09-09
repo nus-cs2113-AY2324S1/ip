@@ -1,3 +1,9 @@
+package nuke.command;
+
+import nuke.command.exception.InvalidCommandArgumentException;
+import nuke.command.exception.InvalidCommandTypeException;
+import nuke.Ui;
+
 public abstract class Command {
 
     public abstract void applyArguments(String args) throws InvalidCommandArgumentException;
