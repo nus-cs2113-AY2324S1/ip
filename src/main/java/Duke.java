@@ -17,11 +17,16 @@ public class Duke {
     }
 
     /* function for check input format */
-    static void checkInputFormat(String command, String[] input) throws InputFormatException{
-        if(command.equals("todo")){
-            if(input.length !=2){
-                throw new InputFormatException();
-            }
+    static void checkInputFormat(String[] input) throws InputFormatException{
+        if(input.length !=2){
+            throw new InputFormatException();
+        }
+    }
+
+    /* function for check deadline input format*/
+    static void checkDeadlineFormat(String[] schedules) throws InputFormatException{
+        if(schedules.length !=2 || !schedules[1].trim().startsWith("by")){
+            throw new InputFormatException();
         }
     }
 
@@ -109,9 +114,9 @@ public class Duke {
             } else if(tokens[0].equals("todo")) {
 
                 try{
-                    checkInputFormat("todo", tokens);
+                    checkInputFormat(tokens);
                 } catch (InputFormatException e){
-                    printLine("unexpected behavior: <todo> should be with task description");
+                    printLine("☹ OOPS!!! <todo> should be with task description");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
                 }
@@ -128,8 +133,10 @@ public class Duke {
 
             } else if(tokens[0].equals("deadline")){
                 // error handling
-                if (tokens.length != 2) {
-                    printLine("unexpected behavior: 'deadline' needs more string");
+                try{
+                    checkInputFormat(tokens);
+                } catch (InputFormatException e){
+                    printLine("☹ OOPS!!! <deadline> should be with task description and deadline");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
                 }
@@ -138,8 +145,10 @@ public class Duke {
                 String[] schedules = tokens[1].split("/", 2);
 
                 // error handling
-                if(schedules.length !=2 || !schedules[1].trim().startsWith("by")){
-                    printLine("unexpected behavior: 'deadline' needs input like (work/by time)");
+                try{
+                    checkDeadlineFormat(schedules);
+                } catch (InputFormatException e) {
+                    printLine("☹ OOPS!!! <deadline> needs argument like (work/by time)");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
                 }
