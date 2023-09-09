@@ -2,50 +2,50 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RC {
-    private static void addTodo(String line, ArrayList<Task> tasks) {
-        String description = line;
-        if (line.startsWith("todo")) {
+    private static void addTodo(String input, ArrayList<Task> tasks) {
+        String description = input;
+        if (input.startsWith("todo")) {
             final int beginIndex = 5;
-            description = line.substring(beginIndex);
+            description = input.substring(beginIndex);
         }
 
         tasks.add(new Todo(description));
         tasks.get(tasks.size() - 1).printAddedTask();
     }
 
-    private static void addEvent(String line, ArrayList<Task> tasks) {
-        int fromIndex = line.indexOf("/from");
-        int toIndex = line.indexOf("/to");
+    private static void addEvent(String input, ArrayList<Task> tasks) {
+        int fromIndex = input.indexOf("/from");
+        int toIndex = input.indexOf("/to");
         final int beginIndex = 6;
 
-        String description = line.substring(beginIndex, fromIndex);
-        String from = line.substring(fromIndex + 6, toIndex);
-        String to = line.substring(toIndex + 4);
+        String description = input.substring(beginIndex, fromIndex);
+        String from = input.substring(fromIndex + 6, toIndex);
+        String to = input.substring(toIndex + 4);
 
         tasks.add(new Event(description, from, to));
         tasks.get(tasks.size() - 1).printAddedTask();
     }
 
-    private static void addDeadline(String line, ArrayList<Task> tasks) {
-        int splitIndex = line.indexOf("/");
+    private static void addDeadline(String input, ArrayList<Task> tasks) {
+        int splitIndex = input.indexOf("/");
         final int beginIndex = 9;
 
-        String description = line.substring(beginIndex, splitIndex);
-        String by = line.substring(splitIndex + 4);
+        String description = input.substring(beginIndex, splitIndex);
+        String by = input.substring(splitIndex + 4);
 
         tasks.add(new Deadline(description, by));
         tasks.get(tasks.size() - 1).printAddedTask();
     }
 
-    private static void unmarkTask(String line, ArrayList<Task> tasks) {
-        String taskIndex = line.substring(line.length() - 1);
+    private static void unmarkTask(String input, ArrayList<Task> tasks) {
+        String taskIndex = input.substring(input.length() - 1);
         int taskNum = Integer.parseInt(taskIndex) - 1;
 
         tasks.get(taskNum).unmarkTask();
     }
 
-    private static void markTask(String line, ArrayList<Task> tasks) {
-        String taskIndex = line.substring(line.length() - 1);
+    private static void markTask(String input, ArrayList<Task> tasks) {
+        String taskIndex = input.substring(input.length() - 1);
         int taskNum = Integer.parseInt(taskIndex) - 1;
 
         tasks.get(taskNum).markAsDone();
@@ -61,25 +61,25 @@ public class RC {
     public static void main(String[] args) {
         System.out.println("\tHello! I'm RC\n\tWhat can I do for you?\n");
         Scanner in = new Scanner(System.in);
-        String line;
+        String input;
         ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
-            line = in.nextLine();
-            if (line.equals("bye")) {
+            input = in.nextLine();
+            if (input.equals("bye")) {
                 break;
-            } else if (line.equals("list")) {
+            } else if (input.equals("list")) {
                 printTaskList(tasks);
-            } else if (line.startsWith("mark")) {
-                markTask(line, tasks);
-            } else if (line.startsWith("unmark")) {
-                unmarkTask(line, tasks);
-            } else if (line.startsWith("deadline")) {
-                addDeadline(line, tasks);
-            } else if (line.startsWith("event")) {
-                addEvent(line, tasks);
+            } else if (input.startsWith("mark")) {
+                markTask(input, tasks);
+            } else if (input.startsWith("unmark")) {
+                unmarkTask(input, tasks);
+            } else if (input.startsWith("deadline")) {
+                addDeadline(input, tasks);
+            } else if (input.startsWith("event")) {
+                addEvent(input, tasks);
             } else {
-                addTodo(line, tasks);
+                addTodo(input, tasks);
             }
         }
         System.out.println("\tBye. Hope to see you again soon!\n");
