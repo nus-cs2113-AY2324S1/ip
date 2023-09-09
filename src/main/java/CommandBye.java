@@ -10,6 +10,11 @@ public class CommandBye extends Command {
     }
 
     @Override
+    protected String getArgumentErrorDetail() {
+        return "Usage: bye";
+    }
+
+    @Override
     public void run() {
         Nuke.quit();
     }

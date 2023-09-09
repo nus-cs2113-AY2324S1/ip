@@ -45,6 +45,11 @@ public class CommandEvent extends Command {
     }
 
     @Override
+    protected String getArgumentErrorDetail() {
+        return "Usage: event ((name)) /from ((start)) /to ((end))";
+    }
+
+    @Override
     public void run() {
         Nuke.addEvent(name, from, to);
     }

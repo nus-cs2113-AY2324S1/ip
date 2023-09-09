@@ -24,6 +24,11 @@ public class CommandMark extends Command {
     }
 
     @Override
+    protected String getArgumentErrorDetail() {
+        return "Usage: mark ((number))";
+    }
+
+    @Override
     public void run() {
         Nuke.markTask(index);
     }

@@ -29,6 +29,11 @@ public class CommandDeadline extends Command {
     }
 
     @Override
+    protected String getArgumentErrorDetail() {
+        return "Usage: deadline ((name)) /by ((deadline))";
+    }
+
+    @Override
     public void run() {
         Nuke.addDeadline(name, by);
     }

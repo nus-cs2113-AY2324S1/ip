@@ -31,7 +31,11 @@ public class Ui {
     }
 
     public static void printListOfTasks(String[] tasks) {
-        System.out.println("[@] Here are the tasks in you list:");
+        if(tasks.length == 0) {
+            System.out.println("[@] There are no tasks in your list.");
+            return;
+        }
+        System.out.println("[@] Here are the tasks in your list:");
         for (int i = 0; i < tasks.length; i++) {
             System.out.printf("%d.%s\n", i + 1, tasks[i]);
         }
@@ -47,7 +51,8 @@ public class Ui {
         System.out.println("  " + unmarkedTask);
     }
 
-    public static void printCommandError(String description) {
-        System.out.println("[@] OOPS!!! " + description);
+    public static void printCommandError(String description, String detail) {
+        System.out.println("[@] Wrong input; " + description);
+        System.out.println("[@] " + detail);
     }
 }

@@ -10,6 +10,11 @@ public class CommandList extends Command {
     }
 
     @Override
+    protected String getArgumentErrorDetail() {
+        return "Usage: list";
+    }
+
+    @Override
     public void run() {
         Nuke.listTask();
     }

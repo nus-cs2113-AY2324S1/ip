@@ -13,6 +13,11 @@ public class CommandTodo extends Command {
     }
 
     @Override
+    protected String getArgumentErrorDetail() {
+        return "Usage: todo ((name))";
+    }
+
+    @Override
     public void run() {
         Nuke.addTodo(name);
     }

@@ -74,7 +74,7 @@ public class Parser {
         String[] parsedArgs;
 
         Matcher matcher = Pattern.compile(regex).matcher(args);
-        boolean b = matcher.find();
+        matcher.find();
         parsedArgs = new String[matcher.groupCount()];
         for (int i = 1; i <= matcher.groupCount(); i++) {
             parsedArgs[i - 1] = matcher.group(i);
