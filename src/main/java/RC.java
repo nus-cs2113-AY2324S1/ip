@@ -38,15 +38,20 @@ public class RC {
 
     private static void addDeadline(String input, ArrayList<Task> tasks) throws RCException {
         int splitIndex = input.indexOf("/by");
-        final int beginIndex = 9;
+        final int beginIndex = 8;
+        final int byStringLength = 3;
         if (splitIndex == -1) {
             String errorMessage = "\tOOPS!!! Please include /by followed by the deadline. (eg. /by Monday)";
             throw new RCException(errorMessage);
         }
 
-        String description = input.substring(beginIndex, splitIndex);
-        String by = input.substring(splitIndex + 4);
-
+        String description = input.substring(beginIndex, splitIndex).trim();
+        String by = input.substring(splitIndex + byStringLength).trim();
+        if (description.isEmpty() || by.isEmpty()) {
+            String errorMessage = "\tOOPS!!! Please ensure description and deadline are filled.";
+            throw new RCException(errorMessage);
+        }
+        
         tasks.add(new Deadline(description, by));
         tasks.get(tasks.size() - 1).printAddedTask();
     }
