@@ -71,24 +71,30 @@ public class Duke {
                 System.out.println("    ____________________________________________________________\n");
 
             } else if(tokens[0].equals("unmark")){
-                if(tokens.length !=2 || !isNumeric(tokens[1])){
-                    printLine("unexpected behavior: 'mark' needs one integer parameter");
+
+                int mark_idx;
+
+                try {
+                    mark_idx = Integer.parseInt(tokens[1]) - 1; // index starts from 0
+                } catch (ArrayIndexOutOfBoundsException e){
+                    printLine("☹ OOPS!!! <unmark> needs one integer parameter!");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                } catch (NumberFormatException e) {
+                    printLine("☹ OOPS!!! Task number should be one integer!");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                }
+
+                try {
+                    tasks[mark_idx].doMark();
+                } catch (NullPointerException e){
+                    printLine("☹ OOPS!!! Task number is out of List!");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
                 }
 
                 printLine("OK, I've marked this task as not done yet:");
-                int mark_idx = Integer.parseInt(tokens[1])-1; // index starts from 0
-
-                // if idx not in proper range
-                if(mark_idx <0 || mark_idx >= tasks_size){
-                    printLine("unexpected behavior: index out of range");
-                    System.out.println("    ____________________________________________________________\n");
-                    continue;
-                }
-
-                // unmark
-                tasks[mark_idx].unMark();
                 printLine(" [" + tasks[mark_idx].getStatusIcon() + "] " + tasks[mark_idx].getDescription());
                 System.out.println("    ____________________________________________________________\n");
             } else if(tokens[0].equals("todo")) {
