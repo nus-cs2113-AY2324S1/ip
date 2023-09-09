@@ -1,5 +1,7 @@
 package CSGPT;
 
+import Exceptions.CSGPTMissingTaskException;
+
 public class TaskList {
     private final Task[] list;
     private int size;
@@ -18,7 +20,9 @@ public class TaskList {
         return list[taskNumber - 1];
     }
 
-    public void markAsDone(int taskNumber) {
+    public void markAsDone(int taskNumber) throws CSGPTMissingTaskException {
+        if (taskNumber > size || taskNumber < 1)
+            throw new CSGPTMissingTaskException();
         list[taskNumber - 1].markAsDone();
     }
 

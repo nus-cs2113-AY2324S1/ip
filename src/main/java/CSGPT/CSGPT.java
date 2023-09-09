@@ -4,6 +4,7 @@ import java.util.Scanner;
 import Commands.Command;
 import Commands.Echo;
 import Commands.Farewell;
+import Exceptions.CSGPTException;
 
 public class CSGPT {
     private static final TaskList taskList = new TaskList();
@@ -66,7 +67,11 @@ public class CSGPT {
         while(!(command instanceof Farewell)) {
             input = in.nextLine();
             command = Command.getCommand(input, taskList);
-            command.execute();
+            try {
+                command.execute();
+            } catch (CSGPTException e) {
+                printText(e.getMessage());
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ import CSGPT.Todo;
 import CSGPT.Event;
 import CSGPT.Deadline;
 import CSGPT.CSGPT;
+import Exceptions.CSGPTException;
 
 public abstract class Command {
     private static final String ADD_TODO_COMMAND = "todo";
@@ -76,5 +77,5 @@ public abstract class Command {
                 return new Echo(input);
         }
     }
-    public abstract void execute();
+    public abstract void execute() throws CSGPTException;
 }

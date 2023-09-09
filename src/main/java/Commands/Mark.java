@@ -2,6 +2,7 @@ package Commands;
 
 import CSGPT.CSGPT;
 import CSGPT.TaskList;
+import Exceptions.CSGPTMissingTaskException;
 
 public class Mark extends Command {
     private final int taskNumber;
@@ -13,8 +14,12 @@ public class Mark extends Command {
     }
 
     @Override
-    public void execute() {
-        list.markAsDone(taskNumber);
-        CSGPT.printText("Consider it done:\n" + list.getTask(taskNumber).toString());
+    public void execute() throws CSGPTMissingTaskException {
+        try {
+            list.markAsDone(taskNumber);
+            CSGPT.printText("Consider it done:\n\t" + list.getTask(taskNumber).toString());
+        } catch (CSGPTMissingTaskException e) {
+            throw new CSGPTMissingTaskException();
+        }
     }
 }
