@@ -8,14 +8,14 @@ public class Task {
     }
 
     public void mark(){
-        this.isDone=true;
+        this.isDone = true;
     }
 
     public void unmark(){
-        this.isDone=false;
+        this.isDone = false;
     }
-    public String getDescription(){
-        return this.description;
+    public String getDescription() {
+        return description;
     }
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
