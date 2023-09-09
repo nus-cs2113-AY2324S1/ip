@@ -13,7 +13,6 @@ public class Duke {
 
     // Method to print the logo and introductory message
     public static void hiDude() {
-        // Logo string
         String logo = "###            #        \n"
                 + "#  #           #        \n"
                 + "#  #  #  #   ###   ##   \n"
@@ -30,40 +29,60 @@ public class Duke {
 
     // Method to handle the storage of tasks
     public static void storeDude() {
-        // Initialize Scanner and ArrayList for tasks
         Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
         ArrayList<Task> tasks = new ArrayList<>();
-        int curPos = 0; // Variable to keep track of the current task position
 
-        // Main loop to process commands
-        while (!(input.isEmpty())) {
+        String input = scan.nextLine();
+        while (!input.isEmpty()) {
             drawLine();
+
             if (input.equals("bye")) {
                 byeDude();
                 break;
             } else if (input.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < curPos; i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i).getStatusIcon() + " " + tasks.get(i).description);
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i));
                 }
+            } else if (input.startsWith("todo")) {
+                String taskDescription = input.substring(5);
+                tasks.add(new Task(taskDescription));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline")) {
+                String taskDescription = input.substring(9, input.indexOf("/by")).trim();
+                String by = input.substring(input.indexOf("/by") + 4).trim();
+                tasks.add(new Deadline(taskDescription, by));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("event")) {
+                String taskDescription = input.substring(6, input.indexOf("/from")).trim();
+                String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to")).trim();
+                String to = input.substring(input.indexOf("/to") + 4).trim();
+                tasks.add(new Event(taskDescription, from, to));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } else if (input.startsWith("mark") || input.startsWith("unmark")) {
-                // Split the input to separate command and task index
                 String[] arrOfInput = input.split(" ", 2);
                 if (arrOfInput.length < 2) {
                     System.out.println("Please specify the task index.");
                 } else {
                     try {
-                        // Convert user input index to zero-based index for ArrayList
                         int index = Integer.parseInt(arrOfInput[1]) - 1;
-                        if (index < 0 || index >= curPos) {
+                        if (index < 0 || index >= tasks.size()) { // Here, replace curPos with tasks.size()
                             System.out.println("Task index out of range.");
                         } else {
-                            // Mark or unmark the task
                             tasks.get(index).isDone = input.startsWith("mark");
-                            String message = input.startsWith("mark") ? "Nice! I've marked this task as done:" : "OK, I've marked this task as not done yet:";
+                            String message = input.startsWith("mark") ?
+                                    "Nice! I've marked this task as done:" :
+                                    "OK, I've marked this task as not done yet:";
                             System.out.println(message);
-                            System.out.println("   " + tasks.get(index).getStatusIcon() + " " + tasks.get(index).description);
+
+                            // This line is the modified part: Using toString to print the task.
+                            System.out.println("   " + tasks.get(index).toString());
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid task index format.");
@@ -73,14 +92,13 @@ public class Duke {
                 // Add new task
                 System.out.println("added: " + input);
                 tasks.add(new Task(input));
-                curPos++;
             }
             drawLine();
             input = scan.nextLine();
         }
-        // Close the Scanner to prevent resource leak
         scan.close();
     }
+
 
     // Method to print the goodbye message
     public static void byeDude() {
