@@ -21,7 +21,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " " + timePeriod;
+        return "[E]" + super.toString() + timePeriod;
     }
 
     public static void main(String[] args) {

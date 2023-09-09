@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TUM {
+public class Duke {
     public static void main(String[] args) {
         List<Task> taskList = new LinkedList<>();
         greetToUsers();
@@ -72,7 +72,7 @@ public class TUM {
         for (int i = 1; i < words.length; i++) {
             task += words[i] + " ";
         }
-        taskList.add(new Todo(task));
+        taskList.add(new Todo(task.trim()));
     }
 
     private static void handleDeadline(List<Task> taskList, String line) {
