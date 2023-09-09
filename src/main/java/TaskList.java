@@ -163,23 +163,23 @@ public class TaskList {
             switch(allTasks[i].getTaskType()) {
                 case TODO:
                     if (allTasks[i].taskIsDone()) {
-                        System.out.printf("    %d: [T][X] %s\n", i, allTasks[i].getTaskDescription());
+                        System.out.printf("    %d: [T][X] %s\n", i+1, allTasks[i].getTaskDescription());
                     } else {
-                        System.out.printf("    %d: [T][] %s\n", i, allTasks[i].getTaskDescription());
+                        System.out.printf("    %d: [T][] %s\n", i+1, allTasks[i].getTaskDescription());
                     }
                     break;
                 case DEADLINE:
                     if (allTasks[i].taskIsDone()) {
-                        System.out.printf("    %d: [D][X] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                        System.out.printf("    %d: [D][X] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
                     } else {
-                        System.out.printf("    %d: [D][] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                        System.out.printf("    %d: [D][] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
                     }
                     break;
                 case EVENT:
                     if (allTasks[i].taskIsDone()) {
-                        System.out.printf("    %d: [E][X] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                        System.out.printf("    %d: [E][X] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
                     } else {
-                        System.out.printf("    %d: [E][] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                        System.out.printf("    %d: [E][] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
                     }
                     break;
             }
@@ -205,10 +205,10 @@ public class TaskList {
         try{
             switch(allTasks[index].getTaskType()) {
                 case TODO:
-                    return allTasks[index].getTaskDescription();
+                    return allTasks[index-1].getTaskDescription();
                 case DEADLINE:
                 case EVENT:
-                    return allTasks[index].getTaskDescription() + " " + allTasks[index].getTaskTiming();
+                    return allTasks[index-1].getTaskDescription() + " " + allTasks[index-1].getTaskTiming();
                 default:
                     return "Task Not Found";
             }
