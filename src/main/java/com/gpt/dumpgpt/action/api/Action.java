@@ -3,7 +3,7 @@ package com.gpt.dumpgpt.action.api;
 import com.gpt.dumpgpt.command.Command;
 import com.gpt.dumpgpt.shared.ProgramConstants;
 
-public class Action {
+public abstract class Action {
     private final String ACTION_VERB;
     private final Command COMMAND;
 
@@ -24,7 +24,5 @@ public class Action {
         return null;
     }
 
-    protected void execute() {
-        ProgramConstants.printWrapped("Unimplemented command...");
-    }
+    protected abstract void execute();
 }
