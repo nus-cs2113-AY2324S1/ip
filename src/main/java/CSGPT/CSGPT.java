@@ -4,9 +4,20 @@ import java.util.Scanner;
 import Commands.Command;
 import Commands.Echo;
 import Commands.Farewell;
+import Exceptions.CSGPTException;
+import Exceptions.CSGPTParsingException;
 
 public class CSGPT {
     private static final TaskList taskList = new TaskList();
+    private static final String[] greetingLines = {
+            "Ah, another day for our delightful rendezvous, don't you agree?",
+            "Greetings, mortals, may my presence grace your existence.",
+            "Salutations, dear souls, ready to dance on the edge of destiny?",
+            "Welcome to my realm, where shadows whisper and secrets beckon.",
+            "Hark, for the orchestrator of mayhem has arrived. Ready to play?",
+            "A toast to this peculiar meeting – may it be as intriguing as the last.",
+            "I trust you've brought your curiosity, for we're about to embark on quite the journey."
+    };
     public static void printHorizontalLine() {
         System.out.println("\t____________________________________________________________");
     }
@@ -24,22 +35,6 @@ public class CSGPT {
         printHorizontalLine();
     }
     public static void greet() {
-        String logo =  "▄▀▄▄▄▄   ▄▀▀▀▀▄  ▄▀▀▀▀▄   ▄▀▀▄▀▀▀▄  ▄▀▀▀█▀▀▄\n" +
-                       "█ █    ▌ █ █   ▐ █        █   █   █ █    █  ▐\n" +
-                       "▐ █         ▀▄   █    ▀▄▄ ▐  █▀▀▀▀  ▐   █\n" +
-                       "  █      ▀▄   █  █     █ █   █         █\n" +
-                       " ▄▀▄▄▄▄▀  █▀▀▀   ▐▀▄▄▄▄▀ ▐ ▄▀        ▄▀\n" +
-                       "█     ▐   ▐      ▐        █         █\n" +
-                       "▐                         ▐         ▐\n";
-        String[] greetingLines = {
-            "Ah, another day for our delightful rendezvous, don't you agree?",
-            "Greetings, mortals, may my presence grace your existence.",
-            "Salutations, dear souls, ready to dance on the edge of destiny?",
-            "Welcome to my realm, where shadows whisper and secrets beckon.",
-            "Hark, for the orchestrator of mayhem has arrived. Ready to play?",
-            "A toast to this peculiar meeting – may it be as intriguing as the last.",
-            "I trust you've brought your curiosity, for we're about to embark on quite the journey."
-        };
 
         String randomGreetingLine = greetingLines[(int) (Math.random() * greetingLines.length)];
 
@@ -65,8 +60,16 @@ public class CSGPT {
         greet();
         while(!(command instanceof Farewell)) {
             input = in.nextLine();
-            command = Command.getCommand(input, taskList);
-            command.execute();
+            try {
+                command = Command.getCommand(input);
+                try {
+                    command.execute(taskList);
+                } catch (CSGPTParsingException e) {
+                    printText(e.getMessage());
+                }
+            } catch (CSGPTException e) {
+                printText(e.getMessage());
+            }
         }
     }
 }

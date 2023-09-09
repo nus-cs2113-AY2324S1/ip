@@ -1,6 +1,7 @@
 package Commands;
 
 import CSGPT.CSGPT;
+import CSGPT.TaskList;
 public class Echo extends Command {
     private final String text;
 
@@ -9,7 +10,7 @@ public class Echo extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute(TaskList tasklist) {
         CSGPT.printText(text);
     }
 }
