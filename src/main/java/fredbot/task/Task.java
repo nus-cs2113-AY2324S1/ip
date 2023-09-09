@@ -1,3 +1,5 @@
+package fredbot.task;
+
 public class Task {
     private String taskDesc;
     private boolean isDone;

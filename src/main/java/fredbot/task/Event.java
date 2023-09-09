@@ -1,3 +1,5 @@
+package fredbot.task;
+
 public class Event extends Task {
     protected String start;
     protected String end;
