@@ -1,20 +1,11 @@
 public class Events extends Task{
-    protected Task task;
     protected String startTime;
     protected String endTime;
 
     public Events(String description, String startTime, String endTime) {
-        super(description + " (from: " + startTime + " to: " + endTime + ")");
+        super(description);
         this.startTime = startTime;
         this.endTime = endTime;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
     }
 
     public String getStartTime() {
@@ -34,14 +25,13 @@ public class Events extends Task{
     }
 
     @Override
-    public void printTask() {
-        System.out.print("[E]");
-        super.printTask();
+    public String toString() {
+        return ("[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")");
     }
 
     @Override
     public void announceTaskAdd(){
         super.announceTaskAdd();
-        printTask();
+        printTask(this.toString());
     }
 }

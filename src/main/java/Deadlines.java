@@ -1,7 +1,7 @@
 public class Deadlines extends Task{
     protected String deadline;
     public Deadlines(String description, String deadline){
-        super(description + " (by: " + deadline + ")");
+        super(description);
         this.deadline = deadline;
     }
 
@@ -12,16 +12,16 @@ public class Deadlines extends Task{
     public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
+
     @Override
-    public void printTask() {
-        System.out.print("[D]");
-        super.printTask();
+    public String toString() {
+        return ("[D]" + super.toString() + " (by: " + deadline + ")");
     }
 
     @Override
     public void announceTaskAdd(){
         super.announceTaskAdd();
-        printTask();
+        super.printTask(this.toString());
     }
 
 }
