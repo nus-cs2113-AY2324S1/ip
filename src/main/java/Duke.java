@@ -45,27 +45,31 @@ public class Duke {
                 }
                 System.out.println("    ____________________________________________________________\n");
             } else if(tokens[0].equals("mark")){
+                int mark_idx;
 
-                // error handling
-                if(tokens.length !=2 || !isNumeric(tokens[1])){
-                    printLine("unexpected behavior: 'mark' needs one integer parameter");
+                try {
+                    mark_idx = Integer.parseInt(tokens[1]) - 1; // index starts from 0
+                } catch (ArrayIndexOutOfBoundsException e){
+                    printLine("☹ OOPS!!! <mark> needs one integer parameter!");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                } catch (NumberFormatException e) {
+                    printLine("☹ OOPS!!! Task number should be one integer!");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
                 }
 
+                try {
+                    tasks[mark_idx].doMark();
+                } catch (NullPointerException e){
+                    printLine("☹ OOPS!!! Task number is out of List!");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                }
                 printLine("Nice! I've marked this task as done:");
-                int mark_idx = Integer.parseInt(tokens[1])-1; // index starts from 0
-
-                // if idx not in proper range
-                if(mark_idx <0 || mark_idx >= tasks_size){
-                    printLine("unexpected behavior: index out of range");
-                    System.out.println("    ____________________________________________________________\n");
-                    continue;
-                }
-                // do mark
-                tasks[mark_idx].doMark();
                 printLine(" [" + tasks[mark_idx].getStatusIcon() + "] " + tasks[mark_idx].getDescription());
                 System.out.println("    ____________________________________________________________\n");
+
             } else if(tokens[0].equals("unmark")){
                 if(tokens.length !=2 || !isNumeric(tokens[1])){
                     printLine("unexpected behavior: 'mark' needs one integer parameter");
