@@ -27,7 +27,7 @@ public class Task {
 
     public void unmarkTask() {
         this.isDone = false;
-        System.out.println("\tNice! I've marked this task as done:\n\t  " + this);
+        System.out.println("\tOK, I've marked this task as not done yet:\n\t  " + this);
     }
 
     @Override
