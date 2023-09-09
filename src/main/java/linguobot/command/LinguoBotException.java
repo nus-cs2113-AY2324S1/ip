@@ -1,4 +1,4 @@
-//package src.main.java;
+package linguobot.command;
 public class LinguoBotException extends Exception {
     public LinguoBotException(String message) {
         super(message);

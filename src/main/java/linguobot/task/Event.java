@@ -1,5 +1,4 @@
-//package src.main.java;
-//import src.main.frontend.*;
+package linguobot.task;
 
 public class Event extends Task {
     protected String from;

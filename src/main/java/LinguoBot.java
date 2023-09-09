@@ -1,6 +1,13 @@
-//package src.main.java;
+import linguobot.task.Task;
+import linguobot.task.Todo;
+import linguobot.task.Deadline;
+import linguobot.task.Event;
+import linguobot.command.LinguoBotException;
+
 import java.util.Scanner;
 public class LinguoBot {
+
+    public static final int MAX_NUMBER_OF_TASKS = 100;
 
     private static void printLine() {
         System.out.println("-------------------------");
@@ -17,11 +24,15 @@ public class LinguoBot {
 
     private static void markTaskAsDone(Task[] taskList, int index, int itemCount) throws LinguoBotException {
         if (index >= 0 && index < itemCount && taskList[index] != null) {
-            taskList[index].markAsDone();
-            printLine();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(taskList[index]);
-            printLine();
+            if (taskList[index].getStatusIcon().equals("X")) {
+                throw new LinguoBotException("Task has already been marked.");
+            } else {
+                taskList[index].markAsDone();
+                printLine();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(taskList[index]);
+                printLine();
+            }
         } else {
             throw new LinguoBotException("Invalid task index. Please provide valid task index" + " < " + (itemCount + 1));
         }
@@ -29,11 +40,15 @@ public class LinguoBot {
 
     private static void markTaskAsUndone(Task[] taskList, int index, int itemCount) throws LinguoBotException {
         if (index >= 0 && index < taskList.length && taskList[index] != null) {
-            taskList[index].markAsUndone();
-            printLine();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(taskList[index]);
-            printLine();
+            if (taskList[index].getStatusIcon().equals(" ")) {
+                throw new LinguoBotException("Task has already been unmarked.");
+            } else {
+                taskList[index].markAsUndone();
+                printLine();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(taskList[index]);
+                printLine();
+            }
         } else {
             throw new LinguoBotException("Invalid task index. Please provide valid task index" + " < " + (itemCount + 1));
         }
@@ -65,8 +80,11 @@ public class LinguoBot {
             taskList[itemCount] = new Event(line.substring(5, indexFrom - 1), line.substring(indexFrom + 4, indexTo),
                 line.substring(indexTo + 2));
         } else {
-            throw new LinguoBotException("☹ OOPS!!! I'm sorry, but I don't know what that means. Please include either " +
-                    "'todo', 'deadline' or 'event' in your input.");
+            throw new LinguoBotException("☹ OOPS!!! I'm sorry, but I don't know what that means. " +
+                    "\nIf you wish to input a new task: \n" +
+                    "Please include either 'todo', 'deadline' or 'event' in your input. " +
+                    "\nOtherwise, if you wish to mark/unmark a task: \n" +
+                    "Please include either 'mark' or 'unmark', followed by the task index in your input.");
         }
         printLine();
         System.out.println("Got it. I've added this task:");
@@ -89,7 +107,7 @@ public class LinguoBot {
 
         Scanner in = new Scanner(System.in);
 
-        Task[] taskList = new Task[100];
+        Task[] taskList = new Task[MAX_NUMBER_OF_TASKS];
         int itemCount = 0;
 
         while (true) {

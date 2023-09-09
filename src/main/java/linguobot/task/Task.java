@@ -1,4 +1,4 @@
-//package src.main.java;
+package linguobot.task;
 public class Task {
     protected String description;
     protected boolean isDone;
