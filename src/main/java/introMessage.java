@@ -1,4 +1,4 @@
-public class introMessage {
+public class IntroMessage {
     public static void displayIntroMessage() {
         String line = "____________________________________________________________\n";
         System.out.println(line 

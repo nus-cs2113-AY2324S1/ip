@@ -1,0 +1,10 @@
+hello
+todo task1
+deadline task2 test /by time1 
+event task3 test /from time2 test /to time3 test
+list
+mark 1
+mark 2
+unmark 1
+list
+bye

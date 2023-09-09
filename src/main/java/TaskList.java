@@ -7,8 +7,20 @@ public class TaskList {
         this.taskCount = 0;
     }
 
-    public void addTask(String taskName) {
-        Task newTask = new Task(taskName);
+    public void addTodo(String taskName) {
+        Task newTask = new ToDo(taskName);
+        taskList[taskCount] = newTask;
+        taskCount++;
+    }
+
+    public void addDeadline(String taskName, String deadline) {
+        Task newTask = new Deadlines(taskName, deadline);
+        taskList[taskCount] = newTask;
+        taskCount++;
+    }
+
+    public void addEvent(String taskName, String startTime, String endTime) {
+        Task newTask = new Event(taskName, startTime, endTime);
         taskList[taskCount] = newTask;
         taskCount++;
     }
@@ -48,5 +60,8 @@ public class TaskList {
         }
         return tasks;
     }
-
+    
+    public int getTaskCount() {
+        return taskCount;
+    }
 }
