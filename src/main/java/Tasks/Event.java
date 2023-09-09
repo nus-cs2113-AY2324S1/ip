@@ -1,9 +1,13 @@
+package Tasks;
+
+import Exceptions.TaskEmptyDescriptionException;
+
 public class Event extends Task {
     private String startTime;
     private String endTime;
 
-    public Event(String taskName, String startTime, String endTime) {
-        super(taskName);
+    public Event(String description, String startTime, String endTime) throws TaskEmptyDescriptionException {
+        super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }

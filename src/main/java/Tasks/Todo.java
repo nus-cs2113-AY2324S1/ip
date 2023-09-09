@@ -1,6 +1,10 @@
+package Tasks;
+
+import Exceptions.TaskEmptyDescriptionException;
+
 public class Todo extends Task {
-    public Todo (String taskName) {
-        super(taskName);
+    public Todo (String description) throws TaskEmptyDescriptionException {
+        super(description);
     }
 
     @Override
