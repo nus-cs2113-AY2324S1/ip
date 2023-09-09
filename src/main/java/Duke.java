@@ -206,8 +206,8 @@ public class Duke {
                 printLine(String.format("Now you have %d tasks in the list.", tasks_size));
                 System.out.println("    ____________________________________________________________\n");
             } else{
-                printLine("added: " + cmd); // add list
-                tasks[tasks_size++] = new Task(cmd);
+                // command not matched
+                printLine("☹ Sorry, I cannot understand your command: " + cmd);
                 System.out.println("    ____________________________________________________________\n");
             }
         }
