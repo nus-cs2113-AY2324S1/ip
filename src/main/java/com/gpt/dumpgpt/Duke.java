@@ -21,10 +21,6 @@ public class Duke {
         ApplicationState state = ApplicationState.getAppState();
         while (!state.getApplicationEnded()) {
             Command userCommand = getCommand();
-            if (userCommand.isEmpty()) {
-                ProgramConstants.printWrapped("Please provide an input!");
-                continue;
-            }
             registry.execute(userCommand);
         }
     }

@@ -1,12 +1,15 @@
 package com.gpt.dumpgpt.action.api;
 
 import com.gpt.dumpgpt.command.Command;
+import com.gpt.dumpgpt.shared.ProgramConstants;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ActionRegistry {
     private static ActionRegistry actionRegistry;
@@ -39,11 +42,16 @@ public class ActionRegistry {
                 isAliasesValid = isAliasesValid(aliases);
 
         if (isVerbValid) {
-            actionVerbs.add(actionVerb);
+            actionVerbs.add(actionVerb.strip());
         }
 
         if (isAliasesValid) {
-            actionVerbs.addAll(List.of(aliases));
+            actionVerbs.addAll(
+                    Stream.of(aliases)
+                            .parallel()
+                            .map(String::strip)
+                            .collect(Collectors.toList())
+            );
         }
 
         return actionVerbs;
@@ -65,9 +73,15 @@ public class ActionRegistry {
     }
 
     public void execute(Command command) {
+        if (command == null || command.isEmpty()) {
+            ProgramConstants.printWrapped("Please provide an input!");
+            return;
+        }
+
         String verb = command.getCommandVerb();
         Constructor<? extends Action> actionConstructor = ACTIONS.get(verb);
         if (actionConstructor == null) {
+            ProgramConstants.printWrapped("Unknown command...");
             return;
         }
 
