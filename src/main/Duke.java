@@ -2,6 +2,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import duke.Deadline;
+import duke.Event;
+import duke.Task;
+import duke.ToDo;
+
 public class Duke {
     public static final String BOT_NAME = "JS";
     public static final String LINE_DIVIDER = "----------------------------------------";
@@ -97,12 +102,14 @@ public class Duke {
             printNewTask(taskList, newDeadline);
         } catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("Description and time must not be empty");
+            System.out.println("Usage: deadline <description> /by <end>");
         } catch (IllegalArgumentException exception) {
             if(exception.getMessage().equals("Description Blank")) {
                 System.out.println("Description must not be blank");
             } else {
                 System.out.println("Time must not be empty");
             }
+            System.out.println("Usage: deadline <description> /by <end>");
         }
     }
 
@@ -114,6 +121,9 @@ public class Duke {
      */
     public static void addEventToList(ArrayList<Task> taskList, String arguments) {
         try {
+            if(arguments.isBlank()) {
+                throw new IllegalArgumentException("Description is empty");
+            }
             String[] argumentsList = arguments.split("/from");
             String description = argumentsList[0].trim();
             argumentsList = argumentsList[1].split("/to");
@@ -131,6 +141,7 @@ public class Duke {
             printNewTask(taskList, newEvent);
         } catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("To must not be empty");
+            System.out.println("Usage: event <description> /from <start> /to <end>");
         } catch (IllegalArgumentException exception) {
             if(exception.getMessage().equals("Description Blank")) {
                 System.out.println("Description must not be empty");
@@ -139,6 +150,7 @@ public class Duke {
             } else {
                 System.out.println("To must not be empty");
             }
+            System.out.println("Usage: event <description> /from <start> /to <end>");
         }
     }
 
@@ -159,6 +171,7 @@ public class Duke {
             }
         } catch (IllegalArgumentException exception) {
             System.out.println("OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("Usage: todo <description>");
         }
     }
 
