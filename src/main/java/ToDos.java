@@ -4,14 +4,13 @@ public class ToDos extends Task {
     }
 
     @Override
-    public void printTask() {
-        System.out.print("[T]");
-        super.printTask();
+    public String toString() {
+        return ("[T]" + super.toString());
     }
 
     @Override
     public void announceTaskAdd(){
         super.announceTaskAdd();
-        printTask();
+        printTask(this.toString());
     }
 }
