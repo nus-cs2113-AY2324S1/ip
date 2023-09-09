@@ -1,5 +1,10 @@
 import java.util.Arrays;
 import java.util.Scanner;
+import duke.Task;
+import duke.Deadline;
+import duke.Event;
+import duke.ToDo;
+import duke.DukeException;
 
 public class Duke {
     public static void printGreeting() {
