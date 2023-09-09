@@ -13,7 +13,6 @@ public class ListTask extends Action {
         super(command, ACTION_VERB);
     }
 
-    @Override
     protected void execute() {
         ArrayList<Task> tasks = Task.getTasks();
         int idx = 1;

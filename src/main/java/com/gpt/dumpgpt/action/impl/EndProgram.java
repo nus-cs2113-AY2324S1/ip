@@ -12,7 +12,6 @@ public class EndProgram extends Action {
         super(command, ACTION_VERB);
     }
 
-    @Override
     protected void execute() {
         ProgramConstants.printWrapped("Bye. Hope to see you again soon!");
         ApplicationState.getAppState().setApplicationEnded(true);

@@ -23,7 +23,6 @@ public class AddTask extends Action {
         return ALIASES;
     }
 
-    @Override
     protected void execute() {
         Task task = createNewTask();
         if (task == null || !task.isValid()) {

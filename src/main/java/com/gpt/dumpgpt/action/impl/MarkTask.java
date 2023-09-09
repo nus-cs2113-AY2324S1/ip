@@ -36,7 +36,6 @@ public class MarkTask extends Action {
         });
     }
 
-    @Override
     protected void execute() {
         Task task = getTask();
         if (task == null) {
