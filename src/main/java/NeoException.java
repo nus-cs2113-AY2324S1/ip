@@ -1,9 +1,9 @@
+
+
 public class NeoException extends Exception {
     protected String description;
     protected ErrorType type;
-    public enum ErrorType {
-        EMPTY, FORMAT, MISUSE
-    }
+
 
     public NeoException(String description, ErrorType type) {
         this.description = description;
