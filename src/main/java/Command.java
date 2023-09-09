@@ -6,7 +6,11 @@ public abstract class Command {
         Ui.printCommandError(e.reason, getArgumentErrorDetail());
     }
 
-    protected abstract String getArgumentErrorDetail();
+    private String getArgumentErrorDetail() {
+        return "Usage: " + getUsage();
+    }
+
+    protected abstract String getUsage();
 
     public abstract void run();
 

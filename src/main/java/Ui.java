@@ -20,6 +20,10 @@ public class Ui {
         System.out.println();
     }
 
+    public static void printBlankLine() {
+        System.out.println();
+    }
+
     public static void printBye() {
         System.out.println("[@] Bye. Hope to see you again soon!");
     }

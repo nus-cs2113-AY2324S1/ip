@@ -5,11 +5,19 @@ import java.util.regex.Pattern;
 public class Parser {
     public static Command parseCommand(String commandLine)
             throws InvalidCommandTypeException, InvalidCommandArgumentException {
+        // Get command type and arguments.
         String type = getCommandType(commandLine);
         String args = getCommandArguments(commandLine, type);
+        Command command;
 
-        Command command = getBlankCommand(type);
-
+        // Construct command using command type.
+        try {
+            command = getBlankCommand(type);
+        } catch (InvalidCommandTypeException e) {
+            Command.handleTypeError(e);
+            throw e;
+        }
+        // Apply arguments on command.
         try {
             command.applyArguments(args);
         } catch (InvalidCommandArgumentException e) {
@@ -59,10 +67,16 @@ public class Parser {
         return commandLine.substring(type.length()).strip();
     }
 
-    public static boolean containsExactOneLabel(String str, String label) {
+    public static boolean isNotOneWord(String str) {
+        if (str.isEmpty()) {
+            return true;
+        } else return str.split("\\s").length != 1;
+    }
+
+    public static boolean isNotContainingExactOneLabel(String str, String label) {
         String[] argSplit = str.split("\\s");
         long labelCnt = Arrays.stream(argSplit).filter(a -> a.equals(label)).count();
-        return labelCnt == 1;
+        return labelCnt != 1;
     }
 
     public static boolean matches(String str, String regex) {

@@ -14,19 +14,16 @@ public class Nuke {
         while (isRunning) {
             String input = USER_IN.nextLine();
             runCommand(input);
-            System.out.println();
+            Ui.printBlankLine();
         }
     }
 
     private static void runCommand(String commandLine) {
-        Command command;
         try {
-            command = Parser.parseCommand(commandLine);
+            Command command = Parser.parseCommand(commandLine);
             command.run();
-        } catch (InvalidCommandTypeException e) {
-            Command.handleTypeError(e);
-        } catch (InvalidCommandArgumentException ignored) {
-            // already processed in Parse.parseCommand().
+        } catch (InvalidCommandTypeException | InvalidCommandArgumentException ignored) {
+            // Thrown by Parse.parseCommand() to prevent command.run().
         }
     }
 

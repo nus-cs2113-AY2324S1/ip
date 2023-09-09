@@ -1,35 +1,36 @@
 public class CommandMark extends Command {
-    private static final String TOO_MANY_ARGUMENTS_ERROR =
-            "Command 'mark' should have one argument as an index.";
-    private static final String INDEX_NOT_INTEGER_ERROR =
-            "Command 'mark' should have a number as an index.";
-    private static final String INDEX_INVALID_VALUE_ERROR =
-            "A value of index is invalid. Please check the number of tasks.";
-
-    public int index;
+    private int index;
 
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
-        if (args.split("\\s").length != 1) {
-            throw new InvalidCommandArgumentException(TOO_MANY_ARGUMENTS_ERROR);
+        if (Parser.isNotOneWord(args)) {
+            throw new InvalidCommandArgumentException(ERROR_MSG_INVALID_NUMBER_OF_ARGS);
         }
+        // Input index starts with 1, logical index starts with 0.
         try {
             index = Integer.parseInt(args) - 1;
         } catch (NumberFormatException e) {
-            throw new InvalidCommandArgumentException(INDEX_NOT_INTEGER_ERROR);
+            throw new InvalidCommandArgumentException(ERROR_MSG_INDEX_NOT_INTEGER);
         }
         if(index < 0 || index >= Nuke.getNumberOfTasks()) {
-            throw new InvalidCommandArgumentException(INDEX_INVALID_VALUE_ERROR);
+            throw new InvalidCommandArgumentException(ERROR_MSG_INDEX_INVALID_VALUE);
         }
     }
 
     @Override
-    protected String getArgumentErrorDetail() {
-        return "Usage: mark ((number))";
+    protected String getUsage() {
+        return "mark ((index))";
     }
 
     @Override
     public void run() {
         Nuke.markTask(index);
     }
+
+    private static final String ERROR_MSG_INVALID_NUMBER_OF_ARGS =
+            "Command 'mark' should have one argument, index of the task.";
+    private static final String ERROR_MSG_INDEX_NOT_INTEGER =
+            "Command 'mark' should have a number for index of the task.";
+    private static final String ERROR_MSG_INDEX_INVALID_VALUE =
+            "The value of index is invalid. Please check the number of tasks.";
 }
