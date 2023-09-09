@@ -1,3 +1,10 @@
+package RC;
+
+import RC.task.Deadline;
+import RC.task.Event;
+import RC.task.Task;
+import RC.task.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
