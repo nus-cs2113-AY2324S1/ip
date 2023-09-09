@@ -2,6 +2,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import duke.Deadline;
+import duke.Event;
+import duke.Task;
+import duke.ToDo;
+
 public class Duke {
     public static final String BOT_NAME = "JS";
     public static final String LINE_DIVIDER = "----------------------------------------";
@@ -114,6 +119,9 @@ public class Duke {
      */
     public static void addEventToList(ArrayList<Task> taskList, String arguments) {
         try {
+            if(arguments.isBlank()) {
+                throw new IllegalArgumentException("Description is empty");
+            }
             String[] argumentsList = arguments.split("/from");
             String description = argumentsList[0].trim();
             argumentsList = argumentsList[1].split("/to");
@@ -139,6 +147,7 @@ public class Duke {
             } else {
                 System.out.println("To must not be empty");
             }
+            System.out.println("Usage: event <description> /from <start> /to <end>");
         }
     }
 
