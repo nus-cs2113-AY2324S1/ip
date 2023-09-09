@@ -2,103 +2,71 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nuke {
-    public static final String LOGO =
-            "     _.-^^---....,,--      \n" +
-            " _--                  --_  \n" +
-            "<                        >)\n" +
-            "|                         |\n" +
-            " \\._                   _./ \n" +
-            "    ```--. . , ; .--'''    \n" +
-            "          | |   |          \n" +
-            "       .-=||  | |=-.       \n" +
-            "       `-=#$%&%$#=-'       \n" +
-            "          | ;  :|          \n" +
-            " _____.,-#%&$@%#&#~,._____ \n";
-
     private static boolean isRunning = true;
-
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+        final Scanner USER_IN = new Scanner(System.in);
 
-        // Welcome message
-        System.out.println(LOGO);
-        System.out.println();
-        System.out.println("[@] Hello! I'm Nuke.");
-        System.out.println("[@] What can I do for you?");
-        System.out.println();
+        Ui.printWelcome();
 
         // Loop for user input
         while (isRunning) {
-            String input = in.nextLine();
+            String input = USER_IN.nextLine();
             runCommand(input);
-            System.out.println();
+            Ui.printBlankLine();
         }
     }
 
-    private static void runCommand(String line) {
-        String[] words = line.split(" ");
-        String type = words[0];
-        String cmdBody = line.substring(type.length()).strip();
-
-        int idx;
-        switch (type) {
-        case "bye":
-            System.out.println("[@] Bye. Hope to see you again soon!");
-            isRunning = false;
-            break;
-        case "list":
-            listTask();
-            break;
-        case "mark":
-            idx = Integer.parseInt(words[1]) - 1;
-            markTask(idx);
-            break;
-        case "unmark":
-            idx = Integer.parseInt(words[1]) - 1;
-            unmarkTask(idx);
-            break;
-        case "todo":
-            addTask(Todo.parseTodo(cmdBody));
-            break;
-        case "deadline":
-            addTask(Deadline.parseDeadline(cmdBody));
-            break;
-        case "event":
-            addTask(Event.parseEvent(cmdBody));
-            break;
-        default:
-            addTask(new Task(line));
+    private static void runCommand(String commandLine) {
+        try {
+            Command command = Parser.parseCommand(commandLine);
+            command.run();
+        } catch (InvalidCommandTypeException | InvalidCommandArgumentException ignored) {
+            // Thrown by Parse.parseCommand() to prevent command.run().
         }
     }
 
-    private static void addTask(Task task) {
+    public static void quit() {
+        isRunning = false;
+        Ui.printBye();
+    }
+
+    public static void addTask(Task task) {
         tasks.add(task);
-        System.out.println("[@] Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.printf("[@] Now you have %d tasks in the list.\n", tasks.size());
+        Ui.printAddedTask(task.toString(), getNumberOfTasks());
     }
 
-    private static void listTask() {
-        System.out.println("[@] Here are the tasks in you list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            System.out.printf("%d.%s\n", i + 1, task.toString());
-        }
+    public static void listTask() {
+        String[] taskList = tasks.stream().map(Task::toString).toArray(String[]::new);
+        Ui.printListOfTasks(taskList);
     }
 
-    private static void markTask(int idx) {
+    public static void markTask(int idx) {
         Task task = tasks.get(idx);
         task.setDone(true);
-        System.out.println("[@] Nice! I've marked this task as done:");
-        System.out.println("  " + task);
+        Ui.printMarkedTask(task.toString());
     }
 
-    private static void unmarkTask(int idx) {
+    public static void unmarkTask(int idx) {
         Task task = tasks.get(idx);
         task.setDone(false);
-        System.out.println("[@] OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
+        Ui.printUnmarkedTask(task.toString());
+    }
+
+    public static void addTodo(String name) {
+        addTask(new Todo(name));
+    }
+
+    public static void addDeadline(String name, String by) {
+        addTask(new Deadline(name, by));
+    }
+
+    public static void addEvent(String name, String from, String to) {
+        addTask(new Event(name, from, to));
+    }
+
+    public static int getNumberOfTasks() {
+        return tasks.size();
     }
 }

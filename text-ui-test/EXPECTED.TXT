@@ -14,50 +14,125 @@
 [@] Hello! I'm Nuke.
 [@] What can I do for you?
 
+[@] Wrong input; Command 'bye' should have no arguments.
+[@] Usage: bye
+
+[@] Wrong input; Command 'list' should have no arguments.
+[@] Usage: list
+
+[@] There are no tasks in your list.
+
+[@] Wrong input; Command 'todo' should have one argument, name of the task.
+[@] Usage: todo ((name))
+
 [@] Got it. I've added this task:
   [T][ ] read book
-[@] Now you have 1 tasks in the list.
+[@] Now you have 1 task in the list.
+
+[@] Wrong input; Command 'deadline' should have two arguments, name and deadline of the task.
+[@] Usage: deadline ((name)) /by ((deadline))
+
+[@] Wrong input; Command 'deadline' should have a string for name of the task.
+[@] Usage: deadline ((name)) /by ((deadline))
+
+[@] Wrong input; Command 'deadline' should have a string for name of the task.
+[@] Usage: deadline ((name)) /by ((deadline))
+
+[@] Wrong input; Command 'deadline' should have one '/by' label for the deadline.
+[@] Usage: deadline ((name)) /by ((deadline))
+
+[@] Wrong input; Command 'deadline' should have a string for deadline of the task.
+[@] Usage: deadline ((name)) /by ((deadline))
 
 [@] Got it. I've added this task:
   [D][ ] return book (by: June 6th)
 [@] Now you have 2 tasks in the list.
 
+[@] Wrong input; Command 'event' should have three arguments, name, start and end of the event.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have one '/from' label and one '/to' label for the period of event.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have one '/from' label and one '/to' label for the period of event.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have one '/from' label and one '/to' label for the period of event.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have one '/from' label and one '/to' label for the period of event.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have a string for name of the task.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have a string for name of the task.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have a string for name of the task.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have one '/from' label and one '/to' label for the period of event.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have one '/from' label and one '/to' label for the period of event.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have one '/from' label and one '/to' label for the period of event.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have one '/from' label and one '/to' label for the period of event.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have one '/from' label and one '/to' label for the period of event.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have a string, after '/from' label, for start period of the task.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
+[@] Wrong input; Command 'event' should have a string, after '/to' label, for end period of the task.
+[@] Usage: event ((name)) /from ((start)) /to ((end))
+
 [@] Got it. I've added this task:
   [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 [@] Now you have 3 tasks in the list.
 
-[@] Got it. I've added this task:
-  [T][ ] join sports club
-[@] Now you have 4 tasks in the list.
+[@] Wrong input; Command 'mark' should have one argument, index of the task.
+[@] Usage: mark ((index))
+
+[@] Wrong input; The value of index is invalid. Please check the number of tasks.
+[@] Usage: mark ((index))
+
+[@] Wrong input; The value of index is invalid. Please check the number of tasks.
+[@] Usage: mark ((index))
 
 [@] Nice! I've marked this task as done:
   [T][X] read book
 
 [@] Nice! I've marked this task as done:
-  [T][X] join sports club
+  [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
 
-[@] Got it. I've added this task:
-  [T][ ] borrow book
-[@] Now you have 5 tasks in the list.
+[@] Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][X] project meeting (from: Aug 6th 2pm to: 4pm)
 
-[@] Here are the tasks in you list:
+[@] Wrong input; Command 'unmark' should have one argument, index of the task.
+[@] Usage: unmark ((index))
+
+[@] Wrong input; The value of index is invalid. Please check the number of tasks.
+[@] Usage: unmark ((index))
+
+[@] Wrong input; The value of index is invalid. Please check the number of tasks.
+[@] Usage: unmark ((index))
+
+[@] OK, I've marked this task as not done yet:
+  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+
+[@] Here are the tasks in your list:
 1.[T][X] read book
 2.[D][ ] return book (by: June 6th)
 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][X] join sports club
-5.[T][ ] borrow book
-
-[@] Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
-[@] Now you have 6 tasks in the list.
-
-[@] Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
-[@] Now you have 7 tasks in the list.
-
-[@] Got it. I've added this task:
-  [D][ ] do homework (by: no idea :-p)
-[@] Now you have 8 tasks in the list.
 
 [@] Bye. Hope to see you again soon!
 
