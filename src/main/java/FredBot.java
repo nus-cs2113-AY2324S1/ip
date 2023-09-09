@@ -18,15 +18,16 @@ public class FredBot {
     public static final String COMMAND_ADD_TODO = "todo";
     public static final String COMMAND_ADD_DEADLINE = "deadline";
     public static final String COMMAND_ADD_EVENT = "event";
-
-    public static void addTask(Task[] tasks, String task) {
-        int numTask = Task.getNumTask();
-        tasks[numTask] = new Task(task);
-        printAddTask(INDENT + tasks[numTask].toString() + "\n");
-        Task.setNumTask(numTask+1);
-    }
+    public static final String COMMAND_ERROR_MESSAGE = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+    public static final String TODDO_ERROR_MESSAGE = "☹ OOPS!!! The description of a todo cannot be empty.";
+    public static final String DEADLINE_ERROR_MESSAGE = "☹ OOPS!!! The description of a deadline cannot be empty.";
+    public static final String EVENT_ERROR_MESSAGE = "☹ OOPS!!! The description of a event cannot be empty.";
 
     public static void addTodo(Task[] tasks, String task) {
+        if (task.isEmpty()) {
+            printMessage(INDENT + TODDO_ERROR_MESSAGE);
+            return;
+        }
         int numTask = Task.getNumTask();
         tasks[numTask] = new Todo(task);
         printAddTask(INDENT + tasks[numTask].toString() + "\n");
@@ -34,6 +35,10 @@ public class FredBot {
     }
 
     public static void addDeadline(Task[] tasks, String task) {
+        if (task.isEmpty()) {
+            printMessage(INDENT + DEADLINE_ERROR_MESSAGE);
+            return;
+        }
         int numTask = Task.getNumTask();
         tasks[numTask] = new Deadline(task.substring(0, task.indexOf(" /by")),
                 task.substring(task.indexOf(" /by") + 5));
@@ -42,6 +47,10 @@ public class FredBot {
     }
 
     public static void addEvent(Task[] tasks, String task) {
+        if (task.isEmpty()) {
+            printMessage(INDENT + EVENT_ERROR_MESSAGE);
+            return;
+        }
         int numTask = Task.getNumTask();
         tasks[numTask] = new Event(task.substring(0, task.indexOf(EVENT_FROM_PREFIX)),
                 task.substring(task.indexOf(EVENT_FROM_PREFIX) + 7, task.indexOf(EVENT_TO_PREFIX)),
@@ -107,7 +116,7 @@ public class FredBot {
             } else if (line.startsWith(COMMAND_ADD_EVENT)) {
                 addEvent(tasks, line.substring(6));
             } else {
-                addTask(tasks, line);
+                printMessage(INDENT + COMMAND_ERROR_MESSAGE);
             }
             line = in.nextLine();
         }
