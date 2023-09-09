@@ -1,3 +1,5 @@
+package task;
+
 public class Deadline extends Task {
     protected String by;
 
@@ -10,5 +12,6 @@ public class Deadline extends Task {
     public String getStatus() {
         return "[D]" + super.getStatus() + " (by: " + by + ")";
     }
+
 
 }
