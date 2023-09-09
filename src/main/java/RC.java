@@ -2,13 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RC {
-    private static void addTodo(String input, ArrayList<Task> tasks) {
-        String description = input;
-        if (input.startsWith("todo")) {
-            final int beginIndex = 5;
-            description = input.substring(beginIndex);
+    private static void addTodo(String input, ArrayList<Task> tasks) throws RCException {
+        final int beginIndex = 4;
+        String description = input.substring(beginIndex).trim();
+        if (description.isEmpty()) {
+            String errorMessage = "\tOOPS!!! The description of a todo cannot be empty.";
+            throw new RCException(errorMessage);
         }
-
+        
         tasks.add(new Todo(description));
         tasks.get(tasks.size() - 1).printAddedTask();
     }
@@ -65,21 +66,27 @@ public class RC {
         ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
-            input = in.nextLine();
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                printTaskList(tasks);
-            } else if (input.startsWith("mark")) {
-                markTask(input, tasks);
-            } else if (input.startsWith("unmark")) {
-                unmarkTask(input, tasks);
-            } else if (input.startsWith("deadline")) {
-                addDeadline(input, tasks);
-            } else if (input.startsWith("event")) {
-                addEvent(input, tasks);
-            } else {
-                addTodo(input, tasks);
+            input = in.nextLine().trim();
+            try {
+                if (input.equals("bye")) {
+                    break;
+                } else if (input.equals("list")) {
+                    printTaskList(tasks);
+                } else if (input.startsWith("mark")) {
+                    markTask(input, tasks);
+                } else if (input.startsWith("unmark")) {
+                    unmarkTask(input, tasks);
+                } else if (input.startsWith("deadline")) {
+                    addDeadline(input, tasks);
+                } else if (input.startsWith("event")) {
+                    addEvent(input, tasks);
+                } else if (input.startsWith("todo")) {
+                    addTodo(input, tasks);
+                } else {
+                    System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (RCException e) {
+                System.out.println(e.getMessage());
             }
         }
         System.out.println("\tBye. Hope to see you again soon!\n");
