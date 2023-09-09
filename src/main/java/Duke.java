@@ -30,6 +30,14 @@ public class Duke {
         }
     }
 
+    static void checkEventFormat(String[] schedules) throws InputFormatException{
+        if(schedules.length !=3 ||
+                !schedules[1].trim().startsWith("from") ||
+                !schedules[2].trim().startsWith("to")){
+            throw new InputFormatException();
+        }
+    }
+
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
         Task[] tasks = new Task[100];
@@ -165,8 +173,10 @@ public class Duke {
                 System.out.println("    ____________________________________________________________\n");
             } else if(tokens[0].equals("event")){
                 // error handling
-                if (tokens.length != 2) {
-                    printLine("unexpected behavior: 'event' needs more string");
+                try{
+                    checkInputFormat(tokens);
+                } catch (InputFormatException e){
+                    printLine("☹ OOPS!!! <event> should be with task description and start/end time");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
                 }
@@ -175,10 +185,10 @@ public class Duke {
                 String[] schedules = tokens[1].split("/", 3);
 
                 // error handling
-                if(schedules.length !=3 ||
-                        !schedules[1].trim().startsWith("from") ||
-                        !schedules[2].trim().startsWith("to")){
-                    printLine("unexpected behavior: 'event' needs input like (work/by time)");
+                try{
+                    checkEventFormat(schedules);
+                } catch (InputFormatException e) {
+                    printLine("☹ OOPS!!! <event> needs input like (work /from start /to end)");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
                 }
