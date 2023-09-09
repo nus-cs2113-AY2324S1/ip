@@ -27,63 +27,57 @@ public class MessageDisplay {
 
     public static void addInput(){
         String userInput = "";
-        String taskName = "";
         int taskIndex = 0;
         while(!userInput.equals("bye")){
             userInput = input.nextLine();
             System.out.println("    ____________________________________________________________");
-            try{
-                switch (userInput.split(" ")[0]) {
-                    case "bye":
-                        break;
-                    case "list":
-                        TaskList.printTaskList();
-                        System.out.println("    ____________________________________________________________");
-                        break;
-                    case "mark":
-                        taskIndex = Integer.parseInt(userInput.split("mark")[1].strip());
-                        taskName = TaskList.viewTaskByIndex(taskIndex);
-                        TaskList.markTaskAsDone(taskIndex);
-                        if(taskName.equals("Task Not Found")){
-                            break;
-                        }
-                        System.out.printf("    Roger that! I have marked the following task as done >w< !\n" +
-                                "      '%s'\n", TaskList.viewTaskByIndex(taskIndex));
-                        System.out.println("    ____________________________________________________________");
-                        break;
-                    case "unmark":
-                        taskIndex = Integer.parseInt(userInput.split("unmark")[1].strip());
-                        taskName = TaskList.viewTaskByIndex(taskIndex);
-                        TaskList.markTaskAsNotDone(taskIndex);
-                        if(taskName.equals("Task Not Found")){
-                            break;
-                        }
-                        System.out.printf("    Roger that! I have unmarked the following task as done >w< !\n" +
-                                "      '%s'\n", TaskList.viewTaskByIndex(taskIndex));
-                        System.out.println("    ____________________________________________________________");
-                        break;
-                    case "todo":
-                        TaskList.addToTaskList(userInput, Task.TaskType.TODO);
-                        break;
-                    case "deadline":
-                        TaskList.addToTaskList(userInput, Task.TaskType.DEADLINE);
-                        break;
-                    case "event":
-                        TaskList.addToTaskList(userInput, Task.TaskType.EVENT);
-                        break;
-                    default:
-                        throw new ReneExceptions("Invalid Input");
-                }
-            } catch (ReneExceptions exception){
-                String exceptionMessage = exception.getMessage();
-                if(exceptionMessage.equals("Invalid Input")){
-                    System.out.println("    Pwease enter a valid command :0");
-                    System.out.println("    Valid commands are: todo, deadline: /by time, event: /from start /to end");
+            switch (userInput.split(" ")[0]) {
+                case "bye":
+                    break;
+                case "list":
+                    TaskList.printTaskList();
                     System.out.println("    ____________________________________________________________");
-                }
-
+                    break;
+                case "mark":
+                    taskIndex = Integer.parseInt(userInput.split("mark")[1].strip());
+                    TaskList.markTaskAsDone(taskIndex);
+                    System.out.printf("    Roger that! I have marked the following task as done >w< !\n" +
+                            "      '%s'\n", TaskList.viewTaskByIndex(taskIndex));
+                    System.out.println("    ____________________________________________________________");
+                    break;
+                case "unmark":
+                    taskIndex = Integer.parseInt(userInput.split("unmark")[1].strip());
+                    TaskList.markTaskAsNotDone(taskIndex);
+                    System.out.printf("    Roger that! I have unmarked the following task as done >w< !\n" +
+                            "      '%s'\n", TaskList.viewTaskByIndex(taskIndex));
+                    System.out.println("    ____________________________________________________________");
+                    break;
+                case "todo":
+                    TaskList.addToTaskList(userInput, Task.TaskType.TODO);
+                    System.out.println("    I have added the following task OwO:");
+                    System.out.printf("      [T][] %s\n", TaskList.viewTaskByIndex(TaskList.getTaskListSize() - 1));
+                    System.out.println("    Now you have " + TaskList.getTaskListSize() + " tasks in the list! UWU");
+                    System.out.println("    ____________________________________________________________");
+                    break;
+                case "deadline":
+                    TaskList.addToTaskList(userInput, Task.TaskType.DEADLINE);
+                    System.out.println("    I have added the following task OwO:");
+                    System.out.printf("      [D][] %s\n", TaskList.viewTaskByIndex(TaskList.getTaskListSize() - 1));
+                    System.out.println("    Now you have " + TaskList.getTaskListSize() + " tasks in the list! UWU");
+                    System.out.println("    ____________________________________________________________");
+                    break;
+                case "event":
+                    TaskList.addToTaskList(userInput, Task.TaskType.EVENT);
+                    System.out.println("    I have added the following task OwO:");
+                    System.out.printf("      [E][] %s\n", TaskList.viewTaskByIndex(TaskList.getTaskListSize() - 1));
+                    System.out.println("    Now you have " + TaskList.getTaskListSize() + " tasks in the list! UWU");
+                    System.out.println("    ____________________________________________________________");
+                    break;
+                default:
+                    System.out.println("    Pwease enter a valid command :0");
+                    System.out.println("    ____________________________________________________________");
+                    break;
             }
-
         }
         displayCLosingMessage();
     }
