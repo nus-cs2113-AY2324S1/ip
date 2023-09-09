@@ -1,4 +1,6 @@
+package neo.exception;
 
+import neo.type.ErrorType;
 
 public class NeoException extends Exception {
     protected String description;
