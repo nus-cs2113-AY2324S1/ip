@@ -84,10 +84,25 @@ public class Duke {
         try {
             String[] argumentsList = arguments.split(" /by ");
             Deadline newDeadline = new Deadline(argumentsList[0], argumentsList[1]);
+            if(argumentsList[0].isBlank() && argumentsList[1].isBlank()) {
+                throw new ArrayIndexOutOfBoundsException(0);
+            }
+            if(argumentsList[0].isBlank()) {
+                throw new IllegalArgumentException("Description Blank");
+            }
+            if(argumentsList[1].isBlank()) {
+                throw new IllegalArgumentException("Time Blank");
+            }
             taskList.add(newDeadline);
             printNewTask(taskList, newDeadline);
         } catch (ArrayIndexOutOfBoundsException exception) {
-            System.out.println("Invalid Input");
+            System.out.println("Description and time must not be empty");
+        } catch (IllegalArgumentException exception) {
+            if(exception.getMessage().equals("Description Blank")) {
+                System.out.println("Description must not be blank");
+            } else {
+                System.out.println("Time must not be empty");
+            }
         }
     }
 
@@ -99,14 +114,31 @@ public class Duke {
      */
     public static void addEventToList(ArrayList<Task> taskList, String arguments) {
         try {
-            String[] argumentsList = arguments.split(" /from ");
-            String description = argumentsList[0];
-            argumentsList = argumentsList[1].split(" /to ");
-            Event newEvent = new Event(description, argumentsList[0], argumentsList[1]);
+            String[] argumentsList = arguments.split("/from");
+            String description = argumentsList[0].trim();
+            argumentsList = argumentsList[1].split("/to");
+            if(description.isBlank()) {
+                throw new IllegalArgumentException("Description Blank");
+            }
+            if(argumentsList[0].trim().isBlank()) {
+                throw new IllegalArgumentException("From Blank");
+            }
+            if(argumentsList[1].trim().isBlank()) {
+                throw new IllegalArgumentException("To Blank");
+            }
+            Event newEvent = new Event(description, argumentsList[0].trim(), argumentsList[1].trim());
             taskList.add(newEvent);
             printNewTask(taskList, newEvent);
         } catch (ArrayIndexOutOfBoundsException exception) {
-            System.out.println("Invalid Input");
+            System.out.println("To must not be empty");
+        } catch (IllegalArgumentException exception) {
+            if(exception.getMessage().equals("Description Blank")) {
+                System.out.println("Description must not be empty");
+            } else if(exception.getMessage().equals("From Blank")) {
+                System.out.println("From must not be be empty");
+            } else {
+                System.out.println("To must not be empty");
+            }
         }
     }
 
@@ -117,12 +149,16 @@ public class Duke {
      * @param arugments arguments of the commands that is used
      */
     public static void addToDoToList(ArrayList<Task> taskList, String arguments) {
-        if(arguments.isBlank()){
-            System.out.println("Invalid Input");
-        } else {
-            ToDo newToDo = new ToDo(arguments);
-            taskList.add(newToDo);
-            printNewTask(taskList, newToDo);
+        try {
+            if(arguments.isBlank()){
+                throw new IllegalArgumentException("Description is empty");
+            } else {
+                ToDo newToDo = new ToDo(arguments);
+                taskList.add(newToDo);
+                printNewTask(taskList, newToDo);
+            }
+        } catch (IllegalArgumentException exception) {
+            System.out.println("OOPS!!! The description of a todo cannot be empty.");
         }
     }
 
@@ -171,7 +207,7 @@ public class Duke {
                 break;
             default:
                 System.out.println(LINE_DIVIDER);
-                System.out.println("Invalid command");
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             System.out.println(LINE_DIVIDER);
         } while (!(command.equals("bye")));
