@@ -1,4 +1,10 @@
-public class CommandMark extends Command {
+package nuke.command;
+
+import nuke.command.exception.InvalidCommandArgumentException;
+import nuke.Nuke;
+import nuke.Parser;
+
+public class CommandUnmark extends Command {
     private int index;
 
     @Override
@@ -19,18 +25,18 @@ public class CommandMark extends Command {
 
     @Override
     protected String getUsage() {
-        return "mark ((index))";
+        return "unmark ((index))";
     }
 
     @Override
     public void run() {
-        Nuke.markTask(index);
+        Nuke.unmarkTask(index);
     }
 
     private static final String ERROR_MSG_INVALID_NUMBER_OF_ARGS =
-            "Command 'mark' should have one argument, index of the task.";
+            "Command 'unmark' should have one argument, index of the task.";
     private static final String ERROR_MSG_INDEX_NOT_INTEGER =
-            "Command 'mark' should have a number for index of the task.";
+            "Command 'unmark' should have a number for index of the task.";
     private static final String ERROR_MSG_INDEX_INVALID_VALUE =
             "The value of index is invalid. Please check the number of tasks.";
 }

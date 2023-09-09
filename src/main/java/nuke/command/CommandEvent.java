@@ -1,3 +1,9 @@
+package nuke.command;
+
+import nuke.command.exception.InvalidCommandArgumentException;
+import nuke.Nuke;
+import nuke.Parser;
+
 public class CommandEvent extends Command {
     public String name;
     public String from;

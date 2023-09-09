@@ -1,3 +1,8 @@
+package nuke.command;
+
+import nuke.command.exception.InvalidCommandArgumentException;
+import nuke.Nuke;
+
 public class CommandBye extends Command {
 
     @Override

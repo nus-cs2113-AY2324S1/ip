@@ -1,3 +1,5 @@
+package nuke;
+
 public class Ui {
     public static final String LOGO =
             "     _.-^^---....,,--      \n" +
