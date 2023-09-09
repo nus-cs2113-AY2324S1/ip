@@ -33,8 +33,7 @@ public class Duke {
             //System.out.println(tokens[0]);
             if(cmd.equals("bye")){ // bye command
                 break;
-            }
-            else if(cmd.equals("list")){
+            } else if(cmd.equals("list")){
                 if(tasks_size == 0){
                     printLine("Nothing in the list");
                 }
@@ -45,8 +44,7 @@ public class Duke {
                     }
                 }
                 System.out.println("    ____________________________________________________________\n");
-            }
-            else if(tokens[0].equals("mark")){
+            } else if(tokens[0].equals("mark")){
 
                 // error handling
                 if(tokens.length !=2 || !isNumeric(tokens[1])){
@@ -68,8 +66,7 @@ public class Duke {
                 tasks[mark_idx].doMark();
                 printLine(" [" + tasks[mark_idx].getStatusIcon() + "] " + tasks[mark_idx].getDescription());
                 System.out.println("    ____________________________________________________________\n");
-            }
-            else if(tokens[0].equals("unmark")){
+            } else if(tokens[0].equals("unmark")){
                 if(tokens.length !=2 || !isNumeric(tokens[1])){
                     printLine("unexpected behavior: 'mark' needs one integer parameter");
                     System.out.println("    ____________________________________________________________\n");
@@ -90,8 +87,7 @@ public class Duke {
                 tasks[mark_idx].unMark();
                 printLine(" [" + tasks[mark_idx].getStatusIcon() + "] " + tasks[mark_idx].getDescription());
                 System.out.println("    ____________________________________________________________\n");
-            }
-            else if(tokens[0].equals("todo")) {
+            } else if(tokens[0].equals("todo")) {
                 // error handling
                 if (tokens.length != 2) {
                     printLine("unexpected behavior: 'todo' needs more string");
@@ -109,8 +105,7 @@ public class Duke {
                 printLine(String.format("Now you have %d tasks in the list.", tasks_size));
                 System.out.println("    ____________________________________________________________\n");
 
-            }
-            else if(tokens[0].equals("deadline")){
+            } else if(tokens[0].equals("deadline")){
                 // error handling
                 if (tokens.length != 2) {
                     printLine("unexpected behavior: 'deadline' needs more string");
@@ -138,8 +133,7 @@ public class Duke {
                         deadline.getTypeIcon(), deadline.getStatusIcon(), deadline.getDescription()));
                 printLine(String.format("Now you have %d tasks in the list.", tasks_size));
                 System.out.println("    ____________________________________________________________\n");
-            }
-            else if(tokens[0].equals("event")){
+            } else if(tokens[0].equals("event")){
                 // error handling
                 if (tokens.length != 2) {
                     printLine("unexpected behavior: 'event' needs more string");
@@ -171,8 +165,7 @@ public class Duke {
                         event.getTypeIcon(), event.getStatusIcon(), event.getDescription()));
                 printLine(String.format("Now you have %d tasks in the list.", tasks_size));
                 System.out.println("    ____________________________________________________________\n");
-            }
-            else{
+            } else{
                 printLine("added: " + cmd); // add list
                 tasks[tasks_size++] = new Task(cmd);
                 System.out.println("    ____________________________________________________________\n");
