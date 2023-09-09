@@ -64,4 +64,8 @@ public class TaskList {
     public int getTaskCount() {
         return taskCount;
     }
+
+    public Task getTaskByNumber(int taskNumber) {
+        return taskList[taskNumber - 1];
+    }
 }
