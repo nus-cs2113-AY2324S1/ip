@@ -2,9 +2,10 @@ package ZenBot;
 
 import Exceptions.TaskEmptyDescriptionException;
 import Exceptions.UnknownCommandException;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Todo;
+import Tasks.Tasklist;
+import Commands.CommandParser;
+import Commands.Command;
+import Commands.Farewell;
 
 public class ZenBot {
 
@@ -41,70 +42,19 @@ public class ZenBot {
 
         Input input = new Input();
         Tasklist tasks = new Tasklist();
+        CommandParser commandParser = new CommandParser();
+        Command nextCommand = null;
 
-        while (!input.getInput().equals("bye")) {
-            if (input.getCommand().equals("bye")) { // exit
-                printSeperatorLine();
-                System.out.println("\tFarewell, my friend! Until our laughter intertwines again");
-                printSeperatorLine();
-                break;
-            } else if (input.getCommand().equals("todo")) { // add todo task
-                String description = input.getLine().substring(5);
-                tasks.addTask(new Todo(description));
-
-                printSeperatorLine();
-                System.out.println("\tBehold, a new endeavor enters the realm: " + description);
-                System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
-                System.out.println(tasks.getTaskListSize() + " in all.");
-                printSeperatorLine();
+        while (!(nextCommand instanceof Farewell)) {
+            try {
+                nextCommand = commandParser.parse(input.getInput(), tasks);
+                nextCommand.execute();
+            } catch (UnknownCommandException e) {
+                System.out.println("Unknown command, please try again");
                 continue;
-            } else if (input.getCommand().equals("deadline")) { // add deadline task
-                String description = input.getLine().substring(9, input.getLine().indexOf("/by") - 1);
-                String deadline = input.getLine().substring(input.getLine().indexOf("/by") + 4);
-                tasks.addTask(new Deadline(description, deadline));
-
-                printSeperatorLine();
-                System.out.println("\tBehold, a new endeavor enters the realm: " + description);
-                System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
-                System.out.println(tasks.getTaskListSize() + " in all.");
-                printSeperatorLine();
+            } catch (TaskEmptyDescriptionException e) {
+                System.out.println("Task description cannot be empty, please try again");
                 continue;
-            } else if (input.getCommand().equals("event")) { // add event task
-                String description = input.getLine().substring(6, input.getLine().indexOf("/from") - 1);
-                String startTime = input.getLine().substring(input.getLine().indexOf("/from") + 6, input.getLine().indexOf("/to") - 1);
-                String endTime = input.getLine().substring(input.getLine().indexOf("/to") + 4);
-                tasks.addTask(new Event(description, startTime, endTime));
-
-                printSeperatorLine();
-                System.out.println("\tBehold, a new endeavor enters the realm: " + description);
-                System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
-                System.out.println(tasks.getTaskListSize() + " in all.");
-                printSeperatorLine();
-                continue;
-            } else if (input.getCommand().equals("list")) { // list tasks
-                printSeperatorLine();
-                System.out.println("\tAllow me to unveil the tasks dwelling within your list:");
-                tasks.printTaskList();
-                printSeperatorLine();
-                continue;
-            } else if (input.getCommand().equals("unmark")) { // mark task as done
-                int taskNumber = Integer.parseInt(input.getLine().substring(7));
-                tasks.markTaskAsUndone(taskNumber);
-                printSeperatorLine();
-                System.out.println("\tAh, chuckles! I've playfully returned this task to its untamed state:");
-                tasks.getTask(taskNumber).printTask();
-                printSeperatorLine();
-                continue;
-            } else if (input.getCommand().equals("mark")) { // mark task as done
-                int taskNumber = Integer.parseInt(input.getLine().substring(5));
-                tasks.markTaskAsDone(taskNumber);
-                printSeperatorLine();
-                System.out.println("\tHuzzah! I've adorned this task with the badge of completion:");
-                tasks.getTask(taskNumber).printTask();
-                printSeperatorLine();
-                continue;
-            } else {
-                throw new UnknownCommandException();
             }
         }
     }

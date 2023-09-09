@@ -1,7 +1,6 @@
-package ZenBot;
+package Tasks;
 
 import java.util.ArrayList;
-import Tasks.Task;
 
 public class Tasklist {
     ArrayList<Task> taskList;
