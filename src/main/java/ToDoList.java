@@ -2,16 +2,6 @@ import java.util.ArrayList;
 
 public class ToDoList {
     private ArrayList<Task> list;
-    public ToDoList() {
-        list = new ArrayList<>();
-    }
-
-    public void addToList(String task){
-        list.add(new Task(task));
-        Utils.printDivider();
-        Utils.echo("added: " + task);
-    }
-
     public void mark(int taskIndex) {
         Utils.printDivider();
         System.out.println("Nice! I've marked this task as done:\n");
@@ -19,6 +9,25 @@ public class ToDoList {
         task.markAsDone();
         printTask(task);
         Utils.printDivider();
+    }
+
+    public ToDoList() {
+        list = new ArrayList<>();
+    }
+
+    int Number_Of_Task = 0;
+    public void addToList(String taskType, Task task) {
+        list.add(task);
+        Number_Of_Task += 1;
+        Utils.printDivider();
+        if (taskType.equals("T") || taskType.equals("D") || taskType.equals("E") ) {
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task.toString());
+        } else {
+            Utils.printDivider();
+            Utils.echo("added: " + task);
+        }
+        System.out.println("Now you have " + Number_Of_Task + " tasks in the list.");
     }
 
     public void unmark(int taskIndex) {
@@ -31,12 +40,7 @@ public class ToDoList {
     }
 
     private void printTask(Task task) {
-        if(!task.getIsDone()) {
-            System.out.print("[ ] ");
-        } else {
-            System.out.print("[X] ");
-        }
-        System.out.println(task.getTaskName() + "\n");
+        System.out.println(task.toString() + "\n");
     }
     public void printList() {
         Utils.printDivider();

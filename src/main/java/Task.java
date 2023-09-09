@@ -7,9 +7,15 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public String getTaskName() {
-        return this.taskName;
+    @Override
+    public String toString() {
+        if(!this.isDone) {
+            return ("[ ] " + this.taskName);
+        } else {
+            return ("[X] " + this.taskName);
+        }
     }
+
 
     public boolean getIsDone() {
         return this.isDone;
