@@ -8,19 +8,41 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public void setIsDone(boolean isDone) {
+        this.isDone =  isDone;
+    }
+
+    /**
+     * Printing status icon
+     * @return a string in the format "[<status>]", "X" for done and " " for not done
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void setStatusIcon(String status) {
-        if (status.equals("mark")) {
-            isDone = true;
-            System.out.println("Nice! I've marked this task as done:");
-        } else {
-            isDone = false;
-            System.out.println("OK, I've marked this task as not done yet:");
-        }
-        System.out.println("   " + this.toString());
+    /**
+     * To set isDone to true
+     * and to print a message for user
+     */
+    public void markStatusIcon() {
+        setIsDone(true);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("   " + this.printTask());
+        System.out.println(LINE);
+    }
+
+    /**
+     * To set isDone to false
+     * and to print a message for user
+     */
+    public void unmarkStatusIcon() {
+        setIsDone(false);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("   " + this.printTask());
         System.out.println(LINE);
     }
 
@@ -32,10 +54,9 @@ public class Task {
         this.description = description;
     }
 
-    public String toString() {
-        String typeOfTask = "[T]";
+    public String printTask() {
         String statusOfTask = "[" + getStatusIcon() + "] ";
-        return typeOfTask + statusOfTask + getDescription();
+        return statusOfTask + getDescription();
     }
 }
 

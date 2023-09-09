@@ -24,13 +24,8 @@ public class Event extends Task {
         this.end = end;
     }
 
-    public void setEvent(String start, String end) {
-        setStart(start);
-        setEnd(end);
-    }
-
     @Override
-    public String toString() {
+    public String printTask() {
         String typeOfTask = "[E]";
         String statusOfTask = "[" + super.getStatusIcon() + "] ";
         String task = super.getDescription() + " (from: " + getStart() + " to: " + getEnd() + ")";

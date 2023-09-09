@@ -3,19 +3,7 @@ import java.util.Scanner;
 public class Alice {
     private static final String LINE = "____________________________________________________________\n";
     private static Task[] tasks = new Task[100];
-    private static int numberOfTask = 0;
-
-    /**
-     * List all tasks that have been added by user.
-     */
-    public static void listTasks() {
-        int itemNumber;
-        for (int i=0; i<numberOfTask; i++){
-            itemNumber = i + 1;
-            System.out.println(itemNumber + ". " + tasks[i].toString());
-        }
-        System.out.println(LINE);
-    }
+    private static int numberOfTasks = 0;
 
     /**
      * For printing the hello message
@@ -47,16 +35,29 @@ public class Alice {
         System.out.println(" *       * ");
         System.out.println("   *****   ");
     }
+
+    /**
+     * List all tasks that have been added by user.
+     */
+    public static void listTasks() {
+        int itemNumber;
+        for (int i = 0; i< numberOfTasks; i++){
+            itemNumber = i + 1;
+            System.out.println(itemNumber + ". " + tasks[i].printTask());
+        }
+        System.out.println(LINE);
+    }
+
     /**
      * Add a new task to tasks array
      * @param newTask is a class
      */
     public static void addTask(Task newTask) {
-        tasks[numberOfTask] = newTask;
-        numberOfTask++;
+        tasks[numberOfTasks] = newTask;
+        numberOfTasks++;
         System.out.println(" Gotcha! I have added the following task:");
-        System.out.println("   " + newTask.toString());
-        System.out.println(" Total no. of tasks: " + numberOfTask + " --- YOU'VE GOT THIS!\n" + LINE);
+        System.out.println("   " + newTask.printTask());
+        System.out.println(" Total no. of tasks: " + numberOfTasks + " --- YOU'VE GOT THIS!\n" + LINE);
     }
 
     /**
@@ -65,9 +66,10 @@ public class Alice {
      * @param userInput input from user (eg. todo borrow book)
      */
     public static void addTodo(String userInput) {
-        int indexOfSplit = userInput.indexOf(" ");
-        String description = userInput.substring(indexOfSplit);
-        Task newTask = new Task(description);
+        final int LENGTH_OF_BUFFER = 5; //length of "size "
+
+        String description = userInput.substring(LENGTH_OF_BUFFER);
+        Task newTask = new Todo(description);
         addTask(newTask);
     }
 
@@ -77,10 +79,13 @@ public class Alice {
      * @param userInput input from user (eg. deadline return book /by Sunday)
      */
     public static void addDeadline(String userInput) {
-        int indexOfSplit = userInput.indexOf((" /")); //used to split description from date
-        String descriptionOfInput = userInput.substring(9, indexOfSplit);
-        String dateOfInput = userInput.substring(indexOfSplit+2);
-        Task newTask = new Deadline(descriptionOfInput, dateOfInput);
+        final int LENGTH_OF_BUFFER = 9; //length of "deadline "
+
+        String[] inputArray = userInput.split(" /");
+        String description = inputArray[0].substring(LENGTH_OF_BUFFER);
+        String date = inputArray[1];
+
+        Task newTask = new Deadline(description, date);
         addTask(newTask);
     }
 
@@ -90,14 +95,14 @@ public class Alice {
      * @param userInput input from user (eg. event project meeting /from Mon 2pm /to 4pm)
      */
     public static void addEvent(String userInput) {
-        int indexOfSplit = userInput.indexOf(" /"); //used to split description from date
-        String descriptionOfInput = userInput.substring(6, indexOfSplit);
-        String dateOfInput = userInput.substring(indexOfSplit+2);
+        final int LENGTH_OF_BUFFER = 6; //length of "event "
 
-        indexOfSplit = dateOfInput.indexOf(" /"); //used to split the 2 dates
-        String startDate = dateOfInput.substring(0,indexOfSplit);
-        String endDate = dateOfInput.substring(indexOfSplit+5);
-        Task newTask = new Event(descriptionOfInput, startDate, endDate);
+        String[] inputArray = userInput.split(" /");
+        String description = inputArray[0].substring(LENGTH_OF_BUFFER);
+        String startDate = inputArray[1].strip();
+        String endDate = inputArray[2].strip();
+
+        Task newTask = new Event(description, startDate, endDate);
         addTask(newTask);
     }
 
@@ -121,11 +126,11 @@ public class Alice {
                 break;
             case "unmark":
                 taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskId].setStatusIcon("unmark");
+                tasks[taskId].unmarkStatusIcon();
                 break;
             case "mark":
                 taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskId].setStatusIcon("mark");
+                tasks[taskId].markStatusIcon();
                 break;
             case "deadline":
                 addDeadline(userInput);
@@ -136,6 +141,9 @@ public class Alice {
             case "todo":
                 addTodo(userInput);
                 break;
+            default:
+                Task newTask = new Task(userInput);
+                addTask(newTask);
             }
             userInput = in.nextLine();
         }
