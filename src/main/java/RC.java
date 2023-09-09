@@ -17,16 +17,21 @@ public class RC {
     private static void addEvent(String input, ArrayList<Task> tasks) throws RCException {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
-        final int beginIndex = 6;
+        final int beginIndex = 5;
+        final int fromStringLength = 5;
+        final int toStringLength = 3;
         if (fromIndex == -1 || toIndex == -1) {
             String errorMessage = "\tOOPS!!! Please include /from and /to for the start and end time.";
             throw new RCException(errorMessage);
         }
 
-        String description = input.substring(beginIndex, fromIndex);
-        String from = input.substring(fromIndex + 6, toIndex);
-        String to = input.substring(toIndex + 4);
-
+        String description = input.substring(beginIndex, fromIndex).trim();
+        String from = input.substring(fromIndex + fromStringLength, toIndex).trim();
+        String to = input.substring(toIndex + toStringLength).trim();
+        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            String errorMessage = "\tOOPS!!! Please ensure description, start and end time are filled.";
+            throw new RCException(errorMessage);
+        }
         tasks.add(new Event(description, from, to));
         tasks.get(tasks.size() - 1).printAddedTask();
     }
@@ -53,9 +58,20 @@ public class RC {
         tasks.get(taskNum).unmarkTask();
     }
 
-    private static void markTask(String input, ArrayList<Task> tasks) {
+    private static void markTask(String input, ArrayList<Task> tasks) throws RCException {
         String taskIndex = input.substring(input.length() - 1);
-        int taskNum = Integer.parseInt(taskIndex) - 1;
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(taskIndex) - 1;
+        } catch (NumberFormatException e) {
+            String errorMessage = "\tOOPS!!! Please enter a valid integer.";
+            throw new RCException(errorMessage);
+        }
+
+        if (!Task.isValidIndex(taskNum)) {
+            String errorMessage = "\tOOPS!!! Index is out of range of list.";
+            throw new RCException(errorMessage);
+        }
 
         tasks.get(taskNum).markAsDone();
     }

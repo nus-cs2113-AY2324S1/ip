@@ -30,6 +30,9 @@ public class Task {
         System.out.println("\tOK, I've marked this task as not done yet:\n\t  " + this);
     }
 
+    public static boolean isValidIndex(int index) {
+        return index >= 0 && index < numTasks;
+    }
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
