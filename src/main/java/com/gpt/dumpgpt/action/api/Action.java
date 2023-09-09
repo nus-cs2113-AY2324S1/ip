@@ -1,7 +1,7 @@
 package com.gpt.dumpgpt.action.api;
 
 import com.gpt.dumpgpt.command.Command;
-import com.gpt.dumpgpt.shared.ProgramConstants;
+import com.gpt.dumpgpt.shared.DukeException;
 
 public abstract class Action {
     private final String ACTION_VERB;
@@ -24,5 +24,5 @@ public abstract class Action {
         return null;
     }
 
-    protected abstract void execute();
+    protected abstract void execute() throws DukeException;
 }

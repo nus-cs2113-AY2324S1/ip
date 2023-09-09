@@ -1,6 +1,7 @@
 package com.gpt.dumpgpt.action.api;
 
 import com.gpt.dumpgpt.command.Command;
+import com.gpt.dumpgpt.shared.DukeException;
 import com.gpt.dumpgpt.shared.ProgramConstants;
 
 import java.lang.reflect.Constructor;
@@ -92,6 +93,8 @@ public class ActionRegistry {
             action.execute();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             System.out.println("Unexpected error when executing command...");
+        } catch (DukeException e) {
+            ProgramConstants.printWrapped(e.toString());
         }
     }
 }

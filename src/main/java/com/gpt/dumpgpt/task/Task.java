@@ -1,6 +1,7 @@
 package com.gpt.dumpgpt.task;
 
 import com.gpt.dumpgpt.shared.ApplicationState;
+import com.gpt.dumpgpt.shared.DukeException;
 
 import java.util.ArrayList;
 
@@ -35,9 +36,20 @@ public class Task {
         return getNameWithStatus();
     }
 
-    public boolean isValid() {
-        return name != null && !name.isBlank();
+    public void validate() throws DukeException {
+        if (name == null || name.isBlank()) {
+            throw new DukeException("Task name cannot be empty...");
+        }
     }
+
+    public void validate(String type) throws DukeException {
+        if (name == null || name.isBlank()) {
+            throw new DukeException(
+                    String.format("%s name cannot be empty...", type)
+            );
+        }
+    }
+
 
     public static void addTask(Task task) {
         ArrayList<Task> tasks = getTasks();

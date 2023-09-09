@@ -2,6 +2,7 @@ package com.gpt.dumpgpt.action.impl;
 
 import com.gpt.dumpgpt.action.api.Action;
 import com.gpt.dumpgpt.command.Command;
+import com.gpt.dumpgpt.shared.DukeException;
 import com.gpt.dumpgpt.shared.ProgramConstants;
 import com.gpt.dumpgpt.task.Deadline;
 import com.gpt.dumpgpt.task.Event;
@@ -23,14 +24,18 @@ public class AddTask extends Action {
         return ALIASES;
     }
 
-    protected void execute() {
+    protected void execute() throws DukeException {
         Task task = createNewTask();
-        if (task == null || !task.isValid()) {
-            ProgramConstants.printWrapped("Failed to add new task...");
-            return;
-        }
+        throwIfInvalidTask(task);
         Task.addTask(task);
         printSuccess(task);
+    }
+
+    private static void throwIfInvalidTask(Task task) throws DukeException {
+        if (task == null) {
+            throw new DukeException("Failed to add new task...");
+        }
+        task.validate();
     }
 
     private Task createNewTask() {
