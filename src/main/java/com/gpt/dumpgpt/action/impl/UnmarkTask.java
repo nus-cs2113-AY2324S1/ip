@@ -19,7 +19,7 @@ public class UnmarkTask extends MarkTask {
             return;
         }
 
-        task.markDone();
+        task.unmarkDone();
         printSuccess(PRINT_ACTION, task);
     }
 }
