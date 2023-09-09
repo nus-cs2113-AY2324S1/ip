@@ -4,7 +4,7 @@ public class Todo extends Task {
         super(description);
     }
 
-    public String toString(){
+    public String toString() {
 
         return "[T]" + super.toString();
     }
