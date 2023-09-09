@@ -9,7 +9,7 @@ public class RC {
             String errorMessage = "\tOOPS!!! The description of a todo cannot be empty.";
             throw new RCException(errorMessage);
         }
-        
+
         tasks.add(new Todo(description));
         tasks.get(tasks.size() - 1).printAddedTask();
     }
@@ -27,9 +27,13 @@ public class RC {
         tasks.get(tasks.size() - 1).printAddedTask();
     }
 
-    private static void addDeadline(String input, ArrayList<Task> tasks) {
-        int splitIndex = input.indexOf("/");
+    private static void addDeadline(String input, ArrayList<Task> tasks) throws RCException {
+        int splitIndex = input.indexOf("/by");
         final int beginIndex = 9;
+        if (splitIndex == -1) {
+            String errorMessage = "\tPlease include /by followed by the deadline. (eg. /by Monday)";
+            throw new RCException(errorMessage);
+        }
 
         String description = input.substring(beginIndex, splitIndex);
         String by = input.substring(splitIndex + 4);
