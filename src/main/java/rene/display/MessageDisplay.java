@@ -1,3 +1,8 @@
+package rene.display;
+
+import rene.task.Task;
+import rene.tasklist.TaskList;
+import rene.exception.ReneExceptions;
 import java.util.Scanner;  // Import the Scanner class
 public class MessageDisplay {
     static Scanner input = new Scanner(System.in);  // Create a Scanner object

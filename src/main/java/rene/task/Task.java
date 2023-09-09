@@ -1,3 +1,4 @@
+package rene.task;
 public class Task {
     public enum TaskType {TODO, EVENT, DEADLINE, DEFAULT};
     private TaskType taskType;
