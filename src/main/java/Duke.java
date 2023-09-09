@@ -40,64 +40,88 @@ public class Duke {
                 byeDude();
                 break;
             } else if (input.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i));
-                }
+                listTasks(tasks);
             } else if (input.startsWith("todo")) {
-                String taskDescription = input.substring(5);
-                tasks.add(new Task(taskDescription));
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                addTodoTask(tasks, input);
             } else if (input.startsWith("deadline")) {
-                String taskDescription = input.substring(9, input.indexOf("/by")).trim();
-                String by = input.substring(input.indexOf("/by") + 4).trim();
-                tasks.add(new Deadline(taskDescription, by));
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                addDeadlineTask(tasks, input);
             } else if (input.startsWith("event")) {
-                String taskDescription = input.substring(6, input.indexOf("/from")).trim();
-                String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to")).trim();
-                String to = input.substring(input.indexOf("/to") + 4).trim();
-                tasks.add(new Event(taskDescription, from, to));
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                addEventTask(tasks, input);
             } else if (input.startsWith("mark") || input.startsWith("unmark")) {
-                String[] arrOfInput = input.split(" ", 2);
-                if (arrOfInput.length < 2) {
-                    System.out.println("Please specify the task index.");
-                } else {
-                    try {
-                        int index = Integer.parseInt(arrOfInput[1]) - 1;
-                        if (index < 0 || index >= tasks.size()) { // Here, replace curPos with tasks.size()
-                            System.out.println("Task index out of range.");
-                        } else {
-                            tasks.get(index).isDone = input.startsWith("mark");
-                            String message = input.startsWith("mark") ?
-                                    "Nice! I've marked this task as done:" :
-                                    "OK, I've marked this task as not done yet:";
-                            System.out.println(message);
-
-                            // This line is the modified part: Using toString to print the task.
-                            System.out.println("   " + tasks.get(index).toString());
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid task index format.");
-                    }
-                }
+                markOrUnmarkTask(tasks, input);
             } else {
-                // Add new task
-                System.out.println("added: " + input);
-                tasks.add(new Task(input));
+                addGeneralTask(tasks, input);
             }
+
             drawLine();
             input = scan.nextLine();
         }
         scan.close();
     }
+
+    private static void listTasks(ArrayList<Task> tasks) {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+    }
+
+    private static void addTodoTask(ArrayList<Task> tasks, String input) {
+        String taskDescription = input.substring(5);
+        tasks.add(new Task(taskDescription));
+        printAddedTask(tasks);
+    }
+
+    private static void addDeadlineTask(ArrayList<Task> tasks, String input) {
+        String taskDescription = input.substring(9, input.indexOf("/by")).trim();
+        String by = input.substring(input.indexOf("/by") + 4).trim();
+        tasks.add(new Deadline(taskDescription, by));
+        printAddedTask(tasks);
+    }
+
+    private static void addEventTask(ArrayList<Task> tasks, String input) {
+        String taskDescription = input.substring(6, input.indexOf("/from")).trim();
+        String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to")).trim();
+        String to = input.substring(input.indexOf("/to") + 4).trim();
+        tasks.add(new Event(taskDescription, from, to));
+        printAddedTask(tasks);
+    }
+
+    private static void markOrUnmarkTask(ArrayList<Task> tasks, String input) {
+        String[] arrOfInput = input.split(" ", 2);
+        if (arrOfInput.length < 2) {
+            System.out.println("Please specify the task index.");
+            return;
+        }
+
+        try {
+            int index = Integer.parseInt(arrOfInput[1]) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                System.out.println("Task index out of range.");
+                return;
+            }
+            tasks.get(index).isDone = input.startsWith("mark");
+            String message = input.startsWith("mark") ?
+                    "Nice! I've marked this task as done:" :
+                    "OK, I've marked this task as not done yet:";
+            System.out.println(message);
+            System.out.println("   " + tasks.get(index));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task index format.");
+        }
+    }
+
+    private static void addGeneralTask(ArrayList<Task> tasks, String input) {
+        System.out.println("added: " + input);
+        tasks.add(new Task(input));
+    }
+
+    private static void printAddedTask(ArrayList<Task> tasks) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+    }
+
 
 
     // Method to print the goodbye message
