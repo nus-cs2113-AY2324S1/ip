@@ -38,8 +38,11 @@ public class FredBot {
             throw new FredBotDeadlineErrorException();
         }
         int numTask = Task.getNumTask();
-        tasks[numTask] = new Deadline(task.substring(0, task.indexOf(" /by")),
-                task.substring(task.indexOf(" /by") + 5));
+        String[] arguments = task.split("/by");
+        if (arguments.length != 2) {
+            throw new FredBotDeadlineErrorException();
+        }
+        tasks[numTask] = new Deadline(arguments[0],arguments[1]);
         printAddTask(INDENT + tasks[numTask].toString() + "\n");
         Task.setNumTask(numTask+1);
     }
@@ -49,9 +52,11 @@ public class FredBot {
             throw new FredBotEventErrorException();
         }
         int numTask = Task.getNumTask();
-        tasks[numTask] = new Event(task.substring(0, task.indexOf(EVENT_FROM_PREFIX)),
-                task.substring(task.indexOf(EVENT_FROM_PREFIX) + 7, task.indexOf(EVENT_TO_PREFIX)),
-                task.substring(task.indexOf(EVENT_TO_PREFIX) + 5));
+        String[] arguments = task.split("/to|/from");
+        if (arguments.length != 3) {
+            throw new FredBotEventErrorException();
+        }
+        tasks[numTask] = new Event(arguments[0].trim(), arguments[1].trim(), arguments[2].trim());
         printAddTask(INDENT + tasks[numTask].toString() + "\n");
         Task.setNumTask(numTask+1);
     }
