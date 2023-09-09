@@ -45,8 +45,6 @@ public class Duke {
                         + " (from: " + taskList[i].from + " to: " + taskList[i].to+")");
                 break;
             }
-
-
         }
         printLine();
     }
@@ -87,24 +85,35 @@ public class Duke {
         printLine();
     }
 
-    public static void addTasks(Task[] taskList, String input, String[] userInput, int taskCount){
+    public static void addTasks(Task[] taskList, String[] userInput, int taskCount){
+
         switch (userInput[0]) {
         case "todo":
             Task todo = new ToDo(input.substring(5));
+            String todoDescription = String.join(" ", Arrays.copyOfRange(userInput, 1, userInput.length));
+            Task todo = new ToDo(todoDescription);
             taskList[taskCount] = todo;
             addTaskCallback(taskList, taskCount);
             break;
         case "deadline":
-            int slashIndex = input.indexOf('/');
-            Deadline deadline = new Deadline(input.substring(9, slashIndex), input.substring(slashIndex).split("/by")[1]);
+            int byIndex = Arrays.asList(userInput).indexOf("/by");
+            String deadlineDescription = String.join(" ", Arrays.copyOfRange(userInput, 1, byIndex)) + " ";
+            String deadlineTime = String.join(" ", Arrays.copyOfRange(userInput, byIndex + 1, userInput.length));
+            Deadline deadline = new Deadline(deadlineDescription, deadlineTime);
             taskList[taskCount] = deadline;
             addTaskCallback(taskList, taskCount);
             break;
         case "event":
-            String[] parts = input.split("event | /from | /to ");
-            Task event = new Event(parts[1], parts[2], parts[3]);
+            int fromIndex = Arrays.asList(userInput).indexOf("/from");
+            int toIndex = Arrays.asList(userInput).indexOf("/to");
+            String eventDescription = String.join(" ", Arrays.copyOfRange(userInput, 1, fromIndex)) + " ";
+            String from = String.join(" ", Arrays.copyOfRange(userInput, fromIndex + 1, toIndex));
+            String to = String.join(" ", Arrays.copyOfRange(userInput, toIndex + 1, userInput.length));
+            Task event = new Event(eventDescription, from, to);
             taskList[taskCount] = event;
             addTaskCallback(taskList, taskCount);
+            break;
+        default:
         }
 
     }
