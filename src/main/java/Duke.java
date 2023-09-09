@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -44,8 +45,6 @@ public class Duke {
                         + " (from: " + taskList[i].from + " to: " + taskList[i].to+")");
                 break;
             }
-
-
         }
         printLine();
     }
@@ -86,24 +85,34 @@ public class Duke {
         printLine();
     }
 
-    public static void addTasks(Task[] taskList, String input, String[] userInput, int taskCount){
+    public static void addTasks(Task[] taskList, String[] userInput, int taskCount){
+
         switch (userInput[0]) {
         case "todo":
-            Task todo = new ToDo(input.substring(5));
+            String todoDescription = String.join(" ", Arrays.copyOfRange(userInput, 1, userInput.length));
+            Task todo = new ToDo(todoDescription);
             taskList[taskCount] = todo;
             addTaskCallback(taskList, taskCount);
             break;
         case "deadline":
-            int slashIndex = input.indexOf('/');
-            Deadline deadline = new Deadline(input.substring(9, slashIndex), input.substring(slashIndex).split("/by")[1]);
+            int byIndex = Arrays.asList(userInput).indexOf("/by");
+            String deadlineDescription = String.join(" ", Arrays.copyOfRange(userInput, 1, byIndex)) + " ";
+            String deadlineTime = String.join(" ", Arrays.copyOfRange(userInput, byIndex + 1, userInput.length));
+            Deadline deadline = new Deadline(deadlineDescription, deadlineTime);
             taskList[taskCount] = deadline;
             addTaskCallback(taskList, taskCount);
             break;
         case "event":
-            String[] parts = input.split("event | /from | /to ");
-            Task event = new Event(parts[1], parts[2], parts[3]);
+            int fromIndex = Arrays.asList(userInput).indexOf("/from");
+            int toIndex = Arrays.asList(userInput).indexOf("/to");
+            String eventDescription = String.join(" ", Arrays.copyOfRange(userInput, 1, fromIndex)) + " ";
+            String from = String.join(" ", Arrays.copyOfRange(userInput, fromIndex + 1, toIndex));
+            String to = String.join(" ", Arrays.copyOfRange(userInput, toIndex + 1, userInput.length));
+            Task event = new Event(eventDescription, from, to);
             taskList[taskCount] = event;
             addTaskCallback(taskList, taskCount);
+            break;
+        default:
         }
 
     }
@@ -117,22 +126,30 @@ public class Duke {
 
         while (true) {
             String input = scanner.nextLine();
-            if (input.startsWith("mark ")) {
-                int indexPosition = Integer.parseInt(input.substring(5));
-                markItem(taskList, indexPosition - 1, true);
-            } else if (input.startsWith("unmark ")) {
-                int indexPosition = Integer.parseInt(input.substring(7));
-                markItem(taskList, indexPosition - 1, false);
-            } else {
-                if (input.equalsIgnoreCase("bye")) {
-                    exitChatbot();
+            String[] userInput = input.trim().split("\\s+");
+
+            DukeException exceptionHandler = new DukeException(userInput);
+            exceptionHandler.checkInput();
+
+            if (!exceptionHandler.exception) {
+                switch (userInput[0]) {
+                case "mark":
+                    markItem(taskList, Integer.parseInt(userInput[1]) - 1, true);
                     break;
-                } else if (input.equalsIgnoreCase("list")) {
+                case "unmark":
+                    markItem(taskList, Integer.parseInt(userInput[1]) - 1, false);
+                    break;
+                case "bye":
+                    exitChatbot();
+                    System.exit(0);
+                    break;
+                case "list":
                     listItems(taskList, taskCount);
-                } else {
-                    String[] userInput = input.trim().split("\\s+");
-                    addTasks(taskList, input, userInput, taskCount);
+                    break;
+                default:
+                    addTasks(taskList, userInput, taskCount);
                     taskCount++;
+                    break;
                 }
             }
         }
