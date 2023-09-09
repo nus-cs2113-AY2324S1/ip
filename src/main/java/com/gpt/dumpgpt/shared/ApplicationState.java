@@ -5,10 +5,9 @@ import java.util.HashMap;
 public class ApplicationState {
     private static ApplicationState appState = null;
     private final HashMap<String, Object> STATES = new HashMap<>();
-    private static final String ENDED_STATE_KEY = "_INTERNAL_ENDED";
+    private boolean isEnded = false;
 
     private ApplicationState() {
-        setApplicationEnded(false);
     }
 
     public static ApplicationState getAppState() {
@@ -30,10 +29,10 @@ public class ApplicationState {
     }
 
     public void setApplicationEnded(boolean isEnded) {
-        STATES.put(ENDED_STATE_KEY, isEnded);
+        this.isEnded = isEnded;
     }
 
     public boolean getApplicationEnded() {
-        return (boolean) STATES.get(ENDED_STATE_KEY);
+        return isEnded;
     }
 }
