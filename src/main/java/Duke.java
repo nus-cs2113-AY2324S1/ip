@@ -89,7 +89,6 @@ public class Duke {
 
         switch (userInput[0]) {
         case "todo":
-            Task todo = new ToDo(input.substring(5));
             String todoDescription = String.join(" ", Arrays.copyOfRange(userInput, 1, userInput.length));
             Task todo = new ToDo(todoDescription);
             taskList[taskCount] = todo;
@@ -127,22 +126,30 @@ public class Duke {
 
         while (true) {
             String input = scanner.nextLine();
-            if (input.startsWith("mark ")) {
-                int indexPosition = Integer.parseInt(input.substring(5));
-                markItem(taskList, indexPosition - 1, true);
-            } else if (input.startsWith("unmark ")) {
-                int indexPosition = Integer.parseInt(input.substring(7));
-                markItem(taskList, indexPosition - 1, false);
-            } else {
-                if (input.equalsIgnoreCase("bye")) {
-                    exitChatbot();
+            String[] userInput = input.trim().split("\\s+");
+
+            DukeException exceptionHandler = new DukeException(userInput);
+            exceptionHandler.checkInput();
+
+            if (!exceptionHandler.exception) {
+                switch (userInput[0]) {
+                case "mark":
+                    markItem(taskList, Integer.parseInt(userInput[1]) - 1, true);
                     break;
-                } else if (input.equalsIgnoreCase("list")) {
+                case "unmark":
+                    markItem(taskList, Integer.parseInt(userInput[1]) - 1, false);
+                    break;
+                case "bye":
+                    exitChatbot();
+                    System.exit(0);
+                    break;
+                case "list":
                     listItems(taskList, taskCount);
-                } else {
-                    String[] userInput = input.trim().split("\\s+");
-                    addTasks(taskList, input, userInput, taskCount);
+                    break;
+                default:
+                    addTasks(taskList, userInput, taskCount);
                     taskCount++;
+                    break;
                 }
             }
         }
