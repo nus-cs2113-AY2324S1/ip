@@ -1,3 +1,12 @@
+import fredbot.error.FredBotCommandErrorException;
+import fredbot.error.FredBotDeadlineErrorException;
+import fredbot.error.FredBotEventErrorException;
+import fredbot.error.FredBotTodoErrorException;
+import fredbot.task.Deadline;
+import fredbot.task.Event;
+import fredbot.task.Task;
+import fredbot.task.Todo;
+
 import java.util.Scanner;
 
 public class FredBot {
