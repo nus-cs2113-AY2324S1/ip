@@ -1,3 +1,5 @@
+
+badCommand
 todo welcome
 todo hi
 deadline
@@ -11,6 +13,7 @@ event an event      /from A
 event an event      /from A /to
 event an event working     /from A /to Z
 list
+mark -1
 mark 0
 mark 5
 mark 1
