@@ -2,6 +2,7 @@ package com.gpt.dumpgpt.action.impl;
 
 import com.gpt.dumpgpt.action.api.Action;
 import com.gpt.dumpgpt.command.Command;
+import com.gpt.dumpgpt.shared.DukeException;
 import com.gpt.dumpgpt.shared.ProgramConstants;
 import com.gpt.dumpgpt.task.Task;
 
@@ -23,10 +24,10 @@ public class MarkTask extends Action {
         return Task.getTask(--taskNumber);
     }
 
-    protected void printFailure(String action) {
-        ProgramConstants.printWrapped(
-                String.format("Failed to mark task as %s...", action)
-        );
+    protected void throwIfInvalidTask(String action, Task task) throws DukeException {
+        if (task == null) {
+            throw new DukeException(String.format("Failed to mark task as %s...", action));
+        }
     }
 
     protected void printSuccess(String action, Task task) {
@@ -36,13 +37,9 @@ public class MarkTask extends Action {
         });
     }
 
-    protected void execute() {
+    protected void execute() throws DukeException {
         Task task = getTask();
-        if (task == null) {
-            printFailure(PRINT_ACTION);
-            return;
-        }
-
+        throwIfInvalidTask(PRINT_ACTION, task);
         task.markDone();
         printSuccess(PRINT_ACTION, task);
     }

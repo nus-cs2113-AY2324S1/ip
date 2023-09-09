@@ -1,5 +1,6 @@
 
 badCommand
+todo
 todo welcome
 todo hi
 deadline

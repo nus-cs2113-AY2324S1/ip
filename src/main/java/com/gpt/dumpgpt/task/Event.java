@@ -1,6 +1,9 @@
 package com.gpt.dumpgpt.task;
 
+import com.gpt.dumpgpt.shared.DukeException;
+
 public class Event extends Task {
+    private static final String TYPE = "Event";
     protected String from;
     protected String to;
 
@@ -16,7 +19,12 @@ public class Event extends Task {
     }
 
     @Override
-    public boolean isValid() {
-        return super.isValid() && from != null && !from.isBlank() && to != null && !to.isBlank();
+    public void validate() throws DukeException {
+        super.validate(TYPE);
+        if (from == null || from.isBlank()) {
+            throw new DukeException("From cannot be empty...");
+        } else if (to == null || to.isBlank()) {
+            throw new DukeException("To cannot be empty");
+        }
     }
 }
