@@ -102,12 +102,14 @@ public class Duke {
             printNewTask(taskList, newDeadline);
         } catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("Description and time must not be empty");
+            System.out.println("Usage: deadline <description> /by <end>");
         } catch (IllegalArgumentException exception) {
             if(exception.getMessage().equals("Description Blank")) {
                 System.out.println("Description must not be blank");
             } else {
                 System.out.println("Time must not be empty");
             }
+            System.out.println("Usage: deadline <description> /by <end>");
         }
     }
 
@@ -139,6 +141,7 @@ public class Duke {
             printNewTask(taskList, newEvent);
         } catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("To must not be empty");
+            System.out.println("Usage: event <description> /from <start> /to <end>");
         } catch (IllegalArgumentException exception) {
             if(exception.getMessage().equals("Description Blank")) {
                 System.out.println("Description must not be empty");
@@ -168,6 +171,7 @@ public class Duke {
             }
         } catch (IllegalArgumentException exception) {
             System.out.println("OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("Usage: todo <description>");
         }
     }
 
