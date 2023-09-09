@@ -26,6 +26,6 @@ public class Event extends Task {
 
     @Override
     public void printTask() {
-        System.out.println("\t[E]" + getCompletedString() + getTaskName() + " (from: " + getStartTime() + " to " + getEndTime() + ")");
+        System.out.println("\t[E]" + getCompletedString() + getDescription() + " (from: " + getStartTime() + " to " + getEndTime() + ")");
     }
 }

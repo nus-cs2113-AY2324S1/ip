@@ -5,6 +5,6 @@ public class Todo extends Task {
 
     @Override
     public void printTask() {
-        System.out.println("\t[T]" + getCompletedString() + getTaskName());
+        System.out.println("\t[T]" + getCompletedString() + getDescription());
     }
 }
