@@ -19,14 +19,13 @@ public class FredBot {
     public static final String COMMAND_ADD_DEADLINE = "deadline";
     public static final String COMMAND_ADD_EVENT = "event";
     public static final String COMMAND_ERROR_MESSAGE = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
-    public static final String TODDO_ERROR_MESSAGE = "☹ OOPS!!! The description of a todo cannot be empty.";
+    public static final String TODO_ERROR_MESSAGE = "☹ OOPS!!! The description of a todo cannot be empty.";
     public static final String DEADLINE_ERROR_MESSAGE = "☹ OOPS!!! The description of a deadline cannot be empty.";
     public static final String EVENT_ERROR_MESSAGE = "☹ OOPS!!! The description of a event cannot be empty.";
 
-    public static void addTodo(Task[] tasks, String task) {
+    public static void addTodo(Task[] tasks, String task) throws FredBotTodoErrorException {
         if (task.isEmpty()) {
-            printMessage(INDENT + TODDO_ERROR_MESSAGE);
-            return;
+            throw new FredBotTodoErrorException();
         }
         int numTask = Task.getNumTask();
         tasks[numTask] = new Todo(task);
@@ -34,10 +33,9 @@ public class FredBot {
         Task.setNumTask(numTask+1);
     }
 
-    public static void addDeadline(Task[] tasks, String task) {
+    public static void addDeadline(Task[] tasks, String task) throws FredBotDeadlineErrorException {
         if (task.isEmpty()) {
-            printMessage(INDENT + DEADLINE_ERROR_MESSAGE);
-            return;
+            throw new FredBotDeadlineErrorException();
         }
         int numTask = Task.getNumTask();
         tasks[numTask] = new Deadline(task.substring(0, task.indexOf(" /by")),
@@ -46,10 +44,9 @@ public class FredBot {
         Task.setNumTask(numTask+1);
     }
 
-    public static void addEvent(Task[] tasks, String task) {
+    public static void addEvent(Task[] tasks, String task) throws FredBotEventErrorException {
         if (task.isEmpty()) {
-            printMessage(INDENT + EVENT_ERROR_MESSAGE);
-            return;
+            throw new FredBotEventErrorException();
         }
         int numTask = Task.getNumTask();
         tasks[numTask] = new Event(task.substring(0, task.indexOf(EVENT_FROM_PREFIX)),
@@ -101,23 +98,34 @@ public class FredBot {
         line = in.nextLine();
 
         while (!line.equals("bye")) {
-            if (line.equals("list")) {
-                printTasks(tasks);
-            } else if (line.startsWith(COMMAND_MARK)) {
-                int index = Integer.parseInt(line.substring(5).trim());
-                changeStatus(tasks, true, index);
-            } else if (line.startsWith(COMMAND_UNMARK)) {
-                int index = Integer.parseInt(line.substring(7).trim());
-                changeStatus(tasks, false, index);
-            } else if (line.startsWith(COMMAND_ADD_TODO)){
-                addTodo(tasks, line.substring(5));
-            } else if (line.startsWith(COMMAND_ADD_DEADLINE)) {
-                addDeadline(tasks, line.substring(9));
-            } else if (line.startsWith(COMMAND_ADD_EVENT)) {
-                addEvent(tasks, line.substring(6));
-            } else {
+            try {
+                if (line.equals("list")) {
+                    printTasks(tasks);
+                } else if (line.startsWith(COMMAND_MARK)) {
+                    int index = Integer.parseInt(line.substring(5).trim());
+                    changeStatus(tasks, true, index);
+                } else if (line.startsWith(COMMAND_UNMARK)) {
+                    int index = Integer.parseInt(line.substring(7).trim());
+                    changeStatus(tasks, false, index);
+                } else if (line.startsWith(COMMAND_ADD_TODO)){
+                    addTodo(tasks, line.replace(COMMAND_ADD_TODO, "").trim());
+                } else if (line.startsWith(COMMAND_ADD_DEADLINE)) {
+                    addDeadline(tasks, line.replace(COMMAND_ADD_DEADLINE, "").trim());
+                } else if (line.startsWith(COMMAND_ADD_EVENT)) {
+                    addEvent(tasks, line.replace(COMMAND_ADD_EVENT, "").trim());
+                } else {
+                    throw new FredBotCommandErrorException();
+                }
+            } catch (FredBotCommandErrorException e) {
                 printMessage(INDENT + COMMAND_ERROR_MESSAGE);
+            } catch (FredBotDeadlineErrorException e) {
+                printMessage(INDENT + DEADLINE_ERROR_MESSAGE);
+            } catch (FredBotTodoErrorException e) {
+                printMessage(INDENT + TODO_ERROR_MESSAGE);
+            } catch (FredBotEventErrorException e) {
+                printMessage(INDENT + EVENT_ERROR_MESSAGE);
             }
+
             line = in.nextLine();
         }
         
