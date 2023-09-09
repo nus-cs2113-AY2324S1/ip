@@ -35,13 +35,6 @@ public class CSGPT {
         printHorizontalLine();
     }
     public static void greet() {
-        String logo =  "▄▀▄▄▄▄   ▄▀▀▀▀▄  ▄▀▀▀▀▄   ▄▀▀▄▀▀▀▄  ▄▀▀▀█▀▀▄\n" +
-                       "█ █    ▌ █ █   ▐ █        █   █   █ █    █  ▐\n" +
-                       "▐ █         ▀▄   █    ▀▄▄ ▐  █▀▀▀▀  ▐   █\n" +
-                       "  █      ▀▄   █  █     █ █   █         █\n" +
-                       " ▄▀▄▄▄▄▀  █▀▀▀   ▐▀▄▄▄▄▀ ▐ ▄▀        ▄▀\n" +
-                       "█     ▐   ▐      ▐        █         █\n" +
-                       "▐                         ▐         ▐\n";
 
         String randomGreetingLine = greetingLines[(int) (Math.random() * greetingLines.length)];
 
@@ -68,7 +61,7 @@ public class CSGPT {
         while(!(command instanceof Farewell)) {
             input = in.nextLine();
             try {
-                command = Command.getCommand(input, taskList);
+                command = Command.getCommand(input);
                 try {
                     command.execute(taskList);
                 } catch (CSGPTParsingException e) {
