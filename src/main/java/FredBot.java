@@ -37,11 +37,11 @@ public class FredBot {
         tasks[index - 1].setDone(mark);
         String message;
         if (mark) {
-            message = "    Nice! I've marked this task as done:\n";
-            message += "    [X] " + tasks[index-1].getTaskDesc();
+            message = "    " + "Nice! I've marked this task as done:\n";
+            message += "    " + "[X] " + tasks[index-1].getTaskDesc();
         } else {
-            message = "    Nice! I've marked this task as not done yet:\n";
-            message += "    [ ] " + tasks[index-1].getTaskDesc();
+            message = "    " + "Nice! I've marked this task as not done yet:\n";
+            message += "    " + "[ ] " + tasks[index-1].getTaskDesc();
         }
         printMessage(message);
     }
