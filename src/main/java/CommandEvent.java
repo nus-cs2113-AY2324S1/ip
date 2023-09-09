@@ -36,7 +36,7 @@ public class CommandEvent extends Command {
     }
 
     private static final String ERROR_MSG_NO_ARGS =
-            "Command 'event' should have arguments.";
+            "Command 'event' should have three arguments, name, start and end of the event.";
     private static final String ERROR_MSG_INVALID_NUMBER_OF_FROM_TO =
             "Command 'event' should have one '/from' label and one '/to' label for the period of event.";
     private static final String ERROR_MSG_NAME_EMPTY =

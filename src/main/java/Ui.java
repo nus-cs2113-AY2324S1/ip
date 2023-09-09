@@ -31,7 +31,7 @@ public class Ui {
     public static void printAddedTask(String addedTask, int taskCnt) {
         System.out.println("[@] Got it. I've added this task:");
         System.out.println("  " + addedTask);
-        System.out.printf("[@] Now you have %d tasks in the list.\n", taskCnt);
+        System.out.printf("[@] Now you have %d task%s in the list.\n", taskCnt, taskCnt == 1? "": "s");
     }
 
     public static void printListOfTasks(String[] tasks) {
