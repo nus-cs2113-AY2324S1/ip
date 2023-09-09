@@ -1,8 +1,5 @@
 import java.util.Scanner;
 public class Neo {
-    public enum CommandType {
-        EVENT, DEADLINE, TODO
-    }
 
     public static void printList(Task[] list) {
         int listIndex = 1;
@@ -48,29 +45,29 @@ public class Neo {
         switch (type) {
         case TODO:
             if (line.contains("/from") || (line.contains("/to"))) {
-                throw new NeoException("/from", NeoException.ErrorType.MISUSE);
+                throw new NeoException("/from", ErrorType.MISUSE);
             }
             if (line.contains("/by")) {
-                throw new NeoException("/by", NeoException.ErrorType.MISUSE);
+                throw new NeoException("/by", ErrorType.MISUSE);
             }
             break;
         case DEADLINE:
             if (line.contains("/from") || (line.contains("/to"))) {
-                throw new NeoException("/from", NeoException.ErrorType.MISUSE);
+                throw new NeoException("/from", ErrorType.MISUSE);
             }
             if (!line.contains("/by")) {
-                throw new NeoException("/by", NeoException.ErrorType.FORMAT);
+                throw new NeoException("/by", ErrorType.FORMAT);
             }
             break;
         case EVENT:
+            if (line.contains("/by")) {
+                throw new NeoException("/by", ErrorType.MISUSE);
+            }
             if (!line.contains("/from")) {
-                throw new NeoException("/from", NeoException.ErrorType.FORMAT);
+                throw new NeoException("/from", ErrorType.FORMAT);
             }
             if (!line.contains("/to")) {
-                throw new NeoException("/to", NeoException.ErrorType.FORMAT);
-            }
-            if (line.contains("/by")) {
-                throw new NeoException("/by", NeoException.ErrorType.MISUSE);
+                throw new NeoException("/to", ErrorType.FORMAT);
             }
             break;
         }
@@ -78,7 +75,7 @@ public class Neo {
 
     public static void catchEmptyDescription(String field, String description) throws NeoException {
         if (description.isBlank()) {
-            throw new NeoException(field, NeoException.ErrorType.EMPTY);
+            throw new NeoException(field, ErrorType.EMPTY);
         }
     }
 
