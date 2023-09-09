@@ -19,16 +19,33 @@ public class Task {
         return isDone;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void printTask(){
-        System.out.println("[" + this.getStatusIcon() + "] " + this.description);
+    public void printTask(String s) {
+        System.out.println(s);
+    }
+
+    public String toString() {
+        return ("[" + this.getStatusIcon() + "] " + this.description);
+    }
+
+    public void markItem() {
+        this.isDone = true;
+        System.out.println("Nice! I've marked this task as done: ");
+        printTask(this.toString());
+    }
+
+    public void unmarkItem() {
+        this.isDone = false;
+        System.out.println("Ok, I've marked this task as not done yet: ");
+        printTask(this.toString());
+    }
+
+    public void announceTaskAdd() {
+        System.out.println("Got it. I've added this task: ");
+        System.out.print("  ");
     }
 
 }
