@@ -16,7 +16,16 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    /* function for check input format */
+    static void checkInputFormat(String command, String[] input) throws InputFormatException{
+        if(command.equals("todo")){
+            if(input.length !=2){
+                throw new InputFormatException();
+            }
+        }
+    }
+
+    public static void main(String[] args){
         Scanner input = new Scanner(System.in);
         Task[] tasks = new Task[100];
         int tasks_size = 0;
@@ -98,9 +107,11 @@ public class Duke {
                 printLine(" [" + tasks[mark_idx].getStatusIcon() + "] " + tasks[mark_idx].getDescription());
                 System.out.println("    ____________________________________________________________\n");
             } else if(tokens[0].equals("todo")) {
-                // error handling
-                if (tokens.length != 2) {
-                    printLine("unexpected behavior: 'todo' needs more string");
+
+                try{
+                    checkInputFormat("todo", tokens);
+                } catch (InputFormatException e){
+                    printLine("unexpected behavior: <todo> should be with task description");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
                 }
