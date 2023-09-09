@@ -5,6 +5,7 @@ import Commands.Command;
 import Commands.Echo;
 import Commands.Farewell;
 import Exceptions.CSGPTException;
+import Exceptions.CSGPTParsingException;
 
 public class CSGPT {
     private static final TaskList taskList = new TaskList();
@@ -66,9 +67,13 @@ public class CSGPT {
         greet();
         while(!(command instanceof Farewell)) {
             input = in.nextLine();
-            command = Command.getCommand(input, taskList);
             try {
-                command.execute();
+                command = Command.getCommand(input, taskList);
+                try {
+                    command.execute(taskList);
+                } catch (CSGPTParsingException e) {
+                    printText(e.getMessage());
+                }
             } catch (CSGPTException e) {
                 printText(e.getMessage());
             }

@@ -14,7 +14,7 @@ public class Mark extends Command {
     }
 
     @Override
-    public void execute() throws CSGPTMissingTaskException {
+    public void execute(TaskList list) throws CSGPTMissingTaskException {
         try {
             list.markAsDone(taskNumber);
             CSGPT.printText("Consider it done:\n\t" + list.getTask(taskNumber).toString());

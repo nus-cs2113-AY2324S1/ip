@@ -1,6 +1,7 @@
 package Commands;
 
 import CSGPT.CSGPT;
+import CSGPT.TaskList;
 public class Farewell extends Command {
     private static final String[] farewellLines = {
             "Farewell, dear pawns. Until our paths cross again in the tapestry of time.",
@@ -14,7 +15,7 @@ public class Farewell extends Command {
             "Like whispers on the wind, I vanish into the shadows. Until next we cross paths...",
             "And so, the threads of our interaction fray, yet the tapestry remains forever changed."
     };
-    public void execute() {
+    public void execute(TaskList list) {
         String randomFarewellLine = farewellLines[(int) (Math.random() * farewellLines.length)];
         CSGPT.printText(randomFarewellLine);
     }

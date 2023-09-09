@@ -7,6 +7,7 @@ import CSGPT.Event;
 import CSGPT.Deadline;
 import CSGPT.CSGPT;
 import Exceptions.CSGPTException;
+import Exceptions.CSGPTParsingException;
 
 public abstract class Command {
     private static final String ADD_TODO_COMMAND = "todo";
@@ -16,7 +17,7 @@ public abstract class Command {
     private static final String MARK_COMMAND = "mark";
     private static final String FAREWELL_COMMAND = "bye";
 
-    public static Command getCommand(String input, TaskList taskList) {
+    public static Command getCommand(String input, TaskList taskList) throws CSGPTParsingException {
         switch (input.contains(" ") ? input.split(" ")[0] : input) {
         case ADD_TODO_COMMAND:
             if (input.equals(ADD_TODO_COMMAND)) {
@@ -25,7 +26,7 @@ public abstract class Command {
 
             String todoDescription = input.substring(ADD_TODO_COMMAND.length() + 1);
             Task todo = new Todo(todoDescription);
-            return new Add(todo, taskList);
+            return new Add(todo);
         case ADD_DEADLINE_COMMAND:
             if (input.equals(ADD_DEADLINE_COMMAND)) {
                 return new Echo("The description of a deadline cannot be empty.");
@@ -43,7 +44,7 @@ public abstract class Command {
             String by = deadlineDetailsArray[1];
 
             Task deadline = new Deadline(deadlineDescription, by);
-            return new Add(deadline, taskList);
+            return new Add(deadline);
         case ADD_EVENT_COMMAND:
             if (input.equals(ADD_EVENT_COMMAND)) {
                 return new Echo("The description of a event cannot be empty.");
@@ -67,9 +68,9 @@ public abstract class Command {
             String to = eventDetailsArray2[1];
 
             Task event = new Event(eventDescription, from, to);
-            return new Add(event, taskList);
+            return new Add(event);
         case LIST_COMMAND:
-            return new List(taskList);
+            return new List();
         case MARK_COMMAND:
             String remainder = input.split(" ")[1];
             int taskNumber;
@@ -86,5 +87,5 @@ public abstract class Command {
             return new Echo(input);
         }
     }
-    public abstract void execute() throws CSGPTException;
+    public abstract void execute(TaskList tasklist) throws CSGPTException;
 }
