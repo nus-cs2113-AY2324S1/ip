@@ -163,23 +163,23 @@ public class TaskList {
             switch(allTasks[i].getTaskType()) {
                 case TODO:
                     if (allTasks[i].taskIsDone()) {
-                        System.out.printf("    %d: [T][X] %s\n", i, allTasks[i].getTaskDescription());
+                        System.out.printf("    %d: [T][X] %s\n", i+1, allTasks[i].getTaskDescription());
                     } else {
-                        System.out.printf("    %d: [T][] %s\n", i, allTasks[i].getTaskDescription());
+                        System.out.printf("    %d: [T][] %s\n", i+1, allTasks[i].getTaskDescription());
                     }
                     break;
                 case DEADLINE:
                     if (allTasks[i].taskIsDone()) {
-                        System.out.printf("    %d: [D][X] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                        System.out.printf("    %d: [D][X] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
                     } else {
-                        System.out.printf("    %d: [D][] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                        System.out.printf("    %d: [D][] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
                     }
                     break;
                 case EVENT:
                     if (allTasks[i].taskIsDone()) {
-                        System.out.printf("    %d: [E][X] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                        System.out.printf("    %d: [E][X] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
                     } else {
-                        System.out.printf("    %d: [E][] %s %s\n", i, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
+                        System.out.printf("    %d: [E][] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
                     }
                     break;
             }
@@ -187,7 +187,7 @@ public class TaskList {
     }
     public static void markTaskAsDone(int index){
         try{
-            allTasks[index].markAsDone();
+            allTasks[index-1].markAsDone();
         } catch (IndexOutOfBoundsException invalidIndex){
             System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
             System.out.println("    ____________________________________________________________");
@@ -195,7 +195,7 @@ public class TaskList {
     }
     public static void markTaskAsNotDone(int index){
         try{
-            allTasks[index].markAsNotDone();
+            allTasks[index-1].markAsNotDone();
         } catch (IndexOutOfBoundsException invalidIndex){
             System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
             System.out.println("    ____________________________________________________________");
