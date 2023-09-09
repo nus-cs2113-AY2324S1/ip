@@ -1,5 +1,6 @@
-import java.util.ArrayList;
+package Tasks;
 
+import java.util.ArrayList;
 
 public class Tasklist {
     ArrayList<Task> taskList;
@@ -42,7 +43,7 @@ public class Tasklist {
     public ArrayList<Task> searchTasks(String searchString) {
         ArrayList<Task> searchResults = new ArrayList<Task>();
         for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getTaskName().contains(searchString)) {
+            if (taskList.get(i).getDescription().contains(searchString)) {
                 searchResults.add(taskList.get(i));
             }
         }
