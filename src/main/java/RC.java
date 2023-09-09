@@ -51,9 +51,20 @@ public class RC {
         tasks.get(tasks.size() - 1).printAddedTask();
     }
 
-    private static void unmarkTask(String input, ArrayList<Task> tasks) {
+    private static void unmarkTask(String input, ArrayList<Task> tasks) throws RCException {
         String taskIndex = input.substring(input.length() - 1);
-        int taskNum = Integer.parseInt(taskIndex) - 1;
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(taskIndex) - 1;
+        } catch (NumberFormatException e) {
+            String errorMessage = "\tOOPS!!! Please enter a valid integer.";
+            throw new RCException(errorMessage);
+        }
+
+        if (!Task.isValidIndex(taskNum)) {
+            String errorMessage = "\tOOPS!!! Index is out of range of list.";
+            throw new RCException(errorMessage);
+        }
 
         tasks.get(taskNum).unmarkTask();
     }
