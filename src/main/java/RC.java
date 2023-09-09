@@ -14,10 +14,14 @@ public class RC {
         tasks.get(tasks.size() - 1).printAddedTask();
     }
 
-    private static void addEvent(String input, ArrayList<Task> tasks) {
+    private static void addEvent(String input, ArrayList<Task> tasks) throws RCException {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
         final int beginIndex = 6;
+        if (fromIndex == -1 || toIndex == -1) {
+            String errorMessage = "\tOOPS!!! Please include /from and /to for the start and end time.";
+            throw new RCException(errorMessage);
+        }
 
         String description = input.substring(beginIndex, fromIndex);
         String from = input.substring(fromIndex + 6, toIndex);
@@ -31,7 +35,7 @@ public class RC {
         int splitIndex = input.indexOf("/by");
         final int beginIndex = 9;
         if (splitIndex == -1) {
-            String errorMessage = "\tPlease include /by followed by the deadline. (eg. /by Monday)";
+            String errorMessage = "\tOOPS!!! Please include /by followed by the deadline. (eg. /by Monday)";
             throw new RCException(errorMessage);
         }
 
