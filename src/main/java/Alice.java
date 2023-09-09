@@ -41,7 +41,7 @@ public class Alice {
      */
     public static void listTasks() {
         int itemNumber;
-        for (int i = 0; i< numberOfTasks; i++){
+        for (int i = 0; i < numberOfTasks; i++){
             itemNumber = i + 1;
             System.out.println(itemNumber + ". " + tasks[i].printTask());
         }
@@ -126,11 +126,11 @@ public class Alice {
                 break;
             case "unmark":
                 taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskId].unmarkStatusIcon();
+                tasks[taskId].unmark();
                 break;
             case "mark":
                 taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskId].markStatusIcon();
+                tasks[taskId].mark();
                 break;
             case "deadline":
                 addDeadline(userInput);
