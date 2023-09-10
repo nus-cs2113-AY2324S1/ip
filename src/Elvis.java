@@ -53,6 +53,6 @@ public class Elvis {
         //Functionalities of ChatBot
         //Echo.shoutEcho(); (WEEK 1)
         //List.makeList();  (WEEK 2)
-        TaskManager.manageTask();
+        TaskManager.inputTask();
     }
 }

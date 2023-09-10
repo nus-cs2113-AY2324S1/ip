@@ -1,37 +1,125 @@
 import java.util.Scanner;
 
 public class TaskManager {
-
     public static Scanner in = new Scanner(System.in);  //Scanner for Input
     private static int listCount = 0;                   //Counter for the list filled up
     private static final Task[] list = new Task[100];   //Keeps track of all Task Instances made
 
-    public static void listOut() {
-        if (listCount == 0) {   //If there's nothing the list
-            Elvis.printHorizontalLines();
-            System.out.println("Nothing to list");
-            Elvis.printHorizontalLines();
-        } else {                //Print out everything in the list
-            Elvis.printHorizontalLines();
-            System.out.println("Here are the tasks in your list: ");
+    public static void inputTask() {
+        Elvis.bootUp();
+        while (true) {
+            String inputBuffer = in.nextLine().trim(); //Scans I/O and all input stored in inputBuffer
 
-            for (int i = 0; i < listCount; i++) {
-                System.out.print(i + 1 + "." + "[" + list[i].getTaskType() + "]");
-                System.out.print("[" + list[i].getStatus() + "] " + list[i].getDescription());
-
-                // Check if the task is of type 'D' (Deadline) and cast it to Deadline if so
-                if (list[i] instanceof Deadline) {
-                    Deadline deadlineTask = (Deadline) list[i];
-                    System.out.println(" (by: " + deadlineTask.getDate() + ")");
-                } else if (list[i] instanceof Event) {
-                    Event eventTask = (Event) list[i];
-                    System.out.println(" (from: " + eventTask.getStartTime() + " to: " + eventTask.getEndTime() + ")");
-                } else {
-                    System.out.println("");
-                }
+            if (inputBuffer.contains("bye")) {  //Program exit
+                break;
+            } else {
+                errorHandler(inputBuffer);      //Checks for any errors and handles them
             }
-            Elvis.printHorizontalLines();
         }
+        Elvis.shutDown();
+    }
+
+    public static void errorHandler(String inputBuffer) {
+        Elvis.printHorizontalLines();
+        try {
+            errorChecker(inputBuffer);
+            taskFunctionManager(inputBuffer);
+        } catch (EmptyInputException exception) {
+            System.out.println("☹ OOPS!!! The description cannot be empty.");
+        } catch (EmptyListException exception) {
+            System.out.println("☹ OOPS!!! Nothing to list.");
+        } catch (EmptyToDoException exception) {
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+        } catch (EmptyMarkException exception) {
+            System.out.println("☹ OOPS!!! The description of a mark cannot be empty.");
+        } catch (EmptyUnmarkException exception) {
+            System.out.println("☹ OOPS!!! The description of an unmark cannot be empty.");
+        } catch (EmptyDeadlineException exception) {
+            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+        } catch (EmptyEventException exception) {
+            System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+        } catch (UnknownInputException exception) {
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+        Elvis.printHorizontalLines();
+    }
+
+    public static void errorChecker(String inputBuffer) throws EmptyInputException, EmptyListException,
+            EmptyToDoException, EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException,
+            EmptyEventException {
+
+        Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
+        String firstWord;
+        if (!bufferScanner.hasNext()) {                     //Checks for the case when there is no input
+            throw new EmptyInputException();
+        } else {
+            firstWord = bufferScanner.next();
+        }
+        if (firstWord.equals("list") && listCount == 0) {
+            throw new EmptyListException();
+        }
+        if (firstWord.equals("todo") && !bufferScanner.hasNext()) {
+            throw new EmptyToDoException();
+        }
+        if (firstWord.equals("mark") && !bufferScanner.hasNext()) {
+            throw new EmptyMarkException();
+        }
+        if (firstWord.equals("unmark") && !bufferScanner.hasNext()) {
+            throw new EmptyUnmarkException();
+        }
+        if (firstWord.equals("deadline") && !bufferScanner.hasNext()) {
+            throw new EmptyDeadlineException();
+        }
+        if (firstWord.equals("event") && !bufferScanner.hasNext()) {
+            throw new EmptyEventException();
+        }
+    }
+
+    public static void taskFunctionManager(String inputBuffer) throws UnknownInputException {
+        Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
+        String firstWord = bufferScanner.next().trim();     //Stores first word in the input
+        boolean hasInteger = bufferScanner.hasNextInt();    //Indicates that some integer was input
+        int numberInput = -1;                               //Stores the number input
+        if (hasInteger) {
+            numberInput = bufferScanner.nextInt();
+        }
+
+        //Functionalities
+        if (inputBuffer.equals("list")) {
+            listOut();
+        } else if (firstWord.equals("todo")) {
+            insertToDo(inputBuffer);
+        } else if (firstWord.equals("mark") && hasInteger && !bufferScanner.hasNext()) {
+            markTask(numberInput);
+        } else if (firstWord.equals("unmark") && hasInteger && !bufferScanner.hasNext()) {
+            unmarkTask(numberInput);
+        } else if (firstWord.equals("deadline")) {
+            insertDeadline(inputBuffer);
+        } else if (firstWord.equals("event")) {
+            insertEvent(inputBuffer);
+        } else {
+            throw new UnknownInputException();
+        }
+    }
+
+    //Print out everything in the list
+    public static void listOut() {
+        Elvis.printHorizontalLines();
+        System.out.println("Here are the tasks in your list: ");
+        for (int i = 0; i < listCount; i++) {
+            System.out.print(i + 1 + "." + "[" + list[i].getTaskType() + "]");
+            System.out.print("[" + list[i].getStatus() + "] " + list[i].getDescription());
+
+            // Additional details required for Deadline and Event
+            if (list[i] instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) list[i];
+                System.out.println(" (by: " + deadlineTask.getDate() + ")");
+            } else if (list[i] instanceof Event) {
+                Event eventTask = (Event) list[i];
+                System.out.println(" (from: " + eventTask.getStartTime() + " to: " + eventTask.getEndTime() + ")");
+            }
+        }
+        Elvis.printHorizontalLines();
     }
 
     public static void markTask(int numberInput) {
@@ -104,45 +192,5 @@ public class TaskManager {
         System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
         Elvis.printHorizontalLines();
         listCount++;
-    }
-
-    public static void manageTask() {
-        Elvis.bootUp();
-
-        while (true) {
-            //Preparation stage
-            String inputBuffer = in.nextLine(); //Scans I/O and all input stored in inputBuffer
-            Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
-            if (!bufferScanner.hasNext()) { //Checks for the case when there is no input
-                System.out.println("Invalid input!");
-                continue;
-            }
-            String firstWord = bufferScanner.next().trim();     //Stores first word in the input
-            boolean hasInteger = bufferScanner.hasNextInt();    //Indicates that some integer was input
-            int numberInput = -1;    //Stores the number input
-            if (hasInteger) {
-                numberInput = bufferScanner.nextInt();
-            }
-
-            //Functionalities
-            if (inputBuffer.contains("bye")) {  //Program exit
-                break;
-            } else if (inputBuffer.equals("list")) {
-                listOut();
-            } else if (firstWord.equals("todo")) {
-                insertToDo(inputBuffer);
-            } else if (firstWord.equals("mark") && hasInteger && !bufferScanner.hasNext()) {
-                markTask(numberInput);
-            } else if (firstWord.equals("unmark") && hasInteger && !bufferScanner.hasNext()) {
-                unmarkTask(numberInput);
-            } else if (firstWord.equals("deadline")) {
-                insertDeadline(inputBuffer);
-            } else if (firstWord.equals("event")) {
-                insertEvent(inputBuffer);
-            } else {
-                System.out.println("Invalid input!");
-            }
-        }
-        Elvis.shutDown();
     }
 }
