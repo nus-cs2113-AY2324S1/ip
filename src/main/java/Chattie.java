@@ -92,7 +92,7 @@ public class Chattie {
 
     public static int addEvent(Task[] list, String line, int count) {
         int firstSlash = line.indexOf("/from");
-        int secondSlash = line.indexOf("/by");
+        int secondSlash = line.indexOf("/to");
         String task = line.substring(6, firstSlash);
         String from = line.substring(firstSlash + 5, secondSlash);
         String to = line.substring(secondSlash + 3);
