@@ -14,8 +14,9 @@ public class Task {
     public void setDone(int taskNo, int taskCount, Task[] list){
         if( (taskNo > taskCount ) || (taskNo <1) ){
             System.out.println("Oops! You don't have any task in this positions.");
-        }
-        else{
+        }else if(this.isDone){
+            System.out.println("You have already completed the task.");
+        } else{
             this.isDone = true;
             System.out.println("  Nice! I've marked this task as done:\n"
                     + "  [X] " + list[taskNo - 1].description);
