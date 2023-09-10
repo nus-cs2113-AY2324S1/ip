@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static final String NULL_INPUT_EXCEPTION = "At least say something! :D";
+
     public static final String UNDEFINED_TASKS = "____________________________________________________________" + System.lineSeparator()
         + "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + System.lineSeparator()
         + "     You should tell me which kind of Tasks (todo, deadline, event) you would like to add" + System.lineSeparator()
@@ -38,6 +39,7 @@ public class Duke {
         }
 
         while (!line.equals("bye")) {
+
             if (line.equals("list")) {
 
                 scanTheList(taskList);
@@ -70,10 +72,9 @@ public class Duke {
     }
 
     private static void handleTheUserInput(List<Task> taskList, String line) throws DukeException {
+
         String[] words = line.split(" ");
-
         String firstWord = words[0];
-
         boolean nullDescription = words.length == 1;
 
         switch (firstWord) {
