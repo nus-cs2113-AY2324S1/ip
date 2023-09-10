@@ -6,6 +6,7 @@ import elvis.task.ToDo;
 
 import java.util.Scanner;
 
+//For adding, removing, marking, unmarking of Tasks
 public class TaskManager {
     public static Scanner in = new Scanner(System.in);  //Scanner for Input
     private static int listCount = 0;                   //Counter for the list filled up
