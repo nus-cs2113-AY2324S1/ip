@@ -7,6 +7,8 @@ public class Duke {
     private static final String BY_KEYWORD = " /by ";
     private static final String FROM_KEYWORD = " /from ";
     private static final String TO_KEYWORD = " /to ";
+    private static final String DEADLINE_FORMAT = "deadline 'task' /by 'specified deadline'";
+    private static final String EVENT_FORMAT = "event 'task' /from 'specified start date' /to 'specified end date'";
 
     private static Task[] tasks = new Task[100];
     private static int tasksCount = 0;
@@ -20,6 +22,11 @@ public class Duke {
         System.out.println("\t" + HORIZONTAL_LINE);
         System.out.println("\tOh hello! I'm " + NAME + ".");
         System.out.println("\tHow can I help you today?");
+        System.out.println("\t" + HORIZONTAL_LINE);
+    }
+
+    public static void tellGoodbye() {
+        System.out.println("\tGoodbye! I am going to sleep now.");
         System.out.println("\t" + HORIZONTAL_LINE);
     }
 
@@ -99,6 +106,38 @@ public class Duke {
         }
     }
 
+    public static void handleNullPointerException() {
+        System.out.println("\tUmm, you tried to access a task that does not exist.");
+        System.out.println("\tPerhaps you should put a valid number based on the number of tasks " +
+                "you have currently. ");
+        printNumOfTasks();
+    }
+
+    public static void handleNumberFormatException(String input) {
+        System.out.println("\tPlease use a valid number for marking or unmarking a task.");
+        System.out.println("\tThe number you tried to input is: " + input);
+    }
+
+    public static void handleDukeCommandException(String command) {
+        System.out.println("\tSorry I don't quite understand what your command is.");
+        System.out.println("\tPlease a valid command.");
+        System.out.println("\tThe command you tried to input is: " + command);
+    }
+
+    public static void handleDukeTaskException(String command, String input) {
+        System.out.println("\tSorry your " + command + "'s format is invalid.");
+        System.out.println("\tYour input should be in this format:");
+
+        if (command.equals("deadline")) {
+            System.out.println("\t\t" + DEADLINE_FORMAT);
+        } else {
+            System.out.println("\t\t" + EVENT_FORMAT);
+        }
+
+        System.out.println("\tYour input is: ");
+        System.out.println("\t\t" + command + " " + input);
+    }
+
     public static void executeCommand(String input) {
         String[] parsedInput = input.split(" ", 2);
         String command = parsedInput[0];
@@ -128,23 +167,19 @@ public class Duke {
                 printRecentTask(tasks[tasksCount - 1]);
                 break;
             case "bye":
-                System.out.println("\tGoodbye! I am going to sleep now.");
-                System.out.println("\t" + HORIZONTAL_LINE);
+                tellGoodbye();
                 System.exit(0);
-                break;
             default:
                 throw new DukeCommandException();
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("\tUmm, you tried to access a task that does not exist");
-            System.out.println("\tPerhaps you should put a valid number based on the number of tasks " +
-                    "you have currently. ");
-        } catch (NumberFormatException e) {
-            System.out.println("\tPlease use a valid for marking or unmarking a task.");
-        } catch (DukeCommandException e) {
-            System.out.println("\tSorry I don't quite understand what your command is.");
-        } catch (DukeTaskException e) {
-            System.out.println("\tSorry your format is invalid.");
+        } catch (NullPointerException exception) {
+            handleNullPointerException();
+        } catch (NumberFormatException exception) {
+            handleNumberFormatException(input);
+        } catch (DukeCommandException exception) {
+            handleDukeCommandException(command);
+        } catch (DukeTaskException exception) {
+            handleDukeTaskException(command, input);
         }
     }
 
