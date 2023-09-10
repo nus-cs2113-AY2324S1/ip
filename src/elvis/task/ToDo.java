@@ -1,3 +1,5 @@
+package elvis.task;
+
 public class ToDo extends Task {
     private final char taskType = 'T';
 

@@ -1,3 +1,5 @@
+package elvis.task;
+
 public class Deadline extends Task {
     private final char taskType = 'D';
     private String date;
