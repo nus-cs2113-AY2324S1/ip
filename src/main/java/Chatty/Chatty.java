@@ -1,3 +1,10 @@
+package Chatty;
+
+import Chatty.tasks.Deadline;
+import Chatty.tasks.Event;
+import Chatty.tasks.Task;
+import Chatty.tasks.Todo;
+
 import java.util.Scanner;
 public class Chatty {
 

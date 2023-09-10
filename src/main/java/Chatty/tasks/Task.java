@@ -1,4 +1,6 @@
-public class Task {
+package Chatty.tasks;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -22,7 +24,7 @@ public class Task {
     }
 }
 
-class Todo extends Task {
+public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
@@ -33,7 +35,7 @@ class Todo extends Task {
     }
 }
 
-class Deadline extends Task {
+public class Deadline extends Task {
     private String by;
 
     public Deadline(String description, String by) {
@@ -51,7 +53,7 @@ class Deadline extends Task {
     }
 }
 
-class Event extends Task {
+public class Event extends Task {
     private String from;
     private String to;
 
