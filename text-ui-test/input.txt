@@ -9,4 +9,19 @@ list
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 deadline do homework /by no idea :-p
+todo
+deadline
+event
+blah
+deadline hello
+deadline /by
+deadline hello /by
+deadline /by whenever
+event /from /to
+event hello
+event /from hi /to
+event /from /to try
+event hello /from /to
+event hello /to
+event hello /from
 bye
