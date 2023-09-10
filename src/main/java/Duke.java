@@ -16,15 +16,37 @@ public class Duke {
         tasksCount++;
     }
 
-    public static void addDeadline(String input) {
+    public static void addDeadline(String input) throws DukeTaskException {
         String[] parsedInput = input.split(BY_KEYWORD);
-        tasks[tasksCount] = new Deadline(parsedInput[0], parsedInput[1]);
+
+        if (parsedInput.length != 2) {
+            throw new DukeTaskException();
+        }
+
+        tasks[tasksCount] = new Deadline(parsedInput[0].trim(), parsedInput[1].trim());
         tasksCount++;
     }
 
-    public static void addEvent(String input) {
-        String[] parsedInput = input.split(FROM_KEYWORD + "|" + TO_KEYWORD);
-        tasks[tasksCount] = new Event(parsedInput[0], parsedInput[1], parsedInput[2]);
+    public static void addEvent(String input) throws DukeTaskException {
+        String[] parsedInput = input.split(FROM_KEYWORD);
+
+        if (parsedInput.length != 2) {
+            throw new DukeTaskException();
+        }
+
+        parsedInput = input.split(TO_KEYWORD);
+
+        if (parsedInput.length != 2) {
+            throw new DukeTaskException();
+        }
+
+        if (input.indexOf(FROM_KEYWORD) >= input.indexOf(TO_KEYWORD)) {
+            throw new DukeTaskException();
+        }
+
+        parsedInput = input.split(FROM_KEYWORD + "|" + TO_KEYWORD);
+
+        tasks[tasksCount] = new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim());
         tasksCount++;
     }
 
@@ -61,35 +83,49 @@ public class Duke {
     public static void executeCommand(String input) {
         String[] parsedInput = input.split(" ", 2);
         String command = parsedInput[0];
-        input = parsedInput.length == 1 ? " " : parsedInput[1];
+        input = parsedInput.length == 1 ? " " : parsedInput[1].trim();
 
-        switch(command) {
-        case "list":
-            printTasks();
-            break;
-        case "mark":
-            setMarkAsDone(input);
-            break;
-        case "unmark":
-            setUnmarkAsDone(input);
-            break;
-        case "todo":
-            addTodo(input);
-            printRecentTask(tasks[tasksCount - 1]);
-            break;
-        case "deadline":
-            addDeadline(input);
-            printRecentTask(tasks[tasksCount - 1]);
-            break;
-        case "event":
-            addEvent(input);
-            printRecentTask(tasks[tasksCount - 1]);
-            break;
-        case "bye":
-            System.out.println("\tGoodbye! I am going to sleep now.");
-            System.out.println("\t" + HORIZONTAL_LINE);
-            System.exit(0);
-            break;
+        try {
+            switch(command) {
+            case "list":
+                printTasks();
+                break;
+            case "mark":
+                setMarkAsDone(input);
+                break;
+            case "unmark":
+                setUnmarkAsDone(input);
+                break;
+            case "todo":
+                addTodo(input);
+                printRecentTask(tasks[tasksCount - 1]);
+                break;
+            case "deadline":
+                addDeadline(input);
+                printRecentTask(tasks[tasksCount - 1]);
+                break;
+            case "event":
+                addEvent(input);
+                printRecentTask(tasks[tasksCount - 1]);
+                break;
+            case "bye":
+                System.out.println("\tGoodbye! I am going to sleep now.");
+                System.out.println("\t" + HORIZONTAL_LINE);
+                System.exit(0);
+                break;
+            default:
+                throw new DukeCommandException();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("\tUmm, you tried to access a task that does not exist");
+            System.out.println("\tPerhaps you should put a valid number based on the number of tasks " +
+                    "you have currently. ");
+        } catch (NumberFormatException e) {
+            System.out.println("\tPlease use a valid for marking or unmarking a task.");
+        } catch (DukeCommandException e) {
+            System.out.println("\tSorry I don't quite understand what your command is.");
+        } catch (DukeTaskException e) {
+            System.out.println("\tSorry your format is invalid.");
         }
     }
 
@@ -103,7 +139,7 @@ public class Duke {
         System.out.println("\t" + HORIZONTAL_LINE);
 
         while (true) {
-            input = in.nextLine();
+            input = in.nextLine().trim();
             System.out.println("\t" + HORIZONTAL_LINE);
             executeCommand(input);
             System.out.println("\t" + HORIZONTAL_LINE);
