@@ -1,14 +1,6 @@
 asdf
-mark 1
-unmark 1
-todo
-deadline 1234
-event 1234 /from
 todo borrow book
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
-mark 1
-list
-unmark 1
 list
 bye
