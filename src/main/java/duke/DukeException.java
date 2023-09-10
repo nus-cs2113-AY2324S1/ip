@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeException extends Exception{
     protected String errorMessage;
     protected static String LINE_DIVIDER = "____________________________________________________________";
