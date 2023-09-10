@@ -3,12 +3,39 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+    public static final String NULL_INPUT_EXCEPTION = "At least say something! :D";
+    public static final String UNDEFINED_TASKS = "____________________________________________________________" + System.lineSeparator()
+        + "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + System.lineSeparator()
+        + "     You should tell me which kind of Tasks (todo, deadline, event) you would like to add" + System.lineSeparator()
+        + "____________________________________________________________" + System.lineSeparator();
+
+    public static final String NULL_DESCRIPTION_EXCEPTION_FOR_TODO = "____________________________________________________________" + System.lineSeparator()
+        + "     ☹ OOPS!!! The description of a todo cannot be empty." + System.lineSeparator()
+        + "____________________________________________________________" + System.lineSeparator();
+
+    public static final String NULL_DESCRIPTION_EXCEPTION_FOR_DEADLINE = "____________________________________________________________" + System.lineSeparator()
+        + "     ☹ OOPS!!! The description of a deadline cannot be empty." + System.lineSeparator()
+        + "____________________________________________________________" + System.lineSeparator();
+
+    public static final String NULL_DESCRIPTION_EXCEPTION_FOR_EVENT = "____________________________________________________________" + System.lineSeparator()
+        + "     ☹ OOPS!!! The description of an event cannot be empty." + System.lineSeparator()
+        + "____________________________________________________________" + System.lineSeparator();
+
     public static void main(String[] args) {
         List<Task> taskList = new LinkedList<>();
         greetToUsers();
 
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
+
+        try {
+            if (line.length() == 0) {
+                throw new NullInputException(NULL_INPUT_EXCEPTION);
+            }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+            line = in.nextLine();
+        }
 
         while (!line.equals("bye")) {
             if (line.equals("list")) {
@@ -20,26 +47,19 @@ public class Duke {
                 markTheTask(line, taskList);
 
             } else {
-                String[] words = line.split(" ");
-                String firstWord = words[0];
 
-                switch (firstWord) {
+                try {
 
-                case "deadline":
-                    handleDeadline(taskList, line);
-                    break;
-                case "todo":
-                    handleTodo(taskList, words);
-                    break;
-                case "event":
-                    handleEvent(taskList, line);
-                    break;
-                default:
-                    handleDefault(taskList, line);
+                    handleTheUserInput(taskList, line);
+                    feedbackOfTheExecution(taskList);
+
+
+                } catch (DukeException e) {
+
+                    System.out.println(e.getMessage());
 
                 }
 
-                feedbackOfTheExecution(taskList);
             }
 
             line = in.nextLine();
@@ -47,6 +67,39 @@ public class Duke {
         }
 
         byeToUsers();
+    }
+
+    private static void handleTheUserInput(List<Task> taskList, String line) throws DukeException {
+        String[] words = line.split(" ");
+
+        String firstWord = words[0];
+
+        boolean nullDescription = words.length == 1;
+
+        switch (firstWord) {
+
+        case "deadline":
+            if (nullDescription) {
+                throw new NullDescriptionInputException(NULL_DESCRIPTION_EXCEPTION_FOR_DEADLINE);
+            }
+            handleDeadline(taskList, line);
+            break;
+        case "todo":
+            if (nullDescription) {
+                throw new NullDescriptionInputException(NULL_DESCRIPTION_EXCEPTION_FOR_TODO);
+            }
+            handleTodo(taskList, words);
+            break;
+        case "event":
+            if (nullDescription) {
+                throw new NullDescriptionInputException(NULL_DESCRIPTION_EXCEPTION_FOR_EVENT);
+            }
+            handleEvent(taskList, line);
+            break;
+        default: {
+            throw new UndefinedTaskException(UNDEFINED_TASKS);
+        }
+        }
     }
 
     private static void feedbackOfTheExecution(List<Task> taskList) {
@@ -57,9 +110,13 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    private static void handleDefault(List<Task> taskList, String line) {
-        taskList.add(new Task(line));
-        System.out.println("     added: " + line);
+    private static void handleDefault() throws DukeException {
+        String errorMessage = "____________________________________________________________" + System.lineSeparator()
+            + "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + System.lineSeparator()
+            + "     You should tell me which kind of Tasks (todo, deadline, event) you would like to add" + System.lineSeparator()
+            + "____________________________________________________________" + System.lineSeparator();
+
+        throw new DukeException(errorMessage);
     }
 
     private static void handleEvent(List<Task> taskList, String line) {
@@ -76,6 +133,7 @@ public class Duke {
     }
 
     private static void handleDeadline(List<Task> taskList, String line) {
+
         String by = line.split("/")[1];
         String description = line.split("/")[0].replace("deadline", "").trim();
         taskList.add(new Deadline(description, by.replace("by", "").trim()));
