@@ -13,8 +13,7 @@ public class Duke {
     private static Task[] tasks = new Task[100];
     private static int tasksCount = 0;
 
-    public static String getInput() {
-        Scanner in = new Scanner(System.in);
+    public static String getInput(Scanner in) {
         return in.nextLine().trim();
     }
 
@@ -185,10 +184,11 @@ public class Duke {
 
     public static void main(String[] args) {
         String input = "";
+        Scanner in = new Scanner(System.in);
 
         tellGreeting();
         while (true) {
-            input = getInput();
+            input = getInput(in);
             System.out.println("\t" + HORIZONTAL_LINE);
             executeCommand(input);
             System.out.println("\t" + HORIZONTAL_LINE);
