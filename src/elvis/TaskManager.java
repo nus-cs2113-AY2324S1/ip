@@ -14,21 +14,26 @@ public class TaskManager {
     private static final Task[] list = new Task[100];   //Keeps track of all Task Instances made
 
     public static void inputTask() {
-        Elvis.bootUp();
+        Miscellaneous.bootUp();
         while (true) {
             String inputBuffer = in.nextLine().trim(); //Scans I/O and all input stored in inputBuffer
+            Miscellaneous.printHorizontalLines();
 
             if (inputBuffer.contains("bye")) {  //Program exit
                 break;
+            } else if (inputBuffer.equals("help")) {
+                System.out.println("No worries, I'm here to help!");
+                Miscellaneous.printHorizontalLines();
+                Help.help();
+                continue;
             } else {
                 errorHandler(inputBuffer);      //Checks for any errors and handles them
             }
         }
-        Elvis.shutDown();
+        Miscellaneous.shutDown();
     }
 
     public static void errorHandler(String inputBuffer) {
-        Elvis.printHorizontalLines();
         try {
             errorChecker(inputBuffer);
             taskFunctionManager(inputBuffer);
@@ -48,8 +53,10 @@ public class TaskManager {
             System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
         } catch (UnknownInputException exception) {
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        } finally {
+            Miscellaneous.printHorizontalLines();
+            Help.help();
         }
-        Elvis.printHorizontalLines();
     }
 
     public static void errorChecker(String inputBuffer) throws EmptyInputException, EmptyListException,
@@ -65,20 +72,15 @@ public class TaskManager {
         }
         if (firstWord.equals("list") && listCount == 0) {
             throw new EmptyListException();
-        }
-        if (firstWord.equals("todo") && !bufferScanner.hasNext()) {
+        } else if (firstWord.equals("todo") && !bufferScanner.hasNext()) {
             throw new EmptyToDoException();
-        }
-        if (firstWord.equals("mark") && !bufferScanner.hasNext()) {
+        } else if (firstWord.equals("mark") && !bufferScanner.hasNext()) {
             throw new EmptyMarkException();
-        }
-        if (firstWord.equals("unmark") && !bufferScanner.hasNext()) {
+        } else if (firstWord.equals("unmark") && !bufferScanner.hasNext()) {
             throw new EmptyUnmarkException();
-        }
-        if (firstWord.equals("deadline") && !bufferScanner.hasNext()) {
+        } else if (firstWord.equals("deadline") && !bufferScanner.hasNext()) {
             throw new EmptyDeadlineException();
-        }
-        if (firstWord.equals("event") && !bufferScanner.hasNext()) {
+        } else if (firstWord.equals("event") && !bufferScanner.hasNext()) {
             throw new EmptyEventException();
         }
     }
@@ -112,7 +114,7 @@ public class TaskManager {
 
     //Print out everything in the list
     public static void listOut() {
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
         System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < listCount; i++) {
             System.out.print(i + 1 + "." + "[" + list[i].getTaskType() + "]");
@@ -127,7 +129,7 @@ public class TaskManager {
                 System.out.println(" (from: " + eventTask.getStartTime() + " to: " + eventTask.getEndTime() + ")");
             }
         }
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
     }
 
     public static void markTask(int numberInput) {
@@ -137,11 +139,11 @@ public class TaskManager {
             return;
         }
         list[nthTask].setStatus(true);
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(nthTask + 1 + "." + "[" + list[nthTask].getTaskType() + "]" +
                 "[" + list[nthTask].getStatus() + "] " + list[nthTask].getDescription());
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
     }
 
     public static void unmarkTask(int numberInput) {
@@ -151,26 +153,26 @@ public class TaskManager {
             return;
         }
         list[nthTask].setStatus(false);
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(nthTask + 1 + "." + "[" + list[nthTask].getTaskType() + "]" +
                 "[" + list[nthTask].getStatus() + "] " + list[nthTask].getDescription());
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
     }
 
     public static void insertToDo(String inputBuffer) {
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
         list[listCount] = new ToDo(inputBuffer.trim().replace("todo ", ""));
         System.out.println("Got it. I've added this task:");
         System.out.println("[" + 'T' + "]" +
                 "[" + list[listCount].getStatus() + "] " + list[listCount].getDescription());
         System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
         listCount++;
     }
 
     public static void insertDeadline(String inputBuffer) {
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
         String date = inputBuffer.substring(inputBuffer.indexOf("/by") + 3).trim();
         String deadlineWithDate = inputBuffer.replace("deadline ", "").trim();
         String deadline = deadlineWithDate.substring(0, deadlineWithDate.indexOf("/by")).trim();
@@ -181,12 +183,12 @@ public class TaskManager {
                 "[" + list[listCount].getStatus() + "] " + list[listCount].getDescription() +
                 " (by: " + date + ")");
         System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
         listCount++;
     }
 
     public static void insertEvent(String inputBuffer) {
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
         String startTime = inputBuffer.substring(inputBuffer.indexOf("/from") + 5, inputBuffer.indexOf("/to")).trim();
         String endTime = inputBuffer.substring(inputBuffer.indexOf("/to") + 3).trim();
         String eventWithTime = inputBuffer.replace("event ", "").trim();
@@ -198,7 +200,7 @@ public class TaskManager {
                 "[" + list[listCount].getStatus() + "] " + list[listCount].getDescription() +
                 " (from: " + startTime + " to: " + endTime + ")");
         System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
-        Elvis.printHorizontalLines();
+        Miscellaneous.printHorizontalLines();
         listCount++;
     }
 }
