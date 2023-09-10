@@ -1,54 +1,35 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static Task[] tasks = new Task[100];
-    private static int tasksCount = 0;
 
     private static final String NAME = "MudMud";
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String BY_KEYWORD = " /by ";
+    private static final String FROM_KEYWORD = " /from ";
+    private static final String TO_KEYWORD = " /to ";
 
-    public static String splitInput(String input) {
-        int dividerPosition = input.indexOf(" ");
-        return input.substring(dividerPosition + 1);
-    }
-
-    public static void addTask(String input) {
-        tasks[tasksCount] = new Task(input);
-        tasksCount++;
-    }
+    private static Task[] tasks = new Task[100];
+    private static int tasksCount = 0;
 
     public static void addTodo(String input) {
-        tasks[tasksCount] = new Todo(splitInput(input));
+        tasks[tasksCount] = new Todo(input);
         tasksCount++;
     }
 
     public static void addDeadline(String input) {
-        final String BY_KEYWORD = " /by ";
-
-        input = splitInput(input);
-        int byPosition = input.indexOf(BY_KEYWORD);
-
-        tasks[tasksCount] = new Deadline(input.substring(0, byPosition),
-                input.substring(byPosition + BY_KEYWORD.length()));
+        String[] parsedInput = input.split(BY_KEYWORD);
+        tasks[tasksCount] = new Deadline(parsedInput[0], parsedInput[1]);
         tasksCount++;
     }
 
     public static void addEvent(String input) {
-        final String FROM_KEYWORD = " /from ";
-        final String TO_KEYWORD = " /to ";
-
-        input = splitInput(input);
-        int fromPosition = input.indexOf(FROM_KEYWORD);
-        int toPosition = input.indexOf(TO_KEYWORD);
-
-        tasks[tasksCount] = new Event(input.substring(0, fromPosition),
-                input.substring(fromPosition + FROM_KEYWORD.length(), toPosition),
-                input.substring(toPosition + TO_KEYWORD.length()));
+        String[] parsedInput = input.split(FROM_KEYWORD + "|" + TO_KEYWORD);
+        tasks[tasksCount] = new Event(parsedInput[0], parsedInput[1], parsedInput[2]);
         tasksCount++;
     }
 
     public static void setMarkAsDone(String input) {
-        int index = Integer.parseInt(splitInput(input)) - 1;
+        int index = Integer.parseInt(input) - 1;
         tasks[index].markAsDone();
 
         System.out.println("\tYay! You have completed this task:");
@@ -56,7 +37,7 @@ public class Duke {
     }
 
     public static void setUnmarkAsDone(String input) {
-        int index = Integer.parseInt(splitInput(input)) - 1;
+        int index = Integer.parseInt(input) - 1;
         tasks[index].unmarkAsDone();
 
         System.out.println("\tOh no! It seems that you haven't finish this task:");
@@ -77,7 +58,10 @@ public class Duke {
         }
     }
 
-    public static void executeCommand(String input, String command) {
+    public static void executeCommand(String input) {
+        String[] parsedInput = input.split(" ", 2);
+        String command = parsedInput[0];
+        input = parsedInput.length == 1 ? " " : parsedInput[1];
 
         switch(command) {
         case "list":
@@ -110,7 +94,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-
         Scanner in = new Scanner(System.in);
         String input = "";
 
@@ -119,14 +102,10 @@ public class Duke {
         System.out.println("\tHow can I help you today?");
         System.out.println("\t" + HORIZONTAL_LINE);
 
-        while (!input.equals("bye")) {
+        while (true) {
             input = in.nextLine();
-
-            String[] parsedInput = input.split(" ", 2);
-            String command = parsedInput[0];
-
             System.out.println("\t" + HORIZONTAL_LINE);
-            executeCommand(input, command);
+            executeCommand(input);
             System.out.println("\t" + HORIZONTAL_LINE);
         }
     }
