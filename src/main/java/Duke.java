@@ -4,6 +4,9 @@ public class Duke {
     private static Task[] tasks = new Task[100];
     private static int tasksCount = 0;
 
+    private static final String NAME = "MudMud";
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+
     public static String splitInput(String input) {
         int dividerPosition = input.indexOf(" ");
         return input.substring(dividerPosition + 1);
@@ -74,9 +77,39 @@ public class Duke {
         }
     }
 
+    public static void executeCommand(String input, String command) {
+
+        switch(command) {
+        case "list":
+            printTasks();
+            break;
+        case "mark":
+            setMarkAsDone(input);
+            break;
+        case "unmark":
+            setUnmarkAsDone(input);
+            break;
+        case "todo":
+            addTodo(input);
+            printRecentTask(tasks[tasksCount - 1]);
+            break;
+        case "deadline":
+            addDeadline(input);
+            printRecentTask(tasks[tasksCount - 1]);
+            break;
+        case "event":
+            addEvent(input);
+            printRecentTask(tasks[tasksCount - 1]);
+            break;
+        case "bye":
+            System.out.println("\tGoodbye! I am going to sleep now.");
+            System.out.println("\t" + HORIZONTAL_LINE);
+            System.exit(0);
+            break;
+        }
+    }
+
     public static void main(String[] args) {
-        final String NAME = "MudMud";
-        final String HORIZONTAL_LINE = "____________________________________________________________";
 
         Scanner in = new Scanner(System.in);
         String input = "";
@@ -89,30 +122,11 @@ public class Duke {
         while (!input.equals("bye")) {
             input = in.nextLine();
 
+            String[] parsedInput = input.split(" ", 2);
+            String command = parsedInput[0];
+
             System.out.println("\t" + HORIZONTAL_LINE);
-
-            if (input.equals("bye")) {
-                System.out.println("\tGoodbye! I am going to sleep now.");
-            } else if (input.equals("list")) {
-                printTasks();
-            } else if (input.startsWith("mark")) {
-                setMarkAsDone(input);
-            } else if (input.startsWith("unmark")) {
-                setUnmarkAsDone(input);
-            } else if (input.startsWith("todo")) {
-                addTodo(input);
-                printRecentTask(tasks[tasksCount - 1]);
-            } else if (input.startsWith("deadline")) {
-                addDeadline(input);
-                printRecentTask(tasks[tasksCount - 1]);
-            } else if (input.startsWith("event")) {
-                addEvent(input);
-                printRecentTask(tasks[tasksCount - 1]);
-            } else {
-                addTask(input);
-                printRecentTask(tasks[tasksCount - 1]);
-            }
-
+            executeCommand(input, command);
             System.out.println("\t" + HORIZONTAL_LINE);
         }
     }
