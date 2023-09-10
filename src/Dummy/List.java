@@ -1,3 +1,7 @@
+package dummy;
+
+import elvis.Elvis;
+import elvis.Miscellaneous;
 import java.util.Scanner;
 
 //This was for WEEK 1, Code is not used
@@ -7,7 +11,7 @@ public class List {
         int listCount = 0;
         Scanner in = new Scanner(System.in);
 
-        Elvis.bootUp();
+        Miscellaneous.bootUp();
         while (true) {
             String inputBuffer = in.nextLine().trim();
             Scanner bufferScanner = new Scanner(inputBuffer);
@@ -21,18 +25,18 @@ public class List {
             if (list[listCount].contains("bye")) {
                 break;
             } else if (list[listCount].contains("list")) {
-                Elvis.printHorizontalLines();
+                Miscellaneous.printHorizontalLines();
                 for (int i = 0; i < listCount; i++) {
                     System.out.println(i+1 + ". " + list[i]);
                 }
-                Elvis.printHorizontalLines();
+                Miscellaneous.printHorizontalLines();
             } else {
-                Elvis.printHorizontalLines();
+                Miscellaneous.printHorizontalLines();
                 System.out.println("added: " + list[listCount]);
-                Elvis.printHorizontalLines();
+                Miscellaneous.printHorizontalLines();
                 listCount++;
             }
         }
-        Elvis.shutDown();
+        Miscellaneous.shutDown();
     }
 }
