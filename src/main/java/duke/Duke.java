@@ -1,3 +1,12 @@
+package duke;
+
+import duke.exception.DukeCommandException;
+import duke.exception.DukeTaskException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -34,7 +43,7 @@ public class Duke {
         return input.trim().isEmpty();
     }
 
-    public static void addTodo(String input) throws DukeTaskException{
+    public static void addTodo(String input) throws DukeTaskException {
         if (checkEmptyTodoInput(input)) {
             throw new DukeTaskException();
         }
