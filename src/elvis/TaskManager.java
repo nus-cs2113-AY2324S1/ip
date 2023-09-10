@@ -1,5 +1,11 @@
 package elvis;
 
+import elvis.exception.*;
+import elvis.task.Deadline;
+import elvis.task.Event;
+import elvis.task.Task;
+import elvis.task.ToDo;
+
 import java.util.Scanner;
 
 public class TaskManager {

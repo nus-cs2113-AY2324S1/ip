@@ -1,4 +1,4 @@
-package elvis;
+package elvis.task;
 
 public class Event extends Task {
     private final char taskType = 'E';

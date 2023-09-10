@@ -1,4 +1,4 @@
-package elvis;
+package elvis.task;
 
 import java.util.Scanner;
 
