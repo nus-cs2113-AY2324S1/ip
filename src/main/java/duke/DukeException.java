@@ -1,3 +1,4 @@
+package duke;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -5,7 +6,7 @@ public class DukeException {
 
     protected String command;
     protected String[] userInput;
-    protected boolean exception;
+    public boolean exception;
 
     public DukeException(String[] userInput){
         this.userInput = userInput;
