@@ -29,8 +29,12 @@ public class Magpie {
         while (!input.equalsIgnoreCase("bye")) {
 
             inputHandler userInput = new inputHandler(input);
-            userInput.processCommand(taskManager);
-
+            try{
+                userInput.processCommand(taskManager);
+            }
+            catch (MagpieException e){
+                System.out.println(e.getErrorMessage());
+            }
             input = in.nextLine();
 
 

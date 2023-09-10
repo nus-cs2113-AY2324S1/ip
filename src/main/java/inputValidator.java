@@ -1,44 +1,42 @@
 public class inputValidator {
 
-    public static boolean isValidTodo() {
+    public static void ValidateTodo() throws MagpieException {
+
         if (inputHandler.splitInput.length <= 1) {
-            System.out.println("Please provide a description for your task!");
-            return false;
-        } else {
-            return true;
+            throw new MagpieException("Please provide a description for your task!");
         }
     }
 
-    public static boolean isValidDeadline() {
+    public static void ValidateDeadline() throws MagpieException {
         boolean hasBy = inputHandler.arguments.contains("/by");
 
         if (!hasBy) {
-            System.out.println("Please specify a deadline using /by!");
+            throw new MagpieException("Please specify a deadline using /by!");
         }
-        return hasBy;
     }
 
-    public static boolean isValidEvent() {
+    public static void ValidateEvent() throws MagpieException {
         boolean hasFrom = inputHandler.arguments.contains("/from");
         boolean hasTo = inputHandler.arguments.contains("/to");
 
-        if (!hasFrom) {
-            System.out.println("Please specify a starting time using /from!");
+        if(!hasFrom && !hasTo){
+            throw new MagpieException("Please specify starting and ending times using /from and /to!");
+        }
+        else if (!hasFrom) {
+            throw new MagpieException("Please specify a starting time using /from!");
+        }
+        else if (!hasTo) {
+            throw new MagpieException("Please specify a ending time using /to!");
+
         }
 
-        if (!hasTo) {
-            System.out.println("Please specify a ending time using /to!");
-        }
 
-        return hasFrom && hasTo;
+
     }
 
-    public static boolean isValidMarking() {
+    public static void ValidateMarking() throws MagpieException {
         if (inputHandler.splitInput.length != 2) {
-            System.out.println("Please provide one index!");
-            return false;
-        } else {
-            return true;
+            throw new MagpieException("Please provide one index!");
         }
     }
 
