@@ -1,3 +1,5 @@
+package elvis;
+
 import java.util.Scanner;
 
 //Task Class that stores the description and isDone of task

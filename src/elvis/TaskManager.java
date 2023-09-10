@@ -1,3 +1,5 @@
+package elvis;
+
 import java.util.Scanner;
 
 public class TaskManager {

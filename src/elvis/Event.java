@@ -1,3 +1,5 @@
+package elvis;
+
 public class Event extends Task {
     private final char taskType = 'E';
     private String startTime;

@@ -1,3 +1,5 @@
+package elvis;
+
 public class Elvis {
     //Logo for ELVIS the Chatbot
     public static final String LOGO =

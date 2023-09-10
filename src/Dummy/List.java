@@ -1,3 +1,5 @@
+import elvis.Elvis;
+
 import java.util.Scanner;
 
 //This was for WEEK 1, Code is not used
