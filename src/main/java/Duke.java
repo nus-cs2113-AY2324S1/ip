@@ -7,6 +7,7 @@ public class Duke {
     private static final String BY_KEYWORD = " /by ";
     private static final String FROM_KEYWORD = " /from ";
     private static final String TO_KEYWORD = " /to ";
+    private static final String TODO_FORMAT = "todo 'task'";
     private static final String DEADLINE_FORMAT = "deadline 'task' /by 'specified deadline'";
     private static final String EVENT_FORMAT = "event 'task' /from 'specified start date' /to 'specified end date'";
 
@@ -29,8 +30,16 @@ public class Duke {
         System.out.println("\t" + HORIZONTAL_LINE);
     }
 
-    public static void addTodo(String input) {
-        tasks[tasksCount] = new Todo(input);
+    public static boolean checkEmptyTodoInput(String input) {
+        return input.trim().isEmpty();
+    }
+
+    public static void addTodo(String input) throws DukeTaskException{
+        if (checkEmptyTodoInput(input)) {
+            throw new DukeTaskException();
+        }
+
+        tasks[tasksCount] = new Todo(input.trim());
         tasksCount++;
     }
 
@@ -127,7 +136,9 @@ public class Duke {
         System.out.println("\tSorry your " + command + "'s format is invalid.");
         System.out.println("\tYour input should be in this format:");
 
-        if (command.equals("deadline")) {
+        if (command.equals("todo")) {
+            System.out.println("\t\t" + TODO_FORMAT);
+        } else if (command.equals("deadline")) {
             System.out.println("\t\t" + DEADLINE_FORMAT);
         } else {
             System.out.println("\t\t" + EVENT_FORMAT);
