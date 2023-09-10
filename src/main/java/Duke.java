@@ -11,15 +11,31 @@ public class Duke {
     private static Task[] tasks = new Task[100];
     private static int tasksCount = 0;
 
+    public static String getInput() {
+        Scanner in = new Scanner(System.in);
+        return in.nextLine().trim();
+    }
+
+    public static void tellGreeting() {
+        System.out.println("\t" + HORIZONTAL_LINE);
+        System.out.println("\tOh hello! I'm " + NAME + ".");
+        System.out.println("\tHow can I help you today?");
+        System.out.println("\t" + HORIZONTAL_LINE);
+    }
+
     public static void addTodo(String input) {
         tasks[tasksCount] = new Todo(input);
         tasksCount++;
     }
 
+    public static boolean checkNumOfDeadlineKeyword(String[] parsedInput) {
+        return parsedInput.length == 2;
+    }
+
     public static void addDeadline(String input) throws DukeTaskException {
         String[] parsedInput = input.split(BY_KEYWORD);
 
-        if (parsedInput.length != 2) {
+        if (!checkNumOfDeadlineKeyword(parsedInput)) {
             throw new DukeTaskException();
         }
 
@@ -27,24 +43,23 @@ public class Duke {
         tasksCount++;
     }
 
+    public static boolean checkNumOfEventKeywords(String input) {
+        int numOfFromKeyword = input.split(FROM_KEYWORD).length - 1;
+        int numOfToKeyword = input.split(TO_KEYWORD).length - 1;
+
+        return numOfFromKeyword == 1 && numOfToKeyword == 1;
+    }
+
+    public static boolean checkPosOfEventKeywords(String input) {
+        return input.indexOf(FROM_KEYWORD) < input.indexOf(TO_KEYWORD);
+    }
+
     public static void addEvent(String input) throws DukeTaskException {
-        String[] parsedInput = input.split(FROM_KEYWORD);
-
-        if (parsedInput.length != 2) {
+        if (!checkNumOfEventKeywords(input) || !checkPosOfEventKeywords(input)) {
             throw new DukeTaskException();
         }
 
-        parsedInput = input.split(TO_KEYWORD);
-
-        if (parsedInput.length != 2) {
-            throw new DukeTaskException();
-        }
-
-        if (input.indexOf(FROM_KEYWORD) >= input.indexOf(TO_KEYWORD)) {
-            throw new DukeTaskException();
-        }
-
-        parsedInput = input.split(FROM_KEYWORD + "|" + TO_KEYWORD);
+        String[] parsedInput = input.split(FROM_KEYWORD + "|" + TO_KEYWORD);
 
         tasks[tasksCount] = new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim());
         tasksCount++;
@@ -66,11 +81,15 @@ public class Duke {
         System.out.println("\t\t" + tasks[index]);
     }
 
+    public static void printNumOfTasks() {
+        System.out.println("\tI took a peak at the list and you have " + tasksCount
+                + (tasksCount == 1 ? " task" : " tasks") + " currently.");
+    }
+
     public static void printRecentTask(Task task) {
         System.out.println("\tI have added the following task into the list:");
         System.out.println("\t\t" + task);
-        System.out.println("\tI took a peak at the list and you have " + tasksCount
-                + (tasksCount == 1 ? " task" : " tasks") + " currently.");
+        printNumOfTasks();
     }
 
     public static void printTasks() {
@@ -130,16 +149,11 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
         String input = "";
 
-        System.out.println("\t" + HORIZONTAL_LINE);
-        System.out.println("\tOh hello! I'm " + NAME + ".");
-        System.out.println("\tHow can I help you today?");
-        System.out.println("\t" + HORIZONTAL_LINE);
-
+        tellGreeting();
         while (true) {
-            input = in.nextLine().trim();
+            input = getInput();
             System.out.println("\t" + HORIZONTAL_LINE);
             executeCommand(input);
             System.out.println("\t" + HORIZONTAL_LINE);
