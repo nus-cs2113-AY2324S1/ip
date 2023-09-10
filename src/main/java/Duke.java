@@ -1,89 +1,93 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static final String BYE_COMMAND = "bye";
     public static void main(String[] args) {
-        String logo = " _           _\n"
-                + "| |    _   _| | _____\n"
-                + "| |   | | | | |/ / _ \\\n"
-                + "| |___| |_| |   <  __/\n"
-                + "|_____|\\__,_|_|\\_\\___|\n";
-        System.out.println("Hello! I'm\n" + logo);
-        System.out.println("What can I do for you?");
+        String logo = "\t _           _\n"
+                + "\t| |    _   _| | _____\n"
+                + "\t| |   | | | | |/ / _ \\\n"
+                + "\t| |___| |_| |   <  __/\n"
+                + "\t|_____|\\__,_|_|\\_\\___|\n";
+        System.out.println("\t" + "Hello! I'm\n" + logo);
+        System.out.println("\t" + "What can I do for you?");
 
-        Task[] theList = new Task[100];
+        Task[] taskList = new Task[100];
         Scanner userInput = new Scanner(System.in);
         int counter = 0;
 
         String echo = userInput.nextLine();
         int taskNumber;
+        String taskDescription;
+        int slashCut;
 
-        while (!echo.equals("bye")) {
+        while (!echo.equals(BYE_COMMAND)) {
             String[] words = echo.split(" "); //to identify usage of features "mark" & "unmark"
+            ActionType action = ActionType.valueOf(words[0].toUpperCase());
 
-            switch (words[0]) {
-                case "list":
-                    System.out.println("Here are the tasks in your list:");
+            switch (action) {
+                case LIST:
+                    System.out.println("\tHere are the tasks in your list:");
                     for (int i = 0; i < counter; i += 1) {
-                        System.out.print((i + 1) + ".");
-                        System.out.println(theList[i]);
+                        System.out.println("\t" + (i + 1) + "." + taskList[i]);
                     }
                     break;
-                case "mark":
+                case MARK:
                     taskNumber = Integer.parseInt(words[1]) - 1;
-                    System.out.println("Woohoo! You have accomplished:");
-                    theList[taskNumber].setDone(true);
-                    System.out.println(theList[taskNumber]);
+                    System.out.println("\tWoohoo! You have accomplished:");
+                    taskList[taskNumber].setDone(true);
+                    System.out.println(taskList[taskNumber]);
                     break;
-                case "unmark":
+                case UNMARK:
                     taskNumber = Integer.parseInt(words[1]) - 1;
-                    System.out.println("HA! You still have to complete:");
-                    theList[taskNumber].setDone(false);
-                    System.out.println(theList[taskNumber]);
+                    System.out.println("\tHA! You still have to complete:");
+                    taskList[taskNumber].setDone(false);
+                    System.out.println(taskList[taskNumber]);
                     break;
+
+                case TODO:
+                    //int spaceCut = echo.indexOf(" ");
+                    taskDescription = echo.substring(4);
+                    taskList[counter] = new Todo(taskDescription);
+                    System.out.println("\tGot it. I've added this task:" + "\n" + taskList[counter]);
+                    counter += 1;
+                    System.out.println("\tNow you have " + counter + " tasks in the list.");
+                    break;
+
+
+                case DEADLINE:
+                    taskDescription = echo.substring(8);
+                    slashCut = taskDescription.indexOf("/");
+
+                    String taskDeadline = taskDescription.substring(slashCut + 1);
+                    taskDescription = taskDescription.substring(0, slashCut);
+
+                    taskList[counter] = new Deadline(taskDescription, taskDeadline);
+                    System.out.println("\tGot it. I've added this task:" + "\n" + taskList[counter]);
+                    counter += 1;
+                    System.out.println("\tNow you have " + counter + " tasks in the list.");
+                    break;
+
+
+                case EVENT:
+                    taskDescription = echo.substring(5);
+                    slashCut = taskDescription.indexOf("/");
+
+                    String taskDuration = taskDescription.substring(slashCut);
+                    taskDescription = taskDescription.substring(0, slashCut);
+
+                    taskList[counter] = new Event(taskDescription, taskDuration);
+                    System.out.println("\tGot it. I've added this task:" + "\n" + taskList[counter]);
+                    counter += 1;
+                    System.out.println("\tNow you have " + counter + " tasks in the list.");
+                    break;
+
                 default:
-                    int spaceCut = echo.indexOf(" ");
-                    String taskType = echo.substring(0, spaceCut);
-                    String taskDescription = echo.substring(spaceCut);
-                    int slashCut = taskDescription.indexOf("/");
-
-                    //TaskType type = TaskType.words[0];
-
-                    switch (taskType) {
-                        case "todo":
-                            theList[counter] = new Todo(taskDescription);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(theList[counter]);
-                            counter += 1;
-                            System.out.println("Now you have " + counter + " tasks in the list.");
-                            break;
-                        case "deadline":
-                            String taskDeadline = taskDescription.substring(slashCut);
-                            taskDescription = taskDescription.substring(0, slashCut);
-
-                            theList[counter] = new Deadline(taskDescription, taskDeadline);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(theList[counter]);
-                            counter += 1;
-                            System.out.println("Now you have " + counter + " tasks in the list.");
-                            break;
-                        case "event":
-                            String taskDuration = taskDescription.substring(slashCut);
-                            taskDescription = taskDescription.substring(0, slashCut);
-
-                            theList[counter] = new Event(taskDescription, taskDuration);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(theList[counter]);
-                            counter += 1;
-                            System.out.println("Now you have " + counter + " tasks in the list.");
-                            break;
-                        default:
-                            break;
-                    }
+                    break;
             }
             echo = userInput.nextLine();
         }
 
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("\tBye. Hope to see you again soon!");
 
         userInput.close();
     }
