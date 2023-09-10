@@ -1,11 +1,13 @@
+package duke;
+
 public class Task {
 
-    protected String description;
-    protected boolean isDone;
-    protected String taskType;
-    protected String deadline;
-    protected String from;
-    protected String to;
+    public String description;
+    public boolean isDone;
+    public String taskType;
+    public String deadline;
+    public String from;
+    public String to;
 
     public Task(String description){
         this.description = description;
