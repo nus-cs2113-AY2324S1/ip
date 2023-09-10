@@ -12,15 +12,11 @@ public class Task {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getStatusIcon() {
 
         String done = " ";
 
-        if (isDone == true) {
+        if (isDone) {
             done = "X";
         }
         return done;
@@ -31,10 +27,9 @@ public class Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
-
 
 
 }
