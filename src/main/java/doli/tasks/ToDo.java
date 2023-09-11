@@ -1,3 +1,5 @@
+package doli.tasks;
+
 /** Subclass of Task, specifying normal todo tasks */
 public class ToDo extends Task{
     protected boolean isDone;

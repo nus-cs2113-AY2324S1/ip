@@ -1,3 +1,5 @@
+package doli.tasks;
+
 /** Parent class defining a task with description, process and agenda overview */
 public class Task {
     private String description;
