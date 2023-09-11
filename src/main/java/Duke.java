@@ -3,8 +3,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Scanner;
 
 public class Duke {
-    private static Task[] records = new Task[100];
-    private static int recordsNum = 0;
+    private static Task[] records;
+    private static int recordsNum;
+
+    public Duke(){
+        records = new Task[100];
+        recordsNum = 0;
+    }
 
     public static String generateResponse(String input){
 
