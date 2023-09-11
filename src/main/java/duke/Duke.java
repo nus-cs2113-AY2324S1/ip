@@ -16,9 +16,6 @@ public class Duke {
     private static final String BY_KEYWORD = " /by ";
     private static final String FROM_KEYWORD = " /from ";
     private static final String TO_KEYWORD = " /to ";
-    private static final String TODO_FORMAT = "todo 'task'";
-    private static final String DEADLINE_FORMAT = "deadline 'task' /by 'specified deadline'";
-    private static final String EVENT_FORMAT = "event 'task' /from 'specified start date' /to 'specified end date'";
 
     private static Task[] tasks = new Task[100];
     private static int tasksCount = 0;
@@ -131,28 +128,6 @@ public class Duke {
         System.out.println("\tThe number you tried to input is: " + input);
     }
 
-    public static void handleDukeCommandException(String command) {
-        System.out.println("\tSorry I don't quite understand what your command is.");
-        System.out.println("\tPlease a valid command.");
-        System.out.println("\tThe command you tried to input is: " + command);
-    }
-
-    public static void handleDukeTaskException(String command, String input) {
-        System.out.println("\tSorry your " + command + "'s format is invalid.");
-        System.out.println("\tYour input should be in this format:");
-
-        if (command.equals("todo")) {
-            System.out.println("\t\t" + TODO_FORMAT);
-        } else if (command.equals("deadline")) {
-            System.out.println("\t\t" + DEADLINE_FORMAT);
-        } else {
-            System.out.println("\t\t" + EVENT_FORMAT);
-        }
-
-        System.out.println("\tYour input is: ");
-        System.out.println("\t\t" + command + " " + input);
-    }
-
     public static void executeCommand(String input) {
         String[] parsedInput = input.split(" ", 2);
         String command = parsedInput[0];
@@ -192,9 +167,9 @@ public class Duke {
         } catch (NumberFormatException exception) {
             handleNumberFormatException(input);
         } catch (DukeCommandException exception) {
-            handleDukeCommandException(command);
+            exception.handleDukeCommandException(command);
         } catch (DukeTaskException exception) {
-            handleDukeTaskException(command, input);
+            exception.handleDukeTaskException(command, input);
         }
     }
 
