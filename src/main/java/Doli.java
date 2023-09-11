@@ -1,4 +1,3 @@
-import java.nio.file.attribute.UserPrincipal;
 import java.util.Arrays;
 import java.util.Scanner;
 public class Doli {
@@ -70,21 +69,29 @@ public class Doli {
     private static boolean verifyValidDeadline(String[] args) {
         return args.length == 2;
     }
-    private static ToDo initializeNewTodo(String args) {
+    private static ToDo initializeNewTodo(String args) throws DoliExceptions {
+        if (args.trim().isEmpty()) {
+            throw new DoliExceptions("The description of a todo cannot be blank!");
+        }
         ToDo newTodo = new ToDo(args);
         return newTodo;
     }
-
-    private static Deadline initializeNewDeadline(String args) {
+    private static Deadline initializeNewDeadline(String args) throws DoliExceptions {
         final String[] descriptionAndTiming = args.trim().split("/");
+        if (descriptionAndTiming.length < 2) {
+            throw new DoliExceptions("A deadline needs both a description and a time reference!");
+        }
         final String description = descriptionAndTiming[0];
         final String timing = descriptionAndTiming[1];
         Deadline newDeadline = new Deadline(description, timing);
         return newDeadline;
     }
 
-    private static Event initializeNewEvent(String args) {
+    private static Event initializeNewEvent(String args) throws DoliExceptions {
         final String[] descriptionAndTiming = args.trim().split("/");
+        if (descriptionAndTiming.length < 3) {
+            throw new DoliExceptions("An event needs to contain a description, a start and an end date");
+        }
         final String description = descriptionAndTiming[0];
         final String startTime = descriptionAndTiming[1];
         final String endTime = descriptionAndTiming[2];
@@ -127,7 +134,7 @@ public class Doli {
     private static String indentText(String text) {
         return "\t" + text;
     }
-    private static String addTodoTask(String arguments) {
+    private static String addTodo(String arguments) throws DoliExceptions {
         ToDo newTodo = initializeNewTodo(arguments);
         tasks[numberOfItems] = newTodo;
         final String TODO_DESCRIPTION = tasks[numberOfItems].toString();
@@ -135,7 +142,7 @@ public class Doli {
         return indentText(TODO_DESCRIPTION);
     }
 
-    private static String addDeadlineTask(String arguments) {
+    private static String addDeadline(String arguments) throws DoliExceptions {
         Deadline newDeadline = initializeNewDeadline(arguments);
         tasks[numberOfItems] = newDeadline;
         final String DEADLINE_DESCRIPTION = tasks[numberOfItems].toString();
@@ -143,7 +150,7 @@ public class Doli {
         return indentText(DEADLINE_DESCRIPTION);
     }
 
-    private static String addEventTask(String arguments) {
+    private static String addEvent(String arguments) throws DoliExceptions {
         Event newEvent = initializeNewEvent(arguments);
         tasks[numberOfItems] = newEvent;
         final String EVENT_DESCRIPTION = tasks[numberOfItems].toString();
@@ -151,7 +158,7 @@ public class Doli {
         return indentText(EVENT_DESCRIPTION);
     }
 
-    private static String executeTaskListing() {
+    private static String listTasks() {
         Task[] currentAgenda = Arrays.copyOf(tasks, numberOfItems);
         String newList = initializeNewList(currentAgenda);
         return newList;
@@ -174,43 +181,69 @@ public class Doli {
         return FAILED_TO_FIND_TASK;
     }
 
-    private static void successfullyAddedTask(String task) {
-        printOutput(ADDED_TASK_SUCCESSFULLY, task, buildCurrentSummary());
+    private static void executeTodo(String task) {
+        try {
+            printOutput(ADDED_TASK_SUCCESSFULLY, addTodo(task), buildCurrentSummary());
+        } catch(DoliExceptions e) {
+            System.out.println(e);
+        }
+    }
+    private static void executeDeadline(String task) {
+        try {
+            printOutput(ADDED_TASK_SUCCESSFULLY, addDeadline(task), buildCurrentSummary());
+        } catch(DoliExceptions e) {
+            System.out.println(e);
+        }
+    }
+    private static void executeEvent(String task) {
+        try {
+            printOutput(ADDED_TASK_SUCCESSFULLY, addEvent(task), buildCurrentSummary());
+        } catch(DoliExceptions e) {
+            System.out.println(e);
+        }
     }
 
-    private static void successfullyList(String list) {
+    private static void printList(String list) {
         printOutput(AGENDA_OVERVIEW, list);
     }
 
-    private static void successfullyMark(String marked) {
+    private static void printMark(String marked) {
         printOutput(marked, ENCOURAGE_TO_MARK);
     }
 
-    private static void successfullyUnmark(String unmarked) {
+    private static void printUnmark(String unmarked) {
         printOutput(unmarked, ENCOURAGE_TO_MARK);
     }
+    private static void some(String args) {
+        try {
+            printOutput(ADDED_TASK_SUCCESSFULLY, addTodo(args), buildCurrentSummary());
+            executeTodo(addTodo(args));
+        } catch(DoliExceptions e) {
+            System.out.println(e);
+        }
+    }
 
-    public static void handleCommand(String input) {
+    public static void handleCommand(String input) throws DoliExceptions {
         final String command = extractCommandInfo(input)[0];
         final String args = extractCommandInfo(input)[1];
         switch (command) {
         case TODO_COMMAND:
-            successfullyAddedTask(addTodoTask(args));
+            executeTodo(args);
             break;
         case DEADLINE_COMMAND:
-            successfullyAddedTask(addDeadlineTask(args));
+            executeDeadline(args);
             break;
         case EVENT_COMMAND:
-            successfullyAddedTask(addEventTask(args));
+            executeEvent(args);
             break;
         case LIST_COMMAND:
-            successfullyList(executeTaskListing());
+            printList(listTasks());
             break;
         case MARK_COMMAND:
-            successfullyMark(executeTaskMarking(args));
+            printMark(executeTaskMarking(args));
             break;
         case UNMARK_COMMAND:
-            successfullyUnmark(executeTaskUnmarking(args));
+            printUnmark(executeTaskUnmarking(args));
             break;
         case EXIT_COMMAND:
             greetBye();
@@ -234,7 +267,7 @@ public class Doli {
         System.exit(0);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DoliExceptions {
 
         initializeAgenda();
         welcomeUser();
