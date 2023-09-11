@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Ken {
@@ -13,22 +11,10 @@ public class Ken {
     private static final String UNMARK = "unmark";
     private static final String BYE = "bye";
 
-    public static void printLine() {
-        System.out.println("_____________________________________________________________");
-    }
-
-    public static void printTexts(String[] texts) {
-        printLine();
-        for (String text : texts) {
-            System.out.println("\t" + text);
-        }
-        printLine();
-    }
-
     public static void addTask(Task task) {
         TASKS[taskSize] = task;
         taskSize++;
-        printTexts(new String[] {
+        Ui.printTexts(new String[] {
                 "Barbie-approved! You've added this glamorous task:",
                 task.toString(),
                 "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
@@ -36,27 +22,7 @@ public class Ken {
     }
 
     public static void main(String[] args) {
-        String greetingLogo = " ____  __.___________ _______\n"
-                + "\t|    |/ _|\\_   _____/ \\      \\\n"
-                + "\t|      <   |    __)_  /   |   \\\n"
-                + "\t|    |  \\  |        \\/    |    \\\n"
-                + "\t|____|__ \\/_________/\\____|__  /\n"
-                + "\t\\/        \\/         \\/";
-
-        String byeLogo = "  ___________________  _____ __________ ____  __.____    .___ _______    ________\n"
-                + "\t/   _____/\\______   \\/  _  \\\\______   \\    |/ _|    |   |   |\\      \\  /  _____/\n"
-                + "\t \\_____  \\  |     ___/  /_\\  \\|       _/      < |    |   |   |/   |   \\/   \\  ___\n"
-                + "\t /        \\ |    |  /    |    \\    |   \\    |  \\|    |___|   /    |    \\    \\_\\  \\\n"
-                + "\t/_______  / |____|  \\____|__  /____|_  /____|__ \\_______ \\___\\____|__  /\\______  /\n"
-                + "\t        \\/                  \\/       \\/        \\/       \\/           \\/        \\/";
-
-        printTexts(new String[] {
-                "Greetings, fashionista! I'm",
-                greetingLogo,
-                "your dream planner extraordinaire.",
-                "Ready to make your day as fabulous as a Barbie runway show?"
-        });
-
+        Ui.greetUser();
 
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
@@ -76,11 +42,10 @@ public class Ken {
                 addTask(deadline);
                 break;
             case EVENT:
-                String[] eventInfo = input.substring(EVENT.length() + 1).split(" /from", 2);
+                String[] eventInfo = input.substring(EVENT.length() + 1).split(" /from| /to", 3);
                 String eventName = eventInfo[0];
-                String[] eventTimeline = eventInfo[1].split(" /to", 2);
-                String from = eventTimeline[0];
-                String to = eventTimeline[1];
+                String from = eventInfo[1];
+                String to = eventInfo[2];
                 Event event = new Event(eventName, from, to);
                 addTask(event);
                 break;
@@ -90,13 +55,13 @@ public class Ken {
                 for (int i = 1; i <= taskSize; i++) {
                     texts[i] = "\t" + i +"." + TASKS[i - 1].toString();
                 }
-                printTexts(texts);
+                Ui.printTexts(texts);
                 break;
             case MARK:
                 String markTaskString = input.split(" ", 2)[1];
                 int markTaskNumber = Integer.parseInt(markTaskString) - 1;
                 TASKS[markTaskNumber].markAsDone();
-                printTexts(new String[] {
+                Ui.printTexts(new String[] {
                         "Barbie-tastic! You've completed this task with glamour!",
                         TASKS[markTaskNumber].toString()
                 });
@@ -105,16 +70,13 @@ public class Ken {
                 String unmarkTaskString = input.split(" ", 2)[1];
                 int unmarkTaskNumber = Integer.parseInt(unmarkTaskString) - 1;
                 TASKS[unmarkTaskNumber].unmarkAsDone();
-                printTexts(new String[] {
+                Ui.printTexts(new String[] {
                         "Back to the runway, darling! This task needs more Barbie magic!",
                         TASKS[unmarkTaskNumber].toString()
                 });
                 break;
             case BYE:
-                printTexts(new String[] {
-                        "Until we meet again, my fellow dream chaser! Keep",
-                        byeLogo
-                });
+                Ui.byeUser();
                 return;
             }
             input = scan.nextLine();
