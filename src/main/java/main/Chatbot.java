@@ -1,13 +1,13 @@
 package main;
 
-import main.ResponseProcessor;
-
 import java.util.Scanner;
 
 public class Chatbot {
+    private static final String LINE = "❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤";
     public static void main(String[] args) {
         System.out.println("Hello I'm Rias-chan! ヽ( ˘ω˘ )ゝ");
         System.out.println(picture);
+        System.out.println(LINE);
         System.out.println("Welcome back goshujin-sama, what can I do for you? (^-^)ゝ");
         ResponseProcessor processor = new ResponseProcessor();
         waitForResponse(processor);
@@ -15,18 +15,19 @@ public class Chatbot {
     }
     public static void waitForResponse(ResponseProcessor processor) {
         Scanner scanner = new Scanner(System.in);
-        String response = "";
+        String response;
         do {
             response = scanner.nextLine();
             if (!"bye".equalsIgnoreCase(response)) {
                 processor.process(response);
+                System.out.println(LINE);
             }
         } while (!"bye".equalsIgnoreCase(response));
 
         scanner.close();
     }
 
-    public static final String picture = "　　　　 　 ,／　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 ‐…--､,＿_　　　　　　　　　　　　　　　　　　　　　　　　　　　＼_``=､_　　　　 　 ＼　　　　　　　　　　\n" +
+    public static final String picture = "　　　　 　 ,／　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 ‐…--､,＿_　　　　　　　　　　　　　　　　　　　　　　　　　　　＼_``=､_　　　　 　 ＼\n" +
             "　　　　 ／　　　　　,,,．--　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　｀`-､_　　　　　　　　　　　　　　　　　　　　　　　　 ＼_ ｀＼__　　　　  ＼　　　　　　　　\n" +
             "　　　 ,/　　　　 ,,／　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 ＼　　　　 ＼_　　　　　　　　　　　　　　　　　　　＼_　 `＼　　　  　  ＼　　　　　　\n" +
             "　　,,/　　　　 ,/′　　　　___,,,..-----　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 　 　 ＼　　　　  `＼　　　　　　　　　　　　　　　　　`＼　 ＼_　    　　　＼　　　　　\n" +
