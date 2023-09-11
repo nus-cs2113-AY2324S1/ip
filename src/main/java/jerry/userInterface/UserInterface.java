@@ -12,11 +12,12 @@ public class UserInterface {
     private static final String WELCOME_MESSAGE = "Hi I'm Jerry!\nWhat can I do for you ?";
     private static final String GOODBYE_MESSAGE = "Bye! Hope to see you again.";
 	private static final String LIST_OF_TASKS_MESSAGE = "Here are the tasks in your list:";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "Unknown command.";
+
+    private static final Scanner in = new Scanner(System.in);
 
     public static String getUserInput() {
-        Scanner in = new Scanner(System.in);
-        String userInput = in.nextLine().trim();
-        printHorizontalLine();
+        String userInput = in.nextLine();
         return userInput;
     }
 
@@ -50,6 +51,10 @@ public class UserInterface {
     public static void showListOfTasks(TaskList taskList) {
         printMessage(LIST_OF_TASKS_MESSAGE);
         printMessage(taskList.toString());
+    }
+
+    public static void showUnknownCommandMessage() {
+        printMessage(UNKNOWN_COMMAND_MESSAGE);
     }
 
     public static void showTaskAddedConfirmation(Task task, TaskList taskList) {

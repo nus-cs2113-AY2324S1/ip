@@ -84,6 +84,18 @@ public class Jerry {
         System.exit(0);
     }
 
+    private static void execMarkTask(String commandArgs) {
+        toggleTaskStatus(commandArgs, false);
+    }
+
+    private static void execUnmarkTask(String commandArgs) {
+        toggleTaskStatus(commandArgs, true);
+    }
+
+    private static void execUnknownCommand() {
+        UserInterface.showUnknownCommandMessage();
+    }
+
     private static void executeCommand(String userInputString) {
             final String[] commandTypeAndParams = splitCommandWordAndArgs(userInputString);
             final String commandType = commandTypeAndParams[0];
@@ -93,10 +105,10 @@ public class Jerry {
                 execListAllTasks();
                 break;
             case "mark":
-                toggleTaskStatus(commandArgs, false);
+                execMarkTask(commandArgs);
                 break;
             case "unmark":
-                toggleTaskStatus(commandArgs, true);
+                execUnmarkTask(commandArgs);
                 break;
             case "todo":
                 execAddTodo(commandArgs);
@@ -110,7 +122,7 @@ public class Jerry {
             case "bye":
                 execExitProgram();
             default:
-                System.out.println("\tUnknown command.");
+                execUnknownCommand();
                 break;
             }
         System.out.println(HORIZONTAL_LINE);
