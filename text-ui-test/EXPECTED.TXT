@@ -47,3 +47,9 @@ Here is an overview of your agenda:
 
 ________________________________
 User:
+DoliExceptions: The description of a todo cannot be blank!
+User:
+DoliExceptions: A deadline needs both a description and a time reference!
+User:
+DoliExceptions: An event needs to contain a description, a start and an end date
+User:
