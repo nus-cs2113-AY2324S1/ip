@@ -1,3 +1,11 @@
+package doli;
+
+import doli.exceptions.DoliExceptions;
+import doli.tasks.Deadline;
+import doli.tasks.Event;
+import doli.tasks.Task;
+import doli.tasks.ToDo;
+
 import java.util.Arrays;
 import java.util.Scanner;
 public class Doli {
@@ -35,6 +43,17 @@ public class Doli {
     private static int numberOfItems;
     private static final int MAX_NUMBER_OF_TASKS = 100;
     private static Task[] tasks;
+
+    public static void main(String[] args) throws DoliExceptions {
+
+        initializeAgenda();
+        welcomeUser();
+
+        while (true) {
+            String input = getInput();
+            handleCommand(input);
+        }
+    }
 
     public static void initializeAgenda() {
         tasks = new Task[MAX_NUMBER_OF_TASKS];
@@ -267,14 +286,4 @@ public class Doli {
         System.exit(0);
     }
 
-    public static void main(String[] args) throws DoliExceptions {
-
-        initializeAgenda();
-        welcomeUser();
-
-        while (true) {
-            String input = getInput();
-            handleCommand(input);
-        }
-    }
 }
