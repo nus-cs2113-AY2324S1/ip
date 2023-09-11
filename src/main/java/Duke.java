@@ -1,15 +1,8 @@
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Scanner;
 
 public class Duke {
-    private static Task[] records;
-    private static int recordsNum;
-
-    public Duke(){
-        records = new Task[100];
-        recordsNum = 0;
-    }
+    private static Task[] records = new Task[100];
+    private static int recordsNum = 0;
 
     public static String generateResponse(String input){
 
@@ -29,19 +22,48 @@ public class Duke {
         int numStartIdx = spaceIdx + 1;
         String removedInstructionString = trimmedInput.substring(numStartIdx);
         String instructionString = trimmedInput.substring( 0, spaceIdx);
-        int taskNum;
+        int taskNum= 0 ;
 
-        if(instructionString.contains("unmark")){
-            taskNum = Integer.parseInt(removedInstructionString);
-            records[taskNum-1].setUndone();
-            printAllTasks();
+        if(instructionString.equals("unmark")){
+            try {
+                taskNum = Integer.parseInt(removedInstructionString);
+                records[taskNum - 1].setUndone();
+                printAllTasks();
+
+            }catch(NumberFormatException e){
+                System.out.println("Please enter an integer");
+            }catch(NullPointerException | ArrayIndexOutOfBoundsException e) {
+                if (recordsNum == 0) {
+                    System.out.println("Please create a task to continue");
+                } else if(recordsNum == 1){
+                    System.out.println("There are " + recordsNum + " task.");
+                    System.out.println("Please enter 'mark 1' to check the first task as completed");
+                } else {
+                    System.out.println("There are " + recordsNum + " tasks.");
+                    System.out.println("Please enter a valid number from 1 to " + recordsNum + "(inclusive).");
+                }
+            }
             return "";
         }
 
-        if(instructionString.contains("mark")){
-            taskNum = Integer.parseInt(removedInstructionString);
-            records[taskNum-1].setDone();
-            printAllTasks();
+        if(instructionString.equals("mark")){
+            try {
+                taskNum = Integer.parseInt(removedInstructionString);
+                records[taskNum - 1].setDone();
+                printAllTasks();
+            }catch(NumberFormatException e){
+                System.out.println("Please enter an integer");
+            }catch(NullPointerException | ArrayIndexOutOfBoundsException e) {
+                if (recordsNum == 0) {
+                    System.out.println("Please create a task to continue");
+                } else if(recordsNum == 1){
+                    System.out.println("There are " + recordsNum + " task.");
+                    System.out.println("Please enter 'mark 1' to check the first task as completed");
+                } else {
+                    System.out.println("There are " + recordsNum + " tasks.");
+                    System.out.println("Please enter a valid number from 1 to " + recordsNum + "(inclusive).");
+                }
+            }
             return "";
         }
 
@@ -67,7 +89,6 @@ public class Duke {
         }
         addTaskToList(task);
         printTaskAdded(task);
-        return ;
     }
 
     private static void printTaskAdded(Task task) {
@@ -104,7 +125,6 @@ public class Duke {
         String byDate = removedInstructionString.substring(byIndex + dateIndicator.length()).trim();
         return new Deadline(taskDescription, byDate);
     }
-
 
     private static Task createToDo(String taskDescription) {
         return new ToDo(taskDescription);
