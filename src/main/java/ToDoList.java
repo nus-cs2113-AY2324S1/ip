@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class ToDoList {
     private ArrayList<Task> list;
-    public void mark(int taskIndex) {
+    public void mark(int taskIndex) { //marking task as done
         Utils.printDivider();
         System.out.println("Nice! I've marked this task as done:\n");
         Task task = list.get(taskIndex - 1);
