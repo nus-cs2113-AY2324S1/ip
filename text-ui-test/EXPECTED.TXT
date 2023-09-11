@@ -1,36 +1,49 @@
-________________________________
-
-Hello! My name is
+Doli:
+Hello, my name is
  ____       _
 |  _  \    | | [_]
 | | | |____| |  _
 | |_| | [] | | | |
 |____/|____|__||_|
 
-What can I do for you?
+How can I help you?
 ________________________________
+User:
+Doli:
 Got it! I've added the following task to your agenda:
-   [T] [ ]  Daniel Pappalardo: Answer CS2113 tutorial questions
+	[T] [ ] daniel pappalardo: answer cs2113 tutorial questions
 Now you have a total of 1 tasks in your agenda.
 ________________________________
+User:
+Doli:
 Got it! I've added the following task to your agenda:
-   [D] [ ]  weekly CS2113 quiz  (by: Monday 9pm)
+	[D] [ ] weekly cs2113 quiz  (by: monday 9pm)
 Now you have a total of 2 tasks in your agenda.
 ________________________________
+User:
+Doli:
 Here is an overview of your agenda:
-   1. [T] [ ]  Daniel Pappalardo: Answer CS2113 tutorial questions
-   2. [D] [ ]  weekly CS2113 quiz  (by: Monday 9pm)
-Would you like to mark/unmark something?
+   1. [T] [ ] daniel pappalardo: answer cs2113 tutorial questions
+   2. [D] [ ] weekly cs2113 quiz  (by: monday 9pm)
+
 ________________________________
+User:
+Doli:
 Got it! I've added the following task to your agenda:
-   [E] [ ]  CS2113 lecture  (from: Friday 4 , to: 6 pm)
+	[E] [ ] cs2113 lecture  (from: friday 4 , to: 6 pm)
 Now you have a total of 3 tasks in your agenda.
 ________________________________
+User:
+Doli:
 I've successfully marked task 1 as done.
+Would you like to mark/unmark something else?
 ________________________________
+User:
+Doli:
 Here is an overview of your agenda:
-   1. [T] [X]  Daniel Pappalardo: Answer CS2113 tutorial questions
-   2. [D] [ ]  weekly CS2113 quiz  (by: Monday 9pm)
-   3. [E] [ ]  CS2113 lecture  (from: Friday 4 , to: 6 pm)
-Would you like to mark/unmark something?
+   1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
+   2. [D] [ ] weekly cs2113 quiz  (by: monday 9pm)
+   3. [E] [ ] cs2113 lecture  (from: friday 4 , to: 6 pm)
+
 ________________________________
+User:

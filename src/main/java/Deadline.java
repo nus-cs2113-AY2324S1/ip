@@ -13,7 +13,7 @@ public class Deadline extends Task{
     }
     @Override
     public String toString() {
-        String summary = String.format("[D] %s (by: %s)", super.toString(), deadline);
+        String summary = String.format("[D] %s (%s)", super.toString(), deadline.replace("by", "by:"));
         return summary;
     }
 }

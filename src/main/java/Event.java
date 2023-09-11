@@ -29,7 +29,7 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        String summary = String.format("[E] %s (from: %s, to: %s)", super.toString(), startTime, endTime);
+        String summary = String.format("[E] %s (%s, %s)", super.toString(), startTime.replace("from", "from:"), endTime.replace("to", "to:"));
         return summary;
     }
 }

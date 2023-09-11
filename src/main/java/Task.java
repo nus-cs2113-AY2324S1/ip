@@ -21,11 +21,10 @@ public class Task {
     /** Retrieves the true task description from the user input */
     public String getDescription() {
         boolean containsTime = description.contains("/");
-        String commandlessDescription = description.substring(description.indexOf(" "));
         if (containsTime) {
-            return commandlessDescription.substring(0, commandlessDescription.indexOf('/'));
+            return description.split("/")[0];
         } else {
-            return commandlessDescription;
+            return description;
         }
     }
     public boolean isDone() {
