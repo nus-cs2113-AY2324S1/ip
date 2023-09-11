@@ -1,8 +1,38 @@
 import java.util.Scanner;
 public class Duke {
-    public static String BOT_NAME = "Amy"; // a constant bot name
-    public static Task[] taskList = new Task[100]; // contains tasks
-    public static int numberOfTasks = 0; // number of tasks
+    public static final String BOT_NAME = "AMY";
+    public static final String LINE = "____________________________________________________________";
+    public static Task[] taskList = new Task[100];
+    public static int numberOfTasks = 0;
+
+    // Draws a line
+    public static void drawLine() {
+        System.out.println(LINE);
+    }
+
+    // Writes a welcome message
+    public static void welcomeMessage() {
+        drawLine();
+        String logo = "        \n"
+                + "    /\\    |\\  /| \\   / \n"
+                + "   /  \\   | \\/ |  \\ /  \n"
+                + "  /----\\  |    |   |   \n"
+                + " /      \\ |    |   |   \n";
+        System.out.println("Hello from\n" + logo);
+
+        drawLine();
+        System.out.println("Hello! I'm " + BOT_NAME);
+        System.out.println("What can I do for you?");
+        drawLine();
+    }
+
+    // Writes a bye message
+    public static void byMessage() {
+        System.out.println("Bye. Hope to see you again soon!");
+        drawLine();
+    }
+
+    // Add a task to the list
     public static void addToList(Task task) {
         taskList[numberOfTasks] = task;
         numberOfTasks++;
@@ -10,12 +40,16 @@ public class Duke {
         System.out.println("  " + task);
         System.out.println("Now you have " + numberOfTasks + " tasks in the list");
     }
+
+    // List all tasks if the user enters "list"
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < numberOfTasks; i++) {
-            System.out.println((i + 1) + ". " + taskList[i]); // list if the user enters list
+            System.out.println((i + 1) + ". " + taskList[i]);
         }
     }
+
+    // Mark task as done if the user enters "mark"
     public static void markTaskAsDone(int taskIndex) {
         if (taskIndex >= 1 && taskIndex <= numberOfTasks) {
             Task task = taskList[taskIndex - 1];
@@ -26,6 +60,8 @@ public class Duke {
             System.out.println("Invalid task index. Please try again.");
         }
     }
+
+    // Unmark task as done if the user enters "unmark"
     public static void unmarkTask(int taskIndex) {
         if (taskIndex >= 1 && taskIndex <= numberOfTasks) {
             Task task = taskList[taskIndex - 1];
@@ -36,23 +72,14 @@ public class Duke {
             System.out.println("Invalid task index. Please try again.");
         }
     }
+
+    // Main method executes the Chat bot
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        //System.out.println("Hello from\n" + logo);
-
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm " + BOT_NAME);
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
-
+        welcomeMessage();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine(); // Read user input
-            System.out.println("____________________________________________________________");
+            System.out.println(LINE);
             if (userInput.equals("bye")) {
                 break; // Exit the loop if the user enters "bye"
             } else if (userInput.equals("list")) {
@@ -69,7 +96,7 @@ public class Duke {
                 String description = userInput.substring(5).trim();
                 Todo todo = new Todo(description);
                 addToList(todo);
-            }else if (userInput.startsWith("deadline")) {
+            } else if (userInput.startsWith("deadline")) {
                 int inputIndex = userInput.indexOf(" /by ");
                 String description = userInput.substring("deadline ".length(), inputIndex);
                 String by = userInput.substring(inputIndex + " /by ".length());
@@ -82,15 +109,11 @@ public class Duke {
                 String to = dateTimeParts[1].trim();
                 Event event = new Event(description, from, to);
                 addToList(event);
-            }  else {
+            } else {
                 System.out.println("Invalid command. Please try again.");
             }
-            System.out.println("____________________________________________________________");
+            drawLine();
         }
-
-        scanner.close();
-
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        byMessage();
     }
 }
