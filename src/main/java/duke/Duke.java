@@ -52,14 +52,10 @@ public class Duke {
         tasksCount++;
     }
 
-    public static boolean checkNumOfDeadlineKeyword(String[] parsedInput) {
-        return parsedInput.length == 2;
-    }
-
     public static void addDeadline(String input) throws DukeTaskException {
         String[] parsedInput = input.split(BY_KEYWORD);
 
-        if (!checkNumOfDeadlineKeyword(parsedInput)) {
+        if (!(parsedInput.length == 2)) {
             throw new DukeTaskException();
         }
 
