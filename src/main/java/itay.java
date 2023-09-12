@@ -6,11 +6,10 @@ public class Itay {
     static int numTasks = 0;
     static String DIVIDER = "------------------------------------------------------------";
     
-    public static void Respond(String input) {
+    public static void Respond(String input) throws DukeException {
         System.out.println(DIVIDER);
         String splitInput[] = input.split(" ");
         String indicator = splitInput[0];
-        int taskIdx;
 
         switch(indicator) {
 
@@ -19,17 +18,15 @@ public class Itay {
                 break;
 
             case("mark"):
-                taskIdx = Integer.parseInt(splitInput[1]) - 1;
-                handleMark(taskIdx);
+                handleMark(splitInput);
                 break;
 
             case("unmark"):
-                taskIdx = Integer.parseInt(splitInput[1]) - 1;
-                handleUnmark(taskIdx);
+                handleUnmark(splitInput);
                 break;
 
             case("todo"):
-                handleTodo(input);
+                handleTodo(input, splitInput);
                 break;
             
             case("deadline"):
@@ -41,9 +38,7 @@ public class Itay {
                 break;
             
             default:
-                System.out.println("Please enter a valid Task or request");
-                System.out.println(DIVIDER);
-                break;
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -55,69 +50,94 @@ public class Itay {
         System.out.println(DIVIDER);
     }
 
-    public static void handleMark(int idx) {
-        if(idx < 0 || idx >= numTasks) {
-            System.out.println("Please enter a valid task number");
-            System.out.println(DIVIDER);
-            return;
+    public static void handleMark(String[] splitInput) throws DukeException {
+        int taskIdx;
+        try {
+            taskIdx = Integer.parseInt(splitInput[1]) - 1;
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException inputEx) {
+            throw new DukeException("OOPS!!! Please enter a valid task number.");
         }
-        tasks[idx].setStatus(true);
+
+        if(taskIdx < 0 || taskIdx >= numTasks) {
+            throw new DukeException("OOPS!!! Please enter a valid task number.");
+        }
+
+        tasks[taskIdx].setStatus(true);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[idx].toString());
+        System.out.println(tasks[taskIdx].toString());
         System.out.println(DIVIDER);
     }
 
-    public static void handleUnmark(int idx) {
-        if(idx < 0 || idx >= numTasks) {
-            System.out.println("Please enter a valid task number");
-            System.out.println(DIVIDER);
-            return;
+    public static void handleUnmark(String[] splitInput) throws DukeException {
+        int taskIdx;
+        try {
+            taskIdx = Integer.parseInt(splitInput[1]) - 1;
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException inputEx) {
+            throw new DukeException("OOPS!!! Please enter a valid task number.");
         }
-        tasks[idx].setStatus(false);
+
+        if(taskIdx < 0 || taskIdx >= numTasks) {
+            throw new DukeException("OOPS!!! Please enter a valid task number.");
+        }
+
+        tasks[taskIdx].setStatus(false);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks[idx].toString());
+        System.out.println(tasks[taskIdx].toString());
         System.out.println(DIVIDER);
     }
 
-    public static void handleTodo(String input) {
+    public static void handleTodo(String input, String[] splitInput) throws DukeException {
+        if(splitInput.length == 1) {
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+        }
         String description = input.substring(input.indexOf(' ') + 1);
         Task task = new Task(description, 'T');
         tasks[numTasks] = task;
         PrintAddTask();
     }
 
-    public static void handleDeadline(String input) {
-        int firstSlashIdx = input.indexOf('/');
+    public static void handleDeadline(String input) throws DukeException {
+        try {
+            int firstSlashIdx = input.indexOf('/');
 
-        String description = input.substring(input.indexOf(' ') + 1, firstSlashIdx - 1);
-        Task task = new Task(description, 'D');
+            String description = input.substring(input.indexOf(' ') + 1, firstSlashIdx - 1);
+            Task task = new Task(description, 'D');
 
-        String temp = input.substring(firstSlashIdx + 1);
-        String deadline = temp.substring(temp.indexOf(' ') + 1);
-        task.setDeadlineTime(deadline);
+            String temp = input.substring(firstSlashIdx + 1);
+            String deadline = temp.substring(temp.indexOf(' '));
+            deadline.trim();
+            task.setDeadlineTime(deadline);
 
-        tasks[numTasks] = task;
-        PrintAddTask();
+            tasks[numTasks] = task;
+            PrintAddTask();
+        } catch (StringIndexOutOfBoundsException | IllegalArgumentException inputEx) {
+            throw new DukeException("OOPS!!! Description of deadline command must be of form: deadline ___ /by ___");
+        }
     }
 
-    public static void handleEvent(String input) {
-        int firstSlashIdx = input.indexOf('/');
-        int secondSlashIdx = input.indexOf('/', firstSlashIdx + 1);
+    public static void handleEvent(String input) throws DukeException{
+        try {
+            int firstSlashIdx = input.indexOf('/');
+            int secondSlashIdx = input.indexOf('/', firstSlashIdx + 1);
 
-        String description = input.substring(input.indexOf(' ') + 1, firstSlashIdx - 1);
-        Task task = new Task(description, 'E');
+            String description = input.substring(input.indexOf(' ') + 1, firstSlashIdx - 1);
+            Task task = new Task(description, 'E');
 
-        String temp = input.substring(firstSlashIdx);
-        firstSlashIdx = temp.indexOf('/');
-        secondSlashIdx = temp.indexOf('/', firstSlashIdx + 1);
-        String startTime = temp.substring(temp.indexOf(' ') + 1, secondSlashIdx - 1);
-        temp = temp.substring(secondSlashIdx);
-        String endTime = temp.substring(temp.indexOf(' ') + 1);
-        
-        task.setEventTime(startTime, endTime);
+            String temp = input.substring(firstSlashIdx);
+            firstSlashIdx = temp.indexOf('/');
+            secondSlashIdx = temp.indexOf('/', firstSlashIdx + 1);
+            String startTime = temp.substring(temp.indexOf(' ') + 1, secondSlashIdx - 1);
+            temp = temp.substring(secondSlashIdx);
+            String endTime = temp.substring(temp.indexOf(' '));
+            endTime.trim();
+            
+            task.setEventTime(startTime, endTime);
 
-        tasks[numTasks] = task;
-        PrintAddTask();
+            tasks[numTasks] = task;
+            PrintAddTask();
+        } catch (StringIndexOutOfBoundsException | IllegalArgumentException inputEx) {
+            throw new DukeException("OOPS!!! Description of event command must be of form: event ___ /from ___ /to ___");
+        } 
     }
     
     public static void PrintAddTask() {
@@ -128,9 +148,9 @@ public class Itay {
         System.out.println(DIVIDER);   
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         System.out.println("Hello! I'm Itay");
-        System.out.println("What can i do for you?");
+        System.out.println("What can I do for you?");
         System.out.println(DIVIDER);
 
         try (Scanner in = new Scanner(System.in)) {
@@ -138,7 +158,12 @@ public class Itay {
             input = input.trim();
 
             while(! input.equals("bye")) {
-                Respond(input);
+                try {
+                    Respond(input);
+                } catch(DukeException dukeEx) {
+                    System.out.println(dukeEx.toString());
+                }
+                // Get the next input
                 input = in.nextLine();
                 input = input.trim();
             }
