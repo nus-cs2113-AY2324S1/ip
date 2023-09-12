@@ -3,7 +3,7 @@ import java.lang.System;
 
 public class ListWhisper {
     public static void main(String[] args) {
-        startProgram();
+        ListWhisper.startProgram();
     }
 
     private static void startProgram() {

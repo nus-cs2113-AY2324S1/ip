@@ -52,7 +52,7 @@ class List {
     @Override
     public String toString() {
         if (this.getSize() == 0) {
-            return "You have no task in your list!";
+            return "You have no task in your list!\n";
         }
 
         StringBuilder output = new StringBuilder();

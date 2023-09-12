@@ -8,8 +8,8 @@ class Manager {
     }
 
     public void readInput() {
-        Scanner s = new Scanner(System.in);
-        while (true) {
+            Scanner s = new Scanner(System.in);
+        while (s.hasNextLine()) {
             String input = s.nextLine();
             this.execute(input);
         }
@@ -71,7 +71,7 @@ class Manager {
     private void printListMessage() {
         printStraightLine();
         System.out.println("Here are the tasks in your list: ");
-        System.out.println(this.list);
+        System.out.print(this.list);
         printStraightLine();
     }
 
