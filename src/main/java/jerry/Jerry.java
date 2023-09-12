@@ -10,33 +10,35 @@ import jerry.task.Deadline;
 import jerry.task.Event;
 import jerry.task.TaskList;
 import jerry.userInterface.UserInterface;
+import jerry.exceptions.InvalidTaskFormatException;
+import jerry.exceptions.TaskNotFoundException;
 
 public class Jerry {
 
     private static final TaskList taskList = new TaskList();
     private static final String HORIZONTAL_LINE = "--------------------------------------------";
 
-    public static void toggleTaskStatus(String argument, Boolean isDone) {
+    public static void markTaskAsDone(String argument) {
         try {
-            int index = Integer.parseInt(argument);
-            if (isDone) {
-                taskList.getTaskByIndex(index).markAsUndone();
-                System.out.println("\tNice! I've marked this task as not done yet:");
-            } else {
-                taskList.getTaskByIndex(index).markAsDone();
-                System.out.println("\tNice! I've marked this task as done:");
-            }
-            System.out.printf("\t\t %s\n", taskList.getTaskByIndex(index).toString());
+            Task task = taskList.getTaskByIndex(Integer.parseInt(argument));
+            task.markAsDone();
+            UserInterface.showChangeTaskStatusConfirmation(task);
         } catch (NumberFormatException e) {
             System.out.println("\tPlease enter a valid task number.");
-        } catch (IndexOutOfBoundsException e) {
-            if (taskList.isEmpty()) {
-                System.out.println("\tYou haven't added any taskList yet.");
-            } else if (taskList.size() == 1) {
-                System.out.println("\tYou have added only one task yet.");
-            } else {
-                System.out.printf("\tThe task number must be between 1 and %d.\n", taskList.size());
-            }
+        } catch (TaskNotFoundException e) {
+            UserInterface.showExceptionMessage(e);
+        }
+    }
+
+    public static void markTaskAsUndone(String argument) {
+        try {
+            Task task = taskList.getTaskByIndex(Integer.parseInt(argument));
+            task.markAsUndone();
+            UserInterface.showChangeTaskStatusConfirmation(task);
+        } catch (NumberFormatException e) {
+            System.out.println("\tPlease enter a valid task number.");
+        } catch (TaskNotFoundException e) {
+            UserInterface.showExceptionMessage(e);
         }
     }
 
@@ -45,8 +47,8 @@ public class Jerry {
             Todo newTodo = Todo.fromString(argument);
             taskList.addTask(newTodo);
             UserInterface.showTaskAddedConfirmation(newTodo, taskList);
-        } catch (ParseException e) {
-            System.out.println(e.getMessage());
+        } catch (InvalidTaskFormatException e) {
+            UserInterface.showExceptionMessage(e);
         }
     }
 
@@ -55,8 +57,8 @@ public class Jerry {
             Deadline newDeadline = Deadline.fromString(argument);
             taskList.addTask(newDeadline);
             UserInterface.showTaskAddedConfirmation(newDeadline, taskList);
-        } catch (ParseException e) {
-            System.out.println(e.getMessage());
+        } catch (InvalidTaskFormatException e) {
+            UserInterface.showExceptionMessage(e);
         }
     }
 
@@ -65,8 +67,8 @@ public class Jerry {
             Event newEvent = Event.fromString(argument);
             taskList.addTask(newEvent);
             UserInterface.showTaskAddedConfirmation(newEvent, taskList);
-        } catch (ParseException e) {
-            System.out.println(e.getMessage());
+        } catch (InvalidTaskFormatException e) {
+            UserInterface.showExceptionMessage(e);
         }
     }
 
@@ -85,11 +87,11 @@ public class Jerry {
     }
 
     private static void execMarkTask(String commandArgs) {
-        toggleTaskStatus(commandArgs, false);
+        markTaskAsDone(commandArgs);
     }
 
     private static void execUnmarkTask(String commandArgs) {
-        toggleTaskStatus(commandArgs, true);
+        markTaskAsUndone(commandArgs);
     }
 
     private static void execUnknownCommand() {
@@ -125,7 +127,6 @@ public class Jerry {
                 execUnknownCommand();
                 break;
             }
-        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void main(String[] args) {

@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jerry.task.Task;
+import jerry.exceptions.TaskNotFoundException;
 
 public class TaskList {
     private List<Task> tasks;
+
+    private static final String TASK_LIST_EMPTY_MESSAGE = "You haven't added any taskList yet.";
+    private static final String ONLY_ONE_TASK_MESSAGE = "You have added only one task yet.";
+    private static final String TASK_INDEX_MUST_BE_POSITIF_MESSAGE = "Task index must be a positive number.";
 
     public TaskList() {
         tasks = new ArrayList<>();
@@ -24,8 +29,25 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
-    public Task getTaskByIndex(int number) {
-        return this.tasks.get(number - 1);
+    private String getTaskNotFoundMessage(int index) {
+        if (index <= 0) {
+            return TASK_INDEX_MUST_BE_POSITIF_MESSAGE;
+        }
+        switch (this.tasks.size()) {
+            case 0:
+            return TASK_LIST_EMPTY_MESSAGE;
+            case 1:
+            return ONLY_ONE_TASK_MESSAGE;
+            default:
+            return String.format("The task number must be between 1 and %d.", this.tasks.size());
+        }
+    }
+
+    public Task getTaskByIndex(int index) throws TaskNotFoundException {
+        if (index < 1 || index >= tasks.size()) {
+            throw new TaskNotFoundException(this.getTaskNotFoundMessage(index));
+        }
+        return this.tasks.get(index - 1);
     }
 
     @Override

@@ -4,9 +4,13 @@ import java.text.ParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jerry.exceptions.InvalidTaskFormatException;
+
 public class Event extends Task {
     protected String from;
     protected String to;
+
+    private static final String FORMAT_EXCEPTION_MESSAGE = "Invalid Event format.";
 
     public Event(String description, String from, String to) {
         super(description);
@@ -19,7 +23,7 @@ public class Event extends Task {
         return String.format("[T][%s] %s (from: %s to: %s)", this.getStatusIcon(), this.getDescription(), this.from, this.to);
     }
 
-    public static Event fromString(String userInput) throws ParseException {
+    public static Event fromString(String userInput) throws InvalidTaskFormatException {
         Pattern pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
         Matcher matcher = pattern.matcher(userInput);
 
@@ -29,7 +33,7 @@ public class Event extends Task {
             String to = matcher.group(3);
             return new Event(description, from, to);
         } else {
-            throw new ParseException("\tInvalid Event format.", 0);
+            throw new InvalidTaskFormatException(FORMAT_EXCEPTION_MESSAGE);
         }
     }
 }

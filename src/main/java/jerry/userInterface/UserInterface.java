@@ -11,8 +11,10 @@ public class UserInterface {
 
     private static final String WELCOME_MESSAGE = "Hi I'm Jerry!\nWhat can I do for you ?";
     private static final String GOODBYE_MESSAGE = "Bye! Hope to see you again.";
-	private static final String LIST_OF_TASKS_MESSAGE = "Here are the tasks in your list:";
+    private static final String LIST_OF_TASKS_MESSAGE = "Here are the tasks in your list:";
     private static final String UNKNOWN_COMMAND_MESSAGE = "Unknown command.";
+    private static final String TASK_MARKED_AS_DONE_MESSAGE = "Nice! I've marked this task as done:";
+    private static final String TASK_MARKED_AS_UNDONE_MESSAGE = "Ok! I've marked this task as undone:";
 
     private static final Scanner in = new Scanner(System.in);
 
@@ -51,14 +53,27 @@ public class UserInterface {
     public static void showListOfTasks(TaskList taskList) {
         printMessage(LIST_OF_TASKS_MESSAGE);
         printMessage(taskList.toString());
+        printHorizontalLine();
     }
 
     public static void showUnknownCommandMessage() {
         printMessage(UNKNOWN_COMMAND_MESSAGE);
+        printHorizontalLine();
     }
 
     public static void showTaskAddedConfirmation(Task task, TaskList taskList) {
         System.out.printf("\tGot it. I've added this task:\n\t\t %s\n\tNow you have %d tasks in the list.\n", task, taskList.size());
+        printHorizontalLine();
     }
 
+    public static void showChangeTaskStatusConfirmation(Task task) {
+        printMessage(task.isDone() ? TASK_MARKED_AS_DONE_MESSAGE : TASK_MARKED_AS_UNDONE_MESSAGE);
+        printMessage("\t" + task);
+        printHorizontalLine();
+    }
+
+    public static void showExceptionMessage(Exception e) {
+        printMessage(e.getMessage());
+        printHorizontalLine();
+    }
 }

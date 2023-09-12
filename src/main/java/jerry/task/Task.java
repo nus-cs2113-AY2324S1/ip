@@ -9,6 +9,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Boolean isDone() {
+        return this.isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -25,6 +29,7 @@ public abstract class Task {
         return this.description;
     }
 
+    @Override
     public abstract String toString();
 }
 

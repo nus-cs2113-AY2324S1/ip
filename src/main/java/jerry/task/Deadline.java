@@ -4,8 +4,12 @@ import java.text.ParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jerry.exceptions.InvalidTaskFormatException;
+
 public class Deadline extends Task {
     protected String by;
+
+    private static final String FORMAT_EXCEPTION_MESSAGE = "Invalid Deadline format.";
 
     public Deadline(String description, String by) {
         super(description);
@@ -17,7 +21,7 @@ public class Deadline extends Task {
         return String.format("[D][%s] %s (by: %s)", this.getStatusIcon(), this.getDescription(), this.by);
     }
 
-    public static Deadline fromString(String userInput) throws ParseException {
+    public static Deadline fromString(String userInput) throws InvalidTaskFormatException {
         Pattern pattern = Pattern.compile("(.+) /by (.+)");
         Matcher matcher = pattern.matcher(userInput);
         if (matcher.matches() && matcher.groupCount() == 2) {
@@ -25,7 +29,7 @@ public class Deadline extends Task {
             String by = matcher.group(2);
             return new Deadline(description, by);
         } else {
-            throw new ParseException("\tInvalid Deadline format.", 0);
+            throw new InvalidTaskFormatException(FORMAT_EXCEPTION_MESSAGE);
         }
     }
 }
