@@ -32,8 +32,11 @@ public class TaskManager {
         incrementAndPrintNewTask(task);
     }
 
-    public void setTaskIsDone(int idx, boolean isDone) {
+    public void setTaskIsDone(int idx, boolean isDone) throws DukeException {
         idx--;
+        if (idx <0 || idx > totalTasks-1) {
+            throw new DukeException("Please enter a valid task number.");
+        }
         tasks[idx].setIsDone(isDone);
         String doneMsg = isDone
                 ? "Nice! I've marked this task as done:"
