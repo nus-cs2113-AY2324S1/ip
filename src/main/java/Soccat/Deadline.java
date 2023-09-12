@@ -1,3 +1,5 @@
+package Soccat;
+
 public class Deadline extends Task {
 
     protected String by;

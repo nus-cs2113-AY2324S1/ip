@@ -1,3 +1,5 @@
+package Soccat;
+
 public class Event extends Task {
 
     protected String from;
