@@ -6,13 +6,14 @@ public class Duke {
         System.out.println("Hello from BotBuddy!");
         System.out.println("What can I do for you?");
         printUnderscores();
+        Task[] tasks = new Task[100];
         String input;
         String[] inputArr;
         String command = "";
         String parameters = "";
-        Task[] tasks = new Task[100];
-        while (true) {
-            Scanner in = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
+
+        do {
             input = in.nextLine().trim();
             inputArr = input.split(" ", 2);
             command = inputArr[0];
@@ -48,12 +49,11 @@ public class Duke {
             case "bye":
                 exitProgram();
                 return;
-
             default:
                 invalidCommand();
                 break;
             }
-        }
+        } while (!command.equals("bye"));
     }
 
     public static void printUnderscores() {
