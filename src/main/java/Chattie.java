@@ -53,6 +53,9 @@ public class Chattie {
             count = addDeadline(list, line, count);
         } else if (line.startsWith("event")) {
             count = addEvent(list, line, count);
+        } else {
+            System.out.println("\tOh no! Command not recognised :(");
+            System.out.println("\tPlease try again");
         }
         return count;
     }
@@ -70,37 +73,53 @@ public class Chattie {
     }
 
     public static int addTodo(Task[] list, String line, int count) {
-        list[count] = new Todo(line.substring(5));
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + list[count]);
-        count++;
-        System.out.println("\tNow you have " + count + " tasks in the list.");
+        try {
+            String todo = line.substring(5);
+            list[count] = new Todo(todo);
+            System.out.println("\tGot it. I've added this task:");
+            System.out.println("\t  " + list[count]);
+            count++;
+            System.out.println("\tNow you have " + count + " tasks in the list.");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("\tOh no! Todo is empty :(");
+            System.out.println("\tPlease try again");
+        }
         return count;
     }
 
     public static int addDeadline(Task[] list, String line, int count) {
-        int slashIndex = line.indexOf("/by");
-        String task = line.substring(9, slashIndex);
-        String by = line.substring(slashIndex + 3);
-        list[count] = new Deadline(task, by);
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + list[count]);
-        count++;
-        System.out.println("\tNow you have " + count + " tasks in the list.");
+        try {
+            int slashIndex = line.indexOf("/by");
+            String task = line.substring(9, slashIndex);
+            String by = line.substring(slashIndex + 3);
+            list[count] = new Deadline(task, by);
+            System.out.println("\tGot it. I've added this task:");
+            System.out.println("\t  " + list[count]);
+            count++;
+            System.out.println("\tNow you have " + count + " tasks in the list.");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("\tOh no! Deadline is empty :(");
+            System.out.println("\tPlease try again");
+        }
         return count;
     }
 
     public static int addEvent(Task[] list, String line, int count) {
-        int firstSlash = line.indexOf("/from");
-        int secondSlash = line.indexOf("/to");
-        String task = line.substring(6, firstSlash);
-        String from = line.substring(firstSlash + 5, secondSlash);
-        String to = line.substring(secondSlash + 3);
-        list[count] = new Event(task, from, to);
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + list[count]);
-        count++;
-        System.out.println("\tNow you have " + count + " tasks in the list.");
+        try {
+            int firstSlash = line.indexOf("/from");
+            int secondSlash = line.indexOf("/to");
+            String task = line.substring(6, firstSlash);
+            String from = line.substring(firstSlash + 5, secondSlash);
+            String to = line.substring(secondSlash + 3);
+            list[count] = new Event(task, from, to);
+            System.out.println("\tGot it. I've added this task:");
+            System.out.println("\t  " + list[count]);
+            count++;
+            System.out.println("\tNow you have " + count + " tasks in the list.");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("\tOh no! Event is empty :(");
+            System.out.println("\tPlease try again");
+        }
         return count;
     }
 
