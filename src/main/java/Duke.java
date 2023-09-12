@@ -63,7 +63,11 @@ public class Duke {
                     list[Task.listCount] = new Event(line, eventTime);
                 }
                 else if (line.contains("todo")){
-                    list[Task.listCount] = new Todo(line.split(" ", 2)[1]);
+                    try {
+                        list[Task.listCount] = new Todo(line.split(" ", 2)[1]);
+                    } catch(IndexOutOfBoundsException e){
+                        System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                    }
                 }
                 System.out.println(" Got it. I've added this task:");
                 System.out.println(list[Task.listCount]);
