@@ -17,14 +17,22 @@ public class Duke {
             }
             else if (line.contains("unmark")){
                 line = line.replace("unmark ", "");
-                list[Integer.parseInt(line) - 1].unmark();
+                try {
+                    list[Integer.parseInt(line) - 1].unmark();
+                } catch(IndexOutOfBoundsException e){
+                    System.out.println("Please enter which task you want to unmark");
+                }
                 System.out.println(" OK, I've marked this task as not done yet:");
                 System.out.println(list[Integer.parseInt(line) - 1]);
 
             }
             else if (line.contains("mark")){
                 line = line.replace("mark ", "");
-                list[Integer.parseInt(line) - 1].markAsDone();
+                try {
+                    list[Integer.parseInt(line) - 1].markAsDone();
+                } catch(IndexOutOfBoundsException e){
+                    System.out.println("Please enter which task you want to unmark");
+                }
                 System.out.println(" Nice! I've marked this task as done:");
                 System.out.println(list[Integer.parseInt(line) - 1]);
 
