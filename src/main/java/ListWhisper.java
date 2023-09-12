@@ -1,18 +1,24 @@
 import java.lang.String;
 import java.lang.System;
-import java.util.Scanner;
 
 public class ListWhisper {
     public static void main(String[] args) {
-        Manager manager = new Manager();
-        Scanner s = new Scanner(System.in);
-        System.out.println(
-                "Hello! I'm IP\n" +
-                "What can I do for you?"
-                );
-        while (true) {
-            String input = s.nextLine();
-            manager.process(input);
-        }
+        startProgram();
     }
+
+    private static void startProgram() {
+        Manager manager = new Manager();
+        greetUser();
+        manager.readInput();
+    }
+
+    private static void greetUser() {
+        System.out.println("-----------------------------------------------------");
+        System.out.println(
+                "Hello! I'm ListWhisper\n" +
+                        "What can I do for you?"
+        );
+        System.out.println("-----------------------------------------------------");
+    }
+
 }

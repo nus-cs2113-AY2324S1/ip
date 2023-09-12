@@ -15,20 +15,30 @@ class List {
         return this.tasks.get(taskId - 1);
     }
     public void add(String input) {
-        String[] splitInput = input.split(" ", 2);
-        String action = splitInput[0];
+        String[] actionAndDescription = splitInputIntoActionAndDescription(input);
+        String action = actionAndDescription[0];
+        String description = actionAndDescription[1];
+        String[] descriptionAndTime;
         Task newTask= null;
 
-        if (action.equals("todo")) {
-            newTask = new Todo(splitInput[1]);
-        } else if (action.equals("deadline")) {
-            String[] command = splitInput[1].split("/by");
-            newTask = new Deadline(command[0], command[1]);
-        } else if (action.equals("event")) {
-            String[] command = splitInput[1].split("/");
-            newTask = new Event(command[0], command[1], command[2]);
+        switch (action) {
+        case "todo":
+            newTask = new Todo(description);
+            break;
+        case "deadline":
+            descriptionAndTime = description.split("/by");
+            newTask = new Deadline(descriptionAndTime[0], descriptionAndTime[1]);
+            break;
+        case "event":
+            descriptionAndTime = actionAndDescription[1].split("/");
+            newTask = new Event(descriptionAndTime[0], descriptionAndTime[1], descriptionAndTime[2]);
+            break;
         }
         this.tasks.add(newTask);
+    }
+
+    public String[] splitInputIntoActionAndDescription(String input) {
+        return input.split(" ", 2);
     }
 
     public void mark(int taskID) {
@@ -41,6 +51,10 @@ class List {
 
     @Override
     public String toString() {
+        if (this.getSize() == 0) {
+            return "You have no task in your list!";
+        }
+
         StringBuilder output = new StringBuilder();
 
         for (int i = 1; i <= tasks.size(); i++) {
