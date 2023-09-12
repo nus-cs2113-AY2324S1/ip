@@ -1,0 +1,7 @@
+diff a/src/main/java/chattie/error/ChattieException.java b/src/main/java/chattie/error/ChattieException.java	(rejected hunks)
+@@ -1,4 +0,4 @@
+-package chattie;
++package chattie.error;
+ 
+ public class ChattieException extends Exception{
+     public ChattieException(ErrorType e) {
