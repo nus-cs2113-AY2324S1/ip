@@ -1,3 +1,7 @@
+package chatbot;
+
+import chatbot.*;
+
 import java.util.Scanner;
 
 public class Chatbot {

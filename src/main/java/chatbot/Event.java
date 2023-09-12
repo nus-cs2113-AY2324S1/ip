@@ -1,3 +1,5 @@
+package chatbot;
+
 public class Event extends Task {
     protected String fromDate;
     protected String toDate;
