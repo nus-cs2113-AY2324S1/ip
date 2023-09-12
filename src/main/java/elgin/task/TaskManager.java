@@ -3,6 +3,12 @@ package elgin.task;
 import elgin.Duke;
 import elgin.exception.DukeException;
 
+import java.util.HashMap;
+
+import static elgin.utils.FormatPrinter.formatPrint;
+import static elgin.utils.Parser.parseArguments;
+import static elgin.utils.Parser.parseTaskIndex;
+
 public class TaskManager {
     private Task[] tasks;
     private int totalTasks;
@@ -19,25 +25,42 @@ public class TaskManager {
         for (int i = 0; i < totalTasks; i++) {
             allTasksDescription[i + 1] = (i + 1) + "." + tasks[i];
         }
-        Duke.formatPrint(allTasksDescription);
+        formatPrint(allTasksDescription);
     }
 
-    public void addTask(String description) {
-        Todo task = new Todo(description);
+    public void addTodo(String command, String arguments) throws DukeException {
+        if (arguments.isEmpty()) {
+            throw new DukeException("OOPS! Description of " + command + " cannot be empty");
+        }
+        Todo task = new Todo(arguments);
         incrementAndPrintNewTask(task);
     }
 
-    public void addTask(String description, String by) {
+    public void addDeadline(String command, String arguments) throws DukeException {
+        if (arguments.isEmpty()) {
+            throw new DukeException("OOPS! Description of " + command + " cannot be empty");
+        }
+        HashMap<String, String> parsedArgs = parseArguments(command, arguments);
+        String description = parsedArgs.get("description");
+        String by = parsedArgs.get("by");
         Deadline task = new Deadline(description, by);
         incrementAndPrintNewTask(task);
     }
 
-    public void addTask(String description, String from, String to) {
+    public void addEvent(String command, String arguments) throws DukeException {
+        if (arguments.isEmpty()) {
+            throw new DukeException("OOPS! Description of " + command + " cannot be empty");
+        }
+        HashMap<String, String> parsedArgs = parseArguments(command, arguments);
+        String description = parsedArgs.get("description");
+        String from = parsedArgs.get("from");
+        String to = parsedArgs.get("to");
         Event task = new Event(description, from, to);
         incrementAndPrintNewTask(task);
     }
 
-    public void setTaskIsDone(int idx, boolean isDone) throws DukeException {
+    public void setTaskIsDone(String arguments, boolean isDone) throws DukeException {
+        int idx = parseTaskIndex(arguments);
         idx--;
         if (idx < 0 || idx > totalTasks - 1) {
             throw new DukeException("Please enter a valid task number.");
@@ -50,7 +73,7 @@ public class TaskManager {
                 doneMsg,
                 "\t" + tasks[idx]
         };
-        Duke.formatPrint(messages);
+        formatPrint(messages);
     }
 
     public String getNumberOfTasks() {
@@ -66,7 +89,7 @@ public class TaskManager {
                 "\t" + t,
                 getNumberOfTasks()
         };
-        Duke.formatPrint(messages);
+        formatPrint(messages);
     }
 
 }
