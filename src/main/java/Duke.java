@@ -79,8 +79,6 @@ public class Duke {
                 else{
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
-
-
             }
             line = in.nextLine();
         }
