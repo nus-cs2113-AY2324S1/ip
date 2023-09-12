@@ -1,0 +1,4 @@
+todo hiok
+event hue /from hiokhiok /to huehue
+deadline everything /by nowwww
+bye
