@@ -20,7 +20,7 @@ public class Duke {
                 try {
                     list[Integer.parseInt(line) - 1].unmark();
                 } catch(IndexOutOfBoundsException e){
-                    System.out.println("Please enter which task you want to unmark");
+                    System.out.println("OOPS!!! Need to specify which task want to unmark");
                 }
                 System.out.println(" OK, I've marked this task as not done yet:");
                 System.out.println(list[Integer.parseInt(line) - 1]);
@@ -31,7 +31,7 @@ public class Duke {
                 try {
                     list[Integer.parseInt(line) - 1].markAsDone();
                 } catch(IndexOutOfBoundsException e){
-                    System.out.println("Please enter which task you want to unmark");
+                    System.out.println("OOPS!!! Need to specify which task want to mark as done");
                 }
                 System.out.println(" Nice! I've marked this task as done:");
                 System.out.println(list[Integer.parseInt(line) - 1]);
@@ -40,9 +40,17 @@ public class Duke {
             else{
                 String eventTime = "";
                 if (line.contains("deadline")){
-                    eventTime = line.split("/by ",2)[1];
-                    line = line.split(" ",2)[1];
-                    line = line.split("/",2)[0];
+                    try {
+                        eventTime = line.split("/by ", 2)[1];
+                    } catch(IndexOutOfBoundsException e){
+                        System.out.println("OOPS!!! The deadline need to separated by \"/by\"");
+                    }
+                    try {
+                        line = line.split(" ", 2)[1];
+                    } catch(IndexOutOfBoundsException e){
+                        System.out.println("OOPS!!! The deadline of the task is needed");
+                    }
+                    line = line.split("/", 2)[0];
                     eventTime = eventTime.replace("from", "from:");
                     eventTime = eventTime.replace("/", "");
                     list[Task.listCount] = new Deadline(line, eventTime);
@@ -54,7 +62,7 @@ public class Duke {
                     eventTime = eventTime.replace("/to", "to:");
                     list[Task.listCount] = new Event(line, eventTime);
                 }
-                else {
+                else if (line.contains("todo")){
                     list[Task.listCount] = new Todo(line.split(" ", 2)[1]);
                 }
                 System.out.println(" Got it. I've added this task:");
