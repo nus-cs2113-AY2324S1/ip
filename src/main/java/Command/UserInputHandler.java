@@ -1,16 +1,22 @@
 package Command;
 
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import static Command.TaskManager.parseEventDescription;
 
 public class UserInputHandler {
 
     @FunctionalInterface
     interface Command {
-        void execute(String userInput);
+        void execute(String userInput) throws JarvisException;
     }
-
     private static final String LINE_BREAK = "____________________________________________________________";
     private static final Scanner sc = new Scanner(System.in);
     private static final TaskManager taskManager = new TaskManager();
@@ -20,48 +26,51 @@ public class UserInputHandler {
         commands.put("list", userInput -> taskManager.listTasks());
 
         commands.put("mark", userInput -> {
-            int index = extractIndex(userInput, 5);
-            if (index != -1) {
+            try {
+                int index = TaskManager.extractIndex(userInput, 5);
                 taskManager.markTaskAsDone(index);
+            } catch (JarvisException e) {
+                System.out.println(e.getMessage());
             }
         });
 
         commands.put("unmark", userInput -> {
-            int index = extractIndex(userInput, 7);
-            if (index != -1) {
+            try {
+                int index = TaskManager.extractIndex(userInput, 7);
                 taskManager.unmarkTaskAsDone(index);
+            } catch (JarvisException e) {
+                System.out.println(e.getMessage());
             }
         });
 
-        commands.put("todo", userInput -> taskManager.addTodo(userInput.substring(5).trim()));
+        commands.put("todo", userInput -> {
+            try {
+                taskManager.addTodo(TaskManager.parseToDoDescription(userInput));
+            } catch (JarvisException e) {
+                System.out.println(e.getMessage());
+            }
+        });
 
         commands.put("deadline", userInput -> {
-            int lastIndex = userInput.lastIndexOf("/by");
-            if (lastIndex != -1) {
-                String description = userInput.substring(9, lastIndex).trim();
-                String time = userInput.substring(lastIndex + 4).trim();
-                taskManager.addDeadline(description, time);
-            }
-            else {
-                taskManager.displayInvalidFormatMessage("deadline");
+            try {
+                List<String> deadline = TaskManager.parseDeadlineDescription(userInput);
+                taskManager.addDeadline(deadline.get(0), deadline.get(1));
+            } catch (JarvisException e) {
+                System.out.println(e.getMessage());
             }
         });
 
         commands.put("event", userInput -> {
-            String[] parts = userInput.substring(6).trim().split("/from|/to", 3);
-            if (parts.length >= 3) {
-                String description = parts[0].trim();
-                String startTime = parts[1].trim();
-                String endTime = parts[2].trim();
-                taskManager.addEvent(description, startTime, endTime);
-            }
-            else {
-                taskManager.displayInvalidFormatMessage("event");
+            try {
+                List<String> event = TaskManager.parseEventDescription(userInput);
+                taskManager.addEvent(event.get(0), event.get(1), event.get(2));
+            } catch (JarvisException e) {
+                System.out.println(e.getMessage());
             }
         });
     }
 
-    public static void processUserCommands() {
+    public static void processUserCommands() throws JarvisException {
         String userInput = sc.nextLine();
         while (!userInput.equals("bye")) {
             System.out.println(LINE_BREAK);
@@ -71,7 +80,7 @@ public class UserInputHandler {
                 command.execute(userInput);
             }
             else {
-                System.out.println("Unknown command. Please try again.");
+                System.out.println(JarvisException.invalidCommand().getMessage());
             }
 
             System.out.println(LINE_BREAK);
@@ -83,17 +92,4 @@ public class UserInputHandler {
         return userInput.split(" ")[0];
     }
 
-    private static int extractIndex(String userInput, int startIndex) {
-        try {
-            if (startIndex < userInput.length()) {
-                return Integer.parseInt(userInput.substring(startIndex).trim()) - 1; // Convert to 0-indexed
-            }
-            else {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid task number. Please try again.");
-            return -1; // Invalid number
-        }
-    }
 }
