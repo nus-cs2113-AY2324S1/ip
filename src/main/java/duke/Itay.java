@@ -175,5 +175,4 @@ public class Itay {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(DIVIDER);
     }
-    
 }
