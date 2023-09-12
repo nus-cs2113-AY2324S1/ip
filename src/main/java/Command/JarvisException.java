@@ -18,6 +18,10 @@ public class JarvisException extends Exception {
         return new JarvisException("Invalid task number " + (index + 1) + ". Try Again!");
     }
 
+    public static JarvisException invalidCommand(){
+        return new JarvisException("Unknown command. Please try again.");
+    }
+
     private JarvisException(String message) {
         super(message);
     }

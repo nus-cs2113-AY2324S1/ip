@@ -2,19 +2,11 @@ package Tasks;
 
 public class Deadline extends Task {
 
-    protected static String time;
+    protected String time;
 
     public Deadline(String description, String time) {
         super(description);
-        Deadline.time = time;
-    }
-
-    public static String getDescription() {
-        return description;
-    }
-
-    public static String getTime() {
-        return time;
+        this.time = time;
     }
 
     @Override
