@@ -1,8 +1,12 @@
+package tasks;
+
+
 /**
  *
  * Deadline class that represents the deadline task in the task list with an actual deadline.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
+
     private String by;
 
     /**

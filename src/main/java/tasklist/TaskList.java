@@ -1,11 +1,17 @@
+package tasklist;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import tasks.Task;
+
 
 /**
  *
  * The manager of the task list. I intend to shift the command functions in duke to this class.
  */
 public class TaskList {
+
     private List<Task> tasks = new ArrayList<>();
 
     public void addTask(Task task) {

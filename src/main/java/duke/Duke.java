@@ -1,21 +1,31 @@
+package duke;
+
 import java.util.Scanner;
 import java.util.List;
+
+import tasklist.TaskList;
+import tasks.Task;
+import tasks.ToDo;
+import tasks.Deadline;
+import tasks.Event;
+
 
 /**
  *
  * The main program that controls all classes, inputs and outputs.
  */
 public class Duke {
-    static final int LENGTH = 50;
 
-    public static void main(String[] args) {
+    private static final String LINE = "____________________________________________________________";
+
+    public static void main (String[] args) {
         TaskList taskList = new TaskList();
         Scanner scanner = new Scanner(System.in);
 
-        printHorizontalLines();
+        printLine();
         System.out.println("Hi! I'm Joshua");
         System.out.println("What can I do for you?");
-        printHorizontalLines();
+        printLine();
 
         while (true) {
             String input = scanner.nextLine().trim();
@@ -51,13 +61,15 @@ public class Duke {
     }
 
     public static void addToDoTask(String input, String[] inputWords, TaskList taskList) {
-        if (inputWords != null) {
+        try {
             String todoDescription = input.substring(5);
             ToDo todo = new ToDo(todoDescription);
             taskList.addTask(todo);
             printAddedTask(todo, taskList);
-        } else {
+        } catch (IndexOutOfBoundsException e) {
+            printLine();
             System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            printLine();
         }
     }
 
@@ -90,53 +102,49 @@ public class Duke {
     }
 
     public static void markAsDone(String[] inputWords, TaskList taskList) {
-        if (inputWords.length == 2) {
             try {
                 int taskIndex = Integer.parseInt(inputWords[1]);
                 taskList.markTaskDone(taskIndex);
                 printMarkedTask(taskIndex, taskList);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please use 'mark <number>'.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Please specify the task number");
             }
-        } else {
-            System.out.println("Invalid input. Please use 'mark <number>'.");
-        }
     }
 
     public static void unmark(String[] inputWords, TaskList taskList) {
-        if (inputWords.length == 2) {
             try {
                 int taskIndex = Integer.parseInt(inputWords[1]);
                 taskList.unmarkTask(taskIndex);
                 printUnmarkedTask(taskIndex, taskList);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please use 'unmark + number'.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Please specify the task number");
             }
-        } else {
-            System.out.println("Invalid input. Please use 'unmark + number'.");
-        }
     }
 
     private static void printTaskList(TaskList taskList) {
-        printHorizontalLines();
+        printLine();
         System.out.println("Here are the tasks in your list:");
         List<Task> tasks = taskList.getTasks();
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
-        printHorizontalLines();
+        printLine();
     }
 
     private static void printAddedTask(Task task, TaskList taskList) {
-        printHorizontalLines();
+        printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + task.toString());
         System.out.println("Now you have " + taskList.getTasks().size() + " tasks in the list.");
-        printHorizontalLines();
+        printLine();
     }
 
     private static void printMarkedTask(int taskIndex, TaskList taskList) {
-        printHorizontalLines();
+        printLine();
         List<Task> tasks = taskList.getTasks();
         if (taskIndex >= 1 && taskIndex <= tasks.size()) {
             Task task = tasks.get(taskIndex - 1);
@@ -145,11 +153,11 @@ public class Duke {
         } else {
             System.out.println("Invalid task index.");
         }
-        printHorizontalLines();
+        printLine();
     }
 
     private static void printUnmarkedTask(int taskIndex, TaskList taskList) {
-        printHorizontalLines();
+        printLine();
         List<Task> tasks = taskList.getTasks();
         if (taskIndex >= 1 && taskIndex <= tasks.size()) {
             Task task = tasks.get(taskIndex - 1);
@@ -158,14 +166,11 @@ public class Duke {
         } else {
             System.out.println("Invalid task index.");
         }
-        printHorizontalLines();
+        printLine();
     }
 
-    private static void printHorizontalLines() {
-        for (int i = 0; i < LENGTH; i++) {
-            System.out.print("-");
-        }
-        System.out.println();
+    public static void printLine() {
+        System.out.println(LINE);
     }
 }
 

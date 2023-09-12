@@ -1,7 +1,11 @@
+package tasks;
+
+
 /**
  * The Event class that represents the event task in the task list which has the start and end date.
  */
-public class Event extends Task{
+public class Event extends Task {
+
     private String from;
     private String to;
 
