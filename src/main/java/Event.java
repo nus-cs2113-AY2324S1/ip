@@ -1,6 +1,7 @@
 public class Event extends Task {
     protected String from;
     protected String to;
+
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
@@ -25,6 +26,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "\t[E]" + super.toString() + " (from:" + from + " to:" + to + ")";
+        return "\t[E]" + super.toString() + " (from: " + from + "to:" + to + ")";
     }
 }
