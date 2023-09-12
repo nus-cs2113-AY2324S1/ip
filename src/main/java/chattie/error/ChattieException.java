@@ -1,3 +1,5 @@
+package chattie;
+
 public class ChattieException extends Exception{
     public ChattieException(ErrorType e) {
         switch(e) {

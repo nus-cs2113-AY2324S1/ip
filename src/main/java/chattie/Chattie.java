@@ -1,3 +1,12 @@
+package chattie;
+
+import chattie.error.ChattieException;
+import chattie.error.ErrorType;
+import chattie.tasks.Deadline;
+import chattie.tasks.Event;
+import chattie.tasks.Task;
+import chattie.tasks.Todo;
+
 import java.util.Scanner;
 
 public class Chattie {
