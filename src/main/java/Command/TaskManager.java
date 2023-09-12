@@ -6,9 +6,10 @@ import Tasks.Deadline;
 import Tasks.Event;
 
 import java.util.ArrayList;
-
 public class TaskManager {
-
+    private static final int TODO_COMMAND_LENGTH = 5;
+    private static final int DEADLINE_COMMAND_LENGTH = 9;
+    private static final int BY_KEYWORD_LENGTH = 4;
     private final ArrayList<Task> taskList = new ArrayList<>();
 
     public void listTasks() {
@@ -19,34 +20,29 @@ public class TaskManager {
         }
     }
 
-    public void markTaskAsDone(int index) {
+    public void markTaskAsDone(int index) throws JarvisException {
         if (isValidIndex(index)) {
             System.out.println("Nice! I've marked this task as done:");
             taskList.get(index).markAsDone();
             System.out.println("    " + taskList.get(index));
         }
         else {
-            printInvalidTaskMessage(index);
+            throw JarvisException.invalidTaskNumber(index);
         }
     }
 
-    public void unmarkTaskAsDone(int index) {
+    public void unmarkTaskAsDone(int index) throws JarvisException {
         if (isValidIndex(index)) {
             System.out.println("Nice! I've unmarked:");
             taskList.get(index).markAsUndone();
             System.out.println("    " + taskList.get(index));
         }
         else {
-            printInvalidTaskMessage(index);
+            throw JarvisException.invalidTaskNumber(index);
         }
     }
 
     public void addTodo(String description) {
-        if (description.isEmpty()) {
-            displayInvalidFormatMessage("todo");
-            return;
-        }
-
         Todo todo = new Todo(description);
         taskList.add(todo);
         System.out.println("Got it. I've added this task:");
@@ -54,12 +50,19 @@ public class TaskManager {
         displayTaskCount();
     }
 
-    public void addDeadline(String description, String time) {
-        if (description.isEmpty() || time.isEmpty()) {
-            displayInvalidFormatMessage("deadline");
-            return;
+    static String parseToDoDescription(String userInput) throws JarvisException {
+        if (userInput.length() <= 5) {
+            throw JarvisException.invalidTodoFormat();
+        }
+        String description = userInput.substring(5).trim();
+        if(description.isEmpty()) {
+            throw JarvisException.invalidTodoFormat();
         }
 
+        return description;
+    }
+
+    public void addDeadline(String description, String time) {
         Deadline deadline = new Deadline(description, time);
         taskList.add(deadline);
         System.out.println("Got it. I've added this task:");
@@ -67,12 +70,28 @@ public class TaskManager {
         displayTaskCount();
     }
 
-    public void addEvent(String description, String startTime, String endTime) {
-        if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
-            displayInvalidFormatMessage("event");
-            return;
+    static Deadline parseDeadlineDescription(String userInput) throws JarvisException {
+        int lastIndex = userInput.lastIndexOf("/by");
+        if (lastIndex == -1) {
+            throw JarvisException.invalidDeadlineFormat();
         }
 
+        if (userInput.length() <= DEADLINE_COMMAND_LENGTH || lastIndex + BY_KEYWORD_LENGTH >= userInput.length()) {
+            throw JarvisException.invalidDeadlineFormat();
+        }
+        String description = userInput.substring(DEADLINE_COMMAND_LENGTH, lastIndex).trim();
+        String time = userInput.substring(lastIndex + BY_KEYWORD_LENGTH).trim();
+
+        if(description.isEmpty() || time.isEmpty()) {
+            throw JarvisException.invalidDeadlineFormat();
+        }
+
+        return new Deadline(description, time);
+    }
+
+
+
+    public void addEvent(String description, String startTime, String endTime) {
         String timeRange = startTime + " to " + endTime;
         Event event = new Event(description, timeRange);
         taskList.add(event);
@@ -81,33 +100,12 @@ public class TaskManager {
         displayTaskCount();
     }
 
-    void displayInvalidFormatMessage(String taskType) {
-        switch(taskType) {
-        case "todo":
-            System.out.println("Invalid format. Description cannot be empty for todo.");
-            break;
-        case "deadline":
-            System.out.println("Invalid format. Use: deadline <description> /by <time>");
-            break;
-        case "event":
-            System.out.println("Invalid format. Use: event <description> /from <start_time> /to <end_time>");
-            break;
-        default:
-            System.out.println("Invalid task format.");
-            break;
-        }
-    }
-
     private void displayTaskCount() {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     private boolean isValidIndex(int index) {
         return index >= 0 && index < taskList.size();
-    }
-
-    private void printInvalidTaskMessage(int index) {
-        System.out.println("Invalid task number " + (index + 1) + ". Try Again!");
     }
 }
 

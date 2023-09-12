@@ -1,5 +1,7 @@
 package Command;
 
+import Tasks.Deadline;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -8,9 +10,8 @@ public class UserInputHandler {
 
     @FunctionalInterface
     interface Command {
-        void execute(String userInput);
+        void execute(String userInput) throws JarvisException;
     }
-
     private static final String LINE_BREAK = "____________________________________________________________";
     private static final Scanner sc = new Scanner(System.in);
     private static final TaskManager taskManager = new TaskManager();
@@ -33,35 +34,62 @@ public class UserInputHandler {
             }
         });
 
-        commands.put("todo", userInput -> taskManager.addTodo(userInput.substring(5).trim()));
-
-        commands.put("deadline", userInput -> {
-            int lastIndex = userInput.lastIndexOf("/by");
-            if (lastIndex != -1) {
-                String description = userInput.substring(9, lastIndex).trim();
-                String time = userInput.substring(lastIndex + 4).trim();
-                taskManager.addDeadline(description, time);
+        commands.put("todo", userInput -> {
+            try {
+                // Parsing user input and calling TaskManager method
+                taskManager.addTodo(TaskManager.parseToDoDescription(userInput));
             }
-            else {
-                taskManager.displayInvalidFormatMessage("deadline");
+            catch (JarvisException e) {
+                // Catching the exception thrown by TaskManager and informing the user
+                System.out.println(e.getMessage());
             }
         });
 
+//        commands.put("deadline", userInput -> {
+//            int lastIndex = userInput.lastIndexOf("/by");
+//            String description = "", time = "";
+//            if (lastIndex == -1) {
+//                System.out.println(JarvisException.invalidDeadlineFormat().getMessage());
+//            }
+//            else {
+//                description = userInput.substring(9, lastIndex).trim();
+//                time = userInput.substring(lastIndex + 4).trim();
+//                taskManager.addDeadline(description, time);
+//            }
+//        });
+
+        commands.put("deadline", userInput -> {
+            try {
+                String deadline = String.valueOf(TaskManager.parseDeadlineDescription(userInput));
+                taskManager.addDeadline(Deadline.getDescription(), Deadline.getTime());
+            } catch (JarvisException e) {
+                System.out.println(e.getMessage());
+            }
+        });
+
+
         commands.put("event", userInput -> {
-            String[] parts = userInput.substring(6).trim().split("/from|/to", 3);
-            if (parts.length >= 3) {
-                String description = parts[0].trim();
-                String startTime = parts[1].trim();
-                String endTime = parts[2].trim();
-                taskManager.addEvent(description, startTime, endTime);
+            int lastIndexTo = userInput.lastIndexOf("/to");
+            int lastIndexFrom = userInput.lastIndexOf("/from");
+            String description = "", startTime = "", endTime="";
+
+            if (lastIndexFrom != -1 && lastIndexTo != -1) {
+                String[] parts = userInput.substring(6).trim().split("/from|/to", 3);
+                description = parts[0].trim();
+                startTime = parts[1].trim();
+                endTime = parts[2].trim();
+                if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
+                    System.out.println(JarvisException.invalidEventFormat().getMessage());
+                }
+                else{
+                    taskManager.addEvent(description, startTime, endTime);
+                }
             }
-            else {
-                taskManager.displayInvalidFormatMessage("event");
-            }
+
         });
     }
 
-    public static void processUserCommands() {
+    public static void processUserCommands() throws JarvisException {
         String userInput = sc.nextLine();
         while (!userInput.equals("bye")) {
             System.out.println(LINE_BREAK);
