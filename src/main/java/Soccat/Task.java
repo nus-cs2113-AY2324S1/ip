@@ -1,3 +1,5 @@
+package Soccat;
+
 public class Task {
     private String name;
     private Boolean isDone;

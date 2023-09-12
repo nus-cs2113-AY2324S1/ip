@@ -1,3 +1,4 @@
+import Soccat.*;
 import java.util.Scanner;
 
 public class Soccat {
@@ -78,7 +79,7 @@ public class Soccat {
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Soccat.Task number out of range!");
+            System.out.println("Task number out of range!");
         }
     }
 
