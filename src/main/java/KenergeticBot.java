@@ -1,11 +1,11 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class Nuke {
+public class KenergeticBot {
 
     public static void printGreetingMessage() {
         printLine();
-        System.out.println("     Hello! I'm Nuke\n" + "     What can I do for you?");
+        System.out.println("     Hello! I'm KenergeticBot\n" + "     What can I do for you?");
         printLine();
     }
 
