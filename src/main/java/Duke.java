@@ -22,6 +22,44 @@ public class Duke {
             }
 
             switch (command) {
+            case "todo":
+                // add todo
+                tasks[noOfTasks] = new Todo(parameters);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it, I've added this task:");
+                System.out.println(tasks[noOfTasks]);
+                System.out.println("____________________________________________________________");
+                noOfTasks++;
+                break;
+
+            case "event":
+                // add event
+                String[] eventDetails = parameters.split("/from");
+                String eventName = eventDetails[0].trim();
+                eventDetails = eventDetails[1].split("/to");
+                String eventFrom = eventDetails[0].trim();
+                String eventTo = eventDetails[1].trim();
+                tasks[noOfTasks] = new Event(eventName, eventFrom, eventTo);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it, I've added this task:");
+                System.out.println(tasks[noOfTasks]);
+                System.out.println("____________________________________________________________");
+                noOfTasks++;
+                break;
+
+            case "deadline":
+                // add deadline
+                String[] deadlineDetails = parameters.split("/by");
+                String deadlineName = deadlineDetails[0].trim();
+                String deadlineBy = deadlineDetails[1].trim();
+                tasks[noOfTasks] = new Deadline(deadlineName, deadlineBy);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it, I've added this task:");
+                System.out.println(tasks[noOfTasks]);
+                System.out.println("____________________________________________________________");
+                noOfTasks++;
+                break;
+
             case "list":
                 if (noOfTasks == 0) {
                     System.out.println("____________________________________________________________");
@@ -32,7 +70,7 @@ public class Duke {
                 // print out tasks
                 System.out.println("____________________________________________________________");
                 for (int i = 0; i < noOfTasks; i++) {
-                    System.out.println(i + 1 + ". " + tasks[i].getStatusIcon() + " " + tasks[i].getDescription());
+                    System.out.println(i + 1 + ". " + tasks[i]);
                 }
                 System.out.println("____________________________________________________________");
                 break;
@@ -42,7 +80,7 @@ public class Duke {
                 tasks[taskToMark].markAsDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("I've marked this task as done:");
-                System.out.println(tasks[taskToMark].getStatusIcon() + " " + tasks[taskToMark].getDescription());
+                System.out.println(tasks[taskToMark]);
                 System.out.println("____________________________________________________________");
                 break;
 
@@ -51,7 +89,7 @@ public class Duke {
                 tasks[taskToUnmark].markAsUndone();
                 System.out.println("____________________________________________________________");
                 System.out.println("I've unmarked this task:");
-                System.out.println(tasks[taskToUnmark].getStatusIcon() + " " + tasks[taskToUnmark].getDescription());
+                System.out.println(tasks[taskToUnmark]);
                 System.out.println("____________________________________________________________");
                 break;
 
@@ -63,11 +101,8 @@ public class Duke {
                 return;
 
             default:
-                // add task
-                tasks[noOfTasks] = new Task(input);
-                noOfTasks++;
                 System.out.println("____________________________________________________________");
-                System.out.println("added: " + tasks[noOfTasks - 1].getDescription());
+                System.out.println("Invalid command!");
                 System.out.println("____________________________________________________________");
                 break;
             }
