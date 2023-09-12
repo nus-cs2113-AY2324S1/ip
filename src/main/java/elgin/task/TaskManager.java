@@ -1,3 +1,8 @@
+package elgin.task;
+
+import elgin.Duke;
+import elgin.exception.DukeException;
+
 public class TaskManager {
     private Task[] tasks;
     private int totalTasks;

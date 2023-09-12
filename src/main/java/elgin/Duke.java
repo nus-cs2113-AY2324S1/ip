@@ -1,3 +1,8 @@
+package elgin;
+
+import elgin.exception.DukeException;
+import elgin.task.TaskManager;
+
 import java.util.Scanner;
 
 public class Duke {
