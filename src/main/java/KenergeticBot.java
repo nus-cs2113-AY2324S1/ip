@@ -134,21 +134,21 @@ public class KenergeticBot {
 
     //Controls the logic for adding items to the list
     public static void add(ArrayList<Task> taskList, String item) throws KenergeticBotException {
-            printLine();
-            if (checkTextForTodo(item)) {
-                try {
-                    addTodo(taskList, item);
-                } catch (KenergeticBotException e) { //throws exception when the todo command is not followed with a description
-                    System.out.println("     \u02D9\u25E0\u02D9 OOPS!!! The description of a todo cannot be empty.");
-                }
-            } else if (checkTextForDeadline(item)) {
-                addDeadline(taskList, item);
-            } else if (checkTextForEvent(item)) {
-                addEvent(taskList, item);
-            } else {
-                throw new KenergeticBotException();
+        printLine();
+        if (checkTextForTodo(item)) {
+            try {
+                addTodo(taskList, item);
+            } catch (KenergeticBotException e) { //throws exception when the todo command is not followed with a description
+                System.out.println("     \u02D9\u25E0\u02D9 OOPS!!! The description of a todo cannot be empty.");
             }
-            printLine();
+        } else if (checkTextForDeadline(item)) {
+            addDeadline(taskList, item);
+        } else if (checkTextForEvent(item)) {
+            addEvent(taskList, item);
+        } else {
+            throw new KenergeticBotException();
+        }
+        printLine();
     }
 
     public static void list(ArrayList<Task> taskList) {
