@@ -2,16 +2,15 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        System.out.println("____________________________________________________________");
+        printUnderscores();
         System.out.println("Hello from BotBuddy!");
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        printUnderscores();
         String input;
         String[] inputArr;
         String command = "";
         String parameters = "";
         Task[] tasks = new Task[100];
-        int noOfTasks = 0;
         while (true) {
             Scanner in = new Scanner(System.in);
             input = in.nextLine().trim();
@@ -23,89 +22,125 @@ public class Duke {
 
             switch (command) {
             case "todo":
-                // add todo
-                tasks[noOfTasks] = new Todo(parameters);
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it, I've added this task:");
-                System.out.println(tasks[noOfTasks]);
-                System.out.println("____________________________________________________________");
-                noOfTasks++;
+                addTodo(tasks, parameters);
                 break;
 
             case "event":
-                // add event
-                String[] eventDetails = parameters.split("/from");
-                String eventName = eventDetails[0].trim();
-                eventDetails = eventDetails[1].split("/to");
-                String eventFrom = eventDetails[0].trim();
-                String eventTo = eventDetails[1].trim();
-                tasks[noOfTasks] = new Event(eventName, eventFrom, eventTo);
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it, I've added this task:");
-                System.out.println(tasks[noOfTasks]);
-                System.out.println("____________________________________________________________");
-                noOfTasks++;
+                addEvent(tasks, parameters);
                 break;
 
             case "deadline":
-                // add deadline
-                String[] deadlineDetails = parameters.split("/by");
-                String deadlineName = deadlineDetails[0].trim();
-                String deadlineBy = deadlineDetails[1].trim();
-                tasks[noOfTasks] = new Deadline(deadlineName, deadlineBy);
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it, I've added this task:");
-                System.out.println(tasks[noOfTasks]);
-                System.out.println("____________________________________________________________");
-                noOfTasks++;
+                addDeadline(tasks, parameters);
                 break;
 
             case "list":
-                if (noOfTasks == 0) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("There are currently no tasks!");
-                    System.out.println("____________________________________________________________");
-                    break;
-                }
-                // print out tasks
-                System.out.println("____________________________________________________________");
-                for (int i = 0; i < noOfTasks; i++) {
-                    System.out.println(i + 1 + ". " + tasks[i]);
-                }
-                System.out.println("____________________________________________________________");
+                listTasks(tasks);
                 break;
 
             case "mark":
-                int taskToMark = Integer.parseInt(parameters) - 1;
-                tasks[taskToMark].markAsDone();
-                System.out.println("____________________________________________________________");
-                System.out.println("I've marked this task as done:");
-                System.out.println(tasks[taskToMark]);
-                System.out.println("____________________________________________________________");
+                markTask(tasks, parameters);
                 break;
 
             case "unmark":
-                int taskToUnmark = Integer.parseInt(parameters) - 1;
-                tasks[taskToUnmark].markAsUndone();
-                System.out.println("____________________________________________________________");
-                System.out.println("I've unmarked this task:");
-                System.out.println(tasks[taskToUnmark]);
-                System.out.println("____________________________________________________________");
+                unmarkTask(tasks, parameters);
                 break;
 
             case "bye":
-                System.out.println("____________________________________________________________");
-                System.out.println("Goodbye, hope to see you again soon!");
-                System.out.println("____________________________________________________________");
-                in.close();
+                exitProgram();
                 return;
 
             default:
-                System.out.println("____________________________________________________________");
-                System.out.println("Invalid command!");
-                System.out.println("____________________________________________________________");
+                invalidCommand();
                 break;
             }
         }
+    }
+
+    public static void printUnderscores() {
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void addTodo(Task[] tasks, String parameters) {
+        // add todo
+        int noOfTasks = Task.getNoOfTasks();
+        tasks[noOfTasks] = new Todo(parameters);
+        printUnderscores();
+        System.out.println("Got it, I've added this task:");
+        System.out.println(tasks[noOfTasks]);
+        printUnderscores();
+    }
+
+    public static void addEvent(Task[] tasks, String parameters) {
+        // add event
+        int noOfTasks = Task.getNoOfTasks();
+        String[] eventDetails = parameters.split("/from");
+        String eventName = eventDetails[0].trim();
+        eventDetails = eventDetails[1].split("/to");
+        String eventFrom = eventDetails[0].trim();
+        String eventTo = eventDetails[1].trim();
+        tasks[noOfTasks] = new Event(eventName, eventFrom, eventTo);
+        printUnderscores();
+        System.out.println("Got it, I've added this task:");
+        System.out.println(tasks[noOfTasks]);
+        printUnderscores();
+    }
+
+    public static void addDeadline(Task[] tasks, String parameters) {
+        // add deadline
+        int noOfTasks = Task.getNoOfTasks();
+        String[] deadlineDetails = parameters.split("/by");
+        String deadlineName = deadlineDetails[0].trim();
+        String deadlineBy = deadlineDetails[1].trim();
+        tasks[noOfTasks] = new Deadline(deadlineName, deadlineBy);
+        printUnderscores();
+        System.out.println("Got it, I've added this task:");
+        System.out.println(tasks[noOfTasks]);
+        printUnderscores();
+    }
+
+    public static void listTasks(Task[] tasks) {
+        int noOfTasks = Task.getNoOfTasks();
+        if (noOfTasks == 0) {
+            printUnderscores();
+            System.out.println("There are currently no tasks!");
+            printUnderscores();
+            return;
+        }
+        // print out tasks
+        printUnderscores();
+        for (int i = 0; i < noOfTasks; i++) {
+            System.out.println(i + 1 + ". " + tasks[i]);
+        }
+        printUnderscores();
+    }
+
+    public static void markTask(Task[] tasks, String parameters) {
+        int taskToMark = Integer.parseInt(parameters) - 1;
+        tasks[taskToMark].markAsDone();
+        printUnderscores();
+        System.out.println("I've marked this task as done:");
+        System.out.println(tasks[taskToMark]);
+        printUnderscores();
+    }
+
+    public static void unmarkTask(Task[] tasks, String parameters) {
+        int taskToUnmark = Integer.parseInt(parameters) - 1;
+        tasks[taskToUnmark].markAsUndone();
+        printUnderscores();
+        System.out.println("I've unmarked this task:");
+        System.out.println(tasks[taskToUnmark]);
+        printUnderscores();
+    }
+
+    public static void exitProgram() {
+        printUnderscores();
+        System.out.println("Goodbye, hope to see you again soon!");
+        printUnderscores();
+    }
+
+    public static void invalidCommand() {
+        printUnderscores();
+        System.out.println("Invalid command!");
+        printUnderscores();
     }
 }

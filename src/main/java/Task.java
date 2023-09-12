@@ -1,10 +1,12 @@
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    private static int noOfTasks = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        noOfTasks++;
     }
 
     public String getStatusIcon() {
@@ -25,6 +27,10 @@ public abstract class Task {
 
     public void markAsUndone() {
         isDone = false;
+    }
+
+    public static int getNoOfTasks() {
+        return noOfTasks;
     }
 
     @Override
