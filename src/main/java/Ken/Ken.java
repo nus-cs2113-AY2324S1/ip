@@ -1,3 +1,5 @@
+package Ken;
+
 import java.util.Scanner;
 
 public class Ken {
