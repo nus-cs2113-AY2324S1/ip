@@ -21,7 +21,7 @@ public class Duke {
                     list[Integer.parseInt(line) - 1].unmark();
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println(list[Integer.parseInt(line) - 1]);
-                } catch(IndexOutOfBoundsException e){
+                } catch(NumberFormatException | NullPointerException e){
                     System.out.println("OOPS!!! Need to specify which task want to unmark");
                 }
 
@@ -32,7 +32,7 @@ public class Duke {
                     list[Integer.parseInt(line) - 1].markAsDone();
                     System.out.println(" Nice! I've marked this task as done:");
                     System.out.println(list[Integer.parseInt(line) - 1]);
-                } catch(IndexOutOfBoundsException e){
+                } catch(NumberFormatException | NullPointerException e){
                     System.out.println("OOPS!!! Need to specify which task want to mark as done");
                 }
 
@@ -42,32 +42,27 @@ public class Duke {
                 if (line.contains("deadline")){
                     try {
                         eventTime = line.split("/by ", 2)[1];
-                    } catch(IndexOutOfBoundsException e){
-                        System.out.println("OOPS!!! The deadline need to separated by \"/by\"");
-                    }
-                    try {
                         line = line.split(" ", 2)[1];
                         line = line.split("/", 2)[0];
                         eventTime = eventTime.replace("from", "from:");
                         eventTime = eventTime.replace("/", "");
                         list[Task.listCount] = new Deadline(line, eventTime);
+                        System.out.println(" Got it. I've added this task:\n\t" + list[Task.listCount] + "\n Now you have "+ ++Task.listCount + " tasks in the list.");
                     } catch(IndexOutOfBoundsException e){
-                        System.out.println("OOPS!!! The deadline of the task is needed");
+                        System.out.println("OOPS!!! The deadline need to separated by \"/by\"");
                     }
+
                 }
                 else if (line.contains("event")){
                     try {
                         eventTime = line.split("/from ", 2)[1];
-                    } catch(IndexOutOfBoundsException e){
-                        System.out.println("OOPS!!! The event timing need to separated by \"/from\"");
-                    }
-                    try {
                         line = line.split(" ", 2)[1];
                         line = line.split("/",2)[0];
                         eventTime = eventTime.replace("/to", "to:");
                         list[Task.listCount] = new Event(line, eventTime);
+                        System.out.println(" Got it. I've added this task:\n\t" + list[Task.listCount] + "\n Now you have "+ ++Task.listCount + " tasks in the list.");
                     } catch(IndexOutOfBoundsException e){
-                        System.out.println("OOPS!!! The timing of the event is needed");
+                        System.out.println("OOPS!!! The event timing need to separated by \"/from\"");
                     }
                 }
                 else if (line.contains("todo")){
@@ -84,6 +79,7 @@ public class Duke {
                 else{
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
+
 
             }
             line = in.nextLine();
