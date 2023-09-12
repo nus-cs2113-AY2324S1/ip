@@ -42,17 +42,21 @@ public class Chattie {
     }
 
     private static int readCommands(String line, Task[] list, int count) {
-        if(line.equals("list")) {
-            listTasks(list, count);
-        } else if(line.startsWith("mark") || line.startsWith("unmark")) {
-            String[] command = line.split(" ");
-            markTask(list, command);
-        } else if (line.startsWith("todo")) {
-            count = addTodo(list, line, count);
-        } else if (line.startsWith("deadline")) {
-            count = addDeadline(list, line, count);
-        } else if (line.startsWith("event")) {
-            count = addEvent(list, line, count);
+        try {
+            if(line.equals("list")) {
+                listTasks(list, count);
+            } else if(line.startsWith("mark") || line.startsWith("unmark")) {
+                String[] command = line.split(" ");
+                markTask(list, command);
+            } else if (line.startsWith("todo")) {
+                count = addTodo(list, line, count);
+            } else if (line.startsWith("deadline")) {
+                count = addDeadline(list, line, count);
+            } else if (line.startsWith("event")) {
+                count = addEvent(list, line, count);
+            }
+        } catch (ChattieException e) {
+            System.out.println("\tPlease try again");
         }
         return count;
     }
@@ -69,8 +73,12 @@ public class Chattie {
         }
     }
 
-    public static int addTodo(Task[] list, String line, int count) {
-        list[count] = new Todo(line.substring(5));
+    public static int addTodo(Task[] list, String line, int count) throws ChattieException{
+        if (line.trim().length() < 5) {
+            throw new ChattieException(ErrorType.TODO);
+        }
+        String todo = line.substring(5);
+        list[count] = new Todo(todo);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + list[count]);
         count++;
@@ -78,10 +86,22 @@ public class Chattie {
         return count;
     }
 
-    public static int addDeadline(Task[] list, String line, int count) {
+    public static int addDeadline(Task[] list, String line, int count) throws ChattieException {
+        if (line.trim().length() < 9) { //check if deadline is empty
+            throw new ChattieException(ErrorType.EMPTY_DEADLINE);
+        }
+
         int slashIndex = line.indexOf("/by");
+        if (slashIndex < 0) {
+            throw new ChattieException(ErrorType.INVALID_DEADLINE); //check if '/by' is present
+        }
+
         String task = line.substring(9, slashIndex);
         String by = line.substring(slashIndex + 3);
+        if (task.isEmpty() || by.isEmpty()) {
+            throw new ChattieException(ErrorType.INVALID_DEADLINE); //check if [task] or [by] empty
+        }
+
         list[count] = new Deadline(task, by);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + list[count]);
@@ -90,12 +110,24 @@ public class Chattie {
         return count;
     }
 
-    public static int addEvent(Task[] list, String line, int count) {
+    public static int addEvent(Task[] list, String line, int count) throws ChattieException{
+        if (line.trim().length() < 6) {
+            throw new ChattieException(ErrorType.EMPTY_EVENT); //check if event is empty
+        }
+
         int firstSlash = line.indexOf("/from");
         int secondSlash = line.indexOf("/to");
+        if (firstSlash < 0 || secondSlash < 0) {
+            throw new ChattieException(ErrorType.INVALID_EVENT); //check if '/from' or '/to' present
+        }
+
         String task = line.substring(6, firstSlash);
         String from = line.substring(firstSlash + 5, secondSlash);
         String to = line.substring(secondSlash + 3);
+        if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new ChattieException(ErrorType.INVALID_EVENT); //check if [task], [from], or [to] is empty
+        }
+
         list[count] = new Event(task, from, to);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + list[count]);
