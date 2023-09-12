@@ -37,8 +37,8 @@ public class Parser {
             if (fromTo.length < 2) {
                 throw new DukeException("Usage: event <task> /from <time> /to <time>");
             }
-            parsedArgs.put("from", splitArg[0]);
-            parsedArgs.put("to", splitArg[1]);
+            parsedArgs.put("from", fromTo[0]);
+            parsedArgs.put("to", fromTo[1]);
             break;
         }
         return parsedArgs;
