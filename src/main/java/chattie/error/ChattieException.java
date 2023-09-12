@@ -1,4 +1,4 @@
-package chattie;
+package chattie.error;
 
 public class ChattieException extends Exception{
     public ChattieException(ErrorType e) {
