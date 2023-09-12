@@ -3,92 +3,114 @@ import java.util.Scanner;
 public class Duke {
     private static Task[] records = new Task[100];
     private static int recordsNum = 0;
+    public static void generateResponse(String input){
 
-    public static String generateResponse(String input){
+        String[] commandDetails = input.split(" ", 2);
+        String instructionString = commandDetails[0];
 
-        String trimmedInput = input.trim();
-        String endMessage = "Bye. Hope to see you again soon!";
-
-        if(trimmedInput.equals("bye")){
-            return endMessage;
+        if(instructionString.equals("list")){
+            executeListCommand();
+            return;
         }
 
-        if(trimmedInput.equals("list")){
-            printAllTasks();
-            return "";
+        String removedInstructionString = "";
+        try {
+            removedInstructionString = commandDetails[1];
+        }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println("Please ensure that " + instructionString
+                    + " has the correct number of parameters.");
+            return;
         }
 
-        int spaceIdx = trimmedInput.indexOf(" ");
-        int numStartIdx = spaceIdx + 1;
-        String removedInstructionString = trimmedInput.substring(numStartIdx);
-        String instructionString = trimmedInput.substring( 0, spaceIdx);
-        int taskNum= 0 ;
+        switch(instructionString) {
+        case ("unmark"):
+            executeUnmarkCommand(removedInstructionString);
+            break;
+        case ("mark"):
+            executeMarkCommand(removedInstructionString);
+            break;
+        case ("todo"):
+            createNewTask("todo", removedInstructionString);
+            break;
+        case ("deadline"):
+            createNewTask("deadline", removedInstructionString);
+            break;
+        case ("event"):
+            createNewTask("event", removedInstructionString);
+            break;
+        default:
+            System.out.println("Invalid Command");
+        }
+    }
 
-        if(instructionString.equals("unmark")){
-            try {
-                taskNum = Integer.parseInt(removedInstructionString);
-                records[taskNum - 1].setUndone();
-                printAllTasks();
-
-            }catch(NumberFormatException e){
-                System.out.println("Please enter an integer");
-            }catch(NullPointerException | ArrayIndexOutOfBoundsException e) {
-                if (recordsNum == 0) {
-                    System.out.println("Please create a task to continue");
-                } else if(recordsNum == 1){
-                    System.out.println("There are " + recordsNum + " task.");
-                    System.out.println("Please enter 'mark 1' to check the first task as completed");
-                } else {
-                    System.out.println("There are " + recordsNum + " tasks.");
-                    System.out.println("Please enter a valid number from 1 to " + recordsNum + "(inclusive).");
-                }
+    private static void executeMarkCommand(String removedInstructionString) {
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(removedInstructionString);
+            records[taskNum - 1].setDone();
+            executeListCommand();
+        }catch(NumberFormatException e){
+            System.out.println("Please enter an integer");
+        }catch(NullPointerException | ArrayIndexOutOfBoundsException e) {
+            if (recordsNum == 0) {
+                System.out.println("Please create a task to continue");
+            } else if(recordsNum == 1){
+                System.out.println("There are " + recordsNum + " task.");
+                System.out.println("Please enter 'mark 1' to check the first task as completed");
+            } else {
+                System.out.println("There are " + recordsNum + " tasks.");
+                System.out.println("Please enter a valid number from 1 to "
+                        + recordsNum + "(inclusive).");
             }
-            return "";
         }
+    }
 
-        if(instructionString.equals("mark")){
-            try {
-                taskNum = Integer.parseInt(removedInstructionString);
-                records[taskNum - 1].setDone();
-                printAllTasks();
-            }catch(NumberFormatException e){
-                System.out.println("Please enter an integer");
-            }catch(NullPointerException | ArrayIndexOutOfBoundsException e) {
-                if (recordsNum == 0) {
-                    System.out.println("Please create a task to continue");
-                } else if(recordsNum == 1){
-                    System.out.println("There are " + recordsNum + " task.");
-                    System.out.println("Please enter 'mark 1' to check the first task as completed");
-                } else {
-                    System.out.println("There are " + recordsNum + " tasks.");
-                    System.out.println("Please enter a valid number from 1 to " + recordsNum + "(inclusive).");
-                }
+    private static void executeUnmarkCommand(String removedInstructionString) {
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(removedInstructionString);
+            records[taskNum - 1].setUndone();
+            executeListCommand();
+        }catch(NumberFormatException e){
+            System.out.println("Please enter an integer");
+        }catch(NullPointerException | ArrayIndexOutOfBoundsException e) {
+            if (recordsNum == 0) {
+                System.out.println("Please create a task to continue");
+            } else if(recordsNum == 1){
+                System.out.println("There are " + recordsNum + " task.");
+                System.out.println("Please enter 'mark 1' to check the first task as completed");
+            } else {
+                System.out.println("There are " + recordsNum + " tasks.");
+                System.out.println("Please enter a valid number from 1 to "
+                        + recordsNum + "(inclusive).");
             }
-            return "";
         }
-
-        createNewTask(instructionString, removedInstructionString);
-        return "";
     }
 
     private static void createNewTask(String instructionString, String removedInstructionString) {
-        Task task;
+        Task task = null;
         String taskDescription;
-        switch(instructionString) {
-        case "todo":
-            task = createToDo(removedInstructionString);
-            break;
-        case "deadline":
-            task = createDeadline(removedInstructionString);
-            break;
-        case "event":
-            task = createEvent(removedInstructionString);
-            break;
-        default:
-            return ;
+        try {
+            switch (instructionString) {
+            case "todo":
+                task = createToDo(removedInstructionString);
+                break;
+            case "deadline":
+                task = createDeadline(removedInstructionString);
+                break;
+            case "event":
+                task = createEvent(removedInstructionString);
+                break;
+            default:
+                System.out.println("Command is invalid!");
+            }
+            addTaskToList(task);
+            printTaskAdded(task);
+        } catch(StringIndexOutOfBoundsException e){
+            System.out.println("Please ensure that " + instructionString
+                    + " has the correct number of parameters.");
         }
-        addTaskToList(task);
-        printTaskAdded(task);
+
     }
 
     private static void printTaskAdded(Task task) {
@@ -130,7 +152,7 @@ public class Duke {
         return new ToDo(taskDescription);
     }
 
-    private static void printAllTasks() {
+    private static void executeListCommand() {
         printLine();
         for(int i = 0; i < recordsNum; i++){
             System.out.println(records[i]);
@@ -145,8 +167,16 @@ public class Duke {
     private static void printLine(){
         System.out.println("\t____________________________________________________________");
     }
-    public static void main(String[] args) {
+    private static void interactWithUser() {
+        Scanner in = new Scanner(System.in);
+        String line = in.nextLine();
+        while(! line.trim().equals("bye")){
+            generateResponse(line);
+            line = in.nextLine();
+        }
+    }
 
+    private static void printWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -161,20 +191,16 @@ public class Duke {
 
         System.out.println("Hello from\n" + logo);
         System.out.println(startMessage);
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
-        String response;
-        while(! line.trim().contains("bye")){
+    }
 
-            response = generateResponse(line);
-            if(!response.isEmpty()) {
-                printMessage(response);
-            }
-            line = in.nextLine();
-
-        }
-        response = generateResponse("bye");
-        printMessage(response);
+    private static void printByeMessage(){
+        String endMessage = "Bye. Hope to see you again soon!";
+        printMessage(endMessage);
+    }
+    public static void main(String[] args) {
+        printWelcomeMessage();
+        interactWithUser();
+        printByeMessage();
     }
 }
 
