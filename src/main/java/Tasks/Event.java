@@ -1,9 +1,13 @@
+package Tasks;
+
+import Exceptions.TaskEmptyDescriptionException;
+
 public class Event extends Task {
     private String startTime;
     private String endTime;
 
-    public Event(String taskName, String startTime, String endTime) {
-        super(taskName);
+    public Event(String description, String startTime, String endTime) throws TaskEmptyDescriptionException {
+        super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -26,6 +30,6 @@ public class Event extends Task {
 
     @Override
     public void printTask() {
-        System.out.println("\t[E]" + getCompletedString() + getTaskName() + " (from: " + getStartTime() + " to " + getEndTime() + ")");
+        System.out.println("\t[E]" + getCompletedString() + getDescription() + " (from: " + getStartTime() + " to " + getEndTime() + ")");
     }
 }

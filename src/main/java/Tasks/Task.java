@@ -1,18 +1,25 @@
+package Tasks;
+
+import Exceptions.TaskEmptyDescriptionException;
+
 public class Task {
-    private String taskName;
+    private String description;
     private boolean isDone;
 
-    public Task(String taskName) {
-        this.taskName = taskName;
+    public Task(String description) throws TaskEmptyDescriptionException {
+        if (description == "") {
+            throw new TaskEmptyDescriptionException();
+        }
+        this.description = description;
         this.isDone = false;
     }
 
-    public String getTaskName() {
-        return this.taskName;
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean getIsDone() {
@@ -40,6 +47,6 @@ public class Task {
     }
 
     public void printTask() {
-        System.out.println("\t" + getCompletedString() + this.taskName);
+        System.out.println("\t" + getCompletedString() + this.description);
     }
 }

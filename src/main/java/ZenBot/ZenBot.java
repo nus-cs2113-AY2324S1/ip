@@ -1,3 +1,11 @@
+package ZenBot;
+
+import Exceptions.TaskEmptyDescriptionException;
+import Exceptions.UnknownCommandException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Todo;
+
 public class ZenBot {
 
     public static void printSeperatorLine() {
@@ -25,7 +33,7 @@ public class ZenBot {
         System.out.println("`---'         `----'    '---'                  ---....--'    `----'                            `----'    `---'       ");
         printSeperatorLine();
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownCommandException, TaskEmptyDescriptionException {
         printInitializeTitle();
         System.out.println("\tGreetings, dear traveler! I am ZEN JESTER");
         System.out.println("\tHow may I bring mirth to your day?");
@@ -41,34 +49,34 @@ public class ZenBot {
                 printSeperatorLine();
                 break;
             } else if (input.getCommand().equals("todo")) { // add todo task
-                String taskName = input.getLine().substring(5);
-                tasks.addTask(new Todo(taskName));
+                String description = input.getLine().substring(5);
+                tasks.addTask(new Todo(description));
 
                 printSeperatorLine();
-                System.out.println("\tBehold, a new endeavor enters the realm: " + taskName);
+                System.out.println("\tBehold, a new endeavor enters the realm: " + description);
                 System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
                 System.out.println(tasks.getTaskListSize() + " in all.");
                 printSeperatorLine();
                 continue;
             } else if (input.getCommand().equals("deadline")) { // add deadline task
-                String taskName = input.getLine().substring(9, input.getLine().indexOf("/by") - 1);
+                String description = input.getLine().substring(9, input.getLine().indexOf("/by") - 1);
                 String deadline = input.getLine().substring(input.getLine().indexOf("/by") + 4);
-                tasks.addTask(new Deadline(taskName, deadline));
+                tasks.addTask(new Deadline(description, deadline));
 
                 printSeperatorLine();
-                System.out.println("\tBehold, a new endeavor enters the realm: " + taskName);
+                System.out.println("\tBehold, a new endeavor enters the realm: " + description);
                 System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
                 System.out.println(tasks.getTaskListSize() + " in all.");
                 printSeperatorLine();
                 continue;
             } else if (input.getCommand().equals("event")) { // add event task
-                String taskName = input.getLine().substring(6, input.getLine().indexOf("/from") - 1);
+                String description = input.getLine().substring(6, input.getLine().indexOf("/from") - 1);
                 String startTime = input.getLine().substring(input.getLine().indexOf("/from") + 6, input.getLine().indexOf("/to") - 1);
                 String endTime = input.getLine().substring(input.getLine().indexOf("/to") + 4);
-                tasks.addTask(new Event(taskName, startTime, endTime));
+                tasks.addTask(new Event(description, startTime, endTime));
 
                 printSeperatorLine();
-                System.out.println("\tBehold, a new endeavor enters the realm: " + taskName);
+                System.out.println("\tBehold, a new endeavor enters the realm: " + description);
                 System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
                 System.out.println(tasks.getTaskListSize() + " in all.");
                 printSeperatorLine();
@@ -96,7 +104,7 @@ public class ZenBot {
                 printSeperatorLine();
                 continue;
             } else {
-                System.out.println("\tAh, my apologies, but the riddles of your words elude my jestful grasp.");
+                throw new UnknownCommandException();
             }
         }
     }

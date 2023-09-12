@@ -1,3 +1,4 @@
+package ZenBot;
 import java.util.Scanner;
 
 public class Input {
