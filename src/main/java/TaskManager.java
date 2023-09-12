@@ -34,7 +34,7 @@ public class TaskManager {
 
     public void setTaskIsDone(int idx, boolean isDone) throws DukeException {
         idx--;
-        if (idx <0 || idx > totalTasks-1) {
+        if (idx < 0 || idx > totalTasks - 1) {
             throw new DukeException("Please enter a valid task number.");
         }
         tasks[idx].setIsDone(isDone);
