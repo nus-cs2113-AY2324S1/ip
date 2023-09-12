@@ -39,7 +39,7 @@ public class KenergeticBot {
 
     //Returns True if the text contains "todo", False if not
     public static boolean checkTextForTodo(String item) {
-        if (item.length() > 3 && item.startsWith("todo")) {
+        if (item.length() > 4 && item.startsWith("todo")) {
             return true;
         } else {
             return false;
@@ -48,7 +48,7 @@ public class KenergeticBot {
 
     //Returns True if the text contains "deadline", False if not
     public static boolean checkTextForDeadline(String item) {
-        if (item.length() > 7 && item.startsWith("deadline")) {
+        if (item.length() > 8 && item.startsWith("deadline")) {
             return true;
         } else {
             return false;
@@ -57,7 +57,7 @@ public class KenergeticBot {
 
     //Returns True if the text contains "event", False if not
     public static boolean checkTextForEvent(String item) {
-        if (item.length() > 4 && item.startsWith("event")) {
+        if (item.length() > 5 && item.startsWith("event")) {
             return true;
         } else {
             return false;
@@ -82,23 +82,14 @@ public class KenergeticBot {
             int listIndex = Integer.parseInt(splitItem[1]);
             unmark(taskList, listIndex);
         } else {
-            try {
-                add(taskList, item);
-            } catch (KenergeticBotException e) {
-                System.out.println("      OOPS!!! I'm sorry, but I don't know what that means :-("); // unable to print sad face ˙◠˙
-            }
+            add(taskList, item);
         }
         botDialogue(taskList);
     }
 
     //Creates a "Todo" object and adds to the taskList
-    public static void addTodo(ArrayList<Task> taskList, String item) throws KenergeticBotException {
-        String formattedString = item.replace("todo", "").trim();
-        System.out.println("length = " + formattedString.length());
-        if (formattedString.length() < 1) {
-            
-            throw new KenergeticBotException();
-        }
+    public static void addTodo(ArrayList<Task> taskList, String item) {
+        String formattedString = item.replace("todo ", "");
         String taskType = "[T]";
         Task newTask = new Todo(formattedString, taskType);
         taskList.add(newTask);
@@ -109,7 +100,7 @@ public class KenergeticBot {
 
     //Creates a "Deadline" object and adds to the taskList
     public static void addDeadline(ArrayList<Task> taskList, String item) {
-        String formattedString[] = item.replace("deadline", "").trim().split("/");
+        String formattedString[] = item.replace("deadline ", "").split("/");
         String taskType = "[D]";
         String deadlineDate = "(" + formattedString[1].replace("by", "by:") + ")";
         Task newTask = new Deadline(formattedString[0], taskType, deadlineDate);
@@ -121,7 +112,7 @@ public class KenergeticBot {
 
     //Creates a "Event" object and adds to the taskList
     public static void addEvent(ArrayList<Task> taskList, String item) {
-        String formattedString[] = item.replace("event", "").split("/");
+        String formattedString[] = item.replace("event ", "").split("/");
         String taskType = "[E]";
         String eventFrom = formattedString[1].replace("from", "from:");
         String eventTo = formattedString[2].replace("to", "to:");
@@ -134,20 +125,14 @@ public class KenergeticBot {
     }
 
     //Controls the logic for adding items to the list
-    public static void add(ArrayList<Task> taskList, String item) throws KenergeticBotException {
+    public static void add(ArrayList<Task> taskList, String item) {
             printLine();
             if (checkTextForTodo(item)) {
-                try {
-                    addTodo(taskList, item);
-                } catch (KenergeticBotException e) {
-                    System.out.println("     \u02D9\u25E0\u02D9 OOPS!!! The description of a todo cannot be empty.");
-                }
+                addTodo(taskList, item);
             } else if (checkTextForDeadline(item)) {
                 addDeadline(taskList, item);
             } else if (checkTextForEvent(item)) {
                 addEvent(taskList, item);
-            } else {
-                throw new KenergeticBotException();
             }
             printLine();
     }
