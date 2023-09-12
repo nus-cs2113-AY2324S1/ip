@@ -4,12 +4,10 @@ import elgin.exception.DukeException;
 import elgin.task.TaskManager;
 
 import static elgin.utils.FormatPrinter.sayBye;
-import static elgin.utils.FormatPrinter.formatPrint;
 import static elgin.utils.Parser.parseCommand;
 
 public class CommandHandler {
     public static boolean handleCommand(TaskManager tasks, String command) throws DukeException {
-        int taskNumber;
         String[] parsedCommand = parseCommand(command);
         String userCommand = parsedCommand[0];
         String arguments = "";

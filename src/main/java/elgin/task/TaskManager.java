@@ -1,6 +1,5 @@
 package elgin.task;
 
-import elgin.Duke;
 import elgin.exception.DukeException;
 
 import java.util.HashMap;

@@ -1,11 +1,9 @@
 package elgin.utils;
 
-import elgin.Duke;
 import elgin.exception.DukeException;
 
 import java.util.HashMap;
 
-import static elgin.utils.FormatPrinter.formatPrint;
 
 public class Parser {
 
