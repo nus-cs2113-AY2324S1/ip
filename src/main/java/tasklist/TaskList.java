@@ -12,7 +12,7 @@ import tasks.ToDo;
 
 /**
  *
- * The manager of the task list and th.
+ * The manager of the task list - adding, marking or unmarking tasks.
  */
 public class TaskList {
 
@@ -46,6 +46,13 @@ public class TaskList {
         return index >= 1 && index <= tasks.size();
     }
 
+    /**
+     *
+     * Method for when user inputs todo.
+     *
+     * @param input The input string from user
+     * @param inputWords The description of todo task
+     */
     public void addToDoTask(String input, String[] inputWords) {
         try {
             String todoDescription = input.substring(5);
@@ -57,6 +64,13 @@ public class TaskList {
         }
     }
 
+    /**
+     *
+     * Method for when user inputs deadline.
+     *
+     * @param input The input string from user
+     * @param inputWords The description of deadline task
+     */
     public void addDeadline(String input, String[] inputWords) {
         if (inputWords.length > 2 && input.contains("/by")) {
             int byIndex = input.indexOf("/by");
@@ -70,6 +84,13 @@ public class TaskList {
         }
     }
 
+    /**
+     *
+     * Method for when user inputs event.
+     *
+     * @param input The input string from user
+     * @param inputWords The description of event task
+     */
     public void addEvent(String input, String[] inputWords) {
         if (inputWords.length > 3 && input.contains("/from") && input.contains("/to")) {
             int fromIndex = input.indexOf("/from");
@@ -85,6 +106,12 @@ public class TaskList {
         }
     }
 
+    /**
+     *
+     * Method to mark a specified task as done
+     *
+     * @param inputWords String input by user
+     */
     public void markAsDone(String[] inputWords) {
         try {
             int taskIndex = Integer.parseInt(inputWords[1]);
@@ -97,6 +124,12 @@ public class TaskList {
         }
     }
 
+    /**
+     *
+     * Method to unmark a specified task as done
+     *
+     * @param inputWords String input by user
+     */
     public void unmark(String[] inputWords) {
         try {
             int taskIndex = Integer.parseInt(inputWords[1]);

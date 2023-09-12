@@ -9,7 +9,7 @@ import static duke.Duke.taskList;
 
 /**
  *
- * This class fully manages printing Ui output
+ * This class fully manages printing Ui output.
  */
 public class DukeUi {
 
