@@ -1,9 +1,11 @@
-public class Task {
+package task;
+
+public abstract class Task {
 
     private boolean isComplete;
     private String name;
 
-    static int numberOfTasks = 0;
+    protected static int numberOfTasks = 0;
 
     public Task(String name) {
         this.name = name;
@@ -27,10 +29,8 @@ public class Task {
         isComplete = complete;
     }
 
-    public String addMessage() {
-        return name;
-    }
-    public String listText() {
+    public abstract String getAddMessage();
+    public String getListText() {
         return "[" + (getIsComplete() ? "X" : " ") + "] " + getName();
     }
 }
