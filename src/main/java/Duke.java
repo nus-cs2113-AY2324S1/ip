@@ -27,7 +27,7 @@ public class Duke {
             out = "List is empty.";
         }
         for (int i = 0; i < listAsArray.length; i++) {
-            out += (i + 1) + ". " + listAsArray[i].getListText();
+            out += (i == 0 ? "" : "\n") + (i + 1) + ". " + listAsArray[i].getListText();
         }
         echo(out);
     }
