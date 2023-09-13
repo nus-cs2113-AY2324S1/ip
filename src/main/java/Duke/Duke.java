@@ -1,3 +1,13 @@
+package Duke;
+
+import Duke.Task.Deadline;
+import Duke.Task.Event;
+import Duke.Task.Task;
+import Duke.Task.ToDo;
+
+import Duke.Exception.NoDateTimeSpecifiedException;
+import Duke.Exception.NoTaskSpecifiedException;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -134,9 +144,9 @@ public class Duke {
 
     private static Task createEvent(String removedInstructionString)
             throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
-        String taskDescription = "";
-        String fromDate = "";
-        String toDate = "";
+        String taskDescription;
+        String fromDate;
+        String toDate;
         String startDateIndicator = "/from";
         String endDateIndicator = "/to";
         String eventSplitNotation = startDateIndicator + " | " + endDateIndicator;
@@ -160,8 +170,8 @@ public class Duke {
     private static Task createDeadline(String removedInstructionString)
             throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
         //TODO need to catch lack of by here.
-        String taskDescription = "";
-        String byDate = "";
+        String taskDescription;
+        String byDate;
         try {
             String dateIndicator = "/by";
             String[] deadlineContents = removedInstructionString.split(dateIndicator, 1);
