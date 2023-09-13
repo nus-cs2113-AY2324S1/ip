@@ -82,10 +82,6 @@ public class Duke {
     }
 
     public static void editTask(String argument, boolean done){
-        /*if (index < 1 || index > tasks.size()){
-            System.out.println("I am sorry, but this task does not exist");
-            return;
-        }*/
         try {
             int index = Integer.parseInt(argument);
             tasks.get(index - 1).setDone(done);
@@ -106,25 +102,44 @@ public class Duke {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
     public static void addToDo(String argument){
+        if(argument==null || argument.isEmpty()){
+            System.out.println("I am sorry, the todo cannot be empty!");
+        }
         Task todo = new Todo(argument);
         tasks.add(todo);
         printTaskAddedMessage(todo);
     }
 
     public static void addDeadline(String argument){
-        String dueDate = argument.split(" /by ")[1];
-        String description = argument.split(" /by ")[0];
-        Task deadline = new Deadline(description, dueDate);
-        tasks.add(deadline);
-        printTaskAddedMessage(deadline);
+        try{
+            String dueDate = argument.split(" /by ")[1];
+            String description = argument.split(" /by ")[0];
+            Task deadline = new Deadline(description, dueDate);
+            tasks.add(deadline);
+            printTaskAddedMessage(deadline);
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Oops, I don't understand that! Please provide a valid deadline in the format: " +
+                    "deadline <description> /by <due date>");
+        } catch (NullPointerException e){
+            System.out.println("I am sorry, the deadline cannot be empty! Please provide a valid deadline in the " +
+                    "format: deadline <description> /by <due date>");
+        }
     }
 
     public static void addEvent(String argument){
-        String description = argument.split(" /from ")[0];
-        String startDate = argument.split(" /from ")[1].split(" /to ")[0];
-        String endDate = argument.split(" /from ")[1].split(" /to ")[1];
-        Task event = new Event(description, startDate, endDate);
-        tasks.add(event);
-        printTaskAddedMessage(event);
+        try {
+            String description = argument.split(" /from ")[0];
+            String startDate = argument.split(" /from ")[1].split(" /to ")[0];
+            String endDate = argument.split(" /from ")[1].split(" /to ")[1];
+            Task event = new Event(description, startDate, endDate);
+            tasks.add(event);
+            printTaskAddedMessage(event);
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Oops, I don't understand that! Please provide a valid event in the format: event " +
+                    "<description> /from <start date> /to <end date>");
+        } catch (NullPointerException e){
+            System.out.println("I am sorry, the event cannot be empty! Please provide a valid event in the format: " +
+                    "event <description> /from <start date> /to <end date>");
+        }
     }
 }
