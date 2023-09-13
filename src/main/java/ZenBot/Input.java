@@ -2,10 +2,10 @@ package zenbot;
 import java.util.Scanner;
 
 public class Input {
-    private Scanner input = new Scanner(System.in);
-    private String line = "";
+    private static Scanner input = new Scanner(System.in);
+    private static String line = "";
 
-    public String getInput() {
+    public static String getInput() {
         line = input.nextLine().trim();
         return line;
     }

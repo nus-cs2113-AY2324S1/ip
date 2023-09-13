@@ -13,7 +13,7 @@ public class CommandParser {
     private static final String DELETE_COMMAND = "delete";
     private static final String FAREWELL_COMMAND = "bye";
 
-    public Command parse(String commandString, Tasklist tasklist) throws UnknownCommandException {
+    public static Command parse(String commandString, Tasklist tasklist) throws UnknownCommandException {
         String[] commandTokens = commandString.split(" ");
         String command = commandTokens[0];
 
@@ -33,7 +33,7 @@ public class CommandParser {
         case DELETE_COMMAND:
             return new DeleteTask(commandString, tasklist);
         case FAREWELL_COMMAND:
-            return new Farewell();
+            return new Farewell(tasklist);
         default:
             throw new UnknownCommandException();
         }
