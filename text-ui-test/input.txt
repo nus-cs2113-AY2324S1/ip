@@ -1,9 +1,26 @@
+mark 1
+unmark -1
+blah blah black sheep
 list
 todo borrow book
 list
 deadline return book /by Sunday
+todo
+event /by tomorrow
+deadline /from
+event /from
+event /to
+deadline /by
+event  /from /to
 list
 event project meeting /from Mon 2pm /to 4pm
 mark 1
 unmark 1
+mark 3
+unmark 34398
+todo
+deadline deadline /by
+event event /from 1 /to
+event event /from /to
+hello
 bye

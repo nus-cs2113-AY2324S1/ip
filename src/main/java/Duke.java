@@ -8,35 +8,25 @@ public class Duke {
         String[] commandDetails = input.split(" ", 2);
         String instructionString = commandDetails[0];
 
-        if(instructionString.equals("list")){
-            executeListCommand();
-            return;
-        }
-
-        String removedInstructionString = "";
-        try {
-            removedInstructionString = commandDetails[1];
-        }catch(ArrayIndexOutOfBoundsException e){
-            System.out.println("Please ensure that " + instructionString
-                    + " has the correct number of parameters.");
-            return;
-        }
 
         switch(instructionString) {
+        case("list"):
+            executeListCommand();
+            break;
         case ("unmark"):
-            executeUnmarkCommand(removedInstructionString);
+            executeUnmarkCommand(commandDetails[1]);
             break;
         case ("mark"):
-            executeMarkCommand(removedInstructionString);
+            executeMarkCommand(commandDetails[1]);
             break;
         case ("todo"):
-            createNewTask("todo", removedInstructionString);
+            createNewTask("todo", commandDetails[1]);
             break;
         case ("deadline"):
-            createNewTask("deadline", removedInstructionString);
+            createNewTask("deadline", commandDetails[1]);
             break;
         case ("event"):
-            createNewTask("event", removedInstructionString);
+            createNewTask("event", commandDetails[1]);
             break;
         default:
             System.out.println("Invalid Command");
@@ -89,28 +79,44 @@ public class Duke {
 
     private static void createNewTask(String instructionString, String removedInstructionString) {
         Task task = null;
-        String taskDescription;
         try {
             switch (instructionString) {
             case "todo":
-                task = createToDo(removedInstructionString);
+                try {
+                    task = createToDo(removedInstructionString);
+                }catch(NoTaskSpecifiedException e){
+                    System.out.println("Please indicate the task for todo.");
+                }
                 break;
             case "deadline":
-                task = createDeadline(removedInstructionString);
+                try {
+                    task = createDeadline(removedInstructionString);
+                }catch(NoTaskSpecifiedException e){
+                    System.out.println("Please indicate the task for deadline.");
+                }catch(NoDateTimeSpecifiedException e){
+                    System.out.println("Please indicate the end date for this deadline");
+                }
                 break;
             case "event":
-                task = createEvent(removedInstructionString);
+                try {
+                    task = createEvent(removedInstructionString);
+                }catch(NoTaskSpecifiedException e){
+                    System.out.println("Please indicate the task for event.");
+                }catch(NoDateTimeSpecifiedException e){
+                    System.out.println("Please indicate the start date and end date for this event.");
+                }
                 break;
             default:
                 System.out.println("Command is invalid!");
             }
-            addTaskToList(task);
-            printTaskAdded(task);
+            if(task != null) {
+                addTaskToList(task);
+                printTaskAdded(task);
+            }
         } catch(StringIndexOutOfBoundsException e){
             System.out.println("Please ensure that " + instructionString
                     + " has the correct number of parameters.");
         }
-
     }
 
     private static void printTaskAdded(Task task) {
@@ -126,29 +132,60 @@ public class Duke {
         recordsNum++;
     }
 
-    private static Task createEvent(String removedInstructionString) {
+    private static Task createEvent(String removedInstructionString)
+            throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
+        String taskDescription = "";
+        String fromDate = "";
+        String toDate = "";
         String startDateIndicator = "/from";
         String endDateIndicator = "/to";
-
-        int fromIndex = removedInstructionString.indexOf(startDateIndicator);
-        int toIndex = removedInstructionString.indexOf(endDateIndicator);
-
-        String taskDescription = removedInstructionString.substring(0,fromIndex).trim();
-        String fromDate = removedInstructionString.substring(fromIndex + startDateIndicator.length(), toIndex).trim();
-        String toDate = removedInstructionString.substring(toIndex + endDateIndicator.length());
-
+        String eventSplitNotation = startDateIndicator + " | " + endDateIndicator;
+        String[] eventContents = removedInstructionString.split(eventSplitNotation);
+        try {
+            taskDescription = eventContents[0].trim();
+            fromDate = eventContents[1].trim();
+            toDate = eventContents[2].trim();
+        }catch(ArrayIndexOutOfBoundsException e){
+            throw new NoDateTimeSpecifiedException();
+        }
+        if (taskDescription.isEmpty()){
+            throw new NoTaskSpecifiedException();
+        }
+        if (fromDate.isEmpty() | toDate.isEmpty()){
+            throw new NoDateTimeSpecifiedException();
+        }
         return new Event(taskDescription, fromDate, toDate);
     }
 
-    private static Task createDeadline(String removedInstructionString) {
-        String dateIndicator = "/by";
-        int byIndex = removedInstructionString.indexOf(dateIndicator);
-        String taskDescription = removedInstructionString.substring(0,byIndex).trim();
-        String byDate = removedInstructionString.substring(byIndex + dateIndicator.length()).trim();
+    private static Task createDeadline(String removedInstructionString)
+            throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
+        //TODO need to catch lack of by here.
+        String taskDescription = "";
+        String byDate = "";
+        try {
+            String dateIndicator = "/by";
+            String[] deadlineContents = removedInstructionString.split(dateIndicator, 1);
+            taskDescription = deadlineContents[0].trim();
+            byDate = deadlineContents[1].trim();
+        }catch(ArrayIndexOutOfBoundsException e){
+            throw new NoDateTimeSpecifiedException();
+        }
+        if (taskDescription.isEmpty()){
+            throw new NoTaskSpecifiedException();
+        }
+        if (byDate.isEmpty()){
+            throw new NoDateTimeSpecifiedException();
+        }
+
         return new Deadline(taskDescription, byDate);
     }
 
-    private static Task createToDo(String taskDescription) {
+    private static Task createToDo(String taskDescription)
+            throws NoTaskSpecifiedException {
+        taskDescription = taskDescription.trim();
+        if(taskDescription.isEmpty()){
+            throw new NoTaskSpecifiedException();
+        }
         return new ToDo(taskDescription);
     }
 
@@ -171,7 +208,11 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         while(! line.trim().equals("bye")){
-            generateResponse(line);
+            try {
+                generateResponse(line);
+            }catch(ArrayIndexOutOfBoundsException e){
+                System.out.println("Please ensure correct number of parameters are given.");
+            }
             line = in.nextLine();
         }
     }

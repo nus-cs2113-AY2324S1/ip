@@ -9,6 +9,9 @@ ____________________________________________________________
 Hello! I'm Chatty
 What can I do for you?
 ____________________________________________________________
+Please create a task to continue
+Please create a task to continue
+Invalid Command
 	____________________________________________________________
 	____________________________________________________________
 	____________________________________________________________
@@ -19,30 +22,39 @@ ____________________________________________________________
 	____________________________________________________________
 	[T][ ] borrow book
 	____________________________________________________________
+Please indicate the end date for this deadline
+Please ensure correct number of parameters are given.
+Please indicate the start date and end date for this event.
+Please indicate the end date for this deadline
+Please indicate the start date and end date for this event.
+Please indicate the start date and end date for this event.
+Please indicate the end date for this deadline
+Please indicate the start date and end date for this event.
+	____________________________________________________________
+	[T][ ] borrow book
+	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
-		[D][ ] return book (by: Sunday)
+		[E][ ] project meeting (from: Mon 2pm to:4pm)
 	Now you have 2 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-	[T][ ] borrow book
-	[D][ ] return book (by: Sunday)
-	____________________________________________________________
-	____________________________________________________________
-	Got it. I've added this task:
-		[E][ ] project meeting (from: Mon 2pm to: 4pm)
-	Now you have 3 tasks in the list.
-	____________________________________________________________
-	____________________________________________________________
 	[T][x] borrow book
-	[D][ ] return book (by: Sunday)
-	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	[E][ ] project meeting (from: Mon 2pm to:4pm)
 	____________________________________________________________
 	____________________________________________________________
 	[T][ ] borrow book
-	[D][ ] return book (by: Sunday)
-	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	[E][ ] project meeting (from: Mon 2pm to:4pm)
 	____________________________________________________________
+There are 2 tasks.
+Please enter a valid number from 1 to 2(inclusive).
+There are 2 tasks.
+Please enter a valid number from 1 to 2(inclusive).
+Please ensure correct number of parameters are given.
+Please indicate the end date for this deadline
+Please indicate the start date and end date for this event.
+Please indicate the start date and end date for this event.
+Invalid Command
 	____________________________________________________________
 	Bye. Hope to see you again soon!
 	____________________________________________________________
