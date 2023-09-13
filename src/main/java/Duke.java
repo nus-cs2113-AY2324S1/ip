@@ -10,43 +10,45 @@ public class Duke {
         introduceBot();
         handleCommands();
         farewellBot();
-
     }
 
-    public static void handleCommands(){
+    public static void handleCommands() {
         Scanner in = new Scanner(System.in);
         String input;
 
         do {
-            System.out.println(HORIZONTAL_LINE);
             input = in.nextLine().trim();
             String[] parts = input.split(" ", 2);
             String command = parts[0].toLowerCase();
             String argument = null;
-            if(parts.length>1){
+            if (parts.length > 1) {
                 argument = parts[1];
             }
-            switch (command) {
-            case "list":
-                printList();
-                break;
-            case "mark":
-                editTask(argument, true);
-                break;
-            case "unmark":
-                editTask(argument, false);
-                break;
-            case "todo":
-                addToDo(argument);
-                break;
-            case "deadline":
-                addDeadline(argument);
-                break;
-            case "event":
-                addEvent(argument);
-                break;
-            default:
-                break;
+            try {
+                switch (command) {
+                case "list":
+                    printList();
+                    break;
+                case "mark":
+                    editTask(argument, true);
+                    break;
+                case "unmark":
+                    editTask(argument, false);
+                    break;
+                case "todo":
+                    addToDo(argument);
+                    break;
+                case "deadline":
+                    addDeadline(argument);
+                    break;
+                case "event":
+                    addEvent(argument);
+                    break;
+                default:
+                    throw new InvalidCommandException();
+                }
+            } catch (InvalidCommandException e) {
+                System.out.println("Oops, seems like I don't know this command. Please provide a valid command!");
             }
             System.out.println(HORIZONTAL_LINE);
         } while (!input.equalsIgnoreCase("bye"));
@@ -68,7 +70,6 @@ public class Duke {
     }
 
     public static void farewellBot(){
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("Have a wonderful day! Hope to see you again soon!");
         System.out.println(HORIZONTAL_LINE);
     }
