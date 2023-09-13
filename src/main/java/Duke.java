@@ -1,11 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+//Refactoring methods is helpful for transforming
 public class Duke {
     public static void main(String[] args) {
 
-        System.out.println("Hello my name is DUKE");
-        System.out.println("What can I do for you today?");
+        showWelcome();
 
         ArrayList<Task> tasks = new ArrayList<>(100);
 
@@ -56,6 +55,7 @@ public class Duke {
                 } catch (Exception ArrayIndexOutOfBoundsException){
                     System.out.println("That task doesnt exist");
                 }
+
             } else if (input.toLowerCase().startsWith("deadline")){
                 try {
                     String[] toDoSplit = input.split("/");
@@ -69,6 +69,7 @@ public class Duke {
                 } catch (Exception ArrayIndexOutOfBoundsException){
                     System.out.println("Put a / after your task if you want to add a todo");
                 }
+                
 
 
             } else if (input.toLowerCase().startsWith("event")){
@@ -80,8 +81,10 @@ public class Duke {
                     System.out.println(event.getDescription());
                     tasks.add(event);
 
-                } catch (Exception ArrayIndexOutOfBoundsException){
+                } catch (ArrayIndexOutOfBoundsException e){
                     System.out.println("Put a / after your task if you want to add a todo");
+                } catch (NullPointerException e){
+                    System.out.println("Please enter a input");
                 }
 
 
@@ -111,5 +114,10 @@ public class Duke {
         }
         System.out.println("Fine. If you have no ideas imma head out");
 
+    }
+
+    private static void showWelcome() {
+        System.out.println("Hello my name is DUKE");
+        System.out.println("What can I do for you today?");
     }
 }
