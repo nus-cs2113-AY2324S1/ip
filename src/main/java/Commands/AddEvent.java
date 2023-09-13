@@ -2,7 +2,7 @@ package commands;
 
 import tasks.Event;
 import tasks.Tasklist;
-import zenbot.ZenBot;
+import zenbot.UI;
 import exceptions.TaskEmptyDescriptionException;
 
 public class AddEvent extends Command {
@@ -25,10 +25,10 @@ public class AddEvent extends Command {
         endTime = commandString.substring(commandString.indexOf("/to") + 4);
         tasks.addTask(new Event(description, startTime, endTime));
 
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
         System.out.println("\tBehold, a new endeavor enters the realm: " + description);
         System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
         System.out.println(tasks.getTaskListSize() + " in all.");
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
     }
 }

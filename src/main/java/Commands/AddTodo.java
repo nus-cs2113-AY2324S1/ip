@@ -2,7 +2,7 @@ package commands;
 
 import tasks.Todo;
 import tasks.Tasklist;
-import zenbot.ZenBot;
+import zenbot.UI;
 import exceptions.TaskEmptyDescriptionException;
 
 public class AddTodo extends Command {
@@ -21,11 +21,11 @@ public class AddTodo extends Command {
         description = commandString.substring(5);
         tasks.addTask(new Todo(description));
 
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
         System.out.println("\tBehold, a new endeavor enters the realm: " + description);
         System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
         System.out.println(tasks.getTaskListSize() + " in all.");
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
     }
 
 }

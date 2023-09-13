@@ -1,7 +1,7 @@
 package commands;
 
 import tasks.Tasklist;
-import zenbot.ZenBot;
+import zenbot.UI;
 
 public class ListTasks extends Command {
     
@@ -13,10 +13,15 @@ public class ListTasks extends Command {
 
     @Override
     public void execute() {
-        ZenBot.printSeperatorLine();
+        if (tasks.getTaskListSize() == 0) {
+            System.out.println("\tYour list is empty, please add some tasks!");
+            return;
+        }
+        
+        UI.printSeperatorLine();
         System.out.println("\tAllow me to unveil the tasks dwelling within your list:");
         tasks.printTaskList();
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
     }
 
 }

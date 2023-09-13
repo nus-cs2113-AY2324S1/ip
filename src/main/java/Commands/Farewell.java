@@ -1,11 +1,11 @@
 package commands;
 
-import zenbot.ZenBot;
+import zenbot.UI;
 public class Farewell extends Command {
     
     public void execute() {
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
         System.out.println("\tFarewell, my friend! Until our laughter intertwines again");
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
     }
 }

@@ -2,8 +2,8 @@ package commands;
 
 import tasks.Deadline;
 import tasks.Tasklist;
-import zenbot.ZenBot;
 import exceptions.TaskEmptyDescriptionException;
+import zenbot.UI;
 
 public class AddDeadline extends Command {
     
@@ -23,10 +23,10 @@ public class AddDeadline extends Command {
         deadline = commandString.substring(commandString.indexOf("/by") + 4);
         tasks.addTask(new Deadline(description, deadline));
 
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
         System.out.println("\tBehold, a new endeavor enters the realm: " + description);
         System.out.print("\tThe grand tally of tasks has reached a harmonious count of ");
         System.out.println(tasks.getTaskListSize() + " in all.");
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
     }
 }
