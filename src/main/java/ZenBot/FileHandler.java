@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.util.Scanner;
 
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import exceptions.TaskEmptyDescriptionException;
 
 import tasks.Tasklist;
