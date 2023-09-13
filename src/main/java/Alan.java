@@ -6,7 +6,9 @@ public class Alan {
     public static int currentTasksIndex = 1;
     public static final String INVALID_INPUT_COMMAND_MESSAGE = "Oof, I have no idea what are you saying duuude";
     public static final String EMPTY_DESCRIPTION_MESSAGE = "Oof Dude, you can't leave the description empty, man";
-
+    public static final String INVALID_DEADLINE_FORMAT_MESSAGE = "Oof the deadline command isn't quite right you gotta fix the format, bro, remember it's: /by <date>";
+    public static final String INVALID_EVENT_FROM_FORMAT_MESSAGE = "Oof duude, your /from formatting is whack";
+    public static final String INVALID_EVENT_TO_FORMAT_MESSAGE = "Oof my man, you need to work on that /to formatting";
     public static void printGreetingMessage() {
         printHorizontalLine();
         String manDrawing = " @/\n" +
@@ -49,14 +51,17 @@ public class Alan {
             markingCommandHandler(userInput, tasks, false);
         } else if (command.equals("todo")) {
             //add to-do task to the list
+            checkEmptyDescription(userInput);
             todoCommandHandler(userInput, tasks, currentTasksIndex);
             currentTasksIndex++;
         } else if (command.equals("deadline")) {
             //add deadline task to the list
+            checkEmptyDescription(userInput);
             deadlineCommandHandler(userInput, tasks, currentTasksIndex);
             currentTasksIndex++;
         } else if (command.equals("event")) {
             //add event task to the list
+            checkEmptyDescription(userInput);
             eventCommandHandler(userInput, tasks, currentTasksIndex);
             currentTasksIndex++;
         } else {
@@ -88,22 +93,21 @@ public class Alan {
         System.out.println(tasks[selectedTaskIndex]);
     }
 
-    public static void todoCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) throws AlanExceptions {
-        String[] userInputWords = userInput.split(" ");
-
-        if (userInputWords.length == 1) {
-            throw new AlanExceptions(EMPTY_DESCRIPTION_MESSAGE);
-        }
-
+    public static void todoCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) {
         String description = userInput.replace("todo ", "");
         tasks[currentTasksIndex] = new Todo(description);
 
         printTaskAddedMessage(tasks, currentTasksIndex);
     }
 
-    public static void deadlineCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) {
+    public static void deadlineCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) throws AlanExceptions {
         String filteredUserInput = userInput.replace("deadline ", "");
         String[] words = filteredUserInput.split(" /by ");
+
+        if (words.length == 1) {
+            throw new AlanExceptions(INVALID_DEADLINE_FORMAT_MESSAGE);
+        }
+
         String description = words[0];
         String by = words[1];
 
@@ -112,17 +116,35 @@ public class Alan {
         printTaskAddedMessage(tasks, currentTasksIndex);
     }
 
-    public static void eventCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) {
+    public static void eventCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) throws AlanExceptions {
         String filteredUserInput = userInput.replace("event ", "");
-        String[] words = filteredUserInput.split(" /");
-        String description = words[0];
+        String[] splitDescriptionAndDate = filteredUserInput.split(" /from ");
 
-        String from = words[1].substring(FROM_KEYWORD_END_INDEX);
-        String to = words[2].substring(TO_KEYWORD_END_INDEX);
+        if (splitDescriptionAndDate.length == 1) {
+            throw new AlanExceptions(INVALID_EVENT_FROM_FORMAT_MESSAGE);
+        }
+
+        String[] splitFromAndTo = splitDescriptionAndDate[1].split(" /to ");
+
+        if (splitFromAndTo.length == 1) {
+            throw new AlanExceptions(INVALID_EVENT_TO_FORMAT_MESSAGE);
+        }
+
+        String description = splitDescriptionAndDate[0];
+        String from = splitFromAndTo[0];
+        String to = splitFromAndTo[1];
 
         tasks[currentTasksIndex] = new Event(description, from, to);
 
         printTaskAddedMessage(tasks, currentTasksIndex);
+    }
+
+    public static void checkEmptyDescription(String userInput) throws AlanExceptions {
+        String[] userInputWords = userInput.split(" ");
+
+        if (userInputWords.length == 1) {
+            throw new AlanExceptions(EMPTY_DESCRIPTION_MESSAGE);
+        }
     }
 
     public static void main(String[] args) {
