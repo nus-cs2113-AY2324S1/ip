@@ -62,35 +62,71 @@ public class TaskItems {
                 echo(items);
             }
             else {
-                task = addTaskByType(input);
-                items[index++] = task;
-                echo(task);
+                try{
+                    task = addTaskByType(input);
+                    items[index++] = task;
+                    echo(task);
+                }
+                catch(ZranExceptions e){
+                    System.out.println();
+                    System.out.printf(outputFormat + "%n", e.getMessage());
+                }
             }
         }
         System.out.printf((outputFormat) + "%n", "Goodbye <3 have a great day ahead!");
     }
 
     // The function 'addTaskByType' is used to add an item into the task list by their task type
-    public static Task addTaskByType(String input){
+    public static Task addTaskByType(String input) throws ZranExceptions{
         Task task = null;
         if(input.startsWith(TODO_TASK_COMMAND)) {
-            task = new ToDos(input.substring(TODO_TASK_COMMAND.length()));
+            int todoIndex = input.indexOf(TODO_TASK_COMMAND);
+            String description = input.substring(TODO_TASK_COMMAND.length(), todoIndex).trim();
+            if(description.isEmpty()){
+                throw new ZranExceptions("Invalid event command: Empty name of the task. " +
+                        "Please key in the description of the task or type help :)");
+            }
+            task = new ToDos(description);
         } else if(input.startsWith(DEADLINE_TASK_COMMAND)){
             int byIndex = input.indexOf(DEADLINE_DATE_COMMAND);
+            if (byIndex == -1) {
+                throw new ZranExceptions("Invalid deadline command: missing '/by'. " +
+                        "Please key in the deadline after '/by' or type help :)");
+            }
             String description = input.substring(DEADLINE_TASK_COMMAND.length(), byIndex).trim();
+            if(description.isEmpty()){
+                throw new ZranExceptions("Invalid event command: Empty name of the task. " +
+                        "Please key in the description of the task or type help :)");
+            }
             String by = input.substring(byIndex + DEADLINE_DATE_COMMAND.length()).trim();
+            if(by.isEmpty()){
+                throw new ZranExceptions("Invalid event command: Empty deadline of the task. " +
+                        "Please key in the deadline of the task or type help :)");
+            }
             task = new Deadline(description, by);
         } else if (input.startsWith(EVENT_TASK_COMMAND)) {
             int fromIndex = input.indexOf(EVENT_TASK_START);
             int toIndex = input.indexOf(EVENT_TASK_END);
+            if (fromIndex == -1 || toIndex == -1) {
+                throw new ZranExceptions("Invalid event command: missing '/from' or '/to'. " +
+                        "Please key in the duration of the event using '/from' and '/to' or type help :)");
+            }
             String description = input.substring(EVENT_TASK_COMMAND.length(), fromIndex).trim();
+            if(description.isEmpty()){
+                throw new ZranExceptions("Invalid event command: Empty name of the event. " +
+                        "Please key in the description of the event or type help :)");
+            }
             String from = input.substring(fromIndex + EVENT_TASK_START.length(), toIndex).trim();
             String to = input.substring(toIndex + EVENT_TASK_END.length()).trim();
+            if(from.isEmpty() || to.isEmpty()){
+                throw new ZranExceptions("Invalid event command: Empty duration of the event. " +
+                        "Please key in the duration of the event or type help :)");
+            }
             task = new Event(description, from, to);
-        } else{
-            //throw exception
-            System.out.println("oh nos wrong command");
+        } else {
+            throw new ZranExceptions("Invalid command: unknown command type. Please use a valid command or type help :)");
         }
+
         return task;
     }
 
