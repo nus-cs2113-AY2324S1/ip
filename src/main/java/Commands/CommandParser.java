@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
-import Exceptions.UnknownCommandException;
-import Tasks.Tasklist;
+import tasks.Tasklist;
+import exceptions.UnknownCommandException;
 
 public class CommandParser {
     private static final String ADD_TODO_COMMAND = "todo";

@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
-import Exceptions.OutOfRangeException;
-import Exceptions.TaskEmptyDescriptionException;
+import exceptions.OutOfRangeException;
+import exceptions.TaskEmptyDescriptionException;
 
 public abstract class Command {
     

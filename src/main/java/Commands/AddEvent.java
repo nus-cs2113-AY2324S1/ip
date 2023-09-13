@@ -1,9 +1,9 @@
-package Commands;
+package commands;
 
-import Exceptions.TaskEmptyDescriptionException;
-import Tasks.Event;
-import Tasks.Tasklist;
-import ZenBot.ZenBot;
+import tasks.Event;
+import tasks.Tasklist;
+import zenbot.ZenBot;
+import exceptions.TaskEmptyDescriptionException;
 
 public class AddEvent extends Command {
 

@@ -1,6 +1,6 @@
-package Commands;
+package commands;
 
-import ZenBot.ZenBot;
+import zenbot.ZenBot;
 public class Farewell extends Command {
     
     public void execute() {

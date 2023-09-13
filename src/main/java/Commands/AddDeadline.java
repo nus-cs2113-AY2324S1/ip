@@ -1,9 +1,9 @@
-package Commands;
+package commands;
 
-import Exceptions.TaskEmptyDescriptionException;
-import Tasks.Deadline;
-import Tasks.Tasklist;
-import ZenBot.ZenBot;
+import tasks.Deadline;
+import tasks.Tasklist;
+import zenbot.ZenBot;
+import exceptions.TaskEmptyDescriptionException;
 
 public class AddDeadline extends Command {
     

@@ -1,8 +1,8 @@
-package Commands;
+package commands;
 
-import Exceptions.OutOfRangeException;
-import Tasks.Tasklist;
-import ZenBot.ZenBot;
+import tasks.Tasklist;
+import zenbot.ZenBot;
+import exceptions.OutOfRangeException;
 
 public class UnmarkTask extends Command {
     

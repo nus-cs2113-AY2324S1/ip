@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
-import Tasks.Tasklist;
-import ZenBot.ZenBot;
+import tasks.Tasklist;
+import zenbot.ZenBot;
 
 public class ListTasks extends Command {
     

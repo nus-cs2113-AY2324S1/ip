@@ -1,12 +1,12 @@
-package ZenBot;
+package zenbot;
 
-import Exceptions.OutOfRangeException;
-import Exceptions.TaskEmptyDescriptionException;
-import Exceptions.UnknownCommandException;
-import Tasks.Tasklist;
-import Commands.CommandParser;
-import Commands.Command;
-import Commands.Farewell;
+import commands.Command;
+import commands.CommandParser;
+import commands.Farewell;
+import exceptions.OutOfRangeException;
+import exceptions.TaskEmptyDescriptionException;
+import exceptions.UnknownCommandException;
+import tasks.Tasklist;
 
 public class ZenBot {
 

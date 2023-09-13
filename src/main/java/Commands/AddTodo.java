@@ -1,9 +1,9 @@
-package Commands;
+package commands;
 
-import Exceptions.TaskEmptyDescriptionException;
-import Tasks.Tasklist;
-import Tasks.Todo;
-import ZenBot.ZenBot;
+import tasks.Todo;
+import tasks.Tasklist;
+import zenbot.ZenBot;
+import exceptions.TaskEmptyDescriptionException;
 
 public class AddTodo extends Command {
 

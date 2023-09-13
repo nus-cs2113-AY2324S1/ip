@@ -1,6 +1,6 @@
-package Tasks;
+package tasks;
 
-import Exceptions.TaskEmptyDescriptionException;
+import exceptions.TaskEmptyDescriptionException;
 
 public class Task {
     private String description;

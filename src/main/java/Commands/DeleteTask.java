@@ -1,8 +1,8 @@
-package Commands;
+package commands;
 
-import ZenBot.ZenBot;
-import Exceptions.OutOfRangeException;
-import Tasks.Tasklist;
+import exceptions.OutOfRangeException;
+import tasks.Tasklist;
+import zenbot.ZenBot;
 
 public class DeleteTask extends Command {
     
