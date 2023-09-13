@@ -4,6 +4,8 @@ public class Alan {
     static final int FROM_KEYWORD_END_INDEX = 5;
     static final int TO_KEYWORD_END_INDEX = 3;
     public static int currentTasksIndex = 1;
+    public static final String INVALID_INPUT_COMMAND_MESSAGE = "Oof, I have no idea what are you saying duuude";
+    public static final String EMPTY_DESCRIPTION_MESSAGE = "Oof Dude, you can't leave the description empty, man";
 
     public static void printGreetingMessage() {
         printHorizontalLine();
@@ -30,7 +32,7 @@ public class Alan {
         System.out.println("Now you have " + currentTasksIndex + " in the list.");
     }
 
-    public static void processCommandHandler(String userInput, Task[] tasks) {
+    public static void processCommandHandler(String userInput, Task[] tasks) throws AlanExceptions {
         String[] userInputWords = userInput.split(" ");
         String command = userInputWords[0];
 
@@ -57,6 +59,8 @@ public class Alan {
             //add event task to the list
             eventCommandHandler(userInput, tasks, currentTasksIndex);
             currentTasksIndex++;
+        } else {
+            throw new AlanExceptions(INVALID_INPUT_COMMAND_MESSAGE);
         }
     }
 
@@ -84,7 +88,13 @@ public class Alan {
         System.out.println(tasks[selectedTaskIndex]);
     }
 
-    public static void todoCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) {
+    public static void todoCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) throws AlanExceptions {
+        String[] userInputWords = userInput.split(" ");
+
+        if (userInputWords.length == 1) {
+            throw new AlanExceptions(EMPTY_DESCRIPTION_MESSAGE);
+        }
+
         String description = userInput.replace("todo ", "");
         tasks[currentTasksIndex] = new Todo(description);
 
@@ -120,20 +130,24 @@ public class Alan {
 
         printGreetingMessage();
 
-        String userInput;
+        String userInput = null;
         Scanner scanner = new Scanner(System.in);
 
         do {
-            //Read user input
-            System.out.print("Input: ");
-            userInput = scanner.nextLine();
+            try {
+                //Read user input
+                System.out.print("Input: ");
+                userInput = scanner.nextLine();
 
-            printHorizontalLine();
+                printHorizontalLine();
 
-            processCommandHandler(userInput, tasks);
+                processCommandHandler(userInput, tasks);
 
-            printHorizontalLine();
-
+            } catch (AlanExceptions e) {
+                System.out.println(e);
+            } finally {
+                printHorizontalLine();
+            }
         } while (!userInput.equals("bye"));
 
     }
