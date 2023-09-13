@@ -3,25 +3,25 @@ public class Task {
     protected String description;
     private static int count = 0;
 
-    public Task (String description){
+    public Task (String description) {
         this.description = description;
         this.isMarked = false;
         count++;
     }
 
-    public void markTask(){
+    public void markTask() {
         isMarked = true;
     }
 
-    public void unMarkTask(){
+    public void unMarkTask() {
         isMarked = false;
     }
 
-    public boolean getTaskStatus(){
+    public boolean getTaskStatus() {
         return isMarked;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         String mark;
         if (getTaskStatus()){
             mark = "X";
@@ -31,7 +31,7 @@ public class Task {
         return "[" + mark + "] " + description;
     }
 
-    public static int getTaskCount(){
+    public static int getTaskCount() {
         return count;
     }
 
