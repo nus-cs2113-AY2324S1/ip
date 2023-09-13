@@ -9,7 +9,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); //return X symbols when done, else return empty space
+        return (isDone ? "[X]" : "[ ]"); 
     }
 
     public void markAsDone(boolean isDone) {
