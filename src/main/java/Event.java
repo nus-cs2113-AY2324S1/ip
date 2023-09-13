@@ -9,6 +9,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String[] details) {
+        super(details[0]);
+        this.from = details[1];
+        this.to = details[2];
+    }
+
     public String getCode() {
         return "E";
     }

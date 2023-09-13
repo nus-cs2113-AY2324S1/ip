@@ -7,6 +7,11 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    public Deadline(String[] details) {
+        super(details[0]);
+        this.dueDate = details[1];
+    }
+
     public String getCode() {
         return "D";
     }
