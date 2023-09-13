@@ -20,11 +20,14 @@ public class Task {
         return (taskType);
     }
 
-    public void markAsDone(){
+    public void setAsDone(){
         this.isDone = true;
     }
 
-    public void unmarkTask(){
+    public void setAsNotDone(){
         this.isDone = false;
     }
+
+    public String getDescription() {return (description);}
+
 }
