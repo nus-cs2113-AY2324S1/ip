@@ -1,14 +1,13 @@
 import java.util.Scanner;
 
 public class Alan {
-    static final int FROM_KEYWORD_END_INDEX = 5;
-    static final int TO_KEYWORD_END_INDEX = 3;
     public static int currentTasksIndex = 1;
     public static final String INVALID_INPUT_COMMAND_MESSAGE = "Oof, I have no idea what are you saying duuude";
     public static final String EMPTY_DESCRIPTION_MESSAGE = "Oof Dude, you can't leave the description empty, man";
     public static final String INVALID_DEADLINE_FORMAT_MESSAGE = "Oof the deadline command isn't quite right you gotta fix the format, bro, remember it's: /by <date>";
     public static final String INVALID_EVENT_FROM_FORMAT_MESSAGE = "Oof duude, your /from formatting is whack";
     public static final String INVALID_EVENT_TO_FORMAT_MESSAGE = "Oof my man, you need to work on that /to formatting";
+    public static final String INVALID_TASK_NUMBER_MESSAGE = "Hey man there's no such task";
     public static void printGreetingMessage() {
         printHorizontalLine();
         String manDrawing = " @/\n" +
@@ -78,9 +77,11 @@ public class Alan {
         }
     }
 
-    public static void markingCommandHandler(String userInput, Task[] tasks, boolean isMark) {
+    public static void markingCommandHandler(String userInput, Task[] tasks, boolean isMark) throws AlanExceptions {
         String[] words = userInput.split(" ");
         int selectedTaskIndex = Integer.parseInt(words[1]);
+
+        checkOutOfTasksIndex(selectedTaskIndex);
 
         if (isMark) {
             tasks[selectedTaskIndex].setDone(true);
@@ -144,6 +145,14 @@ public class Alan {
 
         if (userInputWords.length == 1) {
             throw new AlanExceptions(EMPTY_DESCRIPTION_MESSAGE);
+        }
+    }
+
+    public static void checkOutOfTasksIndex(int selectedIndex) throws AlanExceptions {
+        int numberOfTasks = currentTasksIndex - 1;
+
+        if (selectedIndex > numberOfTasks) {
+            throw new AlanExceptions(INVALID_TASK_NUMBER_MESSAGE);
         }
     }
 
