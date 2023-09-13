@@ -1,9 +1,5 @@
 package jerry;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.text.ParseException;
-
 import jerry.task.Task;
 import jerry.task.Todo;
 import jerry.task.Deadline;
@@ -16,7 +12,6 @@ import jerry.exceptions.TaskNotFoundException;
 public class Jerry {
 
     private static final TaskList taskList = new TaskList();
-    private static final String HORIZONTAL_LINE = "--------------------------------------------";
 
     public static void markTaskAsDone(String argument) {
         try {
@@ -29,6 +24,7 @@ public class Jerry {
             UserInterface.showExceptionMessage(e);
         }
     }
+
 
     public static void markTaskAsUndone(String argument) {
         try {

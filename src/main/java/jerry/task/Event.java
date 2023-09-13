@@ -1,6 +1,5 @@
 package jerry.task;
 
-import java.text.ParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
