@@ -10,6 +10,7 @@ public class CommandParser {
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String DELETE_COMMAND = "delete";
     private static final String FAREWELL_COMMAND = "bye";
 
     public Command parse(String commandString, Tasklist tasklist) throws UnknownCommandException {
@@ -29,6 +30,8 @@ public class CommandParser {
             return new MarkTask(commandString, tasklist);
         case UNMARK_COMMAND:
             return new UnmarkTask(commandString, tasklist);
+        case DELETE_COMMAND:
+            return new DeleteTask(commandString, tasklist);
         case FAREWELL_COMMAND:
             return new Farewell();
         default:
