@@ -17,3 +17,10 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 run.sh
 workspace_dir
+
+# maven build files
+.classpath
+.project
+.settings
+pom.xml
+target
