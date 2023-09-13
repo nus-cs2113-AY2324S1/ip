@@ -82,20 +82,22 @@ public class Duke {
     }
 
     public static void editTask(String argument, boolean done){
-        int index = Integer.parseInt(argument);
-
-        if (index < 1 || index > tasks.size()){
+        /*if (index < 1 || index > tasks.size()){
             System.out.println("I am sorry, but this task does not exist");
             return;
+        }*/
+        try {
+            int index = Integer.parseInt(argument);
+            tasks.get(index - 1).setDone(done);
+            if (done){
+                System.out.println("Great! I have marked this task as done:");
+            } else{
+                System.out.println("Alright, I have marked this task as not done:");
+            }
+            System.out.println(tasks.get(index - 1));
+        } catch (IndexOutOfBoundsException | NumberFormatException e){
+            System.out.println("This task id does not exist, please provide a valid task number!");
         }
-
-        if (done){
-            System.out.println("Great! I have marked this task as done:");
-        } else{
-            System.out.println("Alright, I have marked this task as not done:");
-        }
-        tasks.get(index-1).setDone(done);
-        System.out.println(tasks.get(index-1));
     }
 
     public static void printTaskAddedMessage(Task task){
