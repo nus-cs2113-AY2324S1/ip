@@ -1,5 +1,6 @@
 package ZenBot;
 
+import Exceptions.OutOfRangeException;
 import Exceptions.TaskEmptyDescriptionException;
 import Exceptions.UnknownCommandException;
 import Tasks.Tasklist;
@@ -50,10 +51,13 @@ public class ZenBot {
                 nextCommand = commandParser.parse(input.getInput(), tasks);
                 nextCommand.execute();
             } catch (UnknownCommandException e) {
-                System.out.println("Unknown command, please try again");
+                System.out.println("\tUnknown command, please try again");
                 continue;
             } catch (TaskEmptyDescriptionException e) {
-                System.out.println("Task description cannot be empty, please try again");
+                System.out.println("\tTask description cannot be empty, please try again");
+                continue;
+            } catch (OutOfRangeException e) {
+                System.out.println("\tTask number is out of range, please try again");
                 continue;
             }
         }
