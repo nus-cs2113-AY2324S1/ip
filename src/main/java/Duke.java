@@ -4,14 +4,26 @@ public class Duke {
 
     public static final String LINE_DIVIDER = "    _____________________________________";
 
-    public static String RemoveCommandWord(String in) {
+    public static String RemoveCommandWord(String in) throws EmptyDescriptionException {
         int firstSpaceIndex = in.indexOf(" ") + 1;
 
-        return in.substring(firstSpaceIndex);
+        String out = in.substring(firstSpaceIndex);
+
+        if(firstSpaceIndex == 0 || firstSpaceIndex >= in.length()){
+            // Throws exception when name of task is left empty
+            throw new EmptyDescriptionException();
+        }
+
+        return out;
     }
 
     public static void addTodo(String in, Task[] itemList, int i) {
-        itemList[i] = new ToDo(RemoveCommandWord(in));
+        try {
+            itemList[i] = new ToDo(RemoveCommandWord(in));
+        } catch (EmptyDescriptionException e) {
+            e.printErrorMessage();
+            return;
+        }
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "Sure, I've added this task:\n"
@@ -28,9 +40,12 @@ public class Duke {
             itemList[i] = new Event(name, from, to);
         } catch (IndexOutOfBoundsException e) {
             System.out.println( LINE_DIVIDER +
-                    "\nOop, looks like you forgot to add something!\n" +
+                    "\n    Oop, looks like you forgot to add something!\n" +
                     LINE_DIVIDER
             );
+            return;
+        } catch (EmptyDescriptionException e) {
+            e.printErrorMessage();
             return;
         }
 
@@ -49,9 +64,12 @@ public class Duke {
             itemList[i] = new Deadline(name, by);
         } catch (IndexOutOfBoundsException e) {
             System.out.println( LINE_DIVIDER +
-                    "\nOop, looks like you forgot to add something!\n" +
+                    "\n    Oop, looks like you forgot to add something!\n" +
                     LINE_DIVIDER
             );
+            return;
+        } catch (EmptyDescriptionException e) {
+            e.printErrorMessage();
             return;
         }
 
@@ -65,7 +83,7 @@ public class Duke {
         itemList[i - 1].setDone(true);
 
         System.out.println(LINE_DIVIDER + "\n"
-                + "Nice, I've marked this task as done:\n"
+                + "    Nice, I've marked this task as done:\n"
                 + "    " + itemList[i - 1].toString() + "\n"
                 + LINE_DIVIDER);
     }
@@ -74,7 +92,7 @@ public class Duke {
         itemList[i - 1].setDone(false);
 
         System.out.println(LINE_DIVIDER + "\n"
-                + "Alright, I've unmarked this task as done:\n"
+                + "    Alright, I've unmarked this task as done:\n"
                 + "    " + itemList[i - 1].toString() + "\n"
                 + LINE_DIVIDER);
     }
@@ -132,14 +150,15 @@ public class Duke {
 
             default:
                 System.out.println(LINE_DIVIDER +
-                        "\nI couldn't find a command word, try again!\n"
+                        "\n    I couldn't find a command word, try again!\n"
                         + LINE_DIVIDER);
                 break;
             }
             buf = in.nextLine();
         }
 
-        System.out.println("Bye. Hope to see you again soon!\n"
+        System.out.println(LINE_DIVIDER +
+                "\n    Bye. Hope to see you again soon!\n"
                 + LINE_DIVIDER);
     }
 }
