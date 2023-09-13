@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Alan {
     static final int FROM_KEYWORD_END_INDEX = 5;
     static final int TO_KEYWORD_END_INDEX = 3;
+    public static int currentTasksIndex = 1;
 
     public static void printGreetingMessage() {
         printHorizontalLine();
@@ -27,6 +28,36 @@ public class Alan {
     public static void printTaskAddedMessage(Task[] tasks, int currentTasksIndex) {
         System.out.println("added: " + tasks[currentTasksIndex]);
         System.out.println("Now you have " + currentTasksIndex + " in the list.");
+    }
+
+    public static void processCommandHandler(String userInput, Task[] tasks) {
+        String[] userInputWords = userInput.split(" ");
+        String command = userInputWords[0];
+
+        if (command.equals("bye")) {
+            printExitMessage();
+        } else if (command.equals("list")) {
+            //print the tasks in the lists
+            listCommandHandler(tasks, currentTasksIndex);
+        } else if (command.equals("mark")) {
+            //mark tasks as done
+            markingCommandHandler(userInput, tasks, true);
+        } else if (command.equals("unmark")) {
+            //unmark tasks as undone
+            markingCommandHandler(userInput, tasks, false);
+        } else if (command.equals("todo")) {
+            //add to-do task to the list
+            todoCommandHandler(userInput, tasks, currentTasksIndex);
+            currentTasksIndex++;
+        } else if (command.equals("deadline")) {
+            //add deadline task to the list
+            deadlineCommandHandler(userInput, tasks, currentTasksIndex);
+            currentTasksIndex++;
+        } else if (command.equals("event")) {
+            //add event task to the list
+            eventCommandHandler(userInput, tasks, currentTasksIndex);
+            currentTasksIndex++;
+        }
     }
 
     public static void listCommandHandler(Task[] tasks, int currentTasksIndex) {
@@ -86,44 +117,20 @@ public class Alan {
 
     public static void main(String[] args) {
         Task[] tasks = new Task[101];
-        int currentTasksIndex = 1;
 
         printGreetingMessage();
 
-        String userInput = null;
-        Scanner in = new Scanner(System.in);
+        String userInput;
+        Scanner scanner = new Scanner(System.in);
 
         do {
             //Read user input
             System.out.print("Input: ");
-            userInput = in.nextLine();
+            userInput = scanner.nextLine();
 
             printHorizontalLine();
 
-            if (userInput.equals("bye")) {
-                printExitMessage();
-            } else if (userInput.equals("list")) {
-                //print the tasks in the lists
-                listCommandHandler(tasks, currentTasksIndex);
-            } else if (userInput.startsWith("mark")) {
-                //mark tasks as done
-                markingCommandHandler(userInput, tasks, true);
-            } else if (userInput.startsWith("unmark")) {
-                //unmark tasks as undone
-                markingCommandHandler(userInput, tasks, false);
-            } else if (userInput.startsWith("todo")) {
-                //add todo task to the list
-                todoCommandHandler(userInput, tasks, currentTasksIndex);
-                currentTasksIndex++;
-            } else if (userInput.startsWith("deadline")) {
-                //add deadline task to the list
-                deadlineCommandHandler(userInput, tasks, currentTasksIndex);
-                currentTasksIndex++;
-            } else if (userInput.startsWith("event")) {
-                //add event to task
-                eventCommandHandler(userInput, tasks, currentTasksIndex);
-                currentTasksIndex++;
-            }
+            processCommandHandler(userInput, tasks);
 
             printHorizontalLine();
 
