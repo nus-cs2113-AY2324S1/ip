@@ -9,17 +9,17 @@ public class Duke {
             tasks[taskCount] = new ToDos(description);
             break;
         case DEADLINE:
-            int i = description.indexOf("/");
-            String by = description.substring(i+4);
-            description = description.substring(0, i).trim();
+            String[] deadlineTokens = description.split("/by");
+            description = deadlineTokens[0].trim();
+            String by = deadlineTokens[1].trim();
             tasks[taskCount] = new Deadlines(description, by);
             break;
         case EVENT:
-            int j = description.indexOf("/");
-            int k = description.indexOf("/", j+1);
-            String from = description.substring(j+6, k).trim();
-            String to = description.substring(k+4);
-            description = description.substring(0, j).trim();
+            String[] eventTokens = description.split("/from");
+            description = eventTokens[0].trim();
+            eventTokens = eventTokens[1].split("/to");
+            String from = eventTokens[0].trim();
+            String to = eventTokens[1].trim();
             tasks[taskCount] = new Events(description, from, to);
             break;
         }
@@ -64,7 +64,7 @@ public class Duke {
             String[] substr = userInput.split("\\s+");
             switch (substr[0]) {
             case "bye":
-                bye();
+                printByeMessage();
                 break;
             case "list":
                 printTasks();
@@ -84,10 +84,12 @@ public class Duke {
             case "event":
                 addToTasks(userInput.substring(6), Type.EVENT);
                 break;
+            default:
+                System.out.println("\tInvalid input, please try again");
             }
         }
     }
-    public static void bye() {
+    public static void printByeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         System.exit(0);
     }
