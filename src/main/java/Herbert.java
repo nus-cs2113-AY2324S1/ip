@@ -54,11 +54,12 @@ public class Herbert {
 
     public int processLine(String line) {
         line = line.strip();
-        String lowerLine = line.toLowerCase();
-
         if (line.isEmpty()) {
-            printMessageInvalidInput();
+            printMessageInvalidInput("Please enter a command!");
+            return -1;
         }
+
+        String lowerLine = line.toLowerCase();
 
         if (lowerLine.equals("bye")) {
             sayGoodbye();

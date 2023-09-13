@@ -11,8 +11,9 @@ public class Main {
             line = scan.nextLine();
             System.out.println();
 
-            // User has inputted "bye"
-            if (herbert.processLine(line) == 1) {
+            int process = herbert.processLine(line);
+            if (process == 1) {
+                // User has inputted "bye"
                 break;
             }
         }
