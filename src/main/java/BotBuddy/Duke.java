@@ -1,3 +1,5 @@
+package BotBuddy;
+
 import java.util.Scanner;
 
 public class Duke {
