@@ -1,9 +1,9 @@
 package Objects;
 
-public class Events extends Deadlines {
+public class events extends deadlines {
     protected String end;
 
-    public Events(String description, String by, String end) {
+    public events(String description, String by, String end) {
         super(description,by);
         this.end = end;
         this.type = 'E';
