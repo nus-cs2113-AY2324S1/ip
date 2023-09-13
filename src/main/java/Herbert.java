@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +11,7 @@ public class Herbert {
         this.sayHello();
     }
 
-    public void sayHello() {
+    private void sayHello() {
         String logo = "(   )                           (   )                          (   )       \n"
                 + " | | .-.     .--.    ___ .-.     | |.-.     .--.    ___ .-.     | |_       \n"
                 + " | |/   \\   /    \\  (   )   \\    | /   \\   /    \\  (   )   \\   (   __)     \n"
@@ -35,13 +34,13 @@ public class Herbert {
         System.out.println("___________________________________________________________________________");
     }
 
-    public void sayGoodbye() {
+    private void sayGoodbye() {
         System.out.println("___________________________________________________________________________");
         System.out.println("\tBye. Hope to see you again soon!");
         System.out.println("___________________________________________________________________________");
     }
 
-    public void displayHelp() {
+    private void displayHelp() {
         System.out.println("###########################################################################");
         System.out.println("\tWelcome to the Herbert Helpline!" + System.lineSeparator());
         System.out.println("\tCOMMANDS");
@@ -55,140 +54,176 @@ public class Herbert {
 
     public int processLine(String line) {
         line = line.strip();
-        line = line.toLowerCase();
+        if (line.isEmpty()) {
+            printMessageInvalidInput("Please enter a command!");
+            return -1;
+        }
 
-        if (line.equals("bye")) {
+        String lowerLine = line.toLowerCase();
+
+        if (lowerLine.equals("bye")) {
             sayGoodbye();
             return 1;
-        } else if (line.equals("list")) {
-            list();
-        } else if (line.equals("help")) {
+        } else if (lowerLine.equals("list")) {
+            listTasks();
+        } else if (lowerLine.equals("help")) {
             displayHelp();
-        } else if (line.startsWith("todo") || line.startsWith("deadline") || line.startsWith("event")) {
+        } else if (lowerLine.startsWith("todo") || lowerLine.startsWith("deadline") || lowerLine.startsWith("event")) {
             addTask(line);
-        } else if (line.startsWith("mark")) {
+        } else if (lowerLine.startsWith("mark")) {
             markTask(line, true);
-        } else if (line.startsWith("unmark")) {
+        } else if (lowerLine.startsWith("unmark")) {
             markTask(line, false);
         } else {
-            printInvalidInputMessage();
+            printMessageUnknownCommand(line);
         }
 
         return 0;
     }
 
-    public void markTask(String line, boolean completed) {
-        if (line.split(" ").length != 2) {
-            printInvalidInputMessage();
+    private void markTask(String line, boolean completed) {
+        // Check for valid user input
+        if (checkInputMarkTask(line) == -1) {
             return;
         }
 
-        // Extract which task the user wishes to (un)mark
+        // Extract task index and mark the task as completed
+        int taskIndex = extractTaskIndex(line);
+        if (taskIndex == -1) {
+            return;
+        }
+        int verify = verifyTaskIndex(taskIndex);
+        if (verify == -1) {
+            return;
+        }
+        Task task = tasks.get(taskIndex);
+        task.setCompleted(completed);
+
+        // Print result message to user
+        printMessageMarkTask(task, completed);
+    }
+
+    private int checkInputMarkTask(String line) {
+        if (line.split(" ").length != 2) {
+            printMessageInvalidInput("Please enter the task number you wish to change the status of.");
+            return -1;
+        }
+
+        return 0;
+    }
+
+    private int extractTaskIndex(String line) {
         int taskIndex;
         try {
             taskIndex = Integer.parseInt(line.split(" ")[1]) - 1;
-            if (taskIndex < 0) {
-                throw new IllegalArgumentException("The second argument must be a positive integer.");
-            }
         } catch (NumberFormatException e) {
-            System.out.printf("The second argument must be numeric (%s)\n", e);
-            printInvalidInputMessage();
-            return;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-            printInvalidInputMessage();
-            return;
+            printMessageInvalidInput("Task index must be a positive integer.");
+            return -1;
         }
 
-        Task task = tasks.get(taskIndex);
-
-        task.setCompleted(completed);
-
-        System.out.println("___________________________________________________________________________");
-        if (completed) {
-            System.out.println("\tLovely! I've marked this task as done:");
-        } else {
-            System.out.println("\tOkay, I've unmarked this task for you:");
-        }
-        System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getDescription());
-        System.out.println("___________________________________________________________________________");
+        return taskIndex;
     }
 
-    public void addTask(String line) {
-        String[] words = line.split(" ");
+    private int verifyTaskIndex(int taskIndex) {
+        if (taskIndex >= tasks.size()) {
+            printMessageInvalidInput("No such task exists!");
+            return -1;
+        }
+        if (taskIndex < 0) {
+            printMessageInvalidInput("Task index must be a positive integer.");
+            return -1;
+        }
+        return 0;
+    }
 
-        if (words.length < 2) {
-            printInvalidInputMessage();
+    private void addTask(String line) {
+        if (checkInputAddTask(line) == -1) {
             return;
         }
 
+        String[] words = line.split(" ");
         switch (words[0]) {
         case "todo": {
-            // TODO
-            String[] todoArray = Arrays.copyOfRange(words, 1, words.length);
-            String description = String.join(" ", todoArray);
+            // Get details
+            String description = line.substring(line.indexOf(" ") + 1);
 
+            // Create and add task
             Todo td = new Todo(description);
             this.tasks.add(td);
 
-            System.out.println("___________________________________________________________________________");
-            System.out.println("\tOkay, I've added this todo to your task list:");
-            System.out.printf("\t\t[%s][%s] %s\n", td.getCode(), td.getStatusIcon(), td);
-            System.out.printf("\tNow you have %d task(s) in your list.\n", tasks.size());
-            System.out.println("___________________________________________________________________________");
+            // Print success message
+            printMessageAddTask(td);
 
             break;
         }
         case "deadline": {
-            String patternString = "^deadline\\s+(.+?)\\s+/by\\s+(.+)$";
-            Pattern pattern = Pattern.compile(patternString);
-            Matcher matcher = pattern.matcher(line);
-
-            if (!matcher.find()) {
-                printInvalidInputMessage();
+            // Get details
+            String[] dlDetails = getDeadlineDetails(line);
+            if (dlDetails == null) {
                 return;
             }
 
-            String description = matcher.group(1);
-            String date = matcher.group(2);
-
-            Deadline dl = new Deadline(description, date);
+            // Create and add task
+            Deadline dl = new Deadline(dlDetails);
             tasks.add(dl);
 
-            System.out.println("___________________________________________________________________________");
-            System.out.println("\tOkay, I've added this deadline to your task list:");
-            System.out.printf("\t\t[%s][%s] %s\n", dl.getCode(), dl.getStatusIcon(), dl);
-            System.out.printf("\tNow you have %d task(s) in your list.\n", tasks.size());
-            System.out.println("___________________________________________________________________________");
+            // Print success message
+            printMessageAddTask(dl);
             break;
         }
         case "event":
-            String patternString = "^event\\s+(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)$";
-            Pattern pattern = Pattern.compile(patternString);
-            Matcher matcher = pattern.matcher(line);
-
-            if (!matcher.find()) {
-                printInvalidInputMessage();
+            // Get details
+            String[] evDetails = getEventDetails(line);
+            if (evDetails == null) {
                 return;
             }
 
-            String description = matcher.group(1);
-            String from = matcher.group(2);
-            String to = matcher.group(3);
+            // Create and add task
+            Event ev = new Event(evDetails);
+            tasks.add(ev);
 
-            Event e = new Event(description, from, to);
-            tasks.add(e);
-
-            System.out.println("___________________________________________________________________________");
-            System.out.println("\tOkay, I've added this event to your task list:");
-            System.out.printf("\t\t[%s][%s] %s\n", e.getCode(), e.getStatusIcon(), e);
-            System.out.printf("\tNow you have %d task(s) in your list.\n", tasks.size());
-            System.out.println("___________________________________________________________________________");
+            // Print success message
+            printMessageAddTask(ev);
             break;
         }
     }
 
-    public void list() {
+    private int checkInputAddTask(String line) {
+        String[] words = line.split(" ");
+        if (words.length < 2) {
+            printMessageInvalidInput();
+            return -1;
+        }
+        return 0;
+    }
+
+    private String[] getDeadlineDetails(String line) {
+        String patternString = "^deadline\\s+(.+?)\\s+/by\\s+(.+)$";
+        Pattern pattern = Pattern.compile(patternString);
+        Matcher matcher = pattern.matcher(line);
+
+        if (!matcher.find()) {
+            printMessageInvalidInput();
+            return null;
+        }
+
+        return new String[] {matcher.group(1), matcher.group(2)};
+    }
+
+    private String[] getEventDetails(String line) {
+        String patternString = "^event\\s+(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)$";
+        Pattern pattern = Pattern.compile(patternString);
+        Matcher matcher = pattern.matcher(line);
+
+        if (!matcher.find()) {
+            printMessageInvalidInput();
+            return null;
+        }
+
+        return new String[] {matcher.group(1), matcher.group(2), matcher.group(3)};
+    }
+
+    public void listTasks() {
         System.out.println("___________________________________________________________________________");
 
         if (tasks.size() == 0) {
@@ -210,11 +245,47 @@ public class Herbert {
         System.out.println("___________________________________________________________________________");
     }
 
-    public void printInvalidInputMessage() {
+    //region Message methods
+    private void printMessageInvalidInput(String errorMessage) {
+        System.out.println("___________________________________________________________________________");
+        System.out.printf("\t%s\n", errorMessage);
+        System.out.println("\tUse 'help' for usage instructions.");
+        System.out.println("___________________________________________________________________________");
+    }
+
+    private void printMessageInvalidInput() {
         System.out.println("___________________________________________________________________________");
         System.out.println("\tInvalid input. Use 'help' for usage instructions.");
         System.out.println("___________________________________________________________________________");
+
     }
+
+    private void printMessageUnknownCommand(String userInput) {
+        System.out.println("___________________________________________________________________________");
+        System.out.printf("\tUnknown command '%s'. Use 'help' for a full list of user commands.\n", userInput);
+        System.out.println("___________________________________________________________________________");
+    }
+
+    private void printMessageMarkTask(Task task, boolean completed) {
+        System.out.println("___________________________________________________________________________");
+        if (completed) {
+            System.out.println("\tLovely! I've marked this task as done:");
+        } else {
+            System.out.println("\tOkay, I've unmarked this task for you:");
+        }
+        System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getDescription());
+        System.out.println("___________________________________________________________________________");
+    }
+
+    private void printMessageAddTask(Task t) {
+        System.out.println("___________________________________________________________________________");
+        System.out.println("\tOkay, I've added this to your task list:");
+        System.out.printf("\t\t[%s][%s] %s\n", t.getCode(), t.getStatusIcon(), t);
+        System.out.printf("\tNow you have %d task(s) in your list.\n", tasks.size());
+        System.out.println("___________________________________________________________________________");
+    }
+    //endregion
+
 }
 
 
