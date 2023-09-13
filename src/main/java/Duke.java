@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
-    
+
     public static void printLine() {
         final String line = "__________________________________________";
         System.out.println(line);
@@ -12,12 +12,12 @@ public class Duke {
         System.out.println("What can I do for you?");
         printLine();
         ArrayList<Task> currentTask = new ArrayList<>();
-        while(true) {
+        while (true) {
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
             String[] splitInput = input.split(" ");
             printLine();
-            switch(splitInput[0]) {
+            switch (splitInput[0]) {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 printLine();
@@ -33,6 +33,13 @@ public class Duke {
                 break;
             case "todo":
                 StringBuilder newStr = new StringBuilder();
+                System.out.println(splitInput.length);
+                if (splitInput.length == 1) {
+                    printLine();
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    printLine();
+                    break;
+                }
                 for (int j = 1; j < splitInput.length; j++) {
                     newStr.append(" ").append(splitInput[j]);
                 }
@@ -48,6 +55,12 @@ public class Duke {
                 boolean byreached = false;
                 StringBuilder newDeadlineStr = new StringBuilder();
                 StringBuilder deadline = new StringBuilder();
+                if (splitInput.length == 1) {
+                    printLine();
+                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    printLine();
+                    break;
+                }
                 for (String word : splitInput) {
                     if (!word.equals("/by") && !byreached) {
                         newDeadlineStr.append(" ").append(word);
@@ -55,15 +68,14 @@ public class Duke {
                         byreached = true;
 
                     }
-                    if (byreached){
-                        if (!word.equals("/by")){
+                    if (byreached) {
+                        if (!word.equals("/by")) {
                             deadline.append(" ").append(word);
                         }
                     }
                 }
                 Deadline newDeadlineTask = new Deadline(newDeadlineStr.toString(), deadline.toString());
                 currentTask.add(newDeadlineTask);
-
                 printLine();
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newDeadlineTask);
@@ -73,28 +85,34 @@ public class Duke {
             case "event":
                 int k = 1;
                 String currentWord = "";
+                if (splitInput.length == 1) {
+                    printLine();
+                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    printLine();
+                    break;
+                }
                 StringBuilder event = new StringBuilder();
                 StringBuilder from = new StringBuilder();
                 String to = "";
-                while(k < splitInput.length){
+                while (k < splitInput.length) {
                     currentWord = splitInput[k];
-                    if(currentWord.equals("/from")) {
+                    if (currentWord.equals("/from")) {
                         while (!currentWord.equals("/to")) {
                             k++;
                             currentWord = splitInput[k];
-                            if(currentWord.equals("/to")){
+                            if (currentWord.equals("/to")) {
                                 continue;
                             }
                             from.append(" ").append(currentWord);
                         }
                         k++;
                         to = splitInput[k];
-                    } else{
+                    } else {
                         event.append(" ").append(currentWord);
                         k++;
                     }
                 }
-                Event e = new Event(event.toString(), from.toString(),to);
+                Event e = new Event(event.toString(), from.toString(), to);
                 currentTask.add(e);
                 printLine();
                 System.out.println("Got it. I've added this task:");
@@ -126,9 +144,8 @@ public class Duke {
                         }
                         printLine();
                     } else {
-                        Task t = new Task(input);
-                        currentTask.add(t);
-                        System.out.println("added: " + input);
+                        printLine();
+                        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                         printLine();
                     }
                 } else {
@@ -136,13 +153,12 @@ public class Duke {
                     currentTask.add(t);
                     System.out.println("added: " + input);
                     printLine();
+                    break;
                 }
-                break;
+
             }
 
+
         }
-
-
     }
-
 }
