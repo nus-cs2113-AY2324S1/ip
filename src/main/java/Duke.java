@@ -84,7 +84,7 @@ public class Duke {
                 break;
             case "event":
                 int k = 1;
-                String currentWord = "";
+                String currentWord;
                 if (splitInput.length == 1) {
                     printLine();
                     System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -149,11 +149,20 @@ public class Duke {
                         printLine();
                     }
                 } else {
-                    Task t = new Task(input);
-                    currentTask.add(t);
-                    System.out.println("added: " + input);
-                    printLine();
-                    break;
+                    try {
+                        if(input.isEmpty()){
+                            throw new DukeException("Try not to give me a command with no input!");
+                        }
+                        Task t = new Task(input);
+                        currentTask.add(t);
+                        System.out.println("added: " + input);
+                        printLine();
+                        break;
+                    }
+                    catch(DukeException duke){
+                        System.out.println(duke.getMessage());
+                        printLine();
+                    }
                 }
 
             }
