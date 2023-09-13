@@ -61,6 +61,14 @@ public class Duke {
     }
 
     public static void addTodo(Task[] tasks, String parameters) {
+        try {
+            validateInput("todo", parameters);
+        } catch (BotBuddyException e) {
+            printUnderscores();
+            System.out.println(e.getMessage());
+            printUnderscores();
+            return;
+        }
         // add todo
         int noOfTasks = Task.getNoOfTasks();
         tasks[noOfTasks] = new Todo(parameters);
@@ -71,6 +79,14 @@ public class Duke {
     }
 
     public static void addEvent(Task[] tasks, String parameters) {
+        try {
+            validateInput("event", parameters);
+        } catch (BotBuddyException e) {
+            printUnderscores();
+            System.out.println(e.getMessage());
+            printUnderscores();
+            return;
+        }
         // add event
         int noOfTasks = Task.getNoOfTasks();
         String[] eventDetails = parameters.split("/from");
@@ -86,6 +102,14 @@ public class Duke {
     }
 
     public static void addDeadline(Task[] tasks, String parameters) {
+        try {
+            validateInput("deadline", parameters);
+        } catch (BotBuddyException e) {
+            printUnderscores();
+            System.out.println(e.getMessage());
+            printUnderscores();
+            return;
+        }
         // add deadline
         int noOfTasks = Task.getNoOfTasks();
         String[] deadlineDetails = parameters.split("/by");
@@ -115,6 +139,14 @@ public class Duke {
     }
 
     public static void markTask(Task[] tasks, String parameters) {
+        try {
+            validateInput("mark", parameters);
+        } catch (BotBuddyException e) {
+            printUnderscores();
+            System.out.println(e.getMessage());
+            printUnderscores();
+            return;
+        }
         int taskToMark = Integer.parseInt(parameters) - 1;
         tasks[taskToMark].markAsDone();
         printUnderscores();
@@ -124,6 +156,14 @@ public class Duke {
     }
 
     public static void unmarkTask(Task[] tasks, String parameters) {
+        try {
+            validateInput("unmark", parameters);
+        } catch (BotBuddyException e) {
+            printUnderscores();
+            System.out.println(e.getMessage());
+            printUnderscores();
+            return;
+        }
         int taskToUnmark = Integer.parseInt(parameters) - 1;
         tasks[taskToUnmark].markAsUndone();
         printUnderscores();
@@ -140,7 +180,73 @@ public class Duke {
 
     public static void invalidCommand() {
         printUnderscores();
-        System.out.println("Invalid command!");
+        System.out.println("Invalid command! Supported commands are: " +
+                "todo, event, deadline, list, mark, unmark, bye");
         printUnderscores();
+    }
+
+    public static void validateInput(String command, String parameters) throws BotBuddyException {
+        switch (command) {
+        case "todo":
+            if (parameters.isEmpty()) {
+                throw new BotBuddyException("The description of a todo cannot be empty!");
+            }
+            break;
+
+        case "event":
+            String[] eventDetails = parameters.split("/from");
+            if (eventDetails.length < 2) {
+                throw new BotBuddyException("Please enter in the following format:\n" +
+                        "event 'Event Name' /from 'Start Time' /to 'End Time'");
+            }
+            String eventName = eventDetails[0].trim();
+            eventDetails = eventDetails[1].split("/to");
+            if (eventDetails.length < 2) {
+                throw new BotBuddyException("Please enter in the following format:\n" +
+                        "event 'Event Name' /from 'Start Time' /to 'End Time'");
+            }
+            String eventFrom = eventDetails[0].trim();
+            String eventTo = eventDetails[1].trim();
+            if (eventName.isEmpty() || eventTo.isEmpty() || eventFrom.isEmpty()) {
+                throw new BotBuddyException("Please enter in the following format:\n" +
+                        "event 'Event Name' /from 'Start Time' /to 'End Time'");
+            }
+            break;
+
+        case "deadline":
+            String[] deadlineDetails = parameters.split("/by");
+            if (deadlineDetails.length < 2) {
+                throw new BotBuddyException("Please enter in the following format:\n" +
+                        "deadline 'Deadline Name' /by 'Due Date'");
+            }
+            String deadlineName = deadlineDetails[0].trim();
+            String deadlineBy = deadlineDetails[1].trim();
+            if (deadlineName.isEmpty() || deadlineBy.isEmpty()) {
+                throw new BotBuddyException("Please enter in the following format:\n" +
+                        "deadline 'Deadline Name' /by 'Due Date'");
+            }
+            break;
+
+        case "list":
+            break;
+
+        case "mark":
+            // Fallthrough
+
+        case "unmark":
+            if (parameters.isEmpty()) {
+                throw new BotBuddyException("You did not specify which task!");
+            }
+            int taskToModify;
+            try {
+                taskToModify = Integer.parseInt(parameters);
+            } catch (NumberFormatException e) {
+                throw new BotBuddyException("The task specified should be a number!");
+            }
+            if (taskToModify > Task.getNoOfTasks()) {
+                throw new BotBuddyException("There is no such task!");
+            }
+            break;
+        }
     }
 }
