@@ -10,14 +10,6 @@ public class Duke {
         return in.substring(firstSpaceIndex);
     }
 
-    public static void addItem(String in, Task[] itemList, int i) {
-        itemList[i] = new Task(in);
-
-        System.out.println(LINE_DIVIDER + "\n"
-        + "added:\n" + itemList[i].toString()
-        + "\n" + LINE_DIVIDER);
-    }
-
     public static void addTodo(String in, Task[] itemList, int i) {
         itemList[i] = new ToDo(RemoveCommandWord(in));
 
@@ -28,12 +20,19 @@ public class Duke {
     }
 
     public static void addEvent(String in, Task[] itemList, int i) {
-        String[] vals = in.split(" /");
-        String name = RemoveCommandWord(vals[0]);
-        String from = RemoveCommandWord(vals[1]);
-        String to = RemoveCommandWord(vals[2]);
-
-        itemList[i] = new Event(name, from, to);
+        try {
+            String[] vals = in.split(" /");
+            String name = RemoveCommandWord(vals[0]);
+            String from = RemoveCommandWord(vals[1]);
+            String to = RemoveCommandWord(vals[2]);
+            itemList[i] = new Event(name, from, to);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println( LINE_DIVIDER +
+                    "\nOop, looks like you forgot to add something!\n" +
+                    LINE_DIVIDER
+            );
+            return;
+        }
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "Sure, I've added this task:\n"
@@ -42,11 +41,19 @@ public class Duke {
     }
 
     public static void addDeadline(String in, Task[] itemList, int i) {
-        String[] vals = in.split(" /");
-        String name = RemoveCommandWord(vals[0]);
-        String by = RemoveCommandWord(vals[1]);
+        try {
+            String[] vals = in.split(" /");
+            String name = RemoveCommandWord(vals[0]);
+            String by = RemoveCommandWord(vals[1]);
 
-        itemList[i] = new Deadline(name, by);
+            itemList[i] = new Deadline(name, by);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println( LINE_DIVIDER +
+                    "\nOop, looks like you forgot to add something!\n" +
+                    LINE_DIVIDER
+            );
+            return;
+        }
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "Sure, I've added this task:\n"
@@ -124,6 +131,9 @@ public class Duke {
                 break;
 
             default:
+                System.out.println(LINE_DIVIDER +
+                        "\nI couldn't find a command word, try again!\n"
+                        + LINE_DIVIDER);
                 break;
             }
             buf = in.nextLine();
