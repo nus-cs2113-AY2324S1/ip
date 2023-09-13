@@ -1,4 +1,6 @@
-public class Event extends Task{
+package duke;
+
+public class Event extends Task {
 
     private String startDate;
     private String endDate;
