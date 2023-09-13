@@ -1,7 +1,7 @@
 package commands;
 
 import tasks.Tasklist;
-import zenbot.ZenBot;
+import zenbot.UI;
 import exceptions.OutOfRangeException;
 
 public class MarkTask extends Command {
@@ -22,10 +22,10 @@ public class MarkTask extends Command {
             throw new OutOfRangeException();
         }
         tasks.markTaskAsDone(taskNumber);
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
         System.out.println("\tHuzzah! I've adorned this task with the badge of completion:");
         tasks.getTask(taskNumber).printTask();
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
     }
 
 }

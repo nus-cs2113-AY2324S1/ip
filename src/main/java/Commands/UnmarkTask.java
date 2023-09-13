@@ -1,7 +1,7 @@
 package commands;
 
 import tasks.Tasklist;
-import zenbot.ZenBot;
+import zenbot.UI;
 import exceptions.OutOfRangeException;
 
 public class UnmarkTask extends Command {
@@ -22,10 +22,10 @@ public class UnmarkTask extends Command {
             throw new OutOfRangeException();
         }
         tasks.markTaskAsUndone(taskNumber);
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
         System.out.println("\tAh, chuckles! I've playfully returned this task to its untamed state:");
         tasks.getTask(taskNumber).printTask();
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
     }
 
 }

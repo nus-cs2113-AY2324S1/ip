@@ -2,7 +2,7 @@ package commands;
 
 import exceptions.OutOfRangeException;
 import tasks.Tasklist;
-import zenbot.ZenBot;
+import zenbot.UI;
 
 public class DeleteTask extends Command {
     
@@ -21,10 +21,10 @@ public class DeleteTask extends Command {
         if (taskNumber > tasks.getTaskListSize() || taskNumber < 1) {
             throw new OutOfRangeException();
         }
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
         System.out.println("\tI've playfully plucked this task away:");
         tasks.getTask(taskNumber).printTask();
-        ZenBot.printSeperatorLine();
+        UI.printSeperatorLine();
         tasks.deleteTask(taskNumber);
     }
 }
