@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 import Objects.*;
-import org.w3c.dom.events.Event;
 
 public class Duke {
 
@@ -12,7 +11,7 @@ public class Duke {
      * @param num          The number of tasks to be printed.
      */
 
-    public static void printList(Task[] storageArray, int num) {
+    public static void printList(task[] storageArray, int num) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < num; i++) {
             System.out.println(
@@ -24,14 +23,14 @@ public class Duke {
         switch (methodName) {
             case "mark", "unmark" -> {
                 if (words.length == 1 || !words[1].matches("-?\\d+")) {
-                    System.out.println(DukeException.invalidInputForType(words[0]));
+                    System.out.println(dukeException.invalidInputForType(words[0]));
                     return false;
                 }
                 System.out.println("mark " + words[1]);
                 int index = Integer.parseInt(words[1]);
                 // we need to check if it's out of bounds first
                 if (index > numberOfItems || index <= 0) {
-                    System.out.println(DukeException.outOfBoundsError());
+                    System.out.println(dukeException.outOfBoundsError());
                     return false;
                 }
             }
@@ -62,7 +61,7 @@ public class Duke {
                 + "|_|   |_|\\___/ \\___|\n";
 
 
-        Task[] storageArray = new Task[100];
+        task[] storageArray = new task[100];
         int numOfItems = 0;
 
         String line = "Hello! I'm Ryan Loh \nWhat can I do for you?\nType anything to be added to your magic list :D\n";
@@ -83,7 +82,7 @@ public class Duke {
                         break;
                     }
                     int index = Integer.parseInt(words[1]);
-                    Task currTask = storageArray[index - 1];
+                    task currTask = storageArray[index - 1];
                     currTask.markStatus();
                     System.out.println("Nice! I've marked this task as done: ");
                     String message = String.format("[%s] %s", currTask.getStatusIcon(), currTask.getDescription());
@@ -100,7 +99,7 @@ public class Duke {
                     int index = Integer.parseInt(words[1]);
                     // we need to check if it's out of bounds first
 
-                    Task currTask = storageArray[index - 1];
+                    task currTask = storageArray[index - 1];
                     currTask.unmarkStatus();
                     System.out.println("Nice! I've marked this task as done: ");
                     String message = String.format("[%s] %s", currTask.getStatusIcon(), currTask.getDescription());
@@ -110,7 +109,7 @@ public class Duke {
                 }
                 case "todo" -> {
                     String newWord = userInput.replace("todo ", "");
-                    ToDos t = new ToDos(newWord);
+                    toDos t = new toDos(newWord);
                     storageArray[numOfItems] = t;
                     System.out.println("added: " + newWord);
                     numOfItems += 1;
@@ -118,7 +117,7 @@ public class Duke {
                 case "deadline" -> {
                     String newWord = userInput.replace("deadline ", "");
                     String[] deadlineArray = newWord.split("/");
-                    Deadlines t = new Deadlines(deadlineArray[0], deadlineArray[1]);
+                    deadlines t = new deadlines(deadlineArray[0], deadlineArray[1]);
                     storageArray[numOfItems] = t;
                     System.out.println("added: " + deadlineArray[0]);
                     numOfItems += 1;
@@ -128,7 +127,7 @@ public class Duke {
                     String newWord = userInput.replace("event ", "");
                     String[] firstSplit = newWord.split("/");
                     System.out.println(newWord);
-                    Events t = new Events(firstSplit[0], firstSplit[1], firstSplit[2]);
+                    events t = new events(firstSplit[0], firstSplit[1], firstSplit[2]);
                     storageArray[numOfItems] = t;
 
                     numOfItems += 1;
@@ -137,7 +136,7 @@ public class Duke {
 
                 }
                 default -> {
-                    Task t = new Task(userInput);
+                    task t = new task(userInput);
                     storageArray[numOfItems] = t;
                     System.out.println("added: " + userInput);
                     numOfItems += 1;

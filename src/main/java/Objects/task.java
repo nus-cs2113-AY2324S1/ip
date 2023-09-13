@@ -1,12 +1,12 @@
 package Objects;
-public class Task {
+public class task {
         protected String description;
         protected boolean isDone;
         protected char type;
 
         private static int numberOfTasks = 0;
 
-        public Task(String description) {
+        public task(String description) {
             this.description = description;
             this.isDone = false;
             this.type = 'T';
