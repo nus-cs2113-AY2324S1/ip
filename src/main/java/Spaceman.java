@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Spaceman {
     public static void main(String[] args) {
-        String logo = "  ____  _____   ___    _____ _____ __    __   ___   __   __\n"
+        final String LOGO = "  ____  _____   ___    _____ _____ __    __   ___   __   __\n"
             + "/     /|  __ \\ /   \\  /   __|     |  \\  /  | /   \\ |  \\ |  |\n"
             + "\\   __\\| |__) |  _  \\|   /  |   __|   \\/   |/  _  \\|   \\|  |\n"
             + " \\__   |  ___/  |_|  |  |   |   __|        |  |_|  |       |\n"
@@ -11,7 +11,7 @@ public class Spaceman {
 
         Task[] tasks = new Task[100];
 
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from\n" + LOGO);
         System.out.println("------------------------------------------------------------");
         System.out.println("Hello! I'm Spaceman");
         System.out.println("What can I do for you?");
