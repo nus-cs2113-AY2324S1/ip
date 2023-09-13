@@ -17,7 +17,12 @@ public class MarkTask extends Command {
 
     @Override
     public void execute() throws OutOfRangeException {
-        taskNumber = Integer.parseInt(commandString.substring(5));
+        try {
+            taskNumber = Integer.parseInt(commandString.substring(5));
+        } catch (NumberFormatException e) {
+            System.out.println("\tPlease enter a valid task number!");
+            return;
+        }
         if (taskNumber > tasks.getTaskListSize() || taskNumber < 1) {
             throw new OutOfRangeException();
         }

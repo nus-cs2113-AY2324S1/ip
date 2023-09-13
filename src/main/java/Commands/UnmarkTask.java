@@ -17,7 +17,12 @@ public class UnmarkTask extends Command {
 
     @Override
     public void execute() throws OutOfRangeException {
-        taskNumber = Integer.parseInt(commandString.substring(7));
+        try {
+            taskNumber = Integer.parseInt(commandString.substring(7));
+        } catch (NumberFormatException e) {
+            System.out.println("\tPlease enter a valid task number!");
+            return;
+        }
         if (taskNumber > tasks.getTaskListSize() || taskNumber < 1) {
             throw new OutOfRangeException();
         }
