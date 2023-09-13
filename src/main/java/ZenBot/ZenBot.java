@@ -3,6 +3,8 @@ package zenbot;
 import commands.Command;
 import commands.CommandParser;
 import commands.Farewell;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import exceptions.OutOfRangeException;
 import exceptions.TaskEmptyDescriptionException;
 import exceptions.UnknownCommandException;
@@ -35,20 +37,19 @@ public class ZenBot {
         System.out.println("`---'         `----'    '---'                  ---....--'    `----'                            `----'    `---'       ");
         printSeperatorLine();
     }
-    public static void main(String[] args) throws UnknownCommandException, TaskEmptyDescriptionException {
+    public static void main(String[] args) throws UnknownCommandException, TaskEmptyDescriptionException, FileNotFoundException, IOException, OutOfRangeException {
         printInitializeTitle();
         System.out.println("\tGreetings, dear traveler! I am ZEN JESTER");
         System.out.println("\tHow may I bring mirth to your day?");
         printSeperatorLine();
 
-        Input input = new Input();
         Tasklist tasks = new Tasklist();
-        CommandParser commandParser = new CommandParser();
         Command nextCommand = null;
+        FileHandler.readFromFile(tasks);
 
         while (!(nextCommand instanceof Farewell)) {
             try {
-                nextCommand = commandParser.parse(input.getInput(), tasks);
+                nextCommand = CommandParser.parse(Input.getInput(), tasks);
                 nextCommand.execute();
             } catch (UnknownCommandException e) {
                 System.out.println("\tUnknown command, please try again");
