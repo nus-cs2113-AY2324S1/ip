@@ -140,7 +140,8 @@ public class Duke {
 
     public static void invalidCommand() {
         printUnderscores();
-        System.out.println("Invalid command!");
+        System.out.println("Invalid command! Supported commands are: " +
+                "todo, event, deadline, list, mark, unmark, bye");
         printUnderscores();
     }
 }
