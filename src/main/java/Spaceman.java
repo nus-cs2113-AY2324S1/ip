@@ -1,3 +1,6 @@
+import exception.IncompleteDescriptionException;
+import exception.InvalidActionException;
+
 import java.util.Scanner;
 
 public class Spaceman {
