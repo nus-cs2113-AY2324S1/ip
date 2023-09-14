@@ -11,10 +11,10 @@ public enum ZranErrorMessages {
             "    Please key in the duration of the event or type help :)"),
     UNRECOGNISED_COMMAND("Invalid command: Unknown command type. \n" +
             "    Please use a valid command or type help :)"),
-    EMPTY_TASK_INDEX("Invalid mark command: Missing task index to mark. \n " +
-            "   Please enter a valid index to mark as done or type help :)"),
-    INVALID_TASK_INDEX("Invalid mark command: Invalid task index to mark. \n" +
-            "    Please enter a valid task index to mark as set or type help :)");
+    EMPTY_TASK_INDEX("Invalid (un)mark command: Missing task index to (un)mark. \n " +
+            "   Please enter an existing index to (un)mark or type help :)"),
+    INVALID_TASK_INDEX("Invalid (un)mark command: Invalid task index to (un)mark. \n" +
+            "    Please enter an existing task index to (un)mark or type help :)");
 
     final String message;
     ZranErrorMessages(String message) {

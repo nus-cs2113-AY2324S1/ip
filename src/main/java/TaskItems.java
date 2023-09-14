@@ -14,6 +14,7 @@ public class TaskItems {
     public static final String EVENT_TASK_COMMAND = "event ";
     public static final String EVENT_TASK_START = "/from ";
     public static final String EVENT_TASK_END = "/to ";
+    public static final String USER_HELP_COMMAND = "help";
 
     //to echo after a new task is added
     public static void echo(Task task){
@@ -69,13 +70,25 @@ public class TaskItems {
                     System.out.printf((outputFormat) + "%n", e.getMessage());
                 }
             } else if(input.startsWith(UNMARK_TASK_COMMAND)) {
-                task = items[Integer.parseInt(input.substring(UNMARK_TASK_COMMAND.length())) - 1];
-                task.setAsNotDone();
-                echo(task, task.isDone);
+                try {
+                    String eventIndex = input.substring(UNMARK_TASK_COMMAND.length()).trim();
+                    if (eventIndex.isEmpty()) {
+                        throw new ZranExceptions(ZranErrorMessages.EMPTY_TASK_INDEX.message);
+                    }
+                    try {
+                        task = items[Integer.parseInt(eventIndex) - 1];
+                        task.setAsNotDone();
+                        echo(task, task.isDone);
+                    } catch (NullPointerException e) {
+                        throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_INDEX.message);
+                    }
+                }
+                catch(ZranExceptions e){
+                    System.out.printf((outputFormat) + "%n", e.getMessage());
+                }
             } else if(input.equals(LIST_TASK_COMMAND)){
                 echo(items);
-            }
-            else {
+            } else {
                 try{
                     task = addTaskByType(input);
                     items[index++] = task;
