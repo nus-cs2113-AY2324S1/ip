@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.*;
 
 public class Lemon {
     public static String LEMON_EMOJI = "\uD83C\uDF4B";
@@ -46,53 +47,95 @@ public class Lemon {
         return in.nextLine();
     }
 
-    public static void addNewTodo(String input) {
-        String task = input.replace("todo ", "");
+    public static void addNewTodo(String input) throws LemonException {
+        try {
+            String inputPattern = "todo (.+)";
 
-        taskListIndex++;
-        tasks[taskListIndex] = new Todo(task);
-        taskCount++;
+            Pattern r = Pattern.compile(inputPattern);
+            Matcher m = r.matcher(input);
 
-        printAddedTask();
+            String task;
+
+            if (m.find()) {
+                task = m.group(1).trim();
+            } else {
+                throw new LemonException("Oopsie! Please use the format 'todo <task>'!");
+            }
+
+            if (task.isEmpty()) {
+                throw new LemonException("Oopsie! Please state the task!");
+            }
+
+            taskListIndex++;
+            tasks[taskListIndex] = new Todo(task);
+            taskCount++;
+
+            printAddedTask();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Uh-oh! The basket is full!");
+        }
     }
 
-    public static void addNewDeadline(String input) {
-        int byIndex = input.indexOf("/by");
-        int DEADLINE_WORD_LENGTH = 9;
-        int BY_WORD_LENGTH = 4;
-        String task = input.substring(DEADLINE_WORD_LENGTH, byIndex - 1);
-        String dateTime = input.substring(byIndex + BY_WORD_LENGTH);
+    public static void addNewDeadline(String input) throws LemonException {
+        try {
+            String inputPattern = "deadline (.+?) /by (.+)";
 
-        taskListIndex++;
-        tasks[taskListIndex] = new Deadline(task, dateTime);
-        taskCount++;
+            Pattern r = Pattern.compile(inputPattern);
+            Matcher m = r.matcher(input);
 
-        printAddedTask();
+            String task, dateTime;
+
+            if (m.find()) {
+                task = m.group(1).trim();
+                dateTime = m.group(2).trim();
+            } else {
+                throw new LemonException("Oopsie! Please use the format 'deadline <task> /by <date/time>'!");
+            }
+
+            if (task.isEmpty() || dateTime.isEmpty()) {
+                throw new LemonException("Oopsie! Please state the task and date/time!");
+            }
+
+            taskListIndex++;
+            tasks[taskListIndex] = new Deadline(task, dateTime);
+            taskCount++;
+
+            printAddedTask();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Uh-oh! The basket is full!");
+        }
     }
 
-    public static void addNewEvent(String input) {
-        int fromIndex = input.indexOf("/from");
-        int toIndex = input.indexOf("/to");
-        int EVENT_WORD_LENGTH = 6;
-        int FROM_WORD_LENGTH = 6;
-        int TO_WORD_LENGTH = 4;
-        String task = input.substring(EVENT_WORD_LENGTH, fromIndex - 1);
-        String startDateTime = input.substring(fromIndex + FROM_WORD_LENGTH, toIndex - 1);
-        String endDateTime = input.substring(toIndex + TO_WORD_LENGTH);
+    public static void addNewEvent(String input) throws LemonException {
+        try {
+            String inputPattern = "event (.+?) /from (.+?) /to (.+)";
 
-        taskListIndex++;
-        tasks[taskListIndex] = new Event(task, startDateTime, endDateTime);
-        taskCount++;
+            Pattern r = Pattern.compile(inputPattern);
+            Matcher m = r.matcher(input);
 
-        printAddedTask();
-    }
+            String task, startDateTime, endDateTime;
 
-    public static void addNewTask(String input) {
-        taskListIndex++;
-        tasks[taskListIndex] = new Task(input);
-        taskCount++;
+            if (m.find()) {
+                task = m.group(1).trim();
+                startDateTime = m.group(2).trim();
+                endDateTime = m.group(3).trim();
+            } else {
+                throw new LemonException("Oopsie! Please use the format 'event <task> " +
+                        "/from <starting date/time> /to <ending date/time>'!");
+            }
 
-        printAddedTask();
+            if (task.isEmpty() || startDateTime.isEmpty() || endDateTime.isEmpty()) {
+                throw new LemonException("Oopsie! Please state the task, starting date/time and ending date/time!");
+            }
+
+            taskListIndex++;
+            tasks[taskListIndex] = new Event(task, startDateTime, endDateTime);
+            taskCount++;
+
+            printAddedTask();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Uh-oh! The basket is full!");
+        }
     }
 
     public static void printAddedTask() {
@@ -101,9 +144,9 @@ public class Lemon {
         System.out.println("Now you have " + taskCount + " fruitful tasks in your basket!");
     }
 
-    public static void printList(boolean isEmpty) {
+    public static void printList(boolean isEmpty) throws LemonException {
         if (isEmpty) {
-            System.out.println("Your basket is on a lemonade break right now.");
+            throw new LemonException("Your basket is on a lemonade break right now! Add some fruitful tasks!");
         } else {
             System.out.println("Your basket is looking citrusy-fresh:");
             int taskSerialNo = 1;
@@ -114,66 +157,104 @@ public class Lemon {
         }
     }
 
-    public static void markTask(String input, boolean isDone) {
-        int taskSerialNo = Integer.parseInt(input.replaceAll("[^0-9]", ""));
-        int taskIndex = taskSerialNo - 1;
-        boolean isIndexWithinRange = taskSerialNo <= taskCount;
-
-        if (!isIndexWithinRange) {
-            System.out.println("Oops! There is no task " + taskSerialNo + "!");
-        } else {
+    public static void markTask(String input, boolean isDone, boolean isEmptyList) throws LemonException {
+        if (isEmptyList) {
             if (isDone) {
-                tasks[taskIndex].markAsDone();
-                System.out.println("Great job! This task is now juiced:");
+                throw new LemonException("Your basket is on a lemonade break right now! " +
+                        "There are no tasks to be marked. Add some fruitful tasks!");
             } else {
-                tasks[taskIndex].markAsNotDone();
-                System.out.println("No problem! This task is back into the basket:");
+                throw new LemonException("Your basket is on a lemonade break right now! " +
+                        "There are no tasks to be unmarked. Add some fruitful tasks!");
             }
-            System.out.println("[" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description);
+        }
+
+        try {
+            String inputPattern = "(mark|unmark) (\\d+)";
+
+            Pattern r = Pattern.compile(inputPattern);
+            Matcher m = r.matcher(input);
+
+            if (m.find()) {
+                int taskSerialNo = Integer.parseInt(m.group(2).trim());
+                int taskIndex = taskSerialNo - 1;
+
+                if (isDone) {
+                    tasks[taskIndex].markAsDone();
+                    System.out.println("Great job! This task is now juiced:");
+                } else {
+                    tasks[taskIndex].markAsNotDone();
+                    System.out.println("No problem! This task is back into the basket:");
+                }
+
+                System.out.println("\t" + tasks[taskIndex].toString());
+            } else {
+                throw new LemonException("Oopsie! Please use the format 'mark/unmark <task number>'!");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Oopsie! Please enter a valid task number!");
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+            System.out.println("Oopsie! Please enter a task number that is on the list!");
         }
     }
 
     public static void exit() {
         System.out.println("Squeeze the day! Until we meet again, stay fresh and zesty!");
-        System.out.print(LEMON_EMOJI + " " + LEMON_EMOJI + " ");
+        System.out.print(LEMON_EMOJI + " " + LEMON_EMOJI + " "+ LEMON_EMOJI);
     }
 
     public static void main(String[] args) {
         boolean isFinished = false;
+        boolean isEmptyList;
+        String input;
 
         greet();
-        String input = getInput();
 
         while (!isFinished) {
-            boolean isEmpty = taskCount <= 0;
+            isEmptyList = taskCount <= 0;
+            input = getInput();
 
             if (input.equals("bye")) {
-                isFinished = true;
                 exit();
+                isFinished = true;
             } else if (input.equals("list")) {
-                printList(isEmpty);
-            } else if (input.matches(".*\\bmark\\b.*")) {
-                if (isEmpty) {
-                    printList(true);
-                } else {
-                    markTask(input, true);
+                try {
+                    printList(isEmptyList);
+                } catch (LemonException e) {
+                    System.out.println(e.getMessage());
                 }
-            } else if (input.matches(".*\\bunmark\\b.*")) {
-                if (isEmpty) {
-                    printList(true);
-                } else {
-                    markTask(input, false);
+            } else if (input.matches("todo\\b.*")) {
+                try {
+                    addNewTodo(input);
+                } catch (LemonException e) {
+                    System.out.println(e.getMessage());
                 }
-            } else if (input.matches(".*\\btodo\\b.*")) {
-                addNewTodo(input);
-            } else if (input.matches(".*\\bdeadline\\b.*")) {
-                addNewDeadline(input);
-            } else if (input.matches(".*\\bevent\\b.*")) {
-                addNewEvent(input);
+            } else if (input.matches("deadline\\b.*")) {
+                try {
+                    addNewDeadline(input);
+                } catch (LemonException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (input.matches("event\\b.*")) {
+                try {
+                    addNewEvent(input);
+                } catch (LemonException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (input.matches("mark\\b.*")) {
+                try {
+                    markTask(input, true, isEmptyList);
+                } catch (LemonException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (input.matches("unmark\\b.*")) {
+                try {
+                    markTask(input, false, isEmptyList);
+                } catch (LemonException e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
-                addNewTask(input);
+                System.out.println("Hmmm! I'm not sure what that means. Could you please specify your request?");
             }
-            input = getInput();
         }
     }
 }
