@@ -18,65 +18,78 @@ public class Duke {
             if (line.equals("list")) {
                 printTasks();
             } else {
-                handleCommand(line);
+                try {
+                    handleCommand(line);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void handleCommand(String line) {
+    private static void handleCommand(String line) throws DukeException {
         int divider = line.indexOf(" ");
+        if (divider == -1) {
+            throw new DukeException("Sorry! Not sure what you mean");
+        }
 
         if (line.contains("mark")) {
             int idx = Integer.parseInt(line.substring(divider + 1)) - 1;
             if (idx < 0 || tasks[idx] == null) {
-                System.out.println("Sorry! That's not a valid task");
-                return;
+                throw new DukeException("Sorry! That's not a valid task");
             }
 
             markTask(idx, line.startsWith("mark"));
             return;
         }
         if (line.startsWith("todo")){
-            addTask(new Todo(line.substring(divider + 1)));
+            String description = line.substring(divider + 1);
+
+            addTask(new Todo(description));
             return;
         }
 
         HashMap<String, String> parameters = parseParameters(line);
         String description = parameters.get("description");
         if (description == null) {
-            System.out.println("Sorry! Please provide a valid description");
-            return;
+            throw new DukeException("Sorry! Please provide a valid description");
         }
         if (line.startsWith("deadline")) {
             String by = parameters.get("by");
             if (by == null) {
-                System.out.println("Sorry! Please provide a valid `by`");
-                return;
+                throw new DukeException("Sorry! Please provide a valid `by`");
             }
-            addTask(new Deadline(description, parameters.get("by")));
+            addTask(new Deadline(description, by));
         } else if (line.startsWith("event")) {
             String from = parameters.get("from");
             String to = parameters.get("to");
             if (from == null || to == null) {
-                System.out.println("Sorry! Please provide a valid `from` and/or `to`");
-                return;
+                throw new DukeException("Sorry! Please provide a valid `from` and/or `to`");
             }
             addTask(new Event(description, from, to));
+        } else {
+            throw new DukeException("Sorry! Please enter a valid command");
         }
     }
 
-    private static HashMap<String, String> parseParameters(String line) {
+    private static HashMap<String, String> parseParameters(String line) throws DukeException {
         HashMap<String, String> fieldToValue = new HashMap<>();
 
         int startDescription = line.indexOf(" ");
         int endOfDescription = line.indexOf(" /");
+        if (startDescription == -1 || endOfDescription == -1) {
+            throw new DukeException("Sorry! Not sure what you mean");
+        }
         fieldToValue.put("description", line.substring(startDescription + 1, endOfDescription));
 
         String[] splitParams = line.split(" /");
         for (int i = 1; i < splitParams.length; i++) {
             String rawParam = splitParams[i];
             int divider = rawParam.indexOf(" ");
+            if (divider == -1) {
+                throw new DukeException("Sorry! Please enter valid inputs");
+            }
 
             String field = rawParam.substring(0, divider);
             String value = rawParam.substring(divider + 1);
@@ -107,9 +120,9 @@ public class Duke {
         }
     }
 
-    public static void addTask(Task task) {
+    public static void addTask(Task task) throws DukeException {
         if (numTasks == tasks.length) {
-            System.out.println("Sorry. The task list is all full");
+            throw new DukeException("Sorry. The task list is all full");
         }
 
         tasks[numTasks] = task;
