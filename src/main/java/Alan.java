@@ -4,24 +4,29 @@ public class Alan {
     public static int currentTasksIndex = 1;
     public static final String INVALID_INPUT_COMMAND_MESSAGE = "Oof, I have no idea what are you saying duuude";
     public static final String EMPTY_DESCRIPTION_MESSAGE = "Oof Dude, you can't leave the description empty, man";
-    public static final String INVALID_DEADLINE_FORMAT_MESSAGE = "Oof the deadline command isn't quite right you gotta fix the format, bro, remember it's: /by <date>";
-    public static final String INVALID_EVENT_FROM_FORMAT_MESSAGE = "Oof duude, your /from formatting is whack";
-    public static final String INVALID_EVENT_TO_FORMAT_MESSAGE = "Oof my man, you need to work on that /to formatting";
-    public static final String INVALID_TASK_NUMBER_MESSAGE = "Hey man there's no such task";
+    public static final String INVALID_DEADLINE_FORMAT_MESSAGE = "Oof the deadline command isn't quite right you gotta fix the format, bro...\n[Remember it's: <description> /by <date>]";
+    public static final String INVALID_EVENT_FROM_FORMAT_MESSAGE = "Oof duude, your /from formatting is whack\n[Remember it's: <description> /from <date> /to <date>]";
+    public static final String INVALID_EVENT_TO_FORMAT_MESSAGE = "Oof my man, you need to work on that /to formatting\n[Remember it's: <description> /from <date> /to <date>]";
+    public static final String INVALID_TASK_NUMBER_MESSAGE = "Oof man there's no such task";
     public static void printGreetingMessage() {
-        printHorizontalLine();
         String manDrawing = " @/\n" +
-                            "/| \n" +
-                            "/ \\";
+                "/| \n" +
+                "/ \\";
+        String alanText = " ______     __         ______     __   __    \n" +
+                "/\\  __ \\   /\\ \\       /\\  __ \\   /\\ \"-.\\ \\   \n" +
+                "\\ \\  __ \\  \\ \\ \\____  \\ \\  __ \\  \\ \\ \\-.  \\  \n" +
+                " \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_\\\\\"\\_\\ \n" +
+                "  \\/_/\\/_/   \\/_____/   \\/_/\\/_/   \\/_/ \\/_/ ";
 
-        System.out.println(manDrawing);
-        System.out.println("Hello! I'm Alan");
-        System.out.println("What can I do for you?");
+        String greetMessage = "Sup dude! I'm \n" + alanText + "\n" + manDrawing + "\n" + "What can I do for you, my man?";
+
+        printHorizontalLine();
+        System.out.println(greetMessage);
         printHorizontalLine();
     }
 
     public static void printExitMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Later, dude! Can't wait to catch up again real soon!");
     }
 
     public static void printHorizontalLine() {
@@ -30,7 +35,7 @@ public class Alan {
 
     public static void printTaskAddedMessage(Task[] tasks, int currentTasksIndex) {
         System.out.println("added: " + tasks[currentTasksIndex]);
-        System.out.println("Now you have " + currentTasksIndex + " in the list.");
+        System.out.println("Dude! You've got a solid " + currentTasksIndex + " tasks lined up on your list now!");
     }
 
     public static void processCommandHandler(String userInput, Task[] tasks) throws AlanExceptions {
@@ -69,7 +74,7 @@ public class Alan {
     }
 
     public static void listCommandHandler(Task[] tasks, int currentTasksIndex) {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Dude, check out these tasks on your list:");
 
         for (int i = 1; i < currentTasksIndex; i++) {
             System.out.print((i) + ". ");
@@ -85,10 +90,10 @@ public class Alan {
 
         if (isMark) {
             tasks[selectedTaskIndex].setDone(true);
-            System.out.println("Alright! I've marked this task as done:");
+            System.out.println("Alright bro! This task is officially checked off:");
         } else {
             tasks[selectedTaskIndex].setDone(false);
-            System.out.println("Ok, I've marked this task as not done yet:");
+            System.out.println("Ok dude, I've marked this task as ain't done yet amigo:");
         }
 
         System.out.println(tasks[selectedTaskIndex]);
