@@ -31,11 +31,10 @@ public class Duke {
         System.out.printf("\t%s: Hello! I am a short Java Bot %s!\n", pythonEmoji, BOT_NAME);
         System.out.printf("\t%s: What can I do for you?\n", pythonEmoji);
         printHorizontalLine();
-
         String inputLine;
         do {
             inputLine = in.nextLine();
-            String inputCommand = inputLine.split(" ")[0];
+            String inputCommand = inputLine.split("\\s+")[0];
             printHorizontalLine();
             switch (inputCommand) {
             case "bye":
@@ -55,7 +54,7 @@ public class Duke {
                 }
                 if (tasks.get(taskNo - 1).isDone()) {
                     System.out.printf("\t%s: Are you from the past?\n", pythonEmoji);
-                    System.out.printf("\t\tTask: %s\n is already done!!!\n",
+                    System.out.printf("\t\tTask: %s\n \t\t is already done!!!\n",
                             tasks.get(taskNo - 1));
                     break;
                 }
@@ -72,7 +71,7 @@ public class Duke {
                 }
                 if (!tasks.get(taskNo - 1).isDone()) {
                     System.out.printf("\t%s: Alas! Only the completed tasks can be unmarked!\n", pythonEmoji);
-                    System.out.printf("\t\tTask: %s\n is already sitting idle. Get started...!!!\n",
+                    System.out.printf("\t\tTask: %s\n \t\tis already sitting idle. Get started...!!!\n",
                             tasks.get(taskNo - 1));
                     break;
                 }
@@ -81,10 +80,40 @@ public class Duke {
                 System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
                 break;
             }
+            case "todo": {
+                System.out.printf("\t%s: %s\n", pythonEmoji, "New Todo! You have added this todo:");
+                final String todoDescription = inputLine.split(" ", 2)[1];
+                Todo todo = new Todo(todoDescription);
+                tasks.add(todo);
+                System.out.printf("\t\t\t %s\n", todo);
+                System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
+                break;
+            }
+            case "deadline": {
+                System.out.printf("\t%s: %s\n", pythonEmoji, "New Deadline! You have added this deadline:");
+                final String deadlineDetails = inputLine.split(" ", 2)[1];
+                final String deadlineDescription = deadlineDetails.split(" /by ")[0];
+                final String deadlineBy = deadlineDetails.split(" /by ")[1];
+                Deadline deadline = new Deadline(deadlineDescription, deadlineBy);
+                tasks.add(deadline);
+                System.out.printf("\t\t\t %s\n", deadline);
+                System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
+                break;
+            }
+            case "event": {
+                System.out.printf("\t%s: %s\n", pythonEmoji, "New Event! You have added this event:");
+                final String eventDetails = inputLine.split(" ", 2)[1];
+                final String eventDescription = eventDetails.split(" /from | /to ", 3)[0];
+                final String eventFrom = eventDetails.split(" /from | /to ", 3)[1];
+                final String eventTo = eventDetails.split(" /from | /to ", 3)[2];
+                Event event = new Event(eventDescription, eventFrom, eventTo);
+                tasks.add(event);
+                System.out.printf("\t\t\t %s\n", event);
+                System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
+                break;
+            }
             default:
-                System.out.printf("\t%s: %s\n", pythonEmoji, inputLine);
-                Task task = new Task(inputLine);
-                tasks.add(task);
+                System.out.printf("\t%s: %s\n", pythonEmoji, "I cannot understand the command!");
                 break;
             }
             printHorizontalLine();
