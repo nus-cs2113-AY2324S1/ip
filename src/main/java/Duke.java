@@ -11,6 +11,12 @@ public class Duke {
         System.out.println("\t" + "What can I do for you?");
         System.out.println("\t" + line);
     }
+
+    public static void  printUnknownInputMessage() {
+        System.out.println("\t" + line);
+        System.out.println("\t" + " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("\t" + line);
+    }
     public static void printFarewell() {
         System.out.println("\t" + line);
         System.out.println("\t" + "Bye. Hope to see you again soon!");
@@ -46,8 +52,8 @@ public class Duke {
         System.out.println("\t" + line);
     }
 
-    public static void addTodo(String userInput, Task[] tasks) {
-        tasks[Task.getNumberOfTask()] = new Todo(userInput.substring(5));
+    public static void addTodo(String description, Task[] tasks) {
+        tasks[Task.getNumberOfTask()] = new Todo(description);
         System.out.println("\t" + line);
         System.out.println("\t" + "Got it. I've added this task:");
         System.out.println("\t  " + tasks[Task.getNumberOfTask() - 1]);
@@ -93,51 +99,62 @@ public class Duke {
         //Print out greeting when user starts the program.
         printGreeting();
 
-        String userInput;
+        String userInput = "";
+        String[] splitInput;
         Task[] tasks = new Task[100];
         //Take in user input
         Scanner in = new Scanner(System.in);
-        userInput = in.nextLine();
-
+        //userInput = in.nextLine();
+        //while (!userInput.equals("bye")) {
         while (!userInput.equals("bye")) {
-            if (userInput.equals("list")) {
+            userInput = in.nextLine();
+            splitInput = userInput.split(" ");
+            switch (splitInput[0]) {
+            case "list":
                 //Print out current list of tasks
                 printList(tasks);
-                userInput = in.nextLine();
-            }
-            else if (userInput.startsWith("mark ")) {
+                //userInput = in.nextLine();
+                break;
+            case "mark":
                 //Mark the task that the user specified with task number
                 markTask(userInput, tasks);
-                userInput = in.nextLine();
-            }
-            else if (userInput.startsWith("unmark ")) {
+                //userInput = in.nextLine();
+                break;
+            case "unmark":
                 //Unmark the task that the user specified with task number
                 unmarkTask(userInput, tasks);
-                userInput = in.nextLine();
-            }
-            else if (userInput.startsWith("todo ")) {
+                //userInput = in.nextLine();
+                break;
+            case "todo":
                 //Add Todo to list and prints out add message and number of tasks in list
-                addTodo(userInput, tasks);
-                userInput = in.nextLine();
-            }
-            else if (userInput.startsWith("event ")) {
+                try {
+                    addTodo(splitInput[1], tasks);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("\t" + line);
+                    System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("\t" + line);
+                }
+                //userInput = in.nextLine();
+                break;
+            case "event":
                 //Add Event to list and prints out add message and number of tasks in list
                 addEvent(userInput, tasks);
-                userInput = in.nextLine();
-
-            }
-            else if (userInput.startsWith("deadline ")) {
+                //userInput = in.nextLine();
+                break;
+            case "deadline":
                 //Add Deadline to list and prints out add message and number of tasks in list
                 addDeadline(userInput, tasks);
-                userInput = in.nextLine();
-            }
-            else {
-                //If user did not specify type of task, add task without tag
-                addTask(userInput, tasks);
-                userInput = in.nextLine();
+                //userInput = in.nextLine();
+                break;
+            case "bye":
+                //Prints farewell when user inputs "bye"
+                printFarewell();
+                break;
+            default:
+                //If unable to understand user input
+                printUnknownInputMessage();
+                //userInput = in.nextLine();
             }
         }
-        //Exits loop when user inputs "bye"
-        printFarewell();
     }
 }
