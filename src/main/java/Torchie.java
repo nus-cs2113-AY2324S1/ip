@@ -1,5 +1,3 @@
-import java.util.Arrays;
-import java.util.MissingFormatArgumentException;
 import java.util.Scanner;
 public class Torchie {
 
@@ -46,23 +44,23 @@ public class Torchie {
         return content;
     }
 
-    public static String getDeadlineDate(String s) throws MissingFieldException{
+    public static String getDeadlineDate(String s) throws DukeException {
         int SIZE_OF_BUFFER = 4;
         int keyWordIndex = s.indexOf('/');
 
         if (keyWordIndex == -1) {
-            throw new MissingFieldException();
+            throw new DukeException();
         }
         return s.substring(keyWordIndex + SIZE_OF_BUFFER);
     }
 
-    public static String getEventStart(String s) throws MissingFieldException {
+    public static String getEventStart(String s) throws DukeException {
         int SIZE_OF_BUFFER = 6;
 
         // first occurrence of '/' character
         int startTimeIndex = s.indexOf('/');
         if (startTimeIndex == -1) {
-            throw new MissingFieldException();
+            throw new DukeException();
         }
 
         // second occurrence of '/' character
@@ -70,7 +68,7 @@ public class Torchie {
         return s.substring(startTimeIndex + SIZE_OF_BUFFER, endTimeIndex-1);
     }
 
-    public static String getEventEnd(String s) throws MissingFieldException {
+    public static String getEventEnd(String s) throws DukeException {
         int SIZE_OF_BUFFER = 4;
 
         // first occurrence of '/' character
@@ -79,7 +77,7 @@ public class Torchie {
         // second occurrence of '/' character
         int endTimeIndex = s.indexOf('/', startTimeIndex+1);
         if (endTimeIndex == -1) {
-            throw new MissingFieldException();
+            throw new DukeException();
         }
         return s.substring(endTimeIndex + SIZE_OF_BUFFER);
     }
@@ -147,7 +145,7 @@ public class Torchie {
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
-                } catch (MissingFieldException e) {
+                } catch (DukeException e) {
                     System.out.println("Missing <deadline>: Example: deadline read </by Aug 1st>");
                 }
                 break;
@@ -159,7 +157,7 @@ public class Torchie {
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
-                } catch (MissingFieldException e) {
+                } catch (DukeException e) {
                     System.out.println("Missing keyword </from start time> or </by end time> " +
                             "Example: event read </from Aug 1st 4pm> </to 6pm>");
                 }
