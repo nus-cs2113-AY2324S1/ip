@@ -1,5 +1,11 @@
-import sun.exception.*;
-import sun.task.*;
+import sun.exception.InvalidActionException;
+import sun.exception.IncompleteDescriptionException;
+import sun.exception.TasksOverflowException;
+import sun.exception.InvalidTaskIndexException;
+import sun.task.Task;
+import sun.task.Deadline;
+import sun.task.Todo;
+import sun.task.Event;
 import java.util.Scanner;
 
 public class Sun {
