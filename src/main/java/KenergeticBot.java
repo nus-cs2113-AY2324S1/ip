@@ -85,7 +85,7 @@ public class KenergeticBot {
             try {
                 add(taskList, item);
             } catch (KenergeticBotException e) { //exception thrown when user inputs command outside of the usual commands
-                System.out.println("      OOPS!!! I'm sorry, but I don't know what that means :-("); // unable to print sad face ˙◠˙
+                System.out.println(KenergeticBotException.INVALID_COMMAND); // unable to print sad face ˙◠˙
             }
         }
         botDialogue(taskList);
@@ -94,8 +94,7 @@ public class KenergeticBot {
     //Creates a "Todo" object and adds to the taskList
     public static void addTodo(ArrayList<Task> taskList, String item) throws KenergeticBotException {
         String formattedString = item.replace("todo", "").trim();
-        if (formattedString.length() < 1) { 
-            
+        if (formattedString.isEmpty()) {
             throw new KenergeticBotException();
         }
         String taskType = "[T]";
@@ -139,7 +138,7 @@ public class KenergeticBot {
             try {
                 addTodo(taskList, item);
             } catch (KenergeticBotException e) { //throws exception when the todo command is not followed with a description
-                System.out.println("     \u02D9\u25E0\u02D9 OOPS!!! The description of a todo cannot be empty.");
+                System.out.println(KenergeticBotException.MISSING_DESCRIPTION);
             }
         } else if (checkTextForDeadline(item)) {
             addDeadline(taskList, item);
