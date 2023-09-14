@@ -15,30 +15,33 @@ class Manager {
         }
     }
     void execute(String input) {
-        String[] splitInput = input.split(" ", 2);
-        String action = splitInput[0];
 
-        switch (action) {
-        case "bye":
-            printByeMessage();
-            exit();
-            break;
-        case "list":
-            printListMessage();
-            break;
-        case "mark":
-            int taskId = Integer.parseInt(splitInput[1]);
-            this.list.mark(taskId);
-            printMarkMessage(taskId);
-            break;
-        case "unmark":
-            taskId = Integer.parseInt(splitInput[1]);
-            this.list.unmark(taskId);
-            printUnmarkMessage(taskId);
-            break;
-        default:
-            this.list.add(input);
-            printAddMessage();
+        try {
+            if (input.startsWith("bye")) {
+                printByeMessage();
+                exit();
+            } else if (input.startsWith("list")) {
+                printListMessage();
+            } else if (input.startsWith("mark")) {
+                this.list.mark(input);
+                printMarkMessage(this.list.getSize());
+            } else if (input.startsWith("unmark")) {
+                this.list.unmark(input);
+                printUnmarkMessage(this.list.getSize());
+            } else if (input.startsWith("todo")) {
+                this.list.addTodo(input.substring("todo".length()));
+                printAddMessage();
+            } else if (input.startsWith("deadline")) {
+                this.list.addDeadline(input.substring("deadline".length()));
+                printAddMessage();
+            } else if (input.startsWith("event")) {
+                this.list.addEvent(input.substring("event".length()));
+                printAddMessage();
+            } else {
+                throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (DescriptionFormatException | InvalidCommandException e) {
+            System.out.println(e);
         }
     }
 
