@@ -1,7 +1,8 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Alice {
-    private static final String LINE = "____________________________________________________________\n";
+    private static final String LINE = "\n____________________________________________________________\n";
     private static Task[] tasks = new Task[100];
     private static int numberOfTasks = 0;
 
@@ -106,6 +107,18 @@ public class Alice {
         addTask(newTask);
     }
 
+    public static void deadlineExceptionError() {
+        System.out.println("☹ OOPS!!! Your formatting is wrong!");
+        System.out.println("It should be in the format ---> deadline <action> /<date>");
+        System.out.println("eg. deadline return book /by Sunday" + LINE);
+    }
+
+    public static void eventExceptionError() {
+        System.out.println("☹ OOPS!!! Your format is wrong!");
+        System.out.println("Format: event <event name> /<start time> /<end time>");
+        System.out.println("eg. event project meeting /from Mon 2pm /to 4pm" + LINE);
+    }
+
     /**
      * Records down task from user input.
      * User is able to mark and unmark tasks, and also list all the tasks.
@@ -125,21 +138,71 @@ public class Alice {
                 listTasks();
                 break;
             case "unmark":
-                taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskId].unmarkTask();
+                try {
+                    taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    tasks[taskId].unmarkTask();
+                } catch (NumberFormatException e) {
+                    System.out.println("☹ OOPS!!! You should key in your item number instead of a text! eg. unmark 1" + LINE);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! your item number is missing! eg. unmark 1" + LINE);
+                } catch (NullPointerException e) {
+                    switch (numberOfTasks) {
+                    case 0:
+                        System.out.println("☹ OOPS!!! You don't have any items... ");
+                        break;
+                    case 1:
+                        System.out.println("☹ OOPS!!! There's only 1 task! To unmark it, type unmark 1.");
+                        break;
+                    default:
+                        System.out.println("☹ OOPS!!! Your item number is out of range... Please select a number from 1 to " + numberOfTasks +LINE);
+                    }
+                }
                 break;
             case "mark":
-                taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskId].markTask();
+                try {
+                    taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    tasks[taskId].markTask();
+                }catch (NumberFormatException e) {
+                    System.out.println("☹ OOPS!!! You should key in your item number instead of a text! eg. mark 1" + LINE);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! your item number is missing! eg. mark 1" + LINE);
+                } catch (NullPointerException e) {
+                    switch (numberOfTasks) {
+                    case 0:
+                        System.out.println("☹ OOPS!!! You don't have any items... ");
+                        break;
+                    case 1:
+                        System.out.println("☹ OOPS!!! There's only 1 task! To mark it, type mark 1.");
+                        break;
+                    default:
+                        System.out.println("☹ OOPS!!! Your item number is out of range... Please select a number from 1 to " + numberOfTasks +LINE);
+                    }
+                }
                 break;
             case "deadline":
-                addDeadline(userInput);
+                try {
+                    addDeadline(userInput);
+                } catch (StringIndexOutOfBoundsException e) {
+                    deadlineExceptionError();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    deadlineExceptionError();
+                }
                 break;
             case "event":
-                addEvent(userInput);
+                try {
+                    addEvent(userInput);
+                } catch (StringIndexOutOfBoundsException e) {
+                    eventExceptionError();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    eventExceptionError();
+                }
                 break;
             case "todo":
-                addTodo(userInput);
+                try {
+                    addTodo(userInput);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty." + LINE);
+                }
                 break;
             default:
                 Task newTask = new Task(userInput);
