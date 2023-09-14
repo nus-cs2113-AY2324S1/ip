@@ -126,7 +126,7 @@ public class TaskList {
 
     /**
      *
-     * Method to unmark a specified task as done
+     * Method to unmark a specified task as done.
      *
      * @param inputWords String input by user
      */
