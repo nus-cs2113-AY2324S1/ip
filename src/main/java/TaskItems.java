@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class TaskItems {
     static String outputFormat = "    ____________________________________________________________\n" +
-            "    %s\n    ____________________________________________________________";
+            "    %s\n    ____________________________________________________________ ";
 
     public static final String MARK_TASK_COMMAND = "mark ";
     public static final String UNMARK_TASK_COMMAND = "unmark ";
@@ -41,7 +41,8 @@ public class TaskItems {
     }
 
     //The function 'addItems' is used to accept user's input and add it to their To Do list
-    public static void addItems() {
+    public static void addItems() throws ZranExceptions{
+
         Scanner in = new Scanner(System.in);
         String input = "";
 
@@ -51,9 +52,22 @@ public class TaskItems {
 
         while(!(input = in.nextLine()).equals(EXIT_BOT_COMMAND)){
             if(input.startsWith(MARK_TASK_COMMAND)) {
-                task = items[Integer.parseInt(input.substring(MARK_TASK_COMMAND.length())) - 1];
-                task.setAsDone();
-                echo(task, task.isDone);
+                try{
+                    String eventIndex = input.substring(MARK_TASK_COMMAND.length()).trim();
+                    if(eventIndex.isEmpty()){
+                        throw new ZranExceptions(ZranErrorMessages.EMPTY_TASK_INDEX.message);
+                    }
+                    try{
+                        task = items[Integer.parseInt(eventIndex) - 1];
+                        task.setAsDone();
+                        echo(task, task.isDone);
+                    } catch(NullPointerException e) {
+                        throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_INDEX.message);
+                    }
+                }
+                catch(ZranExceptions e){
+                    System.out.printf((outputFormat) + "%n", e.getMessage());
+                }
             } else if(input.startsWith(UNMARK_TASK_COMMAND)) {
                 task = items[Integer.parseInt(input.substring(UNMARK_TASK_COMMAND.length())) - 1];
                 task.setAsNotDone();
@@ -69,7 +83,7 @@ public class TaskItems {
                 }
                 catch(ZranExceptions e){
                     System.out.println();
-                    System.out.printf(outputFormat + "%n", e.getMessage());
+                    System.out.printf((outputFormat) + "%n", e.getMessage());
                 }
             }
         }
@@ -81,50 +95,43 @@ public class TaskItems {
         Task task = null;
         if(input.startsWith(TODO_TASK_COMMAND)) {
             int todoIndex = input.indexOf(TODO_TASK_COMMAND);
-            String description = input.substring(TODO_TASK_COMMAND.length(), todoIndex).trim();
+            String description = input.substring(todoIndex + TODO_TASK_COMMAND.length()).trim();
             if(description.isEmpty()){
-                throw new ZranExceptions("Invalid event command: Empty name of the task. " +
-                        "Please key in the description of the task or type help :)");
+                throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_DESCRIPTION.message);
             }
             task = new ToDos(description);
         } else if(input.startsWith(DEADLINE_TASK_COMMAND)){
             int byIndex = input.indexOf(DEADLINE_DATE_COMMAND);
             if (byIndex == -1) {
-                throw new ZranExceptions("Invalid deadline command: missing '/by'. " +
-                        "Please key in the deadline after '/by' or type help :)");
+                throw new ZranExceptions(ZranErrorMessages.INVALID_DEADLINE_FORMAT.message);
             }
             String description = input.substring(DEADLINE_TASK_COMMAND.length(), byIndex).trim();
             if(description.isEmpty()){
-                throw new ZranExceptions("Invalid event command: Empty name of the task. " +
-                        "Please key in the description of the task or type help :)");
+                throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_DESCRIPTION.message);
             }
             String by = input.substring(byIndex + DEADLINE_DATE_COMMAND.length()).trim();
             if(by.isEmpty()){
-                throw new ZranExceptions("Invalid event command: Empty deadline of the task. " +
-                        "Please key in the deadline of the task or type help :)");
+                throw new ZranExceptions(ZranErrorMessages.EMPTY_DEADLINE.message);
             }
             task = new Deadline(description, by);
         } else if (input.startsWith(EVENT_TASK_COMMAND)) {
             int fromIndex = input.indexOf(EVENT_TASK_START);
             int toIndex = input.indexOf(EVENT_TASK_END);
             if (fromIndex == -1 || toIndex == -1) {
-                throw new ZranExceptions("Invalid event command: missing '/from' or '/to'. " +
-                        "Please key in the duration of the event using '/from' and '/to' or type help :)");
+                throw new ZranExceptions(ZranErrorMessages.INVALID_EVENT_FORMAT.message);
             }
             String description = input.substring(EVENT_TASK_COMMAND.length(), fromIndex).trim();
             if(description.isEmpty()){
-                throw new ZranExceptions("Invalid event command: Empty name of the event. " +
-                        "Please key in the description of the event or type help :)");
+                throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_DESCRIPTION.message);
             }
             String from = input.substring(fromIndex + EVENT_TASK_START.length(), toIndex).trim();
             String to = input.substring(toIndex + EVENT_TASK_END.length()).trim();
             if(from.isEmpty() || to.isEmpty()){
-                throw new ZranExceptions("Invalid event command: Empty duration of the event. " +
-                        "Please key in the duration of the event or type help :)");
+                throw new ZranExceptions(ZranErrorMessages.EMPTY_EVENT_DURATION.message);
             }
             task = new Event(description, from, to);
         } else {
-            throw new ZranExceptions("Invalid command: unknown command type. Please use a valid command or type help :)");
+            throw new ZranExceptions(ZranErrorMessages.UNRECOGNISED_COMMAND.message);
         }
 
         return task;
