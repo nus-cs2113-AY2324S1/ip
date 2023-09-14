@@ -1,3 +1,10 @@
+package alan;
+
+import alan.task.Deadline;
+import alan.task.Event;
+import alan.task.Task;
+import alan.task.Todo;
+
 import java.util.Scanner;
 
 public class Alan {

@@ -1,3 +1,5 @@
+package alan.task;
+
 public class Todo extends Task {
     private boolean isDone;
 
