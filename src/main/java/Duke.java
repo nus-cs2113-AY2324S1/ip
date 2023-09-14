@@ -59,7 +59,14 @@ public class Duke {
                 }
                 break;
             case COMMAND_MARK: {
-                int taskNo = Integer.parseInt(inputLine.split(" ")[1]);
+                int taskNo;
+                try {
+                    taskNo = Integer.parseInt(inputLine.split(" ")[1]);
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\t" + COMMAND_MARK + " command must be followed by an integer (task" +
+                            " id)!");
+                    break;
+                }
 
                 // Handle unintended usage
                 if (taskNo > tasks.size()) {
@@ -80,7 +87,14 @@ public class Duke {
                 break;
             }
             case COMMAND_UNMARK: {
-                int taskNo = Integer.parseInt(inputLine.split(" ")[1]);
+                int taskNo;
+                try {
+                    taskNo = Integer.parseInt(inputLine.split(" ")[1]);
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\t" + COMMAND_MARK + " command must be followed by an integer (task" +
+                            " id).");
+                    break;
+                }
 
                 // Handle unintended usage
                 if (taskNo > tasks.size()) {
@@ -101,8 +115,16 @@ public class Duke {
                 break;
             }
             case COMMAND_TODO: {
+                String todoDescription;
+                try {
+                    todoDescription = inputLine.split(" ", 2)[1];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\t" + COMMAND_TODO + " command must be followed by a task " +
+                            "description");
+                    break;
+                }
+
                 System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "New Todo! You have added this todo:");
-                final String todoDescription = inputLine.split(" ", 2)[1];
 
                 Todo todo = new Todo(todoDescription);
                 tasks.add(todo);
@@ -112,10 +134,24 @@ public class Duke {
                 break;
             }
             case COMMAND_DEADLINE: {
+                String deadlineDetails, deadlineDescription, deadlineBy;
+                try {
+                    deadlineDetails = inputLine.split(" ", 2)[1];
+                    deadlineDescription = deadlineDetails.split(" /by ")[0];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\t" + COMMAND_DEADLINE + " command must be followed by a task " +
+                            "description!");
+                    break;
+                }
+                try {
+                    deadlineBy = deadlineDetails.split(" /by ")[1];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\t" + COMMAND_DEADLINE + " command must have /by clause followed by " +
+                            "time its due!");
+                    break;
+                }
+
                 System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "New Deadline! You have added this deadline:");
-                final String deadlineDetails = inputLine.split(" ", 2)[1];
-                final String deadlineDescription = deadlineDetails.split(" /by ")[0];
-                final String deadlineBy = deadlineDetails.split(" /by ")[1];
 
                 Deadline deadline = new Deadline(deadlineDescription, deadlineBy);
                 tasks.add(deadline);
@@ -125,11 +161,31 @@ public class Duke {
                 break;
             }
             case COMMAND_EVENT: {
+                String eventDetails, eventDescription, eventFrom, eventTo;
+                try {
+                    eventDetails = inputLine.split(" ", 2)[1];
+                    eventDescription = eventDetails.split("\\s+/from\\s+|\\s+/to\\s+", 3)[0];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\t" + COMMAND_EVENT + " command must be followed by a task " +
+                            "description!");
+                    break;
+                }
+                try {
+                    eventFrom = eventDetails.split("\\s+/from\\s+|\\s+/to\\s+", 3)[1];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\t" + COMMAND_EVENT + " command must have /from clause followed by " +
+                            "time it starts!");
+                    break;
+                }
+                try {
+                    eventTo = eventDetails.split("\\s+/from\\s+|\\s+/to\\s+", 3)[2];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\t" + COMMAND_EVENT + " command must have /to clause followed by " +
+                            "time it ends!");
+                    break;
+                }
+
                 System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "New Event! You have added this event:");
-                final String eventDetails = inputLine.split(" ", 2)[1];
-                final String eventDescription = eventDetails.split(" /from | /to ", 3)[0];
-                final String eventFrom = eventDetails.split(" /from | /to ", 3)[1];
-                final String eventTo = eventDetails.split(" /from | /to ", 3)[2];
 
                 Event event = new Event(eventDescription, eventFrom, eventTo);
                 tasks.add(event);
@@ -139,6 +195,10 @@ public class Duke {
                 break;
             }
             default:
+                if (inputLine.isEmpty()) {
+                    System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "Nothing for me?");
+                    break;
+                }
                 System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "I cannot understand the command!");
                 break;
             }
