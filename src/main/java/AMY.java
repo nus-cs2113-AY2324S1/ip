@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class Duke {
+public class AMY {
     public static final String BOT_NAME = "AMY";
     public static final String LINE = "____________________________________________________________";
     public static Task[] taskList = new Task[100];
