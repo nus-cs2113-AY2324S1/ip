@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Duke {
     /** ArrayList of all tasks that have been added. */
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         printIntroduction();
@@ -27,8 +27,7 @@ public class Duke {
                 printHorizontalLine();
                 System.out.println("    Invalid input!");
                 System.out.println(
-                        "    Please make sure that your input is in the proper format and try " +
-                                "again");
+                        "    Please make sure that your input is in the proper format and try again");
                 printHorizontalLine();
             }
 
@@ -45,8 +44,8 @@ public class Duke {
      * @return Whether the process-input-loop should be exited.
      */
     private static boolean processInput(String input) {
-        ArrayList<String> keywords = new ArrayList<String>(
-                Arrays.asList(new String[] {"mark", "unmark", "deadline", "event", "todo"})
+        ArrayList<String> keywords = new ArrayList<>(
+                Arrays.asList("mark", "unmark", "deadline", "event", "todo")
                 );
 
         if (input.equals("bye")) {
