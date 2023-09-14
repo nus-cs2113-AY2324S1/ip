@@ -1,6 +1,9 @@
+package listWhisper.task;
+
+import listWhisper.exceptions.DescriptionFormatException;
 import java.util.ArrayList;
 
-class List {
+public class List {
     ArrayList<Task> tasks;
 
     public List() {

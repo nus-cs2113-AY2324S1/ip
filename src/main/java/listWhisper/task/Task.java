@@ -1,3 +1,7 @@
+package listWhisper.task;
+
+import listWhisper.task.TaskType;
+
 abstract class Task {
     private final String description;
     private boolean isDone;
