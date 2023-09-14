@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class Duke {
     final private static String BOT_NAME = "Python";
-    final private static int HORIZONTAL_LINE_LENGTH = 80;
-
     final private static String PYTHON_ASCII_ART =
                     "\t ____        _   _\n" +
                     "\t|  _ \\ _   _| |_| |__   ___  _ __\n" +
@@ -17,7 +15,9 @@ public class Duke {
     final private static String PYTHON_EMOJI = "\uD83D\uDC0D";
 
     final static private List<Task> tasks = new ArrayList<>();
+
     final private static Scanner in = new Scanner(System.in);
+
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_MARK = "mark";
@@ -26,6 +26,7 @@ public class Duke {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
 
+    final private static int HORIZONTAL_LINE_LENGTH = 80;
     private static void printHorizontalLine() {
         char[] horizontalLine = new char[HORIZONTAL_LINE_LENGTH];
         Arrays.fill(horizontalLine, '—');
@@ -38,11 +39,13 @@ public class Duke {
         System.out.printf("\t%s: Hello! I am a short Java Bot %s!\n", PYTHON_EMOJI, BOT_NAME);
         System.out.printf("\t%s: What can I do for you?\n", PYTHON_EMOJI);
         printHorizontalLine();
+
         String inputLine;
         do {
             inputLine = in.nextLine();
             String inputCommand = inputLine.split("\\s+")[0];
             printHorizontalLine();
+
             switch (inputCommand) {
             case COMMAND_BYE:
                 System.out.printf("\t%s: Bye. See you again when you run the program again!\n", PYTHON_EMOJI);
@@ -55,6 +58,7 @@ public class Duke {
                 break;
             case COMMAND_MARK: {
                 int taskNo = Integer.parseInt(inputLine.split(" ")[1]);
+
                 if (taskNo > tasks.size()) {
                     System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
                     break;
@@ -65,13 +69,16 @@ public class Duke {
                             tasks.get(taskNo - 1));
                     break;
                 }
+
                 tasks.get(taskNo - 1).setDone(true);
+
                 System.out.printf("\t%s: Good job completing the task!\n", PYTHON_EMOJI);
                 System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
                 break;
             }
             case COMMAND_UNMARK: {
                 int taskNo = Integer.parseInt(inputLine.split(" ")[1]);
+
                 if (taskNo > tasks.size()) {
                     System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
                     break;
@@ -82,7 +89,9 @@ public class Duke {
                             tasks.get(taskNo - 1));
                     break;
                 }
+
                 tasks.get(taskNo - 1).setDone(false);
+
                 System.out.printf("\t%s: Its okay! To err is human! Unmarked!\n", PYTHON_EMOJI);
                 System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
                 break;
@@ -90,8 +99,10 @@ public class Duke {
             case COMMAND_TODO: {
                 System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "New Todo! You have added this todo:");
                 final String todoDescription = inputLine.split(" ", 2)[1];
+
                 Todo todo = new Todo(todoDescription);
                 tasks.add(todo);
+
                 System.out.printf("\t\t\t %s\n", todo);
                 System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
                 break;
@@ -101,8 +112,10 @@ public class Duke {
                 final String deadlineDetails = inputLine.split(" ", 2)[1];
                 final String deadlineDescription = deadlineDetails.split(" /by ")[0];
                 final String deadlineBy = deadlineDetails.split(" /by ")[1];
+
                 Deadline deadline = new Deadline(deadlineDescription, deadlineBy);
                 tasks.add(deadline);
+
                 System.out.printf("\t\t\t %s\n", deadline);
                 System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
                 break;
@@ -113,8 +126,10 @@ public class Duke {
                 final String eventDescription = eventDetails.split(" /from | /to ", 3)[0];
                 final String eventFrom = eventDetails.split(" /from | /to ", 3)[1];
                 final String eventTo = eventDetails.split(" /from | /to ", 3)[2];
+
                 Event event = new Event(eventDescription, eventFrom, eventTo);
                 tasks.add(event);
+
                 System.out.printf("\t\t\t %s\n", event);
                 System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
                 break;
