@@ -20,15 +20,9 @@ public class Unmark extends Command {
         int index;
         try {
             index = Integer.parseInt(payload);
+            index--; // Convert to 0-base indexing
         } catch (NumberFormatException e) {
             String errorMsg = "Invalid index! Unable to parse into integer";
-            throw new DawsonException(errorMsg);
-        }
-
-        // Check if index exists in tasklist
-        index--; // Convert to 0-base indexing
-        if (!taskList.isIndexValid(index)) {
-            String errorMsg = payload + " index out of range of task list!";
             throw new DawsonException(errorMsg);
         }
 
