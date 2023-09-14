@@ -1,3 +1,5 @@
+package alan;
+
 public class AlanExceptions extends Exception {
     String errorMessage;
     public AlanExceptions(String errorMessage) {
