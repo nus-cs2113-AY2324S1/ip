@@ -5,14 +5,29 @@ deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 event group study /from 1pm to /to 2pm
 list
+
 mark 1
 mark 1
 unmark 1
 unmark 1
 undo
+mark a
+mark
+unmark c
+unmark
 mark 2
 mark 3
 mark 4
+todo
+deadline
+event
+deadline return book
+deadline return book /by
+deadline return book /by 2 June
+event OOP Lecture
+event OOP Lecture /from 12pm
+event OOP Lecture /from /to 2pm
+event OOP Lecture /from 12pm /to 2pm
 list
 unmark 3
 unmark 4
