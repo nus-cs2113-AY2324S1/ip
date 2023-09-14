@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Alice {
-    private static final String LINE = "____________________________________________________________\n";
+    private static final String LINE = "\n____________________________________________________________\n";
     private static Task[] tasks = new Task[100];
     private static int numberOfTasks = 0;
 
@@ -43,7 +43,7 @@ public class Alice {
         int itemNumber;
         for (int i = 0; i < numberOfTasks; i++){
             itemNumber = i + 1;
-            System.out.println(itemNumber + ". " + tasks[i].printTask());
+            System.out.println(itemNumber + ". " + tasks[i].toString());
         }
         System.out.println(LINE);
     }
@@ -56,7 +56,7 @@ public class Alice {
         tasks[numberOfTasks] = newTask;
         numberOfTasks++;
         System.out.println(" Gotcha! I have added the following task:");
-        System.out.println("   " + newTask.printTask());
+        System.out.println("   " + newTask.toString());
         System.out.println(" Total no. of tasks: " + numberOfTasks + " --- YOU'VE GOT THIS!\n" + LINE);
     }
 
@@ -66,9 +66,9 @@ public class Alice {
      * @param userInput input from user (eg. todo borrow book)
      */
     public static void addTodo(String userInput) {
-        final int LENGTH_OF_BUFFER = 5; //length of "size "
+        final int LENGTH_OF_COMMAND = 5; //length of "size "
 
-        String description = userInput.substring(LENGTH_OF_BUFFER);
+        String description = userInput.substring(LENGTH_OF_COMMAND);
         Task newTask = new Todo(description);
         addTask(newTask);
     }
@@ -78,11 +78,14 @@ public class Alice {
      * then, calls addTask to add deadline task to tasks array
      * @param userInput input from user (eg. deadline return book /by Sunday)
      */
-    public static void addDeadline(String userInput) {
-        final int LENGTH_OF_BUFFER = 9; //length of "deadline "
+    public static void addDeadline(String userInput) throws DukeException{
+        final int LENGTH_OF_COMMAND = 9; //length of "deadline "
 
         String[] inputArray = userInput.split(" /");
-        String description = inputArray[0].substring(LENGTH_OF_BUFFER);
+        if (inputArray.length == 1) {
+            throw new DukeException();
+        }
+        String description = inputArray[0].substring(LENGTH_OF_COMMAND);
         String date = inputArray[1];
 
         Task newTask = new Deadline(description, date);
@@ -94,16 +97,31 @@ public class Alice {
      * then, calls addTask to add event task to tasks array
      * @param userInput input from user (eg. event project meeting /from Mon 2pm /to 4pm)
      */
-    public static void addEvent(String userInput) {
-        final int LENGTH_OF_BUFFER = 6; //length of "event "
+    public static void addEvent(String userInput) throws DukeException{
+        final int LENGTH_OF_COMMAND = 6; //length of "event "
 
         String[] inputArray = userInput.split(" /");
-        String description = inputArray[0].substring(LENGTH_OF_BUFFER);
+        if (inputArray.length < 3) {
+            throw new DukeException();
+        }
+        String description = inputArray[0].substring(LENGTH_OF_COMMAND);
         String startDate = inputArray[1].strip();
         String endDate = inputArray[2].strip();
 
         Task newTask = new Event(description, startDate, endDate);
         addTask(newTask);
+    }
+
+    public static void deadlineExceptionMessage() {
+        System.out.println("☹ OOPS!!! Your formatting is wrong!");
+        System.out.println("It should be in the format ---> deadline <action> /<date>");
+        System.out.println("eg. deadline return book /by Sunday" + LINE);
+    }
+
+    public static void eventExceptionMessage() {
+        System.out.println("☹ OOPS!!! Your format is wrong!");
+        System.out.println("Format: event <event name> /<start time> /<end time>");
+        System.out.println("eg. event project meeting /from Mon 2pm /to 4pm" + LINE);
     }
 
     /**
@@ -125,21 +143,71 @@ public class Alice {
                 listTasks();
                 break;
             case "unmark":
-                taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskId].unmark();
+                try {
+                    taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    tasks[taskId].unmarkTask();
+                } catch (NumberFormatException e) {
+                    System.out.println("☹ OOPS!!! You should key in your item number instead of a text! eg. unmark 1" + LINE);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! your item number is missing! eg. unmark 1" + LINE);
+                } catch (NullPointerException e) {
+                    switch (numberOfTasks) {
+                    case 0:
+                        System.out.println("☹ OOPS!!! You don't have any items... ");
+                        break;
+                    case 1:
+                        System.out.println("☹ OOPS!!! There's only 1 task! To unmark it, type unmark 1.");
+                        break;
+                    default:
+                        System.out.println("☹ OOPS!!! Your item number is out of range... Please select a number from 1 to " + numberOfTasks +LINE);
+                    }
+                }
                 break;
             case "mark":
-                taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskId].mark();
+                try {
+                    taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    tasks[taskId].markTask();
+                }catch (NumberFormatException e) {
+                    System.out.println("☹ OOPS!!! You should key in your item number instead of a text! eg. mark 1" + LINE);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! your item number is missing! eg. mark 1" + LINE);
+                } catch (NullPointerException e) {
+                    switch (numberOfTasks) {
+                    case 0:
+                        System.out.println("☹ OOPS!!! You don't have any items... ");
+                        break;
+                    case 1:
+                        System.out.println("☹ OOPS!!! There's only 1 task! To mark it, type mark 1.");
+                        break;
+                    default:
+                        System.out.println("☹ OOPS!!! Your item number is out of range... Please select a number from 1 to " + numberOfTasks +LINE);
+                    }
+                }
                 break;
             case "deadline":
-                addDeadline(userInput);
+                try {
+                    addDeadline(userInput);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    deadlineExceptionMessage();
+                } catch (DukeException e) {
+                    deadlineExceptionMessage();
+                }
                 break;
             case "event":
-                addEvent(userInput);
+                try {
+                    addEvent(userInput);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    eventExceptionMessage();
+                } catch (DukeException e) {
+                    eventExceptionMessage();
+                }
                 break;
             case "todo":
-                addTodo(userInput);
+                try {
+                    addTodo(userInput);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty." + LINE);
+                }
                 break;
             default:
                 Task newTask = new Task(userInput);

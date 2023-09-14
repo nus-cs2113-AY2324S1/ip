@@ -28,7 +28,7 @@ public class Task {
      * To set isDone to true
      * and to print a message for user
      */
-    public void mark() {
+    public void markTask() {
         setIsDone(true);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("   " + this.printTask());
@@ -39,7 +39,7 @@ public class Task {
      * To set isDone to false
      * and to print a message for user
      */
-    public void unmark() {
+    public void unmarkTask() {
         setIsDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("   " + this.printTask());
