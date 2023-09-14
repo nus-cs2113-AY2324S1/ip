@@ -1,3 +1,9 @@
+import Task.Task;
+import Task.Task.ToDo;
+import Task.Task.Deadline;
+import Task.Task.Event;
+import Task.EmptyDescriptionException;
+
 import java.util.Scanner;
 
 public class Duke {

@@ -1,3 +1,5 @@
+package Task;
+
 public class EmptyDescriptionException extends Exception{
     public void printErrorMessage(){
         System.out.println("    _____________________________________"
