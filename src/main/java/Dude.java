@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Dude {
 
     // Method to draw horizontal lines
     public static void drawLine() {
@@ -136,3 +136,4 @@ public class Duke {
         storeDude();
     }
 }
+
