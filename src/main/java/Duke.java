@@ -8,12 +8,12 @@ public class Duke {
     final private static int HORIZONTAL_LINE_LENGTH = 80;
 
     final private static String pythonAsciiArt =
-                    "\t ____        _   _                 \n" +
-                    "\t|  _ \\ _   _| |_| |__   ___  _ __  \n" +
-                    "\t| |_) | | | | __|  _ \\ / _ \\|  _ \\ \n" +
+                    "\t ____        _   _\n" +
+                    "\t|  _ \\ _   _| |_| |__   ___  _ __\n" +
+                    "\t| |_) | | | | __|  _ \\ / _ \\|  _ \\\n" +
                     "\t|  __/| |_| | |_| | | | (_) | | | |\n" +
                     "\t|_|    \\__, |\\__|_| |_|\\___/|_| |_|\n" +
-                    "\t       |___/                        ";
+                    "\t       |___/";
     final private static String pythonEmoji = "\uD83D\uDC0D";
 
     final static private List<Task> tasks = new ArrayList<>();
