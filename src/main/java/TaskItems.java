@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class TaskItems {
     static String outputFormat = "    ____________________________________________________________\n" +
-            "    %s\n    ____________________________________________________________";
+            "    %s\n    ____________________________________________________________ ";
 
     public static final String MARK_TASK_COMMAND = "mark ";
     public static final String UNMARK_TASK_COMMAND = "unmark ";
@@ -14,6 +14,7 @@ public class TaskItems {
     public static final String EVENT_TASK_COMMAND = "event ";
     public static final String EVENT_TASK_START = "/from ";
     public static final String EVENT_TASK_END = "/to ";
+    public static final String USER_HELP_COMMAND = "help";
 
     //to echo after a new task is added
     public static void echo(Task task){
@@ -41,7 +42,8 @@ public class TaskItems {
     }
 
     //The function 'addItems' is used to accept user's input and add it to their To Do list
-    public static void addItems() {
+    public static void addItems() throws ZranExceptions{
+
         Scanner in = new Scanner(System.in);
         String input = "";
 
@@ -51,46 +53,100 @@ public class TaskItems {
 
         while(!(input = in.nextLine()).equals(EXIT_BOT_COMMAND)){
             if(input.startsWith(MARK_TASK_COMMAND)) {
-                task = items[Integer.parseInt(input.substring(MARK_TASK_COMMAND.length())) - 1];
-                task.setAsDone();
-                echo(task, task.isDone);
+                try{
+                    String eventIndex = input.substring(MARK_TASK_COMMAND.length()).trim();
+                    if(eventIndex.isEmpty()){
+                        throw new ZranExceptions(ZranErrorMessages.EMPTY_TASK_INDEX.message);
+                    }
+                    try{
+                        task = items[Integer.parseInt(eventIndex) - 1];
+                        task.setAsDone();
+                        echo(task, task.isDone);
+                    } catch(NullPointerException e) {
+                        throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_INDEX.message);
+                    }
+                }
+                catch(ZranExceptions e){
+                    System.out.printf((outputFormat) + "%n", e.getMessage());
+                }
             } else if(input.startsWith(UNMARK_TASK_COMMAND)) {
-                task = items[Integer.parseInt(input.substring(UNMARK_TASK_COMMAND.length())) - 1];
-                task.setAsNotDone();
-                echo(task, task.isDone);
+                try {
+                    String eventIndex = input.substring(UNMARK_TASK_COMMAND.length()).trim();
+                    if (eventIndex.isEmpty()) {
+                        throw new ZranExceptions(ZranErrorMessages.EMPTY_TASK_INDEX.message);
+                    }
+                    try {
+                        task = items[Integer.parseInt(eventIndex) - 1];
+                        task.setAsNotDone();
+                        echo(task, task.isDone);
+                    } catch (NullPointerException e) {
+                        throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_INDEX.message);
+                    }
+                }
+                catch(ZranExceptions e){
+                    System.out.printf((outputFormat) + "%n", e.getMessage());
+                }
             } else if(input.equals(LIST_TASK_COMMAND)){
                 echo(items);
-            }
-            else {
-                task = addTaskByType(input);
-                items[index++] = task;
-                echo(task);
+            } else {
+                try{
+                    task = addTaskByType(input);
+                    items[index++] = task;
+                    echo(task);
+                }
+                catch(ZranExceptions e){
+                    System.out.println();
+                    System.out.printf((outputFormat) + "%n", e.getMessage());
+                }
             }
         }
         System.out.printf((outputFormat) + "%n", "Goodbye <3 have a great day ahead!");
     }
 
     // The function 'addTaskByType' is used to add an item into the task list by their task type
-    public static Task addTaskByType(String input){
+    public static Task addTaskByType(String input) throws ZranExceptions{
         Task task = null;
         if(input.startsWith(TODO_TASK_COMMAND)) {
-            task = new ToDos(input.substring(TODO_TASK_COMMAND.length()));
+            int todoIndex = input.indexOf(TODO_TASK_COMMAND);
+            String description = input.substring(todoIndex + TODO_TASK_COMMAND.length()).trim();
+            if(description.isEmpty()){
+                throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_DESCRIPTION.message);
+            }
+            task = new ToDos(description);
         } else if(input.startsWith(DEADLINE_TASK_COMMAND)){
             int byIndex = input.indexOf(DEADLINE_DATE_COMMAND);
+            if (byIndex == -1) {
+                throw new ZranExceptions(ZranErrorMessages.INVALID_DEADLINE_FORMAT.message);
+            }
             String description = input.substring(DEADLINE_TASK_COMMAND.length(), byIndex).trim();
+            if(description.isEmpty()){
+                throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_DESCRIPTION.message);
+            }
             String by = input.substring(byIndex + DEADLINE_DATE_COMMAND.length()).trim();
+            if(by.isEmpty()){
+                throw new ZranExceptions(ZranErrorMessages.EMPTY_DEADLINE.message);
+            }
             task = new Deadline(description, by);
         } else if (input.startsWith(EVENT_TASK_COMMAND)) {
             int fromIndex = input.indexOf(EVENT_TASK_START);
             int toIndex = input.indexOf(EVENT_TASK_END);
+            if (fromIndex == -1 || toIndex == -1) {
+                throw new ZranExceptions(ZranErrorMessages.INVALID_EVENT_FORMAT.message);
+            }
             String description = input.substring(EVENT_TASK_COMMAND.length(), fromIndex).trim();
+            if(description.isEmpty()){
+                throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_DESCRIPTION.message);
+            }
             String from = input.substring(fromIndex + EVENT_TASK_START.length(), toIndex).trim();
             String to = input.substring(toIndex + EVENT_TASK_END.length()).trim();
+            if(from.isEmpty() || to.isEmpty()){
+                throw new ZranExceptions(ZranErrorMessages.EMPTY_EVENT_DURATION.message);
+            }
             task = new Event(description, from, to);
-        } else{
-            //throw exception
-            System.out.println("oh nos wrong command");
+        } else {
+            throw new ZranExceptions(ZranErrorMessages.UNRECOGNISED_COMMAND.message);
         }
+
         return task;
     }
 
