@@ -3,6 +3,7 @@ package careo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Arrays;
 
 
 public class Duke {
@@ -44,10 +45,18 @@ public class Duke {
      * @return Whether the process-input-loop should be exited.
      */
     private static boolean processInput(String input) {
-        if (input.equals("list")) {
-            listTasks();
-        } else if (input.equals("bye")) {
+        ArrayList<String> keywords = new ArrayList<String>(
+                Arrays.asList(new String[] {"mark", "unmark", "deadline", "event", "todo"})
+                );
+
+        if (input.equals("bye")) {
             return true;
+        } else if (keywords.contains(input)) {
+            printHorizontalLine();
+            System.out.println("    ☹ OOPS!!! The description of a " + input + " cannot be empty.");
+            printHorizontalLine();
+        } else if (input.equals("list")) {
+            listTasks();
         } else if (input.startsWith("mark ")) {
             int taskIdx = Integer.parseInt(input.substring(5)) - 1;
             markOrUnmarkTask(MarkOrUnmark.MARK, taskIdx);
@@ -79,7 +88,7 @@ public class Duke {
             addTask(new ToDo(taskDescription));
         } else {
             printHorizontalLine();
-            System.out.println("    Invalid command! Try again");
+            System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             printHorizontalLine();
         }
 
