@@ -4,8 +4,8 @@ public class Todo extends Task {
     }
 
     @Override
-    public String printTask() {
+    public String toString() {
         String typeOfTask = "[T]";
-        return typeOfTask + super.printTask();
+        return typeOfTask + super.toString();
     }
 }

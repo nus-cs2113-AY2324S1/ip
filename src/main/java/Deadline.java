@@ -14,7 +14,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String printTask() {
+    public String toString() {
         String typeOfTask = "[D]";
         String statusOfTask = "[" + super.getStatusIcon() + "] ";
         String task = super.getDescription() + " (by: " + getDeadline() + ")";

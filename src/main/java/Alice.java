@@ -43,7 +43,7 @@ public class Alice {
         int itemNumber;
         for (int i = 0; i < numberOfTasks; i++){
             itemNumber = i + 1;
-            System.out.println(itemNumber + ". " + tasks[i].printTask());
+            System.out.println(itemNumber + ". " + tasks[i].toString());
         }
         System.out.println(LINE);
     }
@@ -56,7 +56,7 @@ public class Alice {
         tasks[numberOfTasks] = newTask;
         numberOfTasks++;
         System.out.println(" Gotcha! I have added the following task:");
-        System.out.println("   " + newTask.printTask());
+        System.out.println("   " + newTask.toString());
         System.out.println(" Total no. of tasks: " + numberOfTasks + " --- YOU'VE GOT THIS!\n" + LINE);
     }
 
@@ -66,9 +66,9 @@ public class Alice {
      * @param userInput input from user (eg. todo borrow book)
      */
     public static void addTodo(String userInput) {
-        final int LENGTH_OF_BUFFER = 5; //length of "size "
+        final int LENGTH_OF_COMMAND = 5; //length of "size "
 
-        String description = userInput.substring(LENGTH_OF_BUFFER);
+        String description = userInput.substring(LENGTH_OF_COMMAND);
         Task newTask = new Todo(description);
         addTask(newTask);
     }
@@ -79,10 +79,10 @@ public class Alice {
      * @param userInput input from user (eg. deadline return book /by Sunday)
      */
     public static void addDeadline(String userInput) {
-        final int LENGTH_OF_BUFFER = 9; //length of "deadline "
+        final int LENGTH_OF_COMMAND = 9; //length of "deadline "
 
         String[] inputArray = userInput.split(" /");
-        String description = inputArray[0].substring(LENGTH_OF_BUFFER);
+        String description = inputArray[0].substring(LENGTH_OF_COMMAND);
         String date = inputArray[1];
 
         Task newTask = new Deadline(description, date);
@@ -95,10 +95,10 @@ public class Alice {
      * @param userInput input from user (eg. event project meeting /from Mon 2pm /to 4pm)
      */
     public static void addEvent(String userInput) {
-        final int LENGTH_OF_BUFFER = 6; //length of "event "
+        final int LENGTH_OF_COMMAND = 6; //length of "event "
 
         String[] inputArray = userInput.split(" /");
-        String description = inputArray[0].substring(LENGTH_OF_BUFFER);
+        String description = inputArray[0].substring(LENGTH_OF_COMMAND);
         String startDate = inputArray[1].strip();
         String endDate = inputArray[2].strip();
 
@@ -126,11 +126,11 @@ public class Alice {
                 break;
             case "unmark":
                 taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskId].unmark();
+                tasks[taskId].unmarkTask();
                 break;
             case "mark":
                 taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskId].mark();
+                tasks[taskId].markTask();
                 break;
             case "deadline":
                 addDeadline(userInput);

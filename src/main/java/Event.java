@@ -25,7 +25,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String printTask() {
+    public String toString() {
         String typeOfTask = "[E]";
         String statusOfTask = "[" + super.getStatusIcon() + "] ";
         String task = super.getDescription() + " (from: " + getStart() + " to: " + getEnd() + ")";
