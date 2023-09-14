@@ -6,13 +6,9 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
-    public String getDueDate(){
-        return dueDate;
-    }
-
     @Override
-    public String getType(){
-        return "[D]";
+    public String getDescription() {
+        return "[D]" + super.getDescription() + " (by: " + dueDate + ")";
     }
 }
 

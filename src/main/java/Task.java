@@ -8,7 +8,13 @@ public class Task {
     }
 
     public String getDescription() {
-        return description;
+        String mark;
+        if (isDone()){
+            mark = "X";
+        } else {
+            mark = " ";
+        }
+        return "[" + mark + "] " + description;
     }
 
     public boolean isDone() {
@@ -23,11 +29,4 @@ public class Task {
         isDone = false;
     }
 
-    public String getStatus() {
-        return (isDone ? "[X]" : "[ ]");
-    }
-
-    public String getType(){
-        return "0";
-    }
 }
