@@ -1,3 +1,5 @@
+package chatbot;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -89,7 +91,7 @@ public class Duke {
                 taskList[numTasks] = new ToDo(description);
                 numTasks++;
 
-                System.out.println("Created new ToDo:");
+                System.out.println("Created new chatbot.ToDo:");
                 System.out.println(description);
             }
 
@@ -101,7 +103,7 @@ public class Duke {
                 taskList[numTasks] = new Deadline(description, deadline);
                 numTasks++;
 
-                System.out.println("Created new Deadline:");
+                System.out.println("Created new chatbot.Deadline:");
                 System.out.println(description);
                 System.out.println("Due: " + deadline);
             }
@@ -116,7 +118,7 @@ public class Duke {
                 taskList[numTasks] = new Event(description, start, end);
                 numTasks++;
 
-                System.out.println("Created new Event:");
+                System.out.println("Created new chatbot.Event:");
                 System.out.println(description);
                 System.out.println("From: " + start);
                 System.out.println("To: " + end);
