@@ -22,12 +22,17 @@ public class TaskList {
         Dawson.printText(addText);
     }
 
-    public String markAsDoneIndex(int index) throws DawsonException {
+    public void markAsDoneIndex(int index) throws DawsonException {
         try {
             Task task = taskList.get(index);
             task.markAsDone();
-            return task.toString();
-            
+
+            String[] markAsDoneTexts = {
+                    "Nice! I've marked this task as done: ",
+                    "  " + task.toString()
+            };
+            Dawson.printText(markAsDoneTexts);
+
         } catch (IndexOutOfBoundsException e) {
             // Convert to 1-base indexing to show error
             String errorMsg = (index+1) + " index out of range of task list!";
@@ -35,11 +40,16 @@ public class TaskList {
         }
     }
 
-    public String unmarkIndex(int index) throws DawsonException {
+    public void unmarkIndex(int index) throws DawsonException {
         try {
             Task task = taskList.get(index);
             task.unmark();
-            return task.toString();
+
+            String[] unmarkIndexTexts = {
+                    "Ok, I've marked this task as not done yet: ",
+                    "  " + task.toString()
+            };
+            Dawson.printText(unmarkIndexTexts);
 
         } catch (IndexOutOfBoundsException e) {
             // Convert to 1-base indexing to show error

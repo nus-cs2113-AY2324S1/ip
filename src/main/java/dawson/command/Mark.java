@@ -1,7 +1,6 @@
 package dawson.command;
 
 import dawson.TaskList;
-import dawson.Dawson;
 import dawson.DawsonException;
 
 public class Mark extends Command {
@@ -27,10 +26,7 @@ public class Mark extends Command {
         }
 
         // Execute the mark as done
-        String updatedTask = taskList.markAsDoneIndex(index);
-        String doneText = "Nice! I've marked this task as done: " + System.lineSeparator();
-        doneText += "\t " + updatedTask;
-        Dawson.printText(doneText);
+        taskList.markAsDoneIndex(index);
     }
 
 }
