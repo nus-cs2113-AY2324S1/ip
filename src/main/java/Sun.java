@@ -22,7 +22,26 @@ public class Sun {
         String command = scanner.nextLine();
 
         while (!command.equals("bye")) {
-            taskCount = getInput(command, tasks, taskCount);
+            try {
+                taskCount = getInput(command, tasks, taskCount);
+            } catch (InvalidActionException e) {
+                System.out.println(line);
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(line);
+            } catch (IncompleteDescriptionException e) {
+                System.out.println(line);
+                System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                System.out.println(line);
+            } catch (InvalidTaskIndexException e) {
+                System.out.println(line);
+                System.out.println("☹ OOPS!!! The task index is Invalid :((");
+                System.out.println(line);
+            } catch (TasksOverflowException e) {
+                System.out.println(line);
+                System.out.println("☹ OOPS!!! The maximum number of Task is 100 :((");
+                System.out.println(line);
+            }
+
             command = scanner.nextLine();
             System.out.println(line);
             System.out.println("What else can I do for you?");
@@ -36,7 +55,8 @@ public class Sun {
         scanner.close();
     }
 
-    public static int getInput(String command, Task[] tasks, int taskCount) {
+    public static int getInput(String command, Task[] tasks, int taskCount) throws InvalidTaskIndexException,
+            TasksOverflowException, InvalidActionException, IncompleteDescriptionException {
         String[] actionAndTask = command.split(" ");
         String action = actionAndTask[0];
 
@@ -49,7 +69,8 @@ public class Sun {
                 if (taskIndex >= 1 && taskIndex <= taskCount) {
                     markTask(tasks, taskIndex - 1);
                 } else {
-                    System.out.println("Invalid task index.");
+                    throw new InvalidTaskIndexException();
+                    //System.out.println("Invalid task index.");
                 }
                 break;
             case "unmark":
@@ -57,21 +78,24 @@ public class Sun {
                 if (unmarkIndex >= 1 && unmarkIndex <= taskCount) {
                     unMarkTask(tasks, unmarkIndex - 1);
                 } else {
-                    System.out.println("Invalid task index.");
+                    throw new InvalidTaskIndexException();
+                    //System.out.println("Invalid task index.");
                 }
                 break;
             case "todo":
             case "deadline":
             case "event":
                 if (taskCount < tasks.length) {
-                    tasks[taskCount] = addToList(tasks, command, taskCount);
+                    tasks[taskCount] = addToList(command, taskCount);
                     taskCount++;
                 } else {
-                    System.out.println("Task list is full. Cannot add more tasks.");
+                    throw new TasksOverflowException();
+                    //System.out.println("Task list is full. Cannot add more tasks.");
                 }
                 break;
             default:
-                System.out.println("Invalid command.");
+                throw new InvalidActionException();
+                //System.out.println("Invalid command.");
         }
 
         return taskCount;
@@ -102,9 +126,12 @@ public class Sun {
         System.out.println(line);
     }
 
-    public static Task addToList(Task[] tasks, String command, int taskCount) {
+    public static Task addToList(String command, int taskCount) throws IncompleteDescriptionException {
         Task task = null;
-        if (command.startsWith("todo")) {
+        String[] actionAndTask = command.split(" ");
+        if (actionAndTask.length < 2) {
+            throw new IncompleteDescriptionException();
+        } else if (command.startsWith("todo")) {
             task = new Todo(command.substring(5));
         } else if (command.startsWith("deadline")) {
             String deadlineCommand = command.substring(9);
