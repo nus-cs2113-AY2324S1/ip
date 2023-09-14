@@ -73,9 +73,7 @@ public class AMY {
         }
     }
 
-    // Main method executes the Chat bot
-    public static void main(String[] args) {
-        welcomeMessage();
+    public static void manageInput() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine(); // Read user input
@@ -114,6 +112,12 @@ public class AMY {
             }
             drawLine();
         }
+    }
+
+    // Main method executes the Chat bot
+    public static void main(String[] args) {
+        welcomeMessage();
+        manageInput();
         byMessage();
     }
 }
