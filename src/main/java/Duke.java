@@ -91,7 +91,7 @@ public class Duke {
                 try {
                     taskNo = Integer.parseInt(inputLine.split(" ")[1]);
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                    System.out.println("\t" + COMMAND_MARK + " command must be followed by an integer (task" +
+                    System.out.println("\t" + COMMAND_UNMARK + " command must be followed by an integer (task" +
                             " id).");
                     break;
                 }
@@ -120,7 +120,7 @@ public class Duke {
                     todoDescription = inputLine.split(" ", 2)[1];
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("\t" + COMMAND_TODO + " command must be followed by a task " +
-                            "description");
+                            "description!");
                     break;
                 }
 
