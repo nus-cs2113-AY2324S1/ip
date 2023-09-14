@@ -8,11 +8,11 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
     public String getTypeIcon() {
-        return " ";
+        return "[ ]";
     }
 
     public String getDescription() {
@@ -25,5 +25,10 @@ public class Task {
 
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    @Override
+    public String toString() {
+        return getTypeIcon() + getStatusIcon() + " " + description;
     }
 }

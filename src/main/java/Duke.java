@@ -44,8 +44,7 @@ public class Duke {
             case "list":
                 System.out.printf("\t%s: You have %d tasks to do!\n", pythonEmoji, tasks.size());
                 for (int taskNo = 1; taskNo <= tasks.size(); taskNo++) {
-                    System.out.printf("\t\t\t%d. [%s] %s\n", taskNo, tasks.get(taskNo - 1).getStatusIcon(),
-                            tasks.get(taskNo - 1).getDescription());
+                    System.out.printf("\t\t\t%d. %s\n", taskNo, tasks.get(taskNo - 1));
                 }
                 break;
             case "mark": {
@@ -56,14 +55,13 @@ public class Duke {
                 }
                 if (tasks.get(taskNo - 1).isDone()) {
                     System.out.printf("\t%s: Are you from the past?\n", pythonEmoji);
-                    System.out.printf("\t\tTask: \"%s\" is already done!!!\n",
-                            tasks.get(taskNo - 1).getDescription());
+                    System.out.printf("\t\tTask: %s\n is already done!!!\n",
+                            tasks.get(taskNo - 1));
                     break;
                 }
                 tasks.get(taskNo - 1).setDone(true);
                 System.out.printf("\t%s: Good job completing the task!\n", pythonEmoji);
-                System.out.printf("\t\t\t[%s] %s\n", tasks.get(taskNo - 1).getStatusIcon(),
-                        tasks.get(taskNo - 1).getDescription());
+                System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
                 break;
             }
             case "unmark": {
@@ -74,14 +72,13 @@ public class Duke {
                 }
                 if (!tasks.get(taskNo - 1).isDone()) {
                     System.out.printf("\t%s: Alas! Only the completed tasks can be unmarked!\n", pythonEmoji);
-                    System.out.printf("\t\tTask: \"%s\" is already sitting idle. Get started...!!!\n",
-                            tasks.get(taskNo - 1).getDescription());
+                    System.out.printf("\t\tTask: %s\n is already sitting idle. Get started...!!!\n",
+                            tasks.get(taskNo - 1));
                     break;
                 }
                 tasks.get(taskNo - 1).setDone(false);
                 System.out.printf("\t%s: Its okay! To err is human! Unmarked!\n", pythonEmoji);
-                System.out.printf("\t\t\t[%s] %s\n", tasks.get(taskNo - 1).getStatusIcon(),
-                        tasks.get(taskNo - 1).getDescription());
+                System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
                 break;
             }
             default:
