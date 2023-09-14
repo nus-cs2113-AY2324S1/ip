@@ -2,11 +2,11 @@ import java.lang.String;
 import java.lang.System;
 
 public class ListWhisper {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DescriptionFormatException {
         ListWhisper.startProgram();
     }
 
-    private static void startProgram() {
+    private static void startProgram() throws DescriptionFormatException {
         Manager manager = new Manager();
         greetUser();
         manager.readInput();
