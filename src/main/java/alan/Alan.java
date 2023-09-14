@@ -7,14 +7,16 @@ import alan.task.Todo;
 
 import java.util.Scanner;
 
+import static alan.AlanExceptions.checkDeadlineInputFormat;
+import static alan.AlanExceptions.checkEmptyDescription;
+import static alan.AlanExceptions.checkEventInputFromFormat;
+import static alan.AlanExceptions.checkEventInputToFormat;
+import static alan.AlanExceptions.checkOutOfTasksIndex;
+import static alan.AlanExceptions.invalidInputCommand;
+
 public class Alan {
     public static int currentTasksIndex = 1;
-    public static final String INVALID_INPUT_COMMAND_MESSAGE = "Oof, I have no idea what are you saying duuude";
-    public static final String EMPTY_DESCRIPTION_MESSAGE = "Oof Dude, you can't leave the description empty, man";
-    public static final String INVALID_DEADLINE_FORMAT_MESSAGE = "Oof the deadline command isn't quite right you gotta fix the format, bro...\n[Remember it's: <description> /by <date>]";
-    public static final String INVALID_EVENT_FROM_FORMAT_MESSAGE = "Oof duude, your /from formatting is whack\n[Remember it's: <description> /from <date> /to <date>]";
-    public static final String INVALID_EVENT_TO_FORMAT_MESSAGE = "Oof my man, you need to work on that /to formatting\n[Remember it's: <description> /from <date> /to <date>]";
-    public static final String INVALID_TASK_NUMBER_MESSAGE = "Oof man there's no such task";
+
     public static void printGreetingMessage() {
         String manDrawing = " @/\n" +
                 "/| \n" +
@@ -42,41 +44,53 @@ public class Alan {
 
     public static void printTaskAddedMessage(Task[] tasks, int currentTasksIndex) {
         System.out.println("added: " + tasks[currentTasksIndex]);
-        System.out.println("Dude! You've got a solid " + currentTasksIndex + " tasks lined up on your list now!");
+        if (currentTasksIndex == 1) {
+            System.out.println("Dude! You've got a solid " + currentTasksIndex + " task lined up on your list now!");
+        } else {
+            System.out.println("Dude! You've got a solid " + currentTasksIndex + " tasks lined up on your list now!");
+        }
     }
 
     public static void processCommandHandler(String userInput, Task[] tasks) throws AlanExceptions {
         String[] userInputWords = userInput.split(" ");
         String command = userInputWords[0];
 
-        if (command.equals("bye")) {
+        switch (command) {
+        case "bye":
             printExitMessage();
-        } else if (command.equals("list")) {
+            break;
+        case "list":
             //print the tasks in the lists
             listCommandHandler(tasks, currentTasksIndex);
-        } else if (command.equals("mark")) {
+            break;
+        case "mark":
             //mark tasks as done
             markingCommandHandler(userInput, tasks, true);
-        } else if (command.equals("unmark")) {
+            break;
+        case "unmark":
             //unmark tasks as undone
             markingCommandHandler(userInput, tasks, false);
-        } else if (command.equals("todo")) {
+            break;
+        case "todo":
             //add to-do task to the list
             checkEmptyDescription(userInput);
             todoCommandHandler(userInput, tasks, currentTasksIndex);
             currentTasksIndex++;
-        } else if (command.equals("deadline")) {
+            break;
+        case "deadline":
             //add deadline task to the list
             checkEmptyDescription(userInput);
             deadlineCommandHandler(userInput, tasks, currentTasksIndex);
             currentTasksIndex++;
-        } else if (command.equals("event")) {
+            break;
+        case "event":
             //add event task to the list
             checkEmptyDescription(userInput);
             eventCommandHandler(userInput, tasks, currentTasksIndex);
             currentTasksIndex++;
-        } else {
-            throw new AlanExceptions(INVALID_INPUT_COMMAND_MESSAGE);
+            break;
+        default:
+            invalidInputCommand();
         }
     }
 
@@ -93,7 +107,7 @@ public class Alan {
         String[] words = userInput.split(" ");
         int selectedTaskIndex = Integer.parseInt(words[1]);
 
-        checkOutOfTasksIndex(selectedTaskIndex);
+        checkOutOfTasksIndex(selectedTaskIndex, currentTasksIndex);
 
         if (isMark) {
             tasks[selectedTaskIndex].setDone(true);
@@ -117,9 +131,7 @@ public class Alan {
         String filteredUserInput = userInput.replace("deadline ", "");
         String[] words = filteredUserInput.split(" /by ");
 
-        if (words.length == 1) {
-            throw new AlanExceptions(INVALID_DEADLINE_FORMAT_MESSAGE);
-        }
+        checkDeadlineInputFormat(words);
 
         String description = words[0];
         String by = words[1];
@@ -133,15 +145,11 @@ public class Alan {
         String filteredUserInput = userInput.replace("event ", "");
         String[] splitDescriptionAndDate = filteredUserInput.split(" /from ");
 
-        if (splitDescriptionAndDate.length == 1) {
-            throw new AlanExceptions(INVALID_EVENT_FROM_FORMAT_MESSAGE);
-        }
+        checkEventInputFromFormat(splitDescriptionAndDate);
 
         String[] splitFromAndTo = splitDescriptionAndDate[1].split(" /to ");
 
-        if (splitFromAndTo.length == 1) {
-            throw new AlanExceptions(INVALID_EVENT_TO_FORMAT_MESSAGE);
-        }
+        checkEventInputToFormat(splitFromAndTo);
 
         String description = splitDescriptionAndDate[0];
         String from = splitFromAndTo[0];
@@ -152,21 +160,6 @@ public class Alan {
         printTaskAddedMessage(tasks, currentTasksIndex);
     }
 
-    public static void checkEmptyDescription(String userInput) throws AlanExceptions {
-        String[] userInputWords = userInput.split(" ");
-
-        if (userInputWords.length == 1) {
-            throw new AlanExceptions(EMPTY_DESCRIPTION_MESSAGE);
-        }
-    }
-
-    public static void checkOutOfTasksIndex(int selectedIndex) throws AlanExceptions {
-        int numberOfTasks = currentTasksIndex - 1;
-
-        if (selectedIndex > numberOfTasks) {
-            throw new AlanExceptions(INVALID_TASK_NUMBER_MESSAGE);
-        }
-    }
 
     public static void main(String[] args) {
         Task[] tasks = new Task[101];
