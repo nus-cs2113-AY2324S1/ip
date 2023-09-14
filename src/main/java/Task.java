@@ -1,6 +1,8 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+
+    protected char type;
     protected static int numTasks = 0;
 
     public String getStatusIcon() {
@@ -14,6 +16,10 @@ public class Task {
         return this.description;
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public void setDone() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:\n\t  " + this);
@@ -22,6 +28,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.type = 'T';
         numTasks++;
     }
 

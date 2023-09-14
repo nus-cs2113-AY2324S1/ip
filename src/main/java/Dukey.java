@@ -3,13 +3,8 @@ import java.util.Scanner;
 
 public class Dukey {
     private static void addTodo(String line, ArrayList<Task> tasks) {
-        String description = line;
-        // case where todo is specified
-        if (line.startsWith("todo")) {
-            final int beginIndex = 5;
-            description = line.substring(beginIndex);
-        }
-        // default case
+        String[] words = line.split(" ");
+        String description = words[1];
         tasks.add(new Todo(description));
         tasks.get(tasks.size() - 1).printNewTask();
     }
@@ -26,38 +21,23 @@ public class Dukey {
     }
 
     private static void addDeadline(String line, ArrayList<Task> tasks) {
-        int splitIndex = line.indexOf("/");
-        final int beginIndex = 9;
-        String description = line.substring(beginIndex, splitIndex);
-        String by = line.substring(splitIndex + 4);
+        String[] words = line.split("/by");
+        String[] words2 = line.split(" ");
+        String description = words2[1];
+        String by = words[1];
         tasks.add(new Deadline(description, by));
         tasks.get(tasks.size() - 1).printNewTask();
     }
 
     private static void unmarkTask(String line, ArrayList<Task> tasks) {
-        String taskIndex = line.substring(line.length() - 1);
-        int taskNum = Integer.parseInt(taskIndex) - 1;
+        String[] words = line.split(" ");
+        int taskNum = Integer.parseInt(words[1]) - 1;
         tasks.get(taskNum).unmarkTask();
     }
 
     private static void markTask(String line, ArrayList<Task> tasks) {
-        if (line.isEmpty()) {
-            System.out.println("Error: Empty input");
-            return;
-        }
-
-        char lastChar = line.charAt(line.length() - 1);
-
-        if (!Character.isDigit(lastChar)) {
-            System.out.println("Error: Invalid task index");
-            return;
-        }
-        int taskNum = Integer.parseInt(String.valueOf(lastChar)) - 1;
-
-        if (taskNum < 0 || taskNum >= tasks.size()) {
-            System.out.println("Error: Invalid task index");
-            return;
-        }
+        String[] words = line.split(" ");
+        int taskNum = Integer.parseInt(words[1]) - 1;
         tasks.get(taskNum).setDone();
     }
 
@@ -76,28 +56,38 @@ public class Dukey {
         String line;
         ArrayList<Task> tasks = new ArrayList<>();
 
-        // multiple if-else statements were used instead of a switch statement
-        // because when the line starts with a certain prefix,
-        // you cannot achieve that directly with a switch statement
         while (true) {
             line = in.nextLine();
-            if (line.startsWith("bye")) {
-                System.out.println("Bye. Hope to see you again soon!\n");
-                return;
-            } else if (line.equals("list")) {
-                printTaskList(tasks);
-            } else if (line.startsWith("mark")) {
-                markTask(line, tasks);
-            } else if (line.startsWith("unmark")) {
-                unmarkTask(line, tasks);
-            } else if (line.startsWith("deadline")) {
-                addDeadline(line, tasks);
-            } else if (line.startsWith("event")) {
-                addEvent(line, tasks);
-            } else {
-                addTodo(line, tasks);
+            String[] words = line.split(" ");
+            String firstWord = words[0];
+            switch (firstWord) {
+                case "bye":
+                    System.out.println("Bye. Hope to see you again soon!\n");
+                    return;
+                case "list":
+                    printTaskList(tasks);
+                    break;
+                case "mark":
+                    markTask(line, tasks);
+                    break;
+                case "unmark":
+                    unmarkTask(line, tasks);
+                    break;
+                case "deadline":
+                    addDeadline(line, tasks);
+                    break;
+                case "event":
+                    addEvent(line, tasks);
+                    break;
+                case "todo":
+                    addTodo(line, tasks);
+                    break;
+                default:
+                    if (line.trim().isEmpty()) {
+                        System.out.println("Error, please input something");
+                    }
+                    break;
             }
-
         }
     }
 }
