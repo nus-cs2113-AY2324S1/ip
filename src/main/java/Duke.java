@@ -43,6 +43,8 @@ public class Duke {
         String inputLine;
         do {
             inputLine = in.nextLine();
+
+            // Trim extra whitespace characters between words while splitting
             String inputCommand = inputLine.split("\\s+")[0];
             printHorizontalLine();
 
@@ -59,6 +61,7 @@ public class Duke {
             case COMMAND_MARK: {
                 int taskNo = Integer.parseInt(inputLine.split(" ")[1]);
 
+                // Handle unintended usage
                 if (taskNo > tasks.size()) {
                     System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
                     break;
@@ -79,6 +82,7 @@ public class Duke {
             case COMMAND_UNMARK: {
                 int taskNo = Integer.parseInt(inputLine.split(" ")[1]);
 
+                // Handle unintended usage
                 if (taskNo > tasks.size()) {
                     System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
                     break;
