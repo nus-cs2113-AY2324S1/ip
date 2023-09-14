@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.MissingFormatArgumentException;
 import java.util.Scanner;
 public class Torchie {
 
@@ -45,24 +46,31 @@ public class Torchie {
         return content;
     }
 
-    public static String getDeadlineDate(String s) {
+    public static String getDeadlineDate(String s) throws MissingFieldException{
         int SIZE_OF_BUFFER = 4;
         int keyWordIndex = s.indexOf('/');
+
+        if (keyWordIndex == -1) {
+            throw new MissingFieldException();
+        }
         return s.substring(keyWordIndex + SIZE_OF_BUFFER);
     }
 
-    public static String getEventStart(String s) {
+    public static String getEventStart(String s) throws MissingFieldException {
         int SIZE_OF_BUFFER = 6;
 
         // first occurrence of '/' character
         int startTimeIndex = s.indexOf('/');
+        if (startTimeIndex == -1) {
+            throw new MissingFieldException();
+        }
 
         // second occurrence of '/' character
         int endTimeIndex = s.indexOf('/', startTimeIndex+1);
         return s.substring(startTimeIndex + SIZE_OF_BUFFER, endTimeIndex-1);
     }
 
-    public static String getEventEnd(String s) {
+    public static String getEventEnd(String s) throws MissingFieldException {
         int SIZE_OF_BUFFER = 4;
 
         // first occurrence of '/' character
@@ -70,6 +78,9 @@ public class Torchie {
 
         // second occurrence of '/' character
         int endTimeIndex = s.indexOf('/', startTimeIndex+1);
+        if (endTimeIndex == -1) {
+            throw new MissingFieldException();
+        }
         return s.substring(endTimeIndex + SIZE_OF_BUFFER);
     }
     public static void main(String[] args) {
@@ -92,33 +103,66 @@ public class Torchie {
                 break;
             case "mark":
 //                itemNum = Integer.parseInt(input.split(" ")[1]) - 1;
-                itemNum = Integer.parseInt(getContent(input)) - 1;
-                taskStore[itemNum].markItem();
+
+                try {
+                    itemNum = Integer.parseInt(getContent(input)) - 1;
+                    taskStore[itemNum].markItem();
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
+                            " index is an integer ");
+                } catch (NullPointerException e) {
+                    System.out.println("Task number cannot exceed: <" + numOfTasks + ">");
+                }
                 break;
             case "unmark":
-                itemNum = Integer.parseInt(getContent(input)) - 1;
-                taskStore[itemNum].unmarkItem();
+                try {
+                    itemNum = Integer.parseInt(getContent(input)) - 1;
+                    taskStore[itemNum].unmarkItem();
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
+                            " index is an integer ");
+                } catch (NullPointerException e) {
+                    System.out.println("Task number cannot exceed: <" + numOfTasks + ">");
+                }
                 break;
             case "bye":
                 System.out.println("Awww bye :( Let's play again soon!");
                 break;
             case "todo":
-                ToDos td = new ToDos(getContent(input));
-                setTaskStore(td);
-                td.announceTaskAdd();
-                announceListSize();
+                ToDos td = null;
+                try {
+                    td = new ToDos(getContent(input));
+                    setTaskStore(td);
+                    td.announceTaskAdd();
+                    announceListSize();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Missing <task name>: Example: todo <read>");
+                }
                 break;
             case "deadline":
-                Deadlines d = new Deadlines(getContent(input), getDeadlineDate(input));
-                setTaskStore(d);
-                d.announceTaskAdd();
-                announceListSize();
+                try {
+                    Deadlines d = new Deadlines(getContent(input), getDeadlineDate(input));
+                    setTaskStore(d);
+                    d.announceTaskAdd();
+                    announceListSize();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
+                } catch (MissingFieldException e) {
+                    System.out.println("Missing <deadline>: Example: deadline read </by Aug 1st>");
+                }
                 break;
             case "event":
-                Events e = new Events(getContent(input), getEventStart(input), getEventEnd(input));
-                setTaskStore(e);
-                e.announceTaskAdd();
-                announceListSize();
+                try {
+                    Events e = new Events(getContent(input), getEventStart(input), getEventEnd(input));
+                    setTaskStore(e);
+                    e.announceTaskAdd();
+                    announceListSize();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
+                } catch (MissingFieldException e) {
+                    System.out.println("Missing keyword </from start time> or </by end time> " +
+                            "Example: event read </from Aug 1st 4pm> </to 6pm>");
+                }
                 break;
             default:
                 Task t = new Task(input);
