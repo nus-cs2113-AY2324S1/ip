@@ -48,6 +48,24 @@ public class TaskList {
         }
     }
 
+    public void deleteTask(int index) throws DawsonException {
+        try {
+            Task removedTask = taskList.remove(index);
+            
+            String[] deleteText = {
+                    "Noted. I've removed this task:",
+                    "  " + removedTask.toString(),
+                    String.format("Now you have %d tasks in the list.", taskList.size())
+            };
+            Dawson.printText(deleteText);
+
+        } catch (IndexOutOfBoundsException e) {
+            // Convert to 1-base indexing to show error
+            String errorMsg = (index+1) + " index out of range of task list!";
+            throw new DawsonException(errorMsg);
+        }
+    }
+
     public String[] getTaskStrings() {
         if (taskList.size() == 0) {
             return new String[] { "Empty list!" };
