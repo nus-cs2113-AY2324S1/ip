@@ -1,5 +1,6 @@
 package elvis;
 
+//This is the help page to be displayed
 public class Help {
     public static void help() {
         String helpPage =

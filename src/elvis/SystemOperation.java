@@ -1,7 +1,7 @@
 package elvis;
 
 //Stores Logo, BootUp, ShutDown, Horizontal Lines
-public class Miscellaneous {
+public class SystemOperation {
     //Logo for ELVIS the Chatbot
     public static final String LOGO =
             "\n" +
@@ -37,17 +37,17 @@ public class Miscellaneous {
 
     public static void bootUp() {
         //ChatBot BootUp
-        System.out.println(Miscellaneous.LOGO);
-        Miscellaneous.printHorizontalLines();
+        System.out.println(SystemOperation.LOGO);
+        SystemOperation.printHorizontalLines();
         System.out.println("Hello! I'm ELVIS");
         System.out.println("What can I do for you?");
-        Miscellaneous.printHorizontalLines();
+        SystemOperation.printHorizontalLines();
     }
 
     public static void shutDown() {
         //ChatBot Ending
-        Miscellaneous.printHorizontalLines();
+        SystemOperation.printHorizontalLines();
         System.out.println("Bye. Hope to see you again soon!");
-        Miscellaneous.printHorizontalLines();
+        SystemOperation.printHorizontalLines();
     }
 }

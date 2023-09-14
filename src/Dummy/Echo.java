@@ -1,7 +1,7 @@
 package dummy;
 
 import elvis.Elvis;
-import elvis.Miscellaneous;
+import elvis.SystemOperation;
 import java.util.Scanner;
 
 public class Echo {
@@ -10,7 +10,7 @@ public class Echo {
         String line;
         Scanner in = new Scanner(System.in);
 
-        Miscellaneous.bootUp();
+        SystemOperation.bootUp();
         while (true) {
             String inputBuffer = in.nextLine().trim();
             Scanner bufferScanner = new Scanner(inputBuffer);
@@ -24,10 +24,10 @@ public class Echo {
             if (line.contains("bye")) {
                 break;
             }
-            Miscellaneous.printHorizontalLines();
+            SystemOperation.printHorizontalLines();
             System.out.println(line);
-            Miscellaneous.printHorizontalLines();
+            SystemOperation.printHorizontalLines();
         }
-        Miscellaneous.shutDown();
+        SystemOperation.shutDown();
     }
 }
