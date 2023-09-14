@@ -18,6 +18,13 @@ public class Duke {
 
     final static private List<Task> tasks = new ArrayList<>();
     final private static Scanner in = new Scanner(System.in);
+    public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_MARK = "mark";
+    public static final String COMMAND_UNMARK = "unmark";
+    public static final String COMMAND_TODO = "todo";
+    public static final String COMMAND_DEADLINE = "deadline";
+    public static final String COMMAND_EVENT = "event";
 
     private static void printHorizontalLine() {
         char[] horizontalLine = new char[HORIZONTAL_LINE_LENGTH];
@@ -37,16 +44,16 @@ public class Duke {
             String inputCommand = inputLine.split("\\s+")[0];
             printHorizontalLine();
             switch (inputCommand) {
-            case "bye":
+            case COMMAND_BYE:
                 System.out.printf("\t%s: Bye. See you again when you run the program again!\n", PYTHON_EMOJI);
                 break;
-            case "list":
+            case COMMAND_LIST:
                 System.out.printf("\t%s: You have %d tasks to do!\n", PYTHON_EMOJI, tasks.size());
                 for (int taskNo = 1; taskNo <= tasks.size(); taskNo++) {
                     System.out.printf("\t\t\t%d. %s\n", taskNo, tasks.get(taskNo - 1));
                 }
                 break;
-            case "mark": {
+            case COMMAND_MARK: {
                 int taskNo = Integer.parseInt(inputLine.split(" ")[1]);
                 if (taskNo > tasks.size()) {
                     System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
@@ -63,7 +70,7 @@ public class Duke {
                 System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
                 break;
             }
-            case "unmark": {
+            case COMMAND_UNMARK: {
                 int taskNo = Integer.parseInt(inputLine.split(" ")[1]);
                 if (taskNo > tasks.size()) {
                     System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
@@ -80,7 +87,7 @@ public class Duke {
                 System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
                 break;
             }
-            case "todo": {
+            case COMMAND_TODO: {
                 System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "New Todo! You have added this todo:");
                 final String todoDescription = inputLine.split(" ", 2)[1];
                 Todo todo = new Todo(todoDescription);
@@ -89,7 +96,7 @@ public class Duke {
                 System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
                 break;
             }
-            case "deadline": {
+            case COMMAND_DEADLINE: {
                 System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "New Deadline! You have added this deadline:");
                 final String deadlineDetails = inputLine.split(" ", 2)[1];
                 final String deadlineDescription = deadlineDetails.split(" /by ")[0];
@@ -100,7 +107,7 @@ public class Duke {
                 System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
                 break;
             }
-            case "event": {
+            case COMMAND_EVENT: {
                 System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "New Event! You have added this event:");
                 final String eventDetails = inputLine.split(" ", 2)[1];
                 final String eventDescription = eventDetails.split(" /from | /to ", 3)[0];
@@ -117,6 +124,6 @@ public class Duke {
                 break;
             }
             printHorizontalLine();
-        } while (!inputLine.equals("bye"));
+        } while (!inputLine.equals(COMMAND_BYE));
     }
 }
