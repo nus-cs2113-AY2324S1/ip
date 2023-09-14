@@ -1,16 +1,13 @@
 import java.util.Scanner;
 
-public class Duke {
-    private static final Scanner IN = new Scanner(System.in);
-
-    private static String input = null;
-    private static boolean isFinished = false;
+public class Lemon {
+    public static String LEMON_EMOJI = "\uD83C\uDF4B";
     private static final Task[] tasks = new Task[100];
     private static int taskCount = 0;
     private static int taskListIndex = taskCount - 1;
 
     public static void greet() {
-        String logo = "                      .--:::.                      \n"
+        String LOGO = "                      .--:::.                      \n"
                 + "                .:-----::::.:-.                    \n"
                 + "            .----:::::::::..:=:                    \n"
                 + "         .---:::::::::::::::-*.                    \n"
@@ -37,24 +34,19 @@ public class Duke {
                 + "╱        ╱╱        _╱         ╱         ╱         ╱ \n"
                 + "╲________╱╲________╱╲__╱__╱__╱╲________╱╲__╱_____╱  \n";
 
-        System.out.println(logo);
-        System.out.println("Hey there! I'm Lemon \uD83C\uDF4B");
+        System.out.println(LOGO);
+        System.out.println("Hey there! I'm Lemon " +  LEMON_EMOJI);
         System.out.println("How can I add some zest to your day?");
-        System.out.print("\uD83C\uDF4B \uD83C\uDF4B ");
-
+        System.out.print( LEMON_EMOJI + " " +  LEMON_EMOJI + " ");
     }
 
     public static String getInput() {
-        System.out.println("\uD83C\uDF4B\n");
-        String line;
-        line = IN.nextLine();
-        if (line.equals("bye")) {
-            exit();
-        }
-        return line;
+        Scanner in = new Scanner(System.in);
+        System.out.println(LEMON_EMOJI + "\n");
+        return in.nextLine();
     }
 
-    public static void addNewTodo() {
+    public static void addNewTodo(String input) {
         String task = input.replace("todo ", "");
 
         taskListIndex++;
@@ -64,12 +56,12 @@ public class Duke {
         printAddedTask();
     }
 
-    public static void addNewDeadline() {
+    public static void addNewDeadline(String input) {
         int byIndex = input.indexOf("/by");
-        int deadlineWordLength = 9;
-        int byWordLength = 4;
-        String task = input.substring(deadlineWordLength, byIndex - 1);
-        String dateTime = input.substring(byIndex + byWordLength);
+        int DEADLINE_WORD_LENGTH = 9;
+        int BY_WORD_LENGTH = 4;
+        String task = input.substring(DEADLINE_WORD_LENGTH, byIndex - 1);
+        String dateTime = input.substring(byIndex + BY_WORD_LENGTH);
 
         taskListIndex++;
         tasks[taskListIndex] = new Deadline(task, dateTime);
@@ -78,15 +70,15 @@ public class Duke {
         printAddedTask();
     }
 
-    public static void addNewEvent() {
+    public static void addNewEvent(String input) {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
-        int eventWordLength = 6;
-        int fromWordLength = 6;
-        int toWordLength = 4;
-        String task = input.substring(eventWordLength, fromIndex - 1);
-        String startDateTime = input.substring(fromIndex + fromWordLength, toIndex - 1);
-        String endDateTime = input.substring(toIndex + toWordLength);
+        int EVENT_WORD_LENGTH = 6;
+        int FROM_WORD_LENGTH = 6;
+        int TO_WORD_LENGTH = 4;
+        String task = input.substring(EVENT_WORD_LENGTH, fromIndex - 1);
+        String startDateTime = input.substring(fromIndex + FROM_WORD_LENGTH, toIndex - 1);
+        String endDateTime = input.substring(toIndex + TO_WORD_LENGTH);
 
         taskListIndex++;
         tasks[taskListIndex] = new Event(task, startDateTime, endDateTime);
@@ -95,7 +87,7 @@ public class Duke {
         printAddedTask();
     }
 
-    public static void addNewTask() {
+    public static void addNewTask(String input) {
         taskListIndex++;
         tasks[taskListIndex] = new Task(input);
         taskCount++;
@@ -122,7 +114,7 @@ public class Duke {
         }
     }
 
-    public static void markTask(boolean isDone) {
+    public static void markTask(String input, boolean isDone) {
         int taskSerialNo = Integer.parseInt(input.replaceAll("[^0-9]", ""));
         int taskIndex = taskSerialNo - 1;
         boolean isIndexWithinRange = taskSerialNo <= taskCount;
@@ -143,39 +135,43 @@ public class Duke {
 
     public static void exit() {
         System.out.println("Squeeze the day! Until we meet again, stay fresh and zesty!");
-        System.out.println("\uD83C\uDF4B \uD83C\uDF4B \uD83C\uDF4B");
-        isFinished = true;
+        System.out.print(LEMON_EMOJI + " " + LEMON_EMOJI + " ");
     }
 
     public static void main(String[] args) {
+        boolean isFinished = false;
+
         greet();
-        input = getInput();
+        String input = getInput();
 
         while (!isFinished) {
             boolean isEmpty = taskCount <= 0;
 
-            if (input.equals("list")) {
+            if (input.equals("bye")) {
+                isFinished = true;
+                exit();
+            } else if (input.equals("list")) {
                 printList(isEmpty);
             } else if (input.matches(".*\\bmark\\b.*")) {
                 if (isEmpty) {
                     printList(true);
                 } else {
-                    markTask(true);
+                    markTask(input, true);
                 }
             } else if (input.matches(".*\\bunmark\\b.*")) {
                 if (isEmpty) {
                     printList(true);
                 } else {
-                    markTask(false);
+                    markTask(input, false);
                 }
             } else if (input.matches(".*\\btodo\\b.*")) {
-                addNewTodo();
+                addNewTodo(input);
             } else if (input.matches(".*\\bdeadline\\b.*")) {
-                addNewDeadline();
+                addNewDeadline(input);
             } else if (input.matches(".*\\bevent\\b.*")) {
-                addNewEvent();
+                addNewEvent(input);
             } else {
-                addNewTask();
+                addNewTask(input);
             }
             input = getInput();
         }
