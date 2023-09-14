@@ -11,6 +11,12 @@ public class Duke {
         System.out.println("\t" + "What can I do for you?");
         System.out.println("\t" + line);
     }
+
+    public static void  printUnknownInputMessage() {
+        System.out.println("\t" + line);
+        System.out.println("\t" + " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("\t" + line);
+    }
     public static void printFarewell() {
         System.out.println("\t" + line);
         System.out.println("\t" + "Bye. Hope to see you again soon!");
@@ -47,11 +53,15 @@ public class Duke {
     }
 
     public static void addTodo(String userInput, Task[] tasks) {
-        tasks[Task.getNumberOfTask()] = new Todo(userInput.substring(5));
         System.out.println("\t" + line);
-        System.out.println("\t" + "Got it. I've added this task:");
-        System.out.println("\t  " + tasks[Task.getNumberOfTask() - 1]);
-        System.out.println("\tNow you have " + Task.getNumberOfTask() + " tasks in the list.");
+        try {
+            tasks[Task.getNumberOfTask()] = new Todo(userInput.substring(5));
+            System.out.println("\t" + "Got it. I've added this task:");
+            System.out.println("\t  " + tasks[Task.getNumberOfTask() - 1]);
+            System.out.println("\tNow you have " + Task.getNumberOfTask() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         System.out.println("\t" + line);
     }
 
@@ -105,35 +115,35 @@ public class Duke {
                 printList(tasks);
                 userInput = in.nextLine();
             }
-            else if (userInput.startsWith("mark ")) {
+            else if (userInput.startsWith("mark")) {
                 //Mark the task that the user specified with task number
                 markTask(userInput, tasks);
                 userInput = in.nextLine();
             }
-            else if (userInput.startsWith("unmark ")) {
+            else if (userInput.startsWith("unmark")) {
                 //Unmark the task that the user specified with task number
                 unmarkTask(userInput, tasks);
                 userInput = in.nextLine();
             }
-            else if (userInput.startsWith("todo ")) {
+            else if (userInput.startsWith("todo")) {
                 //Add Todo to list and prints out add message and number of tasks in list
                 addTodo(userInput, tasks);
                 userInput = in.nextLine();
             }
-            else if (userInput.startsWith("event ")) {
+            else if (userInput.startsWith("event")) {
                 //Add Event to list and prints out add message and number of tasks in list
                 addEvent(userInput, tasks);
                 userInput = in.nextLine();
 
             }
-            else if (userInput.startsWith("deadline ")) {
+            else if (userInput.startsWith("deadline")) {
                 //Add Deadline to list and prints out add message and number of tasks in list
                 addDeadline(userInput, tasks);
                 userInput = in.nextLine();
             }
             else {
-                //If user did not specify type of task, add task without tag
-                addTask(userInput, tasks);
+                //If unable to understand user input
+                printUnknownInputMessage();
                 userInput = in.nextLine();
             }
         }
