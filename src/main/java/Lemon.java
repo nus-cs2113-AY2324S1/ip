@@ -1,3 +1,9 @@
+import lemon.command.LemonException;
+import lemon.task.Deadline;
+import lemon.task.Event;
+import lemon.task.Task;
+import lemon.task.Todo;
+
 import java.util.Scanner;
 import java.util.regex.*;
 
