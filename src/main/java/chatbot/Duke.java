@@ -1,3 +1,5 @@
+package chatbot;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -8,7 +10,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InputException{
 
         System.out.println("Hello! I'm TheChattyFatty");
 
@@ -17,6 +19,13 @@ public class Duke {
         while(true) {
             printLine();
             System.out.println("What can I do for you?");
+            System.out.println("Functionality:");
+            System.out.println("todo [task name] (Creates a new todo)");
+            System.out.println("deadline [task name] (Creates a new deadline)");
+            System.out.println("event [event name] (Creates a new event)");
+            System.out.println("mark [task number] (Marks todo/event/deadline as done");
+            System.out.println("unmark [task number (Marks todo/event/deadline as not done yet");
+            System.out.println("list (displays all todos/events/deadlines)");
             String response = scanner.nextLine();
 
             // For handling keyword responses with multiple words
@@ -39,28 +48,27 @@ public class Duke {
             else if(keyword.equals("mark")){
                 // Check exception: number of words is not 2
                 if(words.length != 2){
-                    System.out.println("Please enter with correct format: mark [Integer]");
+                    throw new InputException("Input Exception: Please enter with correct format (mark [Integer])");
                 }
                 // Check exception: second word cannot be converted to integer or integer out of bounds
                 try{
                     int markIndex = Integer.parseInt(words[1]);
 
                     if(markIndex < 1 || markIndex > numTasks){
-                        System.out.println("Please enter a positive integer less than or equal to current number of tasks (" + numTasks + ")");
-                        continue;
+                        throw new InputException("Input Exception: Please enter a positive integer less than or equal to current number of tasks (" + numTasks + " task(s))");
                     }
 
                     taskList[markIndex - 1].mark();
                 }
                 catch(NumberFormatException e){
-                    System.out.println("Please enter with correct format: mark [Integer]");
+                    throw new InputException("Input Exception: Please enter with correct format (mark [Integer])");
                 }
             }
 
             else if(keyword.equals("unmark")){
                 // Check exception: number of words is not 2
                 if(words.length != 2){
-                    System.out.println("Please enter with correct format: unmark [Integer]");
+                    throw new InputException("Input Exception: Please enter with correct format (unmark [Integer])");
                 }
 
                 // Check exception: second word cannot be converted to integer or integer out of bounds
@@ -68,14 +76,13 @@ public class Duke {
                     int markIndex = Integer.parseInt(words[1]);
 
                     if(markIndex < 1 || markIndex > numTasks){
-                        System.out.println("Please enter a positive integer less than or equal to current number of tasks (" + numTasks + ")");
-                        continue;
+                        throw new InputException("Input Exception: Please enter a positive integer less than or equal to current number of tasks (" + numTasks + ")");
                     }
 
                     taskList[markIndex - 1].unmark();
                 }
                 catch(NumberFormatException e){
-                    System.out.println("Please enter with correct format: unmark [Integer]");
+                    throw new InputException("Input Exception: Please enter with correct format (unmark [Integer])");
                 }
             }
 
@@ -84,7 +91,7 @@ public class Duke {
                 taskList[numTasks] = new ToDo(description);
                 numTasks++;
 
-                System.out.println("Created new ToDo:");
+                System.out.println("Created new chatbot.ToDo:");
                 System.out.println(description);
             }
 
@@ -96,7 +103,7 @@ public class Duke {
                 taskList[numTasks] = new Deadline(description, deadline);
                 numTasks++;
 
-                System.out.println("Created new Deadline:");
+                System.out.println("Created new chatbot.Deadline:");
                 System.out.println(description);
                 System.out.println("Due: " + deadline);
             }
@@ -111,15 +118,14 @@ public class Duke {
                 taskList[numTasks] = new Event(description, start, end);
                 numTasks++;
 
-                System.out.println("Created new Event:");
+                System.out.println("Created new chatbot.Event:");
                 System.out.println(description);
                 System.out.println("From: " + start);
                 System.out.println("To: " + end);
             }
 
             else{
-                System.out.println("Invalid keyword");
-                System.out.println("Valid keywords are: list, todo, deadline, event, mark, unmark, bye");
+                throw new InputException("Input Exception: Invalid input keyword");
             }
 
         }
