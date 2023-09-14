@@ -79,10 +79,13 @@ public class Alice {
      * then, calls addTask to add deadline task to tasks array
      * @param userInput input from user (eg. deadline return book /by Sunday)
      */
-    public static void addDeadline(String userInput) {
+    public static void addDeadline(String userInput) throws DukeException{
         final int LENGTH_OF_COMMAND = 9; //length of "deadline "
 
         String[] inputArray = userInput.split(" /");
+        if (inputArray.length == 1) {
+            throw new DukeException();
+        }
         String description = inputArray[0].substring(LENGTH_OF_COMMAND);
         String date = inputArray[1];
 
@@ -95,10 +98,13 @@ public class Alice {
      * then, calls addTask to add event task to tasks array
      * @param userInput input from user (eg. event project meeting /from Mon 2pm /to 4pm)
      */
-    public static void addEvent(String userInput) {
+    public static void addEvent(String userInput) throws DukeException{
         final int LENGTH_OF_COMMAND = 6; //length of "event "
 
         String[] inputArray = userInput.split(" /");
+        if (inputArray.length < 3) {
+            throw new DukeException();
+        }
         String description = inputArray[0].substring(LENGTH_OF_COMMAND);
         String startDate = inputArray[1].strip();
         String endDate = inputArray[2].strip();
@@ -107,13 +113,14 @@ public class Alice {
         addTask(newTask);
     }
 
-    public static void deadlineExceptionError() {
+
+    public static void deadlineExceptionMessage() {
         System.out.println("☹ OOPS!!! Your formatting is wrong!");
         System.out.println("It should be in the format ---> deadline <action> /<date>");
         System.out.println("eg. deadline return book /by Sunday" + LINE);
     }
 
-    public static void eventExceptionError() {
+    public static void eventExceptionMessage() {
         System.out.println("☹ OOPS!!! Your format is wrong!");
         System.out.println("Format: event <event name> /<start time> /<end time>");
         System.out.println("eg. event project meeting /from Mon 2pm /to 4pm" + LINE);
@@ -182,19 +189,19 @@ public class Alice {
             case "deadline":
                 try {
                     addDeadline(userInput);
-                } catch (StringIndexOutOfBoundsException e) {
-                    deadlineExceptionError();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    deadlineExceptionError();
+                    deadlineExceptionMessage();
+                } catch (DukeException e) {
+                    deadlineExceptionMessage();
                 }
                 break;
             case "event":
                 try {
                     addEvent(userInput);
-                } catch (StringIndexOutOfBoundsException e) {
-                    eventExceptionError();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    eventExceptionError();
+                    eventExceptionMessage();
+                } catch (DukeException e) {
+                    eventExceptionMessage();
                 }
                 break;
             case "todo":
