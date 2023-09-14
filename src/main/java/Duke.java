@@ -52,7 +52,7 @@ public class Duke {
                     System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
                     break;
                 }
-                if (tasks.get(taskNo - 1).isDone()) {
+                if (tasks.get(taskNo - 1).getDone()) {
                     System.out.printf("\t%s: Are you from the past?\n", PYTHON_EMOJI);
                     System.out.printf("\t\tTask: %s\n \t\t is already done!!!\n",
                             tasks.get(taskNo - 1));
@@ -69,7 +69,7 @@ public class Duke {
                     System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
                     break;
                 }
-                if (!tasks.get(taskNo - 1).isDone()) {
+                if (!tasks.get(taskNo - 1).getDone()) {
                     System.out.printf("\t%s: Alas! Only the completed tasks can be unmarked!\n", PYTHON_EMOJI);
                     System.out.printf("\t\tTask: %s\n \t\tis already sitting idle. Get started...!!!\n",
                             tasks.get(taskNo - 1));
