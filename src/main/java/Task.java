@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -11,9 +11,7 @@ public class Task {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
-    public String getTypeIcon() {
-        return "[ ]";
-    }
+    public abstract String getTypeIcon();
 
     public String getDescription() {
         return description;
