@@ -12,7 +12,7 @@ public class Duke {
         while (true) {
             String command = keyboard.nextLine();
             String[] commendSplits = command.split(" ");
-            int spaceIndex, taskNo;
+            int taskNo;
 
             switch (commendSplits[0]) {
             case "Bye":
