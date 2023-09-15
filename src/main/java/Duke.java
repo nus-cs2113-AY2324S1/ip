@@ -59,33 +59,20 @@ public class Duke {
         if (isMark) {
             taskList.get(taskCount).isDone = true;
             System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("       " + taskList.get(taskCount).getStatusIcon() + " " + taskList.get(taskCount).description);
         } else {
             taskList.get(taskCount).isDone = false;
             System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("       " + taskList.get(taskCount).getStatusIcon() + " " + taskList.get(taskCount).description);
         }
+        System.out.print("       ");
+        taskList.get(taskCount).printTask();
         printLine();
     }
 
     public void addTaskCallback(int taskCount) {
         printLine();
         System.out.println("    Got it. I've added this task:");
-        switch (taskList.get(taskCount).taskType) {
-        case "todo":
-            System.out.print("      " + taskList.get(taskCount).getTaskTypeIcon() + taskList.get(taskCount).getStatusIcon() + " " + taskList.get(taskCount).description);
-            break;
-        case "deadline":
-            System.out.print("      " + taskList.get(taskCount).getTaskTypeIcon() + taskList.get(taskCount).getStatusIcon() + " " + taskList.get(taskCount).description
-            + "(by:"+taskList.get(taskCount).deadline+")");
-            break;
-        case "event":
-            System.out.print("      " + taskList.get(taskCount).getTaskTypeIcon() + taskList.get(taskCount).getStatusIcon() + " " + taskList.get(taskCount).description
-            + " (from: " + taskList.get(taskCount).from + " to: " + taskList.get(taskCount).to+")");
-            break;
-        }
-
-        System.out.println();
+        printIndentTask();
+        taskList.get(taskCount).printTask();
         System.out.println("    Now you have " + (taskCount + 1) + " tasks in the list.");
         printLine();
     }
@@ -114,7 +101,6 @@ public class Duke {
             String from = String.join(" ", Arrays.copyOfRange(userInput, fromIndex + 1, toIndex));
             String to = String.join(" ", Arrays.copyOfRange(userInput, toIndex + 1, userInput.length));
             Task event = new Event(eventDescription, from, to);
-//            this.taskList[taskCount] = event;
             taskList.add(event);
             addTaskCallback(taskCount);
             break;
