@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import static command.booleanChecks.*;
 import static command.commonMessages.printAddedTaskMessage;
 import static command.commonMessages.printLine;
+import static exceptionhandler.KenergeticBotException.*;
+
 
 public class commandList {
     public static void list(ArrayList<Task> taskList) {
@@ -42,7 +44,7 @@ public class commandList {
     public static void addTodo(ArrayList<Task> taskList, String item) throws KenergeticBotException {
         String formattedString = item.replace("todo", "").trim();
         if (formattedString.isEmpty()) {
-            throw new KenergeticBotException(KenergeticBotException.TODO_MISSING_DESCRIPTION);
+            throw new KenergeticBotException(TODO_MISSING_DESCRIPTION);
         }
         String taskType = "[T]";
         Task newTask = new Todo(formattedString, taskType);
@@ -80,23 +82,23 @@ public class commandList {
         switch(formattedString.length) {
             case 1:
                 if (formattedString[0].isEmpty()) {
-                    throw new KenergeticBotException(KenergeticBotException.EVENT_MISSING_DESCRIPTION);
+                    throw new KenergeticBotException(EVENT_MISSING_DESCRIPTION);
                 } else {
-                    throw new KenergeticBotException(KenergeticBotException.EVENT_MISSING_START_INTERMEDIATE);
+                    throw new KenergeticBotException(EVENT_MISSING_START_INTERMEDIATE);
                 }
             case 2:
                 if (!formattedString[1].contains("from")) {
-                    throw new KenergeticBotException(KenergeticBotException.COMMAND_TYPO_EVENT_FROM);
+                    throw new KenergeticBotException(COMMAND_TYPO_EVENT_FROM);
                 } else if (formattedString[1].replace("from", "").trim().isEmpty()){
-                    throw new KenergeticBotException(KenergeticBotException.EVENT_MISSING_START);
+                    throw new KenergeticBotException(EVENT_MISSING_START);
                 } else {
-                    throw new KenergeticBotException(KenergeticBotException.EVENT_MISSING_END_INTERMEDIATE);
+                    throw new KenergeticBotException(EVENT_MISSING_END_INTERMEDIATE);
                 }
             case 3:
                 if (!formattedString[2].contains("to")) {
-                    throw new KenergeticBotException(KenergeticBotException.COMMAND_TYPO_EVENT_TO);
+                    throw new KenergeticBotException(COMMAND_TYPO_EVENT_TO);
                 } else if (formattedString[2].replace("to", "").trim().isEmpty()){
-                    throw new KenergeticBotException(KenergeticBotException.EVENT_MISSING_END);
+                    throw new KenergeticBotException(EVENT_MISSING_END);
                 }
         }
         String taskType = "[E]";
@@ -130,7 +132,7 @@ public class commandList {
                 System.out.println(e.getMessage());
             }
         } else {
-            throw new KenergeticBotException(KenergeticBotException.INVALID_COMMAND);
+            throw new KenergeticBotException(INVALID_COMMAND);
         }
         printLine();
     }
