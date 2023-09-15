@@ -25,10 +25,10 @@ public class Duke {
                     break;
                 } else if (userInput.equals("list")) {
                     printTasks(tasks, count);
-                } else if (userInput.startsWith("mark ")) {
-                    markTask(userInput, tasks);
-                } else if (userInput.startsWith("unmark ")) {
-                    unmarkTask(userInput, tasks);
+                } else if (userInput.startsWith("mark")) {
+                    markTask(userInput, tasks, count);
+                } else if (userInput.startsWith("unmark")) {
+                    unmarkTask(userInput, tasks, count);
                 } else if (userInput.startsWith("todo")) {
                     String description = userInput.replaceFirst("todo", "").trim();
                     if (description.isEmpty()) {
@@ -133,23 +133,53 @@ public class Duke {
     }
 
     // Mark a task as done
-    private static void markTask(String userInput, Task[] tasks) {
-        int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
+    private static void markTask(String userInput, Task[] tasks, int count) {
+        // Check if the task list is empty
+        if (count == 0) {
+            System.out.println("☹ OOPS!!! There are no tasks to mark.");
+            return;
+        }
 
-        // Check if the task at the index is not null
-        if (taskIndex >= 0 && taskIndex < tasks.length && tasks[taskIndex] != null) {
-            tasks[taskIndex].markAsDone();
-            System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex]);
-        } else {
-            System.out.println("☹ OOPS!!! Please provide a valid task number.");
+        try {
+            int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
+
+            // Check if the task index is valid
+            if (taskIndex >= 0 && taskIndex < count) {
+                tasks[taskIndex].markAsDone();
+                System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex]);
+            } else {
+                System.out.println("☹ OOPS!!! Please provide a valid task number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! Please use 'mark [task number]'.");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! Please use 'mark [task number]'.");
         }
     }
 
     // Unmark a task
-    private static void unmarkTask(String userInput, Task[] tasks) {
-        int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
-        tasks[taskIndex].markAsUndone();
-        System.out.println("OK, I've marked this task as not done yet:\n" + tasks[taskIndex]);
+    private static void unmarkTask(String userInput, Task[] tasks, int count) {
+        // Check if the task list is empty
+        if (count == 0) {
+            System.out.println("☹ OOPS!!! There are no tasks to unmark.");
+            return;
+        }
+
+        try {
+            int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
+
+            // Check if the task index is valid
+            if (taskIndex >= 0 && taskIndex < count) {
+                tasks[taskIndex].markAsUndone();
+                System.out.println("OK, I've marked this task as not done yet:\n" + tasks[taskIndex]);
+            } else {
+                System.out.println("☹ OOPS!!! Please provide a valid task number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! Please use 'unmark [task number]'.");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! Please use 'unmark [task number]'.");
+        }
     }
 
     // Custom exception for empty task descriptions
