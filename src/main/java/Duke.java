@@ -15,7 +15,9 @@ public class Duke {
 
     public Duke() {
         echo("Hello! I'm Mark\nWhat can I do for you?");
-        loadSave();
+        try {
+            loadSave();
+        } catch (FileNotFoundException ignored) {}
     }
 
     public void echo(String message) {
@@ -69,39 +71,36 @@ public class Duke {
         }
     }
 
-    public void loadSave() {
+    public void loadSave() throws FileNotFoundException{
         File f = new File(FILE_PATH);
-        try {
-            Scanner sc = new Scanner(f);
-            while (sc.hasNext()) {
-                String[] line = sc.nextLine().split(" \\| ");
-                boolean isMark = line[1].equals("1");
-                String taskName = line[2];
-                switch (line[0]) {
-                    case "T": {
-                        Task task = new Todo(taskName);
-                        task.setIsComplete(isMark);
-                        list.add(task);
-                        break;
-                    }
-                    case "D": {
-                        String by = line[3];
-                        Task task = new Deadline(taskName, by);
-                        task.setIsComplete(isMark);
-                        list.add(task);
-                        break;
-                    }
-                    case "E": {
-                        String from = line[3].split("-")[0];
-                        String to = line[3].split("-")[1];
-                        Task task = new Event(taskName, from, to);
-                        task.setIsComplete(isMark);
-                        list.add(task);
-                        break;
-                    }
+        Scanner sc = new Scanner(f);
+        while (sc.hasNext()) {
+            String[] line = sc.nextLine().split(" \\| ");
+            boolean isMark = line[1].equals("1");
+            String taskName = line[2];
+            switch (line[0]) {
+                case "T": {
+                    Task task = new Todo(taskName);
+                    task.setIsComplete(isMark);
+                    list.add(task);
+                    break;
+                }
+                case "D": {
+                    String by = line[3];
+                    Task task = new Deadline(taskName, by);
+                    task.setIsComplete(isMark);
+                    list.add(task);
+                    break;
+                }
+                case "E": {
+                    String from = line[3].split("-")[0];
+                    String to = line[3].split("-")[1];
+                    Task task = new Event(taskName, from, to);
+                    task.setIsComplete(isMark);
+                    list.add(task);
+                    break;
                 }
             }
-        } catch (FileNotFoundException ignored) {
         }
     }
 
