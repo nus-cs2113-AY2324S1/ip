@@ -4,29 +4,48 @@ import java.util.Scanner;
 public class Dukey {
     private static void addTodo(String line, ArrayList<Task> tasks) {
         String[] words = line.split(" ");
-        String description = words[1];
-        tasks.add(new Todo(description));
-        tasks.get(tasks.size() - 1).printNewTask();
+        String description = null;
+        try {
+            description = words[1];
+            tasks.add(new Todo(description));
+            tasks.get(tasks.size() - 1).printNewTask();
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("_____________________________________________________");
+            System.out.println(DukeyException.todoDescriptionError());
+            System.out.println("_____________________________________________________");
+        }
     }
 
     private static void addEvent(String line, ArrayList<Task> tasks) {
         int startIndexOfFrom = line.indexOf("/from");
         int startIndexOfTo = line.indexOf("/to");
         final int beginIndex = 6;
+        try {
         String from = line.substring(startIndexOfFrom + 6, startIndexOfTo);
         String to = line.substring(startIndexOfTo + 4);
         String description = line.substring(beginIndex, startIndexOfFrom);
         tasks.add(new Event(from, to, description));
         tasks.get(tasks.size() - 1).printNewTask();
+        } catch(StringIndexOutOfBoundsException e) {
+            System.out.println("_____________________________________________________");
+            System.out.println(DukeyException.EventFormatError());
+            System.out.println("_____________________________________________________");
+        }
     }
 
     private static void addDeadline(String line, ArrayList<Task> tasks) {
         String[] words = line.split("/by");
         String[] words2 = line.split(" ");
-        String description = words2[1];
-        String by = words[1];
-        tasks.add(new Deadline(description, by));
-        tasks.get(tasks.size() - 1).printNewTask();
+        try {
+            String description = words2[1];
+            String by = words[1];
+            tasks.add(new Deadline(description, by));
+            tasks.get(tasks.size() - 1).printNewTask();
+        } catch(ArrayIndexOutOfBoundsException e) {
+            System.out.println("_____________________________________________________");
+            System.out.println(DukeyException.deadlineDescriptionError());
+            System.out.println("_____________________________________________________");
+        }
     }
 
     private static void unmarkTask(String line, ArrayList<Task> tasks) {
@@ -84,9 +103,15 @@ public class Dukey {
                     break;
                 default:
                     if (line.trim().isEmpty()) {
-                        System.out.println("Error, please input something");
+                        System.out.println("________________________________");
+                        System.out.println(DukeyException.EmptyInputError());
+                        System.out.println("________________________________");
+                    } else {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(DukeyException.InvalidInputError());
+                        System.out.println("____________________________________________________________");
                     }
-                    break;
+
             }
         }
     }
