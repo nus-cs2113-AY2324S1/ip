@@ -1,5 +1,19 @@
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+import exceptionhandler.KenergeticBotException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import static command.booleanChecks.*;
+import static command.commandList.*;
+import static command.messages.*;
+/*import static command.messages.printLine;
+import static command.messages.printGreetingMessage;
+import static command.messages.printExitMessage;*/
+
 
 public class KenergeticBot {
 
@@ -7,47 +21,6 @@ public class KenergeticBot {
         printGreetingMessage();
         ArrayList<Task> taskList = new ArrayList<Task>();
         botDialogue(taskList);
-    }
-    public static void printGreetingMessage() {
-        printLine();
-        System.out.println("     Hello! I'm KenergeticBot");
-        System.out.println("     What can I do for you?");
-        printLine();
-    }
-
-    public static void printExitMessage() {
-        printLine();
-        System.out.println("     Bye. Hope to see you again soon!");
-        printLine();
-    }
-
-    public static void printLine() {
-        System.out.println("    ____________________________________________________________");
-    }
-
-    //Returns True if the text contains "mark", False if not
-    public static boolean checkTextForMark(String item) {
-        return item.length() > 4 && item.startsWith("mark");
-    }
-
-    //Returns True if the text contains "unmark", False if not
-    public static boolean checkTextForUnmark(String item) {
-        return item.length() > 6 && item.startsWith("unmark");
-    }
-
-    //Returns True if the text contains "todo", False if not
-    public static boolean checkTextForTodo(String item) {
-        return item.startsWith("todo");
-    }
-
-    //Returns True if the text contains "deadline", False if not
-    public static boolean checkTextForDeadline(String item) {
-        return item.startsWith("deadline");
-    }
-
-    //Returns True if the text contains "event", False if not
-    public static boolean checkTextForEvent(String item) {
-        return item.startsWith("event");
     }
 
     //Main logic for the bot's dialogue
@@ -77,7 +50,7 @@ public class KenergeticBot {
         botDialogue(taskList);
     }
 
-    //Creates a "Todo" object and adds to the taskList
+    //Creates a "task.Todo" object and adds to the taskList
     public static void addTodo(ArrayList<Task> taskList, String item) throws KenergeticBotException {
         String formattedString = item.replace("todo", "").trim();
         if (formattedString.isEmpty()) {
@@ -91,7 +64,7 @@ public class KenergeticBot {
         System.out.printf("     Now you have %d tasks in the list.\n", taskList.size());
     }
 
-    //Creates a "Deadline" object and adds to the taskList
+    //Creates a "task.Deadline" object and adds to the taskList
     public static void addDeadline(ArrayList<Task> taskList, String item) throws KenergeticBotException {
         String[] formattedString = item.replace("deadline", "").trim().split("/");
         if (formattedString.length < 1) {
@@ -108,7 +81,7 @@ public class KenergeticBot {
         System.out.printf("     Now you have %d tasks in the list.\n", taskList.size());
     }
 
-    //Creates a "Event" object and adds to the taskList
+    //Creates a "task.Event" object and adds to the taskList
     public static void addEvent(ArrayList<Task> taskList, String item) throws KenergeticBotException {
         String[] formattedString = item.replace("event", "").split("/");
         if (item.replace("event", "").isEmpty()) {
@@ -156,31 +129,6 @@ public class KenergeticBot {
         } else {
             throw new KenergeticBotException(KenergeticBotException.INVALID_COMMAND);
         }
-        printLine();
-    }
-
-    public static void list(ArrayList<Task> taskList) {
-        printLine();
-        System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.printf("     %d.%s\n", i+1, taskList.get(i));
-        }
-        printLine();
-    }
-
-    public static void mark(ArrayList<Task> taskList, int listIndex) {
-        printLine();
-        System.out.println("     Nice! I've marked this task as done:");
-        taskList.get(listIndex - 1).mark();
-        System.out.printf("       %s\n", taskList.get(listIndex - 1));
-        printLine();
-    }
-
-    public static void unmark(ArrayList<Task> taskList, int listIndex) {
-        printLine();
-        System.out.println("     OK, I've marked this task as not done yet:");
-        taskList.get(listIndex - 1).unmark();
-        System.out.printf("       %s\n", taskList.get(listIndex - 1));
         printLine();
     }
 }
