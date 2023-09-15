@@ -8,20 +8,21 @@ import java.util.Arrays;
 public class ToDoList {
     private ArrayList<Task> taskList;
     private String[] markedTask;
-    private int taskListTracker;
     public String checker;
     public String marker;
     public String unmarked;
     public String toDo;
 
+    public String delete;
+
     public ToDoList(){
         taskList = new ArrayList<Task>();
         markedTask = new String[100];
-        taskListTracker = 0;
         checker = "list";
         marker = "mark";
         unmarked = "unmark";
         toDo = "todo";
+        delete = "delete";
     }
 
     public void listTask(){
@@ -70,27 +71,51 @@ public class ToDoList {
     }
     public void addToDo(String incomingTask) {
         ToDos newToDo = new ToDos(incomingTask);
-        taskList.add(taskListTracker, newToDo);
-        taskListTracker += 1;
+        taskList.add(newToDo);
         System.out.println("added: " + newToDo.toBeDone);
-        System.out.println("Now you have " + taskListTracker + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     public void addDeadline(String incomingTask, String deadline) {
         Deadline newDeadline = new Deadline(incomingTask,deadline);
-        taskList.add(taskListTracker, newDeadline);
-        taskListTracker += 1;
+        taskList.add(newDeadline);
         System.out.println("added: " + newDeadline.toBeDone + " (by: " + deadline +")");
-        System.out.println("Now you have " + taskListTracker + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     public void addEvent(String incomingTask, String starting, String ending){
         Event newEvent = new Event(incomingTask,starting,ending);
-        taskList.add(taskListTracker, newEvent);
-        taskListTracker += 1;
+        taskList.add(newEvent);
         System.out.println("added: " + newEvent.toBeDone + " (from: " + starting +" to:" + ending + ")");
-        System.out.println("Now you have " + taskListTracker + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
 
+    }
+
+    public void removeTask(String input){
+        int dividerPosition = input.indexOf(" ");
+        String taskNumberString = input.substring(dividerPosition + 1);
+        int taskNumber = Integer.parseInt(taskNumberString);
+
+        System.out.println("Task Removed");
+
+        if (taskList.get(taskNumber-1).taskType[0] == "T") {
+            System.out.println(Arrays.toString(taskList.get(taskNumber-1).taskType) +
+                    Arrays.toString(taskList.get(taskNumber-1).markAsDone) + " " + taskList.get(taskNumber-1).toBeDone);
+        }
+        else if(taskList.get(taskNumber-1).taskType[0] == "D"){
+            System.out.println(Arrays.toString(taskList.get(taskNumber-1).taskType) +
+                    Arrays.toString(taskList.get(taskNumber-1).markAsDone)
+                    + " " + taskList.get(taskNumber-1).toBeDone
+                    + " (by: " + taskList.get(taskNumber-1).dueDate + ")");
+        }
+        else{
+            System.out.println(Arrays.toString(taskList.get(taskNumber-1).taskType) +
+                    Arrays.toString(taskList.get(taskNumber-1).markAsDone) + " " + taskList.get(taskNumber-1).toBeDone
+                    + " (from: " + taskList.get(taskNumber-1).startTime
+                    + " to: "+ taskList.get(taskNumber-1).endTime + ")");
+        }
+        taskList.remove(taskNumber-1);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 }
 
