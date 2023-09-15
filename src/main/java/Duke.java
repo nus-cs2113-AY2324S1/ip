@@ -1,6 +1,13 @@
 import java.util.Scanner;
 import java.util.Arrays;
 
+// Custom exception for empty task descriptions
+class EmptyDescriptionException extends Exception {
+    public EmptyDescriptionException() {
+        super("☹ OOPS!!! The description of a task cannot be empty.");
+    }
+}
+
 class Task {
     protected String description;
     protected boolean isDone;
@@ -27,11 +34,9 @@ class Task {
     @Override
     public String toString() {
         if (isDone) {
-            return "[X] "
-                    + description;
+            return "[X] " + description;
         } else {
-            return "[ ] "
-                    + description;
+            return "[ ] " + description;
         }
     }
 }
@@ -46,8 +51,7 @@ class Todo extends Task {
     }
     @Override
     public String toString() {
-        return "[T]"
-                + super.toString();
+        return "[T]" + super.toString();
     }
 }
 
@@ -64,11 +68,7 @@ class Deadline extends Task {
     }
     @Override
     public String toString() {
-        return "[D]"
-                + super.toString()
-                + " (by: "
-                + by
-                + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }
 
@@ -87,17 +87,12 @@ class Event extends Task {
     }
     @Override
     public String toString() {
-        return "[E]"
-                + super.toString()
-                + " (from: "
-                + from
-                + " to: "
-                + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
 
 public class Duke {
-    public static void main(String[] args) {
+    public void run() {
         String LINE = "__________________________________________\n";
         System.out.println(LINE
                            + "Hello I'm MatinBot\n"
@@ -114,23 +109,37 @@ public class Duke {
             userInput = scanner.nextLine();
             System.out.println(LINE);
 
-            if (userInput.equals("bye")) {
-                break;
-            } else if (userInput.equals("list")) {
-                printTasks(tasks, count);
-            } else if (userInput.startsWith("mark ")) {
-                markTask(userInput, tasks);
-            } else if (userInput.startsWith("unmark ")) {
-                unmarkTask(userInput, tasks);
-            } else if (userInput.startsWith("todo ")) {
-                addTask(userInput, tasks, count, "Todo");
-                count++;
-            } else if (userInput.startsWith("deadline ")) {
-                addTask(userInput, tasks, count, "Deadline");
-                count++;
-            } else if (userInput.startsWith("event ")) {
-                addTask(userInput, tasks, count, "Event");
-                count++;
+            try {
+                if (userInput.equals("bye")) {
+                    break;
+                } else if (userInput.equals("list")) {
+                    printTasks(tasks, count);
+                } else if (userInput.startsWith("mark ")) {
+                    markTask(userInput, tasks);
+                } else if (userInput.startsWith("unmark ")) {
+                    unmarkTask(userInput, tasks);
+                } else if (userInput.startsWith("todo ")) {
+                    String description = userInput.substring("todo ".length()).trim();
+                    if (description.isEmpty()) {
+                        throw new EmptyDescriptionException();
+                    }
+                    addTask("todo " + description, tasks, count, "Todo");
+                    count++;
+                } else if (userInput.startsWith("deadline ")) {
+                    addTask(userInput, tasks, count, "Deadline");
+                    count++;
+                } else if (userInput.startsWith("event ")) {
+                    addTask(userInput, tasks, count, "Event");
+                    count++;
+                } else if (userInput.trim().isEmpty()) {
+                    throw new EmptyDescriptionException();
+                } else {
+                    throw new UnknownCommandException();
+                }
+            } catch (EmptyDescriptionException e) {
+                System.out.println(e.getMessage());
+            } catch (UnknownCommandException e) {
+                System.out.println(e.getMessage());
             }
             System.out.println(LINE);
         }
@@ -176,9 +185,7 @@ public class Duke {
     private static void printTasks(Task[] tasks, int count) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1)
-                                + ". "
-                                + tasks[i].toString());
+            System.out.println((i + 1) + ". " + tasks[i].toString());
         }
     }
 
@@ -186,15 +193,31 @@ public class Duke {
     private static void markTask(String userInput, Task[] tasks) {
         int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
         tasks[taskIndex].markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n"
-                            + tasks[taskIndex]);
+        System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex]);
     }
 
     // Unmark a task
     private static void unmarkTask(String userInput, Task[] tasks) {
         int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
         tasks[taskIndex].markAsUndone();
-        System.out.println("OK, I've marked this task as not done yet:\n"
-                            + tasks[taskIndex]);
+        System.out.println("OK, I've marked this task as not done yet:\n" + tasks[taskIndex]);
+    }
+
+    // Custom exception for empty task descriptions
+    class EmptyDescriptionException extends Exception {
+        public EmptyDescriptionException() {
+            super("☹ OOPS!!! The description of a task cannot be empty.");
+        }
+    }
+
+    // Custom exception for unknown commands
+    class UnknownCommandException extends Exception {
+        public UnknownCommandException() {
+            super("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
+    public static void main(String[] args) {
+        Duke duke = new Duke(); // Create an instance of the Duke class
+        duke.run(); // Run the chatbot
     }
 }
