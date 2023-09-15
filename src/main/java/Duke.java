@@ -48,6 +48,8 @@ public class Duke {
                 System.out.print("    " + (taskList.indexOf(task) + 1) + ".");
                 task.printTask();
             }
+        } else {
+            System.out.println("    List is empty!");
         }
         printLine();
     }
