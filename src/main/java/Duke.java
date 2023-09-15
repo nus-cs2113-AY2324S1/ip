@@ -23,47 +23,55 @@ public class Duke {
         while (!line.equals("bye")) {
 
             System.out.println("____________________________________________________________");
-            if (line.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
-                }
-            } else if (line.startsWith("mark")) {
-                int taskIndex = Integer.parseInt(line.substring(5)) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    tasks[taskIndex].markAsDone();
-                    System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex].toString());
-                }
 
-            } else if (line.startsWith("unmark")) {
-                int taskIndex = Integer.parseInt(line.substring(7)) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    tasks[taskIndex].markAsNotDone();
-                    System.out.println("OK, I've marked this task as not done yet:\n" + tasks[taskIndex].toString());
-                }
-            }
-            else {
-                String[] parts = line.split(" ", 2);
-                String command = parts[0];
-                String taskDescription = parts.length > 1 ? parts[1] : "";
+            try {
+                if (line.equals("list")) {
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
+                } else if (line.startsWith("mark")) {
+                    int taskIndex = Integer.parseInt(line.substring(5)) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskCount) {
+                        tasks[taskIndex].markAsDone();
+                        System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex].toString());
+                    }
 
-                switch (command) {
-                case "todo":
-                    tasks[taskCount] = new TodoTask(taskDescription);
-                    break;
-                case "deadline":
-                    tasks[taskCount] = new DeadlineTask(taskDescription);
-                    break;
-                case "event":
-                    tasks[taskCount] = new EventTask(taskDescription);
-                    break;
-                default:
-                    System.out.println("Invalid command. Please use 'todo', 'deadline', 'event', or 'list'.");
+                } else if (line.startsWith("unmark")) {
+                    int taskIndex = Integer.parseInt(line.substring(7)) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskCount) {
+                        tasks[taskIndex].markAsNotDone();
+                        System.out.println("OK, I've marked this task as not done yet:\n" + tasks[taskIndex].toString());
+                    }
+                } else {
+                    String[] parts = line.split(" ", 2);
+                    String command = parts[0];
+                    String taskDescription = parts.length > 1 ? parts[1] : "";
+
+                    switch (command) {
+                    case "todo":
+                        if (taskDescription.isEmpty()) {
+                            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        }
+                        tasks[taskCount] = new TodoTask(taskDescription);
+                        break;
+                    case "deadline":
+                        tasks[taskCount] = new DeadlineTask(taskDescription);
+                        break;
+                    case "event":
+                        tasks[taskCount] = new EventTask(taskDescription);
+                        break;
+                    default:
+                        throw new DukeException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
+                    taskCount++;
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(tasks[taskCount - 1].toString());
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
                 }
-                taskCount++;
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(tasks[taskCount - 1].toString());
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            }catch(DukeException e){
+                System.out.println(e.getMessage());
+
             }
 
             System.out.println("____________________________________________________________\n");
