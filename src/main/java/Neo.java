@@ -47,6 +47,8 @@ public class Neo {
             System.out.println("    " + list.get(arrayListIndex));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("OOPS!!! Please give the index of which task to mark.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! Please make sure the index given is within the current list.");
         }
     }
 
@@ -61,9 +63,10 @@ public class Neo {
             list.set(arrayListIndex, toUnmark);
             System.out.println("OK, I've marked this task as not done yet: ");
             System.out.println("    " + list.get(arrayListIndex));
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("OOPS!!! Please give the index of which task to unmark.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! Please make sure the index given is within the current list.");
         }
     }
 
@@ -87,6 +90,8 @@ public class Neo {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("OOPS!!! Please give the index of which task to delete.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! Please make sure the index given is within the current list.");
         }
     }
 
