@@ -1,88 +1,6 @@
+package duke;
 import java.util.Scanner;
 import java.util.Arrays;
-
-class Task {
-    protected String description;
-    protected boolean isDone;
-
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-    public void markAsDone() {
-        isDone = true;
-    }
-    public void markAsUndone() {
-        isDone = false;
-    }
-    public boolean isDone() {
-        return isDone;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public String getTaskType() {
-        return "Task";
-    }
-    @Override
-    public String toString() {
-        if (isDone) {
-            return "[X] " + description;
-        } else {
-            return "[ ] " + description;
-        }
-    }
-}
-
-class Todo extends Task {
-    public Todo(String description) {
-        super(description);
-    }
-    @Override
-    public String getTaskType() {
-        return "Todo";
-    }
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
-    }
-}
-
-class Deadline extends Task {
-    protected String by;
-
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-    @Override
-    public String getTaskType() {
-        return "Deadline";
-    }
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
-    }
-}
-
-class Event extends Task {
-    protected String from;
-    protected String to;
-
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-    @Override
-    public String getTaskType() {
-        return "Event";
-    }
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
-    }
-}
 
 public class Duke {
     public void run() {
@@ -93,7 +11,7 @@ public class Duke {
                            + LINE);
 
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
+        Task[] tasks = new duke.Task[100];
         int count = 0;
         String userInput;
 
@@ -132,8 +50,6 @@ public class Duke {
                     }
                     addTask("event " + description, tasks, count, "event");
                     count++;
-//                } else if (userInput.trim().isEmpty()) {
-//                    throw new EmptyDescriptionException("task");
                 } else {
                     throw new UnknownCommandException();
                 }
@@ -163,15 +79,38 @@ public class Duke {
             bracketInfo = "";
         }
 
-        if (type.equals("todo")) {
-            tasks[count] = new Todo(description);
-        } else if (type.equals("deadline")) {
-            String by = bracketInfo.replace("/by", "").trim();
-            tasks[count] = new Deadline(description, by);
-        } else if (type.equals("event")) {
-            String from = bracketInfo.split("/from")[1].split("/to")[0].trim();
-            String to = bracketInfo.split("/to")[1].trim();
-            tasks[count] = new Event(description, from, to);
+        switch (type) {
+            case "todo":
+                tasks[count] = new Todo(description);
+                break;
+            case "deadline":
+                if (!bracketInfo.startsWith("/by")) {
+                    System.out.println("☹ OOPS!!! The deadline task must include '/by' to specify the date.");
+                    return;
+                }
+                String by = bracketInfo.replace("/by", "").trim();
+                if (by.isEmpty()) {
+                    System.out.println("☹ OOPS!!! The deadline task's date cannot be empty.");
+                    return;
+                }
+                tasks[count] = new Deadline(description, by);
+                break;
+            case "event":
+                if (!bracketInfo.startsWith("/from") || !bracketInfo.contains("/to")) {
+                    System.out.println("☹ OOPS!!! The event task must include '/from' and '/to' to specify the date range.");
+                    return;
+                }
+                String from = bracketInfo.split("/from")[1].split("/to")[0].trim();
+                String to = bracketInfo.split("/to")[1].trim();
+                if (from.isEmpty() || to.isEmpty()) {
+                    System.out.println("☹ OOPS!!! The event task's date range cannot be empty.");
+                    return;
+                }
+                tasks[count] = new Event(description, from, to);
+                break;
+            default:
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                return;
         }
 
         System.out.println("Got it. I've added this task:\n"
@@ -183,10 +122,17 @@ public class Duke {
 
     // Print the task list
     private static void printTasks(Task[] tasks, int count) {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < count; i++) {
-            if (tasks[i] != null) {
-                System.out.println((i + 1) + ". " + tasks[i].toString());
+        // Checks if there is anything in the list
+        if (count == 0) {
+            System.out.println("☹ OOPS!!! The list is empty");
+            return;
+        }
+        else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < count; i++) {
+                if (tasks[i] != null) {
+                    System.out.println((i + 1) + ". " + tasks[i].toString());
+                }
             }
         }
     }
@@ -194,8 +140,14 @@ public class Duke {
     // Mark a task as done
     private static void markTask(String userInput, Task[] tasks) {
         int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
-        tasks[taskIndex].markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex]);
+
+        // Check if the task at the index is not null
+        if (taskIndex >= 0 && taskIndex < tasks.length && tasks[taskIndex] != null) {
+            tasks[taskIndex].markAsDone();
+            System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex]);
+        } else {
+            System.out.println("Invalid task index. Please provide a valid task number.");
+        }
     }
 
     // Unmark a task
