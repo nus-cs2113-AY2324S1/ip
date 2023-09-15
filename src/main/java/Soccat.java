@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Soccat {
 
     static ArrayList<Task> tasks = new ArrayList<>();
-    static final String[] COMMANDS = {"bye","list","todo","deadline","event","mark","unmark"};
+    static final String[] COMMANDS = {"bye","list","todo","deadline","event","mark","unmark","delete"};
 
     public static void addTask(String command, String type) {
         String task = command.replace(type, "").strip();
@@ -45,6 +45,25 @@ public class Soccat {
         System.out.println("Got it. I've added this task: ");
         System.out.println("\t" + tasks.get(tasks.size()-1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    public static void deleteTask(String taskNumber) {
+        try {
+            int taskIndex = Integer.parseInt(taskNumber) - 1;
+            System.out.println("Noted. I have removed this task:");
+            System.out.println("\t" + tasks.get(taskIndex));
+            tasks.remove(taskIndex);
+            int taskCount = tasks.size();
+            if (taskCount > 0) {
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            } else {
+                System.out.println("Great, You have no tasks for now!");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task number!");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Task number out of range!");
+        }
     }
 
     public static void listTasks() {
@@ -127,6 +146,9 @@ public class Soccat {
                 break;
             case "unmark":
                 toggleDone(tokens[1], false);
+                break;
+            case "delete":
+                deleteTask(tokens[1]);
                 break;
             }
             System.out.println(line);
