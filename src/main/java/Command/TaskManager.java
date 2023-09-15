@@ -65,7 +65,6 @@ public class TaskManager {
     public void addTodo(String description) {
         Todo todo = new Todo(description);
         taskList.add(todo);
-        System.out.println(taskList);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + todo);
         displayTaskCount();
