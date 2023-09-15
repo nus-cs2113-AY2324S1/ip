@@ -43,20 +43,10 @@ public class Duke {
 
     public void listItems() {
         printLine();
-        for (int i = 0; i < taskCount; i++) {
-            int indexNo = i + 1;
-            switch (taskList.get(i).taskType){
-            case "todo":
-                System.out.println("    " + indexNo + "." + taskList.get(i).getTaskTypeIcon() + taskList.get(i).getStatusIcon() + " " + taskList.get(i).description);
-                break;
-            case "deadline":
-                System.out.println("    " + indexNo + "." + taskList.get(i).getTaskTypeIcon() + taskList.get(i).getStatusIcon() + " " + taskList.get(i).description
-                        + "(by:"+taskList.get(i).deadline+")");
-                break;
-            case "event":
-                System.out.println("    " + indexNo + "." + taskList.get(i).getTaskTypeIcon() + taskList.get(i).getStatusIcon() + " " + taskList.get(i).description
-                        + " (from: " + taskList.get(i).from + " to: " + taskList.get(i).to+")");
-                break;
+        if (!taskList.isEmpty()) {
+            for (Task task : taskList) {
+                System.out.print("    " + (taskList.indexOf(task) + 1) + ".");
+                task.printTask();
             }
         }
         printLine();
