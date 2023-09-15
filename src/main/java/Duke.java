@@ -33,9 +33,9 @@ public class Duke {
             		try {
             			int index = Integer.parseInt(userCmd[1]) - 1;
             			if (userCmd[0].equals("mark")) {
-                			toDoList[index].setDone(true);
+                			toDoList.get(index).setDone(true);
                 		} else {
-                			toDoList[index].setDone(false);
+                			toDoList.get(index).setDone(false);
                 		}
             		}
             		catch (NumberFormatException e) {
