@@ -33,9 +33,8 @@ public class Ui {
     public static void printAddedTask(String addedTask, int taskCnt) {
         System.out.println("[@] Got it. I've added this task:");
         System.out.println("  " + addedTask);
-        System.out.printf("[@] Now you have %d task%s in the list.\n", taskCnt, taskCnt == 1? "": "s");
+        System.out.printf("[@] Now you have %d task%s in the list.\n", taskCnt, taskCnt == 1 ? "": "s");
     }
-
     public static void printListOfTasks(String[] tasks) {
         if(tasks.length == 0) {
             System.out.println("[@] There are no tasks in your list.");
@@ -55,6 +54,12 @@ public class Ui {
     public static void printUnmarkedTask(String unmarkedTask) {
         System.out.println("[@] OK, I've marked this task as not done yet:");
         System.out.println("  " + unmarkedTask);
+    }
+
+    public static void printDeletedTask(String deletedTask, int taskCnt) {
+        System.out.println("[@] Noted. I've removed this task:");
+        System.out.println("  " + deletedTask);
+        System.out.printf("[@] Now you have %d task%s in the list.\n", taskCnt, taskCnt == 1 ? "": "s");
     }
 
     public static void printCommandError(String description, String detail) {

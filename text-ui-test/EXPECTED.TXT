@@ -140,5 +140,36 @@
 2.[D][ ] return book (by: June 6th)
 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 
+[@] Got it. I've added this task:
+  [T][ ] delete this
+[@] Now you have 4 tasks in the list.
+
+[@] Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4.[T][ ] delete this
+
+[@] Wrong input; Command 'delete' should have one argument, index of the task.
+[@] Usage: delete ((index))
+
+[@] Wrong input; Command 'delete' should have a number for index of the task.
+[@] Usage: delete ((index))
+
+[@] Wrong input; The value of index is invalid. Please check the number of tasks.
+[@] Usage: delete ((index))
+
+[@] Wrong input; The value of index is invalid. Please check the number of tasks.
+[@] Usage: delete ((index))
+
+[@] Noted. I've removed this task:
+  [T][ ] delete this
+[@] Now you have 3 tasks in the list.
+
+[@] Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+
 [@] Bye. Hope to see you again soon!
 

@@ -64,6 +64,11 @@ public class Nuke {
         Ui.printUnmarkedTask(task.toString());
     }
 
+    public static void deleteTask(int idx) {
+        Task task = tasks.remove(idx);
+        Ui.printDeletedTask(task.toString(), getNumberOfTasks());
+    }
+
     public static void addTodo(String name) {
         addTask(new Todo(name));
     }
