@@ -3,9 +3,15 @@ import java.util.ArrayList;
 
 public class KenergeticBot {
 
+    public static void main(String[] args) {
+        printGreetingMessage();
+        ArrayList<Task> taskList = new ArrayList<Task>();
+        botDialogue(taskList);
+    }
     public static void printGreetingMessage() {
         printLine();
-        System.out.println("     Hello! I'm KenergeticBot\n" + "     What can I do for you?");
+        System.out.println("     Hello! I'm KenergeticBot");
+        System.out.println("     What can I do for you?");
         printLine();
     }
 
@@ -21,47 +27,27 @@ public class KenergeticBot {
 
     //Returns True if the text contains "mark", False if not
     public static boolean checkTextForMark(String item) {
-        if (item.length() > 4 && item.startsWith("mark")) {
-            return true;
-        } else {
-            return false;
-        }
+        return item.length() > 4 && item.startsWith("mark");
     }
 
     //Returns True if the text contains "unmark", False if not
     public static boolean checkTextForUnmark(String item) {
-        if (item.length() > 6 && item.startsWith("unmark")) {
-            return true;
-        } else {
-            return false;
-        }
+        return item.length() > 6 && item.startsWith("unmark");
     }
 
     //Returns True if the text contains "todo", False if not
     public static boolean checkTextForTodo(String item) {
-        if (item.length() > 3 && item.startsWith("todo")) {
-            return true;
-        } else {
-            return false;
-        }
+        return item.startsWith("todo");
     }
 
     //Returns True if the text contains "deadline", False if not
     public static boolean checkTextForDeadline(String item) {
-        if (item.length() > 7 && item.startsWith("deadline")) {
-            return true;
-        } else {
-            return false;
-        }
+        return item.startsWith("deadline");
     }
 
     //Returns True if the text contains "event", False if not
     public static boolean checkTextForEvent(String item) {
-        if (item.length() > 4 && item.startsWith("event")) {
-            return true;
-        } else {
-            return false;
-        }
+        return item.startsWith("event");
     }
 
     //Main logic for the bot's dialogue
@@ -85,7 +71,7 @@ public class KenergeticBot {
             try {
                 add(taskList, item);
             } catch (KenergeticBotException e) { //exception thrown when user inputs command outside of the usual commands
-                System.out.println(KenergeticBotException.INVALID_COMMAND); // unable to print sad face ˙◠˙
+                System.out.println(e.getMessage()); // unable to print sad face ˙◠˙
             }
         }
         botDialogue(taskList);
@@ -95,7 +81,7 @@ public class KenergeticBot {
     public static void addTodo(ArrayList<Task> taskList, String item) throws KenergeticBotException {
         String formattedString = item.replace("todo", "").trim();
         if (formattedString.isEmpty()) {
-            throw new KenergeticBotException();
+            throw new KenergeticBotException(KenergeticBotException.TODO_MISSING_DESCRIPTION);
         }
         String taskType = "[T]";
         Task newTask = new Todo(formattedString, taskType);
@@ -106,8 +92,13 @@ public class KenergeticBot {
     }
 
     //Creates a "Deadline" object and adds to the taskList
-    public static void addDeadline(ArrayList<Task> taskList, String item) {
-        String formattedString[] = item.replace("deadline", "").trim().split("/");
+    public static void addDeadline(ArrayList<Task> taskList, String item) throws KenergeticBotException {
+        String[] formattedString = item.replace("deadline", "").trim().split("/");
+        if (formattedString.length < 1) {
+            throw new KenergeticBotException(KenergeticBotException.DEADLINE_MISSING_DESCRIPTION);
+        } else if (formattedString.length < 2 || formattedString[1].replace("by", "").isEmpty()) { //|| formattedString[1].replace("by ", "")
+            throw new KenergeticBotException(KenergeticBotException.DEADLINE_MISSING_DATE);
+        }
         String taskType = "[D]";
         String deadlineDate = "(" + formattedString[1].replace("by", "by:") + ")";
         Task newTask = new Deadline(formattedString[0], taskType, deadlineDate);
@@ -118,8 +109,18 @@ public class KenergeticBot {
     }
 
     //Creates a "Event" object and adds to the taskList
-    public static void addEvent(ArrayList<Task> taskList, String item) {
-        String formattedString[] = item.replace("event", "").split("/");
+    public static void addEvent(ArrayList<Task> taskList, String item) throws KenergeticBotException {
+        String[] formattedString = item.replace("event", "").split("/");
+        if (item.replace("event", "").isEmpty()) {
+            throw new KenergeticBotException(KenergeticBotException.EVENT_MISSING_DESCRIPTION);
+        }
+        if (formattedString.length < 1) {
+            throw new KenergeticBotException(KenergeticBotException.EVENT_MISSING_DESCRIPTION);
+        } else if (formattedString.length < 2 || formattedString[1].replace("from", "").isEmpty()) {
+            throw new KenergeticBotException(KenergeticBotException.EVENT_MISSING_START);
+        } else if (formattedString.length < 3 || formattedString[2].replace("to", "").isEmpty()) {
+            throw new KenergeticBotException(KenergeticBotException.EVENT_MISSING_END);
+        }
         String taskType = "[E]";
         String eventFrom = formattedString[1].replace("from", "from:");
         String eventTo = formattedString[2].replace("to", "to:");
@@ -138,14 +139,22 @@ public class KenergeticBot {
             try {
                 addTodo(taskList, item);
             } catch (KenergeticBotException e) { //throws exception when the todo command is not followed with a description
-                System.out.println(KenergeticBotException.MISSING_DESCRIPTION);
+                System.out.println(e.getMessage());
             }
         } else if (checkTextForDeadline(item)) {
-            addDeadline(taskList, item);
+            try {
+                addDeadline(taskList, item);
+            } catch (KenergeticBotException e) { //throws exception when the deadline command is not followed with a description
+                System.out.println(e.getMessage());
+            }
         } else if (checkTextForEvent(item)) {
-            addEvent(taskList, item);
+            try {
+                addEvent(taskList, item);;
+            } catch (KenergeticBotException e) { //throws exception when the event command is not followed with a description
+                System.out.println(e.getMessage());
+            }
         } else {
-            throw new KenergeticBotException();
+            throw new KenergeticBotException(KenergeticBotException.INVALID_COMMAND);
         }
         printLine();
     }
@@ -162,7 +171,7 @@ public class KenergeticBot {
     public static void mark(ArrayList<Task> taskList, int listIndex) {
         printLine();
         System.out.println("     Nice! I've marked this task as done:");
-        taskList.get(listIndex - 1).mark();;
+        taskList.get(listIndex - 1).mark();
         System.out.printf("       %s\n", taskList.get(listIndex - 1));
         printLine();
     }
@@ -173,11 +182,5 @@ public class KenergeticBot {
         taskList.get(listIndex - 1).unmark();
         System.out.printf("       %s\n", taskList.get(listIndex - 1));
         printLine();
-    }
-
-    public static void main(String[] args) {
-        printGreetingMessage();
-        ArrayList<Task> taskList = new ArrayList<Task>();
-        botDialogue(taskList);
     }
 }
