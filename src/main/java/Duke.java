@@ -37,7 +37,11 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    public void listItems(int taskCount) {
+    public void printIndentTask(){
+        System.out.print("      ");
+    }
+
+    public void listItems() {
         printLine();
         for (int i = 0; i < taskCount; i++) {
             int indexNo = i + 1;
