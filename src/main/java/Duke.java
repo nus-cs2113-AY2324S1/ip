@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 import task.Deadline;
 import task.Event;
@@ -8,7 +7,8 @@ import task.Task;
 import task.ToDo;
 
 public class Duke {
-	static ArrayList<Task> toDoList = new ArrayList<>();
+	static Task[] toDoList = new Task[100];
+	static int size = 0;
 	
     public static void main(String[] args) {
 		greetUser();
@@ -24,9 +24,9 @@ public class Duke {
         		try {
         			int index = Integer.parseInt(userCmd[1]) - 1;
         			if (userCmd[0].equals("mark")) {
-            			toDoList.get(index).setDone(true);
+            			toDoList[index].setDone(true);
             		} else {
-            			toDoList.get(index).setDone(false);
+            			toDoList[index].setDone(false);
             		}
         		}
         		catch (NumberFormatException e) {
@@ -34,9 +34,14 @@ public class Duke {
             		System.out.println("     Please specify the number of the task that you want to mark/unmark");
             		printLines();
             	}
-        		catch (IndexOutOfBoundsException e) {
-        			printLines();
+            	catch (NullPointerException e) {
+            		printLines();
             		System.out.println("     Cannot mark/unmark a non-existent task");
+            		printLines();
+            	}
+        		catch (ArrayIndexOutOfBoundsException e) {
+        			printLines();
+            		System.out.println("     Please specify a number of the task that you want to mark/unmark");
             		printLines();
         		}
     		} else if (userCmd[0].equals("todo")) {
@@ -89,20 +94,6 @@ public class Duke {
     				System.out.println("     Error: Please input your event in the right format");
     				printLines();
     			}
-    		} else if (userCmd[0].equals("delete")) {
-    			try {
-        			deleteTask(Integer.valueOf(userCmd[1]) - 1);
-    			}
-    			catch (IndexOutOfBoundsException e) {
-    				printLines();
-    				System.out.println("     Error: Cannot delete a non-existent task");
-    				printLines();
-    			}
-    			catch (NumberFormatException e) {
-    				printLines();
-    				System.out.println("     Error: Cannot index a non-integer value");
-    				printLines();
-    			}
     		} else {
     			invalidCommandResponse();
     		}
@@ -134,21 +125,11 @@ public class Duke {
     }
     
     public static void addTask(Task task) {
-    	toDoList.add(task);
+    	toDoList[size++] = task;
     	printLines();
     	System.out.println("     Got it. I've added this task:");
     	System.out.println("       " + task);
-    	System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
-    	printLines();
-    	System.out.println();
-    }
-    
-    public static void deleteTask(int index) {
-    	Task removed = toDoList.remove(index);
-    	printLines();
-    	System.out.println("     Noted. I've removed this task:");
-    	System.out.println("       " + removed);
-    	System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
+    	System.out.println("     Now you have " + size + " tasks in the list.");
     	printLines();
     	System.out.println();
     }
@@ -161,10 +142,10 @@ public class Duke {
     
     public static void printToDoList() {
     	printLines();
-    	if (!toDoList.isEmpty()) {
+    	if (size != 0) {
     		System.out.println("     " + "Here's your tasks:");
-        	for (int i = 0; i < toDoList.size(); i++) {
-        		System.out.println("     " + Integer.toString(i + 1) + "." + toDoList.get(i));
+        	for (int i = 0; i < size; i++) {
+        		System.out.println("     " + Integer.toString(i + 1) + "." + toDoList[i]);
         	}
     	} else {
     		System.out.println("     You do not currently have any tasks!");
