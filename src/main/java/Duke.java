@@ -26,17 +26,17 @@ public class Duke {
         printLine();
     }
 
-    public static void exitChatbot() {
+    public void exitChatbot() {
         printLine();
         System.out.println("    Bye. Hope to see you again soon!");
         printLine();
     }
 
-    public static void printLine() {
+    public void printLine() {
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void listItems(Task[] taskList, int taskCount) {
+    public void listItems(int taskCount) {
         printLine();
         for (int i = 0; i < taskCount; i++) {
             int indexNo = i + 1;
@@ -57,7 +57,7 @@ public class Duke {
         printLine();
     }
 
-    public static void markItem(Task[] taskList, int taskCount, boolean isMark) {
+    public void markItem(int taskCount, boolean isMark) {
         printLine();
         if (isMark) {
             taskList[taskCount].isDone = true;
@@ -71,7 +71,7 @@ public class Duke {
         printLine();
     }
 
-    public static void addTaskCallback(Task[] taskList, int taskCount) {
+    public void addTaskCallback(int taskCount) {
         printLine();
         System.out.println("    Got it. I've added this task:");
         switch (taskList[taskCount].taskType) {
@@ -93,7 +93,7 @@ public class Duke {
         printLine();
     }
 
-    public static void addTasks(Task[] taskList, String[] userInput, int taskCount){
+    public void addTasks(String[] userInput, int taskCount){
 
         switch (userInput[0]) {
         case "todo":
