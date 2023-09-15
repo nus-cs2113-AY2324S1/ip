@@ -1,3 +1,5 @@
+package duke;
+
 class Task {
     private final String description;
     private boolean isDone;
@@ -8,23 +10,23 @@ class Task {
     }
 
     public void markAsDone() {
-        isDone = true;
+        this.isDone = true;
     }
 
     public void markAsNotDone() {
-        isDone = false;
+        this.isDone = false;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return this.isDone ? "X" : " ";
     }
 
-    @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        String var10000 = this.getStatusIcon();
+        return "[" + var10000 + "] " + this.description;
     }
 }
