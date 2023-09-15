@@ -7,7 +7,10 @@ import duke.ToDo;
 import duke.DukeException;
 
 public class Duke {
-    public static void printGreeting() {
+
+    private final Task[] taskList = new Task[100];
+
+    public void printGreeting() {
         String logo = "______       _     _\n"
                 + "| ___ \\     | |   | |\n"
                 + "| |_/ / ___ | |__ | |__  _   _\n"
