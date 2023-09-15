@@ -53,6 +53,25 @@ public class Neo {
         }
     }
 
+    public static void deleteTask(String line, ArrayList<Task> list) {
+        String[] words = line.split(" ");
+        int listIndex = Integer.parseInt(words[1]);
+        int arrayListIndex = listIndex - 1;
+
+        Task toRemove = list.get(arrayListIndex);
+        list.remove(arrayListIndex);
+        int listSize = list.size();
+
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("    " + toRemove);
+        System.out.print("Now you have ");
+        if (listSize == 1) {
+            System.out.println(listSize + " task in the list.");
+        } else {
+            System.out.println(listSize + " tasks in the list.");
+        }
+    }
+
     public static void catchFormatError(CommandType type, String line) throws NeoException {
         switch (type) {
         case TODO:
@@ -193,6 +212,8 @@ public class Neo {
                 markTask(line, list);
             } else if (line.startsWith("unmark")) {
                 unmarkTask(line, list);
+            } else if (line.startsWith("delete")) {
+                deleteTask(line, list);
             } else if (line.startsWith("event")) {
                 handleEvent(line, list);
             } else if (line.startsWith("deadline")) {
