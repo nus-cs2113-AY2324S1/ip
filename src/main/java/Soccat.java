@@ -1,26 +1,28 @@
 import Soccat.*;
+
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Soccat {
 
-    static Task[] tasks = new Task[100];
+    static ArrayList<Task> tasks = new ArrayList<>();
     static final String[] COMMANDS = {"bye","list","todo","deadline","event","mark","unmark"};
 
     public static void addTask(String command, String type) {
         String task = command.replace(type, "").strip();
-        int taskIndex = Task.getTaskCount();
         switch(type) {
         case "todo":
             if (task.isEmpty()) {
                 System.out.println("Oops, the task for todo cannot be blank!");
                 return;
             }
-            tasks[taskIndex] = new Todo(task);
+            tasks.add(new Todo(task));
             break;
         case "deadline":
             try {
                 String[] deadlineTokens = task.split(" /by ");
-                tasks[taskIndex] = new Deadline(deadlineTokens[0], deadlineTokens[1]);
+                tasks.add(new Deadline(deadlineTokens[0], deadlineTokens[1]));
                 break;
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Oops, you have missing fields for creating a deadline!");
@@ -32,7 +34,7 @@ public class Soccat {
                 String[] eventTokens = task.split(" /");
                 String from = eventTokens[1].replace("from ", "");
                 String by = eventTokens[2].replace("to ", "");
-                tasks[taskIndex] = new Event(eventTokens[0], from, by);
+                tasks.add(new Event(eventTokens[0], from, by));
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Oops, you have missing fields for creating an event!");
                 System.out.println("Please try event <task> /from <start> /to <end>");
@@ -41,12 +43,12 @@ public class Soccat {
             break;
         }
         System.out.println("Got it. I've added this task: ");
-        System.out.println("\t" + tasks[taskIndex]);
-        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
+        System.out.println("\t" + tasks.get(tasks.size()-1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void listTasks() {
-        int taskCount = Task.getTaskCount();
+        int taskCount = tasks.size();
         if (taskCount == 0) {
             System.out.println("Great, You have no tasks for now!");
             return;
@@ -56,12 +58,12 @@ public class Soccat {
             // Add 1 for 1-based indexing
             taskIndex = i + 1;
             System.out.print(taskIndex);
-            System.out.println(". " + tasks[i]);
+            System.out.println(". " + tasks.get(i));
         }
     }
 
     public static void toggleDone(String taskNumber, boolean isDone) {
-        int taskCount = Task.getTaskCount();
+        int taskCount = tasks.size();
         if (taskCount == 0) {
             System.out.println("No tasks to mark for now, you may take a break!");
             return;
@@ -74,8 +76,9 @@ public class Soccat {
             }
             // Subtract 1 for array index
             int taskIndex = taskId - 1;
-            tasks[taskIndex].setDone(isDone);
-            System.out.println(tasks[taskIndex]);
+            Task task = tasks.get(taskIndex);
+            task.setDone(isDone);
+            System.out.println(tasks.get(taskIndex));
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
         } catch (ArrayIndexOutOfBoundsException e) {
