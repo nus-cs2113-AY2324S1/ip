@@ -158,40 +158,8 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        printGreeting();
-
-        Scanner scanner = new Scanner(System.in);
-        Task[] taskList = new Task[100];
-        int taskCount = 0;
-
-        while (true) {
-            String input = scanner.nextLine();
-            String[] userInput = input.trim().split("\\s+");
-
-            DukeException exceptionHandler = new DukeException(userInput);
-            exceptionHandler.checkInput();
-
-            if (!exceptionHandler.exception) {
-                switch (userInput[0]) {
-                case "mark":
-                    markItem(taskList, Integer.parseInt(userInput[1]) - 1, true);
-                    break;
-                case "unmark":
-                    markItem(taskList, Integer.parseInt(userInput[1]) - 1, false);
-                    break;
-                case "bye":
-                    exitChatbot();
-                    System.exit(0);
-                    break;
-                case "list":
-                    listItems(taskList, taskCount);
-                    break;
-                default:
-                    addTasks(taskList, userInput, taskCount);
-                    taskCount++;
-                    break;
-                }
-            }
-        }
+        Duke duke = new Duke();
+        duke.printGreeting();
+        duke.getInput();
     }
 }
