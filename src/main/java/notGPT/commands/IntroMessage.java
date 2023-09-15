@@ -1,3 +1,5 @@
+package notGPT.commands;
+
 public class IntroMessage {
     public static void displayIntroMessage() {
         String line = "____________________________________________________________\n";
