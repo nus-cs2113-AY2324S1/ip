@@ -1,13 +1,6 @@
 import java.util.Scanner;
 import java.util.Arrays;
 
-// Custom exception for empty task descriptions
-class EmptyDescriptionException extends Exception {
-    public EmptyDescriptionException() {
-        super("☹ OOPS!!! The description of a task cannot be empty.");
-    }
-}
-
 class Task {
     protected String description;
     protected boolean isDone;
@@ -121,18 +114,24 @@ public class Duke {
                 } else if (userInput.startsWith("todo ")) {
                     String description = userInput.substring("todo ".length()).trim();
                     if (description.isEmpty()) {
-                        throw new EmptyDescriptionException();
+                        throw new EmptyDescriptionException("Todo");
                     }
                     addTask("todo " + description, tasks, count, "Todo");
                     count++;
                 } else if (userInput.startsWith("deadline ")) {
-                    addTask(userInput, tasks, count, "Deadline");
+                    String description = userInput.substring("deadline ".length()).trim();
+                    if (description.isEmpty()) {
+                        throw new EmptyDescriptionException("Deadline");
+                    }
+                    addTask("deadline " + description, tasks, count, "Deadline");
                     count++;
                 } else if (userInput.startsWith("event ")) {
-                    addTask(userInput, tasks, count, "Event");
+                    String description = userInput.substring("event ".length()).trim();
+                    if (description.isEmpty()) {
+                        throw new EmptyDescriptionException("Event");
+                    }
+                    addTask("event " + description, tasks, count, "Event");
                     count++;
-                } else if (userInput.trim().isEmpty()) {
-                    throw new EmptyDescriptionException();
                 } else {
                     throw new UnknownCommandException();
                 }
@@ -147,7 +146,6 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!\n" + LINE);
         scanner.close();
     }
-
     // Create a task of a specific type to the tasks array
     private static void addTask(String userInput, Task[] tasks, int count, String type) {
         String description;
@@ -175,10 +173,10 @@ public class Duke {
         }
 
         System.out.println("Got it. I've added this task:\n"
-                           + tasks[count]
-                           + "\nNow you have "
-                           + (count + 1)
-                           + " tasks in the list.");
+                + tasks[count]
+                + "\nNow you have "
+                + (count + 1)
+                + " tasks in the list.");
     }
 
     // Print the task list
@@ -204,9 +202,16 @@ public class Duke {
     }
 
     // Custom exception for empty task descriptions
-    class EmptyDescriptionException extends Exception {
-        public EmptyDescriptionException() {
-            super("☹ OOPS!!! The description of a task cannot be empty.");
+    static class EmptyDescriptionException extends Exception {
+        private String taskType;
+
+        public EmptyDescriptionException(String taskType) {
+            super("☹ OOPS!!! The description of a " + taskType + " cannot be empty.");
+            this.taskType = taskType;
+        }
+
+        public String getTaskType() {
+            return taskType;
         }
     }
 
