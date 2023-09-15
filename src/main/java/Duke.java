@@ -1,14 +1,23 @@
 import task.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
+    private final String FILE_PATH = "./data/list.txt";
 
-    private ArrayList<Task> list = new ArrayList<>();
+    protected static ArrayList<Task> list = new ArrayList<>();
 
     public Duke() {
         echo("Hello! I'm Mark\nWhat can I do for you?");
+        try {
+            loadSave();
+        } catch (FileNotFoundException ignored) {}
     }
 
     public void echo(String message) {
@@ -43,6 +52,64 @@ public class Duke {
         } else {
             echo("OK, I've marked this task as not done yet:\n" + task.getListText());
         }
+    }
+
+    public void save() {
+        File f = new File(FILE_PATH);
+        try {
+            f.getParentFile().mkdirs();
+            f.createNewFile();
+            FileWriter fw = new FileWriter(FILE_PATH);
+            String save = "";
+            for (int i = 0; i < Duke.list.size(); i++) {
+                save += Duke.list.get(i).getSaveString() + "\n";
+            }
+            fw.write(save);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void loadSave() throws FileNotFoundException{
+        File f = new File(FILE_PATH);
+        Scanner sc = new Scanner(f);
+        while (sc.hasNext()) {
+            String[] line = sc.nextLine().split(" \\| ");
+            boolean isMark = line[1].equals("1");
+            String taskName = line[2];
+            switch (line[0]) {
+                case "T": {
+                    Task task = new Todo(taskName);
+                    task.setIsComplete(isMark);
+                    list.add(task);
+                    break;
+                }
+                case "D": {
+                    String by = line[3];
+                    Task task = new Deadline(taskName, by);
+                    task.setIsComplete(isMark);
+                    list.add(task);
+                    break;
+                }
+                case "E": {
+                    String from = line[3].split("-")[0];
+                    String to = line[3].split("-")[1];
+                    Task task = new Event(taskName, from, to);
+                    task.setIsComplete(isMark);
+                    list.add(task);
+                    break;
+                }
+                default: {
+                    clearList();
+                    return;
+                }
+            }
+        }
+    }
+
+    public void clearList() {
+        list = new ArrayList<>();
     }
 
     public void deleteTask(int index) throws DukeException {
@@ -101,6 +168,8 @@ public class Duke {
                     String from = getTime(in, "/from");
                     String to = getTime(in.substring(in.indexOf("/") + 1), "/to");
                     bot.addToList(new Event(taskName, from, to));
+                } else if (in.startsWith("clear")) {
+                    bot.clearList();
                 } else if (in.startsWith("delete")) {
                     String taskName = getTaskName("delete", in);
                     bot.deleteTask(Integer.parseInt(taskName));
@@ -113,6 +182,7 @@ public class Duke {
                 in = sc.nextLine();
             }
         }
+        bot.save();
         bot.echo("Bye. Hope to see you again soon!");
     }
 }

@@ -33,4 +33,9 @@ public abstract class Task {
     public String getListText() {
         return "[" + (getIsComplete() ? "X" : " ") + "] " + getName();
     }
+
+    public String getSaveString() {
+        return " | " + (getIsComplete() ? "1" : "0") + " | " + getName();
+    }
+
 }

@@ -21,4 +21,9 @@ public class Deadline extends Task {
                 "Now you have " + numberOfTasks + " tasks in the list.";
     }
 
+    @Override
+    public String getSaveString() {
+        return "D" + super.getSaveString() + " | " + by;
+    }
+
 }

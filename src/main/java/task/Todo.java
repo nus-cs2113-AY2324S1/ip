@@ -18,4 +18,9 @@ public class Todo extends Task {
                 "Now you have " + numberOfTasks + " tasks in the list.";
     }
 
+    @Override
+    public String getSaveString() {
+        return "T" + super.getSaveString();
+    }
+
 }
