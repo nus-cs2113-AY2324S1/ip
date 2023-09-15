@@ -1,3 +1,10 @@
+package notGPT;
+
+import notGPT.task.TaskList;
+import notGPT.commands.IntroMessage;
+import notGPT.commands.CommandResponse;  
+import notGPT.commands.UserInput;
+
 public class NotChatGPT {
     public static boolean isRunning;
     public static TaskList taskList = new TaskList();

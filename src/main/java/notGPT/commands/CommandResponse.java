@@ -1,4 +1,8 @@
+package notGPT.commands;
+
 import java.util.Arrays;
+import notGPT.NotChatGPT;
+import notGPT.exception.NotChatGPTExceptions;
 
 public class CommandResponse {
     private static final String line = "____________________________________________________________\n";
@@ -168,9 +172,5 @@ public class CommandResponse {
     }
 }
 
-class NotChatGPTExceptions extends Exception {
-    public NotChatGPTExceptions(String message) {
-        super(message);
-    }
-}
+
 
