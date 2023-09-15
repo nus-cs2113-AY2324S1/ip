@@ -1,3 +1,7 @@
+package task;
+
+import exception.DukeException;
+
 public class Deadline extends Task {
 
     protected String due;
@@ -7,8 +11,12 @@ public class Deadline extends Task {
         this.due = due;
     }
 
-    public static Deadline newDdl(String userCommand) {
+    public static Deadline newDdl(String userCommand) throws DukeException {
         // command format: deadline return book /by Sunday
+        if (!(userCommand.contains("/by"))){
+            throw new DukeException("Oh, no! I cannot detect the keyword '/by' ");
+        }
+
         String[] ddlSplit = userCommand.split("/");
         int spaceIndex = ddlSplit[0].indexOf(" ");
         String ddlTask = ddlSplit[0].substring(spaceIndex + 1).trim();

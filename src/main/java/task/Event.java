@@ -1,3 +1,7 @@
+package task;
+
+import exception.DukeException;
+
 public class Event extends Task {
     protected String start, end;
 
@@ -7,8 +11,11 @@ public class Event extends Task {
         this.end = end;
     }
 
-    public static Event newEventTask(String userCommand) {
+    public static Event newEventTask(String userCommand) throws DukeException {
         //command format: event project meeting /from Mon 2pm /to 4pm
+        if (!(userCommand.contains("/from")) || !(userCommand.contains("/to"))){
+            throw new DukeException("Oh, no! There is no '/from' or '/to' ");
+        }
         String[] eventSplit = userCommand.split("/");
         int spaceIndex = eventSplit[0].indexOf(" ");
         String eventTask = eventSplit[0].substring(spaceIndex + 1).trim();
