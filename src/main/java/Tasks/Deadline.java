@@ -1,3 +1,6 @@
+package Tasks;
+
+import Tasks.Task;
 
 public class Deadline extends Task {
     private String due;
