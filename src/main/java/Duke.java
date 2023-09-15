@@ -121,7 +121,6 @@ public class Duke {
             break;
         default:
         }
-
     }
 
     public void getInput(){
@@ -133,7 +132,7 @@ public class Duke {
             String[] userInput = input.trim().split("\\s+");
 
             DukeException exceptionHandler = new DukeException(userInput);
-            exceptionHandler.checkInput();
+            exceptionHandler.checkInput(taskList.size());
 
             if (!exceptionHandler.exception) {
                 switch (userInput[0]) {
@@ -148,7 +147,10 @@ public class Duke {
                     System.exit(0);
                     break;
                 case "list":
-                    listItems(taskCount);
+                    listItems();
+                    break;
+                case "delete":
+                    deleteTasks(Integer.parseInt(userInput[1]) - 1);
                     break;
                 default:
                     addTasks(userInput, taskCount);
