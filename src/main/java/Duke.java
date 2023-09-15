@@ -122,6 +122,41 @@ public class Duke {
 
     }
 
+    public void getInput(){
+        Scanner scanner = new Scanner(System.in);
+        int taskCount = 0;
+
+        while (true) {
+            String input = scanner.nextLine();
+            String[] userInput = input.trim().split("\\s+");
+
+            DukeException exceptionHandler = new DukeException(userInput);
+            exceptionHandler.checkInput();
+
+            if (!exceptionHandler.exception) {
+                switch (userInput[0]) {
+                case "mark":
+                    markItem(Integer.parseInt(userInput[1]) - 1, true);
+                    break;
+                case "unmark":
+                    markItem(Integer.parseInt(userInput[1]) - 1, false);
+                    break;
+                case "bye":
+                    exitChatbot();
+                    System.exit(0);
+                    break;
+                case "list":
+                    listItems(taskCount);
+                    break;
+                default:
+                    addTasks(userInput, taskCount);
+                    taskCount++;
+                    break;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         printGreeting();
 
