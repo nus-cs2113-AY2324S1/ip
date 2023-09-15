@@ -45,6 +45,13 @@ public class Duke {
         }
     }
 
+    public void deleteTask(int index) throws DukeException {
+        if (index > list.size() - 1) {
+            throw new DukeException("Index out of bounds.");
+        }
+        list.remove(index);
+    }
+
     public static String getTaskName(String command, String message) throws DukeException {
         if (command.length() == message.trim().length()) {
             throw new DukeException("The description of " + command + " cannot be empty.");
@@ -71,7 +78,7 @@ public class Duke {
         Duke bot = new Duke();
         Scanner sc = new Scanner(System.in);
         String in = sc.nextLine();
-        
+
         while(!in.equals("bye")) {
             try {
                 if (in.equals("list")) {
@@ -94,6 +101,9 @@ public class Duke {
                     String from = getTime(in, "/from");
                     String to = getTime(in.substring(in.indexOf("/") + 1), "/to");
                     bot.addToList(new Event(taskName, from, to));
+                } else if (in.startsWith("delete")) {
+                    String taskName = getTaskName("delete", in);
+                    bot.deleteTask(Integer.parseInt(taskName));
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
