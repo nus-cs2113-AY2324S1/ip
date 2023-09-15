@@ -23,4 +23,9 @@ public class Event extends Task {
                 "Now you have " + numberOfTasks + " tasks in the list.";
     }
 
+    @Override
+    public String getSaveString() {
+        return "E" + super.getSaveString() + " | " + from + "-" + to;
+    }
+
 }
