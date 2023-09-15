@@ -1,5 +1,5 @@
 package duke;
-
+// ASS1, ASS2 INPUT, REMOVE 1, PRINT TO HAVE 1....
 import task.Event;
 import task.Task;
 import task.Deadline;
@@ -48,6 +48,11 @@ public class Duke {
                     list[taskNo - 1].setNotDone(taskNo, taskCount, list);
                     break;
 
+                case "delete":
+                    taskNo = getTaskNo(commendSplits[1]);
+                    deleteTask(taskNo);
+                    break;
+
                 case "todo":
                     // command format e.g. todo borrow book
                     list[taskCount] = Todo.newTodoTask(command);
@@ -85,11 +90,24 @@ public class Duke {
         return Integer.parseInt(taskNum);
     }
 
+    public static Task[] getTaskList() {
+        return list;
+    }
+
+    private static void deleteTask(int deleteIndex) {
+        if (deleteIndex <= 0 || deleteIndex> Duke.taskCount){
+            System.out.println("Oh, No! invalid index! You don't have that task. Please try again.");
+            return;
+        }
+        deleteTaskSuccessMsg(deleteIndex);
+        list = Task.updatedTaskList(deleteIndex - 1);
+    }
+
     //To tackle cases of invalid input like 'todo', 'event', etc.
     private static boolean missingOrExtraTaskDescription(String[] cmd){
         if (cmd.length == 1){
             if(cmd[0].equals("todo") || cmd[0].equals("event") || cmd[0].equals("deadline")
-                    || cmd[0].equals("mark") || cmd[0].equals("unmark") ){
+                    || cmd[0].equals("mark") || cmd[0].equals("unmark") || cmd[0].equals("delete")){
                 System.out.println("Please describe your target.");
                 return true;
             }
@@ -105,6 +123,13 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
         System.out.println(list[taskCount]);
         taskCount++;
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    private static void deleteTaskSuccessMsg(int deleteIndex) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(list[deleteIndex - 1]);
+        taskCount--;
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 

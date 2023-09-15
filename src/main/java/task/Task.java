@@ -1,6 +1,9 @@
 package task;
 
+import duke.Duke;
 import exception.DukeException;
+
+import java.util.Arrays;
 
 public class Task {
     protected String description;
@@ -37,6 +40,15 @@ public class Task {
             System.out.println("OK, I've marked this task as not done yet:\n"
                     + "  [ ] " + list[taskNo - 1].description);
         }
+    }
+
+    //return a new list after delete the target object
+    public static Task[] updatedTaskList(int indexOfDelete){
+        Task[] newList = new  Task[100];
+        int numOfCopy = Duke.getTaskList().length - indexOfDelete - 1;
+        System.arraycopy(Duke.getTaskList(), 0, newList, 0, indexOfDelete);
+        System.arraycopy(Duke.getTaskList(), indexOfDelete + 1, newList, indexOfDelete, numOfCopy);
+        return newList;
     }
 
     @Override
