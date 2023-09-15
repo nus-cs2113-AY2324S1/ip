@@ -6,6 +6,7 @@ import neo.task.Todo;
 import neo.type.CommandType;
 import neo.type.ErrorType;
 import java.util.Scanner;
+import java.io.File;
 public class Neo {
 
     public static void printList(Task[] list) {
@@ -171,6 +172,7 @@ public class Neo {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
+        File f = new File("data.txt");
         Task[] list = new Task[100];
         while (!line.equals("bye")) {
             if (line.equals("list")) {
