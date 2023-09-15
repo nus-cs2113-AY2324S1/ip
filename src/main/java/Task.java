@@ -11,10 +11,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void setDone(int taskNo, int taskCount, Task[] list){
-        if( (taskNo > taskCount ) || (taskNo <1) ){
+    public void setDone(int taskNo, int taskCount, Task[] list) {
+        if ( (taskNo > taskCount ) || (taskNo <1) ){
             System.out.println("Oops! You don't have any task in this positions.");
-        }else if(this.isDone){
+        } else if(this.isDone){
             System.out.println("You have already completed the task.");
         } else{
             this.isDone = true;
@@ -23,10 +23,10 @@ public class Task {
         }
     }
 
-    public void setNotDone(int taskNo, int taskCount, Task[] list){
-        if( (taskNo > taskCount ) || (taskNo <1) ){
+    public void setNotDone(int taskNo, int taskCount, Task[] list) {
+        if ( (taskNo > taskCount ) || (taskNo <1) ){
             System.out.println("Oops! You don't have any task in this position.");
-        }else if(!this.isDone){
+        } else if(!this.isDone){
             System.out.println("Oh, you haven't finished this yet.");
         } else{
             this.isDone = false;

@@ -15,50 +15,48 @@ public class Duke {
             int spaceIndex, taskNo;
 
             switch (commendSplits[0]) {
+            case "Bye":
             case "bye":
                 printByeMessage();
                 keyboard.close();
                 return;
 
+            case "List":
             case "list":
                 printList(taskCount, list);
                 break;
 
+            case "Mark":
             case "mark":
                 // command format e.g. mark 1
-                taskNo = Integer.parseInt(commendSplits[1]);   //assume  saved in part[1], need further improve
+                taskNo = Integer.parseInt(commendSplits[1]);
                 list[taskNo - 1].setDone(taskNo, taskCount, list);
                 break;
 
+            case "Unmark":
             case "unmark":
-                taskNo = Integer.parseInt(commendSplits[1]);   //assume  saved in part[1], need further improve
+                taskNo = Integer.parseInt(commendSplits[1]);
                 list[taskNo - 1].setNotDone(taskNo, taskCount, list);
                 break;
 
+            case "Todo":
             case "todo":
                 // command format e.g. todo borrow book
-                String[] todoSplit = command.split(" ", 2);
-                list[taskCount] = new Todo(todoSplit[1]);
+                list[taskCount] = Todo.newTodoTask(command);
                 createTaskSuccessMsg();
                 break;
 
+            case "Deadline":
             case "deadline":
                 // command e.g. deadline return book /by Sunday
-                String[] ddlSplit = command.split("/");
-                spaceIndex = ddlSplit[0].indexOf(" ");
-                String ddlTask = ddlSplit[0].substring(spaceIndex + 1).trim();
-                list[taskCount] = new Deadline(ddlTask, ddlSplit[1].substring(3));
+                list[taskCount] = Deadline.newDdl(command);
                 createTaskSuccessMsg();
                 break;
 
+            case "Event":
             case "event":
                 //command e.g. event project meeting /from Mon 2pm /to 4pm
-                String[] eventSplit = command.split("/");
-                spaceIndex = eventSplit[0].indexOf(" ");
-                String eventTask = eventSplit[0].substring(spaceIndex + 1).trim();
-                String start = eventSplit[1].trim().substring(5); // Remove "/from " prefix
-                String end = eventSplit[2].trim().substring(3); // Remove "/to " prefix
-                list[taskCount] = new Event(eventTask, start, end);
+                list[taskCount] = Event.newEventTask(command);
                 createTaskSuccessMsg();
                 break;
 
@@ -92,5 +90,7 @@ public class Duke {
             System.out.println((i + 1) + "." + list[i]);
         }
     }
+
+
 
 }
