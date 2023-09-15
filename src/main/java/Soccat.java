@@ -1,6 +1,6 @@
 import Soccat.*;
 
-import java.lang.reflect.Array;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -8,6 +8,8 @@ public class Soccat {
 
     static ArrayList<Task> tasks = new ArrayList<>();
     static final String[] COMMANDS = {"bye","list","todo","deadline","event","mark","unmark","delete"};
+    static final String FILENAME = "data/Soccat.txt";
+    static FileAccess taskFile;
 
     public static void addTask(String command, String type) {
         String task = command.replace(type, "").strip();
@@ -151,11 +153,24 @@ public class Soccat {
                 deleteTask(tokens[1]);
                 break;
             }
+            try {
+                taskFile.setTaskData(tasks);
+            } catch (IOException e) {
+                System.out.println("Failed to update task file!");
+            }
             System.out.println(line);
         }
     }
 
     public static void main(String[] args) {
+        try {
+            taskFile = new FileAccess(FILENAME);
+        } catch (SoccatException e) {
+            System.out.println("Failed to create data file " + FILENAME);
+        } catch (IOException e) {
+            System.out.println("IO Exception during file creation of " + FILENAME);
+        }
+        tasks = taskFile.getTaskData();
         String line = "____________________________________________________________";
         System.out.println(line + "\nHello! I'm soccat!\nWhat can I do for you?\n" + line);
         processCommand(line);
