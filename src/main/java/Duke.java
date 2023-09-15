@@ -19,9 +19,30 @@ public class Duke {
         }
     }
 
+    /**
+     * Checks the validity of input parameters for various task-related methods.
+     *
+     * @param methodName   The name of the method being called.
+     * @param numberOfItems The total number of items in a list.
+     * @param words        An array of words or arguments passed to the method.
+     * @return True if the input parameters are valid; false otherwise.
+     */
     public static boolean isValidInputs(String methodName, int numberOfItems, String[] words) {
         switch (methodName) {
-            case "mark", "unmark" -> {
+            case "mark" : {
+                if (words.length == 1 || !words[1].matches("-?\\d+")) {
+                    System.out.println(dukeException.invalidInputForType(words[0]));
+                    return false;
+                }
+                System.out.println("mark " + words[1]);
+                int index = Integer.parseInt(words[1]);
+                // we need to check if it's out of bounds first
+                if (index > numberOfItems || index <= 0) {
+                    System.out.println(dukeException.outOfBoundsError());
+                    return false;
+                }
+            }
+            case "unmark" : {
                 if (words.length == 1 || !words[1].matches("-?\\d+")) {
                     System.out.println(dukeException.invalidInputForType(words[0]));
                     return false;
@@ -35,16 +56,16 @@ public class Duke {
                 }
             }
             //im busy student... no time do, please give chance XD
-            case "todo" -> {
+            case "todo" : {
                 System.out.println("to do to be done");
             }
-            case "deadline" -> {
+            case "deadline" : {
                 System.out.println("deadline to be done");
             }
-            case "event" -> {
+            case "event" : {
                 System.out.println("event to be done");
             }
-            default -> {
+            default : {
                 System.out.println("invalid method name");
             }
         }

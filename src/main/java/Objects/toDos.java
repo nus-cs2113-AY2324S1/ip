@@ -7,9 +7,5 @@ public class toDos extends task {
         this.isDone = false;
         this.type = 'T';
     }
-    
-    @Override
-     public String toString() {
-         return String.format(this.description);
-     }
+
 }
