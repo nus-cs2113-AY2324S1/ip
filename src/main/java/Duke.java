@@ -100,6 +100,10 @@ public class Duke {
                     list.add(task);
                     break;
                 }
+                default: {
+                    clearList();
+                    return;
+                }
             }
         }
     }
