@@ -20,6 +20,20 @@ public class Neo {
         }
     }
 
+    public static void printAddedTask(ArrayList<Task> list) {
+        int listSize = list.size();
+        int arrayListIndex = listSize - 1;
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + list.get(arrayListIndex));
+        System.out.print("Now you have " + listSize);
+        if (listSize == 1) {
+            System.out.println(" task in the list.");
+        } else {
+            System.out.println(" tasks in the list.");
+        }
+    }
+
     public static void markTask(String line, ArrayList<Task> list) {
         try {
             String[] words = line.split(" ");
@@ -54,21 +68,25 @@ public class Neo {
     }
 
     public static void deleteTask(String line, ArrayList<Task> list) {
-        String[] words = line.split(" ");
-        int listIndex = Integer.parseInt(words[1]);
-        int arrayListIndex = listIndex - 1;
+        try {
+            String[] words = line.split(" ");
+            int listIndex = Integer.parseInt(words[1]);
+            int arrayListIndex = listIndex - 1;
 
-        Task toRemove = list.get(arrayListIndex);
-        list.remove(arrayListIndex);
-        int listSize = list.size();
+            Task toRemove = list.get(arrayListIndex);
+            list.remove(arrayListIndex);
+            int listSize = list.size();
 
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("    " + toRemove);
-        System.out.print("Now you have ");
-        if (listSize == 1) {
-            System.out.println(listSize + " task in the list.");
-        } else {
-            System.out.println(listSize + " tasks in the list.");
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("    " + toRemove);
+            System.out.print("Now you have ");
+            if (listSize == 1) {
+                System.out.println(listSize + " task in the list.");
+            } else {
+                System.out.println(listSize + " tasks in the list.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! Please give the index of which task to delete.");
         }
     }
 
@@ -139,19 +157,7 @@ public class Neo {
         list.add(toAdd);
         printAddedTask(list);
     }
-    public static void printAddedTask(ArrayList<Task> list) {
-        int listSize = list.size();
-        int arrayListIndex = listSize - 1;
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + list.get(arrayListIndex));
-        System.out.print("Now you have " + listSize);
-        if (listSize == 1) {
-            System.out.println(" task in the list.");
-        } else {
-            System.out.println(" tasks in the list.");
-        }
-    }
     public static void handleDeadline(String line, ArrayList<Task> list) {
         try {
             addDeadline(line, list);
