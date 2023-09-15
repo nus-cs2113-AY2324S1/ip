@@ -77,6 +77,21 @@ public class Duke {
         printLine();
     }
 
+    public void deleteTaskCallback(Task oldTask){
+        printLine();
+        System.out.println("    Noted. I've removed this task:");
+        printIndentTask();
+        oldTask.printTask();
+        System.out.println("    Now you have " + taskList.size() + " tasks in the list.");
+        printLine();
+    }
+
+    public void deleteTasks(int taskCount){
+        Task oldTask = taskList.get(taskCount);
+        taskList.remove(taskCount);
+        deleteTaskCallback(oldTask);
+    }
+
     public void addTasks(String[] userInput, int taskCount){
 
         switch (userInput[0]) {
