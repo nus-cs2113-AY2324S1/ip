@@ -111,27 +111,29 @@ public class Duke {
                     markTask(userInput, tasks);
                 } else if (userInput.startsWith("unmark ")) {
                     unmarkTask(userInput, tasks);
-                } else if (userInput.startsWith("todo ")) {
-                    String description = userInput.substring("todo ".length()).trim();
+                } else if (userInput.startsWith("todo")) {
+                    String description = userInput.replaceFirst("todo", "").trim();
                     if (description.isEmpty()) {
-                        throw new EmptyDescriptionException("Todo");
+                        throw new EmptyDescriptionException("todo");
                     }
-                    addTask("todo " + description, tasks, count, "Todo");
+                    addTask("todo " + description, tasks, count, "todo");
                     count++;
-                } else if (userInput.startsWith("deadline ")) {
-                    String description = userInput.substring("deadline ".length()).trim();
+                } else if (userInput.startsWith("deadline")) {
+                    String description = userInput.replaceFirst("deadline", "").trim();
                     if (description.isEmpty()) {
-                        throw new EmptyDescriptionException("Deadline");
+                        throw new EmptyDescriptionException("deadline");
                     }
-                    addTask("deadline " + description, tasks, count, "Deadline");
+                    addTask("deadline " + description, tasks, count, "deadline");
                     count++;
-                } else if (userInput.startsWith("event ")) {
-                    String description = userInput.substring("event ".length()).trim();
+                } else if (userInput.startsWith("event")) {
+                    String description = userInput.replaceFirst("event", "").trim();
                     if (description.isEmpty()) {
-                        throw new EmptyDescriptionException("Event");
+                        throw new EmptyDescriptionException("event");
                     }
-                    addTask("event " + description, tasks, count, "Event");
+                    addTask("event " + description, tasks, count, "event");
                     count++;
+//                } else if (userInput.trim().isEmpty()) {
+//                    throw new EmptyDescriptionException("task");
                 } else {
                     throw new UnknownCommandException();
                 }
@@ -161,12 +163,12 @@ public class Duke {
             bracketInfo = "";
         }
 
-        if (type.equals("Todo")) {
+        if (type.equals("todo")) {
             tasks[count] = new Todo(description);
-        } else if (type.equals("Deadline")) {
+        } else if (type.equals("deadline")) {
             String by = bracketInfo.replace("/by", "").trim();
             tasks[count] = new Deadline(description, by);
-        } else if (type.equals("Event")) {
+        } else if (type.equals("event")) {
             String from = bracketInfo.split("/from")[1].split("/to")[0].trim();
             String to = bracketInfo.split("/to")[1].trim();
             tasks[count] = new Event(description, from, to);
@@ -183,7 +185,9 @@ public class Duke {
     private static void printTasks(Task[] tasks, int count) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].toString());
+            if (tasks[i] != null) {
+                System.out.println((i + 1) + ". " + tasks[i].toString());
+            }
         }
     }
 
