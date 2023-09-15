@@ -31,12 +31,17 @@ public class Duke {
             		printToDoList();
             	} else if (userCmd[0].contains("mark")) {
             		try {
+            			System.out.println("    ____________________________________________________________");
             			int index = Integer.parseInt(userCmd[1]) - 1;
             			if (userCmd[0].equals("mark")) {
                 			toDoList.get(index).setDone(true);
+                			System.out.println("     Nice! I've marked this task as done:");
                 		} else {
                 			toDoList.get(index).setDone(false);
+                			System.out.println("     OK, I've marked this task as not done yet:");
                 		}
+            			System.out.println("       " + toDoList.get(index));
+            			System.out.println("    ____________________________________________________________");
             		}
             		catch (NumberFormatException e) {
             			printLines();
@@ -264,7 +269,7 @@ public class Duke {
     
     public static void writeToDoTaskToFile(FileWriter writeFile, ToDo task) {
     	try {
-    		writeFile.write("todo," + task.getDescription() + "\n");
+    		writeFile.write("todo," + task.getDescription() + ",o" + "\n");
     	}
     	catch (IOException e) {
     		System.out.println(e);
@@ -273,7 +278,7 @@ public class Duke {
     
     public static void writeDeadlineTaskToFile(FileWriter writeFile, Deadline task) {
     	try {
-    		writeFile.write("deadline," + task.getDescription() + "," + task.getDue() + "\n");
+    		writeFile.write("deadline," + task.getDescription() + "," + task.getDue() + ",o" + "\n");
     	}
     	catch (IOException e) {
     		System.out.println(e);
@@ -282,7 +287,7 @@ public class Duke {
     
     public static void writeEventTaskToFile(FileWriter writeFile, Event task) {
     	try {
-    		writeFile.write("event," + task.getDescription() + "," + task.getFrom() + "," + task.getTo() + "\n");
+    		writeFile.write("event," + task.getDescription() + "," + task.getFrom() + "," + task.getTo() + ",o" + "\n");
     	}
     	catch (IOException e) {
     		System.out.println(e);
@@ -292,12 +297,21 @@ public class Duke {
     public static void textToTask(String[] existingTask) {
     	if (existingTask[0].equals("todo")) {
     		Task toDoTask = new ToDo(existingTask[1]);
+    		if (existingTask[2].equals("x")) {
+    			toDoTask.setDone(true);
+    		}
     		toDoList.add(toDoTask);
     	} else if (existingTask[0].equals("deadline")) {
     		Task deadlineTask = new Deadline(existingTask[1], existingTask[2]);
+    		if (existingTask[3].equals("x")) {
+    			deadlineTask.setDone(true);
+    		}
     		toDoList.add(deadlineTask);
     	} else if (existingTask[0].equals("event")) {
     		Task eventTask = new Event(existingTask[1], existingTask[2], existingTask[3]);
+    		if (existingTask[4].equals("x")) {
+    			eventTask.setDone(true);
+    		}
     		toDoList.add(eventTask);
     	}
     }
