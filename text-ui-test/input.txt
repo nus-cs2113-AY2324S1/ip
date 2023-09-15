@@ -27,11 +27,13 @@ event project meeting /from Aug 6th 2pm /to
 event project meeting /from Aug 6th 2pm /to 4pm
 mark
 mark 0
+mark hi
 mark 4
 mark 1
 mark 3
 list
 unmark
+unmark hi
 unmark 0
 unmark 4
 unmark 3
