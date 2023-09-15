@@ -33,4 +33,20 @@ public class Task {
             return "[ ]";
         }
     }
+
+    public void printTask(){
+        switch (taskType) {
+        case "todo":
+            System.out.print(getTaskTypeIcon() + getStatusIcon() + " " + description + "\n");
+            break;
+        case "deadline":
+            System.out.print(getTaskTypeIcon() + getStatusIcon() + " " + description
+                    + "(by:"+deadline+")" + "\n");
+            break;
+        case "event":
+            System.out.print(getTaskTypeIcon() + getStatusIcon() + " " + description
+                    + " (from: " + from + " to: " + to+")" + "\n");
+            break;
+        }
+    }
 }
