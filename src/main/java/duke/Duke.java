@@ -41,15 +41,25 @@ public class Duke {
                     if (description.isEmpty()) {
                         throw new EmptyDescriptionException("deadline");
                     }
-                    addTask("deadline " + description, tasks, count, "deadline");
-                    count++;
+                    // Check for /by in the description
+                    if (!description.contains("/by")) {
+                        System.out.println("☹ OOPS!!! The deadline task must include '/by' to specify the date.");
+                    } else {
+                        addTask("deadline " + description, tasks, count, "deadline");
+                        count++;
+                    }
                 } else if (userInput.startsWith("event")) {
                     String description = userInput.replaceFirst("event", "").trim();
                     if (description.isEmpty()) {
                         throw new EmptyDescriptionException("event");
                     }
-                    addTask("event " + description, tasks, count, "event");
-                    count++;
+                    // Check for /from and /to in the description
+                    if (!description.contains("/from") || !description.contains("to")) {
+                        System.out.println("☹ OOPS!!! The event task must include '/from' and '/to' to specify the date range.");
+                    } else {
+                        addTask("event " + description, tasks, count, "event");
+                        count++;
+                    }
                 } else {
                     throw new UnknownCommandException();
                 }
@@ -79,33 +89,18 @@ public class Duke {
             bracketInfo = "";
         }
 
+        // Checks the task type
         switch (type) {
             case "todo":
                 tasks[count] = new Todo(description);
                 break;
             case "deadline":
-                if (!bracketInfo.startsWith("/by")) {
-                    System.out.println("☹ OOPS!!! The deadline task must include '/by' to specify the date.");
-                    return;
-                }
                 String by = bracketInfo.replace("/by", "").trim();
-                if (by.isEmpty()) {
-                    System.out.println("☹ OOPS!!! The deadline task's date cannot be empty.");
-                    return;
-                }
                 tasks[count] = new Deadline(description, by);
                 break;
             case "event":
-                if (!bracketInfo.startsWith("/from") || !bracketInfo.contains("/to")) {
-                    System.out.println("☹ OOPS!!! The event task must include '/from' and '/to' to specify the date range.");
-                    return;
-                }
                 String from = bracketInfo.split("/from")[1].split("/to")[0].trim();
                 String to = bracketInfo.split("/to")[1].trim();
-                if (from.isEmpty() || to.isEmpty()) {
-                    System.out.println("☹ OOPS!!! The event task's date range cannot be empty.");
-                    return;
-                }
                 tasks[count] = new Event(description, from, to);
                 break;
             default:
@@ -123,7 +118,7 @@ public class Duke {
     // Print the task list
     private static void printTasks(Task[] tasks, int count) {
         // Checks if there is anything in the list
-        if (count == 0) {
+        if (tasks.length == 0) {
             System.out.println("☹ OOPS!!! The list is empty");
             return;
         }
@@ -146,7 +141,7 @@ public class Duke {
             tasks[taskIndex].markAsDone();
             System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex]);
         } else {
-            System.out.println("Invalid task index. Please provide a valid task number.");
+            System.out.println("☹ OOPS!!! Please provide a valid task number.");
         }
     }
 
