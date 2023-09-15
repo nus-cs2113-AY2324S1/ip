@@ -22,16 +22,11 @@ public class Task {
 	}
 	
 	public void setDone(boolean status) {
-		System.out.println("    ____________________________________________________________");
 		if (status) {
 			done = true;
-			System.out.println("     Nice! I've marked this task as done:");
 		} else {
 			done = false;
-			System.out.println("     OK, I've marked this task as not done yet:");
 		}
-		System.out.println("       " + this);
-		System.out.println("    ____________________________________________________________");
 	}
 	
 	public String toString() {
