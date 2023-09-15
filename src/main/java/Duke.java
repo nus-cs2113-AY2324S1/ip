@@ -5,10 +5,11 @@ import duke.Deadline;
 import duke.Event;
 import duke.ToDo;
 import duke.DukeException;
+import java.util.ArrayList;
 
 public class Duke {
 
-    private final Task[] taskList = new Task[100];
+    private static final ArrayList<duke.Task> taskList = new ArrayList<>();
 
     public void printGreeting() {
         String logo = "______       _     _\n"
