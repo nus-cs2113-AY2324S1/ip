@@ -2,12 +2,15 @@ bye no
 list no
 list
 todo
+todo read/book
 todo read book
 deadline
 deadline /by
 deadline /by June 6th
 deadline return book
 deadline return book /by
+deadline return/book /by June 6th
+deadline return book /by June/6th
 deadline return book /by June 6th
 event
 event /to
@@ -24,6 +27,9 @@ event project meeting /from
 event project meeting /from Aug 6th 2pm
 event project meeting /from /to
 event project meeting /from Aug 6th 2pm /to
+event project/meeting /from Aug 6th 2pm /to 4pm
+event project meeting /from Aug/6th/2pm /to 4pm
+event project meeting /from Aug 6th 2pm /to 4pm/
 event project meeting /from Aug 6th 2pm /to 4pm
 mark
 mark 0

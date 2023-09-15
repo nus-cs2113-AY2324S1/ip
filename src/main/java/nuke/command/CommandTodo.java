@@ -11,6 +11,7 @@ public class CommandTodo extends Command {
         if (args.isEmpty()) {
             throw new InvalidCommandArgumentException(ERROR_MSG_NO_ARGS);
         }
+        checkForbiddenCharacters(new String[]{args});
         name = args;
     }
 

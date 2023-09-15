@@ -12,7 +12,7 @@ public class Ui {
             "       .-=||  | |=-.       \n" +
             "       `-=#$%&%$#=-'       \n" +
             "          | ;  :|          \n" +
-            " _____.,-#%&$@%#&#~,._____ \n";
+            " _____.,-#%&$@%#&#~,._____ ";
 
     public static void printWelcome() {
         System.out.println(LOGO);

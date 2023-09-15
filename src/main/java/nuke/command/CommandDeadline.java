@@ -21,6 +21,7 @@ public class CommandDeadline extends Command {
         }
 
         String[] parsedArgs = Parser.parseArguments(args, "(.+)\\s/by\\s(.+)");
+        checkForbiddenCharacters(parsedArgs);
         name = parsedArgs[0];
         by = parsedArgs[1];
     }

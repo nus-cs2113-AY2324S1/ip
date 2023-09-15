@@ -26,6 +26,7 @@ public class CommandEvent extends Command {
         }
 
         String[] parsedArgs = Parser.parseArguments(args, "(.+)\\s/from\\s(.+)\\s/to\\s(.+)");
+        checkForbiddenCharacters(parsedArgs);
         name = parsedArgs[0];
         from = parsedArgs[1];
         to = parsedArgs[2];
