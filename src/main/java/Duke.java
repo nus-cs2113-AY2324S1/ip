@@ -1,5 +1,9 @@
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 import task.Deadline;
 import task.Event;
@@ -11,99 +15,117 @@ public class Duke {
 	static int size = 0;
 	
     public static void main(String[] args) {
-		greetUser();
-        Scanner input = new Scanner(System.in);
-        String command = input.nextLine();
-        
-        while (!command.equals("bye")) {
-        	String strippedCommand = command.strip();
-    		String[] userCmd = strippedCommand.split(" ");
-        	if (command.equals("list")) {
-        		printToDoList();
-        	} else if (userCmd[0].contains("mark")) {
-        		try {
-        			int index = Integer.parseInt(userCmd[1]) - 1;
-        			if (userCmd[0].equals("mark")) {
-            			toDoList[index].setDone(true);
-            		} else {
-            			toDoList[index].setDone(false);
+    	File dir = new File("data");
+		File textFile = new File("./data/toDoList.txt");
+    	checkForTextFile(dir, textFile);
+    	
+    	try {
+    		FileWriter writeFile = new FileWriter("./data/toDoList.txt", true);
+    		greetUser();
+            Scanner input = new Scanner(System.in);
+            String command = input.nextLine();
+            while (!command.equals("bye")) {
+            	String strippedCommand = command.strip();
+        		String[] userCmd = strippedCommand.split(" ");
+            	if (command.equals("list")) {
+            		printToDoList();
+            	} else if (userCmd[0].contains("mark")) {
+            		try {
+            			int index = Integer.parseInt(userCmd[1]) - 1;
+            			if (userCmd[0].equals("mark")) {
+                			toDoList[index].setDone(true);
+                		} else {
+                			toDoList[index].setDone(false);
+                		}
             		}
-        		}
-        		catch (NumberFormatException e) {
-        			printLines();
-            		System.out.println("     Please specify the number of the task that you want to mark/unmark");
-            		printLines();
-            	}
-            	catch (NullPointerException e) {
-            		printLines();
-            		System.out.println("     Cannot mark/unmark a non-existent task");
-            		printLines();
-            	}
-        		catch (ArrayIndexOutOfBoundsException e) {
-        			printLines();
-            		System.out.println("     Please specify a number of the task that you want to mark/unmark");
-            		printLines();
-        		}
-    		} else if (userCmd[0].equals("todo")) {
-    			try {
-    				if (userCmd.length == 1) {
-    					throw new RemyException("Error: Your todo task description cannot be empty!!!");
-    				}
-        			String description = String.join(" ", Arrays.copyOfRange(userCmd, 1, userCmd.length));
-        			Task toDoTask = new ToDo(description);
-        			addTask(toDoTask);
-    			}
-    			catch (RemyException e) {
-    				printLines();
-    				System.out.println("     " + e.getMessage());
-    				printLines();
-    			}
-    		} else if (userCmd[0].equals("deadline")) {
-    			try {
-    				String[] descAndDue = getDeadlineDescription(userCmd);
-    				if (descAndDue[0] == "") {
-    					throw new RemyException("Error: Please specify a description for this deadline");
-    				}
-        			if (descAndDue[1] == "") {
-        				throw new RemyException("Error: Please specify a due date for this task with '/by'");
+            		catch (NumberFormatException e) {
+            			printLines();
+                		System.out.println("     Please specify the number of the task that you want to mark/unmark");
+                		printLines();
+                	}
+                	catch (NullPointerException e) {
+                		printLines();
+                		System.out.println("     Cannot mark/unmark a non-existent task");
+                		printLines();
+                	}
+            		catch (ArrayIndexOutOfBoundsException e) {
+            			printLines();
+                		System.out.println("     Please specify a number of the task that you want to mark/unmark");
+                		printLines();
+            		}
+        		} else if (userCmd[0].equals("todo")) {
+        			try {
+        				if (userCmd.length == 1) {
+        					throw new RemyException("Error: Your todo task description cannot be empty!!!");
+        				}
+            			String description = String.join(" ", Arrays.copyOfRange(userCmd, 1, userCmd.length));
+            			Task toDoTask = new ToDo(description);
+            			addTask(toDoTask);
+            			ToDo toDoTemp = (ToDo) toDoTask;
+            			writeToDoTaskToFile(writeFile, toDoTemp);
+                		writeFile.flush();
         			}
-        			Task deadlineTask = new Deadline(descAndDue[0], descAndDue[1]);
-        			addTask(deadlineTask);
-    			}
-    			catch (RemyException e) {
-    				printLines();
-    				System.out.println("     " + e.getMessage());
-    				printLines();
-    			}
-    		} else if (userCmd[0].equals("event")) {
-    			try {
-    				String[] info = getEventDescription(userCmd);
-    				if (info[0] == "" | info[1] == "" | info[2] == "") {
-    					throw new RemyException("Error: Please input your event in the right format");
-    				}
-        			Task eventTask = new Event(info[0], info[1], info[2]);
-        			addTask(eventTask);
-    			}
-    			catch (RemyException e) {
-    				printLines();
-    				System.out.println("     " + e.getMessage());
-    				printLines();
-    			}
-    			catch (IllegalArgumentException e) {
-    				printLines();
-    				System.out.println("     Error: Please input your event in the right format");
-    				printLines();
-    			}
-    		} else {
-    			invalidCommandResponse();
-    		}
-        	
-        	command = input.nextLine();
-            }
-            
-        	sayGoodbye();
-            input.close();
-	}
+        			catch (RemyException e) {
+        				printLines();
+        				System.out.println("     " + e.getMessage());
+        				printLines();
+        			}
+        		} else if (userCmd[0].equals("deadline")) {
+        			try {
+        				String[] descAndDue = getDeadlineDescription(userCmd);
+        				if (descAndDue[0] == "") {
+        					throw new RemyException("Error: Please specify a description for this deadline");
+        				}
+            			if (descAndDue[1] == "") {
+            				throw new RemyException("Error: Please specify a due date for this task with '/by'");
+            			}
+            			Task deadlineTask = new Deadline(descAndDue[0], descAndDue[1]);
+            			addTask(deadlineTask);
+            			Deadline deadlineTemp = (Deadline) deadlineTask;
+            			writeDeadlineTaskToFile(writeFile, deadlineTemp);
+                		writeFile.flush();
+        			}
+        			catch (RemyException e) {
+        				printLines();
+        				System.out.println("     " + e.getMessage());
+        				printLines();
+        			}
+        		} else if (userCmd[0].equals("event")) {
+        			try {
+        				String[] info = getEventDescription(userCmd);
+        				if (info[0] == "" | info[1] == "" | info[2] == "") {
+        					throw new RemyException("Error: Please input your event in the right format");
+        				}
+            			Task eventTask = new Event(info[0], info[1], info[2]);
+            			addTask(eventTask);
+            			Event eventTemp = (Event) eventTask;
+            			writeEventTaskToFile(writeFile, eventTemp);
+                		writeFile.flush();
+        			}
+        			catch (RemyException e) {
+        				printLines();
+        				System.out.println("     " + e.getMessage());
+        				printLines();
+        			}
+        			catch (IllegalArgumentException e) {
+        				printLines();
+        				System.out.println("     Error: Please input your event in the right format");
+        				printLines();
+        			}
+        		} else {
+        			invalidCommandResponse();
+        		}
+            	
+            	command = input.nextLine();
+                }
+                
+            	sayGoodbye();
+                input.close();
+    	}
+		catch (IOException e) {
+			System.out.println(e);
+		}
+    }
     
     public static void greetUser() {
     	 printLines();
@@ -143,7 +165,7 @@ public class Duke {
     public static void printToDoList() {
     	printLines();
     	if (size != 0) {
-    		System.out.println("     " + "Here's your tasks:");
+    		System.out.println("Here's your tasks:");
         	for (int i = 0; i < size; i++) {
         		System.out.println("     " + Integer.toString(i + 1) + "." + toDoList[i]);
         	}
@@ -164,7 +186,7 @@ public class Duke {
     			break;
     		}
     	}
-    	String[] descAndDue = {desc, due};
+    	String[] descAndDue = {desc.strip(), due.strip()};
     	return descAndDue;
     }
     
@@ -188,7 +210,7 @@ public class Duke {
 		if (toIndex + 1 != description.length) {
 	    	to = String.join(" ", Arrays.copyOfRange(description, toIndex + 1, description.length));
 		}
-    	String[] info = {desc, from, to};
+    	String[] info = {desc.strip(), from.strip(), to.strip()};
     	return info;
     }
     
@@ -196,5 +218,76 @@ public class Duke {
     	printLines();
     	System.out.println("     Sorry I don't understand that command (◡︵◡)");
     	printLines();
+    }
+    
+    public static void createTaskListFile() {
+    	try {
+    		FileWriter outputFile = new FileWriter("./data/toDoList.txt");
+			outputFile.close();
+    	}
+    	catch (java.io.IOException e) {
+    		System.out.println(e);
+    	}
+    }
+    
+    public static void checkForTextFile(File dir, File textFile) {
+    	if (dir.exists() && textFile.exists()) {
+    		try {
+    			Scanner s = new Scanner(textFile);
+        		while (s.hasNextLine()) {
+        			textToTask(s.nextLine().split(","));
+        		}
+        		s.close();
+    		}
+    		catch (FileNotFoundException e) {
+    			System.out.println(e);
+    		}
+    	}
+    	if (!dir.exists()) {
+    		dir.mkdir();
+    	}
+    	if (!textFile.exists()) {
+    		createTaskListFile();
+    	}
+	}
+    
+    public static void writeToDoTaskToFile(FileWriter writeFile, ToDo task) {
+    	try {
+    		writeFile.write("todo," + task.getDescription() + "\n");
+    	}
+    	catch (IOException e) {
+    		System.out.println(e);
+    	}
+    }
+    
+    public static void writeDeadlineTaskToFile(FileWriter writeFile, Deadline task) {
+    	try {
+    		writeFile.write("deadline," + task.getDescription() + "," + task.getDue() + "\n");
+    	}
+    	catch (IOException e) {
+    		System.out.println(e);
+    	}
+    }
+    
+    public static void writeEventTaskToFile(FileWriter writeFile, Event task) {
+    	try {
+    		writeFile.write("event," + task.getDescription() + "," + task.getFrom() + "," + task.getTo() + "\n");
+    	}
+    	catch (IOException e) {
+    		System.out.println(e);
+    	}
+    }
+    
+    public static void textToTask(String[] existingTask) {
+    	if (existingTask[0].equals("todo")) {
+    		Task toDoTask = new ToDo(existingTask[1]);
+    		toDoList[size++] = toDoTask;
+    	} else if (existingTask[0].equals("deadline")) {
+    		Task deadlineTask = new Deadline(existingTask[1], existingTask[2]);
+    		toDoList[size++] = deadlineTask;
+    	} else if (existingTask[0].equals("event")) {
+    		Task eventTask = new Event(existingTask[1], existingTask[2], existingTask[3]);
+    		toDoList[size++] = eventTask;
+    	}
     }
 }
