@@ -1,8 +1,5 @@
 package RC.task;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Deadline extends Task {
     private String by;
 
@@ -17,10 +14,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void writeToFile(String filePath) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        String text = "D | 0 | " + this.getDescription() + " | " + this.by + "\n";
-        fw.write(text);
-        fw.close();
+    public String formatString() {
+        return "D | " + super.formatString() + " | " + this.by;
     }
 }

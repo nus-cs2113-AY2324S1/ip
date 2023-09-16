@@ -1,10 +1,5 @@
 package RC.task;
 
-
-import java.util.ArrayList;
-import java.io.IOException;
-
-
 public class Task {
     private String description;
     private boolean isDone;
@@ -29,13 +24,10 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("\tNice! I've marked this task as done:\n\t  " + this);
-        //markInFile()
     }
 
     public void unmarkTask() {
         this.isDone = false;
-        System.out.println("\tOK, I've marked this task as not done yet:\n\t  " + this);
     }
 
     public void deleteTask() {
@@ -65,5 +57,11 @@ public class Task {
         }
     }
 
-    public void writeToFile(String fileName) throws IOException {}
+    public String formatString() {
+        int markTask = 0;
+        if (this.getStatusIcon().equals("X")) {
+            markTask = 1;
+        }
+        return markTask + " | " + this.getDescription();
+    }
 }

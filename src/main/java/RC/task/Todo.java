@@ -1,8 +1,5 @@
 package RC.task;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -14,10 +11,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public void writeToFile(String filePath) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        String text = "T | 0 | " + this.getDescription() + "\n";
-        fw.write(text);
-        fw.close();
+    public String formatString() {
+        return "T | " + super.formatString();
     }
 }
