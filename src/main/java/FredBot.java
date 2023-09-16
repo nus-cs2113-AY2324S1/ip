@@ -1,7 +1,4 @@
-import fredbot.error.FredBotCommandErrorException;
-import fredbot.error.FredBotDeadlineErrorException;
-import fredbot.error.FredBotEventErrorException;
-import fredbot.error.FredBotTodoErrorException;
+import fredbot.error.*;
 import fredbot.task.Deadline;
 import fredbot.task.Event;
 import fredbot.task.Task;
@@ -34,6 +31,7 @@ public class FredBot {
     public static final String TODO_ERROR_MESSAGE = "☹ OOPS!!! The description of a todo cannot be empty.";
     public static final String DEADLINE_ERROR_MESSAGE = "☹ OOPS!!! The description of a deadline cannot be empty.";
     public static final String EVENT_ERROR_MESSAGE = "☹ OOPS!!! The description of a event cannot be empty.";
+    public static final String EVENT_MARK_MESSAGE = "This task does not exist!";
 
     public static void addTodo(ArrayList<Task> tasks, String task) throws FredBotTodoErrorException {
         if (task.isEmpty()) {
@@ -73,7 +71,10 @@ public class FredBot {
         Task.setNumTask(numTask+1);
     }
 
-    public static void changeStatus(ArrayList<Task> tasks, boolean mark, int index) {
+    public static void changeStatus(ArrayList<Task> tasks, boolean mark, int index) throws FredBotMarkErrorException {
+        if (index < 1 || index > Task.getNumTask()) {
+            throw new FredBotMarkErrorException();
+        }
         tasks.get(index - 1).setDone(mark);
         String message;
         if (mark) {
@@ -142,6 +143,8 @@ public class FredBot {
                 printMessage(INDENT + TODO_ERROR_MESSAGE);
             } catch (FredBotEventErrorException e) {
                 printMessage(INDENT + EVENT_ERROR_MESSAGE);
+            } catch (FredBotMarkErrorException e) {
+                printMessage(INDENT + EVENT_MARK_MESSAGE);
             }
 
             line = in.nextLine();
