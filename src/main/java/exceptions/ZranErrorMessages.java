@@ -1,3 +1,5 @@
+package exceptions;
+
 public enum ZranErrorMessages {
     INVALID_TASK_DESCRIPTION("Invalid task command: Empty name of the task. \n" +
             "    Please key in the description of the task or type help :)"),
@@ -16,7 +18,7 @@ public enum ZranErrorMessages {
     INVALID_TASK_INDEX("Invalid (un)mark command: Invalid task index to (un)mark. \n" +
             "    Please enter an existing task index to (un)mark or type help :)");
 
-    final String message;
+    public final String message;
     ZranErrorMessages(String message) {
         this.message = message;
     }

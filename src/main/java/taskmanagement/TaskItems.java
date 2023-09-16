@@ -1,3 +1,10 @@
+package taskmanagement;
+
+import exceptions.ZranErrorMessages;
+import exceptions.ZranExceptions;
+import taskmanagement.Deadline;
+import taskmanagement.Event;
+
 import java.util.Scanner;
 
 public class TaskItems {
@@ -23,8 +30,8 @@ public class TaskItems {
     }
     //to echo after a task's status is changed
     public static void echo(Task task, boolean isDone){
-        String output = isDone ? "Congrats! :D " + "Task marked as done: " + task.getDescription() + " [" + task.getStatusIcon() + "]"
-                : "Oopsies!" + "Task unmarked: " + task.getDescription() + " [" + task.getStatusIcon() + "]";
+        String output = isDone ? "Congrats! :D " + "taskmanagement.Task marked as done: " + task.getDescription() + " [" + task.getStatusIcon() + "]"
+                : "Oopsies!" + "taskmanagement.Task unmarked: " + task.getDescription() + " [" + task.getStatusIcon() + "]";
         System.out.printf(outputFormat + "%n", output);
     }
 
@@ -42,7 +49,7 @@ public class TaskItems {
     }
 
     //The function 'addItems' is used to accept user's input and add it to their To Do list
-    public static void addItems() throws ZranExceptions{
+    public static void addItems() throws ZranExceptions {
 
         Scanner in = new Scanner(System.in);
         String input = "";
@@ -88,6 +95,18 @@ public class TaskItems {
                 }
             } else if(input.equals(LIST_TASK_COMMAND)){
                 echo(items);
+            }  else if (input.startsWith(USER_HELP_COMMAND)) {
+                System.out.printf((outputFormat) + "%n",
+                        "Help is here! :) \n" +
+                                "    Listed below are the valid commands: \n" +
+                                "    - mark \n    - unmark \n " +
+                                "   - todo \n    - deadline \n    - event \n" +
+                                "    For the formats below, replace *field* with your input \n" +
+                                "    MARK: mark *existing task index* \n" +
+                                "    UNMARK: unmark *existing task index* \n" +
+                                "    TODO: todo *task name* \n" +
+                                "    DEADLINE: deadline *task name* /by *deadline* \n" +
+                                "    EVENT: event *event name* /from *start date* /to *end date*");
             } else {
                 try{
                     task = addTaskByType(input);
@@ -104,7 +123,7 @@ public class TaskItems {
     }
 
     // The function 'addTaskByType' is used to add an item into the task list by their task type
-    public static Task addTaskByType(String input) throws ZranExceptions{
+    public static Task addTaskByType(String input) throws ZranExceptions {
         Task task = null;
         if(input.startsWith(TODO_TASK_COMMAND)) {
             int todoIndex = input.indexOf(TODO_TASK_COMMAND);

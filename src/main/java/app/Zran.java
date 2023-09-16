@@ -1,4 +1,7 @@
-import java.util.Scanner;
+package app;
+
+import exceptions.ZranExceptions;
+import taskmanagement.TaskItems;
 
 public class Zran {
     static String outputFormat = "    ____________________________________________________________\n" +
@@ -6,7 +9,7 @@ public class Zran {
 
     public static void main(String[] args) throws ZranExceptions {
         System.out.printf((outputFormat) + "%n",
-                "hello! I'm Zran, your personal assistant:)! \n" +
+                "hello! I'm app.Zran, your personal assistant:)! \n" +
                 "    Type in your to dos for the day and press enter! \n " +
                 "   Type 'help' to view to list of commands the bot accepts! ");
         TaskItems.addItems();
