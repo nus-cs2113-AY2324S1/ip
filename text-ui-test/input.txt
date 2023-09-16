@@ -20,4 +20,12 @@ mark 5
 mark 1
 mark 4
 list
+delete 1
+delete 1
+delete 1
+delete 2
+delete 0
+delete -1
+delete 1
+list
 bye
