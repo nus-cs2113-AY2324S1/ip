@@ -14,6 +14,7 @@ public abstract class RCCommand {
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String DELETE_COMMAND = "delete";
     private static final String EXIT_COMMAND = "bye";
     private static final String BY_COMMAND = "/by";
     private static final String FROM_COMMAND = "/from";
@@ -101,7 +102,23 @@ public abstract class RCCommand {
 
         tasks.get(taskNum).markAsDone();
     }
+    private static void deleteTask(String input, ArrayList<Task> tasks) throws RCException {
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(input) - 1;
+        } catch (NumberFormatException e) {
+            String errorMessage = "\tOOPS!!! Please enter a valid integer.";
+            throw new RCException(errorMessage);
+        }
 
+        if (!Task.isValidIndex(taskNum)) {
+            String errorMessage = "\tOOPS!!! Index is out of range of list.";
+            throw new RCException(errorMessage);
+        }
+
+        tasks.get(taskNum).deleteTask();
+        tasks.remove(taskNum);
+    }
     private static void printTaskList(ArrayList<Task> tasks) {
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -139,6 +156,9 @@ public abstract class RCCommand {
             break;
         case UNMARK_COMMAND:
             unmarkTask(restOfInput, tasks);
+            break;
+        case DELETE_COMMAND:
+            deleteTask(restOfInput, tasks);
             break;
         case EXIT_COMMAND:
             setExit(true);

@@ -1,5 +1,7 @@
 package RC.task;
 
+import java.util.ArrayList;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -32,6 +34,12 @@ public class Task {
         System.out.println("\tOK, I've marked this task as not done yet:\n\t  " + this);
     }
 
+    public void deleteTask() {
+        numTasks--;
+        System.out.print("\tNoted. I've removed the following task:\n\t  " + this + "\n\tNow you have " + getNumTasks());
+        printNumTasks();
+    }
+
     public static boolean isValidIndex(int index) {
         return index >= 0 && index < numTasks;
     }
@@ -42,6 +50,10 @@ public class Task {
 
     public void printAddedTask() {
         System.out.print("\tGot it. I've added this task:\n\t  " + this + "\n\tNow you have " + getNumTasks());
+        printNumTasks();
+    }
+
+    private static void printNumTasks() {
         if (getNumTasks() > 1) {
             System.out.println(" tasks in the list.");
         } else {
