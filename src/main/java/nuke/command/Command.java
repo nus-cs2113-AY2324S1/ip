@@ -22,7 +22,7 @@ public abstract class Command {
 
     public static void handleTypeError(InvalidCommandTypeException e) {
         String desc = String.format("There is no command called '%s'.", e.type);
-        String detail = "Existing command: bye, list, mark, unmark, todo, deadline, event";
+        String detail = "Existing command: bye, list, mark, unmark, todo, deadline, event, delete";
         Ui.printCommandError(desc, detail);
     }
 }

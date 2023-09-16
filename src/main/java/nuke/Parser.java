@@ -59,6 +59,9 @@ public class Parser {
         case "event":
             command = new CommandEvent();
             break;
+        case "delete":
+            command = new CommandDelete();
+            break;
         default:
             throw new InvalidCommandTypeException(type);
         }
