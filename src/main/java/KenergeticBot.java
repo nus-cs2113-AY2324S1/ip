@@ -20,28 +20,26 @@ public class KenergeticBot {
     public static void botDialogue(ArrayList<Task> taskList) {
         Scanner input = new Scanner(System.in);
         String item = input.nextLine();
-        if (item.equals("bye")) {
-            printExitMessage();
-            return;
-        } else if (item.equals("list")) {
-            list(taskList);
-        } else if (checkTextForMark(item)) {
-            String[] splitItem = item.split(" ");
-            int listIndex = Integer.parseInt(splitItem[1]);
-            mark(taskList, listIndex);
-        } else if (checkTextForUnmark(item)) {
-            String[] splitItem = item.split(" ");
-            int listIndex = Integer.parseInt(splitItem[1]);
-            unmark(taskList, listIndex);
-        } else {
-            try {
-                add(taskList, item);
-            } catch (KenergeticBotException e) { //exception thrown when user inputs command outside of the usual commands
-                System.out.println(e.getMessage()); // unable to print sad face ˙◠˙
+        while(!item.equals("bye")) {
+            if (item.equals("list")) {
+                list(taskList);
+            } else if (checkTextForMark(item)) {
+                String[] splitItem = item.split(" ");
+                int listIndex = Integer.parseInt(splitItem[1]);
+                mark(taskList, listIndex);
+            } else if (checkTextForUnmark(item)) {
+                String[] splitItem = item.split(" ");
+                int listIndex = Integer.parseInt(splitItem[1]);
+                unmark(taskList, listIndex);
+            } else {
+                try {
+                    add(taskList, item);
+                } catch (KenergeticBotException e) { //exception thrown when user inputs command outside of the usual commands
+                    System.out.println(e.getMessage()); 
+                }
             }
+            item = input.nextLine();
         }
-        botDialogue(taskList);
+        printExitMessage();
     }
-
-
 }
