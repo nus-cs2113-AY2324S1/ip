@@ -7,6 +7,9 @@ import fredbot.task.Event;
 import fredbot.task.Task;
 import fredbot.task.Todo;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FredBot {
@@ -32,17 +35,17 @@ public class FredBot {
     public static final String DEADLINE_ERROR_MESSAGE = "☹ OOPS!!! The description of a deadline cannot be empty.";
     public static final String EVENT_ERROR_MESSAGE = "☹ OOPS!!! The description of a event cannot be empty.";
 
-    public static void addTodo(Task[] tasks, String task) throws FredBotTodoErrorException {
+    public static void addTodo(ArrayList<Task> tasks, String task) throws FredBotTodoErrorException {
         if (task.isEmpty()) {
             throw new FredBotTodoErrorException();
         }
         int numTask = Task.getNumTask();
-        tasks[numTask] = new Todo(task);
-        printAddTask(INDENT + tasks[numTask].toString() + "\n");
+        tasks.add(new Todo(task));
+        printAddTask(INDENT + tasks.get(numTask).toString() + "\n");
         Task.setNumTask(numTask+1);
     }
 
-    public static void addDeadline(Task[] tasks, String task) throws FredBotDeadlineErrorException {
+    public static void addDeadline(ArrayList<Task> tasks, String task) throws FredBotDeadlineErrorException {
         if (task.isEmpty()) {
             throw new FredBotDeadlineErrorException();
         }
@@ -51,12 +54,12 @@ public class FredBot {
         if (arguments.length != 2) {
             throw new FredBotDeadlineErrorException();
         }
-        tasks[numTask] = new Deadline(arguments[0],arguments[1]);
-        printAddTask(INDENT + tasks[numTask].toString() + "\n");
+        tasks.add(new Deadline(arguments[0],arguments[1]));
+        printAddTask(INDENT + tasks.get(numTask).toString() + "\n");
         Task.setNumTask(numTask+1);
     }
 
-    public static void addEvent(Task[] tasks, String task) throws FredBotEventErrorException {
+    public static void addEvent(ArrayList<Task> tasks, String task) throws FredBotEventErrorException {
         if (task.isEmpty()) {
             throw new FredBotEventErrorException();
         }
@@ -65,30 +68,30 @@ public class FredBot {
         if (arguments.length != 3) {
             throw new FredBotEventErrorException();
         }
-        tasks[numTask] = new Event(arguments[0].trim(), arguments[1].trim(), arguments[2].trim());
-        printAddTask(INDENT + tasks[numTask].toString() + "\n");
+        tasks.add(new Event(arguments[0].trim(), arguments[1].trim(), arguments[2].trim()));
+        printAddTask(INDENT + tasks.get(numTask).toString() + "\n");
         Task.setNumTask(numTask+1);
     }
 
-    public static void changeStatus(Task[] tasks, boolean mark, int index) {
-        tasks[index - 1].setDone(mark);
+    public static void changeStatus(ArrayList<Task> tasks, boolean mark, int index) {
+        tasks.get(index - 1).setDone(mark);
         String message;
         if (mark) {
             message = INDENT + MARK_TASK_MESSAGE;
-            message += INDENT + "[X] " + tasks[index-1].getTaskDesc();
+            message += INDENT + "[X] " + tasks.get(index - 1).getTaskDesc();
         } else {
             message = INDENT + UNMARK_TASK_MESSAGE;
-            message += INDENT + "[ ] " + tasks[index-1].getTaskDesc();
+            message += INDENT + "[ ] " + tasks.get(index - 1).getTaskDesc();
         }
         printMessage(message);
     }
-    public static void printTasks(Task[] tasks) {
+    public static void printTasks(ArrayList<Task> tasks) {
         StringBuilder taskList = new StringBuilder();
         taskList.append(INDENT).append(TASK_LIST_MESSAGE);
         int numTask = Task.getNumTask();
         for (int i = 0; i < numTask; i++) {
             String number = (i + 1) + ".";
-            taskList.append(INDENT).append(number).append(tasks[i].toString()).append("\n"); // Can be formatted
+            taskList.append(INDENT).append(number).append(tasks.get(i).toString()).append("\n"); // Can be formatted
         }
         printMessage(taskList.toString());
     }
@@ -103,7 +106,8 @@ public class FredBot {
         System.out.println(DIVIDER);
     }
     public static void main(String[] args) {
-        Task[] tasks = new Task[MAX_NUM_TASKS];
+        // Task[] tasks = new Task[MAX_NUM_TASKS];
+        ArrayList<Task> tasks = new ArrayList<>();
 
         printMessage(GREETING);
 
