@@ -48,7 +48,7 @@ public class MessageDisplay {
                     case "mark":
                         try{
                             taskIndex = Integer.parseInt(userInput.split("mark")[1].strip());
-                            taskName = TaskList.viewTaskByIndex(taskIndex-1);
+                            taskName = TaskList.viewTaskByIndex(taskIndex);
                             TaskList.markTaskAsDone(taskIndex);
                             if(taskName.equals("Task Not Found")){
                                 break;
@@ -66,7 +66,7 @@ public class MessageDisplay {
                     case "unmark":
                         try{
                             taskIndex = Integer.parseInt(userInput.split("unmark")[1].strip());
-                            taskName = TaskList.viewTaskByIndex(taskIndex-1);
+                            taskName = TaskList.viewTaskByIndex(taskIndex);
                             TaskList.markTaskAsNotDone(taskIndex);
                             if(taskName.equals("Task Not Found")){
                                 break;
@@ -97,7 +97,8 @@ public class MessageDisplay {
                 String exceptionMessage = exception.getMessage();
                 if(exceptionMessage.equals("Invalid Input")){
                     System.out.println("    Pwease enter a valid command :0");
-                    System.out.println("    Valid commands are: todo, deadline: /by time, event: /from start /to end, bye");
+                    System.out.println("    Valid commands are: todo, deadline: /by time,\n" +
+                            "                        event: /from start /to end, bye");
                     System.out.println("    ____________________________________________________________");
                 }
 
