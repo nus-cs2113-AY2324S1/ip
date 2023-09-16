@@ -53,8 +53,8 @@ public class DukeException {
             int toIndex = Arrays.asList(userInput).indexOf("/to");
             if (fromIndex == -1 || toIndex == -1){
                 missingKeyword();
+                exception = true;
             }
-            exception = true;
             return;
         default:
             unknownCommand();
