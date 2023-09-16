@@ -33,9 +33,9 @@ public class Duke {
     public static void addDeadlineInList(String[] arguments) throws DukeException{
         try{
             String argumentsString = String.join(" ", arguments);
-            String[] argumentList = argumentsString.split(" /by ");
-            String deadlineDescription = argumentList[FIRST_INDEX];
-            String deadlineEndTime = argumentList[SECOND_INDEX];
+            String[] argumentsList = argumentsString.split(" /by ");
+            String deadlineDescription = argumentsList[FIRST_INDEX];
+            String deadlineEndTime = argumentsList[SECOND_INDEX];
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineEndTime);
             TASKS.add(newDeadline);
             printRemark(newDeadline);
@@ -48,11 +48,11 @@ public class Duke {
     public static void addEventInList(String[] arguments) throws DukeException{
         try {
             String argumentsString = String.join(" ", arguments);
-            String[] argumentList = argumentsString.split(" /from ");
-            String eventDescription = argumentList[FIRST_INDEX];
-            argumentList = argumentList[SECOND_INDEX].split(" /to ");
-            String eventStartTime = argumentList[FIRST_INDEX];
-            String eventEndTime = argumentList[SECOND_INDEX];
+            String[] argumentsList = argumentsString.split(" /from ");
+            String eventDescription = argumentsList[FIRST_INDEX];
+            argumentsList = argumentsList[SECOND_INDEX].split(" /to ");
+            String eventStartTime = argumentsList[FIRST_INDEX];
+            String eventEndTime = argumentsList[SECOND_INDEX];
             Event newEvent = new Event(eventDescription, eventStartTime, eventEndTime);
             TASKS.add(newEvent);
             printRemark(newEvent);
@@ -100,35 +100,35 @@ public class Duke {
         System.out.println(LINE_DIVIDER);
     }
 
-    public static void handleCommandInLoop(String[] arguments, String actionCommand) throws DukeException, IndexOutOfBoundsException{
+    public static void handleCommandInLoop(String[] arguments, String actionCommand) throws DukeException{
         switch (actionCommand) {
-            case "todo":
-                // passing subarray of arguments without the 1st, same for other commands as well
-                addTodoInList(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
-                return;
+        case "todo":
+            // passing subarray of arguments without the 1st, same for other commands as well
+            addTodoInList(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
+            return;
 
-            case "deadline":
-                addDeadlineInList(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
-                return;
+        case "deadline":
+            addDeadlineInList(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
+            return;
 
-            case "event":
-                addEventInList(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
-                return;
+        case "event":
+            addEventInList(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
+            return;
 
-            case "list":
-                printTaskList();
-                return;
+        case "list":
+            printTaskList();
+            return;
 
-            case "mark":
-                markTaskComplete(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
-                return;
+        case "mark":
+            markTaskComplete(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
+            return;
 
-            case "unmark":
-                unmarkTaskIncomplete(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
-                return;
+        case "unmark":
+            unmarkTaskIncomplete(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
+            return;
 
-            default: // unknown command exception
-                throw new DukeException("I don't know what that means...");
+        default: // unknown command exception
+            throw new DukeException("I don't know what that means...");
         }
     }
 
