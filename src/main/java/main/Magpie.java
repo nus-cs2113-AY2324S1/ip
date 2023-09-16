@@ -1,4 +1,9 @@
+package main;
+import magpie.task.taskHandler;
+import magpie.input.inputHandler;
+import magpie.exceptions.MagpieException;
 import java.util.Scanner;
+
 
 public class Magpie {
 

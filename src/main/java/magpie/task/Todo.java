@@ -1,3 +1,7 @@
+package magpie.task;
+
+import magpie.task.Task;
+
 public class Todo extends Task {
 
     public Todo(String description) {
