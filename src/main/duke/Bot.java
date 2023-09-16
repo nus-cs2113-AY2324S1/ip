@@ -334,7 +334,7 @@ public class Bot {
     public static void addDeadlineToFile(Deadline newDeadline) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH, true);
-            String format = "T," + (newDeadline.isCompleted() ? "1" : "0") + "," + newDeadline.getName() + "," + newDeadline.getBy();
+            String format = "D," + (newDeadline.isCompleted() ? "1" : "0") + "," + newDeadline.getName() + "," + newDeadline.getBy();
             fw.write(format + "\n");
             fw.close();
         } catch (IOException exception) {
@@ -345,7 +345,7 @@ public class Bot {
     public static void addEventToFile(Event newEvent) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH, true);
-            String format = "T," + (newEvent.isCompleted() ? "1" : "0") + "," + newEvent.getName() + "," + newEvent.getFrom()  + "," + newEvent.getTo();
+            String format = "E," + (newEvent.isCompleted() ? "1" : "0") + "," + newEvent.getName() + "," + newEvent.getFrom()  + "," + newEvent.getTo();
             fw.write(format + "\n");
             fw.close();
         } catch (IOException exception) {
