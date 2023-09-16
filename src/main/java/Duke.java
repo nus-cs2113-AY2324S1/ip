@@ -124,14 +124,12 @@ public class Duke {
             String from = String.join(" ", Arrays.copyOfRange(userInput, fromIndex + 1, toIndex));
             String to = String.join(" ", Arrays.copyOfRange(userInput, toIndex + 1, userInput.length));
             Task event = new Event(eventDescription, from, to);
-//            this.taskList[taskCount] = event;
             taskList.add(event);
             addTaskCallback(event);
             this.writer.write(event.taskFormatted());
             break;
         default:
         }
-
     }
 
     public void getInput() throws IOException {
@@ -176,6 +174,7 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         Duke duke = new Duke();
+        duke.initWriter();
         duke.printGreeting();
         duke.getInput();
     }
