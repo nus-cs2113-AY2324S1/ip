@@ -14,9 +14,11 @@ public abstract class RCCommand {
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String EXIT_COMMAND = "bye";
     private static final String BY_COMMAND = "/by";
     private static final String FROM_COMMAND = "/from";
     private static final String TO_COMMAND = "/to";
+    private static boolean isExit = false;
 
     private static void addTodo(String input, ArrayList<Task> tasks) throws RCException {
         if (input.isEmpty()) {
@@ -106,6 +108,13 @@ public abstract class RCCommand {
             System.out.println("\t" + (i + 1) + "." + tasks.get(i));
         }
     }
+    public static boolean isExit() {
+        return isExit;
+    }
+
+    public static void setExit(boolean isExit) {
+        RCCommand.isExit = isExit;
+    }
 
     public static void handleCommand(String input, ArrayList<Task> tasks) throws RCException {
         String[] split = input.split(" ", 2);
@@ -130,6 +139,9 @@ public abstract class RCCommand {
             break;
         case UNMARK_COMMAND:
             unmarkTask(restOfInput, tasks);
+            break;
+        case EXIT_COMMAND:
+            setExit(true);
             break;
         default:
             System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");

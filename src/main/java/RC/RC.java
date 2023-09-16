@@ -6,20 +6,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RC {
+
     public static void main(String[] args) {
         System.out.println("\tHello! I'm RC\n\tWhat can I do for you?\n");
         Scanner in = new Scanner(System.in);
         String input;
         ArrayList<Task> tasks = new ArrayList<>();
+        boolean isExit = false;
 
-        while (true) {
+        while (!isExit) {
             input = in.nextLine().trim();
             try {
-                if (input.equalsIgnoreCase("bye")) {
-                    break;
-                } else {
-                    RCCommand.handleCommand(input, tasks);
-                }
+                RCCommand.handleCommand(input, tasks);
+                isExit = RCCommand.isExit();
             } catch (RCException e) {
                 System.out.println(e.getMessage());
             }
