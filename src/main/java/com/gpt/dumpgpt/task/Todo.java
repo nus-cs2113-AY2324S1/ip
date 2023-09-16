@@ -6,12 +6,12 @@ public class Todo extends Task {
     private static final String TYPE = "Todo";
 
     public Todo(String name) {
-        super(name);
+        super(name, TYPE);
     }
 
     @Override
     public void validate() throws DukeException {
-        super.validate(TYPE);
+        super.validate();
     }
 
     @Override
