@@ -10,24 +10,34 @@ import java.io.FileWriter;
 
 public class fileHandler {
 
-    private static final String FILEPATH = "src/main/data/data.txt";
+    private static String filePath;
 
-    private final File taskFile;
+    private File taskFile;
 
     private Scanner scanFile;
 
     private StringBuffer buffer;
 
-    private static String taskFileContent = "";
+    private static String taskFileContents = "";
 
     private String taskLine;
-    private String[] splitTaskLine;
+    private String[] splitTaskLines;
+
+    public void createDirectory() {
+        String directoryPath = System.getProperty("user.dir") + "/data";
+        filePath = directoryPath + "/data.txt";
+        File directory = new File(directoryPath);
+        System.out.println(directory);
+        if (!directory.exists()){
+            directory.mkdir();
+        }
+    }
     public fileHandler() {
 
+        createDirectory();
+        taskFile = new File(filePath);
 
-        taskFile = new File(FILEPATH);
-
-        try{
+        try {
             boolean isCreated = taskFile.createNewFile();
 
             if (isCreated) {
@@ -48,16 +58,16 @@ public class fileHandler {
     }
 
     public void addTaskLine() {
-        boolean isMark = !(splitTaskLine[1].trim().equals("0"));
-        switch(splitTaskLine[0].trim()) {
+        boolean isMark = !(splitTaskLines[1].trim().equals("0"));
+        switch(splitTaskLines[0].trim()) {
         case "T":
-            taskHandler.addTodo(isMark, splitTaskLine[2]);
+            taskHandler.addTodo(isMark, splitTaskLines[2]);
             break;
         case "D":
-            taskHandler.addDeadline(isMark, splitTaskLine[2], splitTaskLine[3]);
+            taskHandler.addDeadline(isMark, splitTaskLines[2], splitTaskLines[3]);
             break;
         case "E":
-            taskHandler.addEvent(isMark,splitTaskLine[2],splitTaskLine[3],splitTaskLine[4]);
+            taskHandler.addEvent(isMark, splitTaskLines[2], splitTaskLines[3], splitTaskLines[4]);
             break;
         default:
             System.out.println("Something's wrong with your data file!");
@@ -73,7 +83,7 @@ public class fileHandler {
             while(scanFile.hasNext()){
                 taskLine = scanFile.nextLine();
                 buffer.append(taskLine+System.lineSeparator());
-                splitTaskLine = taskLine.split("\\|");
+                splitTaskLines = taskLine.split("\\|");
 
                 addTaskLine();
 
@@ -88,25 +98,25 @@ public class fileHandler {
     }
 
     public static void appendTaskToFile(String newTask) {
-        taskFileContent += newTask + System.lineSeparator();
+        taskFileContents += newTask + System.lineSeparator();
 
     }
 
     public static void deleteTaskFromFile(String taskToDelete) {
 
-        taskFileContent = taskFileContent.replace(taskToDelete + "\r\n", "");
+        taskFileContents = taskFileContents.replace(taskToDelete + "\r\n", "");
 
     }
 
     public static void updateTaskInFile(String oldLine, String newLine) {
-        taskFileContent = taskFileContent.replace(oldLine, newLine);
+        taskFileContents = taskFileContents.replace(oldLine, newLine);
 
     }
 
     public void saveToFile() throws IOException {
-        FileWriter writer = new FileWriter(FILEPATH);
+        FileWriter writer = new FileWriter(filePath);
 
-        writer.append(taskFileContent);
+        writer.append(taskFileContents);
 
         writer.flush();
         writer.close();
