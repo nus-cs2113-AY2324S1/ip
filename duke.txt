@@ -1,0 +1,4 @@
+[T] [X]  cry
+[T] [ ]  laugh
+[D] [X]  smoke  (by:  sunday)
+[E] [ ]  sleep  (from: 8pm to:  10pm)
