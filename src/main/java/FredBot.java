@@ -7,8 +7,10 @@ import fredbot.task.Event;
 import fredbot.task.Task;
 import fredbot.task.Todo;
 
+import java.awt.dnd.InvalidDnDOperationException;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
@@ -32,8 +34,19 @@ public class FredBot {
     public static final String TODO_ERROR_MESSAGE = "☹ OOPS!!! The description of a todo cannot be empty.";
     public static final String DEADLINE_ERROR_MESSAGE = "☹ OOPS!!! The description of a deadline cannot be empty.";
     public static final String EVENT_ERROR_MESSAGE = "☹ OOPS!!! The description of a event cannot be empty.";
+    public static final String TASK_FILE_PATH = "./data/tasks.txt";
+    
+    public static void addTaskstoFile(Task[] tasks) throws IOException {
+        FileWriter fw = new FileWriter(TASK_FILE_PATH);
+        StringBuilder tasksText = new StringBuilder();
+        for (int i = 0; i < Task.getNumTask(); i++) {
+            tasksText.append(tasks[i].toString()).append(System.lineSeparator());
+        }
+        fw.write(String.valueOf(tasksText));
+        fw.close();
+    }
 
-    public static void addTodo(Task[] tasks, String task) throws FredBotTodoErrorException {
+    public static void addTodo(Task[] tasks, String task) throws FredBotTodoErrorException, IOException {
         if (task.isEmpty()) {
             throw new FredBotTodoErrorException();
         }
@@ -41,9 +54,10 @@ public class FredBot {
         tasks[numTask] = new Todo(task);
         printAddTask(INDENT + tasks[numTask].toString() + "\n");
         Task.setNumTask(numTask+1);
+        addTaskstoFile(tasks);
     }
 
-    public static void addDeadline(Task[] tasks, String task) throws FredBotDeadlineErrorException {
+    public static void addDeadline(Task[] tasks, String task) throws FredBotDeadlineErrorException, IOException {
         if (task.isEmpty()) {
             throw new FredBotDeadlineErrorException();
         }
@@ -52,12 +66,13 @@ public class FredBot {
         if (arguments.length != 2) {
             throw new FredBotDeadlineErrorException();
         }
-        tasks[numTask] = new Deadline(arguments[0],arguments[1]);
+        tasks[numTask] = new Deadline(arguments[0].trim(),arguments[1].trim());
         printAddTask(INDENT + tasks[numTask].toString() + "\n");
         Task.setNumTask(numTask+1);
+        addTaskstoFile(tasks);
     }
 
-    public static void addEvent(Task[] tasks, String task) throws FredBotEventErrorException {
+    public static void addEvent(Task[] tasks, String task) throws FredBotEventErrorException, IOException {
         if (task.isEmpty()) {
             throw new FredBotEventErrorException();
         }
@@ -69,9 +84,10 @@ public class FredBot {
         tasks[numTask] = new Event(arguments[0].trim(), arguments[1].trim(), arguments[2].trim());
         printAddTask(INDENT + tasks[numTask].toString() + "\n");
         Task.setNumTask(numTask+1);
+        addTaskstoFile(tasks);
     }
 
-    public static void changeStatus(Task[] tasks, boolean mark, int index) {
+    public static void changeStatus(Task[] tasks, boolean mark, int index) throws IOException {
         tasks[index - 1].setDone(mark);
         String message;
         if (mark) {
@@ -82,6 +98,7 @@ public class FredBot {
             message += INDENT + "[ ] " + tasks[index-1].getTaskDesc();
         }
         printMessage(message);
+        addTaskstoFile(tasks);
     }
     public static void printTasks(Task[] tasks) {
         StringBuilder taskList = new StringBuilder();
@@ -139,6 +156,9 @@ public class FredBot {
                 printMessage(INDENT + TODO_ERROR_MESSAGE);
             } catch (FredBotEventErrorException e) {
                 printMessage(INDENT + EVENT_ERROR_MESSAGE);
+            } catch (IOException e) {
+                printMessage(INDENT + "Could not write to file. Exiting Application...");
+                System.exit(0);
             }
 
             line = in.nextLine();
