@@ -36,21 +36,25 @@ public class Dude {
         while (!input.isEmpty()) {
             drawLine();
 
-            if (input.equals("bye")) {
-                byeDude();
-                break;
-            } else if (input.equals("list")) {
-                listTasks(tasks);
-            } else if (input.startsWith("todo")) {
-                addTodoTask(tasks, input);
-            } else if (input.startsWith("deadline")) {
-                addDeadlineTask(tasks, input);
-            } else if (input.startsWith("event")) {
-                addEventTask(tasks, input);
-            } else if (input.startsWith("mark") || input.startsWith("unmark")) {
-                markOrUnmarkTask(tasks, input);
-            } else {
-                addGeneralTask(tasks, input);
+            try {
+                if (input.equals("bye")) {
+                    byeDude();
+                    break;
+                } else if (input.equals("list")) {
+                    listTasks(tasks);
+                } else if (input.startsWith("todo")) {
+                    addTodoTask(tasks, input);
+                } else if (input.startsWith("deadline")) {
+                    addDeadlineTask(tasks, input);
+                } else if (input.startsWith("event")) {
+                    addEventTask(tasks, input);
+                } else if (input.startsWith("mark") || input.startsWith("unmark")) {
+                    markOrUnmarkTask(tasks, input);
+                } else {
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DudeException e) {
+                System.out.println(e.getMessage());
             }
 
             drawLine();
@@ -59,6 +63,7 @@ public class Dude {
         scan.close();
     }
 
+
     private static void listTasks(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -66,23 +71,63 @@ public class Dude {
         }
     }
 
-    private static void addTodoTask(ArrayList<Task> tasks, String input) {
-        String taskDescription = input.substring(5);
+    private static void addTodoTask(ArrayList<Task> tasks, String input) throws DudeException {
+        if (input.length() <= 5) {
+            throw new DudeException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
+
+        String taskDescription = input.substring(5).trim();
+        if (taskDescription.isEmpty()) {
+            throw new DudeException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         tasks.add(new Task(taskDescription));
         printAddedTask(tasks);
     }
 
-    private static void addDeadlineTask(ArrayList<Task> tasks, String input) {
-        String taskDescription = input.substring(9, input.indexOf("/by")).trim();
-        String by = input.substring(input.indexOf("/by") + 4).trim();
+
+    private static void addDeadlineTask(ArrayList<Task> tasks, String input) throws DudeException {
+        int byIndex = input.indexOf("/by");
+        if (byIndex == -1) {
+            throw new DudeException("☹ OOPS!!! Please specify a deadline using /by.");
+        }
+
+        String taskDescription = input.substring(9, byIndex).trim();
+        if (taskDescription.isEmpty()) {
+            throw new DudeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+
+        String by = input.substring(byIndex + 4).trim();
+        if (by.isEmpty()) {
+            throw new DudeException("☹ OOPS!!! The deadline time cannot be empty.");
+        }
+
         tasks.add(new Deadline(taskDescription, by));
         printAddedTask(tasks);
     }
 
-    private static void addEventTask(ArrayList<Task> tasks, String input) {
-        String taskDescription = input.substring(6, input.indexOf("/from")).trim();
-        String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to")).trim();
-        String to = input.substring(input.indexOf("/to") + 4).trim();
+    private static void addEventTask(ArrayList<Task> tasks, String input) throws DudeException {
+        int fromIndex = input.indexOf("/from");
+        int toIndex = input.indexOf("/to");
+
+        if (fromIndex == -1 || toIndex == -1) {
+            throw new DudeException("☹ OOPS!!! Please specify event time using /from and /to.");
+        }
+
+        String taskDescription = input.substring(6, fromIndex).trim();
+        if (taskDescription.isEmpty()) {
+            throw new DudeException("☹ OOPS!!! The description of an event cannot be empty.");
+        }
+
+        String from = input.substring(fromIndex + 6, toIndex).trim();
+        if (from.isEmpty()) {
+            throw new DudeException("☹ OOPS!!! The start time of an event cannot be empty.");
+        }
+
+        String to = input.substring(toIndex + 4).trim();
+        if (to.isEmpty()) {
+            throw new DudeException("☹ OOPS!!! The end time of an event cannot be empty.");
+        }
+
         tasks.add(new Event(taskDescription, from, to));
         printAddedTask(tasks);
     }
@@ -109,11 +154,6 @@ public class Dude {
         } catch (NumberFormatException e) {
             System.out.println("Invalid task index format.");
         }
-    }
-
-    private static void addGeneralTask(ArrayList<Task> tasks, String input) {
-        System.out.println("added: " + input);
-        tasks.add(new Task(input));
     }
 
     private static void printAddedTask(ArrayList<Task> tasks) {
