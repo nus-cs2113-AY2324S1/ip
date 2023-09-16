@@ -1,16 +1,19 @@
 package duke.commands;
 
 import duke.exceptions.*;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Echo  {
     public String text;
-    public Echo() {
+    public Echo() throws IOException {
 
     }
     ToDoList newList = new ToDoList();
 
-    public void echoBegin() throws DukeException{
+
+    public void echoBegin() throws DukeException, IOException {
         Scanner in = new Scanner(System.in);
         String text = in.next();
         if (text.equals("bye")) {
@@ -45,16 +48,19 @@ public class Echo  {
                     throw new DukeException();
                 }
                 newList.addToDo(task);
+
                 text = in.next();
 
             } else if (text.equals("deadline")) {
                 String[] task = in.nextLine().split("/by");
                 newList.addDeadline(task[0], task[1]);
+
                 text = in.next();
 
             } else if (text.equals("event")) {
                 String[] task = in.nextLine().split("/from | /to");
                 newList.addEvent(task[0], task[1], task[2]);
+
                 text = in.next();
 
             } else if(text.startsWith(newList.delete)){
