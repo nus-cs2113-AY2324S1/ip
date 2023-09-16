@@ -164,7 +164,12 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public void initWriter() throws IOException {
+        writer = new FileManager();
+        writer.read();
+    }
+
+    public static void main(String[] args) throws IOException {
         Duke duke = new Duke();
         duke.printGreeting();
         duke.getInput();
