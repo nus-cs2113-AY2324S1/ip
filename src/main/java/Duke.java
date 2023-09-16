@@ -76,25 +76,25 @@ public class Duke {
         printLine();
     }
 
-    public void addTaskCallback(int taskCount) {
+    public void addTaskCallback(Task task) {
         printLine();
         System.out.println("    Got it. I've added this task:");
-        switch (taskList.get(taskCount).taskType) {
+        switch (task.taskType) {
         case "todo":
-            System.out.print("      " + taskList.get(taskCount).getTaskTypeIcon() + taskList.get(taskCount).getStatusIcon() + " " + taskList.get(taskCount).description);
+            System.out.print("      " + task.getTaskTypeIcon() + task.getStatusIcon() + " " + task.description);
             break;
         case "deadline":
-            System.out.print("      " + taskList.get(taskCount).getTaskTypeIcon() + taskList.get(taskCount).getStatusIcon() + " " + taskList.get(taskCount).description
-            + "(by:"+taskList.get(taskCount).deadline+")");
+            System.out.print("      " + task.getTaskTypeIcon() + task.getStatusIcon() + " " + task.description
+            + "(by:"+task.deadline+")");
             break;
         case "event":
-            System.out.print("      " + taskList.get(taskCount).getTaskTypeIcon() + taskList.get(taskCount).getStatusIcon() + " " + taskList.get(taskCount).description
-            + " (from: " + taskList.get(taskCount).from + " to: " + taskList.get(taskCount).to+")");
+            System.out.print("      " + task.getTaskTypeIcon() + task.getStatusIcon() + " " + task.description
+            + " (from: " + task.from + " to: " + task.to+")");
             break;
         }
 
         System.out.println();
-        System.out.println("    Now you have " + (taskCount + 1) + " tasks in the list.");
+        System.out.println("    Now you have " + (taskList.size()) + " tasks in the list.");
         printLine();
     }
 
@@ -105,7 +105,8 @@ public class Duke {
             String todoDescription = String.join(" ", Arrays.copyOfRange(userInput, 1, userInput.length));
             Task todo = new ToDo(todoDescription);
             taskList.add(todo);
-            addTaskCallback(taskCount);
+            addTaskCallback(todo);
+            this.writer.write(todo.taskFormatted());
             break;
         case "deadline":
             int byIndex = Arrays.asList(userInput).indexOf("/by");
@@ -113,7 +114,8 @@ public class Duke {
             String deadlineTime = String.join(" ", Arrays.copyOfRange(userInput, byIndex + 1, userInput.length));
             Deadline deadline = new Deadline(deadlineDescription, deadlineTime);
             taskList.add(deadline);
-            addTaskCallback(taskCount);
+            addTaskCallback(deadline);
+            this.writer.write(deadline.taskFormatted());
             break;
         case "event":
             int fromIndex = Arrays.asList(userInput).indexOf("/from");
@@ -124,7 +126,8 @@ public class Duke {
             Task event = new Event(eventDescription, from, to);
 //            this.taskList[taskCount] = event;
             taskList.add(event);
-            addTaskCallback(taskCount);
+            addTaskCallback(event);
+            this.writer.write(event.taskFormatted());
             break;
         default:
         }
