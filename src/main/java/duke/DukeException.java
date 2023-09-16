@@ -53,8 +53,8 @@ public class DukeException {
             int toIndex = Arrays.asList(userInput).indexOf("/to");
             if (fromIndex == -1 || toIndex == -1){
                 missingKeyword();
+                exception = true;
             }
-            exception = true;
             return;
         case "delete":
             if (this.userInput.length == 2 && (Integer.parseInt(this.userInput[1]) > 0 && Integer.parseInt(this.userInput[1]) <= size)){
