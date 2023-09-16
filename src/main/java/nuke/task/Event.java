@@ -27,8 +27,20 @@ public class Event extends Task {
     }
 
     @Override
+    public String getType() {
+        return TYPE;
+    }
+
+    @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)",
+        return String.format("%s (from: %s to: %s)",
                 super.toString(), getFrom(), getTo());
     }
+
+    @Override
+    public String formatData() {
+        return String.format("%s / %s / %s", super.formatData(), getFrom(), getTo());
+    }
+
+    public static final String TYPE = "E";
 }

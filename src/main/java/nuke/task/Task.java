@@ -25,9 +25,16 @@ public abstract class Task {
         this.isDone = done;
     }
 
+    public abstract String getType();
+
     @Override
     public String toString() {
         String mark = isDone()? "X" : " ";
-        return String.format("[%s] %s", mark, getName());
+        return String.format("[%s][%s] %s", getType(), mark, getName());
+    }
+
+    public String formatData() {
+        String mark = isDone()? "1" : "0";
+        return String.format("%s / %s / %s", getType(), mark, getName());
     }
 }

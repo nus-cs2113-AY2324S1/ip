@@ -2,7 +2,6 @@ package nuke.command;
 
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
-import nuke.Parser;
 
 public class CommandEvent extends Command {
     public String name;
@@ -13,19 +12,20 @@ public class CommandEvent extends Command {
     public void applyArguments(String args) throws InvalidCommandArgumentException {
         if (args.isEmpty()) {
             throw new InvalidCommandArgumentException(ERROR_MSG_NO_ARGS);
-        } else if (Parser.isNotContainingExactOneLabel(args, "/from")) {
+        } else if (CommandParser.isNotContainingExactOneLabel(args, "/from")) {
             throw new InvalidCommandArgumentException(ERROR_MSG_INVALID_NUMBER_OF_FROM_TO);
-        } else if (Parser.isNotContainingExactOneLabel(args, "/to")) {
+        } else if (CommandParser.isNotContainingExactOneLabel(args, "/to")) {
             throw new InvalidCommandArgumentException(ERROR_MSG_INVALID_NUMBER_OF_FROM_TO);
-        } else if (Parser.matches(args, "/from(.*)")) {
+        } else if (CommandParser.matches(args, "/from(.*)")) {
             throw new InvalidCommandArgumentException(ERROR_MSG_NAME_EMPTY);
-        } else if (Parser.matches(args, "(.+)\\s/from\\s/to(.*)")) {
+        } else if (CommandParser.matches(args, "(.+)\\s/from\\s/to(.*)")) {
             throw new InvalidCommandArgumentException(ERROR_MSG_FROM_EMPTY);
-        } else if (Parser.matches(args, "(.+)\\s/from\\s(.+)\\s/to")) {
+        } else if (CommandParser.matches(args, "(.+)\\s/from\\s(.+)\\s/to")) {
             throw new InvalidCommandArgumentException(ERROR_MSG_TO_EMPTY);
         }
 
-        String[] parsedArgs = Parser.parseArguments(args, "(.+)\\s/from\\s(.+)\\s/to\\s(.+)");
+        String[] parsedArgs = CommandParser.parseArguments(args, "(.+)\\s/from\\s(.+)\\s/to\\s(.+)");
+        checkForbiddenCharacters(parsedArgs);
         name = parsedArgs[0];
         from = parsedArgs[1];
         to = parsedArgs[2];

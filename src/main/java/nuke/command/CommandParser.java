@@ -1,6 +1,6 @@
-package nuke;
+package nuke.command;
 
-import nuke.command.*;
+import nuke.Ui;
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.command.exception.InvalidCommandTypeException;
 
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Parser {
+public class CommandParser {
     public static Command parseCommand(String commandLine)
             throws InvalidCommandTypeException, InvalidCommandArgumentException {
         // Get command type and arguments.
@@ -20,7 +20,7 @@ public class Parser {
         try {
             command = getBlankCommand(type);
         } catch (InvalidCommandTypeException e) {
-            Command.handleTypeError(e);
+            handleTypeError(e);
             throw e;
         }
         // Apply arguments on command.
@@ -74,6 +74,12 @@ public class Parser {
 
     private static String getCommandArguments(String commandLine, String type) {
         return commandLine.substring(type.length()).strip();
+    }
+
+    public static void handleTypeError(InvalidCommandTypeException e) {
+        String desc = String.format("There is no command called '%s'.", e.type);
+        String detail = "Existing command: bye, list, mark, unmark, todo, deadline, event";
+        Ui.printCommandError(desc, detail);
     }
 
     public static boolean isNotOneWord(String str) {
