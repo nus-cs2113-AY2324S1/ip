@@ -2,6 +2,8 @@ package elvis;
 
 //Stores Logo, BootUp, ShutDown, Horizontal Lines
 public class SystemOperation {
+    private static final int NUMBER_OF_UNDERSCORES = 60;
+
     //Logo for ELVIS the Chatbot
     public static final String LOGO =
             "\n" +
@@ -29,7 +31,7 @@ public class SystemOperation {
                     "                                                                                                                                \n";
 
     public static void printHorizontalLines() {
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < NUMBER_OF_UNDERSCORES; i++) {
             System.out.print("_");
         }
         System.out.print(System.lineSeparator());

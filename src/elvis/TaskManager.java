@@ -1,6 +1,13 @@
 package elvis;
 
-import elvis.exception.*;
+import elvis.exception.EmptyDeadlineException;
+import elvis.exception.EmptyEventException;
+import elvis.exception.EmptyInputException;
+import elvis.exception.EmptyListException;
+import elvis.exception.EmptyMarkException;
+import elvis.exception.EmptyToDoException;
+import elvis.exception.EmptyUnmarkException;
+import elvis.exception.UnknownInputException;
 import elvis.task.Deadline;
 import elvis.task.Event;
 import elvis.task.Task;
@@ -12,7 +19,7 @@ import java.util.Scanner;
 public class TaskManager {
     public static Scanner in = new Scanner(System.in);  //Scanner for Input
     private static int listCount = 0;                   //Counter for the list filled up
-    private static final Task[] list = new Task[100];   //Keeps track of all Task Instances made
+    private static final Task[] tasks = new Task[100];   //Keeps track of all Task Instances made
 
     public static void inputTask() {
         SystemOperation.bootUp();
@@ -25,7 +32,7 @@ public class TaskManager {
             } else if (inputBuffer.equals("help")) {
                 System.out.println("No worries, I'm here to help!");
                 SystemOperation.printHorizontalLines();
-                Help.help();
+                Help.helper();
                 continue;
             } else {
                 errorHandler(inputBuffer);      //Checks for any errors and handles them
@@ -59,7 +66,7 @@ public class TaskManager {
         } finally {
             if (!validInput) {
                 SystemOperation.printHorizontalLines();
-                Help.help();
+                Help.helper();
             }
         }
     }
@@ -123,17 +130,17 @@ public class TaskManager {
         SystemOperation.printHorizontalLines();
         System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < listCount; i++) {
-            System.out.print(i + 1 + "." + "[" + list[i].getTaskType() + "]");
-            System.out.print("[" + list[i].getStatus() + "] " + list[i].getDescription());
+            System.out.print(i + 1 + "." + "[" + tasks[i].getTaskType() + "]");
+            System.out.print("[" + tasks[i].getStatus() + "] " + tasks[i].getDescription());
             isToDo = true;
 
             // Additional details required for Deadline and Event
-            if (list[i] instanceof Deadline) {
-                Deadline deadlineTask = (Deadline) list[i];
+            if (tasks[i] instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) tasks[i];
                 System.out.println(" (by: " + deadlineTask.getDate() + ")");
                 isToDo = false;
-            } else if (list[i] instanceof Event) {
-                Event eventTask = (Event) list[i];
+            } else if (tasks[i] instanceof Event) {
+                Event eventTask = (Event) tasks[i];
                 System.out.println(" (from: " + eventTask.getStartTime() + " to: " + eventTask.getEndTime() + ")");
                 isToDo = false;
             }
@@ -150,11 +157,11 @@ public class TaskManager {
             System.out.println("No such Task!");
             return;
         }
-        list[nthTask].setStatus(true);
+        tasks[nthTask].setStatus(true);
         SystemOperation.printHorizontalLines();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(nthTask + 1 + "." + "[" + list[nthTask].getTaskType() + "]" +
-                "[" + list[nthTask].getStatus() + "] " + list[nthTask].getDescription());
+        System.out.println(nthTask + 1 + "." + "[" + tasks[nthTask].getTaskType() + "]" +
+                "[" + tasks[nthTask].getStatus() + "] " + tasks[nthTask].getDescription());
         SystemOperation.printHorizontalLines();
     }
 
@@ -164,20 +171,20 @@ public class TaskManager {
             System.out.println("No such Task!");
             return;
         }
-        list[nthTask].setStatus(false);
+        tasks[nthTask].setStatus(false);
         SystemOperation.printHorizontalLines();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(nthTask + 1 + "." + "[" + list[nthTask].getTaskType() + "]" +
-                "[" + list[nthTask].getStatus() + "] " + list[nthTask].getDescription());
+        System.out.println(nthTask + 1 + "." + "[" + tasks[nthTask].getTaskType() + "]" +
+                "[" + tasks[nthTask].getStatus() + "] " + tasks[nthTask].getDescription());
         SystemOperation.printHorizontalLines();
     }
 
     public static void insertToDo(String inputBuffer) {
         SystemOperation.printHorizontalLines();
-        list[listCount] = new ToDo(inputBuffer.trim().replace("todo ", ""));
+        tasks[listCount] = new ToDo(inputBuffer.trim().replace("todo ", ""));
         System.out.println("Got it. I've added this task:");
         System.out.println("[" + 'T' + "]" +
-                "[" + list[listCount].getStatus() + "] " + list[listCount].getDescription());
+                "[" + tasks[listCount].getStatus() + "] " + tasks[listCount].getDescription());
         System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
         SystemOperation.printHorizontalLines();
         listCount++;
@@ -189,10 +196,10 @@ public class TaskManager {
         String deadlineWithDate = inputBuffer.replace("deadline ", "").trim();
         String deadline = deadlineWithDate.substring(0, deadlineWithDate.indexOf("/by")).trim();
 
-        list[listCount] = new Deadline(deadline, date);
+        tasks[listCount] = new Deadline(deadline, date);
         System.out.println("Got it. I've added this task:");
         System.out.println("[" + 'D' + "]" +
-                "[" + list[listCount].getStatus() + "] " + list[listCount].getDescription() +
+                "[" + tasks[listCount].getStatus() + "] " + tasks[listCount].getDescription() +
                 " (by: " + date + ")");
         System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
         SystemOperation.printHorizontalLines();
@@ -206,10 +213,10 @@ public class TaskManager {
         String eventWithTime = inputBuffer.replace("event ", "").trim();
         String event = eventWithTime.substring(0, eventWithTime.indexOf("/from")).trim();
 
-        list[listCount] = new Event(event, startTime, endTime);
+        tasks[listCount] = new Event(event, startTime, endTime);
         System.out.println("Got it. I've added this task:");
         System.out.println("[" + 'D' + "]" +
-                "[" + list[listCount].getStatus() + "] " + list[listCount].getDescription() +
+                "[" + tasks[listCount].getStatus() + "] " + tasks[listCount].getDescription() +
                 " (from: " + startTime + " to: " + endTime + ")");
         System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
         SystemOperation.printHorizontalLines();

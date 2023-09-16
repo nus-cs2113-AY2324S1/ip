@@ -7,7 +7,7 @@ import java.util.Scanner;
 //This was for WEEK 1, Code is not used
 public class List {
     public static void makeList() {
-        String[] list = new String[100];
+        String[] strings = new String[100];
         int listCount = 0;
         Scanner in = new Scanner(System.in);
 
@@ -19,20 +19,20 @@ public class List {
                 System.out.println("Please input a valid input");
                 continue;
             } else {
-                list[listCount] = inputBuffer;
+                strings[listCount] = inputBuffer;
             }
 
-            if (list[listCount].contains("bye")) {
+            if (strings[listCount].contains("bye")) {
                 break;
-            } else if (list[listCount].contains("list")) {
+            } else if (strings[listCount].contains("list")) {
                 SystemOperation.printHorizontalLines();
                 for (int i = 0; i < listCount; i++) {
-                    System.out.println(i+1 + ". " + list[i]);
+                    System.out.println(i+1 + ". " + strings[i]);
                 }
                 SystemOperation.printHorizontalLines();
             } else {
                 SystemOperation.printHorizontalLines();
-                System.out.println("added: " + list[listCount]);
+                System.out.println("added: " + strings[listCount]);
                 SystemOperation.printHorizontalLines();
                 listCount++;
             }

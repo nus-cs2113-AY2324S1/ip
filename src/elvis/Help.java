@@ -2,7 +2,7 @@ package elvis;
 
 //This is the help page to be displayed
 public class Help {
-    public static void help() {
+    public static void helper() {
         String helpPage =
                 "\n\n" +
                 "---------------------------HELP PAGE----------------------------\n\n"+

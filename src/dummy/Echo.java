@@ -4,6 +4,7 @@ import elvis.Elvis;
 import elvis.SystemOperation;
 import java.util.Scanner;
 
+//This was for WEEK 1, Code is not used
 public class Echo {
 
     public static void shoutEcho() {
