@@ -215,8 +215,9 @@ public class Neo {
     public static boolean isMarked(int mark) {
         return (mark == 1);
     }
-    public static void readFromFile(String filePath, ArrayList<Task> list) throws IOException {
-        File directory = new File("data");
+    public static void generateFile(String filePath, String fileDirectory, ArrayList<Task> list) throws IOException {
+        File directory = new File(fileDirectory);
+
         if (directory.mkdir()) {
             System.out.println("Creating new data folder...");
         }
@@ -224,13 +225,19 @@ public class Neo {
         if (f.createNewFile()) {
             System.out.println("Creating new data.txt file...");
         }
+
         Scanner s = new Scanner(f);
+        readFile(list, s);
+    }
+
+    private static void readFile(ArrayList<Task> list, Scanner s) {
         while (s.hasNext()) {
             String line = s.nextLine();
             String[] task = line.split(" / ");
             String taskType = task[0];
             int mark = Integer.parseInt(task[1]);
             boolean isMarked = isMarked(mark);
+
             switch (taskType) {
             case "T":
                 Todo todo = new Todo(task[2]);
@@ -250,26 +257,34 @@ public class Neo {
             }
         }
     }
+
     public static void writeToFile(String filePath, ArrayList<Task> list) throws IOException {
         FileWriter fw = new FileWriter(filePath);
+
         for (Task task : list) {
             String formatTask = task.formatTask();
             fw.write(formatTask + System.lineSeparator());
         }
+        
         fw.close();
     }
-    public static void main(String[] args) {
-        ArrayList<Task> list = new ArrayList<>();
+    private static void findFile(ArrayList<Task> list) {
         try {
-            readFromFile("data/data.txt", list);
+            generateFile("data/data.txt", "data", list);
         } catch (IOException e) {
             System.out.println("Error with data.txt file");
         }
+    }
+    public static void welcomeMessage() {
         System.out.println("Hello! I'm Neo.");
         System.out.println("What can I do for you?");
-        String line;
+
+    }
+    public static String readInput() {
         Scanner in = new Scanner(System.in);
-        line = in.nextLine();
+        return in.nextLine();
+    }
+    private static void handleInput(String line, ArrayList<Task> list) {
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 printList(list);
@@ -288,13 +303,28 @@ public class Neo {
             } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            try {
-                writeToFile("data/data.txt", list);
-            } catch (IOException e) {
-                System.out.println("Error with data.txt file.");
-            }
-            line = in.nextLine();
+            updateFile(list);
+            line = readInput();
         }
+    }
+
+    private static void updateFile(ArrayList<Task> list) {
+        try {
+            writeToFile("data/data.txt", list);
+        } catch (IOException e) {
+            System.out.println("Error with data.txt file.");
+        }
+    }
+
+    private static void byeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+    public static void main(String[] args) {
+        ArrayList<Task> list = new ArrayList<>();
+        findFile(list);
+        welcomeMessage();
+        String line = readInput();
+        handleInput(line, list);
+        byeMessage();
     }
 }
