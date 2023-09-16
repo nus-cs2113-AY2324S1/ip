@@ -30,10 +30,11 @@ public class Duke {
         printLine();
     }
 
-    public void exitChatbot() {
+    public void exitChatbot() throws IOException {
         printLine();
         System.out.println("    Bye. Hope to see you again soon!");
         printLine();
+        this.writer.closeFile();
     }
 
     public void printLine() {
