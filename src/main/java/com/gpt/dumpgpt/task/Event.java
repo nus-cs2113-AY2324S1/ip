@@ -1,6 +1,9 @@
 package com.gpt.dumpgpt.task;
 
 import com.gpt.dumpgpt.shared.DukeException;
+import com.gpt.dumpgpt.shared.Serializer;
+
+import java.io.IOException;
 
 public class Event extends Task {
     private static final String TYPE = "Event";
@@ -8,7 +11,7 @@ public class Event extends Task {
     protected String to;
 
     public Event(String name, String from, String to) {
-        super(name);
+        super(name, TYPE);
         this.from = from;
         this.to = to;
     }
@@ -20,11 +23,26 @@ public class Event extends Task {
 
     @Override
     public void validate() throws DukeException {
-        super.validate(TYPE);
+        super.validate();
         if (from == null || from.isBlank()) {
             throw new DukeException("From cannot be empty...");
         } else if (to == null || to.isBlank()) {
             throw new DukeException("To cannot be empty");
         }
+    }
+
+    @Override
+    protected Serializer serialize() throws DukeException {
+        Serializer serializer = super.serialize();
+        serializer.putString(from);
+        serializer.putString(to);
+        return serializer;
+    }
+
+    @Override
+    protected void deserialize(Serializer serializer) throws DukeException, IOException {
+        super.deserialize(serializer);
+        from = serializer.readString();
+        to = serializer.readString();
     }
 }

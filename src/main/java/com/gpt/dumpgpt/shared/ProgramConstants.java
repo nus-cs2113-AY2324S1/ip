@@ -1,5 +1,7 @@
 package com.gpt.dumpgpt.shared;
 
+import com.gpt.dumpgpt.task.Task;
+
 public final class ProgramConstants {
     public static final String BOT_NAME = "DumbGPT";
     public static final String SEPARATOR = "____________________________________________________________";
@@ -41,7 +43,8 @@ public final class ProgramConstants {
     public static void greet() {
         printWrapped(new String[]{
                 String.format("Hello I'm %s", ProgramConstants.BOT_NAME),
-                "What can I do for you?"
+                "What can I do for you?",
+                String.format("You currently have %d tasks!", Task.getTasks().size())
         });
     }
 
