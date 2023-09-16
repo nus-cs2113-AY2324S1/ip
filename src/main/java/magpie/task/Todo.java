@@ -1,11 +1,14 @@
 package magpie.task;
 
-import magpie.task.Task;
-
 public class Todo extends Task {
 
     public Todo(String description) {
+
         super(description);
+    }
+
+    public String getTextToWrite() {
+        return "T | " + parseBooleanToInt(isDone) + " | " + description;
     }
 
     public String toString() {

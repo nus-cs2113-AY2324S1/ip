@@ -1,7 +1,7 @@
 package magpie.exceptions;
-public class MagpieException extends Exception{
+public class MagpieException extends Exception {
 
-    private String errorMessage;
+    private final String errorMessage;
 
     public MagpieException(String errorMessage) {
 
