@@ -142,6 +142,26 @@ public class CommandResponse {
         }
     }
 
+    public static void handleDelete(String[] userInput) {
+        try {
+            if (userInput.length < 2) {
+                throw new NotChatGPTExceptions("Please specify the task number to delete!!");
+            }
+            int taskNumber = Integer.parseInt(userInput[1]);
+            if (taskNumber < 1 || taskNumber > NotChatGPT.taskList.getTaskCount()) {
+                throw new NotChatGPTExceptions("Task number is out of range!! Please enter a valid number.");
+            }
+            System.out.println(line + "\nNoted. I've removed this task:");
+            System.out.println(NotChatGPT.taskList.getTasks()[taskNumber - 1]);
+            NotChatGPT.taskList.deleteTask(taskNumber);
+            System.out.println("Now you have " + NotChatGPT.taskList.getTaskCount() + " tasks in your list.\n" + line);
+        } catch (NumberFormatException e) {
+            System.out.println(line + "\nError: Invalid task number. Please enter a valid number.\n" + line);
+        } catch (NotChatGPTExceptions e) {
+            System.out.println(line + "\nError: " + e.getMessage() + "\n" + line);
+        }
+    }
+
     public static void respond(String[] userInput) {
         switch (userInput[0]) {
             case "bye":
@@ -164,6 +184,9 @@ public class CommandResponse {
                 break;
             case "event":
                 handleEvent(userInput);
+                break;
+            case "delete":
+                handleDelete(userInput);
                 break;
             default:
                 System.out.println(line + "\nI'm sorry, but I don't know what that means :-(\n" + line);
