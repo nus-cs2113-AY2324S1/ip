@@ -67,13 +67,21 @@ public class inputHandler {
     public void markOrUnmarkTask(taskHandler taskManager, boolean isMark) throws MagpieException {
 
 
-        inputValidator.ValidateMarking();
+        inputValidator.ValidateIndexIsPresent();
 
         int index = parseInt(splitInput[1]);
         if (index >= 0) {
             taskHandler.mark(index - 1, isMark);
         }
 
+    }
+
+    public void deleteTask(taskHandler taskManager) throws MagpieException {
+        inputValidator.ValidateIndexIsPresent();
+        int index = parseInt(splitInput[1]);
+        if (index >= 0) {
+            taskHandler.delete(index - 1);
+        }
     }
 
     public void processCommand(taskHandler taskManager) throws MagpieException {
@@ -96,6 +104,9 @@ public class inputHandler {
             break;
         case "unmark":
             markOrUnmarkTask(taskManager, false);
+            break;
+        case "delete":
+            deleteTask(taskManager);
             break;
         default:
             System.out.println("Please enter a valid command!");

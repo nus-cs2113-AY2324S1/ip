@@ -1,14 +1,14 @@
 package magpie.task;
 
-import magpie.task.Task;
+import java.util.ArrayList;
 
 public class taskHandler {
 
-    private static Task[] tasks;
+    private static ArrayList<Task> tasks;
     private static int taskCount;
 
     public taskHandler() {
-        tasks = new Task[100];
+        tasks = new ArrayList<>();
         taskCount = 0;
     }
 
@@ -21,7 +21,7 @@ public class taskHandler {
             System.out.println("Here are the tasks in your list: ");
             for (int i = 0; i < taskCount; i++) {
 
-                Task item = tasks[i];
+                Task item = tasks.get(i);
                 System.out.println(i + 1 + ". " + item.toString());
             }
 
@@ -29,9 +29,16 @@ public class taskHandler {
         }
     }
 
+    public static void displayIndexError(){
+        if (taskCount == 0) {
+            System.out.print("Wow! Looks like you have no tasks to manage. Add one first!\n");
+        } else {
+            System.out.print("Your input was not a valid index! Please choose from 1 to " + taskCount + "\n");
+        }
+    }
     public static void add(Task t) {
 
-        tasks[taskCount] = t;
+        tasks.add(t);
         taskCount++;
 
         System.out.println("____________________________________________________________\n");
@@ -42,10 +49,27 @@ public class taskHandler {
 
     }
 
+    public static void delete(int index){
+
+        try{
+            Task t = tasks.get(index);
+            tasks.remove(index);
+            taskCount--;
+            System.out.println("____________________________________________________________\n");
+            System.out.println("Noted. I've removed this task: ");
+            System.out.println("  " + t.toString());
+            System.out.println("Now you have " + taskCount + " task(s) in the list.");
+            System.out.println("____________________________________________________________\n");
+        }
+        catch(IndexOutOfBoundsException e){
+            displayIndexError();
+        }
+
+    }
     public static void mark(int index, boolean isDone) {
 
         try {
-            Task item = tasks[index];
+            Task item = tasks.get(index);
             item.setDone(isDone);
             System.out.println("____________________________________________________________\n");
             if (isDone) {
@@ -56,18 +80,10 @@ public class taskHandler {
             }
             System.out.println("  " + item);
             System.out.println("____________________________________________________________\n");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            if (taskCount == 0) {
-                System.out.print("Wow! Looks like you have no tasks to manage. Add one first!\n");
-            } else {
-                System.out.print("Your input was not a valid index! Please choose from 1 to " + taskCount + "\n");
-            }
+        } catch (IndexOutOfBoundsException e) {
+            displayIndexError();
         } catch (NullPointerException e) {
-            if (taskCount == 0) {
-                System.out.print("Wow! Looks like you have no tasks to manage. Add one first!\n");
-            } else {
-                System.out.print("Your input was not a valid index! Please choose from 1 to " + taskCount + "\n");
-            }
+            displayIndexError();
 
         }
 
