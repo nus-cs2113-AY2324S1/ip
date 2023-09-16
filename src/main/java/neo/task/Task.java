@@ -33,6 +33,15 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public String formatTask() {
+        int status;
+        if (this.getStatusIcon().equals("X")) {
+            status = 1;
+        } else {
+            status = 0;
+        }
+        return status + " | " + this.description;
+    }
     public void printAddedTask() {
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + this);
