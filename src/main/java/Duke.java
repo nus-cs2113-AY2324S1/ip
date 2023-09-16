@@ -12,6 +12,7 @@ import duke.FileManager;
 public class Duke {
 
     private static final ArrayList<duke.Task> taskList = new ArrayList<>();
+    private FileManager writer;
 
     public void printGreeting() {
         String logo = "______       _     _\n"
