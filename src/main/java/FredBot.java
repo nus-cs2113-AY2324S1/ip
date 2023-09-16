@@ -47,18 +47,20 @@ public class FredBot {
             switch (task.charAt(1)) {
             case 'T':
                 tasks[Task.getNumTask()] = new Todo(task.substring(6).trim());
+                tasks[Task.getNumTask()].setDone(task.charAt(4) == 'X');
                 Task.setNumTask(Task.getNumTask()+1);
                 break;
             case 'D':
-
                 String[] argumentsDeadline = task.substring(6).split("by:");
                 tasks[Task.getNumTask()] = new Deadline(argumentsDeadline[0].trim(),argumentsDeadline[1].trim());
+                tasks[Task.getNumTask()].setDone(task.charAt(4) == 'X');
                 Task.setNumTask(Task.getNumTask()+1);
                 break;
             case 'E':
                 String[] argumentsEvent = task.substring(6).split("to:|from:");
                 tasks[Task.getNumTask()] = new Event(argumentsEvent[0].trim(),
                         argumentsEvent[1].trim(), argumentsEvent[2].trim());
+                tasks[Task.getNumTask()].setDone(task.charAt(4) == 'X');
                 Task.setNumTask(Task.getNumTask()+1);
                 break;
             }
