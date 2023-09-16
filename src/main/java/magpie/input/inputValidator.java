@@ -36,7 +36,7 @@ public class inputValidator {
 
     }
 
-    public static void ValidateMarking() throws MagpieException {
+    public static void ValidateIndexIsPresent() throws MagpieException {
         if (inputHandler.splitInput.length != 2) {
             throw new MagpieException("Please provide one index!");
         }
