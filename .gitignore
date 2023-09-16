@@ -17,4 +17,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 /data/
 /text-ui-test/data/
-src/main/java/META-INF/MANIFEST.MF
+/src/main/java/META-INF/
