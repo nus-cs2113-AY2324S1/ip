@@ -7,6 +7,8 @@ import neo.type.CommandType;
 import neo.type.ErrorType;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Neo {
 
     public static void printList(Task[] list) {
@@ -166,13 +168,23 @@ public class Neo {
         list[taskArrayIndex] = new Todo(description);
         list[taskArrayIndex].printAddedTask();
     }
+
+
+    public static void writeToFile(String filePath, Task[] list) throws IOException{
+        FileWriter fw = new FileWriter(filePath);
+        for (int i = 0; i < Task.getTotalTasks(); i++) {
+            String formatTask = list[i].formatTask();
+            fw.write(formatTask + System.lineSeparator());
+        }
+        fw.close();
+    }
     public static void main(String[] args) {
         System.out.println("Hello! I'm Neo.");
         System.out.println("What can I do for you?");
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-        File f = new File("data.txt");
+        File f = new File("data/data.txt");
         Task[] list = new Task[100];
         while (!line.equals("bye")) {
             if (line.equals("list")) {
@@ -189,6 +201,11 @@ public class Neo {
                 handleTodo(line, list);
             } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+            try {
+                writeToFile("data/data.txt", list);
+            } catch (IOException e) {
+                System.out.println("File not Found.");
             }
             line = in.nextLine();
         }
