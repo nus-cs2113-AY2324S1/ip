@@ -9,6 +9,7 @@ import fredbot.task.Todo;
 
 import java.awt.dnd.InvalidDnDOperationException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -35,7 +36,34 @@ public class FredBot {
     public static final String DEADLINE_ERROR_MESSAGE = "☹ OOPS!!! The description of a deadline cannot be empty.";
     public static final String EVENT_ERROR_MESSAGE = "☹ OOPS!!! The description of a event cannot be empty.";
     public static final String TASK_FILE_PATH = "./data/tasks.txt";
-    
+    public static final String WRITE_FILE_ERROR_MESSAGE = "Could not write to file. Exiting Application...";
+    public static final String FIND_FILE_ERROR_MESSAGE = "Could not find file to load. Exiting Application...";
+
+    public static void loadTasksfromfile(Task[] tasks) throws FileNotFoundException {
+        File f = new File(TASK_FILE_PATH);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String task = s.nextLine();
+            switch (task.charAt(1)) {
+            case 'T':
+                tasks[Task.getNumTask()] = new Todo(task.substring(6).trim());
+                Task.setNumTask(Task.getNumTask()+1);
+                break;
+            case 'D':
+
+                String[] argumentsDeadline = task.substring(6).split("by:");
+                tasks[Task.getNumTask()] = new Deadline(argumentsDeadline[0].trim(),argumentsDeadline[1].trim());
+                Task.setNumTask(Task.getNumTask()+1);
+                break;
+            case 'E':
+                String[] argumentsEvent = task.substring(6).split("to:|from:");
+                tasks[Task.getNumTask()] = new Event(argumentsEvent[0].trim(),
+                        argumentsEvent[1].trim(), argumentsEvent[2].trim());
+                Task.setNumTask(Task.getNumTask()+1);
+                break;
+            }
+        }
+    }
     public static void addTaskstoFile(Task[] tasks) throws IOException {
         FileWriter fw = new FileWriter(TASK_FILE_PATH);
         StringBuilder tasksText = new StringBuilder();
@@ -124,6 +152,13 @@ public class FredBot {
         Task[] tasks = new Task[MAX_NUM_TASKS];
 
         printMessage(GREETING);
+        try {
+            loadTasksfromfile(tasks);
+        } catch (FileNotFoundException e) {
+            printMessage(INDENT + FIND_FILE_ERROR_MESSAGE);
+            System.exit(0);
+        }
+
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -157,7 +192,7 @@ public class FredBot {
             } catch (FredBotEventErrorException e) {
                 printMessage(INDENT + EVENT_ERROR_MESSAGE);
             } catch (IOException e) {
-                printMessage(INDENT + "Could not write to file. Exiting Application...");
+                printMessage(INDENT + WRITE_FILE_ERROR_MESSAGE);
                 System.exit(0);
             }
 
