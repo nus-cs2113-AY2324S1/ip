@@ -7,6 +7,9 @@ import fredbot.task.Event;
 import fredbot.task.Task;
 import fredbot.task.Todo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class FredBot {
@@ -20,8 +23,6 @@ public class FredBot {
     public static final String DIVIDER = "    ____________________________________________________________\n";
     public static final int MAX_NUM_TASKS = 100;
     public static final String TASK_LIST_MESSAGE = "Here are the tasks in your list\n";
-    public static final String EVENT_FROM_PREFIX = " /from";
-    public static final String EVENT_TO_PREFIX = " /to";
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_ADD_TODO = "todo";
