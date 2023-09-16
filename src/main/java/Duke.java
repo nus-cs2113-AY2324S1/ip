@@ -117,6 +117,20 @@ public class Duke {
         				System.out.println("     Error: Please input your event in the right format");
         				printLines();
         			}
+        		} else if (userCmd[0].equals("delete")) {
+        			try {
+            			deleteTask(Integer.valueOf(userCmd[1]) - 1);
+        			}
+        			catch (IndexOutOfBoundsException e) {
+        				printLines();
+        				System.out.println("     Error: Cannot delete a non-existent task");
+        				printLines();
+        			}
+        			catch (NumberFormatException e) {
+        				printLines();
+        				System.out.println("     Error: Cannot index a non-integer value");
+        				printLines();
+        			}
         		} else {
         			invalidCommandResponse();
         		}
