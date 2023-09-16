@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final int MAX_TASKS = 100;
     public static void main(String[] args) {
         //Initialise variables
         String userInput = "";
@@ -17,6 +16,7 @@ public class Duke {
             processUserInput(userInput, tasks);
         }
     }
+    private static final int MAX_TASKS = 100;
     public static String line = "____________________________________________________________";
     public static String logo =
             "\t   _____ _____ __  __  ____  _   _ \n" +
@@ -56,110 +56,8 @@ public class Duke {
         System.out.println("\t" + line);
     }
 
-    public static void markTask(String taskNumber, Task[] tasks) {
-        //Convert task number to element in tasks array
-        int target = Integer.parseInt(taskNumber) - 1;
-        System.out.println("\t" + line);
-        try {
-            tasks[target].markAsDone();
-            System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t  [X] " + tasks[target].getDescription());
-        } catch (NullPointerException e) {
-            System.out.println("\tSorry! There is no task associated with this number");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("\tSorry! The tasks number inputted is out of bounds");
-            System.out.println("\tPlease key in a number from 1-100");
-        }
-        System.out.println("\t" + line);
-    }
-
-    public static void unmarkTask(String taskNumber, Task[] tasks) {
-        //Convert task number to element in tasks array
-        int target = Integer.parseInt(taskNumber) - 1;
-        System.out.println("\t" + line);
-        try {
-            tasks[target].unmarkAsDone();
-            System.out.println("\tOkay, I've marked this task as not done yet:");
-            System.out.println("\t  [] " + tasks[target].getDescription());
-        } catch (NullPointerException e) {
-            System.out.println("\tSorry! There is no task associated with this number");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("\tSorry! The tasks number inputted is out of bounds");
-            System.out.println("\tPlease key in a number from 1-100");
-        }
-        System.out.println("\t" + line);
-    }
-
-    public static void printAddTaskMessage(Task[] tasks) {
-        System.out.println("\t" + "Got it. I've added this task:");
-        System.out.println("\t  " + tasks[Task.getNumberOfTask() - 1]);
-    }
-
-    public static void printNumberOfTasks(Task[] tasks) {
-        System.out.println("\tNow you have " + Task.getNumberOfTask() + " tasks in the list.");
-    }
-
-    public static void addTodo(String description, Task[] tasks) {
-        tasks[Task.getNumberOfTask()] = new Todo(description);
-
-        System.out.println("\t" + line);
-        printAddTaskMessage(tasks);
-        printNumberOfTasks(tasks);
-        System.out.println("\t" + line);
-    }
-
-    public static void addEvent(String event, Task[] tasks) {
-        System.out.println("\t" + line);
-        try {
-            //Split between 'description' and '/from and /to'
-            String[] splitEvent = event.split(" /from ", 2);
-            String description = splitEvent[0];
-            //Split between '/from' and '/to'
-            String[] time = splitEvent[1].split(" /to ");
-            String from = time[0];
-            String to = time[1];
-            tasks[Task.getNumberOfTask()] = new Event(description, from, to);
-
-            printAddTaskMessage(tasks);
-            printNumberOfTasks(tasks);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tPlease include when the time of your event in the following format:");
-            System.out.println("\tevent [description] /from [start time] /to [end time]");
-        }
-        System.out.println("\t" + line);
-    }
-
-    public static void addDeadline(String deadline, Task[] tasks) {
-        System.out.println("\t" + line);
-        try {
-            //Split between 'description' and '/by'
-            String[] splitDeadline = deadline.split(" /by ");
-            String description = splitDeadline[0];
-            String by = splitDeadline[1];
-            tasks[Task.getNumberOfTask()] = new Deadline(description, by);
-
-
-            printAddTaskMessage(tasks);
-            printNumberOfTasks(tasks);
-            System.out.println("\t" + line);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tPlease include when the deadline of your task is in the following format:");
-            System.out.println("\tdeadline [description] /by [deadline]");
-        }
-        System.out.println("\t" + line);
-    }
-
-    /**
-     * public static void addTask(String userInput, Task[] tasks) {
-     *         tasks[Task.getNumberOfTask()] = new Task(userInput);
-     *         System.out.println("\t" + line);
-     *         System.out.println("\t" + "added: " + userInput);
-     *         System.out.println("\t" + line);
-     *         }
-     */
-
     public static void processUserInput(String userInput, Task[] tasks) {
-        String[] splitInput = userInput.split(" ");
+        String[] splitInput = userInput.split(" ", 2);
         switch (splitInput[0]) {
 
         //If user types "list ..."
@@ -185,9 +83,13 @@ public class Duke {
             //Add Todo to list and prints out add message and number of tasks in list
             try {
                 addTodo(splitInput[1], tasks);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) { //Empty description
                 System.out.println("\t" + line);
                 System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
+                System.out.println("\t" + line);
+            } catch (SimonException e) {
+                System.out.println("\t" + line);
+                System.out.println("\t☹ OOPS!!! You have reached the maximum number of tasks.");
                 System.out.println("\t" + line);
             }
             break;
@@ -197,9 +99,13 @@ public class Duke {
             //Add Event to list and prints out add message and number of tasks in list
             try {
                 addEvent(splitInput[1], tasks);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) { //Empty description
                 System.out.println("\t" + line);
                 System.out.println("\t☹ OOPS!!! The description of an event cannot be empty.");
+                System.out.println("\t" + line);
+            } catch (SimonException e) {
+                System.out.println("\t" + line);
+                System.out.println("\t☹ OOPS!!! You have reached the maximum number of tasks.");
                 System.out.println("\t" + line);
             }
             break;
@@ -209,9 +115,13 @@ public class Duke {
             //Add Deadline to list and prints out add message and number of tasks in list
             try {
                 addDeadline(splitInput[1], tasks);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) { //Empty description
                 System.out.println("\t" + line);
                 System.out.println("\t☹ OOPS!!! The description of a deadline cannot be empty.");
+                System.out.println("\t" + line);
+            } catch (SimonException e) {
+                System.out.println("\t" + line);
+                System.out.println("\t☹ OOPS!!! You have reached the maximum number of tasks.");
                 System.out.println("\t" + line);
             }
             break;
@@ -225,5 +135,116 @@ public class Duke {
             //If unable to understand user input
             printUnknownInputMessage();
         }
+    }
+
+    public static void markTask(String taskNumber, Task[] tasks) {
+        //Convert task number to element in tasks array
+        int target = Integer.parseInt(taskNumber) - 1;
+        System.out.println("\t" + line);
+        try {
+            tasks[target].markAsDone();
+            System.out.println("\tNice! I've marked this task as done:");
+            System.out.println("\t  [X] " + tasks[target].getDescription());
+        } catch (NullPointerException e) {
+            System.out.println("\tSorry! There is no task associated with this number");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("\tSorry! The tasks number inputted is out of bounds");
+            System.out.println("\tPlease key in a number from 1-" + MAX_TASKS);
+        }
+        System.out.println("\t" + line);
+    }
+
+    public static void unmarkTask(String taskNumber, Task[] tasks) {
+        //Convert task number to element in tasks array
+        int target = Integer.parseInt(taskNumber) - 1;
+        System.out.println("\t" + line);
+        try {
+            tasks[target].unmarkAsDone();
+            System.out.println("\tOkay, I've marked this task as not done yet:");
+            System.out.println("\t  [] " + tasks[target].getDescription());
+        } catch (NullPointerException e) {
+            System.out.println("\tSorry! There is no task associated with this number");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("\tSorry! The tasks number inputted is out of bounds");
+            System.out.println("\tPlease key in a number from 1-" + MAX_TASKS);
+        }
+        System.out.println("\t" + line);
+    }
+
+    public static void addTodo(String description, Task[] tasks) throws SimonException {
+        if (Task.getNumberOfTask() == MAX_TASKS) {
+            throw new SimonException();
+        }
+        tasks[Task.getNumberOfTask()] = new Todo(description);
+
+        System.out.println("\t" + line);
+        printAddTaskMessage(tasks);
+        printNumberOfTasks(tasks);
+        System.out.println("\t" + line);
+    }
+
+    public static void addEvent(String event, Task[] tasks) throws SimonException {
+        if (Task.getNumberOfTask() == MAX_TASKS) {
+            throw new SimonException();
+        }
+        System.out.println("\t" + line);
+        try {
+            //Split between 'description' and '/from and /to'
+            String[] splitEvent = event.split(" /from ", 2);
+            String description = splitEvent[0];
+            //Split between '/from' and '/to'
+            String[] time = splitEvent[1].split(" /to ", 2);
+            String from = time[0];
+            String to = time[1];
+            tasks[Task.getNumberOfTask()] = new Event(description, from, to);
+
+            printAddTaskMessage(tasks);
+            printNumberOfTasks(tasks);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tPlease include when the time of your event in the following format:");
+            System.out.println("\tevent [description] /from [start time] /to [end time]");
+        }
+        System.out.println("\t" + line);
+    }
+
+    public static void addDeadline(String deadline, Task[] tasks) throws SimonException {
+        if (Task.getNumberOfTask() == MAX_TASKS) {
+            throw new SimonException();
+        }
+        System.out.println("\t" + line);
+        try {
+            //Split between 'description' and '/by'
+            String[] splitDeadline = deadline.split(" /by ", 2);
+            String description = splitDeadline[0];
+            String by = splitDeadline[1];
+            tasks[Task.getNumberOfTask()] = new Deadline(description, by);
+
+
+            printAddTaskMessage(tasks);
+            printNumberOfTasks(tasks);
+            System.out.println("\t" + line);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tPlease include when the deadline of your task is in the following format:");
+            System.out.println("\tdeadline [description] /by [deadline]");
+        }
+        System.out.println("\t" + line);
+    }
+
+    /**
+     * public static void addTask(String userInput, Task[] tasks) {
+     *         tasks[Task.getNumberOfTask()] = new Task(userInput);
+     *         System.out.println("\t" + line);
+     *         System.out.println("\t" + "added: " + userInput);
+     *         System.out.println("\t" + line);
+     *         }
+     */
+
+    public static void printAddTaskMessage(Task[] tasks) {
+        System.out.println("\t" + "Got it. I've added this task:");
+        System.out.println("\t  " + tasks[Task.getNumberOfTask() - 1]);
+    }
+
+    public static void printNumberOfTasks(Task[] tasks) {
+        System.out.println("\tNow you have " + Task.getNumberOfTask() + " tasks in the list.");
     }
 }
