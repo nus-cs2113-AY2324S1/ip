@@ -1,3 +1,7 @@
+package magpie.task;
+
+import magpie.task.Task;
+
 public class taskHandler {
 
     private static Task[] tasks;

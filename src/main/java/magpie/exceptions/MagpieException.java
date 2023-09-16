@@ -1,3 +1,4 @@
+package magpie.exceptions;
 public class MagpieException extends Exception{
 
     private String errorMessage;

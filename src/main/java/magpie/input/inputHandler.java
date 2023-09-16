@@ -1,3 +1,10 @@
+package magpie.input;
+import magpie.exceptions.MagpieException;
+import magpie.task.Deadline;
+import magpie.task.Todo;
+import magpie.task.Event;
+import magpie.task.taskHandler;
+import magpie.task.Task;
 public class inputHandler {
 
     protected static String command;

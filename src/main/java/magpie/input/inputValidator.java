@@ -1,3 +1,5 @@
+package magpie.input;
+import magpie.exceptions.MagpieException;
 public class inputValidator {
 
     public static void ValidateTodo() throws MagpieException {
