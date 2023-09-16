@@ -2,14 +2,13 @@ package nuke.command;
 
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
-import nuke.Parser;
 
 public class CommandMark extends Command {
     private int index;
 
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
-        if (Parser.isNotOneWord(args)) {
+        if (CommandParser.isNotOneWord(args)) {
             throw new InvalidCommandArgumentException(ERROR_MSG_INVALID_NUMBER_OF_ARGS);
         }
         // Input index starts with 1, logical index starts with 0.

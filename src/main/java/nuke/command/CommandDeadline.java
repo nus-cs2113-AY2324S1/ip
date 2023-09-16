@@ -2,7 +2,6 @@ package nuke.command;
 
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
-import nuke.Parser;
 
 public class CommandDeadline extends Command {
     public String name;
@@ -12,15 +11,15 @@ public class CommandDeadline extends Command {
     public void applyArguments(String args) throws InvalidCommandArgumentException {
         if (args.isEmpty()) {
             throw new InvalidCommandArgumentException(ERROR_MSG_NO_ARGS);
-        } else if (Parser.isNotContainingExactOneLabel(args, "/by")) {
+        } else if (CommandParser.isNotContainingExactOneLabel(args, "/by")) {
             throw new InvalidCommandArgumentException(ERROR_MSG_INVALID_NUMBER_OF_BY);
-        } else if (Parser.matches(args, "/by(.*)")) {
+        } else if (CommandParser.matches(args, "/by(.*)")) {
             throw new InvalidCommandArgumentException(ERROR_MSG_NAME_EMPTY);
-        } else if (Parser.matches(args, "(.+)\\s/by")) {
+        } else if (CommandParser.matches(args, "(.+)\\s/by")) {
             throw new InvalidCommandArgumentException(ERROR_MSG_BY_EMPTY);
         }
 
-        String[] parsedArgs = Parser.parseArguments(args, "(.+)\\s/by\\s(.+)");
+        String[] parsedArgs = CommandParser.parseArguments(args, "(.+)\\s/by\\s(.+)");
         checkForbiddenCharacters(parsedArgs);
         name = parsedArgs[0];
         by = parsedArgs[1];
