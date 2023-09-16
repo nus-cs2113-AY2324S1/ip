@@ -10,7 +10,9 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
-
+    public String getTextToWrite() {
+        return "E | " + parseBooleanToInt(isDone) + " | " + description + " | " + from + " | " + to;
+    }
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";

@@ -8,9 +8,12 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
-
+    public String getTextToWrite() {
+        return "D | " + parseBooleanToInt(isDone) + " | " + description + " | " + by;
+    }
     @Override
     public String toString() {
+
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 

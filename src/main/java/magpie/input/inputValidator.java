@@ -2,14 +2,14 @@ package magpie.input;
 import magpie.exceptions.MagpieException;
 public class inputValidator {
 
-    public static void ValidateTodo() throws MagpieException {
+    public static void validateTodo() throws MagpieException {
 
-        if (inputHandler.splitInput.length <= 1) {
+        if (inputHandler.splitInputs.length <= 1) {
             throw new MagpieException("Please provide a description for your task!");
         }
     }
 
-    public static void ValidateDeadline() throws MagpieException {
+    public static void validateDeadline() throws MagpieException {
         boolean hasBy = inputHandler.arguments.contains("/by");
 
         if (!hasBy) {
@@ -17,7 +17,7 @@ public class inputValidator {
         }
     }
 
-    public static void ValidateEvent() throws MagpieException {
+    public static void validateEvent() throws MagpieException {
         boolean hasFrom = inputHandler.arguments.contains("/from");
         boolean hasTo = inputHandler.arguments.contains("/to");
 
@@ -32,12 +32,10 @@ public class inputValidator {
 
         }
 
-
-
     }
 
-    public static void ValidateIndexIsPresent() throws MagpieException {
-        if (inputHandler.splitInput.length != 2) {
+    public static void validateIndexIsPresent() throws MagpieException {
+        if (inputHandler.splitInputs.length != 2) {
             throw new MagpieException("Please provide one index!");
         }
     }
