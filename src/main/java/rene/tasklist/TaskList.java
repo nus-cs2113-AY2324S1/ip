@@ -4,12 +4,11 @@ import rene.task.ToDo;
 import rene.task.Deadline;
 import rene.task.Event;
 import rene.exception.ReneExceptions;
+import java.util.ArrayList;
 public class TaskList {
-    private static Task[] allTasks = {}; //array of inputs
+    private static ArrayList<Task> allTasks = new ArrayList<>(); //array of inputs
 
     public static void addToTaskList(String input, Task.TaskType taskType){
-        Task[] newTaskList = new Task[allTasks.length+1];
-        System.arraycopy(allTasks, 0, newTaskList, 0, allTasks.length);
         switch (taskType){
             case TODO:
                 try{
@@ -17,10 +16,9 @@ public class TaskList {
                     if(toDoDescription.equals("")){
                         throw new ReneExceptions("Incomplete Command");
                     }
-                    newTaskList[allTasks.length] = new ToDo(toDoDescription);
-                    allTasks = newTaskList;
+                    allTasks.add(new ToDo(toDoDescription));
                     System.out.println("    I have added the following task OwO:");
-                    System.out.printf("      [T][] %s\n", viewTaskByIndex(getTaskListSize() - 1));
+                    System.out.printf("      [T][] %s\n", viewTaskByIndex(getTaskListSize()));
                     System.out.println("    Now you have " + getTaskListSize() + " tasks in the list! UWU");
                     System.out.println("    ____________________________________________________________");
                     break;
@@ -54,10 +52,9 @@ public class TaskList {
                     if(deadlineTiming.equals("")){
                         throw new ReneExceptions("Incomplete Due Time");
                     }
-                    newTaskList[allTasks.length] = new Deadline(deadlineDescription, deadlineTiming);
-                    allTasks = newTaskList;
+                    allTasks.add(new Deadline(deadlineDescription, deadlineTiming));
                     System.out.println("    I have added the following task OwO:");
-                    System.out.printf("      [D][] %s\n", viewTaskByIndex(getTaskListSize() - 1));
+                    System.out.printf("      [D][] %s\n", viewTaskByIndex(getTaskListSize()));
                     System.out.println("    Now you have " + getTaskListSize() + " tasks in the list! UWU");
                     System.out.println("    ____________________________________________________________");
                     break;
@@ -139,10 +136,9 @@ public class TaskList {
                     if(eventEndTiming.equals("")){
                         throw new ReneExceptions("Incomplete Start Time");
                     }
-                    newTaskList[allTasks.length] = new Event(eventDescription, eventStartTiming, eventEndTiming);
-                    allTasks = newTaskList;
+                    allTasks.add(new Event(eventDescription, eventStartTiming, eventEndTiming));
                     System.out.println("    I have added the following task OwO:");
-                    System.out.printf("      [E][] %s\n", viewTaskByIndex(getTaskListSize() - 1));
+                    System.out.printf("      [E][] %s\n", viewTaskByIndex(getTaskListSize()));
                     System.out.println("    Now you have " + getTaskListSize() + " tasks in the list! UWU");
                     System.out.println("    ____________________________________________________________");
                 }
@@ -162,36 +158,74 @@ public class TaskList {
         }
     }
 
+    public static void printTask(Task task, boolean asList){
+        int taskIndex = allTasks.indexOf(task);
+        switch(task.getTaskType()) {
+            case TODO:
+                if (task.taskIsDone()) {
+                    if(asList){
+                        System.out.printf("    %d: [T][X] %s\n", taskIndex+1, task.getTaskDescription());
+                    } else{
+                        System.out.printf("        [T][X] %s\n", task.getTaskDescription());
+                    }
+
+                } else {
+                    if(asList){
+                        System.out.printf("    %d: [T][] %s\n", taskIndex+1, task.getTaskDescription());
+                    } else{
+                        System.out.printf("        [T][] %s\n", task.getTaskDescription());
+                    }
+                }
+                break;
+            case DEADLINE:
+                if (task.taskIsDone()) {
+                    if (asList) {
+                        System.out.printf("    %d: [D][X] %s %s\n", taskIndex + 1, task.getTaskDescription(), task.getTaskTiming());
+                    } else {
+                        System.out.printf("        [D][X] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                    }
+                }
+                else {
+                    if (asList) {
+                        System.out.printf("    %d: [D][] %s %s\n", taskIndex + 1, task.getTaskDescription(), task.getTaskTiming());
+                    } else {
+                        System.out.printf("        [D][] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                    }
+                }
+                break;
+            case EVENT:
+                if (task.taskIsDone()) {
+                    if (asList) {
+                        System.out.printf("    %d: [E][X] %s %s\n", taskIndex+1, task.getTaskDescription(), task.getTaskTiming());
+                    } else {
+                        System.out.printf("        [E][X] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                    }
+                } else {
+                    if (asList) {
+                        System.out.printf("    %d: [E][] %s %s\n", taskIndex+1, task.getTaskDescription(), task.getTaskTiming());
+                    } else {
+                        System.out.printf("        [E][] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                    }
+                }
+                break;
+        }
+    }
     public static void printTaskList(){
-        for(int i = 0; i<allTasks.length; i++) {
-            switch(allTasks[i].getTaskType()) {
-                case TODO:
-                    if (allTasks[i].taskIsDone()) {
-                        System.out.printf("    %d: [T][X] %s\n", i+1, allTasks[i].getTaskDescription());
-                    } else {
-                        System.out.printf("    %d: [T][] %s\n", i+1, allTasks[i].getTaskDescription());
-                    }
-                    break;
-                case DEADLINE:
-                    if (allTasks[i].taskIsDone()) {
-                        System.out.printf("    %d: [D][X] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
-                    } else {
-                        System.out.printf("    %d: [D][] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
-                    }
-                    break;
-                case EVENT:
-                    if (allTasks[i].taskIsDone()) {
-                        System.out.printf("    %d: [E][X] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
-                    } else {
-                        System.out.printf("    %d: [E][] %s %s\n", i+1, allTasks[i].getTaskDescription(), allTasks[i].getTaskTiming());
-                    }
-                    break;
+        if(allTasks.isEmpty()){
+            System.out.println("    No tasks found! Time to add some OWO");
+        }
+        else {
+            for (Task task : allTasks) {
+                printTask(task, true);
             }
         }
     }
     public static void markTaskAsDone(int index){
         try{
-            allTasks[index-1].markAsDone();
+            allTasks.get(index-1).markAsDone();
+            Task task = allTasks.get(index-1);
+            System.out.println("    Roger that! I have marked the following task as done >w< !");
+            printTask(task, false);
         } catch (IndexOutOfBoundsException invalidIndex){
             System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
             System.out.println("    ____________________________________________________________");
@@ -199,28 +233,45 @@ public class TaskList {
     }
     public static void markTaskAsNotDone(int index){
         try{
-            allTasks[index-1].markAsNotDone();
+            allTasks.get(index-1).markAsNotDone();
+            Task task = allTasks.get(index-1);
+            System.out.println("    Roger that! I have unmarked the following task as done >w< !");
+            printTask(task, false);
         } catch (IndexOutOfBoundsException invalidIndex){
             System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
             System.out.println("    ____________________________________________________________");
         }
     }
+
+    public static void deleteTaskByIndex(int index){
+        try{
+            Task task = allTasks.get(index-1);
+            allTasks.remove(index - 1);
+            System.out.println("    Roger that! I have deleted the following task >w< !");
+            printTask(task, false);
+            System.out.println("    Now you have " + getTaskListSize() + " tasks in the list! UWU");
+        } catch (IndexOutOfBoundsException invalidIndex){
+            System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
+            System.out.println("    ____________________________________________________________");
+        }
+    }
+
     public static String viewTaskByIndex(int index){
         try{
-            switch(allTasks[index].getTaskType()) {
+            switch(allTasks.get(index-1).getTaskType()) {
                 case TODO:
-                    return allTasks[index].getTaskDescription();
+                    return allTasks.get(index-1).getTaskDescription();
                 case DEADLINE:
                 case EVENT:
-                    return allTasks[index].getTaskDescription() + " " + allTasks[index].getTaskTiming();
+                    return allTasks.get(index-1).getTaskDescription() + " " + allTasks.get(index-1).getTaskTiming();
                 default:
                     return "Task Not Found";
             }
-        } catch(NullPointerException | ArrayIndexOutOfBoundsException invalidIndex){
+        } catch(NullPointerException | IndexOutOfBoundsException invalidIndex){
             return "Task Not Found";
         }
     }
     public static int getTaskListSize(){
-        return allTasks.length;
+        return allTasks.size();
     }
 }

@@ -48,13 +48,11 @@ public class MessageDisplay {
                     case "mark":
                         try{
                             taskIndex = Integer.parseInt(userInput.split("mark")[1].strip());
-                            taskName = TaskList.viewTaskByIndex(taskIndex-1);
+                            taskName = TaskList.viewTaskByIndex(taskIndex);
                             TaskList.markTaskAsDone(taskIndex);
                             if(taskName.equals("Task Not Found")){
                                 break;
                             }
-                            System.out.printf("    Roger that! I have marked the following task as done >w< !\n" +
-                                    "      '%s'\n", taskName);
                             System.out.println("    ____________________________________________________________");
                             break;
                         }
@@ -66,13 +64,27 @@ public class MessageDisplay {
                     case "unmark":
                         try{
                             taskIndex = Integer.parseInt(userInput.split("unmark")[1].strip());
-                            taskName = TaskList.viewTaskByIndex(taskIndex-1);
+                            taskName = TaskList.viewTaskByIndex(taskIndex);
                             TaskList.markTaskAsNotDone(taskIndex);
                             if(taskName.equals("Task Not Found")){
                                 break;
                             }
-                            System.out.printf("    Roger that! I have unmarked the following task as done >w< !\n" +
-                                    "      '%s'\n", taskName);
+                            System.out.println("    ____________________________________________________________");
+                            break;
+                        }
+                        catch(NumberFormatException invalidIndex){
+                            System.out.println("    Pwease enter valid integer index!");
+                            System.out.println("    ____________________________________________________________");
+                            break;
+                        }
+                    case "delete":
+                        try{
+                            taskIndex = Integer.parseInt(userInput.split("delete")[1].strip());
+                            taskName = TaskList.viewTaskByIndex(taskIndex);
+                            TaskList.deleteTaskByIndex(taskIndex);
+                            if(taskName.equals("Task Not Found")){
+                                break;
+                            }
                             System.out.println("    ____________________________________________________________");
                             break;
                         }
@@ -97,7 +109,8 @@ public class MessageDisplay {
                 String exceptionMessage = exception.getMessage();
                 if(exceptionMessage.equals("Invalid Input")){
                     System.out.println("    Pwease enter a valid command :0");
-                    System.out.println("    Valid commands are: todo, deadline: /by time, event: /from start /to end, bye");
+                    System.out.println("    Valid commands are: todo, deadline: /by time,\n" +
+                            "                        event: /from start /to end, bye");
                     System.out.println("    ____________________________________________________________");
                 }
 
