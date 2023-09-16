@@ -1,15 +1,18 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
 import duke.Task;
 import duke.Deadline;
 import duke.Event;
 import duke.ToDo;
 import duke.DukeException;
-import java.util.ArrayList;
+import duke.FileManager;
 
 public class Duke {
 
     private static final ArrayList<duke.Task> taskList = new ArrayList<>();
+    private FileManager writer;
 
     public void printGreeting() {
         String logo = "______       _     _\n"
@@ -27,10 +30,11 @@ public class Duke {
         printLine();
     }
 
-    public void exitChatbot() {
+    public void exitChatbot() throws IOException {
         printLine();
         System.out.println("    Bye. Hope to see you again soon!");
         printLine();
+        this.writer.closeFile();
     }
 
     public void printLine() {
@@ -48,8 +52,6 @@ public class Duke {
                 System.out.print("    " + (taskList.indexOf(task) + 1) + ".");
                 task.printTask();
             }
-        } else {
-            System.out.println("    List is empty!");
         }
         printLine();
     }
@@ -59,21 +61,21 @@ public class Duke {
         if (isMark) {
             taskList.get(taskCount).isDone = true;
             System.out.println("    Nice! I've marked this task as done:");
+            System.out.println("       " + taskList.get(taskCount).getStatusIcon() + " " + taskList.get(taskCount).description);
         } else {
             taskList.get(taskCount).isDone = false;
             System.out.println("    OK, I've marked this task as not done yet:");
+            System.out.println("       " + taskList.get(taskCount).getStatusIcon() + " " + taskList.get(taskCount).description);
         }
-        System.out.print("       ");
-        taskList.get(taskCount).printTask();
         printLine();
     }
 
-    public void addTaskCallback(int taskCount) {
+    public void addTaskCallback(Task task) {
         printLine();
         System.out.println("    Got it. I've added this task:");
         printIndentTask();
-        taskList.get(taskCount).printTask();
-        System.out.println("    Now you have " + (taskCount + 1) + " tasks in the list.");
+        task.printTask();
+        System.out.println("    Now you have " + (taskList.size()) + " tasks in the list.");
         printLine();
     }
 
@@ -92,14 +94,15 @@ public class Duke {
         deleteTaskCallback(oldTask);
     }
 
-    public void addTasks(String[] userInput, int taskCount){
+    public void addTasks(String[] userInput){
 
         switch (userInput[0]) {
         case "todo":
             String todoDescription = String.join(" ", Arrays.copyOfRange(userInput, 1, userInput.length));
             Task todo = new ToDo(todoDescription);
             taskList.add(todo);
-            addTaskCallback(taskCount);
+            addTaskCallback(todo);
+            this.writer.write(todo.taskFormatted());
             break;
         case "deadline":
             int byIndex = Arrays.asList(userInput).indexOf("/by");
@@ -107,7 +110,8 @@ public class Duke {
             String deadlineTime = String.join(" ", Arrays.copyOfRange(userInput, byIndex + 1, userInput.length));
             Deadline deadline = new Deadline(deadlineDescription, deadlineTime);
             taskList.add(deadline);
-            addTaskCallback(taskCount);
+            addTaskCallback(deadline);
+            this.writer.write(deadline.taskFormatted());
             break;
         case "event":
             int fromIndex = Arrays.asList(userInput).indexOf("/from");
@@ -117,13 +121,15 @@ public class Duke {
             String to = String.join(" ", Arrays.copyOfRange(userInput, toIndex + 1, userInput.length));
             Task event = new Event(eventDescription, from, to);
             taskList.add(event);
-            addTaskCallback(taskCount);
+            addTaskCallback(event);
+            this.writer.write(event.taskFormatted());
             break;
         default:
         }
+
     }
 
-    public void getInput(){
+    public void getInput() throws IOException {
         Scanner scanner = new Scanner(System.in);
         int taskCount = 0;
 
@@ -153,7 +159,7 @@ public class Duke {
                     deleteTasks(Integer.parseInt(userInput[1]) - 1);
                     break;
                 default:
-                    addTasks(userInput, taskCount);
+                    addTasks(userInput);
                     taskCount++;
                     break;
                 }
@@ -161,8 +167,14 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public void initWriter() throws IOException {
+        writer = new FileManager();
+        writer.read();
+    }
+
+    public static void main(String[] args) throws IOException {
         Duke duke = new Duke();
+        duke.initWriter();
         duke.printGreeting();
         duke.getInput();
     }
