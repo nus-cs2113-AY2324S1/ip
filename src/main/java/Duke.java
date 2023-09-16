@@ -131,7 +131,6 @@ public class Duke {
 
     public void getInput() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        int taskCount = 0;
 
         while (true) {
             String input = scanner.nextLine();
@@ -160,7 +159,6 @@ public class Duke {
                     break;
                 default:
                     addTasks(userInput);
-                    taskCount++;
                     break;
                 }
             }
