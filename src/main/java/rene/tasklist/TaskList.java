@@ -158,37 +158,74 @@ public class TaskList {
         }
     }
 
+    public static void printTask(Task task, boolean asList){
+        int taskIndex = allTasks.indexOf(task);
+        switch(task.getTaskType()) {
+            case TODO:
+                if (task.taskIsDone()) {
+                    if(asList){
+                        System.out.printf("    %d: [T][X] %s\n", taskIndex+1, task.getTaskDescription());
+                    } else{
+                        System.out.printf("        [T][X] %s\n", task.getTaskDescription());
+                    }
+
+                } else {
+                    if(asList){
+                        System.out.printf("    %d: [T][] %s\n", taskIndex+1, task.getTaskDescription());
+                    } else{
+                        System.out.printf("        [T][] %s\n", task.getTaskDescription());
+                    }
+                }
+                break;
+            case DEADLINE:
+                if (task.taskIsDone()) {
+                    if (asList) {
+                        System.out.printf("    %d: [D][X] %s %s\n", taskIndex + 1, task.getTaskDescription(), task.getTaskTiming());
+                    } else {
+                        System.out.printf("        [D][X] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                    }
+                }
+                else {
+                    if (asList) {
+                        System.out.printf("    %d: [D][] %s %s\n", taskIndex + 1, task.getTaskDescription(), task.getTaskTiming());
+                    } else {
+                        System.out.printf("        [D][] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                    }
+                }
+                break;
+            case EVENT:
+                if (task.taskIsDone()) {
+                    if (asList) {
+                        System.out.printf("    %d: [E][X] %s %s\n", taskIndex+1, task.getTaskDescription(), task.getTaskTiming());
+                    } else {
+                        System.out.printf("        [E][X] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                    }
+                } else {
+                    if (asList) {
+                        System.out.printf("    %d: [E][] %s %s\n", taskIndex+1, task.getTaskDescription(), task.getTaskTiming());
+                    } else {
+                        System.out.printf("        [E][] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                    }
+                }
+                break;
+        }
+    }
     public static void printTaskList(){
-        for(Task task: allTasks) {
-            int currentTaskIndex = allTasks.indexOf(task);
-            switch(task.getTaskType()) {
-                case TODO:
-                    if (task.taskIsDone()) {
-                        System.out.printf("    %d: [T][X] %s\n", currentTaskIndex+1, task.getTaskDescription());
-                    } else {
-                        System.out.printf("    %d: [T][] %s\n", currentTaskIndex+1, task.getTaskDescription());
-                    }
-                    break;
-                case DEADLINE:
-                    if (task.taskIsDone()) {
-                        System.out.printf("    %d: [D][X] %s %s\n", currentTaskIndex+1, task.getTaskDescription(), task.getTaskTiming());
-                    } else {
-                        System.out.printf("    %d: [D][] %s %s\n", currentTaskIndex+1, task.getTaskDescription(), task.getTaskTiming());
-                    }
-                    break;
-                case EVENT:
-                    if (task.taskIsDone()) {
-                        System.out.printf("    %d: [E][X] %s %s\n", currentTaskIndex+1, task.getTaskDescription(), task.getTaskTiming());
-                    } else {
-                        System.out.printf("    %d: [E][] %s %s\n", currentTaskIndex+1, task.getTaskDescription(), task.getTaskTiming());
-                    }
-                    break;
+        if(allTasks.isEmpty()){
+            System.out.println("    No tasks found! Time to add some OWO");
+        }
+        else {
+            for (Task task : allTasks) {
+                printTask(task, true);
             }
         }
     }
     public static void markTaskAsDone(int index){
         try{
             allTasks.get(index-1).markAsDone();
+            Task task = allTasks.get(index-1);
+            System.out.println("    Roger that! I have marked the following task as done >w< !");
+            printTask(task, false);
         } catch (IndexOutOfBoundsException invalidIndex){
             System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
             System.out.println("    ____________________________________________________________");
@@ -197,11 +234,28 @@ public class TaskList {
     public static void markTaskAsNotDone(int index){
         try{
             allTasks.get(index-1).markAsNotDone();
+            Task task = allTasks.get(index-1);
+            System.out.println("    Roger that! I have unmarked the following task as done >w< !");
+            printTask(task, false);
         } catch (IndexOutOfBoundsException invalidIndex){
             System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
             System.out.println("    ____________________________________________________________");
         }
     }
+
+    public static void deleteTaskByIndex(int index){
+        try{
+            Task task = allTasks.get(index-1);
+            allTasks.remove(index - 1);
+            System.out.println("    Roger that! I have deleted the following task >w< !");
+            printTask(task, false);
+            System.out.println("    Now you have " + getTaskListSize() + " tasks in the list! UWU");
+        } catch (IndexOutOfBoundsException invalidIndex){
+            System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
+            System.out.println("    ____________________________________________________________");
+        }
+    }
+
     public static String viewTaskByIndex(int index){
         try{
             switch(allTasks.get(index-1).getTaskType()) {
@@ -213,7 +267,7 @@ public class TaskList {
                 default:
                     return "Task Not Found";
             }
-        } catch(NullPointerException | ArrayIndexOutOfBoundsException invalidIndex){
+        } catch(NullPointerException | IndexOutOfBoundsException invalidIndex){
             return "Task Not Found";
         }
     }
