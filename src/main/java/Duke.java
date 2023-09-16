@@ -119,7 +119,10 @@ public class Duke {
         			}
         		} else if (userCmd[0].equals("delete")) {
         			try {
-            			deleteTask(Integer.valueOf(userCmd[1]) - 1);
+        				int index = Integer.valueOf(userCmd[1]) - 1;
+            			deleteTask(index);
+            			textFile = deleteTaskFromFile(textFile, index);
+            			writeFile = new FileWriter(textFile, true);
         			}
         			catch (IndexOutOfBoundsException e) {
         				printLines();
@@ -327,6 +330,37 @@ public class Duke {
     			eventTask.setDone(true);
     		}
     		toDoList.add(eventTask);
+    	}
+    }
+    
+    public static File deleteTaskFromFile(File textFile, int taskIndex) {
+    	try {
+        	Scanner readFile = new Scanner(textFile);
+        	File tempFile = new File("./data/temp.txt");
+        	FileWriter tempWriter = new FileWriter(tempFile);
+        	
+        	int currIndex = 0;
+        	while (readFile.hasNextLine()) {
+    			String line = readFile.nextLine();
+        		if (currIndex != taskIndex) {
+            		tempWriter.write(line + "\n");
+        		}
+        		currIndex++;
+        	}
+        	readFile.close();
+        	tempWriter.close();
+        	textFile.delete();
+        	tempFile.renameTo(textFile);
+        	tempFile = new File("./data/toDoList.txt");
+        	return tempFile;
+    	}
+    	catch (FileNotFoundException e) {
+    		System.out.println(e);
+        	return textFile;
+    	}
+    	catch (IOException e) {
+    		System.out.println(e);
+        	return textFile;
     	}
     }
 }
