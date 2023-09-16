@@ -1,3 +1,7 @@
+package duke.event;
+
+import duke.task.Task;
+
 public class Event extends Task {
     protected String from;
     protected String to;
