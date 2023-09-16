@@ -1,3 +1,5 @@
+package dude;
+
 public class Event extends Task {
     String startDate;
     String endDate;
@@ -7,7 +9,7 @@ public class Event extends Task {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
-        this.type = "[E]";  // Type [E] indicates this is an Event
+        this.type = "[E]";  // Type [E] indicates this is an dude.Event
     }
 
     @Override
