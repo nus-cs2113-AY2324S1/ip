@@ -19,7 +19,7 @@ public class TaskList {
     }
 
     public static void buildCurrentListFromFile(){
-        File taskListRecord = new File("./src/main/Java/rene/tasklist.txt");
+        File taskListRecord = new File("tasklist.txt");
         int taskIndex = 0;
         try {
             Scanner fileScanner = new Scanner(taskListRecord);
@@ -37,25 +37,25 @@ public class TaskList {
                         case "T":
                             addToTaskList("todo " + taskDescription, Task.TaskType.TODO, false);
                             if (taskDoneStatus.equals("done")) {
-                                markTaskAsDone(taskIndex);
+                                markTaskAsDone(taskIndex, false);
                             }
                             break;
                         case "D":
                             String dueTime = taskSubStrings[3].replace("(by:", "").replace(")", "").strip();
                             addToTaskList("deadline " + taskDescription + " /by " + dueTime, Task.TaskType.DEADLINE, false);
                             if (taskDoneStatus.equals("done")) {
-                                markTaskAsDone(taskIndex);
+                                markTaskAsDone(taskIndex, false);
                             }
 
                             break;
                         case "E":
                             String[] taskTimings = taskSubStrings[3].strip().split("\\(from:")[1].split("to:");
                             String startTime = taskTimings[0];
-                            String endTime = taskTimings[1];
+                            String endTime = taskTimings[1].split("\\)")[0];
                             addToTaskList("event " + taskDescription + " /from " + startTime + " /to "
                                     + endTime, Task.TaskType.EVENT, false);
                             if (taskDoneStatus.equals("done")) {
-                                markTaskAsDone(taskIndex);
+                                markTaskAsDone(taskIndex, false);
                             }
                             break;
                         default:
@@ -74,7 +74,7 @@ public class TaskList {
 
     public static void updateTaskListFile(){
         try{
-            File taskListRecord = new File("./src/main/Java/rene/tasklist.txt");
+            File taskListRecord = new File("tasklist.txt");
             writeToFile(taskListRecord.getPath(), "Latest Tasks" + System.lineSeparator(), false); //flush all current records
             for (Task task: allTasks) {
                 switch (task.getTaskType()) {
@@ -327,12 +327,14 @@ public class TaskList {
             }
         }
     }
-    public static void markTaskAsDone(int index){
+    public static void markTaskAsDone(int index, boolean showMessage){
         try{
             allTasks.get(index-1).markAsDone();
-            Task task = allTasks.get(index-1);
-            System.out.println("    Roger that! I have marked the following task as done >w< !");
-            printTask(task, false);
+            if(showMessage) {
+                Task task = allTasks.get(index - 1);
+                System.out.println("    Roger that! I have marked the following task as done >w< !");
+                printTask(task, false);
+            }
             updateTaskListFile();
         } catch (IndexOutOfBoundsException invalidIndex){
             System.out.println("    Ohnuuu! Please enter valid task number *sobs*");

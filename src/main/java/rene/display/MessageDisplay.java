@@ -22,7 +22,7 @@ public class MessageDisplay {
             System.out.println("    今日は! I am Rene Kokoro!");
             System.out.println("    Let me record your tasks!! *blushes*");
             System.out.println();
-            File taskListRecord = new File("./src/main/Java/rene/tasklist.txt");
+            File taskListRecord = new File("tasklist.txt");
             if (taskListRecord.createNewFile()) {
                 System.out.println("    Task-list created: " + taskListRecord.getName());
             }
@@ -72,7 +72,7 @@ public class MessageDisplay {
                         try{
                             taskIndex = Integer.parseInt(userInput.split("mark")[1].strip());
                             taskName = TaskList.viewTaskByIndex(taskIndex);
-                            TaskList.markTaskAsDone(taskIndex);
+                            TaskList.markTaskAsDone(taskIndex, true);
                             if(taskName.equals("Task Not Found")){
                                 break;
                             }

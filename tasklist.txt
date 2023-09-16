@@ -1,0 +1,4 @@
+Latest Tasks
+T | undone |  complete cs2113 assignment
+D | undone |  finish 2113 | (by: tonight)
+E | done |  watch 2271 lecture | (from: 9am to: 9pm)
