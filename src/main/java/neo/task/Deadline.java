@@ -10,7 +10,7 @@ public class Deadline extends Task {
     }
     @Override
     public String formatTask() {
-        return "D | " + super.formatTask() + " | " + by;
+        return "D / " + super.formatTask() + " / " + by;
     }
     @Override
     public String toString() {

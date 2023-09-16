@@ -12,7 +12,7 @@ public class Event extends Task {
     }
     @Override
     public String formatTask() {
-        return "E | " + super.formatTask() + " | " + from + " | " + to;
+        return "E / " + super.formatTask() + " / " + from + " / " + to;
     }
     @Override
     public String toString() {

@@ -40,7 +40,7 @@ public class Task {
         } else {
             status = 0;
         }
-        return status + " | " + this.description;
+        return status + " / " + this.description;
     }
     public void printAddedTask() {
         System.out.println("Got it. I've added this task:");
