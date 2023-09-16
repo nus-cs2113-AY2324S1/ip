@@ -240,7 +240,7 @@ public class Bot {
             System.out.println("File not found");
         }
         Iterator<Task> taskListIter = taskList.iterator();
-        for(int i = 1; taskListIter.hasNext() ; i++) {
+        while(taskListIter.hasNext()) {
             Task task = taskListIter.next();
             if(task.getClass().getSimpleName().equals("ToDo")) {
                 ToDo todo = (ToDo)task;
