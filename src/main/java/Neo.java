@@ -168,9 +168,40 @@ public class Neo {
         list[taskArrayIndex] = new Todo(description);
         list[taskArrayIndex].printAddedTask();
     }
-
-
-    public static void writeToFile(String filePath, Task[] list) throws IOException{
+    public static boolean isMarked(int mark) {
+        return (mark == 1);
+    }
+    public static void readFromFile(String filePath, Task[] list) throws IOException {
+        File directory = new File("data");
+        if (directory.mkdir()) {
+            System.out.println("Creating new data folder...");
+        }
+        File f = new File(filePath);
+        if (f.createNewFile()) {
+            System.out.println("Creating new data.txt file...");
+        }
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] task = line.split(" / ");
+            String taskType = task[0];
+            int mark = Integer.parseInt(task[1]);
+            int taskArrayIndex = Task.getTotalTasks();
+            switch (taskType) {
+            case "T":
+                list[taskArrayIndex] = new Todo(task[2]);
+                break;
+            case "D":
+                list[taskArrayIndex] = new Deadline(task[2], task[3]);
+                break;
+            case "E":
+                list[taskArrayIndex] = new Event(task[2], task[3], task[4]);
+                break;
+            }
+            list[taskArrayIndex].setDone(isMarked(mark));
+        }
+    }
+    public static void writeToFile(String filePath, Task[] list) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (int i = 0; i < Task.getTotalTasks(); i++) {
             String formatTask = list[i].formatTask();
@@ -179,13 +210,17 @@ public class Neo {
         fw.close();
     }
     public static void main(String[] args) {
+        Task[] list = new Task[100];
+        try {
+            readFromFile("data/data.txt", list);
+        } catch (IOException e) {
+            System.out.println("Error with data.txt file");
+        }
         System.out.println("Hello! I'm Neo.");
         System.out.println("What can I do for you?");
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-        File f = new File("data/data.txt");
-        Task[] list = new Task[100];
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 printList(list);
@@ -205,7 +240,7 @@ public class Neo {
             try {
                 writeToFile("data/data.txt", list);
             } catch (IOException e) {
-                System.out.println("File not Found.");
+                System.out.println("Error with data.txt file.");
             }
             line = in.nextLine();
         }
