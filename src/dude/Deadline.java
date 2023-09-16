@@ -1,3 +1,5 @@
+package dude;
+
 public class Deadline extends Task {
     String by;
 
@@ -5,7 +7,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        this.type = "[D]";  // Type [D] indicates this is a Deadline
+        this.type = "[D]";  // Type [D] indicates this is a dude.Deadline
     }
 
     @Override

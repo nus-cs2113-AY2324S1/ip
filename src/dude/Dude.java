@@ -1,3 +1,5 @@
+package dude;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,7 +24,7 @@ public class Dude {
 
         System.out.println("Hello from\n" + logo);
         drawLine();
-        System.out.println("Hello! I'm your best Dude :)");
+        System.out.println("Hello! I'm your best dude.Dude :)");
         System.out.println("What can I do for you?");
         drawLine();
     }
@@ -142,7 +144,7 @@ public class Dude {
         try {
             int index = Integer.parseInt(arrOfInput[1]) - 1;
             if (index < 0 || index >= tasks.size()) {
-                System.out.println("Task index out of range.");
+                System.out.println("dude.Task index out of range.");
                 return;
             }
             tasks.get(index).isDone = input.startsWith("mark");
