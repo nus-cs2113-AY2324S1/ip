@@ -134,7 +134,7 @@ public class Duke {
 
     }
 
-    public void getInput(){
+    public void getInput() throws IOException {
         Scanner scanner = new Scanner(System.in);
         int taskCount = 0;
 
@@ -161,7 +161,7 @@ public class Duke {
                     listItems(taskCount);
                     break;
                 default:
-                    addTasks(userInput, taskCount);
+                    addTasks(userInput);
                     taskCount++;
                     break;
                 }
