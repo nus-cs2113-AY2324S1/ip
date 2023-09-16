@@ -98,7 +98,7 @@ public class Duke {
         printLine();
     }
 
-    public void addTasks(String[] userInput, int taskCount){
+    public void addTasks(String[] userInput){
 
         switch (userInput[0]) {
         case "todo":
