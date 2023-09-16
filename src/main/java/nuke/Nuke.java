@@ -5,7 +5,7 @@ import nuke.command.CommandParser;
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.command.exception.InvalidCommandTypeException;
 import nuke.savefile.SaveManager;
-import nuke.savefile.exception.TaskFileMoveException;
+import nuke.savefile.exception.TaskFileCopyException;
 import nuke.savefile.exception.TaskLoadException;
 import nuke.savefile.exception.TaskSaveException;
 import nuke.task.Deadline;
@@ -33,6 +33,8 @@ public class Nuke {
             return;
         }
 
+        Ui.printWelcomeAfter();
+
         // Loop for user input
         while (isRunning) {
             String input = USER_IN.nextLine();
@@ -59,8 +61,8 @@ public class Nuke {
             tasks.addAll(loadedTasks);
         } catch (TaskLoadException e) {
             Ui.printTaskLoadError(e.backupFilePath);
-        } catch (TaskFileMoveException e) {
-            Ui.printTaskFileMoveError(e.filePath);
+        } catch (TaskFileCopyException e) {
+            Ui.printTaskFileCopyError(e.filePath);
 
             String input = USER_IN.nextLine();
             if (!input.equalsIgnoreCase("ignore")) {

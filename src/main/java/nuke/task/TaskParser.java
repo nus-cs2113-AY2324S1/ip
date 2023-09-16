@@ -7,6 +7,9 @@ public class TaskParser {
     public static Task parseTask(String line) throws TaskParseException {
         Task task;
         String[] words = line.split(" / ");
+        if (words.length < 3) {
+            throw new TaskParseException();
+        }
         String type = words[0];
         boolean mark;
         switch (words[1]) {

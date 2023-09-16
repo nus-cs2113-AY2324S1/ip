@@ -1,7 +1,7 @@
 package nuke.savefile;
 
 import nuke.Nuke;
-import nuke.savefile.exception.TaskFileMoveException;
+import nuke.savefile.exception.TaskFileCopyException;
 import nuke.savefile.exception.TaskLoadException;
 import nuke.savefile.exception.TaskParseException;
 import nuke.savefile.exception.TaskSaveException;
@@ -19,7 +19,7 @@ public class SaveManager {
     private static final String FILENAME_TASKS_BACKUP = "nuke_old.txt";
 
     public static ArrayList<Task> loadTasksFromStorage()
-            throws TaskLoadException, TaskFileMoveException {
+            throws TaskLoadException, TaskFileCopyException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
 
         Path currentRelativePath = Paths.get("");
@@ -40,10 +40,10 @@ public class SaveManager {
         } catch (IOException | TaskParseException e) {
             Path oldFilePath = currentDir.resolve(DIR_DATA).resolve(FILENAME_TASKS_BACKUP);
             try {
-                Files.move(filePath, oldFilePath, StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(filePath, oldFilePath, StandardCopyOption.REPLACE_EXISTING);
                 throw new TaskLoadException(FILENAME_TASKS_BACKUP);
             } catch (IOException ex) {
-                throw new TaskFileMoveException(FILENAME_TASKS);
+                throw new TaskFileCopyException(FILENAME_TASKS);
             }
         }
         return loadedTasks;
@@ -66,6 +66,7 @@ public class SaveManager {
                     writer.write('\n');
                 }
             }
+            throw new IOException();
         } catch (IOException e) {
             throw new TaskSaveException();
         }

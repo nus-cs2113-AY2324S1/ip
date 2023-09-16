@@ -18,6 +18,9 @@ public class Ui {
         System.out.println(LOGO);
         System.out.println();
         System.out.println("[@] Hello! I'm Nuke.");
+    }
+
+    public static void printWelcomeAfter() {
         System.out.println("[@] What can I do for you?");
         System.out.println();
     }
@@ -63,18 +66,21 @@ public class Ui {
     }
 
     public static void printTaskLoadError(String backupFilePath) {
+        System.out.println();
         System.out.println("[@] Error occurred while loading the tasks!");
         System.out.println("[@] I backed up your save file.");
         System.out.println("[@] Path: " + backupFilePath);
         System.out.println();
     }
-    public static void printTaskFileMoveError(String filePath) {
+    public static void printTaskFileCopyError(String filePath) {
+        System.out.println();
         System.out.println("[@] Error occurred while loading the tasks!");
         System.out.println("[@] I tried to back up your save file, but it failed as well.");
         System.out.println("[@] You can back up your save file manually.");
         System.out.println("[@] Path: " + filePath);
         System.out.println();
         System.out.println("[@] Ignore and continue to run by entering 'ignore'.");
+        System.out.println();
     }
     public static void printTaskSaveError(String[] tasks) {
         System.out.println("[@] Error occurred while saving the tasks!");
