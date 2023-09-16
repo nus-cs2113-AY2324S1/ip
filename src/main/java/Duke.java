@@ -1,15 +1,31 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static final int MAX_TASKS = 100;
+    public static void main(String[] args) {
+        //Initialise variables
+        String userInput = "";
+        Task[] tasks = new Task[MAX_TASKS];
+
+        //Print out greeting when user starts the program.
+        printGreeting();
+
+        //Take in user input
+        Scanner in = new Scanner(System.in);
+        while (!userInput.equals("bye")) {
+            userInput = in.nextLine();
+            processUserInput(userInput, tasks);
+        }
+    }
     public static String line = "____________________________________________________________";
     public static String logo =
             "\t   _____ _____ __  __  ____  _   _ \n" +
-            "\t  / ____|_   _|  \\/  |/ __ \\| \\ | |\n" +
-            "\t | (___   | | | \\  / | |  | |  \\| |\n" +
-            "\t  \\___ \\  | | | |\\/| | |  | | . ` |\n" +
-            "\t  ____) |_| |_| |  | | |__| | |\\  |\n" +
-            "\t |_____/|_____|_|  |_|\\____/|_| \\_|\n" +
-            "\t                                   \n";
+                    "\t  / ____|_   _|  \\/  |/ __ \\| \\ | |\n" +
+                    "\t | (___   | | | \\  / | |  | |  \\| |\n" +
+                    "\t  \\___ \\  | | | |\\/| | |  | | . ` |\n" +
+                    "\t  ____) |_| |_| |  | | |__| | |\\  |\n" +
+                    "\t |_____/|_____|_|  |_|\\____/|_| \\_|\n" +
+                    "\t                                   \n";
 
 
     public static void printGreeting() {
@@ -208,21 +224,6 @@ public class Duke {
         default:
             //If unable to understand user input
             printUnknownInputMessage();
-        }
-    }
-    public static void main(String[] args) {
-        //Initialise variables
-        String userInput = "";
-        Task[] tasks = new Task[100];
-
-        //Print out greeting when user starts the program.
-        printGreeting();
-
-        //Take in user input
-        Scanner in = new Scanner(System.in);
-        while (!userInput.equals("bye")) {
-            userInput = in.nextLine();
-            processUserInput(userInput, tasks);
         }
     }
 }
