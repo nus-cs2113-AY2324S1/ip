@@ -5,6 +5,11 @@ import RC.task.Event;
 import RC.task.Task;
 import RC.task.Todo;
 
+
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class RCCommand {
@@ -19,6 +24,7 @@ public abstract class RCCommand {
     private static final String BY_COMMAND = "/by";
     private static final String FROM_COMMAND = "/from";
     private static final String TO_COMMAND = "/to";
+    private static final String FILE_PATH = "data/tasks.txt";
     private static boolean isExit = false;
 
     private static void addTodo(String input, ArrayList<Task> tasks) throws RCException {
@@ -29,6 +35,7 @@ public abstract class RCCommand {
 
         tasks.add(new Todo(input));
         tasks.get(tasks.size() - 1).printAddedTask();
+        //writeToFile(FILE_PATH, tasks);
     }
 
     private static void addEvent(String input, ArrayList<Task> tasks) throws RCException {
@@ -49,6 +56,7 @@ public abstract class RCCommand {
 
         tasks.add(new Event(description, from, to));
         tasks.get(tasks.size() - 1).printAddedTask();
+        //writeToFile(FILE_PATH, tasks);
     }
 
     private static void addDeadline(String input, ArrayList<Task> tasks) throws RCException {
@@ -67,6 +75,7 @@ public abstract class RCCommand {
 
         tasks.add(new Deadline(description, by));
         tasks.get(tasks.size() - 1).printAddedTask();
+        //writeToFile(FILE_PATH, tasks);
     }
 
     private static void unmarkTask(String input, ArrayList<Task> tasks) throws RCException {
@@ -84,6 +93,7 @@ public abstract class RCCommand {
         }
 
         tasks.get(taskNum).unmarkTask();
+        editFile(FILE_PATH, tasks, taskNum);
     }
 
     private static void markTask(String input, ArrayList<Task> tasks) throws RCException {
@@ -101,6 +111,7 @@ public abstract class RCCommand {
         }
 
         tasks.get(taskNum).markAsDone();
+        editFile(FILE_PATH, tasks, taskNum);
     }
     private static void deleteTask(String input, ArrayList<Task> tasks) throws RCException {
         int taskNum;
@@ -123,6 +134,45 @@ public abstract class RCCommand {
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t" + (i + 1) + "." + tasks.get(i));
+        }
+    }
+
+    private static void editFile(String filePath, ArrayList<Task> tasks, int taskNum) throws RCException {
+        try {
+            BufferedReader fr = new BufferedReader(new FileReader(filePath));
+            StringBuilder inputBuffer = new StringBuilder();
+            String line;
+            int count = 0;
+
+            while ((line = fr.readLine()) != null) {
+                if (count == taskNum) {
+                    if (line.charAt(4) == '0') {
+                        line = line.replaceFirst("0", "1");
+                    } else {
+                        line = line.replaceFirst("1", "0");
+                    }
+                }
+                inputBuffer.append(line);
+                inputBuffer.append('\n');
+                count++;
+            }
+            fr.close();
+
+            FileOutputStream fileOut = new FileOutputStream("data/tasks.txt");
+            fileOut.write(inputBuffer.toString().getBytes());
+            fileOut.close();
+        } catch (IOException e) {
+            String message = "\tOOPS!!! Error reading file.";
+            throw new RCException(message);
+        }
+    }
+
+    public static void writeToFile(String filePath, ArrayList<Task> tasks) throws RCException {
+        try {
+            tasks.get(tasks.size() - 1).writeToFile(FILE_PATH);
+        } catch (IOException e) {
+            String errorMessage = "\tOOPS!!! Error writing to file.";
+            throw new RCException(errorMessage);
         }
     }
     public static boolean isExit() {

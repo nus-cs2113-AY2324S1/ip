@@ -1,6 +1,9 @@
 package RC.task;
 
+
 import java.util.ArrayList;
+import java.io.IOException;
+
 
 public class Task {
     private String description;
@@ -27,6 +30,7 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
         System.out.println("\tNice! I've marked this task as done:\n\t  " + this);
+        //markInFile()
     }
 
     public void unmarkTask() {
@@ -60,4 +64,6 @@ public class Task {
             System.out.println(" task in the list.");
         }
     }
+
+    public void writeToFile(String fileName) throws IOException {}
 }
