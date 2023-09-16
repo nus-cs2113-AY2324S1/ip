@@ -38,6 +38,7 @@ public class Echo  {
                     System.out.println("Which task? Retype command as unmark <task number>");
 
                 } text = in.next();
+
             } else if (text.equals("todo")) {
                 String task = in.nextLine();
                 if (task.length() == 0) {
@@ -55,6 +56,12 @@ public class Echo  {
                 String[] task = in.nextLine().split("/from | /to");
                 newList.addEvent(task[0], task[1], task[2]);
                 text = in.next();
+
+            } else if(text.startsWith(newList.delete)){
+                String part = in.nextLine();
+                newList.removeTask(text + part);
+                text = in.next();
+
             } else {
                System.out.println("OOPS! I'm sorry i don't know what that means.");
                text = in.next();
