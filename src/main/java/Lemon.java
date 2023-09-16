@@ -5,7 +5,8 @@ import lemon.task.Task;
 import lemon.task.Todo;
 
 import java.util.Scanner;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Lemon {
     public static String LEMON_EMOJI = "\uD83C\uDF4B";
@@ -57,13 +58,14 @@ public class Lemon {
         try {
             String inputPattern = "todo (.+)";
 
-            Pattern r = Pattern.compile(inputPattern);
-            Matcher m = r.matcher(input);
+            Pattern pattern = Pattern.compile(inputPattern);
+            Matcher matcher = pattern.matcher(input);
+            boolean matchFound = matcher.find();
 
             String task;
 
-            if (m.find()) {
-                task = m.group(1).trim();
+            if (matchFound) {
+                task = matcher.group(1).trim();
             } else {
                 throw new LemonException("Oopsie! Please use the format 'todo <task>'!");
             }
@@ -86,14 +88,15 @@ public class Lemon {
         try {
             String inputPattern = "deadline (.+?) /by (.+)";
 
-            Pattern r = Pattern.compile(inputPattern);
-            Matcher m = r.matcher(input);
+            Pattern pattern = Pattern.compile(inputPattern);
+            Matcher matcher = pattern.matcher(input);
+            boolean matchFound = matcher.find();
 
             String task, dateTime;
 
-            if (m.find()) {
-                task = m.group(1).trim();
-                dateTime = m.group(2).trim();
+            if (matchFound) {
+                task = matcher.group(1).trim();
+                dateTime = matcher.group(2).trim();
             } else {
                 throw new LemonException("Oopsie! Please use the format 'deadline <task> /by <date/time>'!");
             }
@@ -116,15 +119,16 @@ public class Lemon {
         try {
             String inputPattern = "event (.+?) /from (.+?) /to (.+)";
 
-            Pattern r = Pattern.compile(inputPattern);
-            Matcher m = r.matcher(input);
+            Pattern pattern = Pattern.compile(inputPattern);
+            Matcher matcher = pattern.matcher(input);
+            boolean matchFound = matcher.find();
 
             String task, startDateTime, endDateTime;
 
-            if (m.find()) {
-                task = m.group(1).trim();
-                startDateTime = m.group(2).trim();
-                endDateTime = m.group(3).trim();
+            if (matchFound) {
+                task = matcher.group(1).trim();
+                startDateTime = matcher.group(2).trim();
+                endDateTime = matcher.group(3).trim();
             } else {
                 throw new LemonException("Oopsie! Please use the format 'event <task> " +
                         "/from <starting date/time> /to <ending date/time>'!");
@@ -163,7 +167,7 @@ public class Lemon {
         }
     }
 
-    public static void markTask(String input, boolean isDone, boolean isEmptyList) throws LemonException {
+    public static void checkEmptyList(boolean isDone, boolean isEmptyList) throws LemonException {
         if (isEmptyList) {
             if (isDone) {
                 throw new LemonException("Your basket is on a lemonade break right now! " +
@@ -173,15 +177,20 @@ public class Lemon {
                         "There are no tasks to be unmarked. Add some fruitful tasks!");
             }
         }
+    }
+
+    public static void markTask(String input, boolean isDone, boolean isEmptyList) throws LemonException {
+        checkEmptyList(isDone, isEmptyList);
 
         try {
             String inputPattern = "(mark|unmark) (\\d+)";
 
-            Pattern r = Pattern.compile(inputPattern);
-            Matcher m = r.matcher(input);
+            Pattern pattern = Pattern.compile(inputPattern);
+            Matcher matcher = pattern.matcher(input);
+            boolean matchFound = matcher.find();
 
-            if (m.find()) {
-                int taskSerialNo = Integer.parseInt(m.group(2).trim());
+            if (matchFound) {
+                int taskSerialNo = Integer.parseInt(matcher.group(2).trim());
                 int taskIndex = taskSerialNo - 1;
 
                 if (isDone) {
