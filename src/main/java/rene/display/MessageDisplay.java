@@ -3,20 +3,43 @@ package rene.display;
 import rene.task.Task;
 import rene.tasklist.TaskList;
 import rene.exception.ReneExceptions;
-import java.util.Scanner;  // Import the Scanner class
+
+import java.io.IOException;
+import java.util.Scanner;
+import java.io.File;
 public class MessageDisplay {
-    static Scanner input = new Scanner(System.in);  // Create a Scanner object
-    static String logo = "     ____        _        \n"
-            + "    |  _ \\ _   _| | _____ \n"
-            + "    | | | | | | | |/ / _ \\\n"
-            + "    | |_| | |_| |   <  __/\n"
-            + "    |____/ \\__,_|_|\\_\\___|\n";
+    private static final Scanner input = new Scanner(System.in);  // Create a Scanner object
+
     public static void displayOpeningMessage(){
-        System.out.println("    Hello from\n" + logo);
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    今日は! I am Rene Kokoro!");
-        System.out.println("    Let me record your tasks!! *blushes*");
-        System.out.println("    ____________________________________________________________");
+        try{
+            String logo = "     ____        _        \n"
+                    + "    |  _ \\ _   _| | _____ \n"
+                    + "    | | | | | | | |/ / _ \\\n"
+                    + "    | |_| | |_| |   <  __/\n"
+                    + "    |____/ \\__,_|_|\\_\\___|\n";
+            System.out.println("    Hello from\n" + logo);
+            System.out.println("    ____________________________________________________________");
+            System.out.println("    今日は! I am Rene Kokoro!");
+            System.out.println("    Let me record your tasks!! *blushes*");
+            System.out.println();
+            File taskListRecord = new File("./src/main/Java/rene/tasklist.txt");
+            if (taskListRecord.createNewFile()) {
+                System.out.println("    Task-list created: " + taskListRecord.getName());
+            }
+            TaskList.buildCurrentListFromFile();
+            if(TaskList.getTaskListSize() > 0){
+                System.out.println("    You currently have the following tasks uWu");
+                TaskList.printTaskList();
+            }
+            else {
+                System.out.println("    You currently have no saved tasks uWu");
+            }
+            System.out.println("    ____________________________________________________________");
+        }
+        catch(NullPointerException | IOException  invalidFilePath){
+            System.out.println("    " + invalidFilePath.getMessage());
+            System.out.println("    ____________________________________________________________");
+        }
     }
 
 //    public static void echo(){
@@ -94,13 +117,13 @@ public class MessageDisplay {
                             break;
                         }
                     case "todo":
-                        TaskList.addToTaskList(userInput, Task.TaskType.TODO);
+                        TaskList.addToTaskList(userInput, Task.TaskType.TODO, true);
                         break;
                     case "deadline":
-                        TaskList.addToTaskList(userInput, Task.TaskType.DEADLINE);
+                        TaskList.addToTaskList(userInput, Task.TaskType.DEADLINE, true);
                         break;
                     case "event":
-                        TaskList.addToTaskList(userInput, Task.TaskType.EVENT);
+                        TaskList.addToTaskList(userInput, Task.TaskType.EVENT, true);
                         break;
                     default:
                         throw new ReneExceptions("Invalid Input");
@@ -121,6 +144,7 @@ public class MessageDisplay {
     }
 
     public static void displayCLosingMessage(){
+        TaskList.updateTaskListFile();
         System.out.println("    Aww you are leaving? *sniffs*");
         System.out.println("    Well... hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
