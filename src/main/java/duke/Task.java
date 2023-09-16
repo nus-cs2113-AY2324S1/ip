@@ -33,4 +33,18 @@ public class Task {
             return "[ ]";
         }
     }
+
+    public String taskFormatted(){
+        switch (taskType) {
+        case "todo":
+            return ("T" + "|" + isDone + "|" + description + "\n");
+        case "deadline":
+            return ("D" + "|" + isDone + "|" + description
+                    + "|" + deadline + "\n");
+        case "event":
+             return ("E" + "|" + isDone + "|" + description
+                    + "|" + from + "|" + to + "\n");
+        }
+        return "test";
+    }
 }
