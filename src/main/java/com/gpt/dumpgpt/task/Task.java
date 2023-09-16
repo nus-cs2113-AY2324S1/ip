@@ -1,7 +1,9 @@
 package com.gpt.dumpgpt.task;
 
+import com.gpt.dumpgpt.command.Command;
 import com.gpt.dumpgpt.shared.ApplicationState;
 import com.gpt.dumpgpt.shared.DukeException;
+import com.gpt.dumpgpt.shared.ProgramConstants;
 
 import java.util.ArrayList;
 
@@ -62,6 +64,11 @@ public class Task {
             return null;
         }
         return tasks.get(pos);
+    }
+
+    public static Task getTask(Command command) {
+        int taskNumber = ProgramConstants.parsePositiveNumber(command.getArguments());
+        return getTask(--taskNumber);
     }
 
     @SuppressWarnings("unchecked")

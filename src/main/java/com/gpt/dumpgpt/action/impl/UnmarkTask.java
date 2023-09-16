@@ -14,7 +14,7 @@ public class UnmarkTask extends MarkTask {
 
     @Override
     protected void execute() throws DukeException {
-        Task task = getTask();
+        Task task = Task.getTask(getCommand());
         throwIfInvalidTask(PRINT_ACTION, task);
         task.unmarkDone();
         printSuccess(PRINT_ACTION, task);

@@ -3,14 +3,14 @@ package com.gpt.dumpgpt.shared;
 public final class ProgramConstants {
     public static final String BOT_NAME = "DumbGPT";
     public static final String SEPARATOR = "____________________________________________________________";
-    public static final int INVALID_TASK_NUM = -1;
+    public static final int INVALID_POS_NUM = -1;
 
     public static void printSeparator() {
         System.out.println(SEPARATOR);
     }
 
     public static int parsePositiveNumber(String number) {
-        int taskNumber = INVALID_TASK_NUM;
+        int taskNumber = INVALID_POS_NUM;
 
         try {
             taskNumber = Integer.parseInt(number);
@@ -19,7 +19,7 @@ public final class ProgramConstants {
         }
 
         if (taskNumber <= 0) {
-            return INVALID_TASK_NUM;
+            return INVALID_POS_NUM;
         }
         return taskNumber;
     }

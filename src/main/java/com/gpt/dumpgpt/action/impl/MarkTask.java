@@ -18,12 +18,6 @@ public class MarkTask extends Action {
         super(command, verb);
     }
 
-    protected Task getTask() {
-        Command command = getCommand();
-        int taskNumber = ProgramConstants.parsePositiveNumber(command.getArguments());
-        return Task.getTask(--taskNumber);
-    }
-
     protected void throwIfInvalidTask(String action, Task task) throws DukeException {
         if (task == null) {
             throw new DukeException(String.format("Failed to mark task as %s...", action));
@@ -38,7 +32,7 @@ public class MarkTask extends Action {
     }
 
     protected void execute() throws DukeException {
-        Task task = getTask();
+        Task task = Task.getTask(getCommand());
         throwIfInvalidTask(PRINT_ACTION, task);
         task.markDone();
         printSuccess(PRINT_ACTION, task);
