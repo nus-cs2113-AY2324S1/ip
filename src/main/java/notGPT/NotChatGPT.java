@@ -12,9 +12,11 @@ public class NotChatGPT {
     public static void main(String[] args) {
         isRunning = true;
         IntroMessage.displayIntroMessage();
+        taskList.loadTasks();
         while (isRunning) {
             String[] userInput = UserInput.getUserInput();
             CommandResponse.respond(userInput);
         }
+        taskList.saveTasks();
     }
 }
