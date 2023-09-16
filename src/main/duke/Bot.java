@@ -1,29 +1,22 @@
 package duke;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class Bot {
-    private ArrayList<Task> taskList;
-    private Scanner input;
     private static final String BOT_NAME = "JS";
     private static final String LINE_DIVIDER = "----------------------------------------";
-
-    public ArrayList<Task> getTaskList() {
-        return taskList;
-    }
-
-    public void setTaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
-    }
-
-    public Scanner getInput() {
-        return input;
-    }
-
-    public void setInput(Scanner input) {
-        this.input = input;
-    }
+    private static final String FILE_PATH = "src\\main\\data\\data.txt";
+    private File f = new File(FILE_PATH);
+    private ArrayList<Task> taskList;
+    private Scanner input;
+    
 
     public Bot() {
         this.taskList = new ArrayList<Task>();
@@ -78,7 +71,6 @@ public class Bot {
         System.out.println("Now you have " + taskList.size() + " task in the list");
     }
 
-    
     /**
      * Prints out the new task added
      * 
@@ -126,6 +118,7 @@ public class Bot {
                 throw new IllegalArgumentException("Time Blank");
             }
             taskList.add(newDeadline);
+            addDeadlineToFile(newDeadline);
             printNewTask(newDeadline);
         } catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("Description and time must not be empty");
@@ -165,6 +158,7 @@ public class Bot {
             }
             Event newEvent = new Event(description, argumentsList[0].trim(), argumentsList[1].trim());
             taskList.add(newEvent);
+            addEventToFile(newEvent);
             printNewTask(newEvent);
         } catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("To must not be empty");
@@ -194,6 +188,7 @@ public class Bot {
             } else {
                 ToDo newToDo = new ToDo(arguments);
                 taskList.add(newToDo);
+                addToDoToFile(newToDo);
                 printNewTask(newToDo);
             }
         } catch (IllegalArgumentException exception) {
@@ -220,6 +215,43 @@ public class Bot {
             }
         } catch (IndexOutOfBoundsException exception) {
             System.out.println("Task does not exist");
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Index cannot be empty");
+        }
+    }
+
+    public void importToArrayList() {
+        try {
+            if(f.exists()) {
+                fileToArrayList(taskList, f);
+            } else {
+                f.createNewFile();
+            }
+        } catch (IOException exception) {
+            System.out.println("An error occurred.");
+        }
+    }
+
+    public void refreshData() {
+        try {
+            PrintWriter writer = new PrintWriter(FILE_PATH);
+            writer.close();
+        } catch (FileNotFoundException exception) {
+            System.out.println("File not found");
+        }
+        Iterator<Task> taskListIter = taskList.iterator();
+        for(int i = 1; taskListIter.hasNext() ; i++) {
+            Task task = taskListIter.next();
+            if(task.getClass().getSimpleName().equals("ToDo")) {
+                ToDo todo = (ToDo)task;
+                addToDoToFile(todo);
+            } else if(task.getClass().getSimpleName().equals("Deadline")) {
+                Deadline deadline = (Deadline)task;
+                addDeadlineToFile(deadline);
+            } else {
+                Event event = (Event)task;
+                addEventToFile(event);
+            }
         }
     }
 
@@ -232,6 +264,7 @@ public class Bot {
     public void runBot() {
         String userInput, command, arguments;
         userInput = command = arguments = "";
+        importToArrayList();
         printBotMessage();
         do {
             arguments = "";
@@ -276,6 +309,7 @@ public class Bot {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             System.out.println(LINE_DIVIDER);
+            refreshData();
         } while (!(command.equals("bye")));
         input.close();
         printByeMessage();
@@ -284,5 +318,75 @@ public class Bot {
     public static void printByeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE_DIVIDER);
+    }
+
+    public static void addToDoToFile(ToDo newToDo) {
+        try {
+            FileWriter fw = new FileWriter(FILE_PATH, true);
+            String format = "T," + (newToDo.isCompleted() ? "1" : "0") + "," + newToDo.getName();
+            fw.write(format + "\n");
+            fw.close();
+        } catch (IOException exception) {
+            System.out.println("Cannot write to file");
+        }
+    }
+
+    public static void addDeadlineToFile(Deadline newDeadline) {
+        try {
+            FileWriter fw = new FileWriter(FILE_PATH, true);
+            String format = "T," + (newDeadline.isCompleted() ? "1" : "0") + "," + newDeadline.getName() + "," + newDeadline.getBy();
+            fw.write(format + "\n");
+            fw.close();
+        } catch (IOException exception) {
+            System.out.println("Cannot write to file");
+        }
+    }
+
+    public static void addEventToFile(Event newEvent) {
+        try {
+            FileWriter fw = new FileWriter(FILE_PATH, true);
+            String format = "T," + (newEvent.isCompleted() ? "1" : "0") + "," + newEvent.getName() + "," + newEvent.getFrom()  + "," + newEvent.getTo();
+            fw.write(format + "\n");
+            fw.close();
+        } catch (IOException exception) {
+            System.out.println("Cannot write to file");
+        }
+    }
+  
+     public static void fileToArrayList(ArrayList<Task> taskList, File f) {
+        try{
+            Scanner reader = new Scanner(f);
+            while(reader.hasNextLine()) {
+                String[] dataSplit = (reader.nextLine()).split(",");
+                if(dataSplit[0].equals("T")) {
+                    ToDo todoTask = new ToDo(dataSplit[2]);
+                    if(dataSplit[1].equals("1")) {
+                        todoTask.setCompleted(true);
+                    } else {
+                        todoTask.setCompleted(false);
+                    }
+                    taskList.add(todoTask);
+                } else if(dataSplit[0].equals("D")) {
+                    Deadline deadlineTask = new Deadline(dataSplit[2], dataSplit[3]);
+                    if(dataSplit[1].equals("1")) {
+                        deadlineTask.setCompleted(true);
+                    } else {
+                        deadlineTask.setCompleted(false);
+                    }
+                    taskList.add(deadlineTask);
+                } else {
+                    Event eventTask = new Event(dataSplit[2], dataSplit[3], dataSplit[4]);
+                    if(dataSplit[1].equals("1")) {
+                        eventTask.setCompleted(true);
+                    } else {
+                        eventTask.setCompleted(false);
+                    }
+                    taskList.add(eventTask);
+                }
+            }
+            reader.close();
+        } catch (FileNotFoundException exception) {
+            System.out.println("Error");
+        }
     }
 }
