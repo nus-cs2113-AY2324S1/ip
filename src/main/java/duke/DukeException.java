@@ -14,7 +14,7 @@ public class DukeException {
         this.exception = false;
     }
 
-    public void checkInput(){
+    public void checkInput(int size){
         // Repeated commands, empty entries
         switch (this.command) {
         case "mark":
@@ -56,6 +56,14 @@ public class DukeException {
             }
             exception = true;
             return;
+        case "delete":
+            if (this.userInput.length == 2 && (Integer.parseInt(this.userInput[1]) > 0 && Integer.parseInt(this.userInput[1]) <= size)){
+                break;
+            } else {
+                customError("You have entered an invalid index");
+                this.exception = true;
+            }
+            break;
         default:
             unknownCommand();
         }
