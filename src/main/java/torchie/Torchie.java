@@ -1,3 +1,8 @@
+package torchie;
+
+import torchie.exceptions.DukeException;
+import torchie.task.*;
+
 import java.util.Scanner;
 public class Torchie {
 
@@ -26,7 +31,7 @@ public class Torchie {
     }
 
     public static void announceListSize() {
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+        System.out.println("Now you have " + numOfTasks + " torchie.task(s) in the list.");
     }
 
     public static String getContent(String s) {
@@ -84,7 +89,7 @@ public class Torchie {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Hello! I'm Torchie!");
+        System.out.println("Hello! I'm torchie.Torchie!");
         System.out.println("What can I do for you?");
         System.out.println("Let's play storetorchie today! You say something and I ll store it!");
 
@@ -109,7 +114,7 @@ public class Torchie {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
                             " index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("Task number cannot exceed: <" + numOfTasks + ">");
+                    System.out.println("torchie.task.Task number cannot exceed: <" + numOfTasks + ">");
                 }
                 break;
             case "unmark":
@@ -120,43 +125,43 @@ public class Torchie {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
                             " index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("Task number cannot exceed: <" + numOfTasks + ">");
+                    System.out.println("torchie.task.Task number cannot exceed: <" + numOfTasks + ">");
                 }
                 break;
             case "bye":
                 System.out.println("Awww bye :( Let's play again soon!");
                 break;
             case "todo":
-                ToDos td = null;
+                ToDo td = null;
                 try {
-                    td = new ToDos(getContent(input));
+                    td = new ToDo(getContent(input));
                     setTaskStore(td);
                     td.announceTaskAdd();
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Missing <task name>: Example: todo <read>");
+                    System.out.println("Missing <torchie.task name>: Example: todo <read>");
                 }
                 break;
             case "deadline":
                 try {
-                    Deadlines d = new Deadlines(getContent(input), getDeadlineDate(input));
+                    Deadline d = new Deadline(getContent(input), getDeadlineDate(input));
                     setTaskStore(d);
                     d.announceTaskAdd();
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
+                    System.out.println("Missing <torchie.task name>: Example: deadline <read> /by Aug 1st");
                 } catch (DukeException e) {
                     System.out.println("Missing <deadline>: Example: deadline read </by Aug 1st>");
                 }
                 break;
             case "event":
                 try {
-                    Events e = new Events(getContent(input), getEventStart(input), getEventEnd(input));
+                    Event e = new Event(getContent(input), getEventStart(input), getEventEnd(input));
                     setTaskStore(e);
                     e.announceTaskAdd();
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
+                    System.out.println("Missing <torchie.task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
                 } catch (DukeException e) {
                     System.out.println("Missing keyword </from start time> or </by end time> " +
                             "Example: event read </from Aug 1st 4pm> </to 6pm>");
