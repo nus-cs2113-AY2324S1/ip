@@ -28,6 +28,7 @@ public class Duke {
     public static ActionRegistry registerActions() {
         ActionRegistry registry = ActionRegistry.getRegistry();
         registry.registerAction(new AddTask(null));
+        registry.registerAction(new DeleteTask(null));
         registry.registerAction(new ListTask(null));
         registry.registerAction(new MarkTask(null));
         registry.registerAction(new UnmarkTask(null));
