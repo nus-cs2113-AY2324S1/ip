@@ -1,15 +1,22 @@
 package duke;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
-    public static String CHATBOTNAME="Andrew Tate";
+    public static String CHATBOTNAME = "Andrew Tate";
     public static ArrayList<Task> TASKS = new ArrayList<Task>();
     public static String LINE_DIVIDER = "____________________________________________________________";
     public static int FIRST_INDEX=0;
     public static int SECOND_INDEX=1;
+    public static int THIRD_INDEX=2;
+    public static int FOURTH_INDEX=3;
+    public static int FIFTH_INDEX=4;
+    public static String DATAPATH = ".\\src\\main\\java\\duke\\data\\duke.txt";
 
     /* Pretty prints a remark after adding any tasks */
     public static void printRemark(Task task){
@@ -100,6 +107,69 @@ public class Duke {
         System.out.println(LINE_DIVIDER);
     }
 
+    public static void loadHistoricalData() throws IOException, DukeException {
+        File dataFile = new File(DATAPATH);
+        if (dataFile.createNewFile()){
+            System.out.println("Data file not found @ " + DATAPATH + "\nCreating new data file @ " + DATAPATH);
+        }else{
+            Scanner dataScanner = new Scanner(dataFile);
+            while(dataScanner.hasNext()){
+                String dataLine =  dataScanner.nextLine();
+                String[] splitLineArguments = dataLine.split(" \\| ");
+                switch (splitLineArguments[FIRST_INDEX]) {
+                case "T":
+                    ToDo newTodo = new ToDo(splitLineArguments[THIRD_INDEX]);
+                    TASKS.add(newTodo);
+                    if (splitLineArguments[SECOND_INDEX].equals("1")){
+                        newTodo.markAsDone();
+                    }
+                    break;
+                case "D":
+                    Deadline newDeadline = new Deadline(splitLineArguments[THIRD_INDEX],
+                            splitLineArguments[FOURTH_INDEX]);
+                    TASKS.add(newDeadline);
+                    if (splitLineArguments[SECOND_INDEX].equals("1")){
+                        newDeadline.markAsDone();
+                    }
+                    break;
+                case "E":
+                    Event newEvent = new Event(splitLineArguments[THIRD_INDEX], splitLineArguments[FOURTH_INDEX],
+                            splitLineArguments[FIFTH_INDEX]);
+                    TASKS.add(newEvent);
+                    if (splitLineArguments[SECOND_INDEX].equals("1")){
+                        newEvent.markAsDone();
+                    }
+                    break;
+                default:
+                    throw new DukeException("Corrupt data bro..");
+                }
+            }
+            System.out.println("Loaded historical data successfully.");
+        }
+    }
+
+    public static void refreshSavedList() throws IOException, DukeException{
+        FileWriter fw = new FileWriter(DATAPATH);
+        for (Task taskToSave : TASKS){
+            String taskSaveFormat = String.format("%s | %d | " , taskToSave.getTaskType(),
+                    taskToSave.getCompletionStatus() ? 1:0);
+            if (taskToSave.getTaskType().equals("T")){
+                ToDo todoToSave = (ToDo) taskToSave;
+                taskSaveFormat =  String.format("%s%s\n",taskSaveFormat,todoToSave.description);
+            } else if (taskToSave.getTaskType().equals("D")) {
+                Deadline deadlineToSave = (Deadline) taskToSave;
+                taskSaveFormat = String.format("%s%s | %s\n",taskSaveFormat,deadlineToSave.description,
+                        deadlineToSave.getBy());
+            } else {
+                Event eventToSave = (Event) taskToSave;
+                taskSaveFormat = String.format("%s%s | %s | %s\n", taskSaveFormat, eventToSave.description,
+                        eventToSave.getStart(), eventToSave.getEnd());
+            }
+            fw.write(taskSaveFormat);
+        }
+        fw.close();
+    }
+
     public static void handleCommandInLoop(String[] arguments, String actionCommand) throws DukeException{
         switch (actionCommand) {
         case "todo":
@@ -133,6 +203,16 @@ public class Duke {
     }
 
     public static void main(String[] args){
+        try {
+            loadHistoricalData();
+        } catch (IOException IOEx){
+            System.out.println("Unable to create file @ " + DATAPATH);
+            return;
+        } catch (DukeException DukeEx){
+            System.out.println(DukeEx);
+            return;
+        }
+
         System.out.println(LINE_DIVIDER);
         System.out.println("Hello! I'm the top G " + CHATBOTNAME);
         System.out.println("What can I do for you?");
@@ -150,9 +230,13 @@ public class Duke {
                 break;
             }
             try {
-                handleCommandInLoop(arguments, actionCommand);
+                handleCommandInLoop(arguments, actionCommand); // calls respective functions based on command
+                refreshSavedList(); // update saved file with the new task list
             } catch (DukeException dukeEx) { // Invalid command/not supported
-                System.out.println(dukeEx.toString());
+                System.out.println(dukeEx);
+            } catch (IOException IOEx) {
+                System.out.println("Unable to create file @ " + DATAPATH);
+                return;
             }
         }
         System.out.println(LINE_DIVIDER);
