@@ -1,13 +1,13 @@
 package duke;
 
-import duke.exception.DukeException;
-import duke.exception.NullDescriptionInputException;
-import duke.exception.NullInputException;
-import duke.exception.UndefinedTaskException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.exceptions.DukeException;
+import duke.exceptions.NullDescriptionInputException;
+import duke.exceptions.NullInputException;
+import duke.exceptions.UndefinedTaskException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 import java.util.LinkedList;
 import java.util.List;

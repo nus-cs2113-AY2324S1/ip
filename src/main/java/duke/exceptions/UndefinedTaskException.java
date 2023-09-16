@@ -1,4 +1,4 @@
-package duke.exception;
+package duke.exceptions;
 
 public class UndefinedTaskException extends DukeException{
     public UndefinedTaskException(String message) {
