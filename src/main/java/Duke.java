@@ -36,9 +36,13 @@ public class Duke {
             			if (userCmd[0].equals("mark")) {
                 			toDoList.get(index).setDone(true);
                 			System.out.println("     Nice! I've marked this task as done:");
+                			textFile = markTaskFromFile(textFile, index, true);
+                			writeFile = new FileWriter(textFile, true);
                 		} else {
                 			toDoList.get(index).setDone(false);
                 			System.out.println("     OK, I've marked this task as not done yet:");
+                			textFile = markTaskFromFile(textFile, index, false);
+                			writeFile = new FileWriter(textFile, true);
                 		}
             			System.out.println("       " + toDoList.get(index));
             			System.out.println("    ____________________________________________________________");
@@ -344,6 +348,44 @@ public class Duke {
     			String line = readFile.nextLine();
         		if (currIndex != taskIndex) {
             		tempWriter.write(line + "\n");
+        		}
+        		currIndex++;
+        	}
+        	readFile.close();
+        	tempWriter.close();
+        	textFile.delete();
+        	tempFile.renameTo(textFile);
+        	tempFile = new File("./data/toDoList.txt");
+        	return tempFile;
+    	}
+    	catch (FileNotFoundException e) {
+    		System.out.println(e);
+        	return textFile;
+    	}
+    	catch (IOException e) {
+    		System.out.println(e);
+        	return textFile;
+    	}
+    }
+    
+    public static File markTaskFromFile(File textFile, int taskIndex, boolean done) {
+    	try {
+        	Scanner readFile = new Scanner(textFile);
+        	File tempFile = new File("./data/temp.txt");
+        	FileWriter tempWriter = new FileWriter(tempFile);
+        	
+        	int currIndex = 0;
+        	while (readFile.hasNextLine()) {
+    			String line = readFile.nextLine();
+        		if (currIndex != taskIndex) {
+            		tempWriter.write(line + "\n");
+        		} else {
+        			if (done) {
+        				tempWriter.write(line.substring(0, line.length() - 1) + "x" + "\n");
+        			} else {
+        				tempWriter.write(line.substring(0, line.length() - 1) + "o" + "\n");
+        			}
+        			
         		}
         		currIndex++;
         	}
