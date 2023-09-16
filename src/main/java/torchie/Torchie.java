@@ -31,7 +31,7 @@ public class Torchie {
     }
 
     public static void announceListSize() {
-        System.out.println("Now you have " + numOfTasks + " torchie.task(s) in the list.");
+        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
     }
 
     public static String getContent(String s) {
@@ -89,7 +89,7 @@ public class Torchie {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Hello! I'm torchie.Torchie!");
+        System.out.println("Hello! I'm Torchie!");
         System.out.println("What can I do for you?");
         System.out.println("Let's play storetorchie today! You say something and I ll store it!");
 
@@ -114,7 +114,7 @@ public class Torchie {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
                             " index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("torchie.task.Task number cannot exceed: <" + numOfTasks + ">");
+                    System.out.println("Task number cannot exceed: <" + numOfTasks + ">");
                 }
                 break;
             case "unmark":
@@ -125,7 +125,7 @@ public class Torchie {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
                             " index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("torchie.task.Task number cannot exceed: <" + numOfTasks + ">");
+                    System.out.println("Task number cannot exceed: <" + numOfTasks + ">");
                 }
                 break;
             case "bye":
@@ -139,7 +139,7 @@ public class Torchie {
                     td.announceTaskAdd();
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Missing <torchie.task name>: Example: todo <read>");
+                    System.out.println("Missing <task name>: Example: todo <read>");
                 }
                 break;
             case "deadline":
@@ -149,7 +149,7 @@ public class Torchie {
                     d.announceTaskAdd();
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Missing <torchie.task name>: Example: deadline <read> /by Aug 1st");
+                    System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
                 } catch (DukeException e) {
                     System.out.println("Missing <deadline>: Example: deadline read </by Aug 1st>");
                 }
@@ -161,7 +161,7 @@ public class Torchie {
                     e.announceTaskAdd();
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Missing <torchie.task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
+                    System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
                 } catch (DukeException e) {
                     System.out.println("Missing keyword </from start time> or </by end time> " +
                             "Example: event read </from Aug 1st 4pm> </to 6pm>");
