@@ -7,6 +7,9 @@ import neo.type.CommandType;
 import neo.type.ErrorType;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Neo {
 
     public static void printList(ArrayList<Task> list) {
@@ -209,13 +212,64 @@ public class Neo {
         list.add(toAdd);
         printAddedTask(list);
     }
+    public static boolean isMarked(int mark) {
+        return (mark == 1);
+    }
+    public static void readFromFile(String filePath, ArrayList<Task> list) throws IOException {
+        File directory = new File("data");
+        if (directory.mkdir()) {
+            System.out.println("Creating new data folder...");
+        }
+        File f = new File(filePath);
+        if (f.createNewFile()) {
+            System.out.println("Creating new data.txt file...");
+        }
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] task = line.split(" / ");
+            String taskType = task[0];
+            int mark = Integer.parseInt(task[1]);
+            boolean isMarked = isMarked(mark);
+            switch (taskType) {
+            case "T":
+                Todo todo = new Todo(task[2]);
+                todo.setDone(isMarked);
+                list.add(todo);
+                break;
+            case "D":
+                Deadline deadline = new Deadline(task[2], task[3]);
+                deadline.setDone(isMarked);
+                list.add(deadline);
+                break;
+            case "E":
+                Event event = new Event(task[2], task[3], task[4]);
+                event.setDone(isMarked);
+                list.add(event);
+                break;
+            }
+        }
+    }
+    public static void writeToFile(String filePath, ArrayList<Task> list) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (Task task : list) {
+            String formatTask = task.formatTask();
+            fw.write(formatTask + System.lineSeparator());
+        }
+        fw.close();
+    }
     public static void main(String[] args) {
+        ArrayList<Task> list = new ArrayList<>();
+        try {
+            readFromFile("data/data.txt", list);
+        } catch (IOException e) {
+            System.out.println("Error with data.txt file");
+        }
         System.out.println("Hello! I'm Neo.");
         System.out.println("What can I do for you?");
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-        ArrayList<Task> list = new ArrayList<>();
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 printList(list);
@@ -233,6 +287,11 @@ public class Neo {
                 handleTodo(line, list);
             } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+            try {
+                writeToFile("data/data.txt", list);
+            } catch (IOException e) {
+                System.out.println("Error with data.txt file.");
             }
             line = in.nextLine();
         }

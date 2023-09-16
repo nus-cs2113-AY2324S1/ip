@@ -22,5 +22,13 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-
+    public String formatTask() {
+        int status;
+        if (this.getStatusIcon().equals("X")) {
+            status = 1;
+        } else {
+            status = 0;
+        }
+        return status + " / " + this.description;
+    }
 }

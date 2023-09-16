@@ -10,7 +10,10 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
-
+    @Override
+    public String formatTask() {
+        return "E / " + super.formatTask() + " / " + from + " / " + to;
+    }
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
