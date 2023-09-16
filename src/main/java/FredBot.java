@@ -31,7 +31,9 @@ public class FredBot {
     public static final String TODO_ERROR_MESSAGE = "☹ OOPS!!! The description of a todo cannot be empty.";
     public static final String DEADLINE_ERROR_MESSAGE = "☹ OOPS!!! The description of a deadline cannot be empty.";
     public static final String EVENT_ERROR_MESSAGE = "☹ OOPS!!! The description of a event cannot be empty.";
-    public static final String EVENT_MARK_MESSAGE = "This task does not exist!";
+    public static final String MARK_ERROR_MESSAGE = "This task does not exist!";
+    public static final String COMMAND_DELETE = "delete";
+    public static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:\n";
 
     public static void addTodo(ArrayList<Task> tasks, String task) throws FredBotTodoErrorException {
         if (task.isEmpty()) {
@@ -71,6 +73,13 @@ public class FredBot {
         Task.setNumTask(numTask+1);
     }
 
+    public static void deleteTask(ArrayList<Task> tasks, int index) throws FredBotDeleteErrorException{
+        if (index < 1 || index > Task.getNumTask()) {
+            throw new FredBotDeleteErrorException();
+        }
+        printRemoveTask(tasks.remove(index - 1).toString() + "\n");
+    }
+
     public static void changeStatus(ArrayList<Task> tasks, boolean mark, int index) throws FredBotMarkErrorException {
         if (index < 1 || index > Task.getNumTask()) {
             throw new FredBotMarkErrorException();
@@ -95,6 +104,11 @@ public class FredBot {
             taskList.append(INDENT).append(number).append(tasks.get(i).toString()).append("\n"); // Can be formatted
         }
         printMessage(taskList.toString());
+    }
+
+    public static void printRemoveTask(String message) {
+        printMessage(INDENT + REMOVE_TASK_MESSAGE + INDENT + message + INDENT +
+                "Now you have " + (Task.getNumTask() +1) + " tasks in the list\n");
     }
 
     public static void printAddTask(String message) {
@@ -132,6 +146,9 @@ public class FredBot {
                     addDeadline(tasks, line.replace(COMMAND_ADD_DEADLINE, "").trim());
                 } else if (line.startsWith(COMMAND_ADD_EVENT)) {
                     addEvent(tasks, line.replace(COMMAND_ADD_EVENT, "").trim());
+                } else if (line.startsWith(COMMAND_DELETE)) {
+                    int index = Integer.parseInt(line.substring(6).trim());
+                    deleteTask(tasks, index);
                 } else {
                     throw new FredBotCommandErrorException();
                 }
@@ -143,8 +160,8 @@ public class FredBot {
                 printMessage(INDENT + TODO_ERROR_MESSAGE);
             } catch (FredBotEventErrorException e) {
                 printMessage(INDENT + EVENT_ERROR_MESSAGE);
-            } catch (FredBotMarkErrorException e) {
-                printMessage(INDENT + EVENT_MARK_MESSAGE);
+            } catch (FredBotMarkErrorException | FredBotDeleteErrorException e) {
+                printMessage(INDENT + MARK_ERROR_MESSAGE);
             }
 
             line = in.nextLine();
