@@ -54,27 +54,46 @@ public class Duke {
         println(listItems[markIdx].getTask());
     }
 
-    public static void handleCreateTask(String line) {
-        listItems[listIdx] = new Task(line);
+    public static void handleCreateTodo(String line) throws DukeException {
+        int spaceIdx = line.indexOf(" ");
+        if (spaceIdx == -1) {
+            throw new DukeException("The description of a todo cannot be empty");
+        }
+
+        String description = line.substring(spaceIdx+1);
+        if (description.trim().length() == 0) {
+            throw new DukeException("The description of a todo cannot be empty");
+        }
+
+        listItems[listIdx] = new Todo(description);
         listIdx++;
 
         println(listItems[listIdx-1].getTaskAdded(listIdx));
     }
 
-    public static void handleCreateTodo(String line) {
-        String todo = line.substring(line.indexOf(" ")+1);
-        listItems[listIdx] = new Todo(todo);
-        listIdx++;
-
-        println(listItems[listIdx-1].getTaskAdded(listIdx));
-    }
-
-    public static void handleCreateDeadline(String line) {
+    public static void handleCreateDeadline(String line) throws DukeException {
         int byIdx = line.indexOf("/by");
+        if (byIdx == -1) {
+            throw new DukeException("The /by of a deadline must be specified");
+        }
 
         // Extract task description and deadline from user input
-        String description = line.substring(line.indexOf(" ")+1, byIdx-1);
-        String deadline = line.substring(byIdx+ "/by ".length());
+        int spaceIdx = line.indexOf(" ");
+        if (spaceIdx == -1 || spaceIdx >= byIdx) {
+            throw new DukeException("The description of a deadline cannot be empty");
+        }
+
+        String description = line.substring(spaceIdx+1, byIdx-1);
+        if (description.trim().length() == 0) {
+            throw new DukeException("The description of a deadline cannot be empty");
+        }
+
+        int deadlineIdx = byIdx+ "/by ".length();
+        if (deadlineIdx >= line.length()) {
+            throw new DukeException("The /by of a deadline cannot be empty");
+        }
+
+        String deadline = line.substring(deadlineIdx);
 
         listItems[listIdx] = new Deadline(description, deadline);
         listIdx++;
@@ -114,13 +133,21 @@ public class Duke {
             } else if (line.startsWith("unmark")) {
                 unmarkItem(line);
             } else if (line.startsWith("todo")) {
-                handleCreateTodo(line);
+                try {
+                    handleCreateTodo(line);
+                } catch (DukeException e) {
+                    println(String.valueOf(e));
+                }
             } else if (line.startsWith("deadline")) {
-                handleCreateDeadline(line);
+                try {
+                    handleCreateDeadline(line);
+                } catch (DukeException e) {
+                    println(String.valueOf(e));
+                }
             } else if (line.startsWith("event")) {
                 handleCreateEvent(line);
             } else {
-                handleCreateTask(line);
+                println("I don't know that command");
             }
 
             println(LINE);
