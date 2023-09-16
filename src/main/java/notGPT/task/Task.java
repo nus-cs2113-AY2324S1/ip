@@ -30,4 +30,8 @@ public class Task {
         return "[" + statusIcon + "] " + taskName;
     }
     
+    public String toFileString() {
+        String status = isDone ? "1" : "0";
+        return "|" + status + "|" + taskName;
+    }
 }
