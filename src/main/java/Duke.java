@@ -23,7 +23,7 @@ public class Duke {
                 + "\\____/ \\___/|_.__/|_.__/ \\__, |\n"
                 + "                          __/ |\n"
                 + "                         |___/";
-        System.out.println("    Hello from\n" + logo);
+        System.out.println("Hello from\n" + logo);
         printLine();
         System.out.println("    Hello! I'm Bobby");
         System.out.println("    What can I do for you?");
