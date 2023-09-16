@@ -1,46 +1,43 @@
-package command;
+package kenergeticbot.command;
 
-import exceptionhandler.KenergeticBotException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import kenergeticbot.exceptionhandler.KenergeticBotException;
+import kenergeticbot.task.Deadline;
+import kenergeticbot.task.Event;
+import kenergeticbot.task.Task;
+import kenergeticbot.task.Todo;
 
 import java.util.ArrayList;
 
-import static command.booleanChecks.*;
-import static command.commonMessages.printAddedTaskMessage;
-import static command.commonMessages.printLine;
-import static exceptionhandler.KenergeticBotException.*;
+import static kenergeticbot.exceptionhandler.KenergeticBotException.*;
 
 
-public class commandList {
+public class CommandList {
     public static void list(ArrayList<Task> taskList) {
-        printLine();
+        CommonMessages.printLine();
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.printf("     %d.%s\n", i+1, taskList.get(i));
         }
-        printLine();
+        CommonMessages.printLine();
     }
 
     public static void mark(ArrayList<Task> taskList, int listIndex) {
-        printLine();
+        CommonMessages.printLine();
         System.out.println("     Nice! I've marked this task as done:");
         taskList.get(listIndex - 1).mark();
         System.out.printf("       %s\n", taskList.get(listIndex - 1));
-        printLine();
+        CommonMessages.printLine();
     }
 
     public static void unmark(ArrayList<Task> taskList, int listIndex) {
-        printLine();
+        CommonMessages.printLine();
         System.out.println("     OK, I've marked this task as not done yet:");
         taskList.get(listIndex - 1).unmark();
         System.out.printf("       %s\n", taskList.get(listIndex - 1));
-        printLine();
+        CommonMessages.printLine();
     }
 
-    //Creates a "task.Todo" object and adds to the taskList
+    //Creates a "Todo" object and adds to the taskList
     public static void addTodo(ArrayList<Task> taskList, String item) throws KenergeticBotException {
         String formattedString = item.replace("todo", "").trim();
         if (formattedString.isEmpty()) {
@@ -49,44 +46,44 @@ public class commandList {
         String taskType = "[T]";
         Task newTask = new Todo(formattedString, taskType);
         taskList.add(newTask);
-        printAddedTaskMessage(taskList, newTask);
+        CommonMessages.printAddedTaskMessage(taskList, newTask);
     }
 
-    //Creates a "task.Deadline" object and adds to the taskList
+    //Creates a "Deadline" object and adds to the taskList
     public static void addDeadline(ArrayList<Task> taskList, String item) throws KenergeticBotException {
         String[] formattedString = item.replace("deadline", "").trim().split("/");
-        switch (formattedString.length) {
-            case 1:
-                if (formattedString[0].isEmpty()) {
-                    throw new KenergeticBotException(KenergeticBotException.DEADLINE_MISSING_DESCRIPTION);
-                } else {
-                    throw new KenergeticBotException(KenergeticBotException.DEADLINE_MISSING_DATE_INTERMEDIATE);
-                }
-            case 2:
-                if (!formattedString[1].contains("by")) {
-                    throw new KenergeticBotException(KenergeticBotException.COMMAND_TYPO_DEADLINE_BY);
-                } else if (formattedString[1].replace("by", "").trim().isEmpty()) {
-                    throw new KenergeticBotException(KenergeticBotException.DEADLINE_MISSING_DATE);
-                }
+        switch (formattedString.length) { //no default case needed since finding exceptions
+        case 1: //no break; is needed since throwing exception
+            if (formattedString[0].isEmpty()) {
+                throw new KenergeticBotException(DEADLINE_MISSING_DESCRIPTION);
+            } else {
+                throw new KenergeticBotException(DEADLINE_MISSING_DATE_INTERMEDIATE);
+            }
+        case 2: //no break; is needed since throwing exception
+            if (!formattedString[1].contains("by")) {
+                throw new KenergeticBotException(COMMAND_TYPO_DEADLINE_BY);
+            } else if (formattedString[1].replace("by", "").trim().isEmpty()) {
+                throw new KenergeticBotException(DEADLINE_MISSING_DATE);
+            }
         }
         String taskType = "[D]";
         String deadlineDate = "(" + formattedString[1].replace("by", "by:") + ")";
         Task newTask = new Deadline(formattedString[0], taskType, deadlineDate);
         taskList.add(newTask);
-        printAddedTaskMessage(taskList, newTask);
+        CommonMessages.printAddedTaskMessage(taskList, newTask);
     }
 
-    //Creates a "task.Event" object and adds to the taskList
+    //Creates a "Event" object and adds to the taskList
     public static void addEvent(ArrayList<Task> taskList, String item) throws KenergeticBotException {
         String[] formattedString = item.replace("event", "").trim().split("/");
-        switch(formattedString.length) {
-            case 1:
+        switch(formattedString.length) { //no default case needed since finding exceptions
+            case 1: //no break; is needed since throwing exception
                 if (formattedString[0].isEmpty()) {
                     throw new KenergeticBotException(EVENT_MISSING_DESCRIPTION);
                 } else {
                     throw new KenergeticBotException(EVENT_MISSING_START_INTERMEDIATE);
                 }
-            case 2:
+            case 2: //no break; is needed since throwing exception
                 if (!formattedString[1].contains("from")) {
                     throw new KenergeticBotException(COMMAND_TYPO_EVENT_FROM);
                 } else if (formattedString[1].replace("from", "").trim().isEmpty()){
@@ -94,7 +91,7 @@ public class commandList {
                 } else {
                     throw new KenergeticBotException(EVENT_MISSING_END_INTERMEDIATE);
                 }
-            case 3:
+            case 3: //no break; is needed since throwing exception
                 if (!formattedString[2].contains("to")) {
                     throw new KenergeticBotException(COMMAND_TYPO_EVENT_TO);
                 } else if (formattedString[2].replace("to", "").trim().isEmpty()){
@@ -107,33 +104,33 @@ public class commandList {
         String dateTime = "(" + eventFrom + eventTo + ")";
         Task newTask = new Event(formattedString[0], taskType, dateTime);
         taskList.add(newTask);
-        printAddedTaskMessage(taskList, newTask);
+        CommonMessages.printAddedTaskMessage(taskList, newTask);
     }
 
     //Controls the logic for adding items to the list
     public static void add(ArrayList<Task> taskList, String item) throws KenergeticBotException {
-        printLine();
-        if (checkTextForTodo(item)) {
+        CommonMessages.printLine();
+        if (BooleanChecks.checkTextForTodo(item)) {
             try {
                 addTodo(taskList, item);
-            } catch (KenergeticBotException e) { //throws exception when the todo command is not followed with a description
+            } catch (KenergeticBotException e) { //throws exception when the todo command encounters a problem, the error message is tagged to the thrown exception
                 System.out.println(e.getMessage());
             }
-        } else if (checkTextForDeadline(item)) {
+        } else if (BooleanChecks.checkTextForDeadline(item)) {
             try {
                 addDeadline(taskList, item);
-            } catch (KenergeticBotException e) { //throws exception when the deadline command is not followed with a description
+            } catch (KenergeticBotException e) { //throws exception when the deadline command encounters a problem, the error message is tagged to the thrown exception
                 System.out.println(e.getMessage());
             }
-        } else if (checkTextForEvent(item)) {
+        } else if (BooleanChecks.checkTextForEvent(item)) {
             try {
                 addEvent(taskList, item);;
-            } catch (KenergeticBotException e) { //throws exception when the event command is not followed with a description
+            } catch (KenergeticBotException e) { //throws exception when the event command encounters a problem, the error message is tagged to the thrown exception
                 System.out.println(e.getMessage());
             }
         } else {
-            throw new KenergeticBotException(INVALID_COMMAND);
+            throw new KenergeticBotException(INVALID_COMMAND); //throws exception when input does not match any known command
         }
-        printLine();
+        CommonMessages.printLine();
     }
 }

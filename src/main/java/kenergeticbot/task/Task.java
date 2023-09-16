@@ -1,9 +1,8 @@
-package task;
+package kenergeticbot.task;
 public class Task {
     protected String description;
         protected boolean isDone;
         protected String taskType;
-        protected int taskIndex;
 
         public Task(String description, String taskType) {
             this.description = description;

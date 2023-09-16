@@ -1,6 +1,4 @@
-package task;
-
-import task.Task;
+package kenergeticbot.task;
 
 public class Deadline extends Task {
     protected String deadline;

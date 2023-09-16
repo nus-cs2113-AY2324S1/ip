@@ -1,4 +1,4 @@
-package exceptionhandler;
+package kenergeticbot.exceptionhandler;
 
 public class KenergeticBotException extends Exception {
   public static final String INVALID_COMMAND = "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";

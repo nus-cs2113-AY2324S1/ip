@@ -1,12 +1,14 @@
-package command;
+package kenergeticbot.command;
 
-import task.Task;
+import kenergeticbot.task.Task;
 
 import java.util.ArrayList;
 
-public class commonMessages {
+public class CommonMessages {
+
+    public static String SEPARATING_LINE = "    ____________________________________________________________";
     public static void printLine() {
-        System.out.println("    ____________________________________________________________");
+        System.out.println(SEPARATING_LINE);
     }
     public static void printGreetingMessage() {
         printLine();
@@ -23,7 +25,7 @@ public class commonMessages {
 
     public static void printAddedTaskMessage(ArrayList<Task> taskList, Task newTask) {
         System.out.println("     Got it. I've added this task:");
-        System.out.printf("       %s\n", newTask);
+        System.out.println("       " + newTask);
         System.out.printf("     Now you have %d tasks in the list.\n", taskList.size());
     }
 }

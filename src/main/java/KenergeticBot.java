@@ -1,12 +1,12 @@
-import task.Task;
-import exceptionhandler.KenergeticBotException;
+import kenergeticbot.task.Task;
+import kenergeticbot.exceptionhandler.KenergeticBotException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import static command.booleanChecks.*;
-import static command.commandList.*;
-import static command.commonMessages.*;
+import static kenergeticbot.command.BooleanChecks.*;
+import static kenergeticbot.command.CommandList.*;
+import static kenergeticbot.command.CommonMessages.*;
 
 public class KenergeticBot {
 
@@ -16,7 +16,7 @@ public class KenergeticBot {
         botDialogue(taskList);
     }
 
-    //Main logic for the bot's dialogue
+    //Main logic for the bot dialogue
     public static void botDialogue(ArrayList<Task> taskList) {
         Scanner input = new Scanner(System.in);
         String item = input.nextLine();
@@ -34,7 +34,7 @@ public class KenergeticBot {
             } else {
                 try {
                     add(taskList, item);
-                } catch (KenergeticBotException e) { //exception thrown when user inputs command outside of the usual commands
+                } catch (KenergeticBotException e) { //exception thrown when user inputs kenergeticbot.exceptionhandler.command outside the usual commands
                     System.out.println(e.getMessage()); 
                 }
             }

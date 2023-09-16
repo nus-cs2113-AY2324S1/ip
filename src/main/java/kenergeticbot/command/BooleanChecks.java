@@ -1,6 +1,6 @@
-package command;
+package kenergeticbot.command;
 
-public class booleanChecks {
+public class BooleanChecks {
     //Returns True if the text contains "mark", False if not
     public static boolean checkTextForMark(String item) {
         return item.length() > 4 && item.startsWith("mark");
