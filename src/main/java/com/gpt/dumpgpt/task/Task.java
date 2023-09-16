@@ -58,6 +58,11 @@ public class Task {
         tasks.add(task);
     }
 
+    public static boolean deleteTask(Task task) {
+        ArrayList<Task> tasks = getTasks();
+        return tasks.remove(task);
+    }
+
     public static Task getTask(int pos) {
         ArrayList<Task> tasks = getTasks();
         if (pos < 0 || pos >= tasks.size()) {

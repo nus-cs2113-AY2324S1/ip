@@ -9,12 +9,22 @@ import java.util.ArrayList;
 
 public class ListTask extends Action {
     private static final String ACTION_VERB = "list";
+
     public ListTask(Command command) {
         super(command, ACTION_VERB);
     }
 
     protected void execute() {
         ArrayList<Task> tasks = Task.getTasks();
+        if (tasks.isEmpty()) {
+            ProgramConstants.printWrapped("You have no tasks :D");
+            return;
+        }
+
+        printTasks(tasks);
+    }
+
+    private void printTasks(ArrayList<Task> tasks) {
         int idx = 1;
         ProgramConstants.printSeparator();
         for (Task task : tasks) {
