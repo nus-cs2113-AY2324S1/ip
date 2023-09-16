@@ -12,9 +12,9 @@ public class Duke {
     public static int SECOND_INDEX=1;
 
     /* Pretty prints a remark after adding any tasks */
-    public static void printRemark(Task task){
+    public static void printRemark(Task task, String remark){
         System.out.println(LINE_DIVIDER);
-        System.out.println("Got it. I've add this task:");
+        System.out.println(remark);
         System.out.println(task);
         System.out.println("Now you have " + TASKS.size() + " tasks in the list");
         System.out.println(LINE_DIVIDER);
@@ -27,7 +27,7 @@ public class Duke {
         String taskDescription = String.join(" ", arguments);
         ToDo newToDo = new ToDo(taskDescription);
         TASKS.add(newToDo);
-        printRemark(newToDo);
+        printRemark(newToDo, "Done, I've added this task: ");
     }
 
     public static void addDeadlineInList(String[] arguments) throws DukeException{
@@ -38,7 +38,7 @@ public class Duke {
             String deadlineEndTime = argumentsList[SECOND_INDEX];
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineEndTime);
             TASKS.add(newDeadline);
-            printRemark(newDeadline);
+            printRemark(newDeadline, "Done, I've added this task: ");
         } catch(ArrayIndexOutOfBoundsException e){
             throw new DukeException("Insufficient arguments provided, try this (deadline submission /by date)");
         }
@@ -55,7 +55,7 @@ public class Duke {
             String eventEndTime = argumentsList[SECOND_INDEX];
             Event newEvent = new Event(eventDescription, eventStartTime, eventEndTime);
             TASKS.add(newEvent);
-            printRemark(newEvent);
+            printRemark(newEvent, "Done, I've added this task: ");
         } catch(ArrayIndexOutOfBoundsException e){
             throw new DukeException("Insufficient arguments provided, try this (event tiktok hackathon /from date /to date)");
         }
@@ -73,6 +73,8 @@ public class Duke {
             System.out.println(LINE_DIVIDER);
         } catch(IndexOutOfBoundsException indexEx){
             throw new DukeException("Invalid index bro...");
+        } catch(NumberFormatException numEx){
+            throw new DukeException("That's not an index bro..");
         }
     }
 
@@ -88,6 +90,22 @@ public class Duke {
             System.out.println(LINE_DIVIDER);
         } catch(IndexOutOfBoundsException indexEx){
             throw new DukeException("Invalid index bro...");
+        } catch(NumberFormatException numEx){
+            throw new DukeException("That's not an index bro..");
+        }
+
+    }
+
+    public static void deleteTaskInList(String[] arguments) throws DukeException{
+        try {
+            int taskIndex = Integer.parseInt(arguments[FIRST_INDEX]);
+            Task taskToDelete = TASKS.get(taskIndex-1);
+            TASKS.remove(taskToDelete);
+            printRemark(taskToDelete, "Done, I've deleted this task: ");
+        } catch(IndexOutOfBoundsException indexEx){
+            throw new DukeException("Invalid index bro...");
+        } catch(NumberFormatException numEx){
+            throw new DukeException("That's not an index bro..");
         }
     }
 
@@ -125,6 +143,10 @@ public class Duke {
 
         case "unmark":
             unmarkTaskIncomplete(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
+            return;
+
+        case "delete":
+            deleteTaskInList(Arrays.copyOfRange(arguments, SECOND_INDEX, arguments.length));
             return;
 
         default: // unknown command exception
