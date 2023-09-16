@@ -4,9 +4,11 @@ import fredbot.task.Event;
 import fredbot.task.Task;
 import fredbot.task.Todo;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FredBot {
@@ -20,8 +22,6 @@ public class FredBot {
     public static final String DIVIDER = "    ____________________________________________________________\n";
     public static final int MAX_NUM_TASKS = 100;
     public static final String TASK_LIST_MESSAGE = "Here are the tasks in your list\n";
-    public static final String EVENT_FROM_PREFIX = " /from";
-    public static final String EVENT_TO_PREFIX = " /to";
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_ADD_TODO = "todo";
@@ -34,18 +34,59 @@ public class FredBot {
     public static final String MARK_ERROR_MESSAGE = "This task does not exist!";
     public static final String COMMAND_DELETE = "delete";
     public static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:\n";
+    public static final String TASK_FILE_PATH = "./data/tasks.txt";
+    public static final String WRITE_FILE_ERROR_MESSAGE = "Could not write to file. Exiting Application...";
+    public static final String FIND_FILE_ERROR_MESSAGE = "Could not find file to load. Exiting Application...";
 
-    public static void addTodo(ArrayList<Task> tasks, String task) throws FredBotTodoErrorException {
+    public static void loadTasksfromfile(ArrayList<Task> tasks) throws FileNotFoundException {
+        File f = new File(TASK_FILE_PATH);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String task = s.nextLine();
+            switch (task.charAt(1)) {
+            case 'T':
+                tasks.add(new Todo(task.substring(6).trim()));
+                tasks.get(Task.getNumTask()).setDone(task.charAt(4) == 'X');
+                Task.setNumTask(Task.getNumTask()+1);
+                break;
+            case 'D':
+                String[] argumentsDeadline = task.substring(6).split("by:");
+                tasks.add(new Deadline(argumentsDeadline[0].trim(),argumentsDeadline[1].trim()));
+                tasks.get(Task.getNumTask()).setDone(task.charAt(4) == 'X');
+                Task.setNumTask(Task.getNumTask()+1);
+                break;
+            case 'E':
+                String[] argumentsEvent = task.substring(6).split("to:|from:");
+                tasks.add(new Event(argumentsEvent[0].trim(),
+                        argumentsEvent[1].trim(), argumentsEvent[2].trim()));
+                tasks.get(Task.getNumTask()).setDone(task.charAt(4) == 'X');
+                Task.setNumTask(Task.getNumTask()+1);
+                break;
+            }
+        }
+    }
+    public static void addTaskstoFile(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(TASK_FILE_PATH);
+        StringBuilder tasksText = new StringBuilder();
+        for (int i = 0; i < Task.getNumTask(); i++) {
+            tasksText.append(tasks.get(i).toString()).append(System.lineSeparator());
+        }
+        fw.write(String.valueOf(tasksText));
+        fw.close();
+    }
+
+    public static void addTodo(ArrayList<Task> tasks, String task) throws FredBotTodoErrorException, IOException {
         if (task.isEmpty()) {
             throw new FredBotTodoErrorException();
         }
         int numTask = Task.getNumTask();
-        tasks.add(new Todo(task));
+        tasks.add(new Todo(task.trim()));
         printAddTask(INDENT + tasks.get(numTask).toString() + "\n");
         Task.setNumTask(numTask+1);
+        addTaskstoFile(tasks);
     }
 
-    public static void addDeadline(ArrayList<Task> tasks, String task) throws FredBotDeadlineErrorException {
+    public static void addDeadline(ArrayList<Task> tasks, String task) throws FredBotDeadlineErrorException, IOException {
         if (task.isEmpty()) {
             throw new FredBotDeadlineErrorException();
         }
@@ -54,12 +95,13 @@ public class FredBot {
         if (arguments.length != 2) {
             throw new FredBotDeadlineErrorException();
         }
-        tasks.add(new Deadline(arguments[0],arguments[1]));
+        tasks.add(new Deadline(arguments[0].trim(),arguments[1].trim()));
         printAddTask(INDENT + tasks.get(numTask).toString() + "\n");
         Task.setNumTask(numTask+1);
+        addTaskstoFile(tasks);
     }
 
-    public static void addEvent(ArrayList<Task> tasks, String task) throws FredBotEventErrorException {
+    public static void addEvent(ArrayList<Task> tasks, String task) throws FredBotEventErrorException, IOException {
         if (task.isEmpty()) {
             throw new FredBotEventErrorException();
         }
@@ -71,6 +113,7 @@ public class FredBot {
         tasks.add(new Event(arguments[0].trim(), arguments[1].trim(), arguments[2].trim()));
         printAddTask(INDENT + tasks.get(numTask).toString() + "\n");
         Task.setNumTask(numTask+1);
+        addTaskstoFile(tasks);
     }
 
     public static void deleteTask(ArrayList<Task> tasks, int index) throws FredBotDeleteErrorException{
@@ -80,7 +123,7 @@ public class FredBot {
         printRemoveTask(tasks.remove(index - 1).toString() + "\n");
     }
 
-    public static void changeStatus(ArrayList<Task> tasks, boolean mark, int index) throws FredBotMarkErrorException {
+    public static void changeStatus(ArrayList<Task> tasks, boolean mark, int index) throws FredBotMarkErrorException,IOException {
         if (index < 1 || index > Task.getNumTask()) {
             throw new FredBotMarkErrorException();
         }
@@ -94,6 +137,7 @@ public class FredBot {
             message += INDENT + "[ ] " + tasks.get(index - 1).getTaskDesc();
         }
         printMessage(message);
+        addTaskstoFile(tasks);
     }
     public static void printTasks(ArrayList<Task> tasks) {
         StringBuilder taskList = new StringBuilder();
@@ -125,6 +169,13 @@ public class FredBot {
         ArrayList<Task> tasks = new ArrayList<>();
 
         printMessage(GREETING);
+        try {
+            loadTasksfromfile(tasks);
+        } catch (FileNotFoundException e) {
+            printMessage(INDENT + FIND_FILE_ERROR_MESSAGE);
+            System.exit(0);
+        }
+
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -162,6 +213,9 @@ public class FredBot {
                 printMessage(INDENT + EVENT_ERROR_MESSAGE);
             } catch (FredBotMarkErrorException | FredBotDeleteErrorException e) {
                 printMessage(INDENT + MARK_ERROR_MESSAGE);
+            } catch (IOException e) {
+                printMessage(INDENT + WRITE_FILE_ERROR_MESSAGE);
+                System.exit(0);
             }
 
             line = in.nextLine();
