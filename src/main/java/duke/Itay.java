@@ -1,10 +1,11 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Itay {
 
-    static Task[] tasks = new Task[100];
+    static ArrayList<Task> tasks = new ArrayList<>(100);
     static int numTasks = 0;
     static String DIVIDER = "------------------------------------------------------------";
     
@@ -23,6 +24,9 @@ public class Itay {
             case("unmark"):
                 handleUnmark(splitInput);
                 break;
+            case("delete"):
+                handleDelete(splitInput);
+                break;
             case("todo"):
                 handleTodo(input, splitInput);
                 break;
@@ -38,26 +42,31 @@ public class Itay {
     }
 
     public static void printList() {
-        System.out.println("Here are the tasks in your list:");
+        if(numTasks == 0) {
+           System.out.println("Wohoo! You have no tasks in your list:"); 
+        }
+        else {
+            System.out.println("Here are the tasks in your list:");
             for(int i = 0; i < numTasks ; i++) {
-                System.out.println(tasks[i].toString());
+                System.out.println(tasks.get(i).toString());
             }
+        }
         System.out.println(DIVIDER);
     }
 
     public static void handleMark(String[] splitInput) throws DukeException {
         int taskIdx = getTaskIndex(splitInput);
-        tasks[taskIdx].setStatus(true);
+        tasks.get(taskIdx).setStatus(true);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[taskIdx].toString());
+        System.out.println(tasks.get(taskIdx).toString());
         System.out.println(DIVIDER);
     }
 
     public static void handleUnmark(String[] splitInput) throws DukeException {
         int taskIdx = getTaskIndex(splitInput);
-        tasks[taskIdx].setStatus(false);
+        tasks.get(taskIdx).setStatus(false);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks[taskIdx].toString());
+        System.out.println(tasks.get(taskIdx).toString());
         System.out.println(DIVIDER);
     }
 
@@ -76,14 +85,25 @@ public class Itay {
         return taskIdx;
     }
 
+    public static void handleDelete(String[] splitInput) throws DukeException {
+        int taskIdx = getTaskIndex(splitInput);
+        Task toDelete = tasks.get(taskIdx);
+        tasks.remove(taskIdx);
+        numTasks--;
+
+        System.out.println("Got it. I've removed this task:");
+        System.out.println(toDelete.toString());
+        System.out.println("Now you have " + numTasks + " tasks in the list.");
+        System.out.println(DIVIDER);
+    }
+
     public static void handleTodo(String input, String[] splitInput) throws DukeException {
         if(splitInput.length == 1) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         }
         String description = input.substring(input.indexOf(' ') + 1);
         Task task = new Task(description, 'T');
-        tasks[numTasks] = task;
-        PrintAddTask();
+        addTask(task);
     }
 
     public static void handleDeadline(String input) throws DukeException {
@@ -95,11 +115,9 @@ public class Itay {
 
             String temp = input.substring(firstSlashIdx + 1);
             String deadline = temp.substring(temp.indexOf(' '));
-            deadline.trim();
+            deadline = deadline.trim();
             task.setDeadlineTime(deadline);
-
-            tasks[numTasks] = task;
-            PrintAddTask();
+            addTask(task);
         } catch (StringIndexOutOfBoundsException | IllegalArgumentException inputEx) {
             throw new DukeException("OOPS!!! Description of deadline command must be of form: deadline ___ /by ___");
         }
@@ -119,21 +137,21 @@ public class Itay {
             String startTime = temp.substring(temp.indexOf(' ') + 1, secondSlashIdx - 1);
             temp = temp.substring(secondSlashIdx);
             String endTime = temp.substring(temp.indexOf(' '));
-            endTime.trim();
+            endTime = endTime.trim();
             
             task.setEventTime(startTime, endTime);
-
-            tasks[numTasks] = task;
-            PrintAddTask();
+            addTask(task);
         } catch (StringIndexOutOfBoundsException | IllegalArgumentException inputEx) {
             throw new DukeException("OOPS!!! Description of event command must be of form: event ___ /from ___ /to ___");
         } 
     }
     
-    public static void PrintAddTask() {
-        System.out.println("Got it. I've added this task:");   
-        System.out.println(tasks[numTasks].toString());   
+    public static void addTask(Task task) {
+        tasks.add(task);
         numTasks++;
+
+        System.out.println("Got it. I've added this task:");   
+        System.out.println(task.toString());   
         System.out.println("Now you have " + numTasks + " tasks in the list.");
         System.out.println(DIVIDER);   
     }
