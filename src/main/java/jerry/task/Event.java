@@ -35,4 +35,28 @@ public class Event extends Task {
             throw new InvalidTaskFormatException(FORMAT_EXCEPTION_MESSAGE);
         }
     }
+
+    @Override
+    public String serialize() {
+        return String.format("| E | %s | %s | %s | %s", this.getStatusInt(), this.getDescription(), this.from, this.to);
+    }
+
+    public static Event deserialize(String line) throws InvalidTaskFormatException {
+        Pattern pattern = Pattern.compile("^| E | ([01]) | (.+) | (.+) | (.+)$");
+        Matcher matcher = pattern.matcher(line);
+
+        if (matcher.matches() && matcher.groupCount() == 3) {
+            String statusInt = matcher.group(1);
+            String description = matcher.group(2);
+            String from = matcher.group(3);
+            String to = matcher.group(4);
+            Event event = new Event(description, from, to);
+            if (Integer.parseInt(statusInt) == 1) {
+                event.markAsDone();
+            }
+            return event;
+        } else {
+            throw new InvalidTaskFormatException(FORMAT_EXCEPTION_MESSAGE);
+        }
+    }
 }

@@ -2,8 +2,11 @@ package jerry.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
+import java.io.FileWriter;
 
 import jerry.task.Task;
+import jerry.Jerry;
 import jerry.exceptions.TaskNotFoundException;
 
 public class TaskList {
@@ -58,6 +61,15 @@ public class TaskList {
             stringBuilder.append(String.format("\t%d. %s\n",i + 1, tasks.get(i)));
         }
 
+        return stringBuilder.toString();
+    }
+
+
+    public String serialize() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Task task : this.tasks) {
+            stringBuilder.append(task.serialize() + "\n");
+        }
         return stringBuilder.toString();
     }
 }

@@ -8,10 +8,30 @@ import jerry.task.TaskList;
 import jerry.userInterface.UserInterface;
 import jerry.exceptions.InvalidTaskFormatException;
 import jerry.exceptions.TaskNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
 
 public class Jerry {
 
     private static final TaskList taskList = new TaskList();
+
+    public static final Path FILE_PATH = Paths.get("./data/jerry.txt");
+
+    private static void saveStateToDisk() {
+        try {
+            File file = FILE_PATH.toFile();
+            FileWriter myWriter = new FileWriter(FILE_PATH.toString());
+            file.getParentFile().mkdirs();
+            myWriter.write(taskList.serialize());
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 
     public static void markTaskAsDone(String argument) {
         try {
@@ -95,34 +115,35 @@ public class Jerry {
     }
 
     private static void executeCommand(String userInputString) {
-            final String[] commandTypeAndParams = splitCommandWordAndArgs(userInputString);
-            final String commandType = commandTypeAndParams[0];
-            final String commandArgs = commandTypeAndParams[1];
-            switch (commandType) {
+        final String[] commandTypeAndParams = splitCommandWordAndArgs(userInputString);
+        final String commandType = commandTypeAndParams[0];
+        final String commandArgs = commandTypeAndParams[1];
+        switch (commandType) {
             case "list":
-                execListAllTasks();
-                break;
+            execListAllTasks();
+            break;
             case "mark":
-                execMarkTask(commandArgs);
-                break;
+            execMarkTask(commandArgs);
+            break;
             case "unmark":
-                execUnmarkTask(commandArgs);
-                break;
+            execUnmarkTask(commandArgs);
+            break;
             case "todo":
-                execAddTodo(commandArgs);
-                break;
+            execAddTodo(commandArgs);
+            break;
             case "deadline":
-                execAddDeadline(commandArgs);
-                break;
+            execAddDeadline(commandArgs);
+            break;
             case "event":
-                execAddEvent(commandArgs);
-                break;
+            execAddEvent(commandArgs);
+            break;
             case "bye":
-                execExitProgram();
+            execExitProgram();
             default:
-                execUnknownCommand();
-                break;
-            }
+            execUnknownCommand();
+            break;
+        }
+        saveStateToDisk();
     }
 
     public static void main(String[] args) {

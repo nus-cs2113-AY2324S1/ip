@@ -16,6 +16,10 @@ public abstract class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getStatusInt() {
+        return (isDone ? "1" : "0");
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -27,6 +31,8 @@ public abstract class Task {
     public String getDescription() {
         return this.description;
     }
+
+    public abstract String serialize();
 
     @Override
     public abstract String toString();
