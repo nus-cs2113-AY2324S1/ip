@@ -1,8 +1,8 @@
 package doli.tasks;
 
 /** Parent class defining a task with description, process and agenda overview */
-public class Task {
-    private String description;
+public abstract class Task {
+    private final String description;
     private boolean isDone;
     private static int numberOfTotalTasks = 0;
     public Task(String description) {
