@@ -41,12 +41,12 @@ public class Duke {
         }
     }
 
-    public static int getMarkIdx(String line) {
+    public static int getItemIdx(String line) {
         return Integer.parseInt(line.split(" ")[1]) - 1;
     }
 
     public static void markItem(String line) {
-        int markIdx = getMarkIdx(line);
+        int markIdx = getItemIdx(line);
         taskItems.get(markIdx).setIsDone(true);
 
         println("Nice! I've marked this task as done: ");
@@ -54,7 +54,7 @@ public class Duke {
     }
 
     public static void unmarkItem(String line) {
-        int markIdx = getMarkIdx(line);
+        int markIdx = getItemIdx(line);
         taskItems.get(markIdx).setIsDone(false);
 
         println("Nice! I've marked this task as undone: ");
@@ -120,6 +120,15 @@ public class Duke {
         println(taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size()));
     }
 
+    public static void handleDeleteTask(String line) {
+        int deleteIdx = getItemIdx(line);
+
+        String deleteMessage = taskItems.get(deleteIdx).getTaskDeleted(taskItems.size()-1);
+        taskItems.remove(deleteIdx);
+
+        println(deleteMessage);
+    }
+
     public static void main(String[] args) {
         String line;
         Scanner in = new Scanner(System.in);
@@ -150,6 +159,8 @@ public class Duke {
                 }
             } else if (line.startsWith("event")) {
                 handleCreateEvent(line);
+            } else if (line.startsWith("delete")) {
+                handleDeleteTask(line);
             } else {
                 println("I don't know that command");
             }
