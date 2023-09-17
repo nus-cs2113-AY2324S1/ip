@@ -1,4 +1,4 @@
-package Duchess;
+package Duchess.TaskObjects;
 
 public class Task {
     
