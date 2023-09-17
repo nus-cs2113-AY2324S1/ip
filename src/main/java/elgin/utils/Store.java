@@ -17,8 +17,8 @@ public class Store {
 
     private static final String DONE_VALUE = "1";
     private static final String NEW_LINE = System.getProperty("line.separator");
-    private static final String TASK_FILE_DIRECTORY_PATH = Path.of("src/main/java/elgin/data").toAbsolutePath().toString();
-    private static final String TASK_FILE_PATH = Path.of("src/main/java/elgin/data/tasks.txt").toAbsolutePath().toString();
+    private static final String TASK_FILE_DIRECTORY_PATH = Path.of("data").toAbsolutePath().toString();
+    private static final String TASK_FILE_PATH = Path.of("data/tasks.txt").toAbsolutePath().toString();
 
     private static final String SEPARATOR = " | ";
 
