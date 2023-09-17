@@ -8,6 +8,10 @@ import doli.tasks.ToDo;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Doli {
     private static final String LOGO = " ____       _\n" +
             "|  _  \\    | | [_]\n" +
@@ -43,8 +47,10 @@ public class Doli {
     private static int numberOfItems;
     private static final int MAX_NUMBER_OF_TASKS = 100;
     private static Task[] tasks;
+    private static File file;
+    private static String filePath;
 
-    public static void main(String[] args) throws DoliExceptions {
+    public static void main(String[] args) throws DoliExceptions, IOException {
 
         initializeAgenda();
         welcomeUser();
@@ -55,11 +61,22 @@ public class Doli {
         }
     }
 
-    public static void initializeAgenda() {
+    public static void initializeAgenda() throws IOException, DoliExceptions {
         tasks = new Task[MAX_NUMBER_OF_TASKS];
-        numberOfItems = 0;
-    }
 
+        File file = new File("agenda.txt");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        filePath = file.getAbsolutePath();
+        initializeContent(file);
+    }
+    public static void initializeContent(File file) throws IOException, DoliExceptions {
+        Scanner fileScanner = new Scanner(file);
+        while (fileScanner.hasNext()) {
+            handleCommand(fileScanner.nextLine()); // not correct implementation; I'll first merge the branches
+        }
+    }
     public static void welcomeUser() {
         printOutput(buildWelcomeMessage());
     }
@@ -81,6 +98,11 @@ public class Doli {
         } else {
             return commandAndArgs = new String[]{commandAndArgs[0], ""};
         }
+    }
+    private static void writeToFile(String filePath, String text) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
+        fileWriter.write(text);
+        fileWriter.close();
     }
     private static boolean verifyValidEvent(String[] args) {
         return args.length == 3;
@@ -222,8 +244,13 @@ public class Doli {
         }
     }
 
-    private static void printList(String list) {
+    private static void printList(String list) throws IOException {
         printOutput(AGENDA_OVERVIEW, list);
+        try {
+            writeToFile(filePath, list);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void printMark(String marked) {
@@ -242,7 +269,7 @@ public class Doli {
         }
     }
 
-    public static void handleCommand(String input) throws DoliExceptions {
+    public static void handleCommand(String input) throws DoliExceptions, IOException {
         final String command = extractCommandInfo(input)[0];
         final String args = extractCommandInfo(input)[1];
         switch (command) {
