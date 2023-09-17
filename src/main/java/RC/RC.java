@@ -12,13 +12,11 @@ public class RC {
 
     public RC(String filePath) {
         this.storage = new Storage(filePath);
-        tasks = new TaskList();
         try {
-            storage.load(tasks);
-        } catch (IOException e) {
-            System.out.println("\tFile not found.\n\tCreating new file...");
+            tasks = new TaskList(storage.load());
         } catch (RCException e) {
             System.out.println(e.getMessage());
+            tasks = new TaskList();
         }
     }
 
@@ -31,7 +29,8 @@ public class RC {
         while (!isExit) {
             input = in.nextLine().trim();
             try {
-                RCCommand.handleCommand(input, tasks);
+                RCCommand command = RCCommand.getCommand(input, tasks);
+                command.execute();
                 isExit = RCCommand.isExit();
                 storage.save(tasks);
             } catch (RCException e) {

@@ -48,7 +48,7 @@ public abstract class RCCommand {
         }
 
         tasks.add(new Event(description, from, to));
-        tasks.getTask(tasks.getSize() - 1).printAddedTask();
+        //tasks.getTask(tasks.getSize() - 1).printAddedTask();
     }
 
     private static void addDeadline(String input, TaskList tasks) throws RCException {
@@ -66,7 +66,7 @@ public abstract class RCCommand {
         }
 
         tasks.add(new Deadline(description, by));
-        tasks.getTask(tasks.getSize() - 1).printAddedTask();
+        //tasks.getTask(tasks.getSize() - 1).printAddedTask();
     }
 
     private static void unmarkTask(String input, TaskList tasks) throws RCException {
@@ -136,15 +136,15 @@ public abstract class RCCommand {
         RCCommand.isExit = isExit;
     }
 
-    public static void handleCommand(String input, TaskList tasks) throws RCException {
+    public static RCCommand getCommand(String input, TaskList tasks) throws RCException {
         String[] split = input.split(" ", 2);
         String command = split[0].toLowerCase();
         String restOfInput = split.length > 1 ? split[1] : "";
 
         switch (command) {
         case TODO_COMMAND:
-            addTodo(restOfInput, tasks);
-            break;
+            //addTodo(restOfInput, tasks);
+            return new TodoCommand(restOfInput, tasks);
         case DEADLINE_COMMAND:
             addDeadline(restOfInput, tasks);
             break;
@@ -169,6 +169,7 @@ public abstract class RCCommand {
         default:
             System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        return null;
     }
 
     public abstract void execute() throws RCException;
