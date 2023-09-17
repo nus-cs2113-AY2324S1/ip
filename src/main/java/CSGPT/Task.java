@@ -1,6 +1,6 @@
 package CSGPT;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
