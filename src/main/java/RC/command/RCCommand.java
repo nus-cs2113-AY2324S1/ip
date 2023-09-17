@@ -1,5 +1,6 @@
-package RC;
+package RC.command;
 
+import RC.RCException;
 import RC.task.Deadline;
 import RC.task.Event;
 import RC.task.Task;
@@ -130,19 +131,6 @@ public abstract class RCCommand {
         }
     }
 
-    public static void writeToFile(String filePath, ArrayList<Task> tasks) throws RCException {
-        try {
-            FileWriter fr = new FileWriter(filePath);
-            for (Task task : tasks) {
-                String text = task.formatString() + "\n";
-                fr.write(text);
-            }
-            fr.close();
-        } catch (IOException e) {
-            String errorMessage = "\tOOPS!!! Error writing to file.";
-            throw new RCException(errorMessage);
-        }
-    }
     public static boolean isExit() {
         return isExit;
     }
@@ -185,4 +173,6 @@ public abstract class RCCommand {
             System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
+
+    public abstract void execute() throws RCException;
 }
