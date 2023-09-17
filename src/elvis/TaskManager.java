@@ -51,12 +51,12 @@ public class TaskManager {
             System.out.println("☹ OOPS!!! The description cannot be empty.");
         } catch (EmptyListException exception) {
             System.out.println("☹ OOPS!!! Nothing to list.");
-        } catch (EmptyToDoException exception) {
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
         } catch (EmptyMarkException exception) {
             System.out.println("☹ OOPS!!! The description of a mark cannot be empty.");
         } catch (EmptyUnmarkException exception) {
             System.out.println("☹ OOPS!!! The description of an unmark cannot be empty.");
+        } catch (EmptyToDoException exception) {
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
         } catch (EmptyDeadlineException exception) {
             System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
         } catch (EmptyEventException exception) {
@@ -84,12 +84,12 @@ public class TaskManager {
         }
         if (firstWord.equals("list") && listCount == 0) {
             throw new EmptyListException();
-        } else if (firstWord.equals("todo") && !bufferScanner.hasNext()) {
-            throw new EmptyToDoException();
         } else if (firstWord.equals("mark") && !bufferScanner.hasNext()) {
             throw new EmptyMarkException();
         } else if (firstWord.equals("unmark") && !bufferScanner.hasNext()) {
             throw new EmptyUnmarkException();
+        } else if (firstWord.equals("todo") && !bufferScanner.hasNext()) {
+            throw new EmptyToDoException();
         } else if (firstWord.equals("deadline") && !bufferScanner.hasNext()) {
             throw new EmptyDeadlineException();
         } else if (firstWord.equals("event") && !bufferScanner.hasNext()) {
@@ -109,12 +109,12 @@ public class TaskManager {
         //Functionalities
         if (inputBuffer.equals("list")) {
             listOut();
-        } else if (firstWord.equals("todo")) {
-            insertToDo(inputBuffer);
         } else if (firstWord.equals("mark") && hasInteger && !bufferScanner.hasNext()) {
             markTask(numberInput);
         } else if (firstWord.equals("unmark") && hasInteger && !bufferScanner.hasNext()) {
             unmarkTask(numberInput);
+        } else if (firstWord.equals("todo")) {
+            insertToDo(inputBuffer);
         } else if (firstWord.equals("deadline")) {
             insertDeadline(inputBuffer);
         } else if (firstWord.equals("event")) {
