@@ -45,8 +45,12 @@ public class Duke {
             case "unmark":
                 taskList.unmark(inputWords);
                 break;
+            case "delete":
+                taskList.deleteTask(inputWords);
+                break;
             default:
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("☹ OOPS!!! I'm sorry, " +
+                        "but I don't know what that means :-(");
                 break;
             }
         }

@@ -40,7 +40,17 @@ public class DukeUi {
         printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + task.toString());
-        System.out.println("Now you have " + taskList.getTasks().size() + " tasks in the list.");
+        System.out.println("Now you have "
+                + taskList.getTasks().size() + " tasks in the list.");
+        printLine();
+    }
+
+    public void printRemovedTask(Task task, TaskList taskList) {
+        printLine();
+        System.out.println("Got it. I've removed this task:");
+        System.out.println(" " + task.toString());
+        System.out.println("Now you have "
+                + taskList.getTasks().size() + " tasks in the list.");
         printLine();
     }
 
@@ -72,19 +82,22 @@ public class DukeUi {
 
     public void printToDoTaskException() {
         printLine();
-        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+        System.out.println("☹ OOPS!!! " +
+                "The description of a todo cannot be empty.");
         printLine();
     }
 
     public void printDeadlineException() {
         printLine();
-        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+        System.out.println("☹ OOPS!!! " +
+                "The description of a deadline cannot be empty.");
         printLine();
     }
 
     public void printEventException() {
         printLine();
-        System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+        System.out.println("☹ OOPS!!! " +
+                "The description of a event cannot be empty.");
         printLine();
     }
 }

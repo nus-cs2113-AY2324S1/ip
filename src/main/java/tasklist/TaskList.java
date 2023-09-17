@@ -24,6 +24,10 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public void removeTask(Task task) {
+        tasks.remove(task);
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }
@@ -92,7 +96,8 @@ public class TaskList {
      * @param inputWords The description of event task
      */
     public void addEvent(String input, String[] inputWords) {
-        if (inputWords.length > 3 && input.contains("/from") && input.contains("/to")) {
+        if (inputWords.length > 3 && input.contains("/from")
+                && input.contains("/to")) {
             int fromIndex = input.indexOf("/from");
             int toIndex = input.indexOf("/to");
             String eventDescription = input.substring(6, fromIndex).trim();
@@ -139,6 +144,26 @@ public class TaskList {
             System.out.println("Invalid input. Please use 'unmark + number'.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please specify the task number");
+        }
+    }
+
+    /**
+     *
+     * Method to delete a task.
+     *
+     * @param inputWords String input by user
+     */
+    public void deleteTask(String[] inputWords) {
+        int taskIndex = Integer.parseInt(inputWords[1]);
+        try {
+            if (isValidIndex(taskIndex)) {
+                Task removedTask = tasks.remove(taskIndex - 1);
+                ui.printRemovedTask(removedTask, this);
+            } else {
+                System.out.println("Invalid task index.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please use 'delete <number>'.");
         }
     }
 }
