@@ -7,38 +7,45 @@ import chattie.tasks.Event;
 import chattie.tasks.Task;
 import chattie.tasks.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chattie {
 
-    private static void startChat(int count, Task[] list) {
+    private static void printLine() {
+        System.out.println("\t____________________________________________________________");
+    }
+
+    private static void startChat() {
+        int count = 0;
+        ArrayList<Task> list = new ArrayList<>();
         String line;
         Scanner in = new Scanner(System.in);
 
-        System.out.println("\t____________________________________________________________");
+        printLine();
         System.out.println("\tHello! I'm Chattie! How was your day?");
-        System.out.println("\t____________________________________________________________");
+        printLine();
 
         line = in.nextLine();
         greetUser(line);
 
         line = in.nextLine();
         while(!line.equals("bye")) {
-            System.out.println("\t____________________________________________________________");
+            printLine();
             count = readCommands(line, list, count);
-            System.out.println("\t____________________________________________________________");
+            printLine();
             line = in.nextLine();
         }
 
-        System.out.println("\t____________________________________________________________");
+        printLine();
         System.out.println("\tByeeeee. Hope to see you again soon! :)");
-        System.out.println("\t____________________________________________________________");
+        printLine();
     }
 
     public static void greetUser(String line) {
         line = line.toLowerCase();
 
-        System.out.println("\t____________________________________________________________");
+        printLine();
         if(line.contains("good")) {
             System.out.println("\tGreat to hear that! :D");
         } else if (line.contains("bad")) {
@@ -47,10 +54,10 @@ public class Chattie {
             System.out.println("\tSounds like you had quite a day");
         }
         System.out.println("\tWhat can I do for you?");
-        System.out.println("\t____________________________________________________________");
+        printLine();
     }
 
-    private static int readCommands(String line, Task[] list, int count) {
+    private static int readCommands(String line, ArrayList<Task> list, int count) {
         try {
             if(line.equals("list")) {
                 listTasks(list, count);
@@ -70,32 +77,32 @@ public class Chattie {
         return count;
     }
 
-    public static void listTasks(Task[] list, int count) {
+    public static void listTasks(ArrayList<Task> list, int count) {
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < count; i++) {
             System.out.print("\t" + (i+1) + ". ");
-            if(list[i].isDone()) {
-                System.out.println(list[i]);
+            if(list.get(i).isDone()) {
+                System.out.println(list.get(i));
             } else {
-                System.out.println(list[i]);
+                System.out.println(list.get(i));
             }
         }
     }
 
-    public static int addTodo(Task[] list, String line, int count) throws ChattieException{
+    public static int addTodo(ArrayList<Task> list, String line, int count) throws ChattieException{
         if (line.trim().length() < 5) {
             throw new ChattieException(ErrorType.TODO);
         }
         String todo = line.substring(5);
-        list[count] = new Todo(todo);
+        list.add(new Todo(todo));
         System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + list[count]);
+        System.out.println("\t  " + list.get(count));
         count++;
         System.out.println("\tNow you have " + count + " tasks in the list.");
         return count;
     }
 
-    public static int addDeadline(Task[] list, String line, int count) throws ChattieException {
+    public static int addDeadline(ArrayList<Task> list, String line, int count) throws ChattieException {
         if (line.trim().length() < 9) { //check if deadline is empty
             throw new ChattieException(ErrorType.EMPTY_DEADLINE);
         }
@@ -111,15 +118,15 @@ public class Chattie {
             throw new ChattieException(ErrorType.INVALID_DEADLINE); //check if [task] or [by] empty
         }
 
-        list[count] = new Deadline(task, by);
+        list.add(new Deadline(task, by));
         System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + list[count]);
+        System.out.println("\t  " + list.get(count));
         count++;
         System.out.println("\tNow you have " + count + " tasks in the list.");
         return count;
     }
 
-    public static int addEvent(Task[] list, String line, int count) throws ChattieException{
+    public static int addEvent(ArrayList<Task> list, String line, int count) throws ChattieException{
         if (line.trim().length() < 6) {
             throw new ChattieException(ErrorType.EMPTY_EVENT); //check if event is empty
         }
@@ -137,30 +144,28 @@ public class Chattie {
             throw new ChattieException(ErrorType.INVALID_EVENT); //check if [task], [from], or [to] is empty
         }
 
-        list[count] = new Event(task, from, to);
+        list.add(new Event(task, from, to));
         System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + list[count]);
+        System.out.println("\t  " + list.get(count));
         count++;
         System.out.println("\tNow you have " + count + " tasks in the list.");
         return count;
     }
 
-    public static void markTask(Task[] list, String[] command) {
+    public static void markTask(ArrayList<Task> list, String[] command) {
         int taskNum = Integer.parseInt(command[1]) - 1;
         if(command[0].equalsIgnoreCase("mark")) {
-            list[taskNum].setDone(true);
+            list.get(taskNum).setDone(true);
             System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t" + list[taskNum]);
+            System.out.println("\t" + list.get(taskNum));
         } else {
-            list[taskNum].setDone(false);
+            list.get(taskNum).setDone(false);
             System.out.println("\tOK, I've marked this task as not done yet:");
-            System.out.println("\t" + list[taskNum]);
+            System.out.println("\t" + list.get(taskNum));
         }
     }
     
     public static void main(String[] args) {
-        int count = 0;
-        Task[] list = new Task[100];
-        startChat(count, list);
+        startChat();
     }
 }
