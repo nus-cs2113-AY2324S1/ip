@@ -4,6 +4,8 @@ import elgin.exception.DukeException;
 
 import java.util.HashMap;
 
+import static elgin.utils.ExceptionMessage.*;
+
 
 public class Parser {
 
@@ -22,7 +24,7 @@ public class Parser {
         case "deadline":
             splitArg = arguments.split(" /by ");
             if (splitArg.length < 2) {
-                throw new DukeException("Usage: deadline <task> /by <deadline>");
+                throw new DukeException(getDeadlineUsageMsg());
             }
             parsedArgs.put("description", splitArg[0]);
             parsedArgs.put("by", splitArg[1]);
@@ -30,31 +32,41 @@ public class Parser {
         case "event":
             splitArg = arguments.split(" /from ");
             if (splitArg.length < 2) {
-                throw new DukeException("Usage: event <task> /from <time> /to <time>");
+                throw new DukeException(getEventUsageMsg());
             }
             parsedArgs.put("description", splitArg[0]);
             String[] fromTo = splitArg[1].split(" /to ");
             if (fromTo.length < 2) {
-                throw new DukeException("Usage: event <task> /from <time> /to <time>");
+                throw new DukeException(getEventUsageMsg());
             }
             parsedArgs.put("from", fromTo[0]);
             parsedArgs.put("to", fromTo[1]);
             break;
+        default:
+            throw new DukeException(getUnknownCmdErrorMsg());
         }
         return parsedArgs;
     }
 
     public static int parseTaskIndex(String arguments) throws DukeException {
-        if (arguments.isEmpty()) {
-            throw new DukeException("Please enter a task number.");
+        if (!isArguments(arguments, getEmptyDescErrorMsg(getEmptyTaskIdxErrorMsg()))) {
+            return INVALID_INDEX;
         }
+
         int idx = INVALID_INDEX;
         try {
             idx = Integer.parseInt(arguments);
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a task number.");
+            throw new DukeException(getEmptyTaskIdxErrorMsg());
         }
         return idx;
+    }
+
+    public static boolean isArguments(String arguments, String message) throws DukeException {
+        if (arguments.isEmpty()) {
+            throw new DukeException(message);
+        }
+        return true;
     }
 
 }
