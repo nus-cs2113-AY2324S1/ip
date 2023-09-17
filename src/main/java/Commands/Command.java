@@ -19,7 +19,13 @@ public abstract class Command {
     private static final String FAREWELL_COMMAND = "bye";
 
     public static Command getCommand(String input) throws CSGPTParsingException {
-        switch (input.contains(" ") ? input.split(" ")[0] : input) {
+        String initialInput;
+        if (input.contains(" ")) {
+            initialInput = input.split(" ")[0];
+        } else {
+            initialInput = input;
+        }
+        switch (initialInput) {
         case ADD_TODO_COMMAND:
             Task todo = getTodo(input);
             return new Add(todo);
