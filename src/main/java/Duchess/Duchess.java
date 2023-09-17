@@ -1,7 +1,7 @@
 package Duchess;
 import java.util.Scanner;
 
-/** Main class to run for increment 1. 
+/** Main class to run. 
  * Follows - A-CodingStandard
 */
 public class Duchess {
