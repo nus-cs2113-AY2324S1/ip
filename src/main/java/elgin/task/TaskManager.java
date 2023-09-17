@@ -2,27 +2,30 @@ package elgin.task;
 
 import elgin.exception.DukeException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static elgin.utils.FormatPrinter.formatPrint;
 import static elgin.utils.Parser.parseArguments;
 import static elgin.utils.Parser.parseTaskIndex;
+import static elgin.utils.Store.getSavedTasks;
+import static elgin.utils.Store.saveTasks;
 
 public class TaskManager {
-    private Task[] tasks;
+    private ArrayList<Task> tasks;
     private int totalTasks;
 
     public TaskManager() {
-        this.tasks = new Task[100];
+        this.tasks = getSavedTasks();
         totalTasks = 0;
     }
 
     public void listTasks() {
-        String[] allTasksDescription = new String[totalTasks + 1];
+        String[] allTasksDescription = new String[tasks.size() + 1];
         allTasksDescription[0] = "Here are the tasks in your list:";
 
-        for (int i = 0; i < totalTasks; i++) {
-            allTasksDescription[i + 1] = (i + 1) + "." + tasks[i];
+        for (int i = 0; i < tasks.size(); i++) {
+            allTasksDescription[i + 1] = (i + 1) + "." + tasks.get(i);
         }
         formatPrint(allTasksDescription);
     }
@@ -64,13 +67,13 @@ public class TaskManager {
         if (idx < 0 || idx > totalTasks - 1) {
             throw new DukeException("Please enter a valid task number.");
         }
-        tasks[idx].setIsDone(isDone);
+        tasks.get(idx).setIsDone(isDone);
         String doneMsg = isDone
                 ? "Nice! I've marked this task as done:"
                 : "OK, I've marked this task as not done yet:";
         String[] messages = new String[]{
                 doneMsg,
-                "\t" + tasks[idx]
+                "\t" + tasks.get(idx)
         };
         formatPrint(messages);
     }
@@ -81,7 +84,7 @@ public class TaskManager {
     }
 
     public void incrementAndPrintNewTask(Task t) {
-        tasks[totalTasks] = t;
+        tasks.set(totalTasks, t);
         totalTasks++;
         String[] messages = new String[]{
                 "Got it. I've added this task:",
@@ -90,5 +93,10 @@ public class TaskManager {
         };
         formatPrint(messages);
     }
+
+    public void saveToFile() {
+        saveTasks(tasks);
+    }
+
 
 }

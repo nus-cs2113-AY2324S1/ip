@@ -5,6 +5,7 @@ import elgin.task.TaskManager;
 
 import static elgin.utils.FormatPrinter.sayBye;
 import static elgin.utils.Parser.parseCommand;
+import static elgin.utils.Store.saveTasks;
 
 public class CommandHandler {
     public static boolean handleCommand(TaskManager tasks, String command) throws DukeException {
@@ -17,6 +18,7 @@ public class CommandHandler {
         switch (userCommand) {
         case "bye":
             sayBye();
+            tasks.saveToFile();
             return false;
         case "list":
             tasks.listTasks();
