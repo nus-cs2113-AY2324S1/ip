@@ -21,6 +21,15 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public Task removeTask(int index) throws TaskNotFoundException {
+        if (index < 1 || index >= tasks.size()) {
+            throw new TaskNotFoundException(this.getTaskNotFoundMessage(index));
+        }
+        Task task = this.getTaskByIndex(index);
+        this.tasks.remove(index - 1);
+        return task;
+    }
+
     public int size() {
         return this.tasks.size();
     }

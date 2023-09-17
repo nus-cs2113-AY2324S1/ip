@@ -72,6 +72,11 @@ public class UserInterface {
         printHorizontalLine();
     }
 
+    public static void showDeteteTaskConfirmation(Task task, TaskList taskList) {
+        System.out.printf("\tNoted. I've removed this task:\n\t\t %s\n\tNow you have %d tasks in the list.\n", task, taskList.size());
+        printHorizontalLine();
+    }
+
     public static void showExceptionMessage(Exception e) {
         printMessage(e.getMessage());
         printHorizontalLine();
