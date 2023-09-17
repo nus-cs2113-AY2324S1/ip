@@ -8,37 +8,30 @@ public class Itay {
     static int numTasks = 0;
     static String DIVIDER = "------------------------------------------------------------";
     
-    public static void Respond(String input) throws DukeException {
+    public static void respond(String input) throws DukeException {
         System.out.println(DIVIDER);
         String splitInput[] = input.split(" ");
         String indicator = splitInput[0];
 
         switch(indicator) {
-
             case("list"):
                 printList();
                 break;
-
             case("mark"):
                 handleMark(splitInput);
                 break;
-
             case("unmark"):
                 handleUnmark(splitInput);
                 break;
-
             case("todo"):
                 handleTodo(input, splitInput);
                 break;
-            
             case("deadline"):
                 handleDeadline(input);
                 break;
-            
             case("event"):
                 handleEvent(input);
                 break;
-            
             default:
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -53,17 +46,7 @@ public class Itay {
     }
 
     public static void handleMark(String[] splitInput) throws DukeException {
-        int taskIdx;
-        try {
-            taskIdx = Integer.parseInt(splitInput[1]) - 1;
-        } catch (ArrayIndexOutOfBoundsException | NumberFormatException inputEx) {
-            throw new DukeException("OOPS!!! Please enter a valid task number.");
-        }
-
-        if(taskIdx < 0 || taskIdx >= numTasks) {
-            throw new DukeException("OOPS!!! Please enter a valid task number.");
-        }
-
+        int taskIdx = getTaskIndex(splitInput);
         tasks[taskIdx].setStatus(true);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(tasks[taskIdx].toString());
@@ -71,21 +54,26 @@ public class Itay {
     }
 
     public static void handleUnmark(String[] splitInput) throws DukeException {
-        int taskIdx;
-        try {
-            taskIdx = Integer.parseInt(splitInput[1]) - 1;
-        } catch (ArrayIndexOutOfBoundsException | NumberFormatException inputEx) {
-            throw new DukeException("OOPS!!! Please enter a valid task number.");
-        }
-
-        if(taskIdx < 0 || taskIdx >= numTasks) {
-            throw new DukeException("OOPS!!! Please enter a valid task number.");
-        }
-
+        int taskIdx = getTaskIndex(splitInput);
         tasks[taskIdx].setStatus(false);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(tasks[taskIdx].toString());
         System.out.println(DIVIDER);
+    }
+
+    public static int getTaskIndex(String[] splitInput) throws DukeException {
+        int taskIdx;
+        String errorMessage = "OOPS!!! Please enter a valid task number.";
+
+        try {
+            taskIdx = Integer.parseInt(splitInput[1]) - 1;
+            if (taskIdx < 0 || taskIdx >= numTasks) {
+                throw new DukeException(errorMessage);
+            }
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException inputEx) {
+            throw new DukeException(errorMessage);
+        }
+        return taskIdx;
     }
 
     public static void handleTodo(String input, String[] splitInput) throws DukeException {
@@ -117,7 +105,7 @@ public class Itay {
         }
     }
 
-    public static void handleEvent(String input) throws DukeException{
+    public static void handleEvent(String input) throws DukeException {
         try {
             int firstSlashIdx = input.indexOf('/');
             int secondSlashIdx = input.indexOf('/', firstSlashIdx + 1);
@@ -161,7 +149,7 @@ public class Itay {
 
             while(! input.equals("bye")) {
                 try {
-                    Respond(input);
+                    respond(input);
                 } catch(DukeException dukeEx) {
                     System.out.println(dukeEx.toString());
                 }
