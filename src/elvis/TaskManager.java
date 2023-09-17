@@ -24,7 +24,6 @@ public class TaskManager {
     public static void inputTask() {
         SystemOperation.bootUp();
         while (true) {
-            //System.out.println("Size of tasks is: " + tasks.size());
             String inputBuffer = in.nextLine().trim(); //Scans I/O and all input stored in inputBuffer
 
             if (inputBuffer.contains("bye")) {  //Program exit
@@ -39,7 +38,7 @@ public class TaskManager {
                 errorHandler(inputBuffer);      //Checks for any errors and handles them
                 SystemOperation.printHorizontalLines();
             }
-            AutoSave.saver();
+            FileManager.saver(tasks);
         }
         SystemOperation.shutDown();
     }

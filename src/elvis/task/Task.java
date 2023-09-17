@@ -3,7 +3,7 @@ package elvis.task;
 import java.util.Scanner;
 
 //Task Class that stores the description and isDone of task
-public class Task {
+public abstract class Task {
 
     protected String description;
     protected boolean isDone;
@@ -12,6 +12,19 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public String toFileString() {
+        int status = isDone ? 1 : 0;
+        if (this instanceof ToDo) {
+            return String.format("%c|%d|%s", this.getTaskType(), status, description);
+        } else if (this instanceof Deadline) {
+            return String.format("%c|%d|%s/by%s", this.getTaskType(), status, description, getDate());
+        } else if (this instanceof Event) {
+            return String.format("%c|%d|%s/from%s/to%s", this.getTaskType(), status, description,
+                    getStartTime(), getEndTime());
+        }
+        return "ERROR";
     }
 
     //Getting the To-Do attribute of the task instance
