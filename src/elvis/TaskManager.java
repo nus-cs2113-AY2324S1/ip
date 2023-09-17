@@ -24,7 +24,7 @@ public class TaskManager {
     public static void inputTask() {
         SystemOperation.bootUp();
         while (true) {
-            System.out.println("Size of tasks is: " + tasks.size());
+            //System.out.println("Size of tasks is: " + tasks.size());
             String inputBuffer = in.nextLine().trim(); //Scans I/O and all input stored in inputBuffer
             SystemOperation.printHorizontalLines();
 
@@ -148,11 +148,11 @@ public class TaskManager {
             System.out.println("No such Task!");
             return;
         }
-        tasks.remove(nthTask);
+
         SystemOperation.printHorizontalLines();
         System.out.println("Noted. I've removed this task:");
-        System.out.println(nthTask + 1 + "." + "[" + tasks.get(nthTask).getTaskType() + "]" +
-                "[" + tasks.get(nthTask).getStatus() + "] " + tasks.get(nthTask).getDescription());
+        print(nthTask);
+        tasks.remove(nthTask);
         SystemOperation.printHorizontalLines();
     }
 
@@ -245,5 +245,9 @@ public class TaskManager {
         if (isToDo) {
             System.out.print(System.lineSeparator());
         }
+    }
+
+    public static void printTaskCount() {
+        System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
     }
 }
