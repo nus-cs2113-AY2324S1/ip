@@ -23,8 +23,12 @@ public class Duchess {
         int endProgram = Constants.stayFlag;
 
         while (endProgram == Constants.stayFlag) {
-            String command = sc.nextLine();
-            endProgram = ActiveCommandHandler.ParseCommand(command);
+            try {
+                String command = sc.nextLine();
+                endProgram = ActiveCommandHandler.ParseCommand(command);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         sc.close();

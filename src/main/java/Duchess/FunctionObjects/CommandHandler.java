@@ -7,6 +7,8 @@ import Duchess.TaskObjects.TaskList;
 import Duchess.TaskObjects.ToDo;
 import Duchess.TextObjects.Constants;
 import Duchess.TextObjects.DefaultStrings;
+import Duchess.ErrorObjects.IncompleteTaskError;
+import Duchess.ErrorObjects.UnrecognisedCommandError;
 
 /** Class to handle commands and to return exit conditions */
 public class CommandHandler {
@@ -28,7 +30,7 @@ public class CommandHandler {
     * @return Flag to initiate exit of program.
     * @see Message echoed in console.
     */
-    public int ParseCommand(String command) {
+    public int ParseCommand (String command) throws IncompleteTaskError, UnrecognisedCommandError  {
         String[] commandArray = command.split(" "); // Split input into array of strings
         switch (commandArray[0]) { // Check first word of input for command
 
@@ -59,8 +61,7 @@ public class CommandHandler {
 
                 String toDoName = command.substring(5);
                 if (toDoName.equals("")) {
-                    System.out.println(DefaultStrings.emptyToDoString);
-                    break;
+                    throw new IncompleteTaskError(DefaultStrings.emptyToDoString);
                 }
 
                 Task newToDo = new ToDo(toDoName);
@@ -79,7 +80,7 @@ public class CommandHandler {
                     System.out.println(DefaultStrings.addedString + newDeadline.toString());
                     System.out.println(DefaultStrings.splittingLine);
                 } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println(DefaultStrings.emptyDeadlineString);
+                    throw new IncompleteTaskError(DefaultStrings.emptyDeadlineString);
                 }
                 break;
 
@@ -95,12 +96,11 @@ public class CommandHandler {
                     System.out.println(DefaultStrings.addedString + newEvent.toString());
                     System.out.println(DefaultStrings.splittingLine);
                 } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println(DefaultStrings.emptyEventString);
+                    throw new IncompleteTaskError(DefaultStrings.emptyEventString);
                 }
             
             default: // Unrecognisedcommand
-                System.out.println(DefaultStrings.unrecognisedString);
-                break;
+                throw new UnrecognisedCommandError(DefaultStrings.unrecognisedString);
         } 
 
         return Constants.stayFlag; // Continue program
