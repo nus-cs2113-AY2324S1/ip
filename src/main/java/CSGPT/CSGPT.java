@@ -6,6 +6,7 @@ import Commands.Echo;
 import Commands.Farewell;
 import Exceptions.CSGPTException;
 import Exceptions.CSGPTParsingException;
+import Exceptions.CSGPTWriteFileException;
 
 public class CSGPT {
     private static final TaskList taskList = new TaskList();
@@ -58,12 +59,25 @@ public class CSGPT {
         Scanner in = new Scanner(System.in);
 
         greet();
+        try {
+            FileHandler.readFromFile(taskList);
+            Command listCommand = Command.getCommand("list");
+            listCommand.execute(taskList);
+        } catch (Exception e) {
+            printText(e.getMessage());
+        }
+
         while(!(command instanceof Farewell)) {
             input = in.nextLine();
             try {
                 command = Command.getCommand(input);
                 try {
                     command.execute(taskList);
+                    try {
+                        FileHandler.writeToFile(taskList);
+                    } catch (CSGPTWriteFileException e) {
+                        printText(e.getMessage());
+                    }
                 } catch (CSGPTParsingException e) {
                     printText(e.getMessage());
                 }
