@@ -17,8 +17,8 @@ public class Duke {
         }
     }
     private static final int MAX_TASKS = 100;
-    public static String line = "____________________________________________________________";
-    public static String logo =
+    public static final String line = "____________________________________________________________";
+    public static final String logo =
             "\t   _____ _____ __  __  ____  _   _ \n" +
                     "\t  / ____|_   _|  \\/  |/ __ \\| \\ | |\n" +
                     "\t | (___   | | | \\  / | |  | |  \\| |\n" +
@@ -62,25 +62,21 @@ public class Duke {
 
         //If user types "list ..."
         case "list":
-            //Print out current list of tasks
             printList(tasks);
             break;
 
         //If user types "mark 'n'", where n is a number referring to the task number
         case "mark":
-            //Mark the task that the user specified with task number as done
             markTask(splitInput[1], tasks);
             break;
 
         //If user types "unmark 'n'", where n is a number referring to the task number
         case "unmark":
-            //Unmark the task that the user specified with task number
             unmarkTask(splitInput[1], tasks);
             break;
 
         //If user types "todo ..."
         case "todo":
-            //Add Todo to list and prints out add message and number of tasks in list
             try {
                 addTodo(splitInput[1], tasks);
             } catch (IndexOutOfBoundsException e) { //Empty description
@@ -96,7 +92,6 @@ public class Duke {
 
         //If user types "event ... /from ... /to ..."
         case "event":
-            //Add Event to list and prints out add message and number of tasks in list
             try {
                 addEvent(splitInput[1], tasks);
             } catch (IndexOutOfBoundsException e) { //Empty description
@@ -112,7 +107,6 @@ public class Duke {
 
         //If user types "deadline ... /by ..."
         case "deadline":
-            //Add Deadline to list and prints out add message and number of tasks in list
             try {
                 addDeadline(splitInput[1], tasks);
             } catch (IndexOutOfBoundsException e) { //Empty description
@@ -127,7 +121,6 @@ public class Duke {
             break;
 
         case "bye":
-            //Prints farewell when user inputs "bye"
             printFarewell();
             break;
 
