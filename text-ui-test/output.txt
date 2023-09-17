@@ -1,4 +1,4 @@
- 
+
           _____                      _____            _____                      _____                      _____          
          /\    \                    /\    \          /\    \                    /\    \                    /\    \         
         /::\    \                  /::\____\        /::\____\                  /::\    \                  /::\    \        
@@ -31,39 +31,79 @@ Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 task(s) in the list.
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Got it. I've added this task:
 [D][ ] return book (by: Sunday)
 Now you have 2 task(s) in the list.
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Got it. I've added this task:
 [D][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 3 task(s) in the list.
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] join sprts club
 Now you have 4 task(s) in the list.
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 5 task(s) in the list.
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Nice! I've marked this task as done:
-1.[T][X] borrow book
+[T][X] borrow book
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Nice! I've marked this task as done:
-4.[T][X] join sprts club
+[T][X] join sprts club
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Got it. I've added this task:
 [D][ ] go to workshop (from: Tmr 1pm to: 3pm)
 Now you have 6 task(s) in the list.
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Here are the tasks in your list: 
 1.[T][X] borrow book
@@ -72,19 +112,40 @@ Here are the tasks in your list:
 4.[T][X] join sprts club
 5.[T][ ] borrow book
 6.[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
+Now you have 6 task(s) in the list.
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Nice! I've marked this task as done:
-6.[E][X] go to workshop
+[E][X] go to workshop (from: Tmr 1pm to: 3pm)
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-6.[E][ ] go to workshop
+[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-1.[T][ ] borrow book
+[T][ ] borrow book
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Here are the tasks in your list: 
 1.[T][ ] borrow book
@@ -93,7 +154,13 @@ Here are the tasks in your list:
 4.[T][X] join sprts club
 5.[T][ ] borrow book
 6.[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
+Now you have 6 task(s) in the list.
 ____________________________________________________________
+SAVING...
+full path: D:\A. NUS\CS2113T\ip\saved.txt
+file exists?: false
+is Directory?: false
+SAVED
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________

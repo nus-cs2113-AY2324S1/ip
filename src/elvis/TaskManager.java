@@ -1,6 +1,11 @@
 package elvis;
 
+import elvis.task.Task;
+import elvis.task.ToDo;
+import elvis.task.Deadline;
+import elvis.task.Event;
 import elvis.exception.EmptyDeadlineException;
+import elvis.exception.EmptyDeleteException;
 import elvis.exception.EmptyEventException;
 import elvis.exception.EmptyInputException;
 import elvis.exception.EmptyListException;
@@ -8,35 +13,33 @@ import elvis.exception.EmptyMarkException;
 import elvis.exception.EmptyToDoException;
 import elvis.exception.EmptyUnmarkException;
 import elvis.exception.UnknownInputException;
-import elvis.task.Deadline;
-import elvis.task.Event;
-import elvis.task.Task;
-import elvis.task.ToDo;
-
 import java.util.Scanner;
+import java.util.ArrayList;
 
 //For adding, removing, marking, unmarking of Tasks
 public class TaskManager {
     public static Scanner in = new Scanner(System.in);  //Scanner for Input
-    private static int listCount = 0;                   //Counter for the list filled up
-    private static final Task[] tasks = new Task[100];   //Keeps track of all Task Instances made
+    private static ArrayList<Task> tasks = new ArrayList<>();   //Keeps track of all Task Instances made
 
     public static void inputTask() {
         SystemOperation.bootUp();
         while (true) {
+            //System.out.println("Size of tasks is: " + tasks.size());
             String inputBuffer = in.nextLine().trim(); //Scans I/O and all input stored in inputBuffer
-            SystemOperation.printHorizontalLines();
 
             if (inputBuffer.contains("bye")) {  //Program exit
                 break;
             } else if (inputBuffer.equals("help")) {
+                SystemOperation.printHorizontalLines();
                 System.out.println("No worries, I'm here to help!");
                 SystemOperation.printHorizontalLines();
                 Help.helper();
-                continue;
             } else {
+                SystemOperation.printHorizontalLines();
                 errorHandler(inputBuffer);      //Checks for any errors and handles them
+                SystemOperation.printHorizontalLines();
             }
+            AutoSave.saver();
         }
         SystemOperation.shutDown();
     }
@@ -51,6 +54,8 @@ public class TaskManager {
             System.out.println("☹ OOPS!!! The description cannot be empty.");
         } catch (EmptyListException exception) {
             System.out.println("☹ OOPS!!! Nothing to list.");
+        } catch (EmptyDeleteException exception) {
+            System.out.println("☹ OOPS!!! The description of a delete cannot be empty.");
         } catch (EmptyMarkException exception) {
             System.out.println("☹ OOPS!!! The description of a mark cannot be empty.");
         } catch (EmptyUnmarkException exception) {
@@ -73,7 +78,7 @@ public class TaskManager {
 
     public static void errorChecker(String inputBuffer) throws EmptyInputException, EmptyListException,
             EmptyToDoException, EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException,
-            EmptyEventException {
+            EmptyEventException, EmptyDeleteException {
 
         Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
         String firstWord;
@@ -82,9 +87,12 @@ public class TaskManager {
         } else {
             firstWord = bufferScanner.next();
         }
-        if (firstWord.equals("list") && listCount == 0) {
+
+        if (firstWord.equals("list") && tasks.isEmpty()) {
             throw new EmptyListException();
-        } else if (firstWord.equals("mark") && !bufferScanner.hasNext()) {
+        }  else if (firstWord.equals("delete") && !bufferScanner.hasNext()) {
+            throw new EmptyDeleteException();
+        }else if (firstWord.equals("mark") && !bufferScanner.hasNext()) {
             throw new EmptyMarkException();
         } else if (firstWord.equals("unmark") && !bufferScanner.hasNext()) {
             throw new EmptyUnmarkException();
@@ -109,10 +117,12 @@ public class TaskManager {
         //Functionalities
         if (inputBuffer.equals("list")) {
             listOut();
+        } else if (firstWord.equals("delete") && hasInteger && !bufferScanner.hasNext()) {
+            taskRemover(numberInput);
         } else if (firstWord.equals("mark") && hasInteger && !bufferScanner.hasNext()) {
-            markTask(numberInput);
+            taskMarker(numberInput);
         } else if (firstWord.equals("unmark") && hasInteger && !bufferScanner.hasNext()) {
-            unmarkTask(numberInput);
+            taskUnmarker(numberInput);
         } else if (firstWord.equals("todo")) {
             insertToDo(inputBuffer);
         } else if (firstWord.equals("deadline")) {
@@ -126,100 +136,108 @@ public class TaskManager {
 
     //Print out everything in the list
     public static void listOut() {
-        boolean isToDo = false; //If todo is printed last, need additional line separator
-        SystemOperation.printHorizontalLines();
         System.out.println("Here are the tasks in your list: ");
-        for (int i = 0; i < listCount; i++) {
-            System.out.print(i + 1 + "." + "[" + tasks[i].getTaskType() + "]");
-            System.out.print("[" + tasks[i].getStatus() + "] " + tasks[i].getDescription());
-            isToDo = true;
-
-            // Additional details required for Deadline and Event
-            if (tasks[i] instanceof Deadline) {
-                Deadline deadlineTask = (Deadline) tasks[i];
-                System.out.println(" (by: " + deadlineTask.getDate() + ")");
-                isToDo = false;
-            } else if (tasks[i] instanceof Event) {
-                Event eventTask = (Event) tasks[i];
-                System.out.println(" (from: " + eventTask.getStartTime() + " to: " + eventTask.getEndTime() + ")");
-                isToDo = false;
-            }
-            if (isToDo) {
-                System.out.print(System.lineSeparator());
-            }
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.print(i + 1 + ".");
+            print(i);
         }
-        SystemOperation.printHorizontalLines();
+        printTaskCount();
     }
 
-    public static void markTask(int numberInput) {
+    public static void taskRemover(int numberInput) {
         int nthTask = numberInput - 1;
-        if (numberInput > listCount || nthTask < 0 || listCount == 0) {
+        if (nthTask > tasks.size()-1 || nthTask < 0 || tasks.isEmpty()) {
             System.out.println("No such Task!");
             return;
         }
-        tasks[nthTask].setStatus(true);
-        SystemOperation.printHorizontalLines();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(nthTask + 1 + "." + "[" + tasks[nthTask].getTaskType() + "]" +
-                "[" + tasks[nthTask].getStatus() + "] " + tasks[nthTask].getDescription());
-        SystemOperation.printHorizontalLines();
+
+        System.out.println("Noted. I've removed this task:");
+        print(nthTask);
+        tasks.remove(nthTask);
+        printTaskCount();
+
     }
 
-    public static void unmarkTask(int numberInput) {
-        int nthTask = numberInput - 1;  //Remember that index of list starts from 0
-        if (numberInput > listCount || nthTask < 0 || listCount == 0) {
+    public static void taskMarker(int numberInput) {
+        int nthTask = numberInput - 1;
+        if (nthTask > tasks.size()-1 || nthTask < 0 || tasks.isEmpty()) {
             System.out.println("No such Task!");
             return;
         }
-        tasks[nthTask].setStatus(false);
-        SystemOperation.printHorizontalLines();
+        tasks.get(nthTask).setStatus(true);
+        System.out.println("Nice! I've marked this task as done:");
+        print(nthTask);
+    }
+
+    public static void taskUnmarker(int numberInput) {
+        int nthTask = numberInput - 1;  //Remember that index of list starts from 0
+        if (nthTask > tasks.size()-1 || nthTask < 0 || tasks.isEmpty()) {
+            System.out.println("No such Task!");
+            return;
+        }
+        tasks.get(nthTask).setStatus(false);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(nthTask + 1 + "." + "[" + tasks[nthTask].getTaskType() + "]" +
-                "[" + tasks[nthTask].getStatus() + "] " + tasks[nthTask].getDescription());
-        SystemOperation.printHorizontalLines();
+        print(nthTask);
     }
 
     public static void insertToDo(String inputBuffer) {
-        SystemOperation.printHorizontalLines();
-        tasks[listCount] = new ToDo(inputBuffer.trim().replace("todo ", ""));
+        tasks.add(new ToDo(inputBuffer.trim().replace("todo ", "")));
         System.out.println("Got it. I've added this task:");
         System.out.println("[" + 'T' + "]" +
-                "[" + tasks[listCount].getStatus() + "] " + tasks[listCount].getDescription());
-        System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
-        SystemOperation.printHorizontalLines();
-        listCount++;
+                "[" + tasks.get(tasks.size()-1).getStatus() + "] " + tasks.get(tasks.size()-1).getDescription());
+        System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
     }
 
     public static void insertDeadline(String inputBuffer) {
-        SystemOperation.printHorizontalLines();
         String date = inputBuffer.substring(inputBuffer.indexOf("/by") + 3).trim();
         String deadlineWithDate = inputBuffer.replace("deadline ", "").trim();
         String deadline = deadlineWithDate.substring(0, deadlineWithDate.indexOf("/by")).trim();
 
-        tasks[listCount] = new Deadline(deadline, date);
+        tasks.add(new Deadline(deadline, date));
         System.out.println("Got it. I've added this task:");
         System.out.println("[" + 'D' + "]" +
-                "[" + tasks[listCount].getStatus() + "] " + tasks[listCount].getDescription() +
+                "[" + tasks.get(tasks.size()-1).getStatus() + "] " + tasks.get(tasks.size()-1).getDescription() +
                 " (by: " + date + ")");
-        System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
-        SystemOperation.printHorizontalLines();
-        listCount++;
+        System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
     }
 
     public static void insertEvent(String inputBuffer) {
-        SystemOperation.printHorizontalLines();
         String startTime = inputBuffer.substring(inputBuffer.indexOf("/from") + 5, inputBuffer.indexOf("/to")).trim();
         String endTime = inputBuffer.substring(inputBuffer.indexOf("/to") + 3).trim();
         String eventWithTime = inputBuffer.replace("event ", "").trim();
         String event = eventWithTime.substring(0, eventWithTime.indexOf("/from")).trim();
 
-        tasks[listCount] = new Event(event, startTime, endTime);
+        tasks.add(new Event(event, startTime, endTime));
         System.out.println("Got it. I've added this task:");
         System.out.println("[" + 'D' + "]" +
-                "[" + tasks[listCount].getStatus() + "] " + tasks[listCount].getDescription() +
+                "[" + tasks.get(tasks.size()-1).getStatus() + "] " + tasks.get(tasks.size()-1).getDescription() +
                 " (from: " + startTime + " to: " + endTime + ")");
-        System.out.println("Now you have " + (listCount+1) + " task(s) in the list.");
-        SystemOperation.printHorizontalLines();
-        listCount++;
+        System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
+    }
+
+    //Prints task eg "[T][X] read book" without the preceding index eg"1."
+    public static void print(int i) {
+        boolean isToDo = false; //If "todo" is printed last, need additional line separator
+        System.out.print("[" + tasks.get(i).getTaskType() + "]");
+        System.out.print("[" + tasks.get(i).getStatus() + "] " + tasks.get(i).getDescription());
+        isToDo = true;
+
+        // Additional details required for Deadline and Event
+        if (tasks.get(i) instanceof Deadline) {
+            Deadline deadlineTask = (Deadline) tasks.get(i);
+            System.out.println(" (by: " + deadlineTask.getDate() + ")");
+            isToDo = false;
+        } else if (tasks.get(i) instanceof Event) {
+            Event eventTask = (Event) tasks.get(i);
+            System.out.println(" (from: " + eventTask.getStartTime() + " to: " + eventTask.getEndTime() + ")");
+            isToDo = false;
+        }
+        if (isToDo) {
+            System.out.print(System.lineSeparator());
+        }
+    }
+
+    public static void printTaskCount() {
+        System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
     }
 }
