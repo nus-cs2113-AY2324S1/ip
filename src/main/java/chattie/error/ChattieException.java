@@ -20,8 +20,11 @@ public class ChattieException extends Exception{
             System.out.println("\tOh no! Event has an invalid format :(");
             System.out.println("\tTo add an event: Type \"event [task] /from [start] /to [end]\"");
             break;
-        default:
+        case INVALID_COMMAND:
             System.out.println("\tOh no! I don't understand this command :(");
+            break;
+        case OUT_OF_BOUNDS:
+            System.out.println("\tOh no! This task doesn't exist");
             break;
         }
 
