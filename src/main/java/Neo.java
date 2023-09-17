@@ -212,7 +212,7 @@ public class Neo {
         list.add(toAdd);
         printAddedTask(list);
     }
-    public static boolean isMarked(int mark) {
+    public static boolean checkMarked(int mark) {
         return (mark == 1);
     }
     public static void generateFile(String filePath, String fileDirectory, ArrayList<Task> list) throws IOException {
@@ -236,7 +236,7 @@ public class Neo {
             String[] task = line.split(" / ");
             String taskType = task[0];
             int mark = Integer.parseInt(task[1]);
-            boolean isMarked = isMarked(mark);
+            boolean isMarked = checkMarked(mark);
 
             switch (taskType) {
             case "T":
