@@ -16,7 +16,7 @@ public class Duke {
     public static int THIRD_INDEX=2;
     public static int FOURTH_INDEX=3;
     public static int FIFTH_INDEX=4;
-    public static String DATAPATH = ".\\src\\main\\java\\duke\\data\\duke.txt";
+    public static String DATAPATH = ".\\data\\duke.txt";
 
     /* Pretty prints a remark after adding any tasks */
     public static void printRemark(Task task, String remark){
