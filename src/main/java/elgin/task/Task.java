@@ -22,6 +22,10 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getIsDoneAsOneOrZero() {
+        return (isDone ? "1" : "0");
+    }
+
     public String getType() {
         return type;
     }

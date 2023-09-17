@@ -8,13 +8,18 @@ import java.util.HashMap;
 import static elgin.utils.ExceptionMessage.getEmptyDescErrorMsg;
 import static elgin.utils.ExceptionMessage.getInvalidIdxErrorMsg;
 import static elgin.utils.FormatPrinter.formatPrint;
-import static elgin.utils.Parser.*;
+import static elgin.utils.Parser.parseArguments;
+import static elgin.utils.Parser.parseTaskIndex;
+import static elgin.utils.Parser.isArguments;
+import static elgin.utils.Store.getSavedTasks;
+import static elgin.utils.Store.saveTasks;
+
 
 public class TaskManager {
     private ArrayList<Task> tasks;
 
     public TaskManager() {
-        this.tasks = new ArrayList<>();
+        this.tasks = getSavedTasks();
     }
 
     public void listTasks() {
@@ -122,6 +127,10 @@ public class TaskManager {
             throw new DukeException(getInvalidIdxErrorMsg());
         }
         return true;
+    }
+
+    public void saveToFile() {
+        saveTasks(tasks);
     }
 
 }

@@ -18,6 +18,7 @@ public class CommandHandler {
         switch (userCommand) {
         case "bye":
             sayBye();
+            tasks.saveToFile();
             return false;
         case "list":
             tasks.listTasks();
