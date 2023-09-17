@@ -62,7 +62,6 @@ public class Doli {
     }
     public static void initializeAgenda() throws IOException, DoliExceptions {
         tasks = new ArrayList<>();
-
         File file = new File("agenda.txt");
         if (!file.exists()) {
             file.createNewFile();
@@ -98,16 +97,15 @@ public class Doli {
             return commandAndArgs = new String[]{commandAndArgs[0], ""};
         }
     }
-
     private static boolean unvalidEvent(String[] args) {
         return args.length < 3;
     }
-
-    private static void writeToFile(String path, String text) throws IOException {
-        FileWriter fileWriter = new FileWriter(path);
+    private static void writeToFile(String filePath, String text) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
         fileWriter.write(text);
         fileWriter.close();
     }
+
     private static boolean unvalidDeadline(String[] args) {
         return args.length < 2;
     }
@@ -267,7 +265,7 @@ public class Doli {
     private static void printUnmark(String unmarked) {
         printOutput(unmarked, ENCOURAGE_TO_MARK);
     }
-    
+
     public static void handleCommand(String input) throws DoliExceptions, IOException {
         final String command = extractCommandInfo(input)[0];
         final String args = extractCommandInfo(input)[1];
