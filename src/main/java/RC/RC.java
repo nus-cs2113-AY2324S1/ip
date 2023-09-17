@@ -2,21 +2,19 @@ package RC;
 
 import RC.command.RCCommand;
 import RC.storage.Storage;
-import RC.task.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RC {
-    private static final String FILE_PATH = "data/tasks.txt";
     private Storage storage;
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private TaskList tasks;
 
     public RC(String filePath) {
         this.storage = new Storage(filePath);
+        tasks = new TaskList();
         try {
-            this.storage.loadFile(tasks, FILE_PATH);
+            storage.load(tasks);
         } catch (IOException e) {
             System.out.println("\tFile not found.\n\tCreating new file...");
         } catch (RCException e) {
@@ -35,7 +33,7 @@ public class RC {
             try {
                 RCCommand.handleCommand(input, tasks);
                 isExit = RCCommand.isExit();
-                storage.saveFile(tasks, FILE_PATH);
+                storage.save(tasks);
             } catch (RCException e) {
                 System.out.println(e.getMessage());
             }

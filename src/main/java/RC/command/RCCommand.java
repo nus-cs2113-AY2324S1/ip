@@ -1,14 +1,11 @@
 package RC.command;
 
 import RC.RCException;
+import RC.TaskList;
 import RC.task.Deadline;
 import RC.task.Event;
 import RC.task.Task;
 import RC.task.Todo;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public abstract class RCCommand {
     private static final String TODO_COMMAND = "todo";
@@ -24,17 +21,17 @@ public abstract class RCCommand {
     private static final String TO_COMMAND = "/to";
     private static boolean isExit = false;
 
-    private static void addTodo(String input, ArrayList<Task> tasks) throws RCException {
+    private static void addTodo(String input, TaskList tasks) throws RCException {
         if (input.isEmpty()) {
             String errorMessage = "\tOOPS!!! The description of a todo cannot be empty.";
             throw new RCException(errorMessage);
         }
 
         tasks.add(new Todo(input));
-        tasks.get(tasks.size() - 1).printAddedTask();
+        tasks.getTask(tasks.getSize() - 1).printAddedTask();
     }
 
-    private static void addEvent(String input, ArrayList<Task> tasks) throws RCException {
+    private static void addEvent(String input, TaskList tasks) throws RCException {
         int fromIndex = input.indexOf(FROM_COMMAND);
         int toIndex = input.indexOf(TO_COMMAND);
         if (fromIndex == -1 || toIndex == -1) {
@@ -51,10 +48,10 @@ public abstract class RCCommand {
         }
 
         tasks.add(new Event(description, from, to));
-        tasks.get(tasks.size() - 1).printAddedTask();
+        tasks.getTask(tasks.getSize() - 1).printAddedTask();
     }
 
-    private static void addDeadline(String input, ArrayList<Task> tasks) throws RCException {
+    private static void addDeadline(String input, TaskList tasks) throws RCException {
         int splitIndex = input.indexOf(BY_COMMAND);
         if (splitIndex == -1) {
             String errorMessage = "\tOOPS!!! Please include /by followed by the deadline. (eg. /by Monday)";
@@ -69,10 +66,10 @@ public abstract class RCCommand {
         }
 
         tasks.add(new Deadline(description, by));
-        tasks.get(tasks.size() - 1).printAddedTask();
+        tasks.getTask(tasks.getSize() - 1).printAddedTask();
     }
 
-    private static void unmarkTask(String input, ArrayList<Task> tasks) throws RCException {
+    private static void unmarkTask(String input, TaskList tasks) throws RCException {
         int taskNum;
         try {
             taskNum = Integer.parseInt(input) - 1;
@@ -86,11 +83,11 @@ public abstract class RCCommand {
             throw new RCException(errorMessage);
         }
 
-        tasks.get(taskNum).unmarkTask();
-        System.out.println("\tOK, I've marked this task as not done yet:\n\t  " + tasks.get(taskNum));
+        tasks.getTask(taskNum).unmarkTask();
+        System.out.println("\tOK, I've marked this task as not done yet:\n\t  " + tasks.getTask(taskNum));
     }
 
-    private static void markTask(String input, ArrayList<Task> tasks) throws RCException {
+    private static void markTask(String input, TaskList tasks) throws RCException {
         int taskNum;
         try {
             taskNum = Integer.parseInt(input) - 1;
@@ -104,10 +101,10 @@ public abstract class RCCommand {
             throw new RCException(errorMessage);
         }
 
-        tasks.get(taskNum).markAsDone();
-        System.out.println("\tNice! I've marked this task as done:\n\t  " + tasks.get(taskNum));
+        tasks.getTask(taskNum).markAsDone();
+        System.out.println("\tNice! I've marked this task as done:\n\t  " + tasks.getTask(taskNum));
     }
-    private static void deleteTask(String input, ArrayList<Task> tasks) throws RCException {
+    private static void deleteTask(String input, TaskList tasks) throws RCException {
         int taskNum;
         try {
             taskNum = Integer.parseInt(input) - 1;
@@ -121,13 +118,13 @@ public abstract class RCCommand {
             throw new RCException(errorMessage);
         }
 
-        tasks.get(taskNum).deleteTask();
-        tasks.remove(taskNum);
+        tasks.getTask(taskNum).deleteTask();
+        tasks.delete(taskNum);
     }
-    private static void printTaskList(ArrayList<Task> tasks) {
+    private static void printTaskList(TaskList tasks) {
         System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("\t" + (i + 1) + "." + tasks.get(i));
+        for (int i = 0; i < tasks.getSize(); i++) {
+            System.out.println("\t" + (i + 1) + "." + tasks.getTask(i));
         }
     }
 
@@ -139,7 +136,7 @@ public abstract class RCCommand {
         RCCommand.isExit = isExit;
     }
 
-    public static void handleCommand(String input, ArrayList<Task> tasks) throws RCException {
+    public static void handleCommand(String input, TaskList tasks) throws RCException {
         String[] split = input.split(" ", 2);
         String command = split[0].toLowerCase();
         String restOfInput = split.length > 1 ? split[1] : "";

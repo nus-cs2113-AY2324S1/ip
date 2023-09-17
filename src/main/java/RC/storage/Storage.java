@@ -1,9 +1,9 @@
 package RC.storage;
 
 import RC.RCException;
+import RC.TaskList;
 import RC.task.Deadline;
 import RC.task.Event;
-import RC.task.Task;
 import RC.task.Todo;
 
 import java.io.BufferedReader;
@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class Storage {
     private static final String FILE_PATH = "data/tasks.txt";
@@ -32,12 +31,12 @@ public class Storage {
             }
         }
     }
-    public void saveFile(ArrayList<Task> tasks, String filePath) throws RCException {
-        writeToFile(filePath, tasks);
+    public void save(TaskList tasks) throws RCException {
+        write(tasks);
     }
 
-    public void loadFile(ArrayList<Task> tasks, String filePath) throws IOException, RCException {
-        BufferedReader inputFile = new BufferedReader(new FileReader(filePath));
+    public void load(TaskList tasks) throws IOException, RCException {
+        BufferedReader inputFile = new BufferedReader(new FileReader(FILE_PATH));
         String line;
         System.out.println("\tLoading existing file...");
 
@@ -86,11 +85,11 @@ public class Storage {
         System.out.println("\tLoading is complete.");
     }
 
-    public static void writeToFile(String filePath, ArrayList<Task> tasks) throws RCException {
+    public static void write(TaskList tasks) throws RCException {
         try {
-            FileWriter fr = new FileWriter(filePath);
-            for (Task task : tasks) {
-                String text = task.formatString() + "\n";
+            FileWriter fr = new FileWriter(FILE_PATH);
+            for (int i = 0; i < tasks.getSize(); i++) {
+                String text = tasks.getTask(i).formatString() + "\n";
                 fr.write(text);
             }
             fr.close();
