@@ -11,10 +11,6 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        if (isDone) {
-            return "[D]" + super.toString() + "(by:" + by + ")";
-        } else {
-            return "[D]" + super.toString() + "(by:" + by + ")";
-        }
+        return "[D]" + super.toString() + "(by:" + by + ")";
     }
 }

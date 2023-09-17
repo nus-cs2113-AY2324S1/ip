@@ -1,6 +1,6 @@
 package chattie.tasks;
 
-public class Todo extends Task{
+public class Todo extends Task {
 
     public Todo(String task) {
         super(task);
@@ -8,10 +8,6 @@ public class Todo extends Task{
 
     @Override
     public String toString() {
-        if (isDone) {
-            return "[T]" + super.toString();
-        } else {
-            return "[T]" + super.toString();
-        }
+        return "[T]" + super.toString();
     }
 }
