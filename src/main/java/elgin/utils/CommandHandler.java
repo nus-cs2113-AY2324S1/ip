@@ -3,6 +3,7 @@ package elgin.utils;
 import elgin.exception.DukeException;
 import elgin.task.TaskManager;
 
+import static elgin.utils.ExceptionMessage.getUnknownCmdErrorMsg;
 import static elgin.utils.FormatPrinter.sayBye;
 import static elgin.utils.Parser.parseCommand;
 
@@ -40,7 +41,7 @@ public class CommandHandler {
             tasks.deleteTask(arguments);
             break;
         default:
-            throw new DukeException("Sorry I do not understand your command");
+            throw new DukeException(getUnknownCmdErrorMsg());
         }
         return true;
     }

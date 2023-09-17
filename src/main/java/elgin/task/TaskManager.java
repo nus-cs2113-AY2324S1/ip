@@ -5,9 +5,10 @@ import elgin.exception.DukeException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static elgin.utils.ExceptionMessage.getEmptyDescErrorMsg;
+import static elgin.utils.ExceptionMessage.getInvalidIdxErrorMsg;
 import static elgin.utils.FormatPrinter.formatPrint;
-import static elgin.utils.Parser.parseArguments;
-import static elgin.utils.Parser.parseTaskIndex;
+import static elgin.utils.Parser.*;
 
 public class TaskManager {
     private ArrayList<Task> tasks;
@@ -28,17 +29,19 @@ public class TaskManager {
     }
 
     public void addTodo(String command, String arguments) throws DukeException {
-        if (arguments.isEmpty()) {
-            throw new DukeException("OOPS! Description of " + command + " cannot be empty");
+        if (!isArguments(arguments, getEmptyDescErrorMsg(command))) {
+            return;
         }
+
         Todo task = new Todo(arguments);
         addToTasks(task);
     }
 
     public void addDeadline(String command, String arguments) throws DukeException {
-        if (arguments.isEmpty()) {
-            throw new DukeException("OOPS! Description of " + command + " cannot be empty");
+        if (!isArguments(arguments, getEmptyDescErrorMsg(command))) {
+            return;
         }
+
         HashMap<String, String> parsedArgs = parseArguments(command, arguments);
         String description = parsedArgs.get("description");
         String by = parsedArgs.get("by");
@@ -47,9 +50,10 @@ public class TaskManager {
     }
 
     public void addEvent(String command, String arguments) throws DukeException {
-        if (arguments.isEmpty()) {
-            throw new DukeException("OOPS! Description of " + command + " cannot be empty");
+        if (!isArguments(arguments, getEmptyDescErrorMsg(command))) {
+            return;
         }
+
         HashMap<String, String> parsedArgs = parseArguments(command, arguments);
         String description = parsedArgs.get("description");
         String from = parsedArgs.get("from");
@@ -115,7 +119,7 @@ public class TaskManager {
     public boolean isValidTaskIndex(int idx) throws DukeException {
         int totalTasks = getTaskSize();
         if (idx < 0 || idx > totalTasks - 1) {
-            throw new DukeException("Please enter a valid task number.");
+            throw new DukeException(getInvalidIdxErrorMsg());
         }
         return true;
     }
