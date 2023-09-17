@@ -36,6 +36,9 @@ public class CommandHandler {
         case "event":
             tasks.addEvent(userCommand, arguments);
             break;
+        case "delete":
+            tasks.deleteTask(arguments);
+            break;
         default:
             throw new DukeException("Sorry I do not understand your command");
         }

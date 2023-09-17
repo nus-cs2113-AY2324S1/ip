@@ -59,11 +59,10 @@ public class TaskManager {
     }
 
     public void setTaskIsDone(String arguments, boolean isDone) throws DukeException {
-        int totalTasks = getTaskSize();
         int idx = parseTaskIndex(arguments);
         idx--;
-        if (idx < 0 || idx > totalTasks - 1) {
-            throw new DukeException("Please enter a valid task number.");
+        if (!isValidTaskIndex(idx)) {
+            return;
         }
         tasks.get(idx).setIsDone(isDone);
         String doneMsg = isDone
@@ -94,6 +93,31 @@ public class TaskManager {
 
     public int getTaskSize() {
         return tasks.size();
+    }
+
+    public void deleteTask(String arguments) throws DukeException {
+        int idx = parseTaskIndex(arguments);
+        idx--;
+        if (!isValidTaskIndex(idx)) {
+            return;
+        }
+        Task t = tasks.get(idx);
+        tasks.remove(idx);
+        String[] messages = new String[]{
+                "Noted. I've removed this task:",
+                "\t" + t,
+                getNumberOfTasks()
+        };
+        formatPrint(messages);
+
+    }
+
+    public boolean isValidTaskIndex(int idx) throws DukeException {
+        int totalTasks = getTaskSize();
+        if (idx < 0 || idx > totalTasks - 1) {
+            throw new DukeException("Please enter a valid task number.");
+        }
+        return true;
     }
 
 }
