@@ -9,6 +9,11 @@ public class DukeException extends Exception {
         this.errMsg = errMsg;
     }
 
+    public DukeException(String errMsg, Throwable cause) {
+        super(cause);
+        this.errMsg = errMsg;
+    }
+
     @Override
     public String toString() {
         return String.format("%s\n%s", errMsg, DIVIDER);
