@@ -25,4 +25,7 @@ public class BooleanChecks {
     public static boolean checkTextForEvent(String item) {
         return item.startsWith("event");
     }
+    public static boolean checkTextForDelete(String item) {
+        return item.startsWith("delete");
+    }
 }
