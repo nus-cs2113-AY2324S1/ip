@@ -1,4 +1,4 @@
-package Duchess;
+package Duchess.TaskObjects;
 
 public class Event extends Task{
     private String Starttime, endTime;

@@ -1,6 +1,10 @@
 package Duchess;
 import java.util.Scanner;
 
+import Duchess.FunctionObjects.CommandHandler;
+import Duchess.TextObjects.Constants;
+import Duchess.TextObjects.DefaultStrings;
+
 /** Main class to run. 
  * Follows - A-CodingStandard
 */

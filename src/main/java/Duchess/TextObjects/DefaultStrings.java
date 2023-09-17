@@ -1,4 +1,4 @@
-package Duchess;
+package Duchess.TextObjects;
 
 
 /** Class to define commonly used or long strings for other classes. */

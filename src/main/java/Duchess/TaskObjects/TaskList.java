@@ -1,6 +1,8 @@
-package Duchess;
+package Duchess.TaskObjects;
 
 import java.util.ArrayList;
+
+import Duchess.TextObjects.DefaultStrings;
 
 
 public class TaskList {

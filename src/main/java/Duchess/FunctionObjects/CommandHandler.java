@@ -1,5 +1,12 @@
-package Duchess;
+package Duchess.FunctionObjects;
 
+import Duchess.TaskObjects.Deadline;
+import Duchess.TaskObjects.Event;
+import Duchess.TaskObjects.Task;
+import Duchess.TaskObjects.TaskList;
+import Duchess.TaskObjects.ToDo;
+import Duchess.TextObjects.Constants;
+import Duchess.TextObjects.DefaultStrings;
 
 /** Class to handle commands and to return exit conditions */
 public class CommandHandler {

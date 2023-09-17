@@ -1,4 +1,4 @@
-package Duchess;
+package Duchess.TextObjects;
 
 /**
  * Defines constants used in commands and
