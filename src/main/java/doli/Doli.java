@@ -7,6 +7,7 @@ import doli.tasks.Task;
 import doli.tasks.ToDo;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Doli {
     private static final String LOGO = " ____       _\n" +
@@ -34,15 +35,14 @@ public class Doli {
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
     private static final String LIST_COMMAND = "list";
+    private static final String DELETE_COMMAND = "delete";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
     private static final String EXIT_COMMAND = "bye";
     private static final String UNRECOGNIZED_COMMAND = "I am so sorry, but I do not recognize this command. " +
             "Please try typing something else.";
     private static final Scanner IN = new Scanner(System.in);
-    private static int numberOfItems;
-    private static final int MAX_NUMBER_OF_TASKS = 100;
-    private static Task[] tasks;
+    private static ArrayList<Task> tasks;
 
     public static void main(String[] args) throws DoliExceptions {
 
@@ -56,8 +56,7 @@ public class Doli {
     }
 
     public static void initializeAgenda() {
-        tasks = new Task[MAX_NUMBER_OF_TASKS];
-        numberOfItems = 0;
+        tasks = new ArrayList<>();
     }
 
     public static void welcomeUser() {
@@ -82,11 +81,11 @@ public class Doli {
             return commandAndArgs = new String[]{commandAndArgs[0], ""};
         }
     }
-    private static boolean verifyValidEvent(String[] args) {
-        return args.length == 3;
+    private static boolean unvalidEvent(String[] args) {
+        return args.length < 3;
     }
-    private static boolean verifyValidDeadline(String[] args) {
-        return args.length == 2;
+    private static boolean unvalidDeadline(String[] args) {
+        return args.length < 2;
     }
     private static ToDo initializeNewTodo(String args) throws DoliExceptions {
         if (args.trim().isEmpty()) {
@@ -97,7 +96,7 @@ public class Doli {
     }
     private static Deadline initializeNewDeadline(String args) throws DoliExceptions {
         final String[] descriptionAndTiming = args.trim().split("/");
-        if (descriptionAndTiming.length < 2) {
+        if (unvalidDeadline(descriptionAndTiming)) {
             throw new DoliExceptions("A deadline needs both a description and a time reference!");
         }
         final String description = descriptionAndTiming[0];
@@ -108,7 +107,7 @@ public class Doli {
 
     private static Event initializeNewEvent(String args) throws DoliExceptions {
         final String[] descriptionAndTiming = args.trim().split("/");
-        if (descriptionAndTiming.length < 3) {
+        if (unvalidEvent(descriptionAndTiming)) {
             throw new DoliExceptions("An event needs to contain a description, a start and an end date");
         }
         final String description = descriptionAndTiming[0];
@@ -118,17 +117,9 @@ public class Doli {
         return newEvent;
     }
 
-    private static String initializeNewList(Task[] currentAgenda) {
-        String agenda = "";
-        for (int i = 0; i < currentAgenda.length; i++) {
-            agenda += String.format("   %d. %s\n", i + 1, currentAgenda[i].toString());
-        }
-        return agenda;
-    }
-
     private static boolean verifyValidTaskNumber(String number) {
         int taskNumber = Integer.parseInt(number);
-        return taskNumber <= numberOfItems;
+        return taskNumber <= tasks.size();
     }
 
     private static String markedTaskSuccessfully(int taskNumber) {
@@ -141,13 +132,13 @@ public class Doli {
 
     private static String markTask(String arg) {
         int taskNumber = Integer.parseInt(arg);
-        tasks[taskNumber - 1].markTaskAsDone();
+        tasks.get(taskNumber - 1).markTaskAsDone();
         return markedTaskSuccessfully(taskNumber);
     }
 
     private static String unmarkTask(String arg) {
         int taskNumber = Integer.parseInt(arg);
-        tasks[taskNumber - 1].markTaskAsNotDone();
+        tasks.get(taskNumber - 1).markTaskAsNotDone();
         return unmarkedTaskSuccessfully(taskNumber);
     }
     private static String indentText(String text) {
@@ -155,35 +146,49 @@ public class Doli {
     }
     private static String addTodo(String arguments) throws DoliExceptions {
         ToDo newTodo = initializeNewTodo(arguments);
-        tasks[numberOfItems] = newTodo;
-        final String TODO_DESCRIPTION = tasks[numberOfItems].toString();
-        numberOfItems++;
+        tasks.add(newTodo);
+        final String TODO_DESCRIPTION = newTodo.toString();
         return indentText(TODO_DESCRIPTION);
     }
 
     private static String addDeadline(String arguments) throws DoliExceptions {
         Deadline newDeadline = initializeNewDeadline(arguments);
-        tasks[numberOfItems] = newDeadline;
-        final String DEADLINE_DESCRIPTION = tasks[numberOfItems].toString();
-        numberOfItems++;
+        tasks.add(newDeadline);
+        final String DEADLINE_DESCRIPTION = newDeadline.toString();
         return indentText(DEADLINE_DESCRIPTION);
     }
 
     private static String addEvent(String arguments) throws DoliExceptions {
         Event newEvent = initializeNewEvent(arguments);
-        tasks[numberOfItems] = newEvent;
-        final String EVENT_DESCRIPTION = tasks[numberOfItems].toString();
-        numberOfItems++;
+        tasks.add(newEvent);
+        final String EVENT_DESCRIPTION = newEvent.toString();
         return indentText(EVENT_DESCRIPTION);
     }
 
     private static String listTasks() {
-        Task[] currentAgenda = Arrays.copyOf(tasks, numberOfItems);
-        String newList = initializeNewList(currentAgenda);
-        return newList;
+        StringBuilder agenda = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            agenda.append(String.format("   %d. %s\n", i + 1, tasks.get(i).toString()));
+        }
+        return agenda.toString();
+    }
+    private static void deleteTask(String numberOfTaskToDelete) {
+        try {
+            removedTaskSuccessfully(Integer.parseInt(numberOfTaskToDelete) - 1);
+            tasks.remove(Integer.parseInt(numberOfTaskToDelete) - 1);
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println(String.format("Watch out, there is no task number %s in your agenda.\n" +
+                    "Try a different task or add one", numberOfTaskToDelete));
+        }
+    }
+    private static void removedTaskSuccessfully(int numberOfTask) {
+        String outputMessage = "Sure, I've removed this task:\n\t" +
+                tasks.get(numberOfTask).toString() +
+                buildCurrentSummary();
+        System.out.println(outputMessage);
     }
     private static String buildCurrentSummary() {
-        return String.format(SUMMARIZING_CURRENT_AGENDA_ENTRIES, numberOfItems);
+        return String.format(SUMMARIZING_CURRENT_AGENDA_ENTRIES, tasks.size());
     }
 
     private static String executeTaskMarking(String arguments) {
@@ -233,14 +238,14 @@ public class Doli {
     private static void printUnmark(String unmarked) {
         printOutput(unmarked, ENCOURAGE_TO_MARK);
     }
-    private static void some(String args) {
+    /*private static void some(String args) {
         try {
             printOutput(ADDED_TASK_SUCCESSFULLY, addTodo(args), buildCurrentSummary());
             executeTodo(addTodo(args));
         } catch(DoliExceptions e) {
             System.out.println(e);
         }
-    }
+    }*/
 
     public static void handleCommand(String input) throws DoliExceptions {
         final String command = extractCommandInfo(input)[0];
@@ -257,6 +262,9 @@ public class Doli {
             break;
         case LIST_COMMAND:
             printList(listTasks());
+            break;
+        case DELETE_COMMAND:
+            deleteTask(args);
             break;
         case MARK_COMMAND:
             printMark(executeTaskMarking(args));
