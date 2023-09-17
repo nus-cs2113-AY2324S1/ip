@@ -26,16 +26,18 @@ public class TaskManager {
         while (true) {
             //System.out.println("Size of tasks is: " + tasks.size());
             String inputBuffer = in.nextLine().trim(); //Scans I/O and all input stored in inputBuffer
-            SystemOperation.printHorizontalLines();
 
             if (inputBuffer.contains("bye")) {  //Program exit
                 break;
             } else if (inputBuffer.equals("help")) {
+                SystemOperation.printHorizontalLines();
                 System.out.println("No worries, I'm here to help!");
                 SystemOperation.printHorizontalLines();
                 Help.helper();
             } else {
+                SystemOperation.printHorizontalLines();
                 errorHandler(inputBuffer);      //Checks for any errors and handles them
+                SystemOperation.printHorizontalLines();
             }
         }
         SystemOperation.shutDown();
@@ -133,13 +135,12 @@ public class TaskManager {
 
     //Print out everything in the list
     public static void listOut() {
-        SystemOperation.printHorizontalLines();
         System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.print(i + 1 + ".");
             print(i);
         }
-        SystemOperation.printHorizontalLines();
+        printTaskCount();
     }
 
     public static void taskRemover(int numberInput) {
@@ -149,11 +150,10 @@ public class TaskManager {
             return;
         }
 
-        SystemOperation.printHorizontalLines();
         System.out.println("Noted. I've removed this task:");
         print(nthTask);
         tasks.remove(nthTask);
-        SystemOperation.printHorizontalLines();
+        printTaskCount();
     }
 
     public static void taskMarker(int numberInput) {
@@ -163,11 +163,8 @@ public class TaskManager {
             return;
         }
         tasks.get(nthTask).setStatus(true);
-        SystemOperation.printHorizontalLines();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(nthTask + 1 + "." + "[" + tasks.get(nthTask).getTaskType() + "]" +
-                "[" + tasks.get(nthTask).getStatus() + "] " + tasks.get(nthTask).getDescription());
-        SystemOperation.printHorizontalLines();
+        print(nthTask);
     }
 
     public static void taskUnmarker(int numberInput) {
@@ -177,25 +174,19 @@ public class TaskManager {
             return;
         }
         tasks.get(nthTask).setStatus(false);
-        SystemOperation.printHorizontalLines();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(nthTask + 1 + "." + "[" + tasks.get(nthTask).getTaskType() + "]" +
-                "[" + tasks.get(nthTask).getStatus() + "] " + tasks.get(nthTask).getDescription());
-        SystemOperation.printHorizontalLines();
+        print(nthTask);
     }
 
     public static void insertToDo(String inputBuffer) {
-        SystemOperation.printHorizontalLines();
         tasks.add(new ToDo(inputBuffer.trim().replace("todo ", "")));
         System.out.println("Got it. I've added this task:");
         System.out.println("[" + 'T' + "]" +
                 "[" + tasks.get(tasks.size()-1).getStatus() + "] " + tasks.get(tasks.size()-1).getDescription());
         System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
-        SystemOperation.printHorizontalLines();
     }
 
     public static void insertDeadline(String inputBuffer) {
-        SystemOperation.printHorizontalLines();
         String date = inputBuffer.substring(inputBuffer.indexOf("/by") + 3).trim();
         String deadlineWithDate = inputBuffer.replace("deadline ", "").trim();
         String deadline = deadlineWithDate.substring(0, deadlineWithDate.indexOf("/by")).trim();
@@ -206,11 +197,9 @@ public class TaskManager {
                 "[" + tasks.get(tasks.size()-1).getStatus() + "] " + tasks.get(tasks.size()-1).getDescription() +
                 " (by: " + date + ")");
         System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
-        SystemOperation.printHorizontalLines();
     }
 
     public static void insertEvent(String inputBuffer) {
-        SystemOperation.printHorizontalLines();
         String startTime = inputBuffer.substring(inputBuffer.indexOf("/from") + 5, inputBuffer.indexOf("/to")).trim();
         String endTime = inputBuffer.substring(inputBuffer.indexOf("/to") + 3).trim();
         String eventWithTime = inputBuffer.replace("event ", "").trim();
@@ -222,12 +211,11 @@ public class TaskManager {
                 "[" + tasks.get(tasks.size()-1).getStatus() + "] " + tasks.get(tasks.size()-1).getDescription() +
                 " (from: " + startTime + " to: " + endTime + ")");
         System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
-        SystemOperation.printHorizontalLines();
     }
 
     //Prints task eg "[T][X] read book" without the preceding index eg"1."
     public static void print(int i) {
-        boolean isToDo = false; //If todo is printed last, need additional line separator
+        boolean isToDo = false; //If "todo" is printed last, need additional line separator
         System.out.print("[" + tasks.get(i).getTaskType() + "]");
         System.out.print("[" + tasks.get(i).getStatus() + "] " + tasks.get(i).getDescription());
         isToDo = true;
