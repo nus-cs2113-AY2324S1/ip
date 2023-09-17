@@ -12,6 +12,7 @@ public abstract class Command {
     private static final String ADD_TODO_COMMAND = "todo";
     private static final String ADD_DEADLINE_COMMAND = "deadline";
     private static final String ADD_EVENT_COMMAND = "event";
+    private static final String DELETE_COMMAND = "delete";
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
@@ -28,6 +29,8 @@ public abstract class Command {
         case ADD_EVENT_COMMAND:
             Task event = getTask(input);
             return new Add(event);
+        case DELETE_COMMAND:
+            return getDelete(input);
         case LIST_COMMAND:
             return new List();
         case MARK_COMMAND:
@@ -93,6 +96,17 @@ public abstract class Command {
         String to = eventDetailsArray2[1];
 
         return new Event(eventDescription, from, to);
+    }
+
+    private static Delete getDelete(String input) throws CSGPTParsingException {
+        String remainder = input.split(" ")[1];
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(remainder);
+        } catch (NumberFormatException e) {
+            throw new CSGPTParsingException("Please enter a valid number mortal.");
+        }
+        return new Delete(taskNumber);
     }
 
     private static Mark getMark(String input, boolean isDone) throws CSGPTParsingException {

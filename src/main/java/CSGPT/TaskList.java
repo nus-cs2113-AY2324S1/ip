@@ -1,44 +1,48 @@
 package CSGPT;
 
 import Exceptions.CSGPTMissingTaskException;
+import java.util.ArrayList;
 
 public class TaskList {
-    private final Task[] list;
-    private int size;
+    private final ArrayList<Task> list;
 
     public TaskList() {
-        list = new Task[100];
-        size = 0;
+        list = new ArrayList<Task>();
     }
 
     public void add(Task task) {
-        list[size] = task;
-        size++;
+        list.add(task);
+    }
+
+    public void delete(int taskNumber) throws CSGPTMissingTaskException {
+        if (taskNumber > list.size() || taskNumber < 1)
+            throw new CSGPTMissingTaskException();
+        list.remove(taskNumber - 1);
     }
 
     public Task getTask(int taskNumber) {
-        return list[taskNumber - 1];
+        return list.get(taskNumber - 1);
     }
 
     public void mark(int taskNumber, boolean isDone) throws CSGPTMissingTaskException {
-        if (taskNumber > size || taskNumber < 1)
+        if (taskNumber > list.size() || taskNumber < 1)
             throw new CSGPTMissingTaskException();
-        list[taskNumber - 1].setDone(isDone);
+        list.get(taskNumber - 1).setDone(isDone);
     }
 
     public int size() {
-        return size;
+        return list.size();
     }
 
     public void getTasks() {
-        if (size == 0) {
+        if (list.isEmpty()) {
             CSGPT.printText("You have no tasks at hand, mortal.");
             return;
         }
-        String[] text = new String[size + 1];
+        String[] text = new String[list.size() + 1];
         text[0] = "These are the chores you have at hand, mortal:";
-        for (int i = 0; i < size; i++) {
-            text[i+1] = ((i + 1) + ". " + list[i].toString());
+        for (int i = 0; i < list.size(); i++) {
+            text[i+1] = ((i + 1) + ". " + list.get(i).toString());
         }
         CSGPT.printMultipleText(text);
     }
