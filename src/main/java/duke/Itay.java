@@ -1,10 +1,11 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Itay {
 
-    static Task[] tasks = new Task[100];
+    static ArrayList<Task> tasks = new ArrayList<>(100);
     static int numTasks = 0;
     static String DIVIDER = "------------------------------------------------------------";
     
@@ -40,24 +41,24 @@ public class Itay {
     public static void printList() {
         System.out.println("Here are the tasks in your list:");
             for(int i = 0; i < numTasks ; i++) {
-                System.out.println(tasks[i].toString());
+                System.out.println(tasks.get(i).toString());
             }
         System.out.println(DIVIDER);
     }
 
     public static void handleMark(String[] splitInput) throws DukeException {
         int taskIdx = getTaskIndex(splitInput);
-        tasks[taskIdx].setStatus(true);
+        tasks.get(taskIdx).setStatus(true);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[taskIdx].toString());
+        System.out.println(tasks.get(taskIdx).toString());
         System.out.println(DIVIDER);
     }
 
     public static void handleUnmark(String[] splitInput) throws DukeException {
         int taskIdx = getTaskIndex(splitInput);
-        tasks[taskIdx].setStatus(false);
+        tasks.get(taskIdx).setStatus(false);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks[taskIdx].toString());
+        System.out.println(tasks.get(taskIdx).toString());
         System.out.println(DIVIDER);
     }
 
@@ -82,8 +83,8 @@ public class Itay {
         }
         String description = input.substring(input.indexOf(' ') + 1);
         Task task = new Task(description, 'T');
-        tasks[numTasks] = task;
-        PrintAddTask();
+        tasks.set(numTasks, task);
+        printAddTask();
     }
 
     public static void handleDeadline(String input) throws DukeException {
@@ -98,8 +99,8 @@ public class Itay {
             deadline.trim();
             task.setDeadlineTime(deadline);
 
-            tasks[numTasks] = task;
-            PrintAddTask();
+            tasks.set(numTasks, task);
+            printAddTask();
         } catch (StringIndexOutOfBoundsException | IllegalArgumentException inputEx) {
             throw new DukeException("OOPS!!! Description of deadline command must be of form: deadline ___ /by ___");
         }
@@ -123,16 +124,16 @@ public class Itay {
             
             task.setEventTime(startTime, endTime);
 
-            tasks[numTasks] = task;
-            PrintAddTask();
+            tasks.set(numTasks, task);
+            printAddTask();
         } catch (StringIndexOutOfBoundsException | IllegalArgumentException inputEx) {
             throw new DukeException("OOPS!!! Description of event command must be of form: event ___ /from ___ /to ___");
         } 
     }
     
-    public static void PrintAddTask() {
+    public static void printAddTask() {
         System.out.println("Got it. I've added this task:");   
-        System.out.println(tasks[numTasks].toString());   
+        System.out.println(tasks.get(numTasks).toString());   
         numTasks++;
         System.out.println("Now you have " + numTasks + " tasks in the list.");
         System.out.println(DIVIDER);   
