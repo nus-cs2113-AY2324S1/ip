@@ -9,6 +9,10 @@ import doli.tasks.ToDo;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Doli {
     private static final String LOGO = " ____       _\n" +
             "|  _  \\    | | [_]\n" +
@@ -43,8 +47,10 @@ public class Doli {
             "Please try typing something else.";
     private static final Scanner IN = new Scanner(System.in);
     private static ArrayList<Task> tasks;
+    private static File file;
+    private static String filePath;
 
-    public static void main(String[] args) throws DoliExceptions {
+    public static void main(String[] args) throws DoliExceptions, IOException {
 
         initializeAgenda();
         welcomeUser();
@@ -54,11 +60,22 @@ public class Doli {
             handleCommand(input);
         }
     }
-
-    public static void initializeAgenda() {
+    public static void initializeAgenda() throws IOException, DoliExceptions {
         tasks = new ArrayList<>();
-    }
 
+        File file = new File("agenda.txt");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        filePath = file.getAbsolutePath();
+        initializeContent(file);
+    }
+    public static void initializeContent(File file) throws IOException, DoliExceptions {
+        Scanner fileScanner = new Scanner(file);
+        while (fileScanner.hasNext()) {
+            handleCommand(fileScanner.nextLine()); // not correct implementation; I'll first merge the branches
+        }
+    }
     public static void welcomeUser() {
         printOutput(buildWelcomeMessage());
     }
@@ -81,8 +98,15 @@ public class Doli {
             return commandAndArgs = new String[]{commandAndArgs[0], ""};
         }
     }
+
     private static boolean unvalidEvent(String[] args) {
         return args.length < 3;
+    }
+
+    private static void writeToFile(String path, String text) throws IOException {
+        FileWriter fileWriter = new FileWriter(path);
+        fileWriter.write(text);
+        fileWriter.close();
     }
     private static boolean unvalidDeadline(String[] args) {
         return args.length < 2;
@@ -227,8 +251,13 @@ public class Doli {
         }
     }
 
-    private static void printList(String list) {
+    private static void printList(String list) throws IOException {
         printOutput(AGENDA_OVERVIEW, list);
+        try {
+            writeToFile(filePath, list);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void printMark(String marked) {
@@ -238,16 +267,8 @@ public class Doli {
     private static void printUnmark(String unmarked) {
         printOutput(unmarked, ENCOURAGE_TO_MARK);
     }
-    /*private static void some(String args) {
-        try {
-            printOutput(ADDED_TASK_SUCCESSFULLY, addTodo(args), buildCurrentSummary());
-            executeTodo(addTodo(args));
-        } catch(DoliExceptions e) {
-            System.out.println(e);
-        }
-    }*/
-
-    public static void handleCommand(String input) throws DoliExceptions {
+    
+    public static void handleCommand(String input) throws DoliExceptions, IOException {
         final String command = extractCommandInfo(input)[0];
         final String args = extractCommandInfo(input)[1];
         switch (command) {
