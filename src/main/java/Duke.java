@@ -53,7 +53,6 @@ public class Duke {
                     System.out.println("\tNow you have " + counter + " tasks in the list.");
                     break;
 
-
                 case DEADLINE:
                     taskDescription = echo.substring(8);
                     slashCut = taskDescription.indexOf("/");
@@ -66,7 +65,6 @@ public class Duke {
                     counter += 1;
                     System.out.println("\tNow you have " + counter + " tasks in the list.");
                     break;
-
 
                 case EVENT:
                     taskDescription = echo.substring(5);

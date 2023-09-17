@@ -11,7 +11,6 @@ public abstract class Task {
         return description;
     }
 
-
     public boolean isDone() {
         return isDone;
     }
@@ -20,9 +19,9 @@ public abstract class Task {
         isDone = done;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "";
     }
-
+    */
 }
