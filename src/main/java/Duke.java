@@ -43,7 +43,6 @@ public class Duke {
                     taskList[taskNumber].setDone(false);
                     System.out.println(taskList[taskNumber]);
                     break;
-
                 case TODO:
                     //int spaceCut = echo.indexOf(" ");
                     taskDescription = echo.substring(4);
@@ -52,7 +51,6 @@ public class Duke {
                     counter += 1;
                     System.out.println("\tNow you have " + counter + " tasks in the list.");
                     break;
-
                 case DEADLINE:
                     taskDescription = echo.substring(8);
                     slashCut = taskDescription.indexOf("/");
@@ -65,7 +63,6 @@ public class Duke {
                     counter += 1;
                     System.out.println("\tNow you have " + counter + " tasks in the list.");
                     break;
-
                 case EVENT:
                     taskDescription = echo.substring(5);
                     slashCut = taskDescription.indexOf("/");
@@ -78,7 +75,6 @@ public class Duke {
                     counter += 1;
                     System.out.println("\tNow you have " + counter + " tasks in the list.");
                     break;
-
                 default:
                     break;
             }
