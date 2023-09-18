@@ -12,7 +12,8 @@ import java.util.Scanner;
 public class Bot {
     private static final String BOT_NAME = "JS";
     private static final String LINE_DIVIDER = "----------------------------------------";
-    private static final String FILE_PATH = "src\\main\\data\\data.txt";
+    private static final String FILE_PATH = "data\\";
+    private static final String FILE_NAME = "data.txt";
     private static final String TODO_USAGE_MSG = "Usage: todo <description>";
     private static final String EVENT_USAGE_MSG = "Usage: event <description> /from <start> /to <end>";
     private static final String DEADLINE_USAGE_MSG = "Usage: deadline <description> /by <end>";
@@ -24,7 +25,7 @@ public class Bot {
     public Bot() {
         this.taskList = new ArrayList<Task>();
         this.input = new Scanner(System.in);
-        this.file = new File(FILE_PATH);
+        this.file = new File(FILE_PATH + FILE_NAME);
     }
 
     /**
@@ -216,7 +217,7 @@ public class Bot {
 
     public void writeToFile(String data) {
         try {
-            FileWriter fw = new FileWriter(FILE_PATH, true);
+            FileWriter fw = new FileWriter(FILE_PATH + FILE_NAME, true);
             fw.write(data + "\n");
             fw.close();
         } catch (IOException exception) {
@@ -226,7 +227,7 @@ public class Bot {
 
     public void refreshData() {
         try {
-            PrintWriter writer = new PrintWriter(FILE_PATH);
+            PrintWriter writer = new PrintWriter(FILE_PATH +FILE_NAME);
             writer.close();
         } catch (FileNotFoundException exception) {
             System.out.println("File not found");
@@ -281,6 +282,8 @@ public class Bot {
     
     public void importToArrayList() {
         try {
+            File directory = new File(FILE_PATH);
+            directory.mkdir();
             if(file.exists()) {
                 getFileData();
             } else {
