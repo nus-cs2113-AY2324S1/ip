@@ -103,6 +103,7 @@ public class LinguoBot {
                 "            |___|                      \n";
 
         System.out.println("Hello I'm " + logo);
+//        System.out.println("Hello I'm LinguoBot");
         System.out.println("What can I do for you?");
 
         Scanner in = new Scanner(System.in);
