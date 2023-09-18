@@ -8,6 +8,9 @@ import Python.Task.Todo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class Python {
     final private static String BOT_NAME = "Python";
@@ -32,10 +35,57 @@ public class Python {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
 
+    public static final String FILENAME_TASKS_LIST = "python.txt";
+    public static final String DIR_TASKS_LIST = "./data/";
+
     final private static int HORIZONTAL_LINE_LENGTH = 80;
     private static void printHorizontalLine() {
         String horizontalLine = "—".repeat(HORIZONTAL_LINE_LENGTH);
         System.out.println("\t" + horizontalLine);
+    }
+
+    private static void writeToFile(File file, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(file);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void saveTasksToDisk() {
+        File directory = new File(DIR_TASKS_LIST);
+        File file = new File(directory, FILENAME_TASKS_LIST);
+
+        // Check if directory exists, if not, create it
+        if (!directory.exists()) {
+            if (!directory.mkdirs()) {
+                System.out.printf("\t%s: Unable to save the tasks.\n", PYTHON_EMOJI);
+                System.out.printf("\t%s: Failed to create the directory: %s.\n", PYTHON_EMOJI,
+                        DIR_TASKS_LIST);
+                return;
+            }
+        }
+
+        try {
+            if (file.createNewFile()) {
+                System.out.printf("\t%s: Created file to store tasks: %s.\n", PYTHON_EMOJI,
+                        DIR_TASKS_LIST + FILENAME_TASKS_LIST);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        StringBuilder contentFile = new StringBuilder();
+        for (Task task : tasks) {
+            String taskDetails = task.toDiskSaveFormat() + System.lineSeparator();
+            contentFile.append(taskDetails);
+        }
+
+        try {
+            writeToFile(file, contentFile.toString());
+        } catch (IOException e) {
+            System.out.printf("\t%s: An error occurred while writing to the file: %s.\n", PYTHON_EMOJI,
+                    e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
@@ -89,6 +139,7 @@ public class Python {
 
                 System.out.printf("\t%s: Good job completing the task!\n", PYTHON_EMOJI);
                 System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
+                saveTasksToDisk();
                 break;
             }
             case COMMAND_UNMARK: {
@@ -117,6 +168,7 @@ public class Python {
 
                 System.out.printf("\t%s: Its okay! To err is human! Unmarked!\n", PYTHON_EMOJI);
                 System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
+                saveTasksToDisk();
                 break;
             }
             case COMMAND_TODO: {
@@ -136,6 +188,7 @@ public class Python {
 
                 System.out.printf("\t\t\t %s\n", todo);
                 System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
+                saveTasksToDisk();
                 break;
             }
             case COMMAND_DEADLINE: {
@@ -163,6 +216,7 @@ public class Python {
 
                 System.out.printf("\t\t\t %s\n", deadline);
                 System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
+                saveTasksToDisk();
                 break;
             }
             case COMMAND_EVENT: {
@@ -197,6 +251,7 @@ public class Python {
 
                 System.out.printf("\t\t\t %s\n", event);
                 System.out.printf("\t\tYou have %d tasks in total!\n", tasks.size());
+                saveTasksToDisk();
                 break;
             }
             default:
