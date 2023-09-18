@@ -15,13 +15,19 @@ import elvis.exception.EmptyUnmarkException;
 import elvis.exception.UnknownInputException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
 
 //For adding, removing, marking, unmarking of Tasks
 public class TaskManager {
     public static Scanner in = new Scanner(System.in);  //Scanner for Input
     private static ArrayList<Task> tasks = new ArrayList<>();   //Keeps track of all Task Instances made
 
-    public static void inputTask() {
+    public static void inputTaskFromFile(String lineOfFile) {
+        errorHandler(lineOfFile);      //Checks for any errors and handles them
+    }
+
+    public static void inputTaskManually() {
         SystemOperation.bootUp();
         while (true) {
             String inputBuffer = in.nextLine().trim(); //Scans I/O and all input stored in inputBuffer
@@ -53,6 +59,7 @@ public class TaskManager {
             System.out.println("☹ OOPS!!! The description cannot be empty.");
         } catch (EmptyListException exception) {
             System.out.println("☹ OOPS!!! Nothing to list.");
+            validInput = true;
         } catch (EmptyDeleteException exception) {
             System.out.println("☹ OOPS!!! The description of a delete cannot be empty.");
         } catch (EmptyMarkException exception) {

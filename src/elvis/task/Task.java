@@ -1,6 +1,6 @@
 package elvis.task;
 
-import java.util.Scanner;
+import java.io.IOException;
 
 //Task Class that stores the description and isDone of task
 public abstract class Task {
@@ -14,17 +14,17 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public String toFileString() {
+    public String toFileString() throws IOException {
         int status = isDone ? 1 : 0;
         if (this instanceof ToDo) {
-            return String.format("%c|%d|%s", this.getTaskType(), status, description);
+            return String.format("%s %d %s", "todo", status, description);
         } else if (this instanceof Deadline) {
-            return String.format("%c|%d|%s/by%s", this.getTaskType(), status, description, getDate());
+            return String.format("%s %d %s/by%s", "deadline", status, description, getDate());
         } else if (this instanceof Event) {
-            return String.format("%c|%d|%s/from%s/to%s", this.getTaskType(), status, description,
+            return String.format("%s %d %s/from%s/to%s", "event", status, description,
                     getStartTime(), getEndTime());
         }
-        return "ERROR";
+        throw new IOException();
     }
 
     //Getting the To-Do attribute of the task instance
