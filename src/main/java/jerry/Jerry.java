@@ -90,6 +90,17 @@ public class Jerry {
         markTaskAsUndone(commandArgs);
     }
 
+    private static void execDeleteTask(String commandArgs) {
+        try {
+            Task task = taskList.removeTask(Integer.parseInt(commandArgs));
+            UserInterface.showDeteteTaskConfirmation(task, taskList);
+        } catch (NumberFormatException e) {
+            System.out.println("\tPlease enter a valid task number.");
+        } catch (TaskNotFoundException e) {
+            UserInterface.showExceptionMessage(e);
+        }
+    }
+
     private static void execUnknownCommand() {
         UserInterface.showUnknownCommandMessage();
     }
@@ -107,6 +118,9 @@ public class Jerry {
                 break;
             case "unmark":
                 execUnmarkTask(commandArgs);
+                break;
+            case "delete":
+                execDeleteTask(commandArgs);
                 break;
             case "todo":
                 execAddTodo(commandArgs);
