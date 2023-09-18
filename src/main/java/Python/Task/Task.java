@@ -31,4 +31,8 @@ public abstract class Task {
     public String toString() {
         return getTypeIcon() + getStatusIcon() + " " + getDescription();
     }
+
+    public String toDiskSaveFormat() {
+        return getTypeIcon() + " | " +  getStatusIcon() + " | " + getDescription();
+    }
 }

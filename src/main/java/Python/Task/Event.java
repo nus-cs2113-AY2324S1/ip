@@ -2,6 +2,7 @@ package Python.Task;
 
 public class Event extends Task {
     protected String from, to;
+    final static public String TYPE_ICON = "[E]";
 
     public Event(String description, String from, String to) {
         super(description);
@@ -10,7 +11,7 @@ public class Event extends Task {
     }
 
     public String getTypeIcon() {
-        return "[E]";
+        return TYPE_ICON;
     }
 
     public String getFrom() {
@@ -24,5 +25,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return super.toString() + " (from: " + getFrom() + " to: " + getTo() + ")";
+    }
+
+    @Override
+    public String toDiskSaveFormat() {
+        return super.toDiskSaveFormat() + " | " + getFrom() + " | " + getTo();
     }
 }

@@ -3,6 +3,8 @@ package Python.Task;
 public class Deadline extends Task {
     protected String by;
 
+    final static public String TYPE_ICON = "[D]";
+
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
@@ -10,7 +12,7 @@ public class Deadline extends Task {
 
     @Override
     public String getTypeIcon() {
-        return "[D]";
+        return TYPE_ICON;
     }
 
     public String getBy() {
@@ -20,5 +22,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return super.toString() + " (by: " + getBy() + ")";
+    }
+
+    @Override
+    public String toDiskSaveFormat() {
+        return super.toDiskSaveFormat() + " | " + getBy();
     }
 }
