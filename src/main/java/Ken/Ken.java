@@ -1,6 +1,7 @@
 package Ken;
 
 import Commands.Add;
+import Commands.List;
 import Exceptions.KenException;
 import Exceptions.KenMissingTaskException;
 import Exceptions.KenParsingException;
@@ -72,7 +73,7 @@ public class Ken {
                     new Add(event).run(list);
                     break;
                 case LIST:
-                    list.getTasks();
+                    new List().run(list);
                     break;
                 case MARK:
                     if (input.trim().equals(MARK)) {
