@@ -21,4 +21,10 @@ public class Event extends Task {
         return "[E][" + getStatusIcon() + "]" + description +
                 " (from:" + getFrom() + "to:" + getTo() + ")";
     }
+
+    @Override
+    public String toFileString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description +
+        " | " + getFrom() + "to" + getTo();
+    }
 }
