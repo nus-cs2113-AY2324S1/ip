@@ -9,6 +9,10 @@ public class Event extends Task {
         this.eventTime = eventTime;
     }
 
+    public String getEventTime(){
+        return eventTime;
+    }
+
     public String toString() {
         return "[E]" + super.toString() + "(from: " + eventTime + ")";
     }
