@@ -28,6 +28,7 @@ public class Python {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
+    public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
@@ -117,6 +118,29 @@ public class Python {
 
                 System.out.printf("\t%s: Its okay! To err is human! Unmarked!\n", PYTHON_EMOJI);
                 System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
+                break;
+            }
+            case COMMAND_DELETE: {
+                int taskNo;
+                try {
+                    taskNo = Integer.parseInt(inputLine.split(" ")[1]);
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\t" + COMMAND_DELETE + " command must be followed by an integer (task" +
+                            " id).");
+                    break;
+                }
+
+                // Handle unintended usage
+                if (taskNo > tasks.size()) {
+                    System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
+                    System.out.printf("\t%s: You have %d tasks only!\n", PYTHON_EMOJI, tasks.size());
+                    break;
+                }
+
+                System.out.printf("\t%s: Okay. Deleting this task...!\n", PYTHON_EMOJI);
+                System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
+                tasks.remove(taskNo - 1);
+                System.out.printf("\t%s: Now, you have %d tasks!\n", PYTHON_EMOJI, tasks.size());
                 break;
             }
             case COMMAND_TODO: {
