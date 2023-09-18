@@ -154,7 +154,6 @@ public class TaskManager {
         print(nthTask);
         tasks.remove(nthTask);
         printTaskCount();
-
     }
 
     public static void taskMarker(int numberInput) {
