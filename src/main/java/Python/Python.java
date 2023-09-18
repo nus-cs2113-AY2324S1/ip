@@ -35,9 +35,8 @@ public class Python {
 
     final private static int HORIZONTAL_LINE_LENGTH = 80;
     private static void printHorizontalLine() {
-        char[] horizontalLine = new char[HORIZONTAL_LINE_LENGTH];
-        Arrays.fill(horizontalLine, '—');
-        System.out.println("\t" + new String(horizontalLine));
+        String horizontalLine = "-".repeat(HORIZONTAL_LINE_LENGTH);
+        System.out.println("\t" + horizontalLine);
     }
 
     public static void main(String[] args) {
