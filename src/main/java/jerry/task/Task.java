@@ -1,5 +1,8 @@
 package jerry.task;
-public abstract class Task {
+
+import java.io.Serializable;
+
+public abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
@@ -14,6 +17,10 @@ public abstract class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public String getStatusInt() {
+        return (isDone ? "1" : "0");
     }
 
     public void markAsDone() {

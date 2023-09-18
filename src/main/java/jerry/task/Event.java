@@ -2,7 +2,6 @@ package jerry.task;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import jerry.exceptions.InvalidTaskFormatException;
 
 public class Event extends Task {
