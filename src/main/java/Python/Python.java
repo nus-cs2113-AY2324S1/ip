@@ -242,6 +242,7 @@ public class Python {
                 System.out.printf("\t\t\t %s\n", tasks.get(taskNo - 1));
                 tasks.remove(taskNo - 1);
                 System.out.printf("\t%s: Now, you have %d tasks!\n", PYTHON_EMOJI, tasks.size());
+                saveTasksToDisk();
                 break;
             }
             case COMMAND_TODO: {
