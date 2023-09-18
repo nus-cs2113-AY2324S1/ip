@@ -1,6 +1,7 @@
 import listWhisper.exceptions.DescriptionFormatException;
 import listWhisper.exceptions.InvalidCommandException;
 import listWhisper.task.List;
+import listWhisper.task.Task;
 
 import java.util.Scanner;
 
@@ -41,6 +42,8 @@ class Manager {
             } else if (input.startsWith("event")) {
                 this.list.addEvent(input.substring("event".length()));
                 printAddMessage();
+            } else if (input.startsWith("delete")) {
+                printDeleteMessage(this.list.delete(input));
             } else {
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -60,6 +63,15 @@ class Manager {
         System.out.println(String.format("Now you have %d tasks in the list.", this.list.getSize()));
         ListWhisper.printStraightLine();
     }
+
+    private void printDeleteMessage(Task task) {
+        ListWhisper.printStraightLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println(String.format("Now you have %d tasks in the list.", this.list.getSize()));
+        ListWhisper.printStraightLine();
+    }
+
 
     private void printUnmarkMessage(int taskId) {
         ListWhisper.printStraightLine();

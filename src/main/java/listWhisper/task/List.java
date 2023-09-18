@@ -75,6 +75,17 @@ public class List {
         }
     }
 
+    public Task delete(String input) throws DescriptionFormatException {
+        try {
+            int taskId = getTaskId(input);
+            Task task = this.tasks.get(taskId - 1);
+            this.tasks.remove(taskId - 1);
+            return task;
+        } catch (DescriptionFormatException e) {
+            throw e;
+        }
+    }
+
     //Split input into different formats
     public String[] splitInputIntoDeadlineFormat(String description)
             throws DescriptionFormatException {
@@ -110,4 +121,5 @@ public class List {
         }
         return Integer.parseInt(splitInput[1]);
     }
+
 }

@@ -2,7 +2,7 @@ package listWhisper.task;
 
 import listWhisper.task.TaskType;
 
-abstract class Task {
+public abstract class Task {
     private final String description;
     private boolean isDone;
     private TaskType type;
