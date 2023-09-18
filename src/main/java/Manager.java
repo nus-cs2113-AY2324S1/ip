@@ -54,40 +54,37 @@ class Manager {
     }
 
     private void printAddMessage() {
-        printStraightLine();
+        ListWhisper.printStraightLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(this.list.getTask(this.list.getSize()) + "\n");
         System.out.println(String.format("Now you have %d tasks in the list.", this.list.getSize()));
-        printStraightLine();
+        ListWhisper.printStraightLine();
     }
 
     private void printUnmarkMessage(int taskId) {
-        printStraightLine();
+        ListWhisper.printStraightLine();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this.list.getTask(taskId));
-        printStraightLine();
+        ListWhisper.printStraightLine();
     }
 
     private void printMarkMessage(int taskId) {
-        printStraightLine();
+        ListWhisper.printStraightLine();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(this.list.getTask(taskId));
-        printStraightLine();
+        ListWhisper.printStraightLine();
     }
 
     private void printListMessage() {
-        printStraightLine();
-        System.out.println("Here are the tasks in your list: ");
-        System.out.print(this.list);
-        printStraightLine();
+        ListWhisper.printStraightLine();
+        System.out.println("Here are the tasks in your list:");
+        this.list.printAllTasks();
+        ListWhisper.printStraightLine();
     }
 
     private void printByeMessage() {
-        printStraightLine();
+        ListWhisper.printStraightLine();
         System.out.println("Bye. Hope to see you again soon!");
-        printStraightLine();
-    }
-    private void printStraightLine() {
-        System.out.println("-----------------------------------------------------");
+        ListWhisper.printStraightLine();
     }
 }

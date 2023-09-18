@@ -15,11 +15,13 @@ public class ListWhisper {
     }
 
     private static void greetUser() {
-        System.out.println("-----------------------------------------------------");
-        System.out.println(
-                "Hello! I'm ListWhisper\n" +
-                        "What can I do for you?"
-        );
+        ListWhisper.printStraightLine();
+        System.out.println("Hello! I'm ListWhisper");
+        System.out.println("What can I do for you?");
+        ListWhisper.printStraightLine();
+    }
+
+    public static void printStraightLine() {
         System.out.println("-----------------------------------------------------");
     }
 
