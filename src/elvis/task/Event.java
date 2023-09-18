@@ -5,8 +5,8 @@ public class Event extends Task {
     private String startTime;
     private String endTime;
 
-    public Event(String description, String startTime, String endTime) {
-        super(description);
+    public Event(String description, int isDoneFromFile, String startTime, String endTime) {
+        super(description, isDoneFromFile);
         this.startTime = startTime;
         this.endTime = endTime;
     }
