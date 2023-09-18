@@ -34,7 +34,7 @@ public class Python {
 
     final private static int HORIZONTAL_LINE_LENGTH = 80;
     private static void printHorizontalLine() {
-        String horizontalLine = "-".repeat(HORIZONTAL_LINE_LENGTH);
+        String horizontalLine = "—".repeat(HORIZONTAL_LINE_LENGTH);
         System.out.println("\t" + horizontalLine);
     }
 
