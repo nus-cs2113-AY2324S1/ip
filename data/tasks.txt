@@ -1,5 +1,0 @@
-[T][ ]hi
-[D][X]hello by: tmr
-[E][X]bye from: 12 to: 2
-[T][X]sleep
-[D][ ]tmr by: tmrnight

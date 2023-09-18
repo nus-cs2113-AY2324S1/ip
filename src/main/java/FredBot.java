@@ -20,7 +20,6 @@ public class FredBot {
     public static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:\n";
     public static final String UNMARK_TASK_MESSAGE = "Nice! I've marked this task as not done yet:\n";
     public static final String DIVIDER = "    ____________________________________________________________\n";
-    public static final int MAX_NUM_TASKS = 100;
     public static final String TASK_LIST_MESSAGE = "Here are the tasks in your list\n";
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
@@ -116,11 +115,13 @@ public class FredBot {
         addTaskstoFile(tasks);
     }
 
-    public static void deleteTask(ArrayList<Task> tasks, int index) throws FredBotDeleteErrorException{
+    public static void deleteTask(ArrayList<Task> tasks, int index) throws FredBotDeleteErrorException, IOException{
         if (index < 1 || index > Task.getNumTask()) {
             throw new FredBotDeleteErrorException();
         }
         printRemoveTask(tasks.remove(index - 1).toString() + "\n");
+        Task.setNumTask(Task.getNumTask()-1);
+        addTaskstoFile(tasks);
     }
 
     public static void changeStatus(ArrayList<Task> tasks, boolean mark, int index) throws FredBotMarkErrorException,IOException {
@@ -152,7 +153,7 @@ public class FredBot {
 
     public static void printRemoveTask(String message) {
         printMessage(INDENT + REMOVE_TASK_MESSAGE + INDENT + message + INDENT +
-                "Now you have " + (Task.getNumTask() +1) + " tasks in the list\n");
+                "Now you have " + (Task.getNumTask() - 1) + " tasks in the list\n");
     }
 
     public static void printAddTask(String message) {
