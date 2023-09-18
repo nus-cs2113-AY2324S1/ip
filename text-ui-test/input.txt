@@ -32,6 +32,9 @@ list
 unmark 3
 unmark 4
 list
+delete 2
+delete 10
+list
 mark 7
 unmark 7
 bye
