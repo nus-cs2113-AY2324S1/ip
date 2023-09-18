@@ -5,6 +5,8 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    public abstract String encode();
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;

@@ -13,5 +13,11 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), by);
     }
+
+    @Override
+    public String encode() {
+        String isDoneString = isDone ? "1" : "0";
+        return String.format("D | %s | %s | %s", isDoneString, description, by);
+    }
     
 }
