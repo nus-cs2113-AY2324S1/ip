@@ -1,0 +1,9 @@
+list
+todo homework
+event career fair /from 3 /to 4
+deadline assignment /by 10pm
+list
+mark 1
+mark 2
+mark 3
+list
