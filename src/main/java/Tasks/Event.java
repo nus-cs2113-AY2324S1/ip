@@ -12,4 +12,9 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + " (by: " + time + ")";
     }
+
+    @Override
+    public String getTaskType() {
+        return "E";
+    }
 }

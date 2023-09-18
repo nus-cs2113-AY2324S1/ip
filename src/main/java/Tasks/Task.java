@@ -9,6 +9,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getTaskType() {
+        return "TASK";
+    }
+
     public String getDescription(String description){
         return this.description;
     }

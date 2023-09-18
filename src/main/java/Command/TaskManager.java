@@ -195,7 +195,7 @@ public class TaskManager {
     }
 
     public String toFileFormat() {
-        return String.format("%s|%s|%s", getTaskType(), isDone() ? "1" : "0", Task.getDescription());
+        return String.format("%s|%s|%s", Task.getTaskType(), Task.getStatusIcon() ? "1" : "0", Task.getDescription());
     }
 
     private void displayTaskCount() {
