@@ -4,15 +4,68 @@ import Duke.tasks.Deadline;
 import Duke.tasks.Event;
 import Duke.tasks.Todo;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 public class Duke {
+
+    private static void getFromTextFile(ArrayList<Task> list) throws FileNotFoundException{
+        File f = new File("duke.txt"); // create a File for the given file path
+        try {
+            if(f.createNewFile()) {
+                return;
+            }
+        } catch(IOException e){
+            System.out.println("Something went wrong");
+        }
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        int i = 0;
+        while (s.hasNext()) {
+            String textLine = s.nextLine();
+            try {
+                String[] words = textLine.split(" \\| ");
+                String command = textLine.split(" \\| ")[0];
+                String isDone = textLine.split(" \\| ")[1];
+                String task = textLine.split(" \\| ")[2];
+                String time = "";
+                if (!command.equals("T")) {
+                    time = textLine.split(" \\| ")[3];
+                }
+                switch (command){
+                case "T":
+                    list.add(new Todo(task));
+                    break;
+                case "D":
+                    list.add(new Deadline(task,time));
+                    break;
+                case "E":
+                    list.add(new Event(task, time));
+                    break;
+                default:
+                }
+                if(isDone.equals("1")) {
+                    list.get(i).markAsDone();
+                }
+                i++;
+            } catch(IndexOutOfBoundsException e){
+                System.out.println("The file not in the correct format");
+            }
+        }
+    }
     public static void main(String[] args) {
+        ArrayList<Task> list= new ArrayList<>();
+        try{
+            getFromTextFile(list);
+        } catch(FileNotFoundException e){
+            System.out.printf("a");
+        }
         Scanner in = new Scanner(System.in);
         System.out.println("Hello! I'm Bot Hilary");
-        ArrayList<Task> list= new ArrayList<>();
         System.out.println("What can I do for you?");
         String line = in.nextLine();
         String eventTime = "";
