@@ -2,15 +2,32 @@ package Tasks;
 
 public class Event extends Task{
     protected String time;
+    protected String startTime;
+    protected String endTime;
 
     public Event(String description, String time) {
         super(description);
         this.time = time;
+        String[] timeParts = time.split(" to ", 2);
+        this.startTime = timeParts[0];
+        this.endTime = timeParts[1];
+    }
+
+    public String getTime() {
+        return this.time;
+    }
+
+    public String getStartTime() {
+        return this.startTime;
+    }
+
+    public String getEndTime() {
+        return this.endTime;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (by: " + time + ")";
+        return "[E]" + super.toString() + " (from: " + time + ")";
     }
 
     @Override
