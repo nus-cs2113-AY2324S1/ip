@@ -1,5 +1,6 @@
 package Ken;
 
+import Commands.Add;
 import Exceptions.KenException;
 import Exceptions.KenMissingTaskException;
 import Exceptions.KenParsingException;
@@ -16,14 +17,6 @@ public class Ken {
     private static final String BYE = "bye";
     private static final TaskList list = new TaskList();
 
-    public static void addTask(Task task) {
-        list.addTask(task);
-        Ui.printTexts(new String[] {
-                "Barbie-approved! You've added this glamorous task:",
-                task.toString(),
-                "Now your list is sparkling with " + list.getSize() + " glamorous tasks, darling!"
-        });
-    }
 
     public static void main(String[] args) {
         Ui.greetUser();
@@ -40,7 +33,7 @@ public class Ken {
                     }
                     String todoName = input.substring(TODO.length() + 1);
                     Todo todo = new Todo(todoName);
-                    addTask(todo);
+                    new Add(todo).run(list);
                     break;
                 case DEADLINE:
                     if (!input.contains("/by")) {
@@ -56,7 +49,7 @@ public class Ken {
                         throw new KenParsingException("Oopsie! Did you forget to include the deadline?");
                     }
                     Deadline deadline = new Deadline(deadlineName, by);
-                    addTask(deadline);
+                    new Add(deadline).run(list);
                     break;
                 case EVENT:
                     if (!input.contains("/from") || !input.contains("/to")) {
@@ -76,7 +69,7 @@ public class Ken {
                         throw new KenParsingException("Oopsie! Did you forget to include the end date of the event?");
                     }
                     Event event = new Event(eventName, from, to);
-                    addTask(event);
+                    new Add(event).run(list);
                     break;
                 case LIST:
                     list.getTasks();
