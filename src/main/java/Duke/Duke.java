@@ -14,77 +14,73 @@ public class Duke {
         Task[] list = new Task[100];
         System.out.println(" What can I do for you? ");
         String line = in.nextLine();
-        while (!line.equals("bye")){
-            if (line.equals("list")) {
+        String eventTime = "";
+        while (!line.equals("bye")) {
+            String command = line.split(" ", 2)[0];
+            switch (command){
+            case "list":
                 for (int i = 0; i < Task.listCount; ++i) {
                     System.out.print(i+1 + ".");
                     System.out.println(list[i]);
                 }
-            }
-            else if (line.contains("unmark")){
+                break;
+            case "unmark":
                 line = line.replace("unmark ", "");
                 try {
                     list[Integer.parseInt(line) - 1].unmark();
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println(list[Integer.parseInt(line) - 1]);
                 } catch(NumberFormatException | NullPointerException e){
-                    System.out.println("OOPS!!! Need to specify which task want to unmark");
+                    System.out.println(" OOPS!!! Need to specify which task want to unmark");
                 }
-
-            }
-            else if (line.contains("mark")){
+                break;
+            case "mark":
                 line = line.replace("mark ", "");
                 try {
                     list[Integer.parseInt(line) - 1].markAsDone();
-                    System.out.println(" Nice! I've marked this task as done:");
+                    System.out.print(" Nice! I've marked this task as done:\n\t");
                     System.out.println(list[Integer.parseInt(line) - 1]);
                 } catch(NumberFormatException | NullPointerException e){
-                    System.out.println("OOPS!!! Need to specify which task want to mark as done");
+                    System.out.println(" OOPS!!! Need to specify which task want to mark as done");
                 }
-
-            }
-            else{
-                String eventTime = "";
-                if (line.contains("deadline")){
-                    try {
-                        eventTime = line.split("/by ", 2)[1];
-                        line = line.split(" ", 2)[1];
-                        line = line.split("/", 2)[0];
-                        eventTime = eventTime.replace("from", "from:");
-                        eventTime = eventTime.replace("/", "");
-                        list[Task.listCount] = new Deadline(line, eventTime);
-                        System.out.println(" Got it. I've added this task:\n\t" + list[Task.listCount] + "\n Now you have "+ ++Task.listCount + " tasks in the list.");
-                    } catch(IndexOutOfBoundsException e){
-                        System.out.println("OOPS!!! The deadline need to separated by \"/by\"");
-                    }
-
+                break;
+            case "deadline":
+                try {
+                    eventTime = line.split("/by ", 2)[1];
+                    line = line.split(" ", 2)[1];
+                    line = line.split("/", 2)[0];
+                    eventTime = eventTime.replace("from", "from:");
+                    eventTime = eventTime.replace("/", "");
+                    list[Task.listCount] = new Deadline(line, eventTime);
+                    System.out.println(" Got it. I've added this task:\n\t" + list[Task.listCount] + "\n Now you have "+ ++Task.listCount + " tasks in the list.");
+                } catch(IndexOutOfBoundsException e){
+                    System.out.println("OOPS!!! The deadline need to separated by \"/by\"");
                 }
-                else if (line.contains("event")){
-                    try {
-                        eventTime = line.split("/from ", 2)[1];
-                        line = line.split(" ", 2)[1];
-                        line = line.split("/",2)[0];
-                        eventTime = eventTime.replace("/to", "to:");
-                        list[Task.listCount] = new Event(line, eventTime);
-                        System.out.println(" Got it. I've added this task:\n\t" + list[Task.listCount] + "\n Now you have "+ ++Task.listCount + " tasks in the list.");
-                    } catch(IndexOutOfBoundsException e){
-                        System.out.println("OOPS!!! The event timing need to separated by \"/from\"");
-                    }
+                break;
+            case "event":
+                try {
+                    eventTime = line.split("/from ", 2)[1];
+                    line = line.split(" ", 2)[1];
+                    line = line.split("/",2)[0];
+                    eventTime = eventTime.replace("/to", "to:");
+                    list[Task.listCount] = new Event(line, eventTime);
+                    System.out.println(" Got it. I've added this task:\n\t" + list[Task.listCount] + "\n Now you have "+ ++Task.listCount + " tasks in the list.");
+                } catch(IndexOutOfBoundsException e){
+                    System.out.println("OOPS!!! The event timing need to separated by \"/from\"");
                 }
-                else if (line.contains("todo")){
-                    try {
-                        list[Task.listCount] = new Todo(line.split(" ", 2)[1]);
-                        System.out.println(" Got it. I've added this task:");
-                        System.out.println(list[Task.listCount]);
-                        Task.listCount++;
-                        System.out.println("Now you have " + Task.listCount + " in the list");
-                    } catch(IndexOutOfBoundsException e){
-                        System.out.println("OOPS!!! The description of a todo cannot be empty.");
-                    }
+            case "todo":
+                try {
+                    list[Task.listCount] = new Todo(line.split(" ", 2)[1]);
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println(list[Task.listCount]);
+                    Task.listCount++;
+                    System.out.println("Now you have " + Task.listCount + " in the list");
+                } catch(IndexOutOfBoundsException e){
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
                 }
-                else{
-                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                }
+                break;
+            default:
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             line = in.nextLine();
         }
