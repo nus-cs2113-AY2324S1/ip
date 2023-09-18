@@ -1,6 +1,7 @@
 package Ken;
 
 import Commands.Add;
+import Commands.Goodbye;
 import Commands.List;
 import Commands.Update;
 import Exceptions.KenException;
@@ -106,7 +107,7 @@ public class Ken {
                     new Update(unmarkTaskNumber, false).run(list);
                     break;
                 case BYE:
-                    Ui.byeUser();
+                    new Goodbye().run(list);
                     return;
                 default:
                     throw new KenParsingException("Uh-oh, darling! Your input needs a makeover for me to understand!");
