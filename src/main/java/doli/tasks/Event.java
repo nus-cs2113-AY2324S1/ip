@@ -4,10 +4,12 @@ package doli.tasks;
 public class Event extends Task {
     protected String startTime;
     protected String endTime;
+    protected boolean isDone;
     public Event(String description, String startTime, String endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isDone = false;
     }
     public String getStartTime() {
         return startTime;
@@ -29,9 +31,16 @@ public class Event extends Task {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+    public void setDone(boolean done) {
+        this.isDone = done;
+    }
+    public boolean isDone() {
+        return isDone;
+    }
     @Override
     public String toString() {
-        String summary = String.format("[E] %s (%s, %s)", super.toString(), startTime.replace("from", "from:"), endTime.replace("to", "to:"));
+        String summary = String.format("[E] %s (%s, %s)", super.toString(),
+                startTime.replace("from", "from:"), endTime.replace("to", "to:"));
         return summary;
     }
 }

@@ -1,12 +1,12 @@
 package doli;
 
 import doli.exceptions.DoliExceptions;
+import doli.fileHandler.FileHandler;
 import doli.tasks.Deadline;
 import doli.tasks.Event;
 import doli.tasks.Task;
 import doli.tasks.ToDo;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -39,16 +39,18 @@ public class Doli {
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
     private static final String LIST_COMMAND = "list";
+    private static final String COUNT_COMMAND = "count";
     private static final String DELETE_COMMAND = "delete";
+    private static final String SCRATCH_COMMAND = "scratch";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
     private static final String EXIT_COMMAND = "bye";
+    private static final int NR_EVENT_ARGS = 3;
+    private static final int NR_DEADLINE_ARGS = 2;
     private static final String UNRECOGNIZED_COMMAND = "I am so sorry, but I do not recognize this command. " +
             "Please try typing something else.";
     private static final Scanner IN = new Scanner(System.in);
     private static ArrayList<Task> tasks;
-    private static File file;
-    private static String filePath;
 
     public static void main(String[] args) throws DoliExceptions, IOException {
 
@@ -58,21 +60,17 @@ public class Doli {
         while (true) {
             String input = getInput();
             handleCommand(input);
+            FileHandler.modifyFile(tasks);
         }
     }
     public static void initializeAgenda() throws IOException, DoliExceptions {
         tasks = new ArrayList<>();
-        File file = new File("agenda.txt");
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        filePath = file.getAbsolutePath();
-        initializeContent(file);
+        FileHandler.initializeFile(tasks);
+        System.out.println(tasks.size());
     }
-    public static void initializeContent(File file) throws IOException, DoliExceptions {
-        Scanner fileScanner = new Scanner(file);
-        while (fileScanner.hasNext()) {
-            handleCommand(fileScanner.nextLine()); // not correct implementation; I'll first merge the branches
+    public static void markIfMarked(boolean marked, int taskNumber) throws DoliExceptions, IOException {
+        if (marked) {
+            handleCommand(String.format("mark %d", taskNumber));
         }
     }
     public static void welcomeUser() {
@@ -98,7 +96,7 @@ public class Doli {
         }
     }
     private static boolean unvalidEvent(String[] args) {
-        return args.length < 3;
+        return args.length < NR_EVENT_ARGS;
     }
     private static void writeToFile(String filePath, String text) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
@@ -107,7 +105,7 @@ public class Doli {
     }
 
     private static boolean unvalidDeadline(String[] args) {
-        return args.length < 2;
+        return args.length < NR_DEADLINE_ARGS;
     }
     private static ToDo initializeNewTodo(String args) throws DoliExceptions {
         if (args.trim().isEmpty()) {
@@ -206,7 +204,7 @@ public class Doli {
     private static void removedTaskSuccessfully(int numberOfTask) {
         String outputMessage = "Sure, I've removed this task:\n\t" +
                 tasks.get(numberOfTask).toString() +
-                buildCurrentSummary();
+                String.format("Now you have a total of %d tasks in your agenda", tasks.size() - 1);
         System.out.println(outputMessage);
     }
     private static String buildCurrentSummary() {
@@ -248,14 +246,12 @@ public class Doli {
             System.out.println(e);
         }
     }
+    private static void deleteAll() {
+        tasks = new ArrayList<>();
+    }
 
     private static void printList(String list) throws IOException {
         printOutput(AGENDA_OVERVIEW, list);
-        try {
-            writeToFile(filePath, list);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private static void printMark(String marked) {
@@ -282,8 +278,14 @@ public class Doli {
         case LIST_COMMAND:
             printList(listTasks());
             break;
+        case COUNT_COMMAND:
+            printOutput(String.valueOf(tasks.size()));
+            break;
         case DELETE_COMMAND:
             deleteTask(args);
+            break;
+        case SCRATCH_COMMAND:
+            deleteAll();
             break;
         case MARK_COMMAND:
             printMark(executeTaskMarking(args));
