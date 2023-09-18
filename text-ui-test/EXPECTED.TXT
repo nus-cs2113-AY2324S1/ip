@@ -48,3 +48,13 @@ Here are the tasks in your list:
 2.[E][X]  career fair (from 3 to 4)
 3.[D][X]  assignment  (by: 10pm)
 -----------------------------------------------------
+-----------------------------------------------------
+Noted. I've removed this task:
+[T][X]  homework
+Now you have 2 tasks in the list.
+-----------------------------------------------------
+-----------------------------------------------------
+Here are the tasks in your list:
+1.[E][X]  career fair (from 3 to 4)
+2.[D][X]  assignment  (by: 10pm)
+-----------------------------------------------------
