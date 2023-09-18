@@ -2,12 +2,10 @@ package linguobot.task;
 public class Task {
     protected String description;
     protected boolean isDone;
-    public static int numberOfTasks = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        numberOfTasks++;
     }
 
     public String getStatusIcon() {
@@ -24,5 +22,9 @@ public class Task {
 
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String toFileString() {
+        return "";
     }
 }
