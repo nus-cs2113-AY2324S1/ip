@@ -21,13 +21,16 @@ public class FileHandler {
         FileWriter fileWriter = new FileWriter(FILE_PATH);
         for (int i = 1; i <= tasks.getTaskListSize(); i++) {
             if ( tasks.getTask(i) instanceof Todo) {
-                fileWriter.write("T | " + tasks.getTask(i).getIsDone() + " | " + tasks.getTask(i).getDescription() + System.lineSeparator());
+                fileWriter.write("T | " + tasks.getTask(i).getIsDone() + " | "
+                    + tasks.getTask(i).getDescription() + System.lineSeparator());
             } else if ( tasks.getTask(i) instanceof Deadline) {
                 fileWriter.write("D | " + tasks.getTask(i).getIsDone() + " | " 
-                + tasks.getTask(i).getDescription() + " | " + ((Deadline) tasks.getTask(i)).getDeadline() + System.lineSeparator());
+                    + tasks.getTask(i).getDescription() + " | " 
+                    + ((Deadline) tasks.getTask(i)).getDeadline() + System.lineSeparator());
             } else if ( tasks.getTask(i) instanceof Event) {
-                fileWriter.write("E | " + tasks.getTask(i).getIsDone() + " | " + tasks.getTask(i).getDescription() 
-                + " | " + ((Event) tasks.getTask(i)).getStartTime() + " | " + ((Event) tasks.getTask(i)).getEndTime() + System.lineSeparator());
+                fileWriter.write("E | " + tasks.getTask(i).getIsDone() + " | " + tasks.getTask(i).getDescription() + " | "
+                    + ((Event) tasks.getTask(i)).getStartTime() + " | "
+                    + ((Event) tasks.getTask(i)).getEndTime() + System.lineSeparator());
             }
         }
         fileWriter.close();
