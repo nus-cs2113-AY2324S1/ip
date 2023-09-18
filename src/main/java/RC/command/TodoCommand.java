@@ -6,20 +6,18 @@ import RC.task.Todo;
 
 public class TodoCommand extends RCCommand {
     private String description;
-    private TaskList tasks;
 
-    public TodoCommand(String description, TaskList tasks) {
+    public static final String MESSAGE_EMPTY = "\tOOPS!!! The description of a todo cannot be empty.";
+    public TodoCommand(String description) {
         this.description = description;
-        this.tasks = tasks;
     }
 
     @Override
-    public void execute() throws RCException {
+    public void execute(TaskList taskList) throws RCException {
         if (description.isEmpty()) {
-            String errorMessage = "\tOOPS!!! The description of a todo cannot be empty.";
-            throw new RCException(errorMessage);
+            throw new RCException(MESSAGE_EMPTY);
         }
 
-        tasks.add(new Todo(description));
+        taskList.add(new Todo(description));
     }
 }

@@ -1,6 +1,6 @@
 package RC.task;
 
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
     private static int numTasks = 0;
@@ -30,31 +30,9 @@ public class Task {
         this.isDone = false;
     }
 
-    public void deleteTask() {
-        numTasks--;
-        System.out.print("\tNoted. I've removed the following task:\n\t  " + this + "\n\tNow you have " + getNumTasks());
-        printNumTasks();
-    }
-
-    public static boolean isValidIndex(int index) {
-        return index >= 0 && index < numTasks;
-    }
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
-    }
-
-    public void printAddedTask() {
-        System.out.print("\tGot it. I've added this task:\n\t  " + this + "\n\tNow you have " + getNumTasks());
-        printNumTasks();
-    }
-
-    private static void printNumTasks() {
-        if (getNumTasks() > 1) {
-            System.out.println(" tasks in the list.");
-        } else {
-            System.out.println(" task in the list.");
-        }
     }
 
     public String formatString() {

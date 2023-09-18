@@ -14,18 +14,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class Storage {
     private static final String FILE_PATH = "data/tasks.txt";
     private final Path path = Paths.get("data");
     private static void createDirectory(Path path) throws IOException {
         System.out.println("\tDirectory doesn't exist. Creating directory...");
-        Files.createDirectories(path);
+        Files.createDirectory(path);
     }
 
     public Storage(String filePath) {
-        if (!Files.isDirectory(path)) {
+        if (!Files.exists(path)) {
             try {
                 createDirectory(path);
             } catch (IOException e) {
@@ -33,12 +32,12 @@ public class Storage {
             }
         }
     }
+
     public void save(TaskList tasks) throws RCException {
         write(tasks);
     }
 
-    public ArrayList<Task> load() throws RCException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public void load(TaskList taskList) throws RCException {
         try {
             BufferedReader inputFile = new BufferedReader(new FileReader(FILE_PATH));
             String line;
@@ -46,59 +45,47 @@ public class Storage {
 
             while ((line = inputFile.readLine()) != null) {
                 String[] split = line.split("\\|");
-                String command = split[0].toLowerCase().trim();
-                String inputCommand;
-                boolean isDone;
-
+                String command = split[0].trim();
+                String input;
+                String isDone = split[1].trim();
+                Task task;
                 switch (command) {
-                case "t":
-                    inputCommand = split[2].trim();
-                    Todo todo = new Todo(inputCommand);
-                    isDone = split[1].trim().equals("1");
-                    if (isDone) {
-                        todo.markAsDone();
-                    }
-                    tasks.add(todo);
+                case "T":
+                    input = split[2].trim();
+                    task = new Todo(input);
                     break;
-                case "d":
-                    inputCommand = split[2].trim();
-                    String byCommand = split[3].trim();
-                    Deadline deadline = new Deadline(inputCommand, byCommand);
-                    isDone = split[1].trim().equals("1");
-                    if (isDone) {
-                        deadline.markAsDone();
-                    }
-                    tasks.add(deadline);
+                case "D":
+                    input = split[2].trim();
+                    String byString = split[3].trim();
+                    task = new Deadline(input, byString);
                     break;
-                case "e":
-                    inputCommand = split[2].trim();
+                case "E":
+                    input = split[2].trim();
                     String fromString = split[3].trim();
                     String toString = split[4].trim();
-                    RC.task.Event event = new Event(inputCommand, fromString, toString);
-                    isDone = split[1].trim().equals("1");
-                    if (isDone) {
-                        event.markAsDone();
-                    }
-                    tasks.add(event);
+                    task = new Event(input, fromString, toString);
                     break;
                 default:
-                    System.out.println("\tUnknown command");
+                    throw new RCException("\tError loading file.");
                 }
+                if (isDone.equals("1")) {
+                    task.markAsDone();
+                }
+                taskList.load(task);
             }
             inputFile.close();
         } catch (IOException e) {
-            String message = "\tFile not found.\n\tCreating new file...";
+            String message = "\tFile not found. Creating new file...";
             throw new RCException(message);
         }
         System.out.println("\tLoading is complete.");
-        return tasks;
     }
 
-    public static void write(TaskList tasks) throws RCException {
+    public static void write(TaskList taskList) throws RCException {
         try {
             FileWriter fr = new FileWriter(FILE_PATH);
-            for (int i = 0; i < tasks.getSize(); i++) {
-                String text = tasks.getTask(i).formatString() + "\n";
+            for (int i = 0; i < taskList.tasks.size(); i++) {
+                String text = taskList.tasks.get(i).formatString() + "\n";
                 fr.write(text);
             }
             fr.close();
