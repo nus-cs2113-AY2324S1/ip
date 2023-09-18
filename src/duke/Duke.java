@@ -5,13 +5,13 @@ import duke.task.Task;
 import duke.event.Event;
 import duke.deadline.Deadline;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
     private static final String LINE = "____________________________________________________________";
-    private static Task[] listItems = new Task[100];
-    private static int listIdx = 0;
+    private static ArrayList<Task> taskItems = new ArrayList<>();
 
     public static void println(String line) {
         System.out.println("\t" + line);
@@ -36,29 +36,29 @@ public class Duke {
     }
 
     public static void printList() {
-        for (int i = 0; i < listIdx; i++) {
-            println(String.format("%d. %s", i+1, listItems[i].getTask()));
+        for (int i = 0; i < taskItems.size(); i++) {
+            println(String.format("%d. %s", i+1, taskItems.get(i).getTask()));
         }
     }
 
-    public static int getMarkIdx(String line) {
+    public static int getItemIdx(String line) {
         return Integer.parseInt(line.split(" ")[1]) - 1;
     }
 
     public static void markItem(String line) {
-        int markIdx = getMarkIdx(line);
-        listItems[markIdx].setIsDone(true);
+        int markIdx = getItemIdx(line);
+        taskItems.get(markIdx).setIsDone(true);
 
         println("Nice! I've marked this task as done: ");
-        println(listItems[markIdx].getTask());
+        println(taskItems.get(markIdx).getTask());
     }
 
     public static void unmarkItem(String line) {
-        int markIdx = getMarkIdx(line);
-        listItems[markIdx].setIsDone(false);
+        int markIdx = getItemIdx(line);
+        taskItems.get(markIdx).setIsDone(false);
 
         println("Nice! I've marked this task as undone: ");
-        println(listItems[markIdx].getTask());
+        println(taskItems.get(markIdx).getTask());
     }
 
     public static void handleCreateTodo(String line) throws DukeException {
@@ -72,10 +72,9 @@ public class Duke {
             throw new DukeException("The description of a todo cannot be empty");
         }
 
-        listItems[listIdx] = new Todo(description);
-        listIdx++;
+        taskItems.add(new Todo(description));
 
-        println(listItems[listIdx-1].getTaskAdded(listIdx));
+        println(taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size()));
     }
 
     public static void handleCreateDeadline(String line) throws DukeException {
@@ -102,10 +101,9 @@ public class Duke {
 
         String deadline = line.substring(deadlineIdx);
 
-        listItems[listIdx] = new Deadline(description, deadline);
-        listIdx++;
+        taskItems.add(new Deadline(description, deadline));
 
-        println(listItems[listIdx-1].getTaskAdded(listIdx));
+        println(taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size()));
     }
 
     public static void handleCreateEvent(String line) {
@@ -117,10 +115,18 @@ public class Duke {
         String start = line.substring(fromIdx+ "/from ".length(), toIdx-1);
         String end = line.substring(toIdx+ "/to ".length());
 
-        listItems[listIdx] = new Event(description, start, end);
-        listIdx++;
+        taskItems.add(new Event(description, start, end));
 
-        println(listItems[listIdx-1].getTaskAdded(listIdx));
+        println(taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size()));
+    }
+
+    public static void handleDeleteTask(String line) {
+        int deleteIdx = getItemIdx(line);
+
+        String deleteMessage = taskItems.get(deleteIdx).getTaskDeleted(taskItems.size()-1);
+        taskItems.remove(deleteIdx);
+
+        println(deleteMessage);
     }
 
     public static void main(String[] args) {
@@ -153,6 +159,8 @@ public class Duke {
                 }
             } else if (line.startsWith("event")) {
                 handleCreateEvent(line);
+            } else if (line.startsWith("delete")) {
+                handleDeleteTask(line);
             } else {
                 println("I don't know that command");
             }

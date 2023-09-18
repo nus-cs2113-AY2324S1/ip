@@ -19,8 +19,15 @@ public class Task {
 
     public String getTaskAdded(int taskCount) {
         return String.format("Got it. I've added this task:\n" +
-                "\t  %s\n" +
-                "\tNow you have %d %s in the list",
+                        "\t  %s\n" +
+                        "\tNow you have %d %s in the list",
+                getTask(), taskCount, (taskCount == 1 ? "task" : "tasks"));
+    }
+
+    public String getTaskDeleted(int taskCount) {
+        return String.format("Noted. I've removed this task:\n" +
+                        "\t  %s\n" +
+                        "\tNow you have %d %s in the list",
                 getTask(), taskCount, (taskCount == 1 ? "task" : "tasks"));
     }
 
