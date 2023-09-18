@@ -22,4 +22,9 @@ public class Event extends Task {
         return String.format("[%s][%s] %s (from: %s to: %s)",
                 getTypeIcon(), getStatusIcon(), description, from, to);
     }
+
+    @Override
+    public String getTaskForFile() {
+        return String.format("%s | %b | %s | %s | %s", getTypeIcon(), isDone, description, from, to);
+    }
 }

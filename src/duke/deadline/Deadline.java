@@ -19,4 +19,9 @@ public class Deadline extends Task {
     public String getTask() {
         return String.format("[%s][%s] %s (by: %s)", getTypeIcon(), getStatusIcon(), description, deadline);
     }
+
+    @Override
+    public String getTaskForFile() {
+        return String.format("%s | %b | %s | %s", getTypeIcon(), isDone, description, deadline);
+    }
 }
