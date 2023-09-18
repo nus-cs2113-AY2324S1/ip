@@ -18,18 +18,14 @@ public class List {
         return this.tasks.get(taskId - 1);
     }
 
-    @Override
-    public String toString() {
+    public void printAllTasks() {
         if (this.getSize() == 0) {
-            return "You have no task in your list!\n";
+            System.out.println("You have no task in your list!");
         }
-
-        StringBuilder output = new StringBuilder();
 
         for (int i = 1; i <= tasks.size(); i++) {
-            output.append(i).append(".").append(this.tasks.get(i - 1)).append("\n");
+            System.out.println(i + "." + this.tasks.get(i - 1));
         }
-        return output.toString();
     }
 
     //Actions
@@ -109,7 +105,7 @@ public class List {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 1) {
             throw new DescriptionFormatException(
-                    "Wrong input format. Follow this format to mar/unmark a task: "
+                    "Wrong input format. Follow this format to mark/unmark a task: "
                             + "mark/unmark [task id]");
         }
         return Integer.parseInt(splitInput[1]);
