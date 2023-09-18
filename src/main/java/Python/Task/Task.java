@@ -10,7 +10,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // mark done task with X
+        return (isDone() ? "[X]" : "[ ]"); // mark done task with X
     }
 
     public abstract String getTypeIcon();
@@ -19,7 +19,7 @@ public abstract class Task {
         return description;
     }
 
-    public boolean getDone() {
+    public boolean isDone() {
         return isDone;
     }
 

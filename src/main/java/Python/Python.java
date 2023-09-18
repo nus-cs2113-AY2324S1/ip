@@ -6,7 +6,6 @@ import Python.Task.Task;
 import Python.Task.Todo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -79,7 +78,7 @@ public class Python {
                     System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
                     break;
                 }
-                if (tasks.get(taskNo - 1).getDone()) {
+                if (tasks.get(taskNo - 1).isDone()) {
                     System.out.printf("\t%s: Are you from the past?\n", PYTHON_EMOJI);
                     System.out.printf("\t\tTask: %s\n \t\t is already done!!!\n",
                             tasks.get(taskNo - 1));
@@ -107,7 +106,7 @@ public class Python {
                     System.out.printf("\t%s: Are you from the future?\n", PYTHON_EMOJI);
                     break;
                 }
-                if (!tasks.get(taskNo - 1).getDone()) {
+                if (!tasks.get(taskNo - 1).isDone()) {
                     System.out.printf("\t%s: Alas! Only the completed tasks can be unmarked!\n", PYTHON_EMOJI);
                     System.out.printf("\t\tTask: %s\n \t\tis already sitting idle. Get started...!!!\n",
                             tasks.get(taskNo - 1));
