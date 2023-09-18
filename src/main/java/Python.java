@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Duke {
+public class Python {
     final private static String BOT_NAME = "Python";
     final private static String PYTHON_ASCII_ART =
                     "\t ____        _   _\n" +
