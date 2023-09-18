@@ -1,12 +1,12 @@
 package Ken;
 
+import Exceptions.KenException;
+import Exceptions.KenMissingTaskException;
 import Exceptions.KenParsingException;
 
 import java.util.Scanner;
 
 public class Ken {
-    private static final Task[] TASKS = new Task[100];
-    private static int taskSize = 0;
     private static final String TODO = "todo";
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
@@ -14,14 +14,14 @@ public class Ken {
     private static final String MARK = "mark";
     private static final String UNMARK = "unmark";
     private static final String BYE = "bye";
+    private static final TaskList list = new TaskList();
 
     public static void addTask(Task task) {
-        TASKS[taskSize] = task;
-        taskSize++;
+        list.addTask(task);
         Ui.printTexts(new String[] {
                 "Barbie-approved! You've added this glamorous task:",
                 task.toString(),
-                "Now your list is sparkling with " + taskSize + " glamorous tasks, darling!"
+                "Now your list is sparkling with " + list.getSize() + " glamorous tasks, darling!"
         });
     }
 
@@ -79,12 +79,7 @@ public class Ken {
                     addTask(event);
                     break;
                 case LIST:
-                    String[] texts = new String[taskSize + 1];
-                    texts[0] = "Behold, your list of enchanting tasks!";
-                    for (int i = 1; i <= taskSize; i++) {
-                        texts[i] = "\t" + i + "." + TASKS[i - 1].toString();
-                    }
-                    Ui.printTexts(texts);
+                    list.getTasks();
                     break;
                 case MARK:
                     if (input.trim().equals(MARK)) {
@@ -93,18 +88,18 @@ public class Ken {
                     String markTaskString = input.split(" ", 2)[1];
                     int markTaskNumber;
                     try {
-                        markTaskNumber = Integer.parseInt(markTaskString) - 1;
-                        if (markTaskNumber < 0 || markTaskNumber >= taskSize) {
+                        markTaskNumber = Integer.parseInt(markTaskString);
+                        if (markTaskNumber < 1 || markTaskNumber > list.getSize()) {
                             throw new KenParsingException("There's no task like that in our fabulous list, darling!");
                         }
                     } catch (NumberFormatException e) {
                         throw new KenParsingException("Oh darling, that's not a number fit for a Barbie world.");
                     }
 
-                    TASKS[markTaskNumber].markAsDone();
+                    list.updateStatus(markTaskNumber, true);
                     Ui.printTexts(new String[]{
                             "Barbie-tastic! You've completed this task with glamour!",
-                            TASKS[markTaskNumber].toString()
+                            list.getTask(markTaskNumber).toString()
                     });
                     break;
                 case UNMARK:
@@ -114,18 +109,18 @@ public class Ken {
                     String unmarkTaskString = input.split(" ", 2)[1];
                     int unmarkTaskNumber;
                     try {
-                        unmarkTaskNumber = Integer.parseInt(unmarkTaskString) - 1;
-                        if (unmarkTaskNumber < 0 || unmarkTaskNumber >= taskSize) {
+                        unmarkTaskNumber = Integer.parseInt(unmarkTaskString);
+                        if (unmarkTaskNumber < 1 || unmarkTaskNumber > list.getSize()) {
                             throw new KenParsingException("There's no task like that in our fabulous list, darling!");
                         }
                     } catch (NumberFormatException e) {
                         throw new KenParsingException("Oh darling, that's not a number fit for a Barbie world.");
                     }
 
-                    TASKS[unmarkTaskNumber].unmarkAsDone();
+                    list.updateStatus(unmarkTaskNumber, false);
                     Ui.printTexts(new String[]{
                             "Back to the runway, darling! This task needs more Barbie magic!",
-                            TASKS[unmarkTaskNumber].toString()
+                            list.getTask(unmarkTaskNumber).toString()
                     });
                     break;
                 case BYE:
@@ -134,7 +129,7 @@ public class Ken {
                 default:
                     throw new KenParsingException("Uh-oh, darling! Your input needs a makeover for me to understand!");
                 }
-            } catch (KenParsingException e) {
+            } catch (Exception e) {
                 Ui.printTexts(new String[] {
                         e.getMessage()
                 });
