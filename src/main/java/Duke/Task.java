@@ -24,6 +24,6 @@ public class Task {
         return description;
     }
     public String toString(){
-        return("[" + getStatusIcon() + "]" + description);
+        return("[" + getStatusIcon() + "] " + description);
     }
 }
