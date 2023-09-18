@@ -13,6 +13,26 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 public class Duke {
+    private static void saveToTextFile(ArrayList<Task> list) throws IOException{
+        FileWriter fw = new FileWriter("duke.txt");
+        for (int i = 0; i < list.size(); ++i){
+            String textToAdd = "";
+            String task = list.get(i).getDescription();
+            String time = list.get(i).getEventTime();
+            String isDone = list.get(i).getStatus() ? "1" : "0";
+            if(list.get(i).getClass() == Todo.class){
+                textToAdd = "T" + " | " + isDone + " | " + task + "\n";
+            }
+            else if(list.get(i).getClass() == Deadline.class){
+                textToAdd = "D" + " | " + isDone + " | " + task + " | " + time + "\n";
+            }
+            else if(list.get(i).getClass() == Event.class){
+                textToAdd = "E" + " | " + isDone + " | " + task + " | " + time + "\n";
+            }
+            fw.write(textToAdd);
+        }
+        fw.close();
+    }
 
     private static void getFromTextFile(ArrayList<Task> list) throws FileNotFoundException{
         File f = new File("duke.txt"); // create a File for the given file path
@@ -151,6 +171,11 @@ public class Duke {
                 break;
             default:
                 System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+            try {
+                saveToTextFile(list);
+            } catch(IOException e){
+                System.out.println("Something wrong to save the file");
             }
             line = in.nextLine();
         }
