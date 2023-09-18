@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 public class Python {
@@ -88,10 +89,58 @@ public class Python {
         }
     }
 
+    private static void loadTasksFromDisk() {
+        File directory = new File(DIR_TASKS_LIST);
+        File file = new File(directory, FILENAME_TASKS_LIST);
+
+        Scanner s;
+        try {
+            s = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            return;
+        }
+
+        while (s.hasNext()) {
+            String[] taskDetails = s.nextLine().split(" \\| ");
+            String typeIcon = taskDetails[0];
+            if (typeIcon.equals(Todo.TYPE_ICON)) {
+                String description = taskDetails[2];
+                String isDone = taskDetails[1];
+                Todo todo = new Todo(description);
+                if (isDone.equals("[X]")) {
+                    todo.setDone(true);
+                }
+                tasks.add(todo);
+            } else if (typeIcon.equals(Deadline.TYPE_ICON)) {
+                String description = taskDetails[2];
+                String isDone = taskDetails[1];
+                String by = taskDetails[3];
+                Deadline deadline = new Deadline(description, by);
+                if (isDone.equals("[X]")) {
+                    deadline.setDone(true);
+                }
+                tasks.add(deadline);
+            } else {
+                String description = taskDetails[2];
+                String isDone = taskDetails[1];
+                String from = taskDetails[3];
+                String to = taskDetails[4];
+                Event event = new Event(description, from, to);
+                if (isDone.equals("[X]")) {
+                    event.setDone(true);
+                }
+                tasks.add(event);
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         System.out.println(PYTHON_ASCII_ART);
         printHorizontalLine();
         System.out.printf("\t%s: Hello! I am a short Java Bot %s!\n", PYTHON_EMOJI, BOT_NAME);
+        loadTasksFromDisk();
+        System.out.printf("\t%s: You currently have %d tasks!\n", PYTHON_EMOJI, tasks.size());
         System.out.printf("\t%s: What can I do for you?\n", PYTHON_EMOJI);
         printHorizontalLine();
 
@@ -108,7 +157,7 @@ public class Python {
                 System.out.printf("\t%s: Bye. See you again when you run the program again!\n", PYTHON_EMOJI);
                 break;
             case COMMAND_LIST:
-                System.out.printf("\t%s: You have %d tasks to do!\n", PYTHON_EMOJI, tasks.size());
+                System.out.printf("\t%s: You have %d tasks!\n", PYTHON_EMOJI, tasks.size());
                 for (int taskNo = 1; taskNo <= tasks.size(); taskNo++) {
                     System.out.printf("\t\t\t%d. %s\n", taskNo, tasks.get(taskNo - 1));
                 }
