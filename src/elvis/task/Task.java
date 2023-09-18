@@ -9,9 +9,13 @@ public abstract class Task {
     protected boolean isDone;
 
     //Constructor of the Task Class
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
+    public Task(String description, int isDoneFromFile) {
+        this.description = description.trim();
+        if (isDoneFromFile == 1) {
+            this.isDone = true;
+        } else {
+            this.isDone = false;
+        }
     }
 
     public String toFileString() throws IOException {

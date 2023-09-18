@@ -15,8 +15,6 @@ import elvis.exception.EmptyUnmarkException;
 import elvis.exception.UnknownInputException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
 
 //For adding, removing, marking, unmarking of Tasks
 public class TaskManager {
@@ -24,7 +22,11 @@ public class TaskManager {
     private static ArrayList<Task> tasks = new ArrayList<>();   //Keeps track of all Task Instances made
 
     public static void inputTaskFromFile(String lineOfFile) {
-        errorHandler(lineOfFile);      //Checks for any errors and handles them
+        try {
+            functionalityManager(lineOfFile, true);      //Checks for any errors and handles them
+        } catch (UnknownInputException exception) {
+            System.out.println("😭 File is corrupted.\nUnable to read file");
+        }
     }
 
     public static void inputTaskManually() {
@@ -53,27 +55,27 @@ public class TaskManager {
         boolean validInput = false;
         try {
             errorChecker(inputBuffer);
-            functionalityManager(inputBuffer);
+            functionalityManager(inputBuffer, false);
             validInput = true;
         } catch (EmptyInputException exception) {
-            System.out.println("☹ OOPS!!! The description cannot be empty.");
+            System.out.println("😭 OOPS!!! The description cannot be empty.");
         } catch (EmptyListException exception) {
-            System.out.println("☹ OOPS!!! Nothing to list.");
+            System.out.println("😭 OOPS!!! Nothing to list.");
             validInput = true;
         } catch (EmptyDeleteException exception) {
-            System.out.println("☹ OOPS!!! The description of a delete cannot be empty.");
+            System.out.println("😭 OOPS!!! The description of a delete cannot be empty.");
         } catch (EmptyMarkException exception) {
-            System.out.println("☹ OOPS!!! The description of a mark cannot be empty.");
+            System.out.println("😭 OOPS!!! The description of a mark cannot be empty.");
         } catch (EmptyUnmarkException exception) {
-            System.out.println("☹ OOPS!!! The description of an unmark cannot be empty.");
+            System.out.println("😭 OOPS!!! The description of an unmark cannot be empty.");
         } catch (EmptyToDoException exception) {
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("😭 OOPS!!! The description of a todo cannot be empty.");
         } catch (EmptyDeadlineException exception) {
-            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+            System.out.println("😭 OOPS!!! The description of a deadline cannot be empty.");
         } catch (EmptyEventException exception) {
-            System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+            System.out.println("😭 OOPS!!! The description of an event cannot be empty.");
         } catch (UnknownInputException exception) {
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            System.out.println("😭 OOPS!!! I'm sorry, but I don't know what that means :-(");
         } finally {
             if (!validInput) {
                 SystemOperation.printHorizontalLines();
@@ -111,9 +113,9 @@ public class TaskManager {
         }
     }
 
-    public static void functionalityManager(String inputBuffer) throws UnknownInputException {
+    public static void functionalityManager(String inputBuffer, boolean isFromFile) throws UnknownInputException {
         Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
-        String firstWord = bufferScanner.next().trim();     //Stores first word in the input
+        String firstWord = bufferScanner.next();            //Stores first word in the input
         boolean hasInteger = bufferScanner.hasNextInt();    //Indicates that some integer was input
         int numberInput = -1;                               //Stores the number input
         if (hasInteger) {
@@ -130,11 +132,11 @@ public class TaskManager {
         } else if (firstWord.equals("unmark") && hasInteger && !bufferScanner.hasNext()) {
             taskUnmarker(numberInput);
         } else if (firstWord.equals("todo")) {
-            insertToDo(inputBuffer);
+            insertToDo(inputBuffer, isFromFile);
         } else if (firstWord.equals("deadline")) {
-            insertDeadline(inputBuffer);
+            insertDeadline(inputBuffer, isFromFile);
         } else if (firstWord.equals("event")) {
-            insertEvent(inputBuffer);
+            insertEvent(inputBuffer, isFromFile);
         } else {
             throw new UnknownInputException();
         }
@@ -186,59 +188,86 @@ public class TaskManager {
         print(nthTask);
     }
 
-    public static void insertToDo(String inputBuffer) {
-        tasks.add(new ToDo(inputBuffer.trim().replace("todo ", "")));
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[" + 'T' + "]" +
-                "[" + tasks.get(tasks.size()-1).getStatus() + "] " + tasks.get(tasks.size()-1).getDescription());
-        System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
+    public static void insertToDo(String inputBuffer, boolean isFromFile) throws UnknownInputException {
+        String description = inputBuffer.replace("todo ", "");
+        if (isFromFile) {
+            int isDone = getStatusFromFile(description);
+            description = description.replaceAll("^\\d+\\s*", "");
+            tasks.add(new ToDo(description, isDone));
+        } else {
+            tasks.add(new ToDo(description, 0));
+            System.out.println("Got it. I've added this task:");
+            System.out.println("[" + 'T' + "]" +
+                    "[" + tasks.get(tasks.size() - 1).getStatus() + "] " + tasks.get(tasks.size()-1).getDescription());
+            System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
+        }
     }
 
-    public static void insertDeadline(String inputBuffer) {
+    public static void insertDeadline(String inputBuffer, boolean isFromFile) throws UnknownInputException {
         String date = inputBuffer.substring(inputBuffer.indexOf("/by") + 3).trim();
-        String deadlineWithDate = inputBuffer.replace("deadline ", "").trim();
-        String deadline = deadlineWithDate.substring(0, deadlineWithDate.indexOf("/by")).trim();
-
-        tasks.add(new Deadline(deadline, date));
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[" + 'D' + "]" +
-                "[" + tasks.get(tasks.size()-1).getStatus() + "] " + tasks.get(tasks.size()-1).getDescription() +
-                " (by: " + date + ")");
-        System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
+        String description = inputBuffer.replace("deadline ", "");  //Get rid of "deadline "
+        description = description.substring(0, description.indexOf("/by"));          //Get rid of "/by..."
+        if (isFromFile) {
+            int isDone = getStatusFromFile(description);
+            description = description.replaceAll("^\\d+\\s*", "");
+            tasks.add(new Deadline(description, isDone, date));
+        } else {
+            tasks.add(new Deadline(description, 0, date));
+            System.out.println("Got it. I've added this task:");
+            System.out.println("[" + 'D' + "]" +
+                    "[" + tasks.get(tasks.size() - 1).getStatus() + "] " + tasks.get(tasks.size() - 1).getDescription() +
+                    " (by: " + date + ")");
+            System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
+        }
     }
 
-    public static void insertEvent(String inputBuffer) {
+    public static void insertEvent(String inputBuffer, boolean isFromFile) throws UnknownInputException {
         String startTime = inputBuffer.substring(inputBuffer.indexOf("/from") + 5, inputBuffer.indexOf("/to")).trim();
         String endTime = inputBuffer.substring(inputBuffer.indexOf("/to") + 3).trim();
-        String eventWithTime = inputBuffer.replace("event ", "").trim();
-        String event = eventWithTime.substring(0, eventWithTime.indexOf("/from")).trim();
+        String description = inputBuffer.replace("event ", "");         //Get rid of "event "
+        description = description.substring(0, description.indexOf("/from")).trim();    //Get rid of "/from..."
 
-        tasks.add(new Event(event, startTime, endTime));
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[" + 'D' + "]" +
-                "[" + tasks.get(tasks.size()-1).getStatus() + "] " + tasks.get(tasks.size()-1).getDescription() +
-                " (from: " + startTime + " to: " + endTime + ")");
-        System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
+        if (isFromFile) {
+            int isDone = getStatusFromFile(description);
+            description = description.replaceAll("^\\d+\\s*", "");
+            tasks.add(new Event(description, isDone,  startTime, endTime));
+        } else {
+            tasks.add(new Event(description, 0, startTime, endTime));
+            System.out.println("Got it. I've added this task:");
+            System.out.println("[" + 'D' + "]" +
+                    "[" + tasks.get(tasks.size() - 1).getStatus() + "] " + tasks.get(tasks.size() - 1).getDescription() +
+                    " (from: " + startTime + " to: " + endTime + ")");
+            System.out.println("Now you have " + (tasks.size()) + " task(s) in the list.");
+        }
+    }
+
+    public static int getStatusFromFile(String description) throws UnknownInputException {
+        Scanner lineReader = new Scanner(description);  //Used to read mark/unmark from file
+        int isDone = lineReader.nextInt();
+        if (isDone < 0 || isDone > 1) {
+            throw new UnknownInputException();
+        }
+        return isDone;
     }
 
     //Prints task eg "[T][X] read book" without the preceding index eg"1."
     public static void print(int i) {
-        boolean isToDo = false; //If "todo" is printed last, need additional line separator
+        boolean isToDo = true;
         System.out.print("[" + tasks.get(i).getTaskType() + "]");
         System.out.print("[" + tasks.get(i).getStatus() + "] " + tasks.get(i).getDescription());
-        isToDo = true;
 
         // Additional details required for Deadline and Event
         if (tasks.get(i) instanceof Deadline) {
+            isToDo = false;
             Deadline deadlineTask = (Deadline) tasks.get(i);
             System.out.println(" (by: " + deadlineTask.getDate() + ")");
-            isToDo = false;
         } else if (tasks.get(i) instanceof Event) {
+            isToDo = false;
             Event eventTask = (Event) tasks.get(i);
             System.out.println(" (from: " + eventTask.getStartTime() + " to: " + eventTask.getEndTime() + ")");
-            isToDo = false;
         }
-        if (isToDo) {
+
+        if (isToDo) {   //If "todo" is printed last, need additional line separator
             System.out.print(System.lineSeparator());
         }
     }

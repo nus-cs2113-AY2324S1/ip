@@ -3,8 +3,8 @@ package elvis.task;
 public class ToDo extends Task {
     private final char taskType = 'T';
 
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String description, int isDoneFromFile) {
+        super(description, isDoneFromFile);
     }
 
     @Override
