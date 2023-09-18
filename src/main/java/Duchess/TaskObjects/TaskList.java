@@ -1,5 +1,6 @@
 package Duchess.TaskObjects;
 
+//Java collections class used here
 import java.util.ArrayList;
 
 import Duchess.TextObjects.DefaultStrings;
