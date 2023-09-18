@@ -1,0 +1,2 @@
+T |  X | eat bread
+E |  O | bake | now | done
