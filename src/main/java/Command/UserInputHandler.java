@@ -68,6 +68,15 @@ public class UserInputHandler {
                 System.out.println(e.getMessage());
             }
         });
+
+        commands.put("delete", userInput -> {
+            try {
+                int index = TaskManager.extractIndex(userInput, 7);
+                taskManager.deleteTask(index);
+            } catch (JarvisException e) {
+                System.out.println(e.getMessage());
+            }
+        });
     }
 
     public static void processUserCommands() throws JarvisException {

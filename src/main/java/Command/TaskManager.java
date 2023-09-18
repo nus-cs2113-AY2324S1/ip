@@ -145,6 +145,21 @@ public class TaskManager {
         return descriptionAndTime;
     }
 
+    public void deleteTask(int index) throws JarvisException {
+        try {
+            if (isValidIndex(index)) {
+                Task removedTask = taskList.remove(index);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println("    " + removedTask);
+                displayTaskCount();
+            } else {
+                throw JarvisException.invalidTaskNumber(index);
+            }
+        } catch (JarvisException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void displayTaskCount() {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
