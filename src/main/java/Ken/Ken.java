@@ -2,6 +2,7 @@ package Ken;
 
 import Commands.Add;
 import Commands.List;
+import Commands.Update;
 import Exceptions.KenException;
 import Exceptions.KenMissingTaskException;
 import Exceptions.KenParsingException;
@@ -83,18 +84,12 @@ public class Ken {
                     int markTaskNumber;
                     try {
                         markTaskNumber = Integer.parseInt(markTaskString);
-                        if (markTaskNumber < 1 || markTaskNumber > list.getSize()) {
-                            throw new KenParsingException("There's no task like that in our fabulous list, darling!");
-                        }
                     } catch (NumberFormatException e) {
                         throw new KenParsingException("Oh darling, that's not a number fit for a Barbie world.");
                     }
 
-                    list.updateStatus(markTaskNumber, true);
-                    Ui.printTexts(new String[]{
-                            "Barbie-tastic! You've completed this task with glamour!",
-                            list.getTask(markTaskNumber).toString()
-                    });
+
+                    new Update(markTaskNumber, true).run(list);
                     break;
                 case UNMARK:
                     if (input.trim().equals(UNMARK)) {
@@ -104,18 +99,11 @@ public class Ken {
                     int unmarkTaskNumber;
                     try {
                         unmarkTaskNumber = Integer.parseInt(unmarkTaskString);
-                        if (unmarkTaskNumber < 1 || unmarkTaskNumber > list.getSize()) {
-                            throw new KenParsingException("There's no task like that in our fabulous list, darling!");
-                        }
                     } catch (NumberFormatException e) {
                         throw new KenParsingException("Oh darling, that's not a number fit for a Barbie world.");
                     }
 
-                    list.updateStatus(unmarkTaskNumber, false);
-                    Ui.printTexts(new String[]{
-                            "Back to the runway, darling! This task needs more Barbie magic!",
-                            list.getTask(unmarkTaskNumber).toString()
-                    });
+                    new Update(unmarkTaskNumber, false).run(list);
                     break;
                 case BYE:
                     Ui.byeUser();
