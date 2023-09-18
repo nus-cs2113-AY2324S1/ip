@@ -17,6 +17,7 @@ public class Constants {
     public static final String deadlineTime = "/by";
     public static final String eventStartTime = "/from";
     public static final String eventEndTime = "/to";
+    public static final String deleteCommand = "delete";
     public static final int exitFlag = 1;
     public static final int stayFlag = 0;
     
