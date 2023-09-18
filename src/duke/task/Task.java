@@ -28,6 +28,10 @@ public class Task {
         return String.format("[%s][%s] %s", getTypeIcon(), getStatusIcon(), description);
     }
 
+    public String getTaskForFile() {
+        return String.format("%s | %b | %s", getTypeIcon(), isDone, description);
+    }
+
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }

@@ -5,6 +5,9 @@ import duke.task.Task;
 import duke.event.Event;
 import duke.deadline.Deadline;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -129,6 +132,21 @@ public class Duke {
 
         printWelcome();
 
+        DukeFile f = new DukeFile();
+        try {
+            listItems = f.readTasksFromFile();
+        } catch (IOException e) {
+            println(String.valueOf(e));
+        }
+
+        // Initialize listIdx
+        for (Task item : listItems) {
+            if (item == null) {
+                break;
+            }
+            listIdx++;
+        }
+
         line = in.nextLine();
         while (line.equals("bye") == false) {
             println(LINE);
@@ -160,6 +178,21 @@ public class Duke {
             println(LINE);
 
             line = in.nextLine();
+        }
+
+        String tasksToWrite = "";
+        for (Task task : listItems) {
+            if (task == null) {
+                break;
+            }
+
+            tasksToWrite += task.getTaskForFile() + '\n';
+        }
+
+        try {
+            f.writeTasksToFile(tasksToWrite);
+        } catch (IOException e) {
+            println(String.valueOf(e));
         }
 
         printFarewell();
