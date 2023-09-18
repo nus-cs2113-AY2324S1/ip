@@ -20,5 +20,5 @@ public class Constants {
     public static final String deleteCommand = "delete";
     public static final int exitFlag = 1;
     public static final int stayFlag = 0;
-    
+    public static final String taskFilePath = "./src/main/java/data/tasks.txt";
 }

@@ -42,11 +42,8 @@ public class StringHandler {
     }
 
     public ToDo processToDoString(String toDoString){
-        String processedString = new String();
         
         String toDoName = toDoString.substring(5);
-
-        processedString = toDoName;
 
         ToDo newToDo = new ToDo(toDoName);
         return newToDo;

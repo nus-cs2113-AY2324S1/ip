@@ -32,4 +32,9 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: " + this.Starttime + " to: " + this.endTime + ")";
     }
 
+    @Override
+    public String toFileString(){
+        return "E | " + super.toFileString() + " | " + this.Starttime + " | " + this.endTime;
+    }
+
 }

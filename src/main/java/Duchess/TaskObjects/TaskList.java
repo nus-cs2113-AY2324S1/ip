@@ -2,6 +2,9 @@ package Duchess.TaskObjects;
 
 //Java collections class used here
 import java.util.ArrayList;
+import java.io.File;
+
+import Duchess.FunctionObjects.FileHandler;
 
 import Duchess.TextObjects.DefaultStrings;
 
@@ -9,9 +12,37 @@ import Duchess.TextObjects.DefaultStrings;
 public class TaskList {
 
     private ArrayList<Task> tasks;
+    private FileHandler fileHandler;
+
     
     public TaskList(){
         this.tasks = new ArrayList<Task>();
+    }
+
+    public void importTasks(String filepath){
+        try{
+            fileHandler = new FileHandler(filepath);
+            this.tasks = fileHandler.load();
+        } catch (Exception e){
+            System.out.println(DefaultStrings.fileNotFoundError);
+        }
+    }
+
+    public void saveTasks(String filepath){
+        try{
+            fileHandler = new FileHandler(filepath);
+            fileHandler.save(this.tasks);
+        } catch (Exception e){
+            File file = new File(filepath);
+            file.getParentFile().mkdirs();
+            try {
+                System.out.println(DefaultStrings.newFileCreatedMessage);
+                fileHandler = new FileHandler(filepath);
+                fileHandler.save(this.tasks);
+            } catch (Exception f){
+                System.out.println(DefaultStrings.fileNotFoundError);
+            }
+        }
     }
 
     public void addTask(Task task){
