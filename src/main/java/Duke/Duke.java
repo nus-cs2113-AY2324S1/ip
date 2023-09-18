@@ -179,6 +179,6 @@ public class Duke {
             }
             line = in.nextLine();
         }
-        System.out.println("  Bye. Hope to see you again soon! ");
+        System.out.println("Bye. Hope to see you again soon! ");
     }
 }
