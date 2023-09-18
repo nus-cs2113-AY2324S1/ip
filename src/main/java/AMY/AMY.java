@@ -1,3 +1,11 @@
+package AMY;
+
+import AMY.Exceptions.*;
+import AMY.command.Deadline;
+import AMY.command.Event;
+import AMY.command.Task;
+import AMY.command.Todo;
+
 import java.util.Scanner;
 public class AMY {
     public static final String BOT_NAME = "AMY";
