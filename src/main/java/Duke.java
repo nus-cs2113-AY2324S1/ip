@@ -2,38 +2,34 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 public class Duke {
-    protected final static String line = "_______________________________________________";
+    protected final static String LINE = "_______________________________________________";
+    protected final static String GREET = "Hello! I'm Elwin\n" + "What can I do for you?";
+    protected final static String EXIT = "Bye. Hope to see you again soon!";
+    protected final static String LIST = "Here are the tasks in your list:";
+    protected final static String MARK = "Nice! I've marked this task as done:";
+    protected final static String UNMARK = "OK, I've marked this task as not done yet:";
+
     private static void print(String message){
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println(message);
-        System.out.println(line);
+        System.out.println(LINE);
     }
     public static void main(String[] args) {
-        String greet = "Hello! I'm Elwin\n" + "What can I do for you?";
-        //String line = "_______________________________________________";
-        String exit = "Bye. Hope to see you again soon!";
-        String listRequirements = "Here are the tasks in your list:";
-        String markRequirements = "Nice! I've marked this task as done:";
-        String unmarkRequirements = "OK, I've marked this task as not done yet:";
-        String markFormat = "^mark \\d+$";
-        String unmarkFormat = "^unmark \\d+$";
-        System.out.println(line);
-        System.out.println(greet);
-        System.out.println(line);
         Scanner scanner = new Scanner(System.in);
         List<Task> todoList = new ArrayList<>();
+        print(GREET);
         while(true){
             String input = scanner.nextLine();
             if(input.equals("bye")){
                 break;
             }else if(input.equals("list")){
-                System.out.println(line);
-                System.out.println(listRequirements);
+                System.out.println(LINE);
+                System.out.println(LIST);
                 for(int i = 0; i < todoList.size(); i++){
                     System.out.println(i+1 + "." + todoList.get(i));
                 }
-                System.out.println(line);
-            }else if(input.matches(markFormat)) {
+                System.out.println(LINE);
+            }else if(input.matches("^mark \\d+$")) {
                 int index = Integer.parseInt(input.substring(5));
                 try{
                     todoList.get(index-1).unmarkAsDone();
@@ -41,8 +37,8 @@ public class Duke {
                     print("☹ OOPS!!! The task number is not in the list.");
                     continue;
                 }
-                print(markRequirements+"\n  "+todoList.get(index-1));
-            }else if(input.matches(unmarkFormat)) {
+                print(MARK+"\n  "+todoList.get(index-1));
+            }else if(input.matches("^unmark \\d+$")) {
                 int index = Integer.parseInt(input.substring(7));
                 try{
                     todoList.get(index-1).unmarkAsDone();
@@ -50,7 +46,7 @@ public class Duke {
                     print("☹ OOPS!!! The task number is not in the list.");
                     continue;
                 }
-                print(unmarkRequirements+"\n  "+todoList.get(index-1));
+                print(UNMARK+"\n  "+todoList.get(index-1));
             }else if(input.split(" ")[0].equals("todo")){
                 Todo todo;
                 try{
@@ -86,7 +82,7 @@ public class Duke {
             }
         }
         scanner.close();
-        System.out.println(exit);
-        System.out.println(line);
+        System.out.println(EXIT);
+        System.out.println(LINE);
     }
 }
