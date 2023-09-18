@@ -16,6 +16,7 @@ public class DefaultStrings {
     public static final String emptyToDoString = splittingLine + "\t You can\'t add an empty task, goshujin-sama.\n" + splittingLine;
     public static final String emptyDeadlineString = splittingLine + "\t You can\'t add an empty deadline, goshujin-sama.\n" + splittingLine;
     public static final String emptyEventString = splittingLine + "\t You can\'t add an empty event, goshujin-sama.\n" + splittingLine;
+    public static final String fileNotFoundError = splittingLine + "\t File not fowund, goshujin-sama.\n" + splittingLine;
 }
 
 

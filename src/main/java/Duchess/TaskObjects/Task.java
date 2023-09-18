@@ -9,8 +9,6 @@ public class Task {
     private boolean isDone = false;
     private String name = "";
 
-    private Scanner scanner;
-
     /** Constructor class to be declared */
     public Task(){
     }
@@ -23,9 +21,6 @@ public class Task {
         this.name = name;
     }
 
-    public void setScanner(Scanner sc) {
-        this.scanner = sc;
-    }
 
     /** Sets name
      * @param name Name of task to be set
@@ -75,4 +70,13 @@ public class Task {
             return ("[ ] " + this.name);
         }
     }
+
+    public String toFileString() {
+        if (this.isDone){
+            return (" X | " + this.name);
+        } else {
+            return (" O | " + this.name);
+        }
+    }
+
 }

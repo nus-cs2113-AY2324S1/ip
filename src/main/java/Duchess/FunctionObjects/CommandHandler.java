@@ -10,6 +10,10 @@ import Duchess.TextObjects.DefaultStrings;
 import Duchess.ErrorObjects.IncompleteTaskError;
 import Duchess.ErrorObjects.UnrecognisedCommandError;
 
+
+
+
+
 /** Class to handle commands and to return exit conditions */
 public class CommandHandler {
 
@@ -20,6 +24,7 @@ public class CommandHandler {
 
     /** Constructor class to be declared. */
     public CommandHandler(){
+        taskList.importTasks(Constants.taskFilePath);
     }
     
     
@@ -43,6 +48,7 @@ public class CommandHandler {
 
             case Constants.endCommand:
                 System.out.println(DefaultStrings.endString);
+                taskList.saveTasks(Constants.taskFilePath);
                 return Constants.exitFlag; // Exit program
 
             case Constants.listCommand:
@@ -93,6 +99,7 @@ public class CommandHandler {
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new IncompleteTaskError(DefaultStrings.emptyEventString, new Event());
                 }
+                break;
             
             default: // Unrecognisedcommand
                 throw new UnrecognisedCommandError(DefaultStrings.unrecognisedString);

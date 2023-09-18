@@ -1,0 +1,2 @@
+T |  O | eat bread
+E |  X | bake | 2pm | 4pm
