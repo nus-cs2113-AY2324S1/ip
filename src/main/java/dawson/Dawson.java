@@ -47,6 +47,8 @@ public class Dawson {
         };
         printText(dawsonText);
 
+        Storage storage = new Storage("data/test.txt");
+
         Command newCommand = new Echo("");
         Scanner scanner = new Scanner(System.in);
 
@@ -60,6 +62,7 @@ public class Dawson {
             newCommand = Command.getCommand(nextLineString, taskList);
             try {
                 newCommand.execute();
+                storage.save(taskList);
             } catch (DawsonException e) {
                 printText(e.getMessage());
             }
