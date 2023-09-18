@@ -276,7 +276,9 @@ public class Bot {
             }
             reader.close();
         } catch (FileNotFoundException exception) {
-            System.out.println("Error");
+            System.out.println("File not found");
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            
         }
     }
     
