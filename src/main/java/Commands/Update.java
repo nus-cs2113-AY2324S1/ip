@@ -19,8 +19,12 @@ public class Update extends Command {
         try {
             list.updateStatus(taskNumber, isDone);
 
-            String text = isDone ? "Barbie-tastic! You've completed this task with glamour!"
-                    : "Back to the runway, darling! This task needs more Barbie magic!";
+            String text;
+            if (isDone)  {
+                text = "Barbie-tastic! You've completed this task with glamour!";
+            } else {
+                text = "Back to the runway, darling! This task needs more Barbie magic!";
+            }
             Ui.printTexts(new String[]{
                     text,
                     list.getTask(taskNumber).toString()
