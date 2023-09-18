@@ -13,7 +13,7 @@ public class Task {
         return "TASK";
     }
 
-    public String getDescription(String description){
+    public String getDescription(){
         return this.description;
     }
     // find out how to retrieve the description without making the method static

@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.File;
 
 public class TaskManager {
-    private static final String FILE_PATH = "./Data/taskList.txt";
+    private static final String FILE_PATH = "./src/main/java/Data/taskList.txt";
     private static final int TODO_COMMAND_LENGTH = 5;
     private static final int EVENT_COMMAND_LENGTH = 6;
 
@@ -36,12 +36,13 @@ public class TaskManager {
             if (isValidIndex(index)) {
                 System.out.println("Nice! I've marked this task as done:");
                 taskList.get(index).markAsDone();
+                saveTasksToFile(); // Save tasks to file after a new task is added
                 System.out.println("    " + taskList.get(index));
             }
             else {
                 throw JarvisException.invalidTaskNumber(index);
             }
-        } catch (JarvisException e) {
+        } catch (JarvisException | IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -70,12 +71,13 @@ public class TaskManager {
         }
     }
 
-    public void addTodo(String description) {
+    public void addTodo(String description) throws IOException {
         Todo todo = new Todo(description);
         taskList.add(todo);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + todo);
         displayTaskCount();
+        saveTasksToFile(); // Save tasks to file after a new task is added
     }
 
     static String parseToDoDescription(String userInput) throws JarvisException {
@@ -89,12 +91,13 @@ public class TaskManager {
         return description;
     }
 
-    public void addDeadline(String description, String time) {
+    public void addDeadline(String description, String time) throws IOException {
         Deadline deadline = new Deadline(description, time);
         taskList.add(deadline);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + deadline);
         displayTaskCount();
+        saveTasksToFile(); // Save tasks to file after a new task is added
     }
 
     static List<String> parseDeadlineDescription(String userInput) throws JarvisException {
@@ -120,13 +123,14 @@ public class TaskManager {
         return descriptionAndTime;
     }
 
-    public void addEvent(String description, String startTime, String endTime) {
+    public void addEvent(String description, String startTime, String endTime) throws IOException {
         String timeRange = startTime + " to " + endTime;
         Event event = new Event(description, timeRange);
         taskList.add(event);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + event);
         displayTaskCount();
+        saveTasksToFile(); // Save tasks to file after a new task is added
     }
 
     static List<String> parseEventDescription(String userInput) throws JarvisException {
@@ -157,7 +161,7 @@ public class TaskManager {
         BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
 
         for (Task task : taskList) {
-            writer.write(toFileFormat());
+            writer.write(toFileFormat(task));
             writer.newLine();
         }
 
@@ -166,6 +170,7 @@ public class TaskManager {
 
     public void loadTasksFromFile() throws IOException, JarvisException {
         File file = new File(FILE_PATH);
+//        System.out.println(new File(".").getAbsolutePath());
         if (file.exists()) {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             String line;
@@ -194,8 +199,8 @@ public class TaskManager {
         }
     }
 
-    public String toFileFormat() {
-        return String.format("%s|%s|%s", Task.getTaskType(), Task.getStatusIcon() ? "1" : "0", Task.getDescription());
+    public String toFileFormat(Task task) {
+        return String.format("%s|%s|%s", task.getTaskType(), task.getStatusIcon().equals("X") ? "1" : "0", task.getDescription());
     }
 
     private void displayTaskCount() {
