@@ -1,3 +1,10 @@
+package Python;
+
+import Python.Task.Deadline;
+import Python.Task.Event;
+import Python.Task.Task;
+import Python.Task.Todo;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
