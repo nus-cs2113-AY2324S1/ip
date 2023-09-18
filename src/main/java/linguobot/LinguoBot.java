@@ -1,3 +1,5 @@
+package linguobot;
+
 import linguobot.task.Task;
 import linguobot.task.Todo;
 import linguobot.task.Deadline;
@@ -5,60 +7,79 @@ import linguobot.task.Event;
 import linguobot.command.LinguoBotException;
 
 import java.util.Scanner;
-public class LinguoBot {
+import java.util.ArrayList;
+import java.io.FileNotFoundException;
 
-    public static final int MAX_NUMBER_OF_TASKS = 100;
+import static linguobot.file.taskFile.*;
+
+public class LinguoBot {
 
     private static void printLine() {
         System.out.println("-------------------------");
     }
-    private static void printTaskList(Task[] taskList, int itemCount) {
+    private static void printTaskList(ArrayList<Task> taskList) {
         printLine();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < itemCount; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             System.out.print((i + 1) + ". ");
-            System.out.println(taskList[i]);
+            System.out.println(taskList.get(i));
         }
         printLine();
     }
 
-    private static void markTaskAsDone(Task[] taskList, int index, int itemCount) throws LinguoBotException {
-        if (index >= 0 && index < itemCount && taskList[index] != null) {
-            if (taskList[index].getStatusIcon().equals("X")) {
+    private static void markTaskAsDone(ArrayList<Task> taskList, int index, String taskFile) throws LinguoBotException {
+        if (index >= 0 && index < taskList.size()) {
+            if (taskList.get(index).getStatusIcon().equals("X")) {
                 throw new LinguoBotException("Task has already been marked.");
             } else {
-                taskList[index].markAsDone();
+                taskList.get(index).markAsDone();
                 printLine();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(taskList[index]);
+                System.out.println(taskList.get(index));
                 printLine();
+                saveTaskListToFile(taskFile, taskList);
             }
         } else {
-            throw new LinguoBotException("Invalid task index. Please provide valid task index" + " < " + (itemCount + 1));
+            throw new LinguoBotException("Invalid task index. Please provide valid task index" + " < " + (taskList.size() + 1));
         }
     }
 
-    private static void markTaskAsUndone(Task[] taskList, int index, int itemCount) throws LinguoBotException {
-        if (index >= 0 && index < taskList.length && taskList[index] != null) {
-            if (taskList[index].getStatusIcon().equals(" ")) {
+    private static void markTaskAsUndone(ArrayList<Task> taskList, int index, String taskFile) throws LinguoBotException {
+        if (index >= 0 && index < taskList.size() && taskList.get(index) != null) {
+            if (taskList.get(index).getStatusIcon().equals(" ")) {
                 throw new LinguoBotException("Task has already been unmarked.");
             } else {
-                taskList[index].markAsUndone();
+                taskList.get(index).markAsUndone();
                 printLine();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(taskList[index]);
+                System.out.println(taskList.get(index));
                 printLine();
+                saveTaskListToFile(taskFile, taskList);
             }
         } else {
-            throw new LinguoBotException("Invalid task index. Please provide valid task index" + " < " + (itemCount + 1));
+            throw new LinguoBotException("Invalid task index. Please provide valid task index" + " < " + (taskList.size() + 1));
         }
     }
-    public static void printTask(String line, Task[] taskList, int itemCount) throws LinguoBotException {
+
+    private static void deleteTask(ArrayList<Task> taskList, int index, String taskFile) throws LinguoBotException {
+        if (index >= 0 && index < taskList.size()) {
+            printLine();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(taskList.get(index));
+            System.out.println("Now you have " + (taskList.size() - 1) + " task(s) in the list.");
+            printLine();
+            taskList.remove(index);
+            saveTaskListToFile(taskFile, taskList);
+        } else {
+            throw new LinguoBotException("Invalid task index. Please provide valid task index" + " < " + (taskList.size() + 1) + " to delete task.");
+        }
+    }
+    public static void printTask(String line, ArrayList<Task> taskList, String taskFile) throws LinguoBotException{
         if (line.startsWith("todo")) {
             if (line.substring(4).isEmpty()) {
                 throw new LinguoBotException("Todo description cannot be empty.");
             }
-            taskList[itemCount] = new Todo(line.substring(4));
+            taskList.add(new Todo(line.substring(4)));
         } else if (line.startsWith("deadline")) {
             int indexBy = line.indexOf("by");
             if (line.substring(8).isEmpty()) {
@@ -67,7 +88,7 @@ public class LinguoBot {
             if (indexBy == -1) {
                 throw new LinguoBotException("Invalid input. Please include 'by' for deadlines.");
             }
-            taskList[itemCount] = new Deadline(line.substring(8, indexBy - 1), line.substring(indexBy + 2));
+            taskList.add(new Deadline(line.substring(8, indexBy - 1), line.substring(indexBy + 2)));
         } else if (line.startsWith("event")) {
             int indexFrom = line.indexOf("from");
             int indexTo = line.indexOf("to", indexFrom);
@@ -77,8 +98,8 @@ public class LinguoBot {
             if (indexFrom == -1 || indexTo == -1) {
                 throw new LinguoBotException("Invalid input. Please include both 'from' and 'to' for events.");
             }
-            taskList[itemCount] = new Event(line.substring(5, indexFrom - 1), line.substring(indexFrom + 4, indexTo),
-                line.substring(indexTo + 2));
+            taskList.add(new Event(line.substring(5, indexFrom - 1), line.substring(indexFrom + 4, indexTo),
+                    line.substring(indexTo + 2)));
         } else {
             throw new LinguoBotException("☹ OOPS!!! I'm sorry, but I don't know what that means. " +
                     "\nIf you wish to input a new task: \n" +
@@ -88,8 +109,9 @@ public class LinguoBot {
         }
         printLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(taskList[itemCount]);
-        System.out.println("Now you have " + Task.numberOfTasks + " tasks in the list.");
+        System.out.println(taskList.get(taskList.size() - 1));
+        saveTaskListToFile(taskFile, taskList);
+        System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
         printLine();
     }
 
@@ -103,24 +125,31 @@ public class LinguoBot {
                 "            |___|                      \n";
 
         System.out.println("Hello I'm " + logo);
-//        System.out.println("Hello I'm LinguoBot");
         System.out.println("What can I do for you?");
 
-        Scanner in = new Scanner(System.in);
+        String taskFile = "src/task.txt";
+        ArrayList<Task> taskList;
 
-        Task[] taskList = new Task[MAX_NUMBER_OF_TASKS];
-        int itemCount = 0;
+        try {
+            taskList = loadTasksFromFile(taskFile); // Load tasks from the file
+            printFileContents(taskFile);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            taskList = new ArrayList<>(); // Create a new task list if the file doesn't exist
+        }
+
+        Scanner in = new Scanner(System.in);
 
         while (true) {
             String line = in.nextLine();
 
             if (line.equals("list")) {
-                printTaskList(taskList, itemCount);
+                printTaskList(taskList);
             } else if (line.startsWith("mark")) {
                 int MARK_START_INDEX = 5;
                 int taskIndex = Integer.parseInt(line.substring(MARK_START_INDEX)) - 1;
                 try {
-                    markTaskAsDone(taskList, taskIndex, itemCount);
+                    markTaskAsDone(taskList, taskIndex, taskFile);
                 } catch (LinguoBotException e) {
                     printLine();
                     System.out.println("Error: " + e.getMessage());
@@ -130,7 +159,17 @@ public class LinguoBot {
                 int UNMARK_START_INDEX = 7;
                 int taskIndex = Integer.parseInt(line.substring(UNMARK_START_INDEX)) - 1;
                 try {
-                    markTaskAsUndone(taskList, taskIndex, itemCount);
+                    markTaskAsUndone(taskList, taskIndex, taskFile);
+                } catch (LinguoBotException e) {
+                    printLine();
+                    System.out.println("Error: " + e.getMessage());
+                    printLine();
+                }
+            } else if (line.contains("delete")) {
+                int DELETE_START_INDEX = 7;
+                int taskIndex = Integer.parseInt(line.substring(DELETE_START_INDEX)) - 1;
+                try {
+                    deleteTask(taskList, taskIndex, taskFile);
                 } catch (LinguoBotException e) {
                     printLine();
                     System.out.println("Error: " + e.getMessage());
@@ -143,8 +182,7 @@ public class LinguoBot {
                 break;
             } else {
                 try {
-                    printTask(line, taskList, itemCount);
-                    itemCount++;
+                    printTask(line, taskList, taskFile);
                 } catch (LinguoBotException e) {
                     printLine();
                     System.out.println("Error: " + e.getMessage());
