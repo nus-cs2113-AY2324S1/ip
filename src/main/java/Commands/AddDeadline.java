@@ -7,6 +7,7 @@ import zenbot.UI;
 
 public class AddDeadline extends Command {
     
+    private String BY_DELIMETER = "/by";
     private String commandString;
     private Tasklist tasks;
     private String description;
@@ -19,8 +20,8 @@ public class AddDeadline extends Command {
 
     @Override
     public void execute() throws TaskEmptyDescriptionException {
-        description = commandString.substring(9, commandString.indexOf("/by") - 1);
-        deadline = commandString.substring(commandString.indexOf("/by") + 4);
+        description = commandString.substring(9, commandString.indexOf(BY_DELIMETER) - 1);
+        deadline = commandString.substring(commandString.indexOf(BY_DELIMETER) + 4);
         tasks.addTask(new Deadline(description, deadline));
 
         UI.printSeperatorLine();

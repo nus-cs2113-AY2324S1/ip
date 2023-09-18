@@ -7,6 +7,9 @@ import exceptions.TaskEmptyDescriptionException;
 
 public class AddEvent extends Command {
 
+    private String FROM_DELIMITER = "/from";
+    private String TO_DELIMETER = "/to";
+
     private String commandString;
     private Tasklist tasks;
     private String description;
@@ -20,8 +23,8 @@ public class AddEvent extends Command {
 
     @Override
     public void execute() throws TaskEmptyDescriptionException {
-        description = commandString.substring(6, commandString.indexOf("/from") - 1);
-        startTime = commandString.substring(commandString.indexOf("/from") + 6, commandString.indexOf("/to") - 1);
+        description = commandString.substring(6, commandString.indexOf(FROM_DELIMITER) - 1);
+        startTime = commandString.substring(commandString.indexOf(FROM_DELIMITER) + 6, commandString.indexOf(TO_DELIMETER) - 1);
         endTime = commandString.substring(commandString.indexOf("/to") + 4);
         tasks.addTask(new Event(description, startTime, endTime));
 
