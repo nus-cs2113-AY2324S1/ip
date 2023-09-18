@@ -2,12 +2,14 @@ package Duke.Task;
 
 public class Deadline extends Task {
     protected String endDate;
-    public Deadline(String description, String endDate){
+
+    public Deadline(String description, String endDate) {
         super(description);
         this.endDate = endDate;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "\t[D]" + super.toString() + " (by: " + this.endDate + ")";
     }
 

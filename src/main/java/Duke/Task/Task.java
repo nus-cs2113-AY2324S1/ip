@@ -12,20 +12,23 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return this.description;
     }
-    public void setDone(){
+
+    public void setDone() {
 
         this.isDone = true;
     }
-    public void setUndone(){
+
+    public void setUndone() {
         this.isDone = false;
     }
 
     @Override
-    public String toString(){
-        String marker = this.isDone? "x" : " ";
+    public String toString() {
+        String marker = this.isDone ? "x" : " ";
         return "[" + marker + "] " + this.description;
     }
 }
