@@ -15,6 +15,34 @@ public class TaskList {
 
     public void addTask(Task task){
         this.tasks.add(task);
+        System.out.println(DefaultStrings.splittingLine
+                + "\n" + DefaultStrings.addedString
+                + "\n" + task.toString()
+                + "\n" + DefaultStrings.splittingLine);
+        this.displayNumTasks();
+    }
+
+    public void deleteTask(int taskNum){
+        try{
+            Task task = this.tasks.get(taskNum-1);
+            this.tasks.remove(taskNum-1);
+            System.out.println(DefaultStrings.splittingLine
+                    + "\n" + DefaultStrings.deletedString
+                    + "\n\t " + task.toString()
+                    + "\n" + DefaultStrings.splittingLine);
+            this.displayNumTasks();
+        } catch (IndexOutOfBoundsException e){
+            System.out.println(DefaultStrings.splittingLine
+                    + "\n" + DefaultStrings.invalidTaskString
+                    + "\n" + DefaultStrings.splittingLine);
+        }
+    }
+
+    public void displayNumTasks(){
+        System.out.println(DefaultStrings.splittingLine
+                + "\n" + DefaultStrings.numTasksStringStart + this.tasks.size()
+                + DefaultStrings.numTasksStringEnd
+                + "\n" + DefaultStrings.splittingLine);
     }
 
     public void listTasks(){

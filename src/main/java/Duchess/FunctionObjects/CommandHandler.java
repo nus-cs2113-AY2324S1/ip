@@ -93,6 +93,13 @@ public class CommandHandler {
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new IncompleteTaskError(DefaultStrings.emptyEventString, new Event());
                 }
+
+                break;
+
+            case Constants.deleteCommand:
+                taskNumber = Integer.parseInt(commandArray[1]);
+                taskList.deleteTask(taskNumber);
+                break;
             
             default: // Unrecognisedcommand
                 throw new UnrecognisedCommandError(DefaultStrings.unrecognisedString);
