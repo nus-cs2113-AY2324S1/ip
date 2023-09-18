@@ -1,7 +1,9 @@
 package Duchess;
 import java.util.Scanner;
 
+import Duchess.ErrorObjects.DuchessError;
 import Duchess.FunctionObjects.CommandHandler;
+import Duchess.FunctionObjects.ErrorHandler;
 import Duchess.TextObjects.Constants;
 import Duchess.TextObjects.DefaultStrings;
 
@@ -19,15 +21,17 @@ public class Duchess {
 
         System.out.println(DefaultStrings.logo);
         CommandHandler ActiveCommandHandler = new CommandHandler();
+        ErrorHandler ActiveErrorHandler = new ErrorHandler();
         Scanner sc = new Scanner(System.in);
         int endProgram = Constants.stayFlag;
+
 
         while (endProgram == Constants.stayFlag) {
             try {
                 String command = sc.nextLine();
                 endProgram = ActiveCommandHandler.ParseCommand(command);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (DuchessError e) {
+                ActiveErrorHandler.HandleError(e);
             }
         }
 

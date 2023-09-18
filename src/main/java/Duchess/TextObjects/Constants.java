@@ -19,4 +19,5 @@ public class Constants {
     public static final String eventEndTime = "/to";
     public static final int exitFlag = 1;
     public static final int stayFlag = 0;
+    
 }

@@ -1,11 +1,15 @@
 package Duchess.TaskObjects;
 
+import java.util.Scanner;
+
 public class Task {
     
     /**Done condition and
      * Name to be accessed as task */
-    private boolean done = false;
+    private boolean isDone = false;
     private String name = "";
+
+    private Scanner scanner;
 
     /** Constructor class to be declared */
     public Task(){
@@ -19,6 +23,10 @@ public class Task {
         this.name = name;
     }
 
+    public void setScanner(Scanner sc) {
+        this.scanner = sc;
+    }
+
     /** Sets name
      * @param name Name of task to be set
     */
@@ -26,14 +34,20 @@ public class Task {
         this.name = name;
     }
 
+    public void replaceName(Scanner sc) {
+        System.out.println("What would you like to change the name to?");
+        String newName = sc.nextLine();
+        this.setName(newName);
+    }
+
     /** Marks as done */
     public void markAsDone(){
-        this.done = true;
+        this.isDone = true;
     }
 
     /** Marks as undone */
     public void markAsUndone(){
-        this.done = false;
+        this.isDone = false;
     }
 
     /** Gets name
@@ -47,7 +61,7 @@ public class Task {
      * @return done Done condition of task
      */
     public boolean getDone(){
-        return this.done;
+        return this.isDone;
     }
 
     /** Gets task as string
@@ -55,7 +69,7 @@ public class Task {
      */
     @Override
     public String toString(){
-        if (this.done){
+        if (this.isDone){
             return ("[X] " + this.name);
         } else {
             return ("[ ] " + this.name);
