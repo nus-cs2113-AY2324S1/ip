@@ -11,7 +11,7 @@ import duke.FileManager;
 
 public class Duke {
 
-    private static final ArrayList<duke.Task> taskList = new ArrayList<>();
+    private static ArrayList<duke.Task> taskList = new ArrayList<>();
     private FileManager writer;
 
     public void printGreeting() {
@@ -167,7 +167,7 @@ public class Duke {
 
     public void initWriter() throws IOException {
         writer = new FileManager();
-        writer.read();
+        taskList = writer.read();
     }
 
     public static void main(String[] args) throws IOException {
