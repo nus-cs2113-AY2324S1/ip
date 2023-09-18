@@ -1,6 +1,8 @@
 package Duchess.TaskObjects;
 
 import java.util.ArrayList;
+import java.io.File;
+
 import Duchess.FunctionObjects.FileHandler;
 
 import Duchess.TextObjects.DefaultStrings;
@@ -30,7 +32,15 @@ public class TaskList {
             fileHandler = new FileHandler(filepath);
             fileHandler.save(this.tasks);
         } catch (Exception e){
-            System.out.println(DefaultStrings.fileNotFoundError);
+            File file = new File(filepath);
+            file.getParentFile().mkdirs();
+            try {
+                System.out.println(DefaultStrings.newFileCreatedMessage);
+                fileHandler = new FileHandler(filepath);
+                fileHandler.save(this.tasks);
+            } catch (Exception f){
+                System.out.println(DefaultStrings.fileNotFoundError);
+            }
         }
     }
 
