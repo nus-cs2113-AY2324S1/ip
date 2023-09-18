@@ -2,7 +2,6 @@ package jerry.task;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import jerry.exceptions.InvalidTaskFormatException;
 
 public class Todo extends Task {
@@ -26,28 +25,6 @@ public class Todo extends Task {
         if (matcher.matches() && matcher.groupCount() == 1) {
             String description = matcher.group(1);
             return new Todo(description);
-        } else {
-            throw new InvalidTaskFormatException(FORMAT_EXCEPTION_MESSAGE);
-        }
-    }
-
-    @Override
-    public String serialize() {
-        return String.format("| T | %s | %s", this.getStatusInt(), this.getDescription());
-    }
-
-    public static Todo deserialize(String line) throws InvalidTaskFormatException {
-        Pattern pattern = Pattern.compile("^| T | ([01]) | (.+)$");
-        Matcher matcher = pattern.matcher(line);
-
-        if (matcher.matches() && matcher.groupCount() == 3) {
-            String statusInt = matcher.group(1);
-            String description = matcher.group(2);
-            Todo todo = new Todo(description);
-            if (Integer.parseInt(statusInt) == 1) {
-                todo.markAsDone();
-            }
-            return todo;
         } else {
             throw new InvalidTaskFormatException(FORMAT_EXCEPTION_MESSAGE);
         }

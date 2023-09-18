@@ -1,5 +1,8 @@
 package jerry.task;
-public abstract class Task {
+
+import java.io.Serializable;
+
+public abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
@@ -31,8 +34,6 @@ public abstract class Task {
     public String getDescription() {
         return this.description;
     }
-
-    public abstract String serialize();
 
     @Override
     public abstract String toString();

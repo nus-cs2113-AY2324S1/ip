@@ -8,26 +8,44 @@ import jerry.task.TaskList;
 import jerry.userInterface.UserInterface;
 import jerry.exceptions.InvalidTaskFormatException;
 import jerry.exceptions.TaskNotFoundException;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.FileWriter;
-import java.io.File;
 import java.io.IOException;
 
 public class Jerry {
 
-    private static final TaskList taskList = new TaskList();
+    private static TaskList taskList;
 
     public static final Path FILE_PATH = Paths.get("./data/jerry.txt");
+    public static final String TODO_KEYWORD = "todo";
+    public static final String DEADLINE_KEYWORD = "deadline";
+    public static final String EVENT_KEYWORD = "event";
+    public static final String MARK_KEYWORD = "mark";
+    public static final String UNMARK_KEYWORD = "unmark";
+    public static final String LIST_KEYWORD = "list";
+    public static final String EXIT_KEYWORD = "bye";
 
     private static void saveStateToDisk() {
         try {
             File file = FILE_PATH.toFile();
-            FileWriter myWriter = new FileWriter(FILE_PATH.toString());
             file.getParentFile().mkdirs();
-            myWriter.write(taskList.serialize());
-            myWriter.close();
+            taskList.serializeToFile(FILE_PATH);
         } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadStateFromDisk() {
+        try {
+            if (FILE_PATH.toFile().exists()) {
+                taskList = TaskList.deserializeFromFile(FILE_PATH);
+            } else taskList = new TaskList();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
@@ -63,6 +81,7 @@ public class Jerry {
             Todo newTodo = Todo.fromString(argument);
             taskList.addTask(newTodo);
             UserInterface.showTaskAddedConfirmation(newTodo, taskList);
+            saveStateToDisk();
         } catch (InvalidTaskFormatException e) {
             UserInterface.showExceptionMessage(e);
         }
@@ -73,6 +92,7 @@ public class Jerry {
             Deadline newDeadline = Deadline.fromString(argument);
             taskList.addTask(newDeadline);
             UserInterface.showTaskAddedConfirmation(newDeadline, taskList);
+            saveStateToDisk();
         } catch (InvalidTaskFormatException e) {
             UserInterface.showExceptionMessage(e);
         }
@@ -83,6 +103,7 @@ public class Jerry {
             Event newEvent = Event.fromString(argument);
             taskList.addTask(newEvent);
             UserInterface.showTaskAddedConfirmation(newEvent, taskList);
+            saveStateToDisk();
         } catch (InvalidTaskFormatException e) {
             UserInterface.showExceptionMessage(e);
         }
@@ -104,10 +125,12 @@ public class Jerry {
 
     private static void execMarkTask(String commandArgs) {
         markTaskAsDone(commandArgs);
+        saveStateToDisk();
     }
 
     private static void execUnmarkTask(String commandArgs) {
         markTaskAsUndone(commandArgs);
+        saveStateToDisk();
     }
 
     private static void execUnknownCommand() {
@@ -119,34 +142,34 @@ public class Jerry {
         final String commandType = commandTypeAndParams[0];
         final String commandArgs = commandTypeAndParams[1];
         switch (commandType) {
-            case "list":
+            case LIST_KEYWORD:
             execListAllTasks();
             break;
-            case "mark":
+            case MARK_KEYWORD:
             execMarkTask(commandArgs);
             break;
-            case "unmark":
+            case UNMARK_KEYWORD:
             execUnmarkTask(commandArgs);
             break;
-            case "todo":
+            case TODO_KEYWORD:
             execAddTodo(commandArgs);
             break;
-            case "deadline":
+            case DEADLINE_KEYWORD:
             execAddDeadline(commandArgs);
             break;
-            case "event":
+            case EVENT_KEYWORD:
             execAddEvent(commandArgs);
             break;
-            case "bye":
+            case EXIT_KEYWORD:
             execExitProgram();
             default:
             execUnknownCommand();
             break;
         }
-        saveStateToDisk();
     }
 
     public static void main(String[] args) {
+        loadStateFromDisk();
         UserInterface.showWelcomeMessage();
         while (true) {
             String userCommand = UserInterface.getUserInput();

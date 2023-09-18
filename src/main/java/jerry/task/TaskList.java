@@ -3,13 +3,18 @@ package jerry.task;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
-import java.io.FileWriter;
+import java.nio.file.Path;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 
 import jerry.task.Task;
 import jerry.Jerry;
 import jerry.exceptions.TaskNotFoundException;
 
-public class TaskList {
+public class TaskList implements Serializable {
     private List<Task> tasks;
 
     private static final String TASK_LIST_EMPTY_MESSAGE = "You haven't added any taskList yet.";
@@ -64,12 +69,18 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
-
-    public String serialize() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Task task : this.tasks) {
-            stringBuilder.append(task.serialize() + "\n");
+    public void serializeToFile(Path filePath) throws IOException {
+        try (FileOutputStream fileOut = new FileOutputStream(filePath.toString());
+             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
+            objectOut.writeObject(this);
         }
-        return stringBuilder.toString();
+    }
+
+    public static TaskList deserializeFromFile(Path filePath) throws IOException, ClassNotFoundException {
+        try (FileInputStream fileIn = new FileInputStream(filePath.toString());
+             ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+            TaskList tasks = (TaskList) objectIn.readObject();
+            return tasks;
+        }
     }
 }
