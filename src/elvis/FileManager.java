@@ -15,17 +15,22 @@ public class FileManager {
     private static File openedFile;
 
     public static void fileManager() {
+
+        SystemOperation.bootUpOne();
         boolean hasFile = bootUp();
         loadTasksFromFile();
         if (hasFile) {
             System.out.println("These are tasks loaded from before: ");
             TaskManager.inputTaskFromFile("list");
         }
+        SystemOperation.bootUpTwo();
         TaskManager.inputTaskManually();
     }
 
     //Checks for any previously saved file, creates if missing
     public static boolean bootUp() {
+        System.out.print(System.lineSeparator());
+        System.out.println("Checking if \"tasks.txt\" already exists...");
         File file = new File(FILE_PATH);
 
         if (!file.exists()) {   //File doesn't exist, so create it
@@ -41,7 +46,7 @@ public class FileManager {
             }
             return false;
         } else {
-            System.out.println("File already exists.\nOpening existing file...");
+            System.out.println("File already exists.\nOpening existing file...\n");
             openedFile = file;      //File used to save tasks
             return true;
         }

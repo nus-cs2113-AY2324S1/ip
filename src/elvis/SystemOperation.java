@@ -37,9 +37,14 @@ public class SystemOperation {
         System.out.print(System.lineSeparator());
     }
 
-    public static void bootUp() {
+    public static void bootUpOne() {
         //ChatBot BootUp
         System.out.println(SystemOperation.LOGO);
+
+    }
+
+    public static void bootUpTwo() {
+        //ChatBot BootUp
         SystemOperation.printHorizontalLines();
         System.out.println("Hello! I'm ELVIS");
         System.out.println("What can I do for you?");

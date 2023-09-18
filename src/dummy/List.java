@@ -11,7 +11,8 @@ public class List {
         int listCount = 0;
         Scanner in = new Scanner(System.in);
 
-        SystemOperation.bootUp();
+        SystemOperation.bootUpOne();
+        SystemOperation.bootUpTwo();
         while (true) {
             String inputBuffer = in.nextLine().trim();
             Scanner bufferScanner = new Scanner(inputBuffer);

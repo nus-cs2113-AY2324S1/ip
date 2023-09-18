@@ -25,12 +25,13 @@ public class TaskManager {
         try {
             functionalityManager(lineOfFile, true);      //Checks for any errors and handles them
         } catch (UnknownInputException exception) {
-            System.out.println("😭 File is corrupted.\nUnable to read file");
+            System.out.println("😭 File is corrupted.\tUnable to read file");
+            SystemOperation.shutDown();
+            System.exit(1);
         }
     }
 
     public static void inputTaskManually() {
-        SystemOperation.bootUp();
         while (true) {
             String inputBuffer = in.nextLine().trim(); //Scans I/O and all input stored in inputBuffer
 
@@ -124,7 +125,7 @@ public class TaskManager {
 
         //Functionalities
         if (inputBuffer.equals("list")) {
-            listOut();
+            listOut(isFromFile);
         } else if (firstWord.equals("delete") && hasInteger && !bufferScanner.hasNext()) {
             taskRemover(numberInput);
         } else if (firstWord.equals("mark") && hasInteger && !bufferScanner.hasNext()) {
@@ -143,8 +144,10 @@ public class TaskManager {
     }
 
     //Print out everything in the list
-    public static void listOut() {
-        System.out.println("Here are the tasks in your list: ");
+    public static void listOut(boolean isFromFile) {
+        if (!isFromFile) {
+            System.out.println("Here are the tasks in your list: ");
+        }
         for (int i = 0; i < tasks.size(); i++) {
             System.out.print(i + 1 + ".");
             print(i);
@@ -243,6 +246,9 @@ public class TaskManager {
 
     public static int getStatusFromFile(String description) throws UnknownInputException {
         Scanner lineReader = new Scanner(description);  //Used to read mark/unmark from file
+        if (!lineReader.hasNextInt()) {
+            throw new UnknownInputException();
+        }
         int isDone = lineReader.nextInt();
         if (isDone < 0 || isDone > 1) {
             throw new UnknownInputException();
