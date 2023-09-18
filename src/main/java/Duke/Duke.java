@@ -161,12 +161,12 @@ public class Duke {
                 break;
             case "delete":
                 try {
-                    System.out.print("\tNoted. I've removed this task:\n\t\t");
-                    System.out.println(list.get(Integer.parseInt(line) - 1));
+                    System.out.println("\tNoted. I've removed this task:\n\t\t" +
+                            list.get(Integer.parseInt(line) - 1));
                     list.remove(Integer.parseInt(line) - 1);
                     System.out.println("\tNow you have " + list.size() + " in the list");
                 } catch(NumberFormatException | NullPointerException | IndexOutOfBoundsException e){
-                    System.out.println("\tOOPS!!! Need to specify which task want to unmark");
+                    System.out.println("OOPS!!! Need to specify which task want to delete");
                 }
                 break;
             default:
