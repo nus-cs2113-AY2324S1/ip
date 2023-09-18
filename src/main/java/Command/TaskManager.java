@@ -7,7 +7,15 @@ import Tasks.Event;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+
 public class TaskManager {
+    private static final String FILE_PATH = "./Data/taskList.txt";
     private static final int TODO_COMMAND_LENGTH = 5;
     private static final int EVENT_COMMAND_LENGTH = 6;
 
@@ -143,6 +151,51 @@ public class TaskManager {
             throw JarvisException.invalidEventFormat();
         }
         return descriptionAndTime;
+    }
+
+    public void saveTasksToFile() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+
+        for (Task task : taskList) {
+            writer.write(toFileFormat());
+            writer.newLine();
+        }
+
+        writer.close();
+    }
+
+    public void loadTasksFromFile() throws IOException, JarvisException {
+        File file = new File(FILE_PATH);
+        if (file.exists()) {
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                switch (parts[0]) {
+                case "T":
+                    addTodo(parts[2]);
+                    break;
+                case "D":
+                    addDeadline(parts[2], parts[3]);
+                    break;
+                case "E":
+                    String[] timeParts = parts[3].split(" to ");
+                    addEvent(parts[2], timeParts[0], timeParts[1]);
+                    break;
+                }
+
+                if (parts[1].equals("1")) {
+                    taskList.get(taskList.size() - 1).markAsDone();
+                }
+            }
+
+            reader.close();
+        }
+    }
+
+    public String toFileFormat() {
+        return String.format("%s|%s|%s", getTaskType(), isDone() ? "1" : "0", Task.getDescription());
     }
 
     private void displayTaskCount() {

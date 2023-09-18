@@ -9,6 +9,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription(String description){
+        return this.description;
+    }
+    // find out how to retrieve the description without making the method static
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); //return tick symbol once done
     }
