@@ -59,7 +59,7 @@ public class Duke {
                     eventTime = eventTime.replace("from", "from:");
                     eventTime = eventTime.replace("/", "");
                     list.add(new Deadline(line, eventTime));
-                    System.out.println("\tGot it. I've added this task:\n\t\t" + list.get(list.size() - 1) + "\n\tNow you have "+ ++Task.listCount + " tasks in the list.");
+                    System.out.println("\tGot it. I've added this task:\n\t\t" + list.get(list.size() - 1) + "\n\tNow you have "+ list.size() + " tasks in the list.");
                 } catch(IndexOutOfBoundsException e){
                     System.out.println("\tOOPS!!! The deadline need to separated by \"/by\"");
                 }
@@ -70,7 +70,7 @@ public class Duke {
                     line = line.split("/",2)[0];
                     eventTime = eventTime.replace("/to", "to:");
                     list.add(new Event(line, eventTime));
-                    System.out.println("\tGot it. I've added this task:\n\t\t" + list.get(list.size() - 1) + "\n\tNow you have "+ ++Task.listCount + " tasks in the list.");
+                    System.out.println("\tGot it. I've added this task:\n\t\t" + list.get(list.size() - 1) + "\n\tNow you have "+ list.size() + " tasks in the list.");
                 } catch(IndexOutOfBoundsException e){
                     System.out.println("\tOOPS!!! The event timing need to separated by \"/from\"");
                 }
@@ -81,9 +81,19 @@ public class Duke {
                     System.out.print("\tGot it. I've added this task: \n\t\t");
                     System.out.println(list.get(list.size() - 1));
                     Task.listCount++;
-                    System.out.println("\tNow you have " + Task.listCount + " in the list");
+                    System.out.println("\tNow you have " + list.size() + " in the list");
                 } catch(IndexOutOfBoundsException e){
                     System.out.println("\tOOPS!!! The description of a todo cannot be empty.");
+                }
+                break;
+            case "delete":
+                try {
+                    System.out.print("\tNoted. I've removed this task:\n\t\t");
+                    System.out.println(list.get(Integer.parseInt(line) - 1));
+                    list.remove(Integer.parseInt(line) - 1);
+                    System.out.println("\tNow you have " + list.size() + " in the list");
+                } catch(NumberFormatException | NullPointerException | IndexOutOfBoundsException e){
+                    System.out.println("\tOOPS!!! Need to specify which task want to unmark");
                 }
                 break;
             default:
