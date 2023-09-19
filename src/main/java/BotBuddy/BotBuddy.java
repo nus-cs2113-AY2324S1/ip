@@ -1,5 +1,9 @@
 package BotBuddy;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,9 +13,52 @@ public class BotBuddy {
 
     public static void main(String[] args) {
         printUnderscores();
+        System.out.println("Starting up...");
+        printUnderscores();
+
+        String filePath = "data/taskfile.txt";
+        String directoryName = "data";
+
+        File directory = new File(directoryName);
+        File taskFile = new File(filePath);
+
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        if (!taskFile.exists()) {
+            printUnderscores();
+            System.out.println("Task file not found! Creating one...");
+            printUnderscores();
+
+            if (!directory.exists()) {
+                try {
+                    taskFile.createNewFile();
+                } catch (IOException e) {
+                    System.out.println("Error creating task file... Exiting!");
+                    return;
+                }
+            }
+            try {
+                taskFile.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating task file... Exiting!");
+                return;
+            }
+        }
+
+        try {
+            readTaskFile(filePath);
+        } catch (FileNotFoundException e) {
+            System.out.println("Error creating task file... Exiting!");
+            return;
+        }
+
+        printUnderscores();
         System.out.println("Hello from BotBuddy!");
         System.out.println("What can I do for you?");
         printUnderscores();
+
         String input;
         String[] inputArr;
         String command = "";
@@ -60,12 +107,107 @@ public class BotBuddy {
             case "bye":
                 exitProgram();
                 return;
+
             default:
                 invalidCommand();
                 break;
             }
+
+            // write to file here
+            try {
+                writeTaskFile(filePath);
+            } catch (IOException e) {
+                System.out.println("Error writing to file!");
+            }
+
         } while (!command.equals("bye"));
     }
+
+    private static void readTaskFile(String filePath) throws FileNotFoundException {
+        File taskFile = new File(filePath);
+        Scanner taskScanner = new Scanner(taskFile);
+
+        while (taskScanner.hasNext()) {
+            String currentTask = taskScanner.nextLine();
+            if (currentTask.startsWith("[T]")) {
+                currentTask = currentTask.substring(3);
+                boolean isDone = false;
+                if (currentTask.startsWith("[X]")) {
+                    isDone = true;
+                }
+                currentTask = currentTask.substring(3);
+                addTodoFromFile(currentTask);
+                if (isDone) {
+                    int noOfTasks = Task.getNoOfTasks();
+                    markTaskFromFile(Integer.toString(noOfTasks));
+                }
+            } else if (currentTask.startsWith("[E]")) {
+                currentTask = currentTask.substring(3);
+                boolean isDone = false;
+                if (currentTask.startsWith("[X]")) {
+                    isDone = true;
+                }
+                currentTask = currentTask.substring(3);
+                addEventFromFile(currentTask);
+                if (isDone) {
+                    int noOfTasks = Task.getNoOfTasks();
+                    markTaskFromFile(Integer.toString(noOfTasks));
+                }
+            } else if (currentTask.startsWith("[D]")) {
+                currentTask = currentTask.substring(3);
+                boolean isDone = false;
+                if (currentTask.startsWith("[X]")) {
+                    isDone = true;
+                }
+                currentTask = currentTask.substring(3);
+                addDeadlineFromFile(currentTask);
+                if (isDone) {
+                    int noOfTasks = Task.getNoOfTasks();
+                    markTaskFromFile(Integer.toString(noOfTasks));
+                }
+            } else {
+                // this should not run
+                System.out.println("Corrupted data file!");
+                return;
+            }
+        }
+    }
+
+    private static void writeTaskFile(String filePath) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
+        StringBuilder taskData = new StringBuilder();
+        int noOfTasks = Task.getNoOfTasks();
+        for (int i = 0; i < noOfTasks; i++) {
+
+            if (tasks.get(i).getClass() == Todo.class) {
+                Todo currentTodo = (Todo) tasks.get(i);
+                taskData.append("[T]").append(currentTodo.getStatusIcon());
+                taskData.append(currentTodo.getDescription());
+                taskData.append(System.lineSeparator());
+            } else if (tasks.get(i).getClass() == Event.class) {
+                Event currentEvent = (Event) tasks.get(i);
+                taskData.append("[E]").append(currentEvent.getStatusIcon());
+                taskData.append(currentEvent.getDescription());
+                taskData.append(" /from ").append(currentEvent.getFrom());
+                taskData.append(" /to ").append(currentEvent.getTo());
+                taskData.append(System.lineSeparator());
+            } else if (tasks.get(i).getClass() == Deadline.class) {
+                Deadline currentDeadline = (Deadline) tasks.get(i);
+                taskData.append("[D]").append(currentDeadline.getStatusIcon());
+                taskData.append(currentDeadline.getDescription());
+                taskData.append(" /by ").append(currentDeadline.getBy());
+                taskData.append(System.lineSeparator());
+            } else {
+                // This should not run
+                System.out.println("Fatal error!");
+            }
+//            taskData.append(tasks.get(i));
+//            taskData.append(System.lineSeparator());
+        }
+        fileWriter.write(taskData.toString());
+        fileWriter.close();
+    }
+
 
     public static void printUnderscores() {
         System.out.println("____________________________________________________________");
@@ -286,5 +428,31 @@ public class BotBuddy {
             // this should never run
             throw new BotBuddyException("Error in validateInput function!");
         }
+    }
+
+
+    public static void addTodoFromFile(String parameters) {
+        tasks.add(new Todo(parameters));
+    }
+
+    public static void addEventFromFile(String parameters) {
+        String[] eventDetails = parameters.split("/from");
+        String eventName = eventDetails[0].trim();
+        eventDetails = eventDetails[1].split("/to");
+        String eventFrom = eventDetails[0].trim();
+        String eventTo = eventDetails[1].trim();
+        tasks.add(new Event(eventName, eventFrom, eventTo));
+    }
+
+    public static void addDeadlineFromFile(String parameters) {
+        String[] deadlineDetails = parameters.split("/by");
+        String deadlineName = deadlineDetails[0].trim();
+        String deadlineBy = deadlineDetails[1].trim();
+        tasks.add(new Deadline(deadlineName, deadlineBy));
+    }
+
+    public static void markTaskFromFile(String parameters) {
+        int taskToMark = Integer.parseInt(parameters) - 1;
+        tasks.get(taskToMark).markAsDone();
     }
 }
