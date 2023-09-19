@@ -12,6 +12,7 @@ public class Duke {
     private static final String HORIZONTAL_LINE = "--------------------------------------------";
     private static List<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
+        loadData();
         introduceBot();
         handleCommands();
         farewellBot();
@@ -49,6 +50,8 @@ public class Duke {
                 case "event":
                     addEvent(argument);
                     break;
+                case "bye":
+                    break;
                 default:
                     throw new InvalidCommandException();
                 }
@@ -71,6 +74,11 @@ public class Duke {
         System.out.println(logo);
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm " + name);
+        if (tasks.size() > 0) {
+            printList();
+        } else {
+            System.out.println("Currently, you have no tasks in your list.");
+        }
         System.out.println("How can I help you buddy?");
         System.out.println(HORIZONTAL_LINE);
     }
@@ -162,6 +170,48 @@ public class Duke {
             fw.close();
         } catch (IOException e) {
             System.out.println("An error occurred when accessing the file.");
+        }
+    }
+
+    public static void loadData() {
+        try {
+            tasks = new ArrayList<Task>();
+            String path = "data/duke.txt";
+            File f = new File(path);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String input = s.nextLine();
+                readDataLine(input);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred when accessing the file.");
+        }
+    }
+
+    public static void readDataLine(String input) {
+        String[] parts = input.split(" \\| ");
+        try {
+            Task task;
+
+            switch(parts[0]) {
+            case "T":
+                task = new Todo(parts[2]);
+                break;
+            case "D":
+                task = new Deadline(parts[2], parts[3]);
+                break;
+            case "E":
+                task = new Event(parts[2], parts[3], parts[4]);
+                break;
+            default:
+                throw new CorruptedFileException();
+            }
+
+            int binaryIsDone = Integer.parseInt(parts[1]);
+            task.setDone(binaryIsDone);
+            tasks.add(task);
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException | CorruptedFileException e) {
+            System.out.println("Failed to read line, the file is corrupted.");
         }
     }
 }

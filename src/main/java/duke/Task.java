@@ -25,6 +25,18 @@ public class Task {
         isDone = done;
     }
 
+    public void setDone(int done) throws CorruptedFileException {
+        if (done == 0) {
+            isDone = false;
+        } else {
+            if(done == 1) {
+                isDone = true;
+            } else {
+                throw new CorruptedFileException();
+            }
+        }
+    }
+
     @Override
     public String toString() {
         String ex = " ";
