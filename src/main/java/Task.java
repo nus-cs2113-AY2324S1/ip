@@ -26,7 +26,7 @@ public class Task {
 
 //Create a todo class that inherits from the task class
 class Todo extends Task {
-    public Todo(String taskName){
+    protected Todo(String taskName){
         super(taskName);
     }
     //toString method to print the status of the task followed by the task name
@@ -41,7 +41,7 @@ class Todo extends Task {
 
 //Create a deadline class that inherits from the task class
 class Deadline extends Task {
-    private String deadline;
+    protected String deadline;
     public Deadline(String taskName, String deadline){
         super(taskName);
         this.deadline = deadline;
@@ -58,7 +58,7 @@ class Deadline extends Task {
 
 //Create an event class that inherits from the task class
 class Event extends Task {
-    private String eventTime;
+    protected String eventTime;
     public Event(String taskName, String eventTime){
         super(taskName);
         this.eventTime = eventTime;
