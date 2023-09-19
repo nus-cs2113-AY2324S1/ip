@@ -3,7 +3,7 @@ package nuke.command;
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
 
-public class CommandDeadline extends Command {
+public class DeadlineCommand extends Command {
     public String name;
     public String by;
 

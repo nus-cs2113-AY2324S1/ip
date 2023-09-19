@@ -3,7 +3,7 @@ package nuke.command;
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
 
-public class CommandEvent extends Command {
+public class EventCommand extends Command {
     public String name;
     public String from;
     public String to;

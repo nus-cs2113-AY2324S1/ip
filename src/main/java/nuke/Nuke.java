@@ -4,10 +4,10 @@ import nuke.command.Command;
 import nuke.command.CommandParser;
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.command.exception.InvalidCommandTypeException;
-import nuke.savefile.SaveManager;
-import nuke.savefile.exception.TaskFileCopyException;
-import nuke.savefile.exception.TaskLoadException;
-import nuke.savefile.exception.TaskSaveException;
+import nuke.storage.Storage;
+import nuke.storage.exception.TaskFileCopyException;
+import nuke.storage.exception.TaskLoadException;
+import nuke.storage.exception.TaskSaveException;
 import nuke.task.Deadline;
 import nuke.task.Event;
 import nuke.task.Task;
@@ -57,7 +57,7 @@ public class Nuke {
     private static boolean loadTasksFromStorage(final Scanner USER_IN) {
         ArrayList<Task> loadedTasks;
         try {
-            loadedTasks = SaveManager.loadTasksFromStorage();
+            loadedTasks = Storage.loadTasks();
             tasks.addAll(loadedTasks);
         } catch (TaskLoadException e) {
             Ui.printTaskLoadError(e.backupFilePath);
@@ -74,7 +74,7 @@ public class Nuke {
 
     private static void saveTasksToStorage(final Scanner USER_IN) {
         try {
-            SaveManager.saveTasksToStorage();
+            Storage.saveTasks();
         } catch (TaskSaveException e) {
             Ui.printTaskSaveError(getTasks());
             boolean isQuitting = false;

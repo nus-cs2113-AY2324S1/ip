@@ -1,6 +1,6 @@
 package nuke.task;
 
-import nuke.savefile.exception.TaskParseException;
+import nuke.storage.exception.TaskParseException;
 
 public class TaskParser {
 

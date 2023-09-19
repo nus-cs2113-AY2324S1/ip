@@ -3,7 +3,7 @@ package nuke.command;
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
 
-public class CommandBye extends Command {
+public class ListCommand extends Command {
 
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
@@ -14,14 +14,14 @@ public class CommandBye extends Command {
 
     @Override
     protected String getUsage() {
-        return "bye";
+        return "list";
     }
 
     @Override
     public void run() {
-        Nuke.quit();
+        Nuke.listTask();
     }
 
     private static final String ERROR_MSG_TOO_MANY_ARGS =
-            "Command 'bye' should have no arguments.";
+            "Command 'list' should have no arguments.";
 }

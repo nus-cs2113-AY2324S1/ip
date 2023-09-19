@@ -3,7 +3,7 @@ package nuke.command;
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
 
-public class CommandUnmark extends Command {
+public class UnmarkCommand extends Command {
     private int index;
 
     @Override

@@ -1,9 +1,9 @@
 package nuke.command;
 
-import nuke.Nuke;
 import nuke.command.exception.InvalidCommandArgumentException;
+import nuke.Nuke;
 
-public class CommandDelete extends Command {
+public class MarkCommand extends Command {
     private int index;
 
     @Override
@@ -24,18 +24,18 @@ public class CommandDelete extends Command {
 
     @Override
     protected String getUsage() {
-        return "delete ((index))";
+        return "mark ((index))";
     }
 
     @Override
     public void run() {
-        Nuke.deleteTask(index);
+        Nuke.markTask(index);
     }
 
     private static final String ERROR_MSG_INVALID_NUMBER_OF_ARGS =
-            "Command 'delete' should have one argument, index of the task.";
+            "Command 'mark' should have one argument, index of the task.";
     private static final String ERROR_MSG_INDEX_NOT_INTEGER =
-            "Command 'delete' should have a number for index of the task.";
+            "Command 'mark' should have a number for index of the task.";
     private static final String ERROR_MSG_INDEX_INVALID_VALUE =
             "The value of index is invalid. Please check the number of tasks.";
 }

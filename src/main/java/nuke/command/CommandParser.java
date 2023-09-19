@@ -39,28 +39,28 @@ public class CommandParser {
         Command command;
         switch (type) {
         case "bye":
-            command = new CommandBye();
+            command = new ByeCommand();
             break;
         case "list":
-            command = new CommandList();
+            command = new ListCommand();
             break;
         case "mark":
-            command = new CommandMark();
+            command = new MarkCommand();
             break;
         case "unmark":
-            command = new CommandUnmark();
+            command = new UnmarkCommand();
             break;
         case "todo":
-            command = new CommandTodo();
+            command = new TodoCommand();
             break;
         case "deadline":
-            command = new CommandDeadline();
+            command = new DeadlineCommand();
             break;
         case "event":
-            command = new CommandEvent();
+            command = new EventCommand();
             break;
         case "delete":
-            command = new CommandDelete();
+            command = new DeleteCommand();
             break;
         default:
             throw new InvalidCommandTypeException(type);

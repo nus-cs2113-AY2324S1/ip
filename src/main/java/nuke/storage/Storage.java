@@ -1,10 +1,10 @@
-package nuke.savefile;
+package nuke.storage;
 
 import nuke.Nuke;
-import nuke.savefile.exception.TaskFileCopyException;
-import nuke.savefile.exception.TaskLoadException;
-import nuke.savefile.exception.TaskParseException;
-import nuke.savefile.exception.TaskSaveException;
+import nuke.storage.exception.TaskFileCopyException;
+import nuke.storage.exception.TaskLoadException;
+import nuke.storage.exception.TaskParseException;
+import nuke.storage.exception.TaskSaveException;
 import nuke.task.Task;
 import nuke.task.TaskParser;
 
@@ -13,12 +13,12 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SaveManager {
+public class Storage {
     private static final String DIR_DATA = "data";
     private static final String FILENAME_TASKS = "nuke.txt";
     private static final String FILENAME_TASKS_BACKUP = "nuke_old.txt";
 
-    public static ArrayList<Task> loadTasksFromStorage()
+    public static ArrayList<Task> loadTasks()
             throws TaskLoadException, TaskFileCopyException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class SaveManager {
         return loadedTasks;
     }
 
-    public static void saveTasksToStorage() throws TaskSaveException {
+    public static void saveTasks() throws TaskSaveException {
         Path currentRelativePath = Paths.get("");
         Path currentDir = currentRelativePath.toAbsolutePath();
         Path dirPath = currentDir.resolve(DIR_DATA);

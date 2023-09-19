@@ -1,6 +1,6 @@
-package nuke.savefile.exception;
+package nuke.storage.exception;
 
-public class TaskLoadException extends SaveFileException {
+public class TaskLoadException extends StorageException {
     public String backupFilePath;
 
     public TaskLoadException(String backupFilePath) {

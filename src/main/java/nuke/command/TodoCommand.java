@@ -3,7 +3,7 @@ package nuke.command;
 import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
 
-public class CommandTodo extends Command {
+public class TodoCommand extends Command {
     public String name;
 
     @Override
