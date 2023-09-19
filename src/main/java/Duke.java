@@ -5,25 +5,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import static duke.commands.FileEditor.printFileContents;
+import static duke.commands.FileEditor.loadFileContents;
 
 
 public class Duke {
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) throws DukeException, IOException ,FileNotFoundException{
+
 
         File taskListFile = new File("./duke.txt");
-
         //Greetings & renaming
         System.out.println("Hello! I'm JARVIS");
         System.out.println("What can I do for you?");
 
         Echo interact = new Echo();
         try {
-            printFileContents("./duke.txt");
-            interact.echoBegin();
+                loadFileContents("./duke.txt");
+                interact.echoBegin();
         }
         catch(FileNotFoundException e){
+
             taskListFile.createNewFile();
+            interact.echoBegin();
 
 
         }

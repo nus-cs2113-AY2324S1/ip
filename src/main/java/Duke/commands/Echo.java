@@ -2,18 +2,26 @@ package duke.commands;
 
 import duke.exceptions.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Echo  {
-    public String text;
-    public Echo() throws IOException {
+    public Echo() {
 
     }
-    ToDoList newList = new ToDoList();
+     public static ToDoList newList;
+
+    static {
+        try {
+            newList = new ToDoList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
-    public void echoBegin() throws DukeException, IOException {
+    public void echoBegin() throws DukeException, IOException, FileNotFoundException {
         Scanner in = new Scanner(System.in);
         String text = in.next();
         if (text.equals("bye")) {
@@ -52,13 +60,13 @@ public class Echo  {
                 text = in.next();
 
             } else if (text.equals("deadline")) {
-                String[] task = in.nextLine().split("/by");
+                String[] task = in.nextLine().split(" /by");
                 newList.addDeadline(task[0], task[1]);
 
                 text = in.next();
 
             } else if (text.equals("event")) {
-                String[] task = in.nextLine().split("/from | /to");
+                String[] task = in.nextLine().split(" /from | /to");
                 newList.addEvent(task[0], task[1], task[2]);
 
                 text = in.next();
