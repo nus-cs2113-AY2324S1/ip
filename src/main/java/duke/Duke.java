@@ -7,10 +7,11 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
@@ -122,8 +123,51 @@ public class Duke {
         tasksCount++;
     }
 
+    //Solution below adapted by https://www.tutorialspoint.com/how-to-overwrite-a-line-in-a-txt-file-using-java
+    public static void updateTaskDatabase(int index, boolean taskStatus) throws FileNotFoundException, IOException {
+        Scanner scanner = new Scanner(new File("data/tasks.txt"));
+
+        StringBuffer buffer = new StringBuffer();
+        String change = taskStatus ? "true" : "false";
+        int currentIndex = 0;
+
+        while (scanner.hasNext()) {
+            if (currentIndex == index) {
+                String[] parsedTask = scanner.nextLine().split(" \\| ");
+                parsedTask[1] = change;
+
+                for (int i = 0; i < parsedTask.length; i++) {
+                    buffer.append(parsedTask[i]);
+
+                    if (i < parsedTask.length - 1) {
+                        buffer.append(" | ");
+                    }
+                }
+                buffer.append(System.lineSeparator());
+            } else {
+                buffer.append(scanner.nextLine());
+
+                if (scanner.hasNext()) {
+                    buffer.append(System.lineSeparator());
+                }
+            }
+            currentIndex++;
+        }
+
+        FileWriter writer = new FileWriter("data/tasks.txt");
+        writer.append(buffer.toString());
+        writer.close();
+    }
+
     public static void setMarkAsDone(String input) {
         int index = Integer.parseInt(input) - 1;
+
+        try {
+            updateTaskDatabase(index, true);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+
         tasks[index].markAsDone();
 
         System.out.println("\tYay! You have completed this task:");
@@ -132,6 +176,13 @@ public class Duke {
 
     public static void setUnmarkAsDone(String input) {
         int index = Integer.parseInt(input) - 1;
+
+        try {
+            updateTaskDatabase(index, false);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+
         tasks[index].unmarkAsDone();
 
         System.out.println("\tOh no! It seems that you haven't finish this task:");
@@ -224,18 +275,18 @@ public class Duke {
 
             parsedTask = scan.nextLine().split(" \\| ");
             String taskType = parsedTask[0];
-            System.out.println(taskType);
+
             switch (taskType) {
             case "T":
                 tasks[tasksCount] = new Todo(parsedTask[2] , parsedTask[1]);
                 tasksCount++;
                 break;
             case "D":
-                tasks[tasksCount] = new Deadline(parsedTask[2], parsedTask[3], parsedTask[1]);
+                tasks[tasksCount] = new Deadline(parsedTask[2], parsedTask[1], parsedTask[3]);
                 tasksCount++;
                 break;
             case "E":
-                tasks[tasksCount] = new Event(parsedTask[2], parsedTask[3], parsedTask[4], parsedTask[1]);
+                tasks[tasksCount] = new Event(parsedTask[2], parsedTask[1], parsedTask[3], parsedTask[4]);
                 tasksCount++;
                 break;
             }
