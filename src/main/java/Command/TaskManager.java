@@ -81,6 +81,11 @@ public class TaskManager {
         saveTasksToFile(); // Save tasks to file after a new task is added
     }
 
+    public void loadTodo(String description) throws IOException {
+        Todo todo = new Todo(description);
+        taskList.add(todo);
+    }
+
     static String parseToDoDescription(String userInput) throws JarvisException {
         if (userInput.length() <= TODO_COMMAND_LENGTH) {
             throw JarvisException.invalidTodoFormat();
@@ -99,6 +104,10 @@ public class TaskManager {
         System.out.println("    " + deadline);
         displayTaskCount();
         saveTasksToFile(); // Save tasks to file after a new task is added
+    }
+    public void loadDeadline(String description, String time) throws IOException {
+        Deadline deadline = new Deadline(description, time);
+        taskList.add(deadline);
     }
 
     static List<String> parseDeadlineDescription(String userInput) throws JarvisException {
@@ -132,6 +141,12 @@ public class TaskManager {
         System.out.println("    " + event);
         displayTaskCount();
         saveTasksToFile(); // Save tasks to file after a new task is added
+    }
+
+    public void loadEvent(String description, String startTime, String endTime) throws IOException {
+        String timeRange = startTime + " to " + endTime;
+        Event event = new Event(description, timeRange);
+        taskList.add(event);
     }
 
     static List<String> parseEventDescription(String userInput) throws JarvisException {
