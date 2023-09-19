@@ -25,3 +25,5 @@ workspace_dir
 pom.xml
 target
 data
+MANIFEST.MF
+jerry.jar
