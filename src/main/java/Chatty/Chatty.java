@@ -6,6 +6,7 @@ import Chatty.tasks.Task;
 import Chatty.tasks.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Chatty {
 
     public static final String LINE = "____________________________________________________________";
@@ -14,7 +15,7 @@ public class Chatty {
         printWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
         int index;
         loop:
@@ -61,13 +62,10 @@ public class Chatty {
         scanner.close();
     }
 
-    private static int deleteEvent(String input, int taskCount, Task[] tasks) {
+    private static int deleteEvent(String input, int taskCount, ArrayList<Task> tasks) {
         int taskIndexToDelete = Integer.parseInt(input.substring(7)) - 1;
-        if (taskIndexToDelete >= 0 && taskIndexToDelete < taskCount) {
-            Task deletedTask = tasks[taskIndexToDelete];
-            for (int i = taskIndexToDelete; i < taskCount - 1; i++) {
-                tasks[i] = tasks[i + 1];
-            }
+        if (taskIndexToDelete >= 0 && taskIndexToDelete < tasks.size()) {
+            Task deletedTask = tasks.get(taskIndexToDelete);
             taskCount--;
             System.out.println("Noted. I've removed this task:");
             System.out.println(deletedTask.getDescription());
@@ -77,37 +75,37 @@ public class Chatty {
         return taskCount;
     }
 
-    private static void listAllTasks(int taskCount, Task[] tasks) {
+    private static void listAllTasks(int taskCount, ArrayList<Task> tasks) {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].getDescription());
+            System.out.println((i + 1) + ". " + tasks.get(i).getDescription());
         }
         System.out.println(LINE);
     }
 
-    private static void mark(String input, Task[] tasks) {
+    private static void mark(String input, ArrayList<Task> tasks) {
         int index;
         index = Integer.parseInt(input.substring(5)) - 1;
-        tasks[index].mark();
+        tasks.get(index).mark();
         System.out.println(LINE);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[index].getDescription());
+        System.out.println(tasks.get(index).getDescription());
     }
 
-    private static void unmark(String input, Task[] tasks) {
+    private static void unmark(String input, ArrayList<Task> tasks) {
         int index;
         index = Integer.parseInt(input.substring(7)) - 1;
-        tasks[index].unmark();
+        tasks.get(index).unmark();
         System.out.println(LINE);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks[index].getDescription());
+        System.out.println(tasks.get(index).getDescription());
     }
 
-    private static int createTodo(String input, Task[] tasks, int taskCount) {
+    private static int createTodo(String input, ArrayList<Task> tasks, int taskCount) {
         if (input.length() > 5) {
             String todoDescription = input.substring(5);
-            tasks[taskCount] = new Todo(todoDescription);
+            tasks.add(new Todo(todoDescription));
             taskCount++;
             System.out.println("Got it. I've added this task:");
             System.out.println("[T][ ] " + todoDescription);
@@ -117,13 +115,13 @@ public class Chatty {
         return taskCount;
     }
 
-    private static int createDeadline(String input, Task[] tasks, int taskCount) {
+    private static int createDeadline(String input, ArrayList<Task> tasks, int taskCount) {
         int byIndex = input.indexOf("/by");
         //System.out.println(byIndex);
         if (byIndex != -1 && input.length() > 9 && byIndex != 9) {
             String deadlineDescription = input.substring(9, byIndex).trim();
             String by = input.substring(byIndex + 3).trim();
-            tasks[taskCount] = new Deadline(deadlineDescription, by);
+            tasks.add(new Deadline(deadlineDescription, by));
             taskCount++;
             System.out.println("Got it. I've added this task:");
             System.out.println("[D][ ] " + deadlineDescription + " (by: " + by + ")");
@@ -140,7 +138,7 @@ public class Chatty {
         return taskCount;
     }
 
-    private static int createEvent(String input, Task[] tasks, int taskCount) {
+    private static int createEvent(String input, ArrayList<Task> tasks, int taskCount) {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
         //System.out.println(fromIndex);
@@ -150,7 +148,7 @@ public class Chatty {
             String eventDescription = input.substring(6, fromIndex).trim();
             String from = input.substring(fromIndex + 5, toIndex).trim();
             String to = input.substring(toIndex + 3).trim();
-            tasks[taskCount] = new Event(eventDescription, from, to);
+            tasks.add(new Event(eventDescription, from, to));
             taskCount++;
             System.out.println("Got it. I've added this task:");
             System.out.println("[E][ ] " + eventDescription + " (from: " + from + " to: " + to + ")");
