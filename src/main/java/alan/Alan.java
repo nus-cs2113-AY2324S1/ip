@@ -5,6 +5,7 @@ import alan.task.Event;
 import alan.task.Task;
 import alan.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static alan.AlanExceptions.checkDeadlineInputFormat;
@@ -15,8 +16,6 @@ import static alan.AlanExceptions.checkOutOfTasksIndex;
 import static alan.AlanExceptions.invalidInputCommand;
 
 public class Alan {
-    public static int currentTasksIndex = 1;
-
     public static void printGreetingMessage() {
         String manDrawing = " @/\n" +
                 "/| \n" +
@@ -42,16 +41,20 @@ public class Alan {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    public static void printTaskAddedMessage(Task[] tasks, int currentTasksIndex) {
-        System.out.println("added: " + tasks[currentTasksIndex]);
-        if (currentTasksIndex == 1) {
-            System.out.println("Dude! You've got a solid " + currentTasksIndex + " task lined up on your list now!");
+    public static void printTaskAddedMessage(ArrayList<Task> taskList) {
+        int numberOfTasks = taskList.size();
+        int lastTaskIndex = taskList.size() - 1;
+
+        System.out.println("added: " + taskList.get(lastTaskIndex));
+
+        if (numberOfTasks == 1) {
+            System.out.println("Dude! You've got a solid " + numberOfTasks + " task lined up on your list now!");
         } else {
-            System.out.println("Dude! You've got a solid " + currentTasksIndex + " tasks lined up on your list now!");
+            System.out.println("Dude! You've got a solid " + numberOfTasks + " tasks lined up on your list now!");
         }
     }
 
-    public static void processCommandHandler(String userInput, Task[] tasks) throws AlanExceptions {
+    public static void processCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanExceptions {
         String[] userInputWords = userInput.split(" ");
         String command = userInputWords[0];
 
@@ -61,73 +64,70 @@ public class Alan {
             break;
         case "list":
             //print the tasks in the lists
-            listCommandHandler(tasks, currentTasksIndex);
+            listCommandHandler(taskList);
             break;
         case "mark":
             //mark tasks as done
-            markingCommandHandler(userInput, tasks, true);
+            markingCommandHandler(userInput, taskList, true);
             break;
         case "unmark":
             //unmark tasks as undone
-            markingCommandHandler(userInput, tasks, false);
+            markingCommandHandler(userInput, taskList, false);
             break;
         case "todo":
             //add to-do task to the list
             checkEmptyDescription(userInput);
-            todoCommandHandler(userInput, tasks, currentTasksIndex);
-            currentTasksIndex++;
+            todoCommandHandler(userInput, taskList);
             break;
         case "deadline":
             //add deadline task to the list
             checkEmptyDescription(userInput);
-            deadlineCommandHandler(userInput, tasks, currentTasksIndex);
-            currentTasksIndex++;
+            deadlineCommandHandler(userInput, taskList);
             break;
         case "event":
             //add event task to the list
             checkEmptyDescription(userInput);
-            eventCommandHandler(userInput, tasks, currentTasksIndex);
-            currentTasksIndex++;
+            eventCommandHandler(userInput, taskList);
             break;
         default:
             invalidInputCommand();
         }
     }
 
-    public static void listCommandHandler(Task[] tasks, int currentTasksIndex) {
+    public static void listCommandHandler(ArrayList<Task> taskList) {
         System.out.println("Dude, check out these tasks on your list:");
 
-        for (int i = 1; i < currentTasksIndex; i++) {
-            System.out.print((i) + ". ");
-            System.out.println(tasks[i]);
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.print((i + 1) + ". ");
+            System.out.println(taskList.get(i));
         }
     }
 
-    public static void markingCommandHandler(String userInput, Task[] tasks, boolean isMark) throws AlanExceptions {
+    public static void markingCommandHandler(String userInput, ArrayList<Task> taskList, boolean isMark) throws AlanExceptions {
         String[] words = userInput.split(" ");
-        int selectedTaskIndex = Integer.parseInt(words[1]);
+        int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
 
-        checkOutOfTasksIndex(selectedTaskIndex, currentTasksIndex);
+        checkOutOfTasksIndex(selectedTaskIndex, taskList);
 
         if (isMark) {
-            tasks[selectedTaskIndex].setDone(true);
+            taskList.get(selectedTaskIndex).setDone(true);
             System.out.println("Alright bro! This task is officially checked off:");
         } else {
-            tasks[selectedTaskIndex].setDone(false);
+            taskList.get(selectedTaskIndex).setDone(false);
             System.out.println("Ok dude, I've marked this task as ain't done yet amigo:");
         }
 
-        System.out.println(tasks[selectedTaskIndex]);
+        System.out.println(taskList.get(selectedTaskIndex));
     }
 
-    public static void todoCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) {
+    public static void todoCommandHandler(String userInput, ArrayList<Task> taskList) {
         String description = userInput.replace("todo ", "");
-        tasks[currentTasksIndex] = new Todo(description);
+        taskList.add(new Todo(description));
 
-        printTaskAddedMessage(tasks, currentTasksIndex);
+        printTaskAddedMessage(taskList);
     }
 
-    public static void deadlineCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) throws AlanExceptions {
+    public static void deadlineCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanExceptions {
         String filteredUserInput = userInput.replace("deadline ", "");
         String[] words = filteredUserInput.split(" /by ");
 
@@ -136,12 +136,12 @@ public class Alan {
         String description = words[0];
         String by = words[1];
 
-        tasks[currentTasksIndex] = new Deadline(description, by);
+        taskList.add(new Deadline(description, by));
 
-        printTaskAddedMessage(tasks, currentTasksIndex);
+        printTaskAddedMessage(taskList);
     }
 
-    public static void eventCommandHandler(String userInput, Task[] tasks, int currentTasksIndex) throws AlanExceptions {
+    public static void eventCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanExceptions {
         String filteredUserInput = userInput.replace("event ", "");
         String[] splitDescriptionAndDate = filteredUserInput.split(" /from ");
 
@@ -155,14 +155,14 @@ public class Alan {
         String from = splitFromAndTo[0];
         String to = splitFromAndTo[1];
 
-        tasks[currentTasksIndex] = new Event(description, from, to);
+        taskList.add(new Event(description, from, to));
 
-        printTaskAddedMessage(tasks, currentTasksIndex);
+        printTaskAddedMessage(taskList);
     }
 
 
     public static void main(String[] args) {
-        Task[] tasks = new Task[101];
+        ArrayList<Task> taskList = new ArrayList<>();
 
         printGreetingMessage();
 
@@ -177,7 +177,7 @@ public class Alan {
 
                 printHorizontalLine();
 
-                processCommandHandler(userInput, tasks);
+                processCommandHandler(userInput, taskList);
 
             } catch (AlanExceptions e) {
                 System.out.println(e);

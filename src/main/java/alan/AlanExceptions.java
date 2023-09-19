@@ -1,5 +1,9 @@
 package alan;
 
+import alan.task.Task;
+
+import java.util.ArrayList;
+
 public class AlanExceptions extends Exception {
     public static final String INVALID_INPUT_COMMAND_MESSAGE = "Oof, I have no idea what are you saying duuude";
     public static final String EMPTY_DESCRIPTION_MESSAGE = "Oof Dude, you can't leave the description empty";
@@ -11,10 +15,10 @@ public class AlanExceptions extends Exception {
         super(errorMessage);
     }
 
-    public static void checkOutOfTasksIndex(int selectedIndex, int currentTasksIndex) throws AlanExceptions {
-        int numberOfTasks = currentTasksIndex - 1;
+    public static void checkOutOfTasksIndex(int selectedIndex, ArrayList<Task> taskList) throws AlanExceptions {
+        int lastTaskIndex = taskList.size() - 1;
 
-        if (selectedIndex > numberOfTasks) {
+        if (selectedIndex > lastTaskIndex) {
             throw new AlanExceptions(INVALID_TASK_NUMBER_MESSAGE);
         }
     }
