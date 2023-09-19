@@ -36,7 +36,7 @@ public class TaskManager {
             if (isValidIndex(index)) {
                 System.out.println("Nice! I've marked this task as done:");
                 taskList.get(index).markAsDone();
-                saveTasksToFile();
+                saveTasksToFile(); // Save tasks to file after a new task is added
                 System.out.println("    " + taskList.get(index));
             }
             else {
@@ -52,7 +52,7 @@ public class TaskManager {
             if (isValidIndex(index)) {
                 System.out.println("I've unmarked this task:");
                 taskList.get(index).markAsUndone();
-                saveTasksToFile();
+                saveTasksToFile(); // Save tasks to file after a new task is added
                 System.out.println("    " + taskList.get(index));
             }
             else {
@@ -78,12 +78,7 @@ public class TaskManager {
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + todo);
         displayTaskCount();
-        saveTasksToFile();
-    }
-
-    public void loadTodo(String description) {
-        Todo todo = new Todo(description);
-        taskList.add(todo);
+        saveTasksToFile(); // Save tasks to file after a new task is added
     }
 
     static String parseToDoDescription(String userInput) throws JarvisException {
@@ -103,12 +98,7 @@ public class TaskManager {
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + deadline);
         displayTaskCount();
-        saveTasksToFile();
-    }
-
-    public void loadDeadline(String description, String time) {
-        Deadline deadline = new Deadline(description, time);
-        taskList.add(deadline);
+        saveTasksToFile(); // Save tasks to file after a new task is added
     }
 
     static List<String> parseDeadlineDescription(String userInput) throws JarvisException {
@@ -142,11 +132,6 @@ public class TaskManager {
         System.out.println("    " + event);
         displayTaskCount();
         saveTasksToFile(); // Save tasks to file after a new task is added
-    }
-    public void loadEvent(String description, String startTime, String endTime){
-        String timeRange = startTime + " to " + endTime;
-        Event event = new Event(description, timeRange);
-        taskList.add(event);
     }
 
     static List<String> parseEventDescription(String userInput) throws JarvisException {
@@ -192,14 +177,14 @@ public class TaskManager {
                 String[] parts = line.split("\\|");
                 switch (parts[0]) {
                 case "T":
-                    loadTodo(parts[2]);
+                    addTodo(parts[2]);
                     break;
                 case "D":
-                    loadDeadline(parts[2], parts[3]);
+                    addDeadline(parts[2], parts[3]);
                     break;
                 case "E":
                     String[] timeParts = parts[3].split(" to ");
-                    loadEvent(parts[2], timeParts[0], timeParts[1]);
+                    addEvent(parts[2], timeParts[0], timeParts[1]);
                     break;
                 }
                 // Loads the progress
@@ -211,6 +196,7 @@ public class TaskManager {
             reader.close();
         }
         else{
+            // if file not found, create the file
             // If file not found, create the necessary directories and then the file
             if (file.getParentFile().mkdirs()) {
                 System.out.println("Directories created successfully.");
