@@ -78,10 +78,10 @@ public class TaskManager {
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + todo);
         displayTaskCount();
-        saveTasksToFile(); // Save tasks to file after a new task is added
+        saveTasksToFile();
     }
 
-    public void loadTodo(String description) throws IOException {
+    public void loadTodo(String description) {
         Todo todo = new Todo(description);
         taskList.add(todo);
     }
@@ -103,9 +103,9 @@ public class TaskManager {
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + deadline);
         displayTaskCount();
-        saveTasksToFile(); // Save tasks to file after a new task is added
+        saveTasksToFile();
     }
-    public void loadDeadline(String description, String time) throws IOException {
+    public void loadDeadline(String description, String time) {
         Deadline deadline = new Deadline(description, time);
         taskList.add(deadline);
     }
@@ -140,10 +140,10 @@ public class TaskManager {
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + event);
         displayTaskCount();
-        saveTasksToFile(); // Save tasks to file after a new task is added
+        saveTasksToFile();
     }
 
-    public void loadEvent(String description, String startTime, String endTime) throws IOException {
+    public void loadEvent(String description, String startTime, String endTime) {
         String timeRange = startTime + " to " + endTime;
         Event event = new Event(description, timeRange);
         taskList.add(event);
@@ -180,10 +180,11 @@ public class TaskManager {
                 System.out.println("Noted. I've removed this task:");
                 System.out.println("    " + removedTask);
                 displayTaskCount();
+                saveTasksToFile();
             } else {
                 throw JarvisException.invalidTaskNumber(index);
             }
-        } catch (JarvisException e) {
+        } catch (JarvisException | IOException e) {
             System.out.println(e.getMessage());
         }
     }
