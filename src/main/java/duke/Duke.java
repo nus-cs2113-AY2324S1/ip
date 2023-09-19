@@ -21,6 +21,9 @@ public class Duke {
     private static final String BY_KEYWORD = " /by ";
     private static final String FROM_KEYWORD = " /from ";
     private static final String TO_KEYWORD = " /to ";
+    private static final String DATA_PATH = "data/tasks.txt";
+    private static final String DATA_DIRECTORY = "data";
+
 
     private static Task[] tasks = new Task[100];
     private static int tasksCount = 0;
@@ -52,7 +55,7 @@ public class Duke {
 
         tasks[tasksCount] = new Todo(input.trim());
 
-        FileWriter writer = new FileWriter("data/tasks.txt", true);
+        FileWriter writer = new FileWriter(DATA_PATH, true);
 
         if (tasksCount != 0) {
             writer.write(System.lineSeparator());
@@ -75,7 +78,7 @@ public class Duke {
 
         tasks[tasksCount] = new Deadline(parsedInput[0].trim(), parsedInput[1].trim());
 
-        FileWriter writer = new FileWriter("data/tasks.txt", true);
+        FileWriter writer = new FileWriter(DATA_PATH, true);
 
         if (tasksCount != 0) {
             writer.write(System.lineSeparator());
@@ -109,7 +112,7 @@ public class Duke {
 
         tasks[tasksCount] = new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim());
 
-        FileWriter writer = new FileWriter("data/tasks.txt", true);
+        FileWriter writer = new FileWriter(DATA_PATH, true);
 
         if (tasksCount != 0) {
             writer.write(System.lineSeparator());
@@ -127,7 +130,7 @@ public class Duke {
     public static void updateTaskDatabase(int index, boolean taskStatus) throws FileNotFoundException, IOException {
         Scanner scanner = new Scanner(new File("data/tasks.txt"));
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         String change = taskStatus ? "true" : "false";
         int currentIndex = 0;
 
@@ -154,7 +157,7 @@ public class Duke {
             currentIndex++;
         }
 
-        FileWriter writer = new FileWriter("data/tasks.txt");
+        FileWriter writer = new FileWriter(DATA_PATH);
         writer.append(buffer.toString());
         writer.close();
     }
@@ -219,6 +222,11 @@ public class Duke {
         System.out.println("\tThe number you tried to input is: " + input);
     }
 
+    public static void handleIOException(IOException exception) {
+        System.out.println("Something went wrong! Please try again!");
+        System.out.println(exception.getMessage());
+    }
+
     public static void executeCommand(String input) {
         String[] parsedInput = input.split(" ", 2);
         String command = parsedInput[0];
@@ -262,12 +270,12 @@ public class Duke {
         } catch (DukeTaskException exception) {
             exception.handleDukeTaskException(command, input);
         } catch (IOException exception) {
-            System.out.println("error");
+            handleIOException(exception);
         }
     }
 
     public static void restoreSavedData() throws FileNotFoundException {
-        File file = new File("data/tasks.txt");
+        File file = new File("test/test.txt");
         Scanner scan = new Scanner(file);
         String[] parsedTask;
 
@@ -293,6 +301,28 @@ public class Duke {
         }
     }
 
+    public static void handleFileNotFoundException() {
+        System.out.println("\tLooks like I can't find the file. Let me make it for you.");
+        File newDirectory = new File(DATA_DIRECTORY);
+        File newDatabase = new File(DATA_PATH);
+
+        try {
+            if (!newDirectory.isDirectory() && newDirectory.mkdir()) {
+                System.out.println("\tDirectory successfully created!");
+            } else {
+                System.out.println("\tDirectory found!");
+            }
+
+            if (!newDatabase.isFile() && newDatabase.createNewFile()) {
+                System.out.println("\tData text file successfully created!");
+            } else {
+                System.out.println("\tText file found!");
+            }
+        } catch (IOException exception){
+            System.out.println("\tUmm, there seems to be a problem that I can't solve. Sorry :(.");
+        }
+
+    }
     public static void main(String[] args) {
         String input = "";
         Scanner in = new Scanner(System.in);
@@ -300,7 +330,11 @@ public class Duke {
         try {
             restoreSavedData();
         } catch (FileNotFoundException e){
-            System.out.println("error");
+            System.out.println("\t" + HORIZONTAL_LINE);
+            handleFileNotFoundException();
+            System.out.println("\tPlease try to run the app again.");
+            System.out.println("\t" + HORIZONTAL_LINE);
+            System.exit(1);
         }
 
         tellGreeting();
