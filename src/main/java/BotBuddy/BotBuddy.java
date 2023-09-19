@@ -53,6 +53,10 @@ public class BotBuddy {
                 unmarkTask(parameters);
                 break;
 
+            case "delete":
+                deleteTask(parameters);
+                break;
+
             case "bye":
                 exitProgram();
                 return;
@@ -179,6 +183,26 @@ public class BotBuddy {
         printUnderscores();
     }
 
+    public static void deleteTask(String parameters) {
+        try {
+            validateInput("delete", parameters);
+        } catch (BotBuddyException e) {
+            printUnderscores();
+            System.out.println(e.getMessage());
+            printUnderscores();
+            return;
+        }
+        int taskToDelete = Integer.parseInt(parameters) - 1;
+        String tempMessage = String.valueOf(tasks.get(taskToDelete));
+        int noOfTasks = Task.getNoOfTasks();
+        tasks.remove(taskToDelete);
+        Task.setNoOfTasks(noOfTasks - 1);
+        printUnderscores();
+        System.out.println("I've deleted this task:");
+        System.out.println(tempMessage);
+        printUnderscores();
+    }
+
     public static void exitProgram() {
         printUnderscores();
         System.out.println("Goodbye, hope to see you again soon!");
@@ -241,6 +265,9 @@ public class BotBuddy {
             // Fallthrough
 
         case "unmark":
+            // Fallthrough
+
+        case "delete":
             if (parameters.isEmpty()) {
                 throw new BotBuddyException("You did not specify which task!");
             }
@@ -250,10 +277,14 @@ public class BotBuddy {
             } catch (NumberFormatException e) {
                 throw new BotBuddyException("The task specified should be a number!");
             }
-            if (taskToModify > Task.getNoOfTasks()) {
+            if (taskToModify > Task.getNoOfTasks() || taskToModify < 1) {
                 throw new BotBuddyException("There is no such task!");
             }
             break;
+
+        default:
+            // this should never run
+            throw new BotBuddyException("Error in validateInput function!");
         }
     }
 }
