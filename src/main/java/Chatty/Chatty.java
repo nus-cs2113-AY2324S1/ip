@@ -35,13 +35,16 @@ public class Chatty {
                 case "todo":
                     taskCount = createTodo(input, tasks, taskCount);
                     break;
-            case "deadline":
+                case "deadline":
                     taskCount = createDeadline(input, tasks, taskCount);
                     break;
-            case "event":
+                case "event":
                     taskCount = createEvent(input, tasks, taskCount);
                     break;
-            default:
+                case "delete":
+                    taskCount = deleteEvent(input, taskCount, tasks);
+                    break;
+                default:
                     System.out.println(LINE);
                     System.out.println("Unknown command. Please try again or type \"help\"");
                     System.out.println(LINE);
@@ -56,6 +59,22 @@ public class Chatty {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
         scanner.close();
+    }
+
+    private static int deleteEvent(String input, int taskCount, Task[] tasks) {
+        int taskIndexToDelete = Integer.parseInt(input.substring(7)) - 1;
+        if (taskIndexToDelete >= 0 && taskIndexToDelete < taskCount) {
+            Task deletedTask = tasks[taskIndexToDelete];
+            for (int i = taskIndexToDelete; i < taskCount - 1; i++) {
+                tasks[i] = tasks[i + 1];
+            }
+            taskCount--;
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(deletedTask.getDescription());
+        } else {
+            System.out.println("☹ OOPS!!! Invalid task number to delete.");
+        }
+        return taskCount;
     }
 
     private static void listAllTasks(int taskCount, Task[] tasks) {
