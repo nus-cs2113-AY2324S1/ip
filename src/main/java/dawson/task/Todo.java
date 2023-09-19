@@ -11,4 +11,10 @@ public class Todo extends Task {
         return String.format("[T]%s", super.toString());
     }
 
+    @Override
+    public String encode() {
+        String isDoneString = isDone ? "1" : "0";
+        return String.format("T | %s | %s", isDoneString, description);
+    }
+
 }

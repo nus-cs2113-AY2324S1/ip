@@ -11,6 +11,12 @@ public class TaskList {
         this.taskList = new ArrayList<Task>();
     }
 
+    public TaskList(ArrayList<Task> taskList) {
+        this.taskList = new Task[100];
+        this.taskList = taskList.toArray(this.taskList);
+        this.size = taskList.size();
+    }
+
     public void add(Task task) {
         taskList.add(task);
 
@@ -91,5 +97,21 @@ public class TaskList {
 
         String[] resultStrings = new String[result.size()];
         return result.toArray(resultStrings);
+    }
+
+    public String encodeTaskList() {
+        boolean firstLine = true;
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < size; i++) {
+            String taskString = taskList[i].encode();
+            if (!firstLine) { // Only add next line after first line
+                result.append(System.lineSeparator());
+            }
+            result.append(taskString);
+            firstLine = false;
+        }
+
+        return result.toString();
     }
 }

@@ -47,10 +47,19 @@ public class Dawson {
         };
         printText(dawsonText);
 
+        Storage storage = new Storage("data/test.txt");
+        
+        TaskList taskList;
+        try {
+            taskList = new TaskList(storage.load());
+        } catch (DawsonException e) {
+            printText(e.getMessage());
+            taskList = new TaskList();
+        }
+
         Command newCommand = new Echo("");
         Scanner scanner = new Scanner(System.in);
 
-        TaskList taskList = new TaskList();
         while (!(newCommand instanceof Exit)) {
             String nextLineString = scanner.nextLine().trim();
             if (nextLineString.equals("")) {
@@ -60,6 +69,7 @@ public class Dawson {
             newCommand = Command.getCommand(nextLineString, taskList);
             try {
                 newCommand.execute();
+                storage.save(taskList);
             } catch (DawsonException e) {
                 printText(e.getMessage());
             }
