@@ -37,4 +37,8 @@ public class Task {
         return count;
     }
 
+    public static void decreaseTaskCountByOne() {
+        count--;
+    }
+
 }

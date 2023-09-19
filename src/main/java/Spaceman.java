@@ -6,7 +6,9 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Spaceman {
     public static final String LINE = "------------------------------------------------------------";
@@ -26,10 +28,8 @@ public class Spaceman {
     public static final String MESSAGE_EMPTY_EVENT = "☹ OOPS!!! The description of an event cannot be empty.";
 
     public static void main(String[] args) {
-        Task[] tasks = new Task[100];
-
+        ArrayList<Task> tasks = new ArrayList<>();
         printWelcomeMessage();
-
         Scanner input = new Scanner(System.in);
 
         String text = input.nextLine();
@@ -51,7 +51,8 @@ public class Spaceman {
         printGoodbyeMessage();
     }
 
-    public static void inputValidation (String text, Task[] tasks) throws InvalidActionException, IncompleteDescriptionException {
+    public static void inputValidation (String text, ArrayList<Task> tasks) throws InvalidActionException,
+            IncompleteDescriptionException {
         String[] actionAndDescriptions = text.split(" ");
         String action = actionAndDescriptions[0];
 
@@ -74,12 +75,15 @@ public class Spaceman {
         case "event":
             addEvent(tasks, text);
             break;
+        case "delete":
+            deleteTask(tasks, Integer.parseInt(actionAndDescriptions[1]));
+            break;
         default:
             throw new InvalidActionException(MESSAGE_UNKNOWN);
         }
     }
 
-    public static void addTodo(Task[] tasks, String todoDescription) throws IncompleteDescriptionException {
+    public static void addTodo(ArrayList<Task> tasks, String todoDescription) throws IncompleteDescriptionException {
         String[] descriptions = todoDescription.split(" ");
 
         if (descriptions.length < 2) {
@@ -87,22 +91,22 @@ public class Spaceman {
         } else {
             String description = descriptions[1];
             Task todo = new Todo(description);
-            tasks[Task.getTaskCount() - 1] = todo;
+            tasks.add(todo);
             printTaskAddedMessage(todo);
         }
     }
 
-    public static void addDeadline(Task[] tasks, String deadlineDescription) {
+    public static void addDeadline(ArrayList<Task> tasks, String deadlineDescription) {
         String[] descriptions = deadlineDescription.split("/by");
         String description = descriptions[0].trim();
         String date = descriptions[1].trim();
 
         Task deadline = new Deadline(description, date);
-        tasks[Task.getTaskCount()-1] = deadline;
+        tasks.add(deadline);
         printTaskAddedMessage(deadline);
     }
 
-    public static void addEvent(Task[] tasks, String eventDescription) {
+    public static void addEvent(ArrayList<Task> tasks, String eventDescription) {
         String[] descriptions = eventDescription.split("/from");
         String description = descriptions[0].trim();
         String[] eventTime = descriptions[1].split("/to");
@@ -110,11 +114,18 @@ public class Spaceman {
         String eventEnd = eventTime[1].trim();
 
         Task event = new Event(description, eventStart, eventEnd);
-        tasks[Task.getTaskCount()-1] = event;
+        tasks.add(event);
         printTaskAddedMessage(event);
     }
 
-    private static void printTaskCount() {
+    public static void deleteTask(ArrayList<Task> tasks, int taskIndex) {
+        Task task = tasks.get(taskIndex-1);
+        tasks.remove(task);
+        Task.decreaseTaskCountByOne();
+        printTaskRemovedMessage(task);
+    }
+
+    private static void printTaskCount( ) {
         System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
     }
 
@@ -139,28 +150,37 @@ public class Spaceman {
         System.out.println(LINE);
     }
 
-    public static void printList(Task[] tasks) {
+    private static void printTaskRemovedMessage(Task task) {
+        System.out.println(LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + task.getDescription());
+        printTaskCount();
+        System.out.println(LINE);
+    }
+
+    public static void printList(ArrayList<Task> tasks) {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < Task.getTaskCount(); i++){
-            System.out.println(i + 1 + ". " + tasks[i].getDescription());
+        for (Task task : tasks) {
+            int index = tasks.indexOf(task) + 1;
+            System.out.println(index + ". " + task.getDescription());
         }
         System.out.println(LINE);
     }
 
-    public static void markTask(Task[] tasks, int taskIndex) {
-        tasks[taskIndex-1].markTask();
+    public static void markTask(ArrayList<Task> tasks, int taskIndex) {
+        tasks.get(taskIndex-1).markTask();
         System.out.println(LINE);
         System.out.println(MESSAGE_MARK);
-        System.out.println("  " + tasks[taskIndex-1].getDescription());
+        System.out.println("  " + tasks.get(taskIndex-1).getDescription());
         System.out.println(LINE);
     }
 
-    public static void unMarkTask(Task[] tasks, int taskIndex) {
-        tasks[taskIndex-1].unMarkTask();
+    public static void unMarkTask(ArrayList<Task> tasks, int taskIndex) {
+        tasks.get(taskIndex-1).unMarkTask();
         System.out.println(LINE);
         System.out.println(MESSAGE_UNMARK);
-        System.out.println("  " + tasks[taskIndex-1].getDescription());
+        System.out.println("  " + tasks.get(taskIndex-1).getDescription());
         System.out.println(LINE);
     }
 
