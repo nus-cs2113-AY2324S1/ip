@@ -1,6 +1,7 @@
 package duke;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Duke {
     public void run() {
@@ -11,7 +12,7 @@ public class Duke {
                            + LINE);
 
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new duke.Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int count = 0;
         String userInput;
 
@@ -34,7 +35,7 @@ public class Duke {
                     if (description.isEmpty()) {
                         throw new EmptyDescriptionException("todo");
                     }
-                    addTask("todo " + description, tasks, count, "todo");
+                    addTask("todo " + description, tasks, "todo");
                     count++;
                 } else if (userInput.startsWith("deadline")) {
                     String description = userInput.replaceFirst("deadline", "").trim();
@@ -45,7 +46,7 @@ public class Duke {
                     if (!description.contains("/by")) {
                         System.out.println("☹ OOPS!!! The deadline task must include '/by' to specify the date.");
                     } else {
-                        addTask("deadline " + description, tasks, count, "deadline");
+                        addTask("deadline " + description, tasks, "deadline");
                         count++;
                     }
                 } else if (userInput.startsWith("event")) {
@@ -57,10 +58,12 @@ public class Duke {
                     if (!description.contains("/from") || !description.contains("to")) {
                         System.out.println("☹ OOPS!!! The event task must include '/from' and '/to' to specify the date range.");
                     } else {
-                        addTask("event " + description, tasks, count, "event");
+                        addTask("event " + description, tasks, "event");
                         count++;
                     }
-                } else {
+                } else if (userInput.startsWith("delete")) {
+                    deleteTask(userInput, tasks);
+                }else {
                     throw new UnknownCommandException();
                 }
             } catch (EmptyDescriptionException e) {
@@ -75,7 +78,7 @@ public class Duke {
         scanner.close();
     }
     // Create a task of a specific type to the tasks array
-    private static void addTask(String userInput, Task[] tasks, int count, String type) {
+    private static void addTask(String userInput, ArrayList<Task> tasks, String type) {
         String description;
         String bracketInfo;
 
@@ -92,16 +95,16 @@ public class Duke {
         // Checks the task type
         switch (type) {
             case "todo":
-                tasks[count] = new Todo(description);
+                tasks.add(new Todo(description));
                 break;
             case "deadline":
                 String by = bracketInfo.replace("/by", "").trim();
-                tasks[count] = new Deadline(description, by);
+                tasks.add(new Deadline(description, by));
                 break;
             case "event":
                 String from = bracketInfo.split("/from")[1].split("/to")[0].trim();
                 String to = bracketInfo.split("/to")[1].trim();
-                tasks[count] = new Event(description, from, to);
+                tasks.add(new Event(description, from, to));
                 break;
             default:
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -109,31 +112,29 @@ public class Duke {
         }
 
         System.out.println("Got it. I've added this task:\n"
-                + tasks[count]
+                + tasks.get(tasks.size() - 1)
                 + "\nNow you have "
-                + (count + 1)
+                + tasks.size()
                 + " tasks in the list.");
     }
 
+
     // Print the task list
-    private static void printTasks(Task[] tasks, int count) {
+    private static void printTasks(ArrayList<Task> tasks, int count) {
         // Checks if there is anything in the list
-        if (tasks.length == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("☹ OOPS!!! The list is empty");
-            return;
-        }
-        else {
+        } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < count; i++) {
-                if (tasks[i] != null) {
-                    System.out.println((i + 1) + ". " + tasks[i].toString());
-                }
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i).toString());
             }
         }
     }
 
+
     // Mark a task as done
-    private static void markTask(String userInput, Task[] tasks, int count) {
+    private static void markTask(String userInput, ArrayList<Task> tasks, int count) {
         // Check if the task list is empty
         if (count == 0) {
             System.out.println("☹ OOPS!!! There are no tasks to mark.");
@@ -144,9 +145,9 @@ public class Duke {
             int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
 
             // Check if the task index is valid
-            if (taskIndex >= 0 && taskIndex < count) {
-                tasks[taskIndex].markAsDone();
-                System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex]);
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markAsDone();
+                System.out.println("Nice! I've marked this task as done:\n" + tasks.get(taskIndex));
             } else {
                 System.out.println("☹ OOPS!!! Please provide a valid task number.");
             }
@@ -157,8 +158,9 @@ public class Duke {
         }
     }
 
+
     // Unmark a task
-    private static void unmarkTask(String userInput, Task[] tasks, int count) {
+    private static void unmarkTask(String userInput, ArrayList<Task> tasks, int count) {
         // Check if the task list is empty
         if (count == 0) {
             System.out.println("☹ OOPS!!! There are no tasks to unmark.");
@@ -169,9 +171,9 @@ public class Duke {
             int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
 
             // Check if the task index is valid
-            if (taskIndex >= 0 && taskIndex < count) {
-                tasks[taskIndex].markAsUndone();
-                System.out.println("OK, I've marked this task as not done yet:\n" + tasks[taskIndex]);
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markAsUndone();
+                System.out.println("OK, I've marked this task as not done yet:\n" + tasks.get(taskIndex));
             } else {
                 System.out.println("☹ OOPS!!! Please provide a valid task number.");
             }
@@ -181,6 +183,7 @@ public class Duke {
             System.out.println("☹ OOPS!!! Please use 'unmark [task number]'.");
         }
     }
+
 
     // Custom exception for empty task descriptions
     static class EmptyDescriptionException extends Exception {
@@ -205,5 +208,30 @@ public class Duke {
     public static void main(String[] args) {
         Duke duke = new Duke(); // Create an instance of the Duke class
         duke.run(); // Run the chatbot
+    }
+
+    private static void deleteTask(String userInput, ArrayList<Task> tasks) {
+        // Check if the task list is empty
+        if (tasks.isEmpty()) {
+            System.out.println("☹ OOPS!!! There are no tasks to delete.");
+            return;
+        }
+
+        try {
+            int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
+
+            // Check if the task index is valid
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                Task removedTask = tasks.remove(taskIndex);
+                System.out.println("Noted. I've removed this task:\n" + removedTask);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else {
+                System.out.println("☹ OOPS!!! Please provide a valid task number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! Please use 'delete [task number]'.");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! Please use 'delete [task number]'.");
+        }
     }
 }
