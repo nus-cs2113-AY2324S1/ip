@@ -1,11 +1,8 @@
 import java.util.Scanner;  // Import the Scanner class
-import java.util.ArrayList; // Import the ArrayList class
 public class Duke {
 
-    //Initialize create a arraylist of tasks
-    public static ArrayList<Task> tasks = new ArrayList<Task>();
-
-
+    //Initialize create a list of tasks
+    public static Task[] tasks = new Task[100];
     public static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -35,7 +32,7 @@ public class Duke {
                     //Print out the list of tasks
                     System.out.println("Here are the tasks in your list:");
                     for(int i=0;i<taskCount;i++){
-                        System.out.println((i+1) + ". " + tasks.get(i));
+                        System.out.println((i+1) + ". " + tasks[i]);
                     }
                     //Get user input again
                     userInput = userScan.nextLine();  
@@ -54,18 +51,18 @@ public class Duke {
                         throw new IllegalArgumentException("The task number is less than 1.");
                     }
                     //if there is no task at the task number throw an exception
-                    if(tasks.get(taskNumber-1)==null){
+                    if(tasks[taskNumber-1]==null){
                         throw new IllegalArgumentException("There is no task at the task number.");
                     }
                     //if the task is already not done throw an exception
-                    if(tasks.get(taskNumber-1).isDone==false){
+                    if(tasks[taskNumber-1].isDone==false){
                         throw new IllegalArgumentException("The task is already not done.");
                     }
                     //mark the task as done
-                    tasks.get(taskNumber-1).markAsNotDone();
+                    tasks[taskNumber-1].markAsNotDone();
                     //print out the task that was marked as done
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(tasks.get(taskNumber-1));
+                    System.out.println(tasks[taskNumber-1]);
                     //Get user input again
                     userInput = userScan.nextLine();          
                 }
@@ -83,18 +80,18 @@ public class Duke {
                         throw new IllegalArgumentException("The task number is less than 1.");
                     }
                     //if there is no task at the task number throw an exception
-                    if(tasks.get(taskNumber-1)==null){
+                    if(tasks[taskNumber-1]==null){
                         throw new IllegalArgumentException("There is no task at the task number.");
                     }
                     //if the task is already done throw an exception
-                    if(tasks.get(taskNumber-1).isDone==true){
+                    if(tasks[taskNumber-1].isDone==true){
                         throw new IllegalArgumentException("The task is already done.");
                     }
                     //mark the task as done
-                    tasks.get(taskNumber-1).markAsDone();
+                    tasks[taskNumber-1].markAsDone();
                     //print out the task that was marked as done
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(tasks.get(taskNumber-1));
+                    System.out.println(tasks[taskNumber-1]);
                     //Get user input again
                     userInput = userScan.nextLine();              
                 }
@@ -108,12 +105,12 @@ public class Duke {
                         throw new IllegalArgumentException("The description of a todo cannot be empty.");
                     }
                     //create a todo task
-                    tasks.add(new Todo(taskName));
+                    tasks[taskCount] = new Todo(taskName);
                     //increment the task count
                     taskCount++;
                     //print out the task that was added
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks.get(taskCount-1));
+                    System.out.println(tasks[taskCount-1]);
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
                     //Get user input again
                     userInput = userScan.nextLine();  
@@ -134,12 +131,12 @@ public class Duke {
                         throw new IllegalArgumentException("The deadline of a deadline cannot be empty. Add a / argument to specify time.");
                     }
                     //create a deadline task
-                    tasks.add(new Deadline(taskName,deadline));
+                    tasks[taskCount] = new Deadline(taskName,deadline);
                     //increment the task count
                     taskCount++;
                     //print out the task that was added
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks.get(taskCount-1));
+                    System.out.println(tasks[taskCount-1]);
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
                     //Get user input again
                     userInput = userScan.nextLine();  
@@ -160,41 +157,12 @@ public class Duke {
                     if(eventTime.equals("")){
                         throw new IllegalArgumentException("The event time of an event cannot be empty. Add a / argument to specify time.");
                     }
-                    //create an event task
-                    tasks.add(new Event(taskName,eventTime));
+                    tasks[taskCount] = new Event(taskName,eventTime);
                     //increment the task count
                     taskCount++;
                     //print out the task that was added
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks.get(taskCount-1));
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
-                    //Get user input again
-                    userInput = userScan.nextLine();  
-                }
-
-                //Add delete keyword and function
-                else if(Check.isDelete(userInput)){
-                    //get the task number
-                    int taskNumber = Integer.parseInt(userInput.substring(7));
-                    //if the task number is greater than the task count throw an exception
-                    if(taskNumber>taskCount){
-                        throw new IllegalArgumentException("The task number is greater than the number of tasks.");
-                    }
-                    //if the task number is less than 1 throw an exception
-                    if(taskNumber<1){
-                        throw new IllegalArgumentException("The task number is less than 1.");
-                    }
-                    //if there is no task at the task number throw an exception
-                    if(tasks.get(taskNumber-1)==null){
-                        throw new IllegalArgumentException("There is no task at the task number.");
-                    }
-                    //delete the task
-                    tasks.remove(taskNumber-1);
-                    //decrement the task count
-                    taskCount--;
-                    //print out the task that was deleted
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(tasks.get(taskNumber-1));
+                    System.out.println(tasks[taskCount-1]);
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
                     //Get user input again
                     userInput = userScan.nextLine();  
@@ -213,16 +181,10 @@ public class Duke {
                 userInput = userScan.nextLine();  
             }
             catch (StringIndexOutOfBoundsException e){
-               System.out.println("Invalid parameters for command.");
+               System.out.println("Invalid date entered. Please try again and enter / before the date.");
                 //Get user input again
                 userInput = userScan.nextLine();
             }
-            catch (IndexOutOfBoundsException e){
-                System.out.println("There are currently no tasks in the list. ");
-                //Get user input again
-                userInput = userScan.nextLine();
-            }
-            
             
         }
 
