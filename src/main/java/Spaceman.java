@@ -10,6 +10,12 @@ import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+
 public class Spaceman {
     public static final String LINE = "------------------------------------------------------------";
     public static final String LOGO = "  ____  _____   ___    _____ _____ __    __   ___   __   __\n"
@@ -28,7 +34,14 @@ public class Spaceman {
     public static final String MESSAGE_EMPTY_EVENT = "☹ OOPS!!! The description of an event cannot be empty.";
 
     public static void main(String[] args) {
-        ArrayList<Task> tasks = new ArrayList<>();
+        String filePath = "./data/spaceman.txt";
+        ArrayList<Task> tasks = null;
+        try {
+            tasks = readDataFromFile(filePath);
+        } catch (FileNotFoundException e) {
+            tasks = new ArrayList<>();
+        }
+
         printWelcomeMessage();
         Scanner input = new Scanner(System.in);
 
@@ -36,6 +49,7 @@ public class Spaceman {
         while (!text.equals("bye")) {
             try {
                 inputValidation(text, tasks);
+                writeToFile(filePath, tasks);
             } catch (InvalidActionException e) {
                 System.out.println(LINE);
                 System.out.println(e.getMessage());
@@ -44,11 +58,75 @@ public class Spaceman {
                 System.out.println(LINE);
                 System.out.println(e.getMessage());
                 System.out.println(LINE);
+            } catch (IOException e) {
+                System.out.println(LINE);
+                System.out.println("Something went wrong: " + e.getMessage());
+                System.out.println(LINE);
             }
             text = input.nextLine();
         }
-
         printGoodbyeMessage();
+    }
+
+    private static void writeToFile(String filePath, ArrayList<Task> tasks) throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        for (Task task : tasks) {
+            String output = null;
+            boolean isMarked = task.getTaskStatus();
+            int markedIndex;
+
+            if (isMarked) {
+                markedIndex = 1;
+            } else {
+                markedIndex = 0;
+            }
+
+            if (task instanceof Todo) {
+                output = "T | " + Integer.toString(markedIndex) + " | " + task.getDescription();
+            } else if (task instanceof Deadline) {
+                output = "D | " + Integer.toString(markedIndex) + " | " + task.getDescription()
+                + " | " + ((Deadline) task).getBy();
+            } else if (task instanceof Event) {
+                output = "E | " + Integer.toString(markedIndex) + " | " + task.getDescription()
+                        + " | " + ((Event) task).getStart() + " | " + ((Event) task).getEnd();
+            }
+            fw.write(output);
+            fw.write("\n");
+        }
+        fw.close();
+    }
+
+    private static ArrayList<Task> readDataFromFile(String filePath) throws FileNotFoundException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(filePath);
+        Scanner data = new Scanner(file);
+        while (data.hasNext()) {
+            Character taskType = data.toString().charAt(0);
+            String[] descriptions = data.nextLine().split("|");
+            switch (taskType) {
+            case 'T':
+                Task todo = new Todo(descriptions[2], Integer.parseInt(descriptions[1]));
+                tasks.add(todo);
+                break;
+            case 'D':
+                Task deadline = new Deadline(descriptions[2], descriptions[3], Integer.parseInt(descriptions[1]));
+                tasks.add(deadline);
+                break;
+            case 'E':
+                Task event = new Event(descriptions[2], descriptions[3], descriptions[4],
+                        Integer.parseInt(descriptions[1]));
+                tasks.add(event);
+                break;
+            default:
+                break;
+            }
+        }
+        return tasks;
     }
 
     public static void inputValidation (String text, ArrayList<Task> tasks) throws InvalidActionException,
@@ -145,7 +223,7 @@ public class Spaceman {
     private static void printTaskAddedMessage(Task task) {
         System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.getDescription());
+        System.out.println("  " + task.getDetails());
         printTaskCount();
         System.out.println(LINE);
     }
@@ -163,7 +241,7 @@ public class Spaceman {
         System.out.println("Here are the tasks in your list:");
         for (Task task : tasks) {
             int index = tasks.indexOf(task) + 1;
-            System.out.println(index + ". " + task.getDescription());
+            System.out.println(index + ". " + task.getDetails());
         }
         System.out.println(LINE);
     }
@@ -172,7 +250,7 @@ public class Spaceman {
         tasks.get(taskIndex-1).markTask();
         System.out.println(LINE);
         System.out.println(MESSAGE_MARK);
-        System.out.println("  " + tasks.get(taskIndex-1).getDescription());
+        System.out.println("  " + tasks.get(taskIndex-1).getDetails());
         System.out.println(LINE);
     }
 
@@ -180,7 +258,7 @@ public class Spaceman {
         tasks.get(taskIndex-1).unMarkTask();
         System.out.println(LINE);
         System.out.println(MESSAGE_UNMARK);
-        System.out.println("  " + tasks.get(taskIndex-1).getDescription());
+        System.out.println("  " + tasks.get(taskIndex-1).getDetails());
         System.out.println(LINE);
     }
 

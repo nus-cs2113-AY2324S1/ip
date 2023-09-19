@@ -9,8 +9,17 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline (String description, String by, int setMark) {
+        super(description, setMark);
+        this.by = by;
+    }
+
     @Override
-    public String getDescription() {
-        return "[D]" + super.getDescription() + " (by: " + by + ")";
+    public String getDetails() {
+        return "[D]" + super.getDetails() + " (by: " + by + ")";
+    }
+
+    public String getBy() {
+        return by;
     }
 }

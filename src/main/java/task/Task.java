@@ -7,7 +7,16 @@ public class Task {
 
     public Task (String description) {
         this.description = description;
-        this.isMarked = false;
+        count++;
+    }
+
+    public Task (String description, int setMark) {
+        this.description = description;
+        if (setMark == 1) {
+            isMarked = true;
+        } else if (setMark == 0) {
+            isMarked = false;
+        }
         count++;
     }
 
@@ -23,7 +32,7 @@ public class Task {
         return isMarked;
     }
 
-    public String getDescription() {
+    public String getDetails() {
         String mark;
         if (getTaskStatus()){
             mark = "X";
@@ -31,6 +40,10 @@ public class Task {
             mark = " ";
         }
         return "[" + mark + "] " + description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public static int getTaskCount() {
