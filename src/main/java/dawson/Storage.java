@@ -1,8 +1,13 @@
 package dawson;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import dawson.task.Task;
 
 public class Storage {
 
@@ -26,6 +31,27 @@ public class Storage {
         } catch (IOException e) {
             throw new DawsonException("Fatal: Error creating file: " + filePathString + " Exiting Dawson");
         }
+    }
+
+    public ArrayList<Task> load() throws DawsonException {
+        createDawsonFile();
+
+        Scanner fileScanner;
+        try {
+            fileScanner = new Scanner(storageFile);
+        } catch (FileNotFoundException e) {
+            throw new DawsonException("Invalid file path: " + filePathString);
+        }
+
+        ArrayList<Task> taskList = new ArrayList<>();
+        while (fileScanner.hasNext()) {
+            String line = fileScanner.nextLine();
+            Task task = Parser.parseTask(line);
+            taskList.add(task);
+        }
+
+        fileScanner.close();
+        return taskList;
     }
 
     public void save(TaskList taskList) throws DawsonException {

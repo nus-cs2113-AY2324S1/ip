@@ -15,6 +15,12 @@ public class TaskList {
         this.size = 0;
     }
 
+    public TaskList(ArrayList<Task> taskList) {
+        this.taskList = new Task[100];
+        this.taskList = taskList.toArray(this.taskList);
+        this.size = taskList.size();
+    }
+
     public void add(Task task) {
         taskList[size] = task;
         size++;
