@@ -24,7 +24,6 @@ public class Duke {
     private static final String DATA_PATH = "data/tasks.txt";
     private static final String DATA_DIRECTORY = "data";
 
-
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int tasksCount = 0;
 
@@ -128,11 +127,46 @@ public class Duke {
         return Integer.parseInt(input) - 1;
     }
 
+    private static void excludeDeletedData(int index, int currentIndex, Scanner scanner, StringBuilder buffer) {
+        if (currentIndex == index) {
+            scanner.nextLine();
+        } else {
+            buffer.append(scanner.nextLine());
+
+            if (scanner.hasNext()) {
+                buffer.append(System.lineSeparator());
+            }
+        }
+    }
+
+    //Solution below adapted by https://www.tutorialspoint.com/how-to-overwrite-a-line-in-a-txt-file-using-java
+    public static void deleteTaskData(int index) throws IOException {
+        Scanner scanner = new Scanner(new File(DATA_PATH));
+
+        StringBuilder buffer = new StringBuilder();
+        int currentIndex = 0;
+
+        while (scanner.hasNext()) {
+            excludeDeletedData(index, currentIndex, scanner, buffer);
+            currentIndex++;
+        }
+
+        FileWriter writer = new FileWriter(DATA_PATH);
+        writer.append(buffer.toString());
+        writer.close();
+    }
+
     public static void deleteTask(String input) {
         int index = parseIndex(input);
         Task removedTask = tasks.remove(index);
 
-        System.out.println("\tI have surgically remove this task:");
+        try {
+            deleteTaskData(index);
+        } catch (IOException exception) {
+            handleIOException(exception);
+        }
+
+        System.out.println("\tI have surgically removed this task:");
         System.out.println("\t\t" + removedTask);
 
         tasksCount--;
@@ -153,7 +187,11 @@ public class Duke {
                     buffer.append(" | ");
                 }
             }
-            buffer.append(System.lineSeparator());
+
+            if (scanner.hasNext()) {
+                buffer.append(System.lineSeparator());
+            }
+
         } else {
             buffer.append(scanner.nextLine());
 
@@ -165,7 +203,7 @@ public class Duke {
 
     //Solution below adapted by https://www.tutorialspoint.com/how-to-overwrite-a-line-in-a-txt-file-using-java
     public static void updateTaskDatabase(int index, boolean taskStatus) throws IOException {
-        Scanner scanner = new Scanner(new File("data/tasks.txt"));
+        Scanner scanner = new Scanner(new File(DATA_PATH));
 
         StringBuilder buffer = new StringBuilder();
         String change = taskStatus ? "true" : "false";
@@ -186,8 +224,8 @@ public class Duke {
 
         try {
             updateTaskDatabase(index, true);
-        } catch (Exception e) {
-            System.out.println("error");
+        } catch (IOException exception) {
+            handleIOException(exception);
         }
 
         tasks.get(index).markAsDone();
@@ -201,8 +239,8 @@ public class Duke {
 
         try {
             updateTaskDatabase(index, false);
-        } catch (Exception e) {
-            System.out.println("error");
+        } catch (IOException exception) {
+            handleIOException(exception);
         }
 
         tasks.get(index).unmarkAsDone();

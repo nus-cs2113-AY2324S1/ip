@@ -1,4 +1,2 @@
-T | false | hello
-D | true | party | 9
-E | true | yay | 8 | 10
-T | false | buy bread
+T | false | ye
+T | false | 27y
