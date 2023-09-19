@@ -25,6 +25,18 @@ public class Task {
         isDone = done;
     }
 
+    public void setDone(int done) throws CorruptedFileException {
+        if (done == 0) {
+            isDone = false;
+        } else {
+            if(done == 1) {
+                isDone = true;
+            } else {
+                throw new CorruptedFileException();
+            }
+        }
+    }
+
     @Override
     public String toString() {
         String ex = " ";
@@ -32,6 +44,14 @@ public class Task {
             ex = "x";
         }
         return ("["+ex+"] "+description);
+    }
+
+    public String toFileString() {
+        int binaryIsDone = 0;
+        if (isDone) {
+            binaryIsDone = 1;
+        }
+        return (binaryIsDone + " | " + this.description);
     }
 
 }
