@@ -11,17 +11,17 @@ public class EventCommand extends Command {
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
         if (args.isEmpty()) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_NO_ARGS);
+            throwArgumentException(ERROR_MSG_NO_ARGS);
         } else if (CommandParser.isNotContainingExactOneLabel(args, "/from")) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_INVALID_NUMBER_OF_FROM_TO);
+            throwArgumentException(ERROR_MSG_INVALID_NUMBER_OF_FROM_TO);
         } else if (CommandParser.isNotContainingExactOneLabel(args, "/to")) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_INVALID_NUMBER_OF_FROM_TO);
+            throwArgumentException(ERROR_MSG_INVALID_NUMBER_OF_FROM_TO);
         } else if (CommandParser.matches(args, "/from(.*)")) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_NAME_EMPTY);
+            throwArgumentException(ERROR_MSG_NAME_EMPTY);
         } else if (CommandParser.matches(args, "(.+)\\s/from\\s/to(.*)")) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_FROM_EMPTY);
+            throwArgumentException(ERROR_MSG_FROM_EMPTY);
         } else if (CommandParser.matches(args, "(.+)\\s/from\\s(.+)\\s/to")) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_TO_EMPTY);
+            throwArgumentException(ERROR_MSG_TO_EMPTY);
         }
 
         String[] parsedArgs = CommandParser.parseArguments(args, "(.+)\\s/from\\s(.+)\\s/to\\s(.+)");
@@ -37,8 +37,8 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void run() {
-        Nuke.addEvent(name, from, to);
+    public void run(Nuke nuke) {
+        nuke.addEvent(name, from, to);
     }
 
     private static final String ERROR_MSG_NO_ARGS =

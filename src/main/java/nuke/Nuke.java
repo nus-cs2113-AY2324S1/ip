@@ -8,135 +8,128 @@ import nuke.storage.Storage;
 import nuke.storage.exception.TaskFileCopyException;
 import nuke.storage.exception.TaskLoadException;
 import nuke.storage.exception.TaskSaveException;
-import nuke.task.Deadline;
-import nuke.task.Event;
-import nuke.task.Task;
-import nuke.task.Todo;
-
-import java.util.ArrayList;
-import java.util.Scanner;
+import nuke.task.*;
 
 public class Nuke {
-    private static boolean isRunning = true;
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
+    private boolean isRunning;
 
     public static void main(String[] args) {
-        final Scanner USER_IN = new Scanner(System.in);
+        new Nuke().run();
+    }
 
-        Ui.printWelcome();
+    public Nuke() {
+        ui = new Ui();
+        ui.printWelcome();
 
-        // Fail to run if
-        // 1. loading tasks from the file fails and
-        // 2. backing up the file fails and
-        // 3. user does not ignore the error
-        if (!loadTasksFromStorage(USER_IN)) {
-            return;
-        }
+        storage = new Storage();
+        tasks = loadTasksFromStorage(storage, ui);
 
-        Ui.printWelcomeAfter();
+        isRunning = true;
+    }
+
+    public void run() {
+        ui.printGreetingQuestion();
 
         // Loop for user input
         while (isRunning) {
-            String input = USER_IN.nextLine();
+            String input = ui.scanNextLine();
             runCommand(input);
-            Ui.printBlankLine();
+            ui.printBlankLine();
         }
 
-        saveTasksToStorage(USER_IN);
+        saveTasksToStorage(storage, ui);
     }
 
-    private static void runCommand(String commandLine) {
+    private TaskList loadTasksFromStorage(Storage storage, Ui ui) {
+        try {
+            return new TaskList(storage.loadTasks());
+        } catch (TaskLoadException e) {
+            // Invoked when loading tasks from the file fails
+            ui.printTaskLoadError(e);
+            return new TaskList();
+        } catch (TaskFileCopyException e) {
+            // Invoked when
+            // 1. loading tasks from the file fails and
+            // 2. backing up the file fails
+            // If user does not ignore the error, throw RuntimeException.
+            ui.handleTaskFileCopyError(e);
+            return new TaskList();
+        }
+    }
+
+    private void runCommand(String commandLine) {
         try {
             Command command = CommandParser.parseCommand(commandLine);
-            command.run();
-        } catch (InvalidCommandTypeException | InvalidCommandArgumentException ignored) {
-            // Thrown by Parse.parseCommand() to prevent command.run().
+            command.run(this);
+        } catch (InvalidCommandTypeException e) {
+            ui.printCommandTypeError(e);
+        } catch (InvalidCommandArgumentException e) {
+            ui.printCommandArgumentError(e);
         }
     }
 
-    private static boolean loadTasksFromStorage(final Scanner USER_IN) {
-        ArrayList<Task> loadedTasks;
+    private void saveTasksToStorage(Storage storage, Ui ui) {
         try {
-            loadedTasks = Storage.loadTasks();
-            tasks.addAll(loadedTasks);
-        } catch (TaskLoadException e) {
-            Ui.printTaskLoadError(e.backupFilePath);
-        } catch (TaskFileCopyException e) {
-            Ui.printTaskFileCopyError(e.filePath);
-
-            String input = USER_IN.nextLine();
-            if (!input.equalsIgnoreCase("ignore")) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static void saveTasksToStorage(final Scanner USER_IN) {
-        try {
-            Storage.saveTasks();
+            storage.saveTasks(getFormattedTasks());
         } catch (TaskSaveException e) {
-            Ui.printTaskSaveError(getTasks());
-            boolean isQuitting = false;
-            while (!isQuitting) {
-                String input = USER_IN.nextLine();
-                isQuitting = !input.isEmpty();
-            }
+            e.tasks = getTasks();
+            ui.handleTaskSaveError(e);
         }
     }
 
-    public static void quit() {
+    public void quit() {
         isRunning = false;
-        Ui.printBye();
+        ui.printBye();
     }
 
-    public static void addTask(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
-        Ui.printAddedTask(task.toString(), getNumberOfTasks());
+        ui.printAddedTask(task.toString(), getNumberOfTasks());
     }
 
-    public static void listTask() {
-        Ui.printListOfTasks(getTasks());
+    public void listTask() {
+        ui.printListOfTasks(getTasks());
     }
 
-    public static void markTask(int idx) {
-        Task task = tasks.get(idx);
-        task.setDone(true);
-        Ui.printMarkedTask(task.toString());
+    public void markTask(int idx) {
+        String task = tasks.mark(idx);
+        ui.printMarkedTask(task);
     }
 
-    public static void unmarkTask(int idx) {
-        Task task = tasks.get(idx);
-        task.setDone(false);
-        Ui.printUnmarkedTask(task.toString());
+    public void unmarkTask(int idx) {
+        String task = tasks.unmark(idx);
+        ui.printUnmarkedTask(task);
     }
 
-    public static void deleteTask(int idx) {
-        Task task = tasks.remove(idx);
-        Ui.printDeletedTask(task.toString(), getNumberOfTasks());
+    public void deleteTask(int idx) {
+        String task = tasks.delete(idx);
+        ui.printDeletedTask(task, getNumberOfTasks());
     }
 
-    public static void addTodo(String name) {
+    public void addTodo(String name) {
         addTask(new Todo(name));
     }
 
-    public static void addDeadline(String name, String by) {
+    public void addDeadline(String name, String by) {
         addTask(new Deadline(name, by));
     }
 
-    public static void addEvent(String name, String from, String to) {
+    public void addEvent(String name, String from, String to) {
         addTask(new Event(name, from, to));
     }
 
-    public static int getNumberOfTasks() {
+    public int getNumberOfTasks() {
         return tasks.size();
     }
 
-    public static String[] getTasks() {
-        return tasks.stream().map(Task::toString).toArray(String[]::new);
+    public String[] getTasks() {
+        return tasks.getTasks();
     }
 
-    public static String[] getFormattedTasks() {
-        return tasks.stream().map(Task::formatData).toArray(String[]::new);
+    public String[] getFormattedTasks() {
+        return tasks.getFormattedTasks();
     }
 }

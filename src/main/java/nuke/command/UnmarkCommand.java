@@ -9,16 +9,13 @@ public class UnmarkCommand extends Command {
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
         if (CommandParser.isNotOneWord(args)) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_INVALID_NUMBER_OF_ARGS);
+            throwArgumentException(ERROR_MSG_INVALID_NUMBER_OF_ARGS);
         }
         // Input index starts with 1, logical index starts with 0.
         try {
             index = Integer.parseInt(args) - 1;
         } catch (NumberFormatException e) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_INDEX_NOT_INTEGER);
-        }
-        if(index < 0 || index >= Nuke.getNumberOfTasks()) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_INDEX_INVALID_VALUE);
+            throwArgumentException(ERROR_MSG_INDEX_NOT_INTEGER);
         }
     }
 
@@ -28,8 +25,11 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void run() {
-        Nuke.unmarkTask(index);
+    public void run(Nuke nuke) throws InvalidCommandArgumentException {
+        if(index < 0 || index >= nuke.getNumberOfTasks()) {
+            throwArgumentException(ERROR_MSG_INDEX_INVALID_VALUE);
+        }
+        nuke.unmarkTask(index);
     }
 
     private static final String ERROR_MSG_INVALID_NUMBER_OF_ARGS =

@@ -18,7 +18,7 @@ public class Storage {
     private static final String FILENAME_TASKS = "nuke.txt";
     private static final String FILENAME_TASKS_BACKUP = "nuke_old.txt";
 
-    public static ArrayList<Task> loadTasks()
+    public ArrayList<Task> loadTasks()
             throws TaskLoadException, TaskFileCopyException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class Storage {
         return loadedTasks;
     }
 
-    public static void saveTasks() throws TaskSaveException {
+    public void saveTasks(String[] formattedTasks) throws TaskSaveException {
         Path currentRelativePath = Paths.get("");
         Path currentDir = currentRelativePath.toAbsolutePath();
         Path dirPath = currentDir.resolve(DIR_DATA);
@@ -61,7 +61,7 @@ public class Storage {
             dir.mkdir();
             file.createNewFile();
             try (FileWriter writer = new FileWriter(file)) {
-                for (String formattedTask: Nuke.getFormattedTasks()) {
+                for (String formattedTask: formattedTasks) {
                     writer.write(formattedTask);
                     writer.write('\n');
                 }

@@ -8,7 +8,7 @@ public class ListCommand extends Command {
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
         if (!args.isEmpty()) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_TOO_MANY_ARGS);
+            throwArgumentException(ERROR_MSG_TOO_MANY_ARGS);
         }
     }
 
@@ -18,8 +18,8 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void run() {
-        Nuke.listTask();
+    public void run(Nuke nuke) {
+        nuke.listTask();
     }
 
     private static final String ERROR_MSG_TOO_MANY_ARGS =

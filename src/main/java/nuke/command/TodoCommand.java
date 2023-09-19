@@ -9,7 +9,7 @@ public class TodoCommand extends Command {
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
         if (args.isEmpty()) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_NO_ARGS);
+            throwArgumentException(ERROR_MSG_NO_ARGS);
         }
         checkForbiddenCharacters(new String[]{args});
         name = args;
@@ -21,8 +21,8 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void run() {
-        Nuke.addTodo(name);
+    public void run(Nuke nuke) {
+        nuke.addTodo(name);
     }
 
     private static final String ERROR_MSG_NO_ARGS =

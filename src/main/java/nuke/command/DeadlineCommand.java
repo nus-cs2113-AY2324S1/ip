@@ -10,13 +10,13 @@ public class DeadlineCommand extends Command {
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
         if (args.isEmpty()) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_NO_ARGS);
+            throwArgumentException(ERROR_MSG_NO_ARGS);
         } else if (CommandParser.isNotContainingExactOneLabel(args, "/by")) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_INVALID_NUMBER_OF_BY);
+            throwArgumentException(ERROR_MSG_INVALID_NUMBER_OF_BY);
         } else if (CommandParser.matches(args, "/by(.*)")) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_NAME_EMPTY);
+            throwArgumentException(ERROR_MSG_NAME_EMPTY);
         } else if (CommandParser.matches(args, "(.+)\\s/by")) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_BY_EMPTY);
+            throwArgumentException(ERROR_MSG_BY_EMPTY);
         }
 
         String[] parsedArgs = CommandParser.parseArguments(args, "(.+)\\s/by\\s(.+)");
@@ -31,8 +31,8 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void run() {
-        Nuke.addDeadline(name, by);
+    public void run(Nuke nuke) {
+        nuke.addDeadline(name, by);
     }
 
     private static final String ERROR_MSG_NO_ARGS =

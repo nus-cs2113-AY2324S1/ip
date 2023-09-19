@@ -8,7 +8,7 @@ public class ByeCommand extends Command {
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
         if (!args.isEmpty()) {
-            throw new InvalidCommandArgumentException(ERROR_MSG_TOO_MANY_ARGS);
+            throwArgumentException(ERROR_MSG_TOO_MANY_ARGS);
         }
     }
 
@@ -18,8 +18,8 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void run() {
-        Nuke.quit();
+    public void run(Nuke nuke) {
+        nuke.quit();
     }
 
     private static final String ERROR_MSG_TOO_MANY_ARGS =
