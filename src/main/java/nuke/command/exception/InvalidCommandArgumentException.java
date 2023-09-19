@@ -1,8 +1,6 @@
 package nuke.command.exception;
 
-import nuke.NukeException;
-
-public class InvalidCommandArgumentException extends NukeException {
+public class InvalidCommandArgumentException extends CommandException {
     public String reason;
 
     public InvalidCommandArgumentException(String reason) {
