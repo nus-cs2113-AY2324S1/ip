@@ -12,9 +12,7 @@ public class TaskList {
     }
 
     public TaskList(ArrayList<Task> taskList) {
-        this.taskList = new Task[100];
-        this.taskList = taskList.toArray(this.taskList);
-        this.size = taskList.size();
+        this.taskList = taskList;
     }
 
     public void add(Task task) {
@@ -103,8 +101,8 @@ public class TaskList {
         boolean firstLine = true;
         StringBuilder result = new StringBuilder();
 
-        for (int i = 0; i < size; i++) {
-            String taskString = taskList[i].encode();
+        for (Task task : taskList) {
+            String taskString = task.encode();
             if (!firstLine) { // Only add next line after first line
                 result.append(System.lineSeparator());
             }
