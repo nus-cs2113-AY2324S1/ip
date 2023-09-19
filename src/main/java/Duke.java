@@ -44,7 +44,6 @@ public class Duke {
                     System.out.println(taskList[taskNumber]);
                     break;
                 case TODO:
-                    //int spaceCut = echo.indexOf(" ");
                     taskDescription = echo.substring(4);
                     taskList[counter] = new Todo(taskDescription);
                     System.out.println("\tGot it. I've added this task:" + "\n" + taskList[counter]);
