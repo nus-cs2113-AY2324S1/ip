@@ -83,6 +83,18 @@ public class Duke {
         tasksCount++;
     }
 
+    public static void deleteTask(String input) {
+        int index = Integer.parseInt(input) - 1;
+        Task removedTask = tasks.remove(index);
+
+        System.out.println("\tI have surgically remove this task:");
+        System.out.println("\t\t" + removedTask);
+
+        tasksCount--;
+
+        printNumOfTasks();
+    }
+
     public static void setMarkAsDone(String input) {
         int index = Integer.parseInt(input) - 1;
         tasks.get(index).markAsDone();
@@ -145,6 +157,9 @@ public class Duke {
             case "unmark":
                 setUnmarkAsDone(input);
                 break;
+            case "delete":
+                deleteTask(input);
+                break;
             case "todo":
                 addTodo(input);
                 printRecentTask(tasks.get(tasksCount - 1));
@@ -175,7 +190,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String input = "";
+        String input;
         Scanner in = new Scanner(System.in);
 
         tellGreeting();
