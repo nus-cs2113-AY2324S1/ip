@@ -1,62 +1,91 @@
 package dawson;
 
-import java.util.List;
-
 import dawson.task.Task;
 
 import java.util.ArrayList;
 
 public class TaskList {
-    private Task[] taskList;
-    private int size;
+    private ArrayList<Task> taskList;
 
     public TaskList() {
-        this.taskList = new Task[100];
-        this.size = 0;
+        this.taskList = new ArrayList<Task>();
     }
 
     public void add(Task task) {
-        taskList[size] = task;
-        size++;
+        taskList.add(task);
 
         String[] addText = {
                 "Got it. I've added this task:",
                 "  " + task.toString(),
-                String.format("Now you have %d tasks in the list.", size)
+                String.format("Now you have %d tasks in the list.", taskList.size())
         };
         Dawson.printText(addText);
     }
 
-    public boolean isIndexValid(int index) {
-        return index >= 0 && index < size;
+    public void markAsDoneIndex(int index) throws DawsonException {
+        try {
+            Task task = taskList.get(index);
+            task.markAsDone();
+
+            String[] markAsDoneTexts = {
+                    "Nice! I've marked this task as done: ",
+                    "  " + task.toString()
+            };
+            Dawson.printText(markAsDoneTexts);
+
+        } catch (IndexOutOfBoundsException e) {
+            // Convert to 1-base indexing to show error
+            String errorMsg = (index+1) + " index out of range of task list!";
+            throw new DawsonException(errorMsg);
+        }
     }
 
-    public String markAsDoneIndex(int index) {
-        if (!isIndexValid(index)) {
-            return "";
+    public void unmarkIndex(int index) throws DawsonException {
+        try {
+            Task task = taskList.get(index);
+            task.unmark();
+
+            String[] unmarkIndexTexts = {
+                    "Ok, I've marked this task as not done yet: ",
+                    "  " + task.toString()
+            };
+            Dawson.printText(unmarkIndexTexts);
+
+        } catch (IndexOutOfBoundsException e) {
+            // Convert to 1-base indexing to show error
+            String errorMsg = (index+1) + " index out of range of task list!";
+            throw new DawsonException(errorMsg);
         }
-        taskList[index].markAsDone();
-        return taskList[index].toString();
     }
 
-    public String unmarkIndex(int index) {
-        if (!isIndexValid(index)) {
-            return "";
+    public void deleteTask(int index) throws DawsonException {
+        try {
+            Task removedTask = taskList.remove(index);
+            
+            String[] deleteText = {
+                    "Noted. I've removed this task:",
+                    "  " + removedTask.toString(),
+                    String.format("Now you have %d tasks in the list.", taskList.size())
+            };
+            Dawson.printText(deleteText);
+
+        } catch (IndexOutOfBoundsException e) {
+            // Convert to 1-base indexing to show error
+            String errorMsg = (index+1) + " index out of range of task list!";
+            throw new DawsonException(errorMsg);
         }
-        taskList[index].unmark();
-        return taskList[index].toString();
     }
 
     public String[] getTaskStrings() {
-        if (size == 0) {
+        if (taskList.size() == 0) {
             return new String[] { "Empty list!" };
         }
 
-        List<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<String>();
         result.add("Here are the tasks in your list: ");
 
-        for (int i = 0; i < size; i++) {
-            String line = String.format("%d. %s", i + 1, taskList[i]);
+        for (int i = 0; i < taskList.size(); i++) {
+            String line = String.format("%d. %s", i + 1, taskList.get(i));
             result.add(line);
         }
 

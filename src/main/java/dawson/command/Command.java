@@ -9,6 +9,7 @@ public abstract class Command {
     private static final String EVENT_COMMAND = "event";
 
     private static final String LIST_COMMAND = "list";
+    private static final String DELETE_COMMAND = "delete";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
     private static final String EXIT_COMMAND = "bye";
@@ -27,6 +28,8 @@ public abstract class Command {
                 return new EventCommand(payload, taskList);
             case LIST_COMMAND:
                 return new List(taskList);
+            case DELETE_COMMAND:
+                return new Delete(payload, taskList);
             case MARK_COMMAND:
                 return new Mark(payload, taskList);
             case UNMARK_COMMAND:
