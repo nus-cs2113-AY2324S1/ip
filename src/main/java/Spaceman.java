@@ -88,11 +88,7 @@ public class Spaceman {
             String description = descriptions[1];
             Task todo = new Todo(description);
             tasks[Task.getTaskCount() - 1] = todo;
-            System.out.println(LINE);
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + todo.getDescription());
-            printTaskCount();
-            System.out.println(LINE);
+            printTaskAddedMessage(todo);
         }
     }
 
@@ -103,11 +99,7 @@ public class Spaceman {
 
         Task deadline = new Deadline(description, date);
         tasks[Task.getTaskCount()-1] = deadline;
-        System.out.println(LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + deadline.getDescription());
-        printTaskCount();
-        System.out.println(LINE);
+        printTaskAddedMessage(deadline);
     }
 
     public static void addEvent(Task[] tasks, String eventDescription) {
@@ -119,11 +111,7 @@ public class Spaceman {
 
         Task event = new Event(description, eventStart, eventEnd);
         tasks[Task.getTaskCount()-1] = event;
-        System.out.println(LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + event.getDescription());
-        printTaskCount();
-        System.out.println(LINE);
+        printTaskAddedMessage(event);
     }
 
     private static void printTaskCount() {
@@ -140,6 +128,14 @@ public class Spaceman {
     private static void printGoodbyeMessage() {
         System.out.println(LINE);
         System.out.println(MESSAGE_BYE);
+        System.out.println(LINE);
+    }
+
+    private static void printTaskAddedMessage(Task task) {
+        System.out.println(LINE);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task.getDescription());
+        printTaskCount();
         System.out.println(LINE);
     }
 
