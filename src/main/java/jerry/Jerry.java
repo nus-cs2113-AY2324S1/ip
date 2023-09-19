@@ -21,10 +21,12 @@ public class Jerry {
     public static final String TODO_KEYWORD = "todo";
     public static final String DEADLINE_KEYWORD = "deadline";
     public static final String EVENT_KEYWORD = "event";
+    public static final String DELETE_KEYWORD = "delete";
     public static final String MARK_KEYWORD = "mark";
     public static final String UNMARK_KEYWORD = "unmark";
     public static final String LIST_KEYWORD = "list";
     public static final String EXIT_KEYWORD = "bye";
+    public static final String SPACE_DELIMITER = "\\s+";
 
     private static void saveStateToDisk() {
         try {
@@ -76,7 +78,7 @@ public class Jerry {
         }
     }
 
-    private static void execAddTodo(String argument) {
+    private static void executeAddTodo(String argument) {
         try {
             Todo newTodo = Todo.fromString(argument);
             taskList.addTask(newTodo);
@@ -87,7 +89,7 @@ public class Jerry {
         }
     }
 
-    private static void execAddDeadline(String argument) {
+    private static void executeAddDeadline(String argument) {
         try {
             Deadline newDeadline = Deadline.fromString(argument);
             taskList.addTask(newDeadline);
@@ -98,7 +100,7 @@ public class Jerry {
         }
     }
 
-    private static void execAddEvent(String argument) {
+    private static void executeAddEvent(String argument) {
         try {
             Event newEvent = Event.fromString(argument);
             taskList.addTask(newEvent);
@@ -110,30 +112,30 @@ public class Jerry {
     }
 
     private static String[] splitCommandWordAndArgs(String rawUserInput) {
-        final String[] split = rawUserInput.trim().split("\\s+", 2);
-        return split.length == 2 ? split : new String[] { split[0] , "" }; // else case: no parameters
+        final String[] stringParts = rawUserInput.trim().split(SPACE_DELIMITER, 2);
+        return stringParts.length == 2 ? stringParts : new String[] { stringParts[0] , "" };
     }
 
-    private static void execListAllTasks() {
+    private static void executeListAllTasks() {
         UserInterface.showListOfTasks(taskList);
     }
 
-    private static void execExitProgram() {
+    private static void executeExitProgram() {
         UserInterface.showGoodbyeMessage();
         System.exit(0);
     }
 
-    private static void execMarkTask(String commandArgs) {
+    private static void executeMarkTask(String commandArgs) {
         markTaskAsDone(commandArgs);
         saveStateToDisk();
     }
 
-    private static void execUnmarkTask(String commandArgs) {
+    private static void executeUnmarkTask(String commandArgs) {
         markTaskAsUndone(commandArgs);
         saveStateToDisk();
     }
 
-    private static void execDeleteTask(String commandArgs) {
+    private static void executeDeleteTask(String commandArgs) {
         try {
             Task task = taskList.removeTask(Integer.parseInt(commandArgs));
             UserInterface.showDeteteTaskConfirmation(task, taskList);
@@ -144,37 +146,40 @@ public class Jerry {
         }
     }
 
-    private static void execUnknownCommand() {
+    private static void executeUnknownCommand() {
         UserInterface.showUnknownCommandMessage();
     }
 
-    private static void executeCommand(String userInputString) {
+    private static void executeuteCommand(String userInputString) {
         final String[] commandTypeAndParams = splitCommandWordAndArgs(userInputString);
         final String commandType = commandTypeAndParams[0];
         final String commandArgs = commandTypeAndParams[1];
         switch (commandType) {
             case LIST_KEYWORD:
-            execListAllTasks();
+            executeListAllTasks();
             break;
             case MARK_KEYWORD:
-            execMarkTask(commandArgs);
+            executeMarkTask(commandArgs);
             break;
             case UNMARK_KEYWORD:
-            execUnmarkTask(commandArgs);
+            executeUnmarkTask(commandArgs);
             break;
             case TODO_KEYWORD:
-            execAddTodo(commandArgs);
+            executeAddTodo(commandArgs);
             break;
             case DEADLINE_KEYWORD:
-            execAddDeadline(commandArgs);
+            executeAddDeadline(commandArgs);
+            break;
+            case DELETE_KEYWORD:
+            executeDeleteTask(commandArgs);
             break;
             case EVENT_KEYWORD:
-            execAddEvent(commandArgs);
+            executeAddEvent(commandArgs);
             break;
             case EXIT_KEYWORD:
-            execExitProgram();
+            executeExitProgram();
             default:
-            execUnknownCommand();
+            executeUnknownCommand();
             break;
         }
     }
@@ -184,7 +189,7 @@ public class Jerry {
         UserInterface.showWelcomeMessage();
         while (true) {
             String userCommand = UserInterface.getUserInput();
-            executeCommand(userCommand);
+            executeuteCommand(userCommand);
         }
     }
 }
