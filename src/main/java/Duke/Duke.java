@@ -4,29 +4,30 @@ import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
-        String logo = "       _       _        \n"
+        final String LOGO = "       _       _        \n"
                 + "      | |     | |       \n"
                 + "      | | __ _| | _____ \n"
                 + "  _   | |/ _` | |/ / _ \\\n"
                 + " | |__| | (_| |   <  __/\n"
                 + "  \\____/ \\__,_|_|\\_\\___|\n";
+
         // Bot Greet Message
-        System.out.println(logo);
+        System.out.println(LOGO);
         System.out.println("Hello! I'm Jake");
         System.out.println("What can I do for you?");
-        Scanner readIn = new Scanner(System.in);
+        Scanner inputReader = new Scanner(System.in);
         String userInput = "";
         ArrayList<Task> botMemory = new ArrayList<Task>();
 
         while (true) {
             System.out.print("User: ");
-            userInput = readIn.nextLine();
+            userInput = inputReader.nextLine();
             String text[] = userInput.split(" ");
 
             // Bot Exit Message
             if (text[0].equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
-                readIn.close();
+                inputReader.close();
                 break;
             }
 
