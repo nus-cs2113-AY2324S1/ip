@@ -187,7 +187,7 @@ public class TaskManager {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public void saveTasksToFile() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
         for (Task task : taskList) {
@@ -272,7 +272,6 @@ public class TaskManager {
         return formattedString;
     }
 
->>>>>>> branch-Level-7
     private void displayTaskCount() {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
