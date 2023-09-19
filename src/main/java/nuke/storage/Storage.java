@@ -66,7 +66,6 @@ public class Storage {
                     writer.write('\n');
                 }
             }
-            throw new IOException();
         } catch (IOException e) {
             throw new TaskSaveException();
         }

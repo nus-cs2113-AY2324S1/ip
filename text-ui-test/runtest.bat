@@ -12,6 +12,8 @@ REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\nuke\*.java
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\nuke\command\*.java
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\nuke\command\exception\*.java
+javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\nuke\storage\*.java
+javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\nuke\storage\exception\*.java
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\nuke\task\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
