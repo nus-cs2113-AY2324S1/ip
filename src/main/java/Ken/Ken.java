@@ -13,6 +13,13 @@ public class Ken {
 
     public static void main(String[] args) {
         Ui.greetUser();
+        try {
+            FileHandler.readFromFile(list);
+        } catch (Exception e) {
+            Ui.printTexts(new String[] {
+                    e.getMessage()
+            });
+        }
 
         Scanner scan = new Scanner(System.in);
         ParseCommands parser = new ParseCommands();
