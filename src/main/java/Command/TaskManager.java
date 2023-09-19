@@ -192,14 +192,14 @@ public class TaskManager {
                 String[] parts = line.split("\\|");
                 switch (parts[0]) {
                 case "T":
-                    addTodo(parts[2]);
+                    loadTodo(parts[2]);
                     break;
                 case "D":
-                    addDeadline(parts[2], parts[3]);
+                    loadDeadline(parts[2], parts[3]);
                     break;
                 case "E":
                     String[] timeParts = parts[3].split(" to ");
-                    addEvent(parts[2], timeParts[0], timeParts[1]);
+                    loadEvent(parts[2], timeParts[0], timeParts[1]);
                     break;
                 }
                 // Loads the progress
@@ -208,10 +208,10 @@ public class TaskManager {
                 }
             }
             System.out.println("File loaded");
+            listTasks();
             reader.close();
         }
         else{
-            // if file not found, create the file
             // If file not found, create the necessary directories and then the file
             if (file.getParentFile().mkdirs()) {
                 System.out.println("Directories created successfully.");
