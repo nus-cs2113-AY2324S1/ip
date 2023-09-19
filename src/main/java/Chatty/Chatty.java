@@ -13,10 +13,10 @@ public class Chatty {
     public static final String LINE = "____________________________________________________________";
 
     public static void main(String[] args) {
-        printWelcomeMessage();
         ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
         taskCount = loadTasks(tasks, taskCount);
+        printWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         int index;
@@ -92,11 +92,11 @@ public class Chatty {
 
                 switch (type) {
                 case "T":
-                    tasks.set(taskCount, new Todo(description));
+                    tasks.add(new Todo(description));
                     break;
                 case "D":
                     String by = parts[3].trim();
-                    tasks.set(taskCount, new Deadline(description, by));
+                    tasks.add(new Deadline(description, by));
                     break;
                 case "E":
                     String fromTo = parts[3].trim();
