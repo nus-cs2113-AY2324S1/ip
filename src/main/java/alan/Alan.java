@@ -12,7 +12,7 @@ import static alan.AlanExceptions.checkDeadlineInputFormat;
 import static alan.AlanExceptions.checkEmptyDescription;
 import static alan.AlanExceptions.checkEventInputFromFormat;
 import static alan.AlanExceptions.checkEventInputToFormat;
-import static alan.AlanExceptions.checkOutOfTasksIndex;
+import static alan.AlanExceptions.checkOutOfTaskListIndex;
 import static alan.AlanExceptions.invalidInputCommand;
 
 public class Alan {
@@ -41,17 +41,20 @@ public class Alan {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    public static void printTaskAddedMessage(ArrayList<Task> taskList) {
-        int numberOfTasks = taskList.size();
-        int lastTaskIndex = taskList.size() - 1;
-
-        System.out.println("added: " + taskList.get(lastTaskIndex));
-
+    public static void printNumberOfTasksMessage(int numberOfTasks) {
         if (numberOfTasks == 1) {
             System.out.println("Dude! You've got a solid " + numberOfTasks + " task lined up on your list now!");
         } else {
             System.out.println("Dude! You've got a solid " + numberOfTasks + " tasks lined up on your list now!");
         }
+    }
+
+    public static void printTaskAddedMessage(ArrayList<Task> taskList) {
+        int numberOfTasks = taskList.size();
+        int lastTaskIndex = taskList.size() - 1;
+
+        System.out.println("added: " + taskList.get(lastTaskIndex));
+        printNumberOfTasksMessage(numberOfTasks);
     }
 
     public static void processCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanExceptions {
@@ -89,6 +92,10 @@ public class Alan {
             checkEmptyDescription(userInput);
             eventCommandHandler(userInput, taskList);
             break;
+        case "delete":
+            //delete task from the list
+            deleteCommandHandler(userInput, taskList);
+            break;
         default:
             invalidInputCommand();
         }
@@ -107,7 +114,7 @@ public class Alan {
         String[] words = userInput.split(" ");
         int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
 
-        checkOutOfTasksIndex(selectedTaskIndex, taskList);
+        checkOutOfTaskListIndex(selectedTaskIndex, taskList);
 
         if (isMark) {
             taskList.get(selectedTaskIndex).setDone(true);
@@ -158,6 +165,21 @@ public class Alan {
         taskList.add(new Event(description, from, to));
 
         printTaskAddedMessage(taskList);
+    }
+
+    public static void deleteCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanExceptions {
+        String[] words = userInput.split(" ");
+        int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
+
+        checkOutOfTaskListIndex(selectedTaskIndex, taskList);
+
+        System.out.println("Got it, dude. This task is outta here:");
+        System.out.println(taskList.get(selectedTaskIndex));
+
+        taskList.remove(selectedTaskIndex);
+
+        int numberOfTasks = taskList.size();
+        printNumberOfTasksMessage(numberOfTasks);
     }
 
 
