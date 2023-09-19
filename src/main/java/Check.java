@@ -8,6 +8,16 @@ public class Check {
         }
         return false;
     }
+    
+    //Function to check if an input has delete as the first word
+    public static boolean isDelete(String input){
+        if(input.length()>=6){
+            if("delete".equalsIgnoreCase(input.substring(0,6))){
+                return true;
+            }
+        }
+        return false;
+    }
 
     //Function to check if an input has unmark as the first word
     public static boolean isUnmark(String input){
@@ -68,5 +78,6 @@ public class Check {
         }
         return false;
     }
+
 
 }
