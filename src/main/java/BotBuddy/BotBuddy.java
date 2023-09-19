@@ -2,7 +2,7 @@ package BotBuddy;
 
 import java.util.Scanner;
 
-public class Duke {
+public class BotBuddy {
     public static void main(String[] args) {
         printUnderscores();
         System.out.println("Hello from BotBuddy!");
