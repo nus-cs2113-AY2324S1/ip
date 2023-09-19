@@ -23,4 +23,9 @@ public class Event extends Task {
     public String getDescription() {
         return "[E][" + getStatusIcon() + "] " + super.getDescription() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String saveFormat() {
+        return "E | " + (getIsDone() ? "1" : "0") + " | " + description + " | " + from + " to " + to;
+    }
 }
