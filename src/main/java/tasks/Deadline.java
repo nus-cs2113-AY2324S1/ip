@@ -7,6 +7,9 @@ public class Deadline extends Task{
 
     public Deadline(String description, String by) {
         super(description);
+        if (description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException("description cannot be empty");
+        }
         this.by = by;
     }
 
