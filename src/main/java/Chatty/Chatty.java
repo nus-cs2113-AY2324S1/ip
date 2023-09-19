@@ -8,6 +8,7 @@ import Chatty.tasks.Todo;
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 public class Chatty {
     private static final String FILE_PATH = "./data/chatty.txt";
     public static final String LINE = "____________________________________________________________";
@@ -25,34 +26,34 @@ public class Chatty {
             String[] words = input.split(" ");
             String command = words[0].toLowerCase();
             switch (command) {
-                case "list":
-                    listAllTasks(taskCount, tasks);
-                    input = scanner.nextLine();
-                    continue loop;
-                case "mark":
-                    mark(input, tasks);
-                    break;
-                case "unmark":
-                    unmark(input, tasks);
-                    break;
-                case "todo":
-                    taskCount = createTodo(input, tasks, taskCount);
-                    break;
-                case "deadline":
-                    taskCount = createDeadline(input, tasks, taskCount);
-                    break;
-                case "event":
-                    taskCount = createEvent(input, tasks, taskCount);
-                    break;
-                case "delete":
-                    taskCount = deleteEvent(input, taskCount, tasks);
-                    break;
-                default:
-                    System.out.println(LINE);
-                    System.out.println("Unknown command. Please try again or type \"help\"");
-                    System.out.println(LINE);
-                    input = scanner.nextLine();
-                    continue loop;
+            case "list":
+                listAllTasks(taskCount, tasks);
+                input = scanner.nextLine();
+                continue loop;
+            case "mark":
+                mark(input, tasks);
+                break;
+            case "unmark":
+                unmark(input, tasks);
+                break;
+            case "todo":
+                taskCount = createTodo(input, tasks, taskCount);
+                break;
+            case "deadline":
+                taskCount = createDeadline(input, tasks, taskCount);
+                break;
+            case "event":
+                taskCount = createEvent(input, tasks, taskCount);
+                break;
+            case "delete":
+                taskCount = deleteEvent(input, taskCount, tasks);
+                break;
+            default:
+                System.out.println(LINE);
+                System.out.println("Unknown command. Please try again or type \"help\"");
+                System.out.println(LINE);
+                input = scanner.nextLine();
+                continue loop;
             }
             System.out.println("Now you have " + taskCount + " tasks in the list.");
             System.out.println(LINE);
@@ -84,7 +85,7 @@ public class Chatty {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split("\\|"); // Fix the delimiter here
+                String[] parts = line.split("\\|");
 
                 String type = parts[0].trim();
                 boolean isDone = parts[1].trim().equals("1");
@@ -131,6 +132,7 @@ public class Chatty {
             System.err.println("Error saving data file: " + e.getMessage());
         }
     }
+
     private static void listAllTasks(int taskCount, ArrayList<Task> tasks) {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
@@ -165,7 +167,7 @@ public class Chatty {
             taskCount++;
             System.out.println("Got it. I've added this task:");
             System.out.println("[T][ ] " + todoDescription);
-        } else{
+        } else {
             System.out.println(LINE + "\n☹ OOPS!!! The description of a todo cannot be empty.");
         }
         return taskCount;
@@ -181,14 +183,14 @@ public class Chatty {
             taskCount++;
             System.out.println("Got it. I've added this task:");
             System.out.println("[D][ ] " + deadlineDescription + " (by: " + by + ")");
-        } else if (byIndex == -1){
-            System.out.println(LINE +"\n☹ OOPS!!! Invalid Deadline format. Please use /by to specify a deadline.");
+        } else if (byIndex == -1) {
+            System.out.println(LINE + "\n☹ OOPS!!! Invalid Deadline format. Please use /by to specify a deadline.");
             System.out.println("E.g. deadline homework /by 20 Aug");
-        } else if (byIndex == 9 || input.length() <= 9){
+        } else if (byIndex == 9 || input.length() <= 9) {
             System.out.println(LINE + "\n☹ OOPS!!! Description of Deadline task needed!");
             System.out.println("E.g. deadline homework /by 20 Aug");
-        } else{
-            System.out.println(LINE +"\n☹ OOPS!!! Unknown Error adding a deadline. Try Again.");
+        } else {
+            System.out.println(LINE + "\n☹ OOPS!!! Unknown Error adding a deadline. Try Again.");
             System.out.println("E.g. deadline homework /by 20 Aug");
         }
         return taskCount;
@@ -200,7 +202,7 @@ public class Chatty {
         //System.out.println(fromIndex);
         //System.out.println(toIndex);
         //System.out.println(input.length());
-        if (fromIndex != -1 && toIndex != -1 && input.length() > 6 && fromIndex != 6 && toIndex != fromIndex+6) {
+        if (fromIndex != -1 && toIndex != -1 && input.length() > 6 && fromIndex != 6 && toIndex != fromIndex + 6) {
             String eventDescription = input.substring(6, fromIndex).trim();
             String from = input.substring(fromIndex + 5, toIndex).trim();
             String to = input.substring(toIndex + 3).trim();
@@ -208,14 +210,14 @@ public class Chatty {
             taskCount++;
             System.out.println("Got it. I've added this task:");
             System.out.println("[E][ ] " + eventDescription + " (from: " + from + " to: " + to + ")");
-        } else if (fromIndex == -1 || toIndex == -1 || toIndex == fromIndex+6){
+        } else if (fromIndex == -1 || toIndex == -1 || toIndex == fromIndex + 6) {
             System.out.println(LINE + "\n☹ OOPS!!! Invalid Event format. Please use /from to specify the start of an event and /to to specify the end.");
             System.out.println("E.g. event project meeting /from 20 Aug 4pm /to 6pm");
-        } else if (input.length() <= 6 || fromIndex == 6){
+        } else if (input.length() <= 6 || fromIndex == 6) {
             System.out.println(LINE + "\n☹ OOPS!!! Description of Event task needed!");
             System.out.println("E.g. event project meeting /from 20 Aug 4pm /to 6pm");
-        } else{
-            System.out.println(LINE +"\n☹ OOPS!!! Unknown Error adding an event. Try Again.");
+        } else {
+            System.out.println(LINE + "\n☹ OOPS!!! Unknown Error adding an event. Try Again.");
             System.out.println("E.g. event project meeting /from 20 Aug 4pm /to 6pm");
         }
         return taskCount;
