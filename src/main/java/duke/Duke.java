@@ -126,8 +126,31 @@ public class Duke {
         tasksCount++;
     }
 
+    private static void modifyTaskData(int index, int currentIndex, Scanner scanner, String change,
+                                       StringBuilder buffer) {
+        if (currentIndex == index) {
+            String[] parsedTask = scanner.nextLine().split(" \\| ");
+            parsedTask[1] = change;
+
+            for (int i = 0; i < parsedTask.length; i++) {
+                buffer.append(parsedTask[i]);
+
+                if (i < parsedTask.length - 1) {
+                    buffer.append(" | ");
+                }
+            }
+            buffer.append(System.lineSeparator());
+        } else {
+            buffer.append(scanner.nextLine());
+
+            if (scanner.hasNext()) {
+                buffer.append(System.lineSeparator());
+            }
+        }
+    }
+
     //Solution below adapted by https://www.tutorialspoint.com/how-to-overwrite-a-line-in-a-txt-file-using-java
-    public static void updateTaskDatabase(int index, boolean taskStatus) throws FileNotFoundException, IOException {
+    public static void updateTaskDatabase(int index, boolean taskStatus) throws IOException {
         Scanner scanner = new Scanner(new File("data/tasks.txt"));
 
         StringBuilder buffer = new StringBuilder();
@@ -135,25 +158,7 @@ public class Duke {
         int currentIndex = 0;
 
         while (scanner.hasNext()) {
-            if (currentIndex == index) {
-                String[] parsedTask = scanner.nextLine().split(" \\| ");
-                parsedTask[1] = change;
-
-                for (int i = 0; i < parsedTask.length; i++) {
-                    buffer.append(parsedTask[i]);
-
-                    if (i < parsedTask.length - 1) {
-                        buffer.append(" | ");
-                    }
-                }
-                buffer.append(System.lineSeparator());
-            } else {
-                buffer.append(scanner.nextLine());
-
-                if (scanner.hasNext()) {
-                    buffer.append(System.lineSeparator());
-                }
-            }
+            modifyTaskData(index, currentIndex, scanner, change, buffer);
             currentIndex++;
         }
 
@@ -274,66 +279,78 @@ public class Duke {
         }
     }
 
+    private static void createNewData(Scanner scan) {
+        String[] parsedTask = scan.nextLine().split(" \\| ");
+
+        String taskType = parsedTask[0];
+
+        switch (taskType) {
+        case "T":
+            tasks[tasksCount] = new Todo(parsedTask[2] , parsedTask[1]);
+            tasksCount++;
+            break;
+        case "D":
+            tasks[tasksCount] = new Deadline(parsedTask[2], parsedTask[1], parsedTask[3]);
+            tasksCount++;
+            break;
+        case "E":
+            tasks[tasksCount] = new Event(parsedTask[2], parsedTask[1], parsedTask[3], parsedTask[4]);
+            tasksCount++;
+            break;
+        }
+    }
+
     public static void restoreSavedData() throws FileNotFoundException {
-        File file = new File("test/test.txt");
+        File file = new File(DATA_PATH);
         Scanner scan = new Scanner(file);
-        String[] parsedTask;
 
         while (scan.hasNext()) {
+            createNewData(scan);
+        }
+    }
 
-            parsedTask = scan.nextLine().split(" \\| ");
-            String taskType = parsedTask[0];
+    private static void createDukeDirectory(File newDirectory) {
+        if (!newDirectory.isDirectory() && newDirectory.mkdir()) {
+            System.out.println("\tDirectory successfully created!");
+        } else {
+            System.out.println("\tDirectory found!");
+        }
+    }
 
-            switch (taskType) {
-            case "T":
-                tasks[tasksCount] = new Todo(parsedTask[2] , parsedTask[1]);
-                tasksCount++;
-                break;
-            case "D":
-                tasks[tasksCount] = new Deadline(parsedTask[2], parsedTask[1], parsedTask[3]);
-                tasksCount++;
-                break;
-            case "E":
-                tasks[tasksCount] = new Event(parsedTask[2], parsedTask[1], parsedTask[3], parsedTask[4]);
-                tasksCount++;
-                break;
-            }
+    private static void createDukeFile(File newDatabase) throws IOException {
+        if (!newDatabase.isFile() && newDatabase.createNewFile()) {
+            System.out.println("\tData text file successfully created!");
+        } else {
+            System.out.println("\tText file found!");
         }
     }
 
     public static void handleFileNotFoundException() {
+        System.out.println("\t" + HORIZONTAL_LINE);
         System.out.println("\tLooks like I can't find the file. Let me make it for you.");
+
         File newDirectory = new File(DATA_DIRECTORY);
         File newDatabase = new File(DATA_PATH);
 
         try {
-            if (!newDirectory.isDirectory() && newDirectory.mkdir()) {
-                System.out.println("\tDirectory successfully created!");
-            } else {
-                System.out.println("\tDirectory found!");
-            }
-
-            if (!newDatabase.isFile() && newDatabase.createNewFile()) {
-                System.out.println("\tData text file successfully created!");
-            } else {
-                System.out.println("\tText file found!");
-            }
+            createDukeDirectory(newDirectory);
+            createDukeFile(newDatabase);
         } catch (IOException exception){
-            System.out.println("\tUmm, there seems to be a problem that I can't solve. Sorry :(.");
+            handleIOException(exception);
         }
 
+        System.out.println("\tPlease try to run the app again.");
+        System.out.println("\t" + HORIZONTAL_LINE);
     }
+
     public static void main(String[] args) {
-        String input = "";
+        String input;
         Scanner in = new Scanner(System.in);
 
         try {
             restoreSavedData();
         } catch (FileNotFoundException e){
-            System.out.println("\t" + HORIZONTAL_LINE);
             handleFileNotFoundException();
-            System.out.println("\tPlease try to run the app again.");
-            System.out.println("\t" + HORIZONTAL_LINE);
             System.exit(1);
         }
 
