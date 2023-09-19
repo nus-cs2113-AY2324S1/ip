@@ -17,17 +17,14 @@ public class Update extends Command {
     @Override
     public void run(TaskList list) throws KenMissingTaskException{
         try {
-            list.updateStatus(taskNumber, isDone);
+            list.updateStatus(taskNumber - 1, isDone);
 
             String text;
-            if (isDone)  {
-                text = "Barbie-tastic! You've completed this task with glamour!";
-            } else {
-                text = "Back to the runway, darling! This task needs more Barbie magic!";
-            }
+            text = isDone ? "Barbie-tastic! You've completed this task with glamour!"
+                    : "Back to the runway, darling! This task needs more Barbie magic!";
             Ui.printTexts(new String[]{
                     text,
-                    list.getTask(taskNumber).toString()
+                    list.getTask(taskNumber - 1).toString()
             });
         } catch (KenMissingTaskException e) {
             throw new KenMissingTaskException();

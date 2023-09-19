@@ -18,7 +18,7 @@ public class TaskList {
 
     public Task getTask(int taskNumber) throws KenMissingTaskException {
         try {
-            return list.get(taskNumber - 1);
+            return list.get(taskNumber);
         } catch (IndexOutOfBoundsException e) {
             throw new KenMissingTaskException();
         }
@@ -30,7 +30,7 @@ public class TaskList {
 
     public void updateStatus(int taskNumber, boolean status) throws KenMissingTaskException {
         try {
-            list.get(taskNumber - 1).setDone(status);
+            list.get(taskNumber).setDone(status);
         } catch (IndexOutOfBoundsException e) {
             throw new KenMissingTaskException();
         }
@@ -45,5 +45,13 @@ public class TaskList {
             texts[i] = "\t" + i + "." + currentTask.toString();
         }
         Ui.printTexts(texts);
+    }
+
+    public void deleteTask(int taskNumber) throws KenMissingTaskException{
+        try {
+            list.remove(taskNumber);
+        } catch(IndexOutOfBoundsException e) {
+            throw new KenMissingTaskException();
+        }
     }
 }
