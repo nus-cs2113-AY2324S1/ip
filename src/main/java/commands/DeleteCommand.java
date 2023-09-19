@@ -3,12 +3,13 @@ package commands;
 import ascii.AsciiArt;
 import main.ResponseProcessor;
 
-public class MarkCommand extends Command {
+public class DeleteCommand extends Command {
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {
         int number = parseInt(statement, processor);
-        processor.taskList.get(number).setCompleted(true);
-        System.out.println("Nicu! I have marked this as done master! " + AsciiArt.getArt("good"));
+        System.out.println("Okay master! I have removed this task: ");
         System.out.println(processor.taskList.get(number).getStatus());
+        processor.taskList.remove(number);
+        System.out.println("Now you have " + processor.taskList.size() + " tasks in the list masta " + AsciiArt.getArt("uwu"));
     }
 }

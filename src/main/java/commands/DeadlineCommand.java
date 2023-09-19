@@ -1,10 +1,10 @@
 package commands;
 
+import ascii.AsciiArt;
 import main.ResponseProcessor;
 import task.Deadline;
 
 public class DeadlineCommand extends Command {
-
 
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {
@@ -15,9 +15,9 @@ public class DeadlineCommand extends Command {
         if (!by.isBlank()) {
             processor.taskList.add(new Deadline(description, by));
             System.out.println("added: " + processor.taskList.get(processor.taskList.size() - 1).getStatus());
-            System.out.println("Now you have " + processor.taskList.size() + " tasks in the list masta (´UωU`)");
+            System.out.println("Now you have " + processor.taskList.size() + " tasks in the list masta " + AsciiArt.getArt("uwu"));
         } else {
-            throw new IllegalArgumentException ("Your /by is empty uwu! (つT . T)つ");
+            throw new IllegalArgumentException ("Your /by is empty uwu! " + AsciiArt.getArt("sad"));
         }
     }
 

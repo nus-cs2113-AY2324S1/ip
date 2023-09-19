@@ -1,5 +1,6 @@
 package main;
 
+import ascii.AsciiArt;
 import commands.DeadlineCommand;
 import commands.UnmarkCommand;
 import commands.MarkCommand;
@@ -7,6 +8,8 @@ import commands.TodoCommand;
 import commands.EventCommand;
 import commands.Command;
 import commands.ListCommand;
+import commands.AsciiCommand;
+import commands.DeleteCommand;
 
 import task.Task;
 
@@ -22,8 +25,9 @@ public class ResponseProcessor {
         put("event", new EventCommand());
         put("todo", new TodoCommand());
         put("list", new ListCommand());
+        put("ascii", new AsciiCommand());
+        put("delete", new DeleteCommand());
     }};
-
     public void process(String response) {
         String command = response.split(" ")[0];
         if (commandProcessor.containsKey(command)) {
@@ -34,7 +38,7 @@ public class ResponseProcessor {
                 System.out.println(e.getMessage());
             }
         } else {
-            System.out.println("I don't understand masta! Type a command uwu! (つT . T)つ");
+            System.out.println("I don't understand masta! Type a command uwu! " + AsciiArt.getArt("sad"));
         }
     }
     public static String removeFirstWord(String str) {

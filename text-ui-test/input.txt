@@ -1,3 +1,4 @@
+ascii false
 abc
 list abc
 list

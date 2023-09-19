@@ -1,17 +1,17 @@
 package main;
 
+import ascii.AsciiArt;
+
 import java.util.Scanner;
 
 public class Chatbot {
-    private static final String LINE = "❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤";
     public static void main(String[] args) {
-        System.out.println("Hello I'm Rias-chan! ヽ( ˘ω˘ )ゝ");
+        System.out.println("Hello I'm Rias-chan!");
         System.out.println(picture);
-        System.out.println(LINE);
-        System.out.println("Welcome back goshujin-sama, what can I do for you? (^-^)ゝ");
+        System.out.println("Welcome back goshujin-sama, what can I do for you?");
         ResponseProcessor processor = new ResponseProcessor();
         waitForResponse(processor);
-        System.out.println("Bye masta! ( ˘ ³˘)❤");
+        System.out.println("Bye masta! " + AsciiArt.getArt("kiss"));
     }
     public static void waitForResponse(ResponseProcessor processor) {
         Scanner scanner = new Scanner(System.in);
@@ -20,7 +20,7 @@ public class Chatbot {
             response = scanner.nextLine();
             if (!"bye".equalsIgnoreCase(response)) {
                 processor.process(response);
-                System.out.println(LINE);
+                System.out.println(AsciiArt.getArt("line"));
             }
         } while (!"bye".equalsIgnoreCase(response));
 

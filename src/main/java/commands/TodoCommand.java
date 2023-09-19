@@ -1,7 +1,7 @@
 package commands;
 
+import ascii.AsciiArt;
 import main.ResponseProcessor;
-import task.Deadline;
 import task.Todo;
 
 public class TodoCommand extends Command {
@@ -10,6 +10,6 @@ public class TodoCommand extends Command {
         isValidTask(statement);
         processor.taskList.add(new Todo(statement));
         System.out.println("added: " + processor.taskList.get(processor.taskList.size() - 1).getStatus());
-        System.out.println("Now you have " + processor.taskList.size() + " tasks in the list masta (´UωU`)");
+        System.out.println("Now you have " + processor.taskList.size() + " tasks in the list masta " + AsciiArt.getArt("uwu"));
     }
 }
