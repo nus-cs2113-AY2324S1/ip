@@ -7,6 +7,7 @@ import task.Task;
 import task.Todo;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -39,6 +40,7 @@ public class Spaceman {
         try {
             tasks = readDataFromFile(filePath);
         } catch (FileNotFoundException e) {
+            System.out.println("File not found");
             tasks = new ArrayList<>();
         }
 
@@ -106,20 +108,22 @@ public class Spaceman {
         File file = new File(filePath);
         Scanner data = new Scanner(file);
         while (data.hasNext()) {
-            Character taskType = data.toString().charAt(0);
-            String[] descriptions = data.nextLine().split("|");
+            String taskDetails = data.nextLine();
+            char taskType = taskDetails.charAt(0);
+            String[] descriptions = taskDetails.split("[|]");
+            int isMarked = Integer.parseInt(descriptions[1].trim());
             switch (taskType) {
             case 'T':
-                Task todo = new Todo(descriptions[2], Integer.parseInt(descriptions[1]));
+                Task todo = new Todo(descriptions[2].trim(), isMarked);
                 tasks.add(todo);
                 break;
             case 'D':
-                Task deadline = new Deadline(descriptions[2], descriptions[3], Integer.parseInt(descriptions[1]));
+                Task deadline = new Deadline(descriptions[2].trim(), descriptions[3].trim(), isMarked);
                 tasks.add(deadline);
                 break;
             case 'E':
-                Task event = new Event(descriptions[2], descriptions[3], descriptions[4],
-                        Integer.parseInt(descriptions[1]));
+                Task event = new Event(descriptions[2].trim(), descriptions[3].trim(), descriptions[4].trim(),
+                        isMarked);
                 tasks.add(event);
                 break;
             default:
