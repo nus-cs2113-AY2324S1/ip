@@ -34,4 +34,12 @@ public class Task {
         return ("["+ex+"] "+description);
     }
 
+    public String toFileString() {
+        int binaryIsDone = 0;
+        if (isDone) {
+            binaryIsDone = 1;
+        }
+        return (binaryIsDone + " | " + this.description);
+    }
+
 }
