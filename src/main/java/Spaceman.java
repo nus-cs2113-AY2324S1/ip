@@ -21,7 +21,9 @@ public class Spaceman {
     public static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:";
     public static final String MESSAGE_MARK = "Nice! I've marked this task as done:";
     public static final String MESSAGE_UNKNOWN = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
-    public static final String MESSAGE_EMPTY = "☹ OOPS!!! The description of a todo cannot be empty.";
+    public static final String MESSAGE_EMPTY_TODO = "☹ OOPS!!! The description of a todo cannot be empty.";
+    public static final String MESSAGE_EMPTY_DEADLINE = "☹ OOPS!!! The description of a deadline cannot be empty.";
+    public static final String MESSAGE_EMPTY_EVENT = "☹ OOPS!!! The description of an event cannot be empty.";
 
     public static void main(String[] args) {
         Task[] tasks = new Task[100];
@@ -49,8 +51,6 @@ public class Spaceman {
         printGoodbyeMessage();
     }
 
-
-
     public static void inputValidation (String text, Task[] tasks) throws InvalidActionException, IncompleteDescriptionException {
         String[] actionAndDescriptions = text.split(" ");
         String action = actionAndDescriptions[0];
@@ -66,45 +66,68 @@ public class Spaceman {
             unMarkTask(tasks, Integer.parseInt(actionAndDescriptions[1]));
             break;
         case "todo":
+            addTodo(tasks, text);
+            break;
         case "deadline":
+            addDeadline(tasks, text);
+            break;
         case "event":
-            addToList(tasks, text);
+            addEvent(tasks, text);
+            break;
         default:
             throw new InvalidActionException(MESSAGE_UNKNOWN);
         }
     }
 
-    public static void addToList(Task[] taskList, String taskDescription) throws IncompleteDescriptionException {
-        Task task = null;
-        String[] actionAndDescriptions = taskDescription.split(" ");
-        String description;
-        int descriptionIndex = taskDescription.indexOf(" ") + 1;
+    public static void addTodo(Task[] tasks, String todoDescription) throws IncompleteDescriptionException {
+        String[] descriptions = todoDescription.split(" ");
 
-        if (actionAndDescriptions.length < 2) {
-            throw new IncompleteDescriptionException(MESSAGE_EMPTY);
-        } else if (taskDescription.startsWith("todo")) {
-            description = taskDescription.substring(descriptionIndex);
-            task = new Todo(description);
-        } else if (taskDescription.startsWith("deadline")) {
-            int byIndex = taskDescription.indexOf("/");
-            String by = taskDescription.substring(byIndex+4);
-            description = taskDescription.substring(descriptionIndex, byIndex-1);
-            task = new Deadline(description, by);
+        if (descriptions.length < 2) {
+            throw new IncompleteDescriptionException(MESSAGE_EMPTY_TODO);
         } else {
-            int startIndex = taskDescription.indexOf("/");
-            int endIndex = taskDescription.indexOf("/", startIndex+1);
-            String startTime = taskDescription.substring(startIndex+6, endIndex);
-            String endTime = taskDescription.substring(endIndex+4);
-            description = taskDescription.substring(descriptionIndex, startIndex);
-            task = new Event(description, startTime, endTime);
+            String description = descriptions[1];
+            Task todo = new Todo(description);
+            tasks[Task.getTaskCount() - 1] = todo;
+            System.out.println(LINE);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + todo.getDescription());
+            printTaskCount();
+            System.out.println(LINE);
         }
+    }
 
-        taskList[Task.getTaskCount()-1] = task;
+    public static void addDeadline(Task[] tasks, String deadlineDescription) {
+        String[] descriptions = deadlineDescription.split("/by");
+        String description = descriptions[0].trim();
+        String date = descriptions[1].trim();
+
+        Task deadline = new Deadline(description, date);
+        tasks[Task.getTaskCount()-1] = deadline;
         System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.getDescription());
-        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
+        System.out.println("  " + deadline.getDescription());
+        printTaskCount();
         System.out.println(LINE);
+    }
+
+    public static void addEvent(Task[] tasks, String eventDescription) {
+        String[] descriptions = eventDescription.split("/from");
+        String description = descriptions[0].trim();
+        String[] eventTime = descriptions[1].split("/to");
+        String eventStart = eventTime[0].trim();
+        String eventEnd = eventTime[1].trim();
+
+        Task event = new Event(description, eventStart, eventEnd);
+        tasks[Task.getTaskCount()-1] = event;
+        System.out.println(LINE);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + event.getDescription());
+        printTaskCount();
+        System.out.println(LINE);
+    }
+
+    private static void printTaskCount() {
+        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
     }
 
     private static void printWelcomeMessage() {
