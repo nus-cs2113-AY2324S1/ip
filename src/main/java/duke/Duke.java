@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Duke {
 
     private static final String HORIZONTAL_LINE = "--------------------------------------------";
-    private static List<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
     public static void main(String[] args) {
         introduceBot();
         handleCommands();
@@ -45,6 +45,9 @@ public class Duke {
                     break;
                 case "event":
                     addEvent(argument);
+                    break;
+                case "delete":
+                    deleteTask(argument);
                     break;
                 default:
                     throw new InvalidCommandException();
@@ -113,7 +116,7 @@ public class Duke {
     }
 
     public static void addDeadline(String argument){
-        try{
+        try {
             String dueDate = argument.split(" /by ")[1];
             String description = argument.split(" /by ")[0];
             Task deadline = new Deadline(description, dueDate);
@@ -125,6 +128,19 @@ public class Duke {
         } catch (NullPointerException e){
             System.out.println("I am sorry, the deadline cannot be empty! Please provide a valid deadline in the " +
                     "format: deadline <description> /by <due date>");
+        }
+    }
+
+    public static void deleteTask(String argument) {
+        try {
+            int index = Integer.parseInt(argument);
+            Task task = tasks.get(index - 1);
+            tasks.remove(index - 1);
+            System.out.println("Alright, I have removed the following task:");
+            System.out.println("   " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException | NumberFormatException e){
+            System.out.println("This task id does not exist, please provide a valid task number!");
         }
     }
 

@@ -5,10 +5,15 @@ list
 event project meeting /from Aug 6th 2pm /to 4pm
 list
 mark 1
+unmark 0
+blah
+list
+delete 1
 list
 todo join sports club
 list
-mark 4
+delete
+mark 3
 list
 todo borrow book
 list
