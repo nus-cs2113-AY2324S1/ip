@@ -7,6 +7,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,7 +18,7 @@ public class Duke {
     private static final String FROM_KEYWORD = " /from ";
     private static final String TO_KEYWORD = " /to ";
 
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int tasksCount = 0;
 
     public static String getInput(Scanner in) {
@@ -45,7 +46,7 @@ public class Duke {
             throw new DukeTaskException();
         }
 
-        tasks[tasksCount] = new Todo(input.trim());
+        tasks.add(new Todo(input.trim()));
         tasksCount++;
     }
 
@@ -56,7 +57,7 @@ public class Duke {
             throw new DukeTaskException();
         }
 
-        tasks[tasksCount] = new Deadline(parsedInput[0].trim(), parsedInput[1].trim());
+        tasks.add(new Deadline(parsedInput[0].trim(), parsedInput[1].trim()));
         tasksCount++;
     }
 
@@ -78,24 +79,24 @@ public class Duke {
 
         String[] parsedInput = input.split(FROM_KEYWORD + "|" + TO_KEYWORD);
 
-        tasks[tasksCount] = new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim());
+        tasks.add(new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim()));
         tasksCount++;
     }
 
     public static void setMarkAsDone(String input) {
         int index = Integer.parseInt(input) - 1;
-        tasks[index].markAsDone();
+        tasks.get(index).markAsDone();
 
         System.out.println("\tYay! You have completed this task:");
-        System.out.println("\t\t" + tasks[index]);
+        System.out.println("\t\t" + tasks.get(index));
     }
 
     public static void setUnmarkAsDone(String input) {
         int index = Integer.parseInt(input) - 1;
-        tasks[index].unmarkAsDone();
+        tasks.get(index).unmarkAsDone();
 
         System.out.println("\tOh no! It seems that you haven't finish this task:");
-        System.out.println("\t\t" + tasks[index]);
+        System.out.println("\t\t" + tasks.get(index));
     }
 
     public static void printNumOfTasks() {
@@ -112,11 +113,11 @@ public class Duke {
     public static void printTasks() {
         System.out.println("\tHere are your tasks you have inputted:");
         for (int i = 1; i <= tasksCount; i++) {
-            System.out.println("\t" + i + "." + tasks[i - 1]);
+            System.out.println("\t" + i + "." + tasks.get(i - 1));
         }
     }
 
-    public static void handleNullPointerException() {
+    public static void handleIndexOutOfBoundsException() {
         System.out.println("\tUmm, you tried to access a task that does not exist.");
         System.out.println("\tPerhaps you should put a valid number based on the number of tasks " +
                 "you have currently. ");
@@ -146,15 +147,15 @@ public class Duke {
                 break;
             case "todo":
                 addTodo(input);
-                printRecentTask(tasks[tasksCount - 1]);
+                printRecentTask(tasks.get(tasksCount - 1));
                 break;
             case "deadline":
                 addDeadline(input);
-                printRecentTask(tasks[tasksCount - 1]);
+                printRecentTask(tasks.get(tasksCount - 1));
                 break;
             case "event":
                 addEvent(input);
-                printRecentTask(tasks[tasksCount - 1]);
+                printRecentTask(tasks.get(tasksCount - 1));
                 break;
             case "bye":
                 tellGoodbye();
@@ -162,8 +163,8 @@ public class Duke {
             default:
                 throw new DukeCommandException();
             }
-        } catch (NullPointerException exception) {
-            handleNullPointerException();
+        } catch (IndexOutOfBoundsException exception) {
+            handleIndexOutOfBoundsException();
         } catch (NumberFormatException exception) {
             handleNumberFormatException(input);
         } catch (DukeCommandException exception) {
