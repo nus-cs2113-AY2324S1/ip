@@ -25,6 +25,14 @@ public enum Command {
                     + "\tUsage: unmark <task number>";
         }
     },
+    DELETE {
+        @Override
+        public String toString() {
+            return "\tDelete a task from your list."
+                    + System.lineSeparator()
+                    + "\tUsage: delete <task number>";
+        }
+    },
     TODO {
         @Override
         public String toString() {

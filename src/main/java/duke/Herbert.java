@@ -70,6 +70,8 @@ public class Herbert {
             displayHelp();
         } else if (lowerLine.startsWith("todo") || lowerLine.startsWith("deadline") || lowerLine.startsWith("event")) {
             addTask(line);
+        } else if (lowerLine.startsWith("delete")) {
+            deleteTask(line);
         } else if (lowerLine.startsWith("mark")) {
             markTask(line, true);
         } else if (lowerLine.startsWith("unmark")) {
@@ -83,7 +85,7 @@ public class Herbert {
 
     private void markTask(String line, boolean completed) {
         // Check for valid user input
-        if (checkInputMarkTask(line) == -1) {
+        if (checkInputTaskIndex(line) == -1) {
             return;
         }
 
@@ -103,7 +105,7 @@ public class Herbert {
         printMessageMarkTask(task, completed);
     }
 
-    private int checkInputMarkTask(String line) {
+    private int checkInputTaskIndex(String line) {
         if (line.split(" ").length != 2) {
             printMessageInvalidInput("Please enter the task number you wish to change the status of.");
             return -1;
@@ -186,6 +188,25 @@ public class Herbert {
             printMessageAddTask(ev);
             break;
         }
+    }
+
+    private void deleteTask(String line) {
+        if (checkInputTaskIndex(line) == -1) {
+           return;
+        }
+
+        int taskIndex = extractTaskIndex(line);
+        if (taskIndex == -1) {
+            return;
+        }
+        int verify = verifyTaskIndex(taskIndex);
+        if (verify == -1) {
+            return;
+        }
+
+        Task taskCopy = tasks.get(taskIndex);
+        tasks.remove(taskIndex);
+        printMessageDeleteTask(taskCopy);
     }
 
     private int checkInputAddTask(String line) {
@@ -279,6 +300,14 @@ public class Herbert {
     private void printMessageAddTask(Task t) {
         System.out.println("___________________________________________________________________________");
         System.out.println("\tOkay, I've added this to your task list:");
+        System.out.printf("\t\t[%s][%s] %s\n", t.getCode(), t.getStatusIcon(), t);
+        System.out.printf("\tNow you have %d task(s) in your list.\n", tasks.size());
+        System.out.println("___________________________________________________________________________");
+    }
+
+    private void printMessageDeleteTask(Task t) {
+        System.out.println("___________________________________________________________________________");
+        System.out.println("\tNoted. I've removed this task from your list:");
         System.out.printf("\t\t[%s][%s] %s\n", t.getCode(), t.getStatusIcon(), t);
         System.out.printf("\tNow you have %d task(s) in your list.\n", tasks.size());
         System.out.println("___________________________________________________________________________");
