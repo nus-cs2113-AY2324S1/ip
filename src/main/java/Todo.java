@@ -1,9 +1,13 @@
 public class Todo extends Task {
     //protected boolean isDone;
 
-    public Todo(String description) {
-        super(description);
+    public Todo(String echo) {
+        super(echo);
         //isDone = false;
+        description = echo.substring(4);
+        if (description.length() <= 0) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     @Override

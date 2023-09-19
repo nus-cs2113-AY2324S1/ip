@@ -1,9 +1,16 @@
 public class Deadline extends Todo {
     protected String byDate;
 
-    public Deadline(String description, String date) {
-        super(description);
-        setByDate(date);
+    public Deadline(String echo) {
+        super(echo);
+        //setByDate(date);
+        String taskDescription = echo.substring(8);
+        int slashCut = taskDescription.indexOf("/");
+        byDate = taskDescription.substring(slashCut + 1);
+        description = taskDescription.substring(0, slashCut);
+        if (description.length() <= 0) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public String getByDate() {

@@ -2,9 +2,14 @@ public class Event extends Deadline {
     protected String startDate;
     protected String endDate;
 
-    public Event(String description, String dates) {
-        super(description, dates);
-        setDates(dates);
+    public Event(String echo) {
+        super(echo);
+        //setDates(dates);
+        String taskDescription = echo.substring(5);
+        int slashCut = taskDescription.indexOf("/");
+        String taskDuration = taskDescription.substring(slashCut);
+        setDates(taskDuration);
+        description = taskDescription.substring(0, slashCut);
     }
 
     public String getStartDate() {
