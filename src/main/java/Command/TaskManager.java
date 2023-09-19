@@ -52,12 +52,13 @@ public class TaskManager {
             if (isValidIndex(index)) {
                 System.out.println("I've unmarked this task:");
                 taskList.get(index).markAsUndone();
+                saveTasksToFile(); // Save tasks to file after a new task is added
                 System.out.println("    " + taskList.get(index));
             }
             else {
                 throw JarvisException.invalidTaskNumber(index);
             }
-        } catch (JarvisException e) {
+        } catch (JarvisException | IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -159,22 +160,19 @@ public class TaskManager {
 
     public void saveTasksToFile() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
-
         for (Task task : taskList) {
             writer.write(toFileFormat(task));
             writer.newLine();
         }
-
         writer.close();
     }
 
     public void loadTasksFromFile() throws IOException, JarvisException {
         File file = new File(FILE_PATH);
-//        System.out.println(new File(".").getAbsolutePath());
         if (file.exists()) {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             String line;
-
+            System.out.println("Loading File");
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\\|");
                 switch (parts[0]) {
@@ -189,18 +187,59 @@ public class TaskManager {
                     addEvent(parts[2], timeParts[0], timeParts[1]);
                     break;
                 }
-
+                // Loads the progress
                 if (parts[1].equals("1")) {
                     taskList.get(taskList.size() - 1).markAsDone();
                 }
             }
-
+            System.out.println("File loaded");
             reader.close();
+        }
+        else{
+            // if file not found, create the file
+            // If file not found, create the necessary directories and then the file
+            if (file.getParentFile().mkdirs()) {
+                System.out.println("Directories created successfully.");
+            }
+            else {
+                System.out.println("Failed to create directories.");
+            }
+
+            if (file.createNewFile()) {
+                System.out.println("New file created at: " + FILE_PATH);
+            }
+            else {
+                System.out.println("Failed to create new file.");
+            }
         }
     }
 
     public String toFileFormat(Task task) {
-        return String.format("%s|%s|%s", task.getTaskType(), task.getStatusIcon().equals("X") ? "1" : "0", task.getDescription());
+        String formattedString;
+        switch(task.getTaskType()) {
+        case "T": // Todo task
+            formattedString = String.format("T|%s|%s",
+                    task.getStatusIcon().equals("X") ? "1" : "0",
+                    task.getDescription());
+            break;
+        case "D": // Deadline task
+            Deadline deadline = (Deadline) task;
+            formattedString = String.format("D|%s|%s|%s",
+                    task.getStatusIcon().equals("X") ? "1" : "0",
+                    task.getDescription(),
+                    deadline.getTime());
+            break;
+        case "E": // Event task
+            Event event = (Event) task;
+            formattedString = String.format("E|%s|%s|%s",
+                    task.getStatusIcon().equals("X") ? "1" : "0",
+                    task.getDescription(),
+                    event.getTime());
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + task.getTaskType());
+        }
+        return formattedString;
     }
 
     private void displayTaskCount() {
