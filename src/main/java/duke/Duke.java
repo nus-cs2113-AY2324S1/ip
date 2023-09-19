@@ -83,8 +83,12 @@ public class Duke {
         tasksCount++;
     }
 
+    public static int parseIndex(String input) {
+        return Integer.parseInt(input) - 1;
+    }
+
     public static void deleteTask(String input) {
-        int index = Integer.parseInt(input) - 1;
+        int index = parseIndex(input);
         Task removedTask = tasks.remove(index);
 
         System.out.println("\tI have surgically remove this task:");
@@ -96,7 +100,7 @@ public class Duke {
     }
 
     public static void setMarkAsDone(String input) {
-        int index = Integer.parseInt(input) - 1;
+        int index = parseIndex(input);
         tasks.get(index).markAsDone();
 
         System.out.println("\tYay! You have completed this task:");
@@ -104,7 +108,7 @@ public class Duke {
     }
 
     public static void setUnmarkAsDone(String input) {
-        int index = Integer.parseInt(input) - 1;
+        int index = parseIndex(input);
         tasks.get(index).unmarkAsDone();
 
         System.out.println("\tOh no! It seems that you haven't finish this task:");
