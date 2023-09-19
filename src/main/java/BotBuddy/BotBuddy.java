@@ -22,22 +22,13 @@ public class BotBuddy {
         File directory = new File(directoryName);
         File taskFile = new File(filePath);
 
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-
         if (!taskFile.exists()) {
             printUnderscores();
             System.out.println("Task file not found! Creating one...");
             printUnderscores();
 
             if (!directory.exists()) {
-                try {
-                    taskFile.createNewFile();
-                } catch (IOException e) {
-                    System.out.println("Error creating task file... Exiting!");
-                    return;
-                }
+                directory.mkdir();
             }
             try {
                 taskFile.createNewFile();
