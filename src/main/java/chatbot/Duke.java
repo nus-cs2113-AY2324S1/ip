@@ -39,13 +39,13 @@ public class Duke {
             }
 
             // Handle "list" keyword
-            else if(response.equals("list")) {
+            else if (response.equals("list")) {
                 for (int i = 0; i < numTasks; i++) {
                     taskList[i].show();
                 }
             }
 
-            else if(keyword.equals("mark")){
+            else if (keyword.equals("mark")) {
                 // Check exception: number of words is not 2
                 if(words.length != 2){
                     throw new InputException("Input Exception: Please enter with correct format (mark [Integer])");
@@ -65,7 +65,7 @@ public class Duke {
                 }
             }
 
-            else if(keyword.equals("unmark")){
+            else if (keyword.equals("unmark")) {
                 // Check exception: number of words is not 2
                 if(words.length != 2){
                     throw new InputException("Input Exception: Please enter with correct format (unmark [Integer])");
@@ -86,7 +86,7 @@ public class Duke {
                 }
             }
 
-            else if(keyword.equals("todo")){
+            else if (keyword.equals("todo")) {
                 String description = response.substring(5);
                 taskList[numTasks] = new ToDo(description);
                 numTasks++;
@@ -95,7 +95,7 @@ public class Duke {
                 System.out.println(description);
             }
 
-            else if(keyword.equals("deadline")){
+            else if (keyword.equals("deadline")) {
                 String description = response.substring(9);
                 System.out.println("Please enter the deadline:");
                 String deadline = scanner.nextLine();
@@ -108,7 +108,7 @@ public class Duke {
                 System.out.println("Due: " + deadline);
             }
 
-            else if(keyword.equals("event")) {
+            else if (keyword.equals("event")) {
                 String description = response.substring(6);
                 System.out.println("Please enter event start period:");
                 String start = scanner.nextLine();
