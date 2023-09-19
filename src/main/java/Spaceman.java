@@ -30,9 +30,9 @@ public class Spaceman {
 
         printWelcomeMessage();
 
-        Scanner sc = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
 
-        String text = sc.nextLine();
+        String text = input.nextLine();
         while (!text.equals("bye")) {
             try {
                 inputValidation(text, tasks);
@@ -45,7 +45,7 @@ public class Spaceman {
                 System.out.println(e.getMessage());
                 System.out.println(LINE);
             }
-            text = sc.nextLine();
+            text = input.nextLine();
         }
 
         printGoodbyeMessage();
