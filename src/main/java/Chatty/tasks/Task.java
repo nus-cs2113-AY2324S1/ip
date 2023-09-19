@@ -12,7 +12,6 @@ public abstract class Task {
     public void mark(){
         this.isDone = true;
     }
-
     public void unmark(){
         this.isDone = false;
     }
@@ -22,58 +21,14 @@ public abstract class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
-}
-
-public class Todo extends Task {
-    public Todo(String description) {
-        super(description);
+    public void setIsDone(boolean isDone){
+        this.isDone = isDone;
     }
-
-    @Override
-    public String getDescription() {
-        return "[T][" + getStatusIcon() + "] " + super.getDescription();
+    public boolean getIsDone(){
+        return isDone;
+    }
+    public String saveFormat() {
+        return "";
     }
 }
 
-public class Deadline extends Task {
-    private String by;
-
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
-    public String getBy() {
-        return by;
-    }
-
-    @Override
-    public String getDescription() {
-        return "[D][" + getStatusIcon() + "] " + super.getDescription() + " (by: " + by + ")";
-    }
-}
-
-public class Event extends Task {
-    private String from;
-    private String to;
-
-
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    @Override
-    public String getDescription() {
-        return "[E][" + getStatusIcon() + "] " + super.getDescription() + " (from: " + from + " to: " + to + ")";
-    }
-}

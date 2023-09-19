@@ -5,18 +5,20 @@ import Chatty.tasks.Event;
 import Chatty.tasks.Task;
 import Chatty.tasks.Todo;
 
+import java.io.*;
 import java.util.Scanner;
 public class Chatty {
-
+    private static final String FILE_PATH = "./data/chatty.txt";
     public static final String LINE = "____________________________________________________________";
 
     public static void main(String[] args) {
-        printWelcomeMessage();
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
         Task[] tasks = new Task[100];
         int taskCount = 0;
         int index;
+        taskCount = loadTasks(tasks, taskCount);
+        Scanner scanner = new Scanner(System.in);
+        printWelcomeMessage();
+        String input = scanner.nextLine();
         loop:
         while (!input.equalsIgnoreCase("bye")) {
             String[] words = input.split(" ");
@@ -35,13 +37,13 @@ public class Chatty {
                 case "todo":
                     taskCount = createTodo(input, tasks, taskCount);
                     break;
-            case "deadline":
+                case "deadline":
                     taskCount = createDeadline(input, tasks, taskCount);
                     break;
-            case "event":
+                case "event":
                     taskCount = createEvent(input, tasks, taskCount);
                     break;
-            default:
+                default:
                     System.out.println(LINE);
                     System.out.println("Unknown command. Please try again or type \"help\"");
                     System.out.println(LINE);
@@ -53,11 +55,65 @@ public class Chatty {
             input = scanner.nextLine();
         }
         System.out.println(LINE);
+        saveTasks(tasks, taskCount);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
         scanner.close();
     }
 
+    private static int loadTasks(Task[] tasks, int taskCount) {
+        try {
+            File file = new File(FILE_PATH);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split("\\|"); // Fix the delimiter here
+
+                String type = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+
+                switch (type) {
+                case "T":
+                    tasks[taskCount] = new Todo(description);
+                    break;
+                case "D":
+                    String by = parts[3].trim();
+                    tasks[taskCount] = new Deadline(description, by);
+                    break;
+                case "E":
+                    String fromTo = parts[3].trim();
+                    String[] fromToParts = fromTo.split(" to ");
+                    String from = fromToParts[0].trim();
+                    String to = fromToParts[1].trim();
+                    tasks[taskCount] = new Event(description, from, to);
+                    break;
+                default:
+                    throw new IOException("Invalid data in file: Unknown task type.");
+                }
+
+                tasks[taskCount].setIsDone(isDone);
+                taskCount++;
+            }
+            scanner.close();
+        } catch (IOException e) {
+            System.out.println("Error loading or creating data file.");
+        }
+        return taskCount;
+    }
+
+
+    private static void saveTasks(Task[] tasks, int taskCount) {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (int i = 0; i < taskCount; i++) {
+                writer.write(tasks[i].saveFormat() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("Error saving data file: " + e.getMessage());
+        }
+    }
     private static void listAllTasks(int taskCount, Task[] tasks) {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
