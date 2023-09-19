@@ -146,7 +146,6 @@ public class Duke {
                     String taskName = userInput.substring(6,userInput.indexOf("/"));
                     //get the event time without any "/"
                     String eventTime = userInput.substring(userInput.indexOf("/")).replace("/","");
-                    //create an event task
                     //if the taskname is empty throw an exception
                     if(taskName.equals("")){
                         throw new IllegalArgumentException("The description of an event cannot be empty.");
