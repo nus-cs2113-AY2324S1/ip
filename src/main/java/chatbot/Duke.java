@@ -1,10 +1,10 @@
 package chatbot;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-    static private Task[] taskList = new Task[100];
-    static private int numTasks = 0;
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void printLine(){
         System.out.println("____________________________________________________________");
@@ -40,8 +40,8 @@ public class Duke {
 
             // Handle "list" keyword
             else if (response.equals("list")) {
-                for (int i = 0; i < numTasks; i++) {
-                    taskList[i].show();
+                for (int i = 0; i < taskList.size(); i++) {
+                    taskList.get(i).show();
                 }
             }
 
@@ -54,11 +54,11 @@ public class Duke {
                 try{
                     int markIndex = Integer.parseInt(words[1]);
 
-                    if(markIndex < 1 || markIndex > numTasks){
-                        throw new InputException("Input Exception: Please enter a positive integer less than or equal to current number of tasks (" + numTasks + " task(s))");
+                    if(markIndex < 1 || markIndex > taskList.size()){
+                        throw new InputException("Input Exception: Please enter a positive integer less than or equal to current number of tasks (" + taskList.size() + " task(s))");
                     }
 
-                    taskList[markIndex - 1].mark();
+                    taskList.get(markIndex - 1).mark();
                 }
                 catch(NumberFormatException e){
                     throw new InputException("Input Exception: Please enter with correct format (mark [Integer])");
@@ -75,11 +75,11 @@ public class Duke {
                 try{
                     int markIndex = Integer.parseInt(words[1]);
 
-                    if(markIndex < 1 || markIndex > numTasks){
-                        throw new InputException("Input Exception: Please enter a positive integer less than or equal to current number of tasks (" + numTasks + ")");
+                    if(markIndex < 1 || markIndex > taskList.size()){
+                        throw new InputException("Input Exception: Please enter a positive integer less than or equal to current number of tasks (" + taskList.size() + ")");
                     }
 
-                    taskList[markIndex - 1].unmark();
+                    taskList.get(markIndex - 1).unmark();
                 }
                 catch(NumberFormatException e){
                     throw new InputException("Input Exception: Please enter with correct format (unmark [Integer])");
@@ -88,10 +88,9 @@ public class Duke {
 
             else if (keyword.equals("todo")) {
                 String description = response.substring(5);
-                taskList[numTasks] = new ToDo(description);
-                numTasks++;
+                taskList.add(new ToDo(description));
 
-                System.out.println("Created new chatbot.ToDo:");
+                System.out.println("Created new ToDo:");
                 System.out.println(description);
             }
 
@@ -100,10 +99,9 @@ public class Duke {
                 System.out.println("Please enter the deadline:");
                 String deadline = scanner.nextLine();
 
-                taskList[numTasks] = new Deadline(description, deadline);
-                numTasks++;
+                taskList.add(new Deadline(description, deadline));
 
-                System.out.println("Created new chatbot.Deadline:");
+                System.out.println("Created new Deadline:");
                 System.out.println(description);
                 System.out.println("Due: " + deadline);
             }
@@ -115,13 +113,32 @@ public class Duke {
                 System.out.println("Please enter event end period:");
                 String end = scanner.nextLine();
 
-                taskList[numTasks] = new Event(description, start, end);
-                numTasks++;
+                taskList.add(new Event(description, start, end));
 
-                System.out.println("Created new chatbot.Event:");
+                System.out.println("Created new Event:");
                 System.out.println(description);
                 System.out.println("From: " + start);
                 System.out.println("To: " + end);
+            }
+
+            else if(keyword.equals("delete")) {
+                if (words.length != 2) {
+                    throw new InputException("Input Exception: Please enter with correct format (delete [Integer])");
+                }
+
+                try{
+                    int markIndex = Integer.parseInt(words[1]);
+
+                    if(markIndex < 1 || markIndex > taskList.size()){
+                        throw new InputException("Input Exception: Please enter a positive integer less than or equal to current number of tasks (" + taskList.size() + " task(s))");
+                    }
+
+                    taskList.remove(markIndex - 1);
+                    System.out.println("Task at index: " + markIndex + " successfully deleted");
+                }
+                catch(NumberFormatException e){
+                    throw new InputException("Input Exception: Please enter with correct format (mark [Integer])");
+                }
             }
 
             else{
