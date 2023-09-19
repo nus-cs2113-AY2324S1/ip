@@ -26,28 +26,28 @@ public class CommandParser {
             throws InvalidCommandTypeException {
         Command command;
         switch (type) {
-        case "bye":
+        case ByeCommand.TYPE:
             command = new ByeCommand();
             break;
-        case "list":
+        case ListCommand.TYPE:
             command = new ListCommand();
             break;
-        case "mark":
+        case MarkCommand.TYPE:
             command = new MarkCommand();
             break;
-        case "unmark":
+        case UnmarkCommand.TYPE:
             command = new UnmarkCommand();
             break;
-        case "todo":
+        case TodoCommand.TYPE:
             command = new TodoCommand();
             break;
-        case "deadline":
+        case DeadlineCommand.TYPE:
             command = new DeadlineCommand();
             break;
-        case "event":
+        case EventCommand.TYPE:
             command = new EventCommand();
             break;
-        case "delete":
+        case DeleteCommand.TYPE:
             command = new DeleteCommand();
             break;
         default:
@@ -57,7 +57,7 @@ public class CommandParser {
     }
 
     private static String getCommandType(String commandLine) {
-        return commandLine.split("\\s")[0];
+        return commandLine.split(REGEX_WHITESPACE)[0];
     }
 
     private static String getCommandArguments(String commandLine, String type) {
@@ -67,11 +67,11 @@ public class CommandParser {
     public static boolean isNotOneWord(String str) {
         if (str.isEmpty()) {
             return true;
-        } else return str.split("\\s").length != 1;
+        } else return str.split(REGEX_WHITESPACE).length != 1;
     }
 
     public static boolean isNotContainingExactOneLabel(String str, String label) {
-        String[] argSplit = str.split("\\s");
+        String[] argSplit = str.split(REGEX_WHITESPACE);
         long labelCnt = Arrays.stream(argSplit).filter(a -> a.equals(label)).count();
         return labelCnt != 1;
     }
@@ -93,4 +93,6 @@ public class CommandParser {
 
         return parsedArgs;
     }
+
+    private static final String REGEX_WHITESPACE = "\\s";
 }

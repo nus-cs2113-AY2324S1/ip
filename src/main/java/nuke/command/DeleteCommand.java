@@ -4,6 +4,9 @@ import nuke.Nuke;
 import nuke.command.exception.InvalidCommandArgumentException;
 
 public class DeleteCommand extends Command {
+    public static final String TYPE = "delete";
+    private static final String USAGE = TYPE + " ((index))";
+
     private int index;
 
     @Override
@@ -20,8 +23,13 @@ public class DeleteCommand extends Command {
     }
 
     @Override
+    protected String getType() {
+        return TYPE;
+    }
+
+    @Override
     protected String getUsage() {
-        return "delete ((index))";
+        return USAGE;
     }
 
     @Override

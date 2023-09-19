@@ -4,6 +4,8 @@ import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
 
 public class ListCommand extends Command {
+    public static final String TYPE = "list";
+    private static final String USAGE = TYPE;
 
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
@@ -13,8 +15,13 @@ public class ListCommand extends Command {
     }
 
     @Override
+    protected String getType() {
+        return TYPE;
+    }
+
+    @Override
     protected String getUsage() {
-        return "list";
+        return USAGE;
     }
 
     @Override

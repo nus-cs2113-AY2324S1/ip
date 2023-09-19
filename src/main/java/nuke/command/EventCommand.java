@@ -4,6 +4,19 @@ import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
 
 public class EventCommand extends Command {
+    public static final String TYPE = "event";
+    private static final String FROM_LABEL = "/from";
+    private static final String TO_LABEL = "/to";
+    private static final String USAGE =
+            TYPE + " ((name)) " + FROM_LABEL + " ((start)) " + TO_LABEL + " ((end))";
+    private static final String REGEX_NAME_EMPTY = FROM_LABEL + "(.*)";
+    private static final String REGEX_FROM_EMPTY =
+            "(.+)\\s" + FROM_LABEL + "\\s" + TO_LABEL + "(.*)";
+    private static final String REGEX_TO_EMPTY =
+            "(.+)\\s" + FROM_LABEL + "\\s(.+)\\s" + TO_LABEL;
+    private static final String REGEX_PARSE =
+            "(.+)\\s" + FROM_LABEL + "\\s(.+)\\s" + TO_LABEL + "\\s(.+)";
+
     public String name;
     public String from;
     public String to;
@@ -12,19 +25,19 @@ public class EventCommand extends Command {
     public void applyArguments(String args) throws InvalidCommandArgumentException {
         if (args.isEmpty()) {
             throwArgumentException(ERROR_MSG_NO_ARGS);
-        } else if (CommandParser.isNotContainingExactOneLabel(args, "/from")) {
+        } else if (CommandParser.isNotContainingExactOneLabel(args, FROM_LABEL)) {
             throwArgumentException(ERROR_MSG_INVALID_NUMBER_OF_FROM_TO);
-        } else if (CommandParser.isNotContainingExactOneLabel(args, "/to")) {
+        } else if (CommandParser.isNotContainingExactOneLabel(args, TO_LABEL)) {
             throwArgumentException(ERROR_MSG_INVALID_NUMBER_OF_FROM_TO);
-        } else if (CommandParser.matches(args, "/from(.*)")) {
+        } else if (CommandParser.matches(args, REGEX_NAME_EMPTY)) {
             throwArgumentException(ERROR_MSG_NAME_EMPTY);
-        } else if (CommandParser.matches(args, "(.+)\\s/from\\s/to(.*)")) {
+        } else if (CommandParser.matches(args, REGEX_FROM_EMPTY)) {
             throwArgumentException(ERROR_MSG_FROM_EMPTY);
-        } else if (CommandParser.matches(args, "(.+)\\s/from\\s(.+)\\s/to")) {
+        } else if (CommandParser.matches(args, REGEX_TO_EMPTY)) {
             throwArgumentException(ERROR_MSG_TO_EMPTY);
         }
 
-        String[] parsedArgs = CommandParser.parseArguments(args, "(.+)\\s/from\\s(.+)\\s/to\\s(.+)");
+        String[] parsedArgs = CommandParser.parseArguments(args, REGEX_PARSE);
         checkForbiddenCharacters(parsedArgs);
         name = parsedArgs[0];
         from = parsedArgs[1];
@@ -32,8 +45,13 @@ public class EventCommand extends Command {
     }
 
     @Override
+    protected String getType() {
+        return TYPE;
+    }
+
+    @Override
     protected String getUsage() {
-        return "event ((name)) /from ((start)) /to ((end))";
+        return USAGE;
     }
 
     @Override

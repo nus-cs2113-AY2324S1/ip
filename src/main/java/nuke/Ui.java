@@ -26,6 +26,7 @@ public class Ui {
     }
 
     public void scanWhileEmpty() {
+        //noinspection StatementWithEmptyBody
         while (scanNextLine().isEmpty());
     }
 

@@ -4,6 +4,9 @@ import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
 
 public class MarkCommand extends Command {
+    public static final String TYPE = "mark";
+    private static final String USAGE = TYPE + " ((index))";
+
     private int index;
 
     @Override
@@ -20,8 +23,13 @@ public class MarkCommand extends Command {
     }
 
     @Override
+    protected String getType() {
+        return TYPE;
+    }
+
+    @Override
     protected String getUsage() {
-        return "mark ((index))";
+        return USAGE;
     }
 
     @Override

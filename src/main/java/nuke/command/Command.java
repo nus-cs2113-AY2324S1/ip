@@ -9,7 +9,9 @@ public abstract class Command {
 
     public abstract void applyArguments(String args) throws InvalidCommandArgumentException;
 
-    abstract String getUsage();
+    protected abstract String getType();
+
+    protected abstract String getUsage();
 
     public abstract void run(Nuke nuke) throws InvalidCommandArgumentException;
 
@@ -19,10 +21,6 @@ public abstract class Command {
             String errorMessage = String.format(ERROR_MSG_FORBIDDEN_CHARACTERS, getType());
             throwArgumentException(errorMessage);
         }
-    }
-
-    protected String getType() {
-        return getUsage().split(" ")[0];
     }
 
     protected void throwArgumentException(String reason)

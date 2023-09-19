@@ -4,6 +4,9 @@ import nuke.command.exception.InvalidCommandArgumentException;
 import nuke.Nuke;
 
 public class TodoCommand extends Command {
+    public static final String TYPE = "todo";
+    private static final String USAGE = TYPE + " ((name))";
+
     public String name;
 
     @Override
@@ -16,8 +19,13 @@ public class TodoCommand extends Command {
     }
 
     @Override
+    protected String getType() {
+        return TYPE;
+    }
+
+    @Override
     protected String getUsage() {
-        return "todo ((name))";
+        return USAGE;
     }
 
     @Override
