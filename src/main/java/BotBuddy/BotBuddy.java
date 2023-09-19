@@ -1,14 +1,17 @@
 package BotBuddy;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BotBuddy {
+
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
         printUnderscores();
         System.out.println("Hello from BotBuddy!");
         System.out.println("What can I do for you?");
         printUnderscores();
-        Task[] tasks = new Task[100];
         String input;
         String[] inputArr;
         String command = "";
@@ -21,31 +24,37 @@ public class BotBuddy {
             command = inputArr[0];
             if (inputArr.length == 2) {
                 parameters = inputArr[1];
+            } else {
+                parameters = "";
             }
 
             switch (command) {
             case "todo":
-                addTodo(tasks, parameters);
+                addTodo(parameters);
                 break;
 
             case "event":
-                addEvent(tasks, parameters);
+                addEvent(parameters);
                 break;
 
             case "deadline":
-                addDeadline(tasks, parameters);
+                addDeadline(parameters);
                 break;
 
             case "list":
-                listTasks(tasks);
+                listTasks();
                 break;
 
             case "mark":
-                markTask(tasks, parameters);
+                markTask(parameters);
                 break;
 
             case "unmark":
-                unmarkTask(tasks, parameters);
+                unmarkTask(parameters);
+                break;
+
+            case "delete":
+                deleteTask(parameters);
                 break;
 
             case "bye":
@@ -62,7 +71,7 @@ public class BotBuddy {
         System.out.println("____________________________________________________________");
     }
 
-    public static void addTodo(Task[] tasks, String parameters) {
+    public static void addTodo(String parameters) {
         try {
             validateInput("todo", parameters);
         } catch (BotBuddyException e) {
@@ -73,14 +82,14 @@ public class BotBuddy {
         }
         // add todo
         int noOfTasks = Task.getNoOfTasks();
-        tasks[noOfTasks] = new Todo(parameters);
+        tasks.add(new Todo(parameters));
         printUnderscores();
         System.out.println("Got it, I've added this task:");
-        System.out.println(tasks[noOfTasks]);
+        System.out.println(tasks.get(noOfTasks));
         printUnderscores();
     }
 
-    public static void addEvent(Task[] tasks, String parameters) {
+    public static void addEvent(String parameters) {
         try {
             validateInput("event", parameters);
         } catch (BotBuddyException e) {
@@ -96,14 +105,14 @@ public class BotBuddy {
         eventDetails = eventDetails[1].split("/to");
         String eventFrom = eventDetails[0].trim();
         String eventTo = eventDetails[1].trim();
-        tasks[noOfTasks] = new Event(eventName, eventFrom, eventTo);
+        tasks.add(new Event(eventName, eventFrom, eventTo));
         printUnderscores();
         System.out.println("Got it, I've added this task:");
-        System.out.println(tasks[noOfTasks]);
+        System.out.println(tasks.get(noOfTasks));
         printUnderscores();
     }
 
-    public static void addDeadline(Task[] tasks, String parameters) {
+    public static void addDeadline(String parameters) {
         try {
             validateInput("deadline", parameters);
         } catch (BotBuddyException e) {
@@ -117,14 +126,14 @@ public class BotBuddy {
         String[] deadlineDetails = parameters.split("/by");
         String deadlineName = deadlineDetails[0].trim();
         String deadlineBy = deadlineDetails[1].trim();
-        tasks[noOfTasks] = new Deadline(deadlineName, deadlineBy);
+        tasks.add(new Deadline(deadlineName, deadlineBy));
         printUnderscores();
         System.out.println("Got it, I've added this task:");
-        System.out.println(tasks[noOfTasks]);
+        System.out.println(tasks.get(noOfTasks));
         printUnderscores();
     }
 
-    public static void listTasks(Task[] tasks) {
+    public static void listTasks() {
         int noOfTasks = Task.getNoOfTasks();
         if (noOfTasks == 0) {
             printUnderscores();
@@ -135,12 +144,12 @@ public class BotBuddy {
         // print out tasks
         printUnderscores();
         for (int i = 0; i < noOfTasks; i++) {
-            System.out.println(i + 1 + ". " + tasks[i]);
+            System.out.println(i + 1 + ". " + tasks.get(i));
         }
         printUnderscores();
     }
 
-    public static void markTask(Task[] tasks, String parameters) {
+    public static void markTask(String parameters) {
         try {
             validateInput("mark", parameters);
         } catch (BotBuddyException e) {
@@ -150,14 +159,14 @@ public class BotBuddy {
             return;
         }
         int taskToMark = Integer.parseInt(parameters) - 1;
-        tasks[taskToMark].markAsDone();
+        tasks.get(taskToMark).markAsDone();
         printUnderscores();
         System.out.println("I've marked this task as done:");
-        System.out.println(tasks[taskToMark]);
+        System.out.println(tasks.get(taskToMark));
         printUnderscores();
     }
 
-    public static void unmarkTask(Task[] tasks, String parameters) {
+    public static void unmarkTask(String parameters) {
         try {
             validateInput("unmark", parameters);
         } catch (BotBuddyException e) {
@@ -167,10 +176,30 @@ public class BotBuddy {
             return;
         }
         int taskToUnmark = Integer.parseInt(parameters) - 1;
-        tasks[taskToUnmark].markAsUndone();
+        tasks.get(taskToUnmark).markAsUndone();
         printUnderscores();
         System.out.println("I've unmarked this task:");
-        System.out.println(tasks[taskToUnmark]);
+        System.out.println(tasks.get(taskToUnmark));
+        printUnderscores();
+    }
+
+    public static void deleteTask(String parameters) {
+        try {
+            validateInput("delete", parameters);
+        } catch (BotBuddyException e) {
+            printUnderscores();
+            System.out.println(e.getMessage());
+            printUnderscores();
+            return;
+        }
+        int taskToDelete = Integer.parseInt(parameters) - 1;
+        String tempMessage = String.valueOf(tasks.get(taskToDelete));
+        int noOfTasks = Task.getNoOfTasks();
+        tasks.remove(taskToDelete);
+        Task.setNoOfTasks(noOfTasks - 1);
+        printUnderscores();
+        System.out.println("I've deleted this task:");
+        System.out.println(tempMessage);
         printUnderscores();
     }
 
@@ -236,6 +265,9 @@ public class BotBuddy {
             // Fallthrough
 
         case "unmark":
+            // Fallthrough
+
+        case "delete":
             if (parameters.isEmpty()) {
                 throw new BotBuddyException("You did not specify which task!");
             }
@@ -245,10 +277,14 @@ public class BotBuddy {
             } catch (NumberFormatException e) {
                 throw new BotBuddyException("The task specified should be a number!");
             }
-            if (taskToModify > Task.getNoOfTasks()) {
+            if (taskToModify > Task.getNoOfTasks() || taskToModify < 1) {
                 throw new BotBuddyException("There is no such task!");
             }
             break;
+
+        default:
+            // this should never run
+            throw new BotBuddyException("Error in validateInput function!");
         }
     }
 }

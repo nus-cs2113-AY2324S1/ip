@@ -35,6 +35,10 @@ public abstract class Task {
         return noOfTasks;
     }
 
+    public static void setNoOfTasks(int noOfTasks) {
+        Task.noOfTasks = noOfTasks;
+    }
+
     @Override
     public String toString() {
         return getStatusIcon() + " " + getDescription();
