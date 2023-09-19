@@ -17,13 +17,41 @@ public class BotBuddy {
         printUnderscores();
 
         String filePath = "data/taskfile.txt";
+        String directoryName = "data";
+
+        File directory = new File(directoryName);
+        File taskFile = new File(filePath);
+
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        if (!taskFile.exists()) {
+            printUnderscores();
+            System.out.println("Task file not found! Creating one...");
+            printUnderscores();
+
+            if (!directory.exists()) {
+                try {
+                    taskFile.createNewFile();
+                } catch (IOException e) {
+                    System.out.println("Error creating task file... Exiting!");
+                    return;
+                }
+            }
+            try {
+                taskFile.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating task file... Exiting!");
+                return;
+            }
+        }
 
         try {
             readTaskFile(filePath);
         } catch (FileNotFoundException e) {
-            printUnderscores();
-            System.out.println("Task file not found! Creating one...");
-            printUnderscores();
+            System.out.println("Error creating task file... Exiting!");
+            return;
         }
 
         printUnderscores();
@@ -89,9 +117,8 @@ public class BotBuddy {
             try {
                 writeTaskFile(filePath);
             } catch (IOException e) {
-                System.out.println("exception");
+                System.out.println("Error writing to file!");
             }
-
 
         } while (!command.equals("bye"));
     }
@@ -180,7 +207,6 @@ public class BotBuddy {
         fileWriter.write(taskData.toString());
         fileWriter.close();
     }
-
 
 
     public static void printUnderscores() {
