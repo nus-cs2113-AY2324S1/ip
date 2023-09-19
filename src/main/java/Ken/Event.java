@@ -28,6 +28,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "\t[E]" + super.toString() + " (from: " + from + "to:" + to + ")";
+        return "\t[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
