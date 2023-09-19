@@ -7,6 +7,12 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Duke {
@@ -40,16 +46,23 @@ public class Duke {
         return input.trim().isEmpty();
     }
 
-    public static void addTodo(String input) throws DukeTaskException {
+    public static void addTodo(String input) throws DukeTaskException, IOException {
         if (checkEmptyTodoInput(input)) {
             throw new DukeTaskException();
         }
 
         tasks[tasksCount] = new Todo(input.trim());
+
+        FileWriter writer = new FileWriter("data/tasks.txt", true);
+        writer.write("T | " + tasks[tasksCount].getStatus() + " | " + tasks[tasksCount].getDescription() +
+                System.lineSeparator());
+        writer.close();
+
         tasksCount++;
+
     }
 
-    public static void addDeadline(String input) throws DukeTaskException {
+    public static void addDeadline(String input) throws DukeTaskException, IOException {
         String[] parsedInput = input.split(BY_KEYWORD);
 
         if (!(parsedInput.length == 2)) {
@@ -57,6 +70,12 @@ public class Duke {
         }
 
         tasks[tasksCount] = new Deadline(parsedInput[0].trim(), parsedInput[1].trim());
+
+        FileWriter writer = new FileWriter("data/tasks.txt", true);
+        writer.write("D | " + tasks[tasksCount].getStatus() + " | " + parsedInput[0].trim() +
+                 " | "  + parsedInput[1].trim() + System.lineSeparator());
+        writer.close();
+
         tasksCount++;
     }
 
@@ -71,7 +90,7 @@ public class Duke {
         return input.indexOf(FROM_KEYWORD) < input.indexOf(TO_KEYWORD);
     }
 
-    public static void addEvent(String input) throws DukeTaskException {
+    public static void addEvent(String input) throws DukeTaskException, IOException {
         if (!checkNumOfEventKeywords(input) || !checkPosOfEventKeywords(input)) {
             throw new DukeTaskException();
         }
@@ -79,6 +98,12 @@ public class Duke {
         String[] parsedInput = input.split(FROM_KEYWORD + "|" + TO_KEYWORD);
 
         tasks[tasksCount] = new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim());
+
+        FileWriter writer = new FileWriter("data/tasks.txt", true);
+        writer.write("E | " + tasks[tasksCount].getStatus() + " | " + parsedInput[0].trim() +
+                " | "  + parsedInput[1].trim() + " | " + parsedInput[2].trim() + System.lineSeparator());
+        writer.close();
+
         tasksCount++;
     }
 
@@ -170,6 +195,8 @@ public class Duke {
             exception.handleDukeCommandException(command);
         } catch (DukeTaskException exception) {
             exception.handleDukeTaskException(command, input);
+        } catch (IOException exception) {
+            System.out.println("error");
         }
     }
 
