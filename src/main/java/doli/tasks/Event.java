@@ -39,8 +39,9 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        String summary = String.format("[E] %s (%s, %s)", super.toString(),
-                startTime.replace("from", "from:"), endTime.replace("to", "to:"));
+        String summary = String.format("[E] %s (%s, %s)", super.toString(), // E stands for Event
+                startTime.replace("from", "from:"),
+                endTime.replace("to", "to:"));
         return summary;
     }
 }

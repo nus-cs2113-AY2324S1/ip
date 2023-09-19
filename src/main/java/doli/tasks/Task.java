@@ -10,9 +10,8 @@ public abstract class Task {
         this.isDone = false;
         numberOfTotalTasks++;
     }
-
     public char getStatusIcon() {
-        return (isDone ? 'X' : ' '); // returns a cross when the task is done and a blank else
+        return (isDone ? 'X' : ' '); // returns a cross (X) when the task is done and a blank ( ) else
     }
     public void markTaskAsDone() {
         isDone = true;
@@ -20,7 +19,10 @@ public abstract class Task {
     public void markTaskAsNotDone() {
         isDone = false;
     }
-    /** Retrieves the true task description from the user input */
+
+    /** Retrieves the true task description from the user input
+     *  removes any time bound information such as deadlines, start- or endtimes
+     */
     public String getDescription() {
         boolean containsTime = description.contains("/");
         if (containsTime) {

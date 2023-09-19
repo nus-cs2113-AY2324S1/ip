@@ -23,7 +23,8 @@ public class Deadline extends Task{
     }
     @Override
     public String toString() {
-        String summary = String.format("[D] %s (%s)", super.toString(), deadline.replace("by", "by:"));
+        String summary = String.format("[D] %s (%s)", super.toString(), // D stands for Deadline
+                deadline.replace("by", "by:"));
         return summary;
     }
 }
