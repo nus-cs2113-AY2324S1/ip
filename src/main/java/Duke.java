@@ -4,6 +4,7 @@ import Task.Task.Deadline;
 import Task.Task.Event;
 import Task.EmptyDescriptionException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -23,9 +24,9 @@ public class Duke {
         return out;
     }
 
-    public static void addTodo(String in, Task[] itemList, int i) {
+    public static void addTodo(String in, ArrayList<Task> itemList, int i) {
         try {
-            itemList[i] = new ToDo(RemoveCommandWord(in));
+            itemList.add(new ToDo(RemoveCommandWord(in)));
         } catch (EmptyDescriptionException e) {
             e.printErrorMessage();
             return;
@@ -33,17 +34,17 @@ public class Duke {
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "Sure, I've added this task:\n"
-                + "    " + itemList[i].toString()
+                + "    " + itemList.get(i).toString()
                 + "\n" + LINE_DIVIDER);
     }
 
-    public static void addEvent(String in, Task[] itemList, int i) {
+    public static void addEvent(String in, ArrayList<Task> itemList, int i) {
         try {
             String[] vals = in.split(" /");
             String name = RemoveCommandWord(vals[0]);
             String from = RemoveCommandWord(vals[1]);
             String to = RemoveCommandWord(vals[2]);
-            itemList[i] = new Event(name, from, to);
+            itemList.add(new Event(name, from, to));
         } catch (IndexOutOfBoundsException e) {
             System.out.println( LINE_DIVIDER +
                     "\n    Oop, looks like you forgot to add something!\n" +
@@ -57,17 +58,17 @@ public class Duke {
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "Sure, I've added this task:\n"
-                + "    " + itemList[i].toString()
+                + "    " + itemList.get(i).toString()
                 + "\n" + LINE_DIVIDER);
     }
 
-    public static void addDeadline(String in, Task[] itemList, int i) {
+    public static void addDeadline(String in, ArrayList<Task> itemList, int i) {
         try {
             String[] vals = in.split(" /");
             String name = RemoveCommandWord(vals[0]);
             String by = RemoveCommandWord(vals[1]);
 
-            itemList[i] = new Deadline(name, by);
+            itemList.add(new Deadline(name, by));
         } catch (IndexOutOfBoundsException e) {
             System.out.println( LINE_DIVIDER +
                     "\n    Oop, looks like you forgot to add something!\n" +
@@ -81,33 +82,58 @@ public class Duke {
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "Sure, I've added this task:\n"
-                + "    " + itemList[i].toString()
+                + "    " + itemList.get(i).toString()
                 + "\n" + LINE_DIVIDER);
     }
 
-    public static void markTask(Task[] itemList, int i) {
-        itemList[i - 1].setDone(true);
+    public static void delete(int i, ArrayList<Task> itemList) {
+        try {
+            Task temp = itemList.get(i - 1);
+
+            System.out.println(LINE_DIVIDER + "\n"
+                    + "Alright, I've deleted this task:\n"
+                    + "    " + temp.toString() + "\n"
+                    + "You have " + (itemList.size() - 1) + " tasks left now. "
+                    + ((itemList.size() == 1) ? "Congrats!" : "Get on it!") +"\n"
+                    + LINE_DIVIDER);
+
+            itemList.remove(i - 1);
+        } catch(IndexOutOfBoundsException e) {
+            if(itemList.isEmpty()) {
+                System.out.println(LINE_DIVIDER + "\n"
+                        + "    The list is empty, yo!\n"
+                        + LINE_DIVIDER);
+            } else {
+                System.out.println(LINE_DIVIDER + "\n"
+                        + "    That's out of bounds, dude!\n"
+                        + LINE_DIVIDER);
+            }
+        }
+    }
+
+    public static void markTask(ArrayList<Task> itemList, int i) {
+        itemList.get(i - 1).setDone(true);
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "    Nice, I've marked this task as done:\n"
-                + "    " + itemList[i - 1].toString() + "\n"
+                + "    " + itemList.get(i - 1).toString() + "\n"
                 + LINE_DIVIDER);
     }
 
-    public static void unmarkTask(Task[] itemList, int i) {
-        itemList[i - 1].setDone(false);
+    public static void unmarkTask(ArrayList<Task> itemList, int i) {
+        itemList.get(i - 1).setDone(false);
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "    Alright, I've unmarked this task as done:\n"
-                + "    " + itemList[i - 1].toString() + "\n"
+                + "    " + itemList.get(i - 1).toString() + "\n"
                 + LINE_DIVIDER);
     }
 
-    public static void listItems(Task[] itemList, int i) {
+    public static void listItems(ArrayList<Task> itemList, int i) {
         System.out.println(LINE_DIVIDER);
         for(int j = 0; j < i; j += 1) {
             System.out.println((j + 1)
-                    + ". " + itemList[j].toString());
+                    + ". " + itemList.get(j).toString());
         }
         System.out.println(LINE_DIVIDER);
     }
@@ -119,7 +145,7 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String buf = in.nextLine();
-        Task[] itemList = new Task[100];
+        ArrayList<Task> itemList = new ArrayList<Task>();
         int i = 0; // current index in itemList
 
         while(!buf.equalsIgnoreCase("bye")){
@@ -152,6 +178,10 @@ public class Duke {
             case "event":
                 addEvent(buf, itemList, i);
                 i += 1;
+                break;
+
+            case "delete":
+                delete(Integer.parseInt(buf.split(" ")[1]), itemList);
                 break;
 
             default:
