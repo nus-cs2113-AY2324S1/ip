@@ -3,19 +3,14 @@ package RC.task;
 public abstract class Task {
     private String description;
     private boolean isDone;
-    private static int numTasks = 0;
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        numTasks++;
     }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
-    }
-
-    public static int getNumTasks() {
-        return numTasks;
     }
 
     public String getDescription() {

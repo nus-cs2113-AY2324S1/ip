@@ -15,7 +15,7 @@ public class TaskList {
         tasks.add(task);
 
         String message = "\tGot it. I've added this task:\n\t  " + task.toString() + "\n\tNow you have " + tasks.size();
-        message += printNumTasks();
+        message += getNumTasks();
 
         System.out.println(message);
     }
@@ -30,7 +30,7 @@ public class TaskList {
         String message = "\tNoted. I've removed the following task:\n\t  " + tasks.get(taskNum);
         tasks.remove(taskNum);
         message += "\n\tNow you have " + tasks.size();
-        message += printNumTasks();
+        message += getNumTasks();
         System.out.println(message);
     }
 
@@ -52,7 +52,7 @@ public class TaskList {
         return (index >= 0 && index < tasks.size());
     }
 
-    private String printNumTasks() {
+    private String getNumTasks() {
         if (tasks.size() > 1) {
             return " tasks in the list.";
         }

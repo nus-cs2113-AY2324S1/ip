@@ -35,12 +35,16 @@ public class RC {
                 System.out.println(e.getMessage());
             }
         }
+        save();
+        System.out.println("\tBye. Hope to see you again soon!\n");
+    }
+
+    private void save() {
         try {
             storage.save(taskList);
         } catch (RCException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("\tBye. Hope to see you again soon!\n");
     }
 
     public static void main(String[] args) {

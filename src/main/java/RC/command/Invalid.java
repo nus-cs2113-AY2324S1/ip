@@ -2,9 +2,9 @@ package RC.command;
 
 import RC.RCException;
 import RC.TaskList;
+
 public class Invalid extends RCCommand {
     public Invalid() {
-
     }
 
     @Override
