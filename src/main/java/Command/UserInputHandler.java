@@ -4,6 +4,7 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class UserInputHandler {
         commands.put("todo", userInput -> {
             try {
                 taskManager.addTodo(TaskManager.parseToDoDescription(userInput));
-            } catch (JarvisException e) {
+            } catch (JarvisException | IOException e) {
                 System.out.println(e.getMessage());
             }
         });
@@ -55,7 +56,7 @@ public class UserInputHandler {
             try {
                 List<String> deadline = TaskManager.parseDeadlineDescription(userInput);
                 taskManager.addDeadline(deadline.get(0), deadline.get(1));
-            } catch (JarvisException e) {
+            } catch (JarvisException | IOException e) {
                 System.out.println(e.getMessage());
             }
         });
@@ -64,7 +65,7 @@ public class UserInputHandler {
             try {
                 List<String> event = TaskManager.parseEventDescription(userInput);
                 taskManager.addEvent(event.get(0), event.get(1), event.get(2));
-            } catch (JarvisException e) {
+            } catch (JarvisException | IOException e) {
                 System.out.println(e.getMessage());
             }
         });
@@ -94,6 +95,14 @@ public class UserInputHandler {
 
             System.out.println(LINE_BREAK);
             userInput = sc.nextLine();
+        }
+    }
+
+    public static void loadTasksFromFile() {
+        try {
+            taskManager.loadTasksFromFile();
+        } catch (IOException | JarvisException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
         }
     }
 
