@@ -7,12 +7,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -54,8 +52,13 @@ public class Duke {
         tasks[tasksCount] = new Todo(input.trim());
 
         FileWriter writer = new FileWriter("data/tasks.txt", true);
-        writer.write("T | " + tasks[tasksCount].getStatus() + " | " + tasks[tasksCount].getDescription() +
-                System.lineSeparator());
+
+        if (tasksCount != 0) {
+            writer.write(System.lineSeparator());
+        }
+
+        writer.write("T | " + tasks[tasksCount].getStatus() + " | " + tasks[tasksCount].getDescription());
+
         writer.close();
 
         tasksCount++;
@@ -72,8 +75,14 @@ public class Duke {
         tasks[tasksCount] = new Deadline(parsedInput[0].trim(), parsedInput[1].trim());
 
         FileWriter writer = new FileWriter("data/tasks.txt", true);
+
+        if (tasksCount != 0) {
+            writer.write(System.lineSeparator());
+        }
+
         writer.write("D | " + tasks[tasksCount].getStatus() + " | " + parsedInput[0].trim() +
-                 " | "  + parsedInput[1].trim() + System.lineSeparator());
+                 " | "  + parsedInput[1].trim());
+
         writer.close();
 
         tasksCount++;
@@ -100,8 +109,14 @@ public class Duke {
         tasks[tasksCount] = new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim());
 
         FileWriter writer = new FileWriter("data/tasks.txt", true);
+
+        if (tasksCount != 0) {
+            writer.write(System.lineSeparator());
+        }
+
         writer.write("E | " + tasks[tasksCount].getStatus() + " | " + parsedInput[0].trim() +
-                " | "  + parsedInput[1].trim() + " | " + parsedInput[2].trim() + System.lineSeparator());
+                " | "  + parsedInput[1].trim() + " | " + parsedInput[2].trim());
+
         writer.close();
 
         tasksCount++;
@@ -159,7 +174,7 @@ public class Duke {
         input = parsedInput.length == 1 ? " " : parsedInput[1].trim();
 
         try {
-            switch(command) {
+            switch (command) {
             case "list":
                 printTasks();
                 break;
@@ -200,9 +215,42 @@ public class Duke {
         }
     }
 
+    public static void restoreSavedData() throws FileNotFoundException {
+        File file = new File("data/tasks.txt");
+        Scanner scan = new Scanner(file);
+        String[] parsedTask;
+
+        while (scan.hasNext()) {
+
+            parsedTask = scan.nextLine().split(" \\| ");
+            String taskType = parsedTask[0];
+            System.out.println(taskType);
+            switch (taskType) {
+            case "T":
+                tasks[tasksCount] = new Todo(parsedTask[2] , parsedTask[1]);
+                tasksCount++;
+                break;
+            case "D":
+                tasks[tasksCount] = new Deadline(parsedTask[2], parsedTask[3], parsedTask[1]);
+                tasksCount++;
+                break;
+            case "E":
+                tasks[tasksCount] = new Event(parsedTask[2], parsedTask[3], parsedTask[4], parsedTask[1]);
+                tasksCount++;
+                break;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         String input = "";
         Scanner in = new Scanner(System.in);
+
+        try {
+            restoreSavedData();
+        } catch (FileNotFoundException e){
+            System.out.println("error");
+        }
 
         tellGreeting();
         while (true) {

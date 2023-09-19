@@ -1,0 +1,3 @@
+T | true | hello
+D | false | party | 9
+E | false | yay | 8 | 10
