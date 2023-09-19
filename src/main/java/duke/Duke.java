@@ -8,6 +8,10 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,6 +21,9 @@ public class Duke {
     private static final String BY_KEYWORD = " /by ";
     private static final String FROM_KEYWORD = " /from ";
     private static final String TO_KEYWORD = " /to ";
+    private static final String DATA_PATH = "data/tasks.txt";
+    private static final String DATA_DIRECTORY = "data";
+
 
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int tasksCount = 0;
@@ -41,23 +48,46 @@ public class Duke {
         return input.trim().isEmpty();
     }
 
-    public static void addTodo(String input) throws DukeTaskException {
+    public static void addTodo(String input) throws DukeTaskException, IOException {
         if (checkEmptyTodoInput(input)) {
             throw new DukeTaskException();
         }
 
         tasks.add(new Todo(input.trim()));
+
+        FileWriter writer = new FileWriter(DATA_PATH, true);
+
+        if (tasksCount != 0) {
+            writer.write(System.lineSeparator());
+        }
+
+        writer.write("T | " + tasks.get(tasksCount).getStatus() + " | " + tasks.get(tasksCount).getDescription());
+        writer.close();
+
         tasksCount++;
+
     }
 
-    public static void addDeadline(String input) throws DukeTaskException {
+    public static void addDeadline(String input) throws DukeTaskException, IOException {
         String[] parsedInput = input.split(BY_KEYWORD);
 
         if (!(parsedInput.length == 2)) {
             throw new DukeTaskException();
         }
 
+
         tasks.add(new Deadline(parsedInput[0].trim(), parsedInput[1].trim()));
+
+        FileWriter writer = new FileWriter(DATA_PATH, true);
+
+        if (tasksCount != 0) {
+            writer.write(System.lineSeparator());
+        }
+
+        writer.write("D | " + tasks.get(tasksCount).getStatus() + " | " + parsedInput[0].trim() +
+                 " | "  + parsedInput[1].trim());
+        writer.close();
+
         tasksCount++;
     }
 
@@ -72,7 +102,7 @@ public class Duke {
         return input.indexOf(FROM_KEYWORD) < input.indexOf(TO_KEYWORD);
     }
 
-    public static void addEvent(String input) throws DukeTaskException {
+    public static void addEvent(String input) throws DukeTaskException, IOException {
         if (!checkNumOfEventKeywords(input) || !checkPosOfEventKeywords(input)) {
             throw new DukeTaskException();
         }
@@ -80,6 +110,17 @@ public class Duke {
         String[] parsedInput = input.split(FROM_KEYWORD + "|" + TO_KEYWORD);
 
         tasks.add(new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim()));
+
+        FileWriter writer = new FileWriter(DATA_PATH, true);
+
+        if (tasksCount != 0) {
+            writer.write(System.lineSeparator());
+        }
+
+        writer.write("E | " + tasks.get(tasksCount).getStatus() + " | " + parsedInput[0].trim() +
+                " | "  + parsedInput[1].trim() + " | " + parsedInput[2].trim());
+        writer.close();
+
         tasksCount++;
     }
 
@@ -99,8 +140,56 @@ public class Duke {
         printNumOfTasks();
     }
 
+    private static void modifyTaskData(int index, int currentIndex, Scanner scanner, String change,
+                                       StringBuilder buffer) {
+        if (currentIndex == index) {
+            String[] parsedTask = scanner.nextLine().split(" \\| ");
+            parsedTask[1] = change;
+
+            for (int i = 0; i < parsedTask.length; i++) {
+                buffer.append(parsedTask[i]);
+
+                if (i < parsedTask.length - 1) {
+                    buffer.append(" | ");
+                }
+            }
+            buffer.append(System.lineSeparator());
+        } else {
+            buffer.append(scanner.nextLine());
+
+            if (scanner.hasNext()) {
+                buffer.append(System.lineSeparator());
+            }
+        }
+    }
+
+    //Solution below adapted by https://www.tutorialspoint.com/how-to-overwrite-a-line-in-a-txt-file-using-java
+    public static void updateTaskDatabase(int index, boolean taskStatus) throws IOException {
+        Scanner scanner = new Scanner(new File("data/tasks.txt"));
+
+        StringBuilder buffer = new StringBuilder();
+        String change = taskStatus ? "true" : "false";
+        int currentIndex = 0;
+
+        while (scanner.hasNext()) {
+            modifyTaskData(index, currentIndex, scanner, change, buffer);
+            currentIndex++;
+        }
+
+        FileWriter writer = new FileWriter(DATA_PATH);
+        writer.append(buffer.toString());
+        writer.close();
+    }
+
     public static void setMarkAsDone(String input) {
         int index = parseIndex(input);
+
+        try {
+            updateTaskDatabase(index, true);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+
         tasks.get(index).markAsDone();
 
         System.out.println("\tYay! You have completed this task:");
@@ -109,6 +198,13 @@ public class Duke {
 
     public static void setUnmarkAsDone(String input) {
         int index = parseIndex(input);
+
+        try {
+            updateTaskDatabase(index, false);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+
         tasks.get(index).unmarkAsDone();
 
         System.out.println("\tOh no! It seems that you haven't finish this task:");
@@ -145,13 +241,18 @@ public class Duke {
         System.out.println("\tThe number you tried to input is: " + input);
     }
 
+    public static void handleIOException(IOException exception) {
+        System.out.println("Something went wrong! Please try again!");
+        System.out.println(exception.getMessage());
+    }
+
     public static void executeCommand(String input) {
         String[] parsedInput = input.split(" ", 2);
         String command = parsedInput[0];
         input = parsedInput.length == 1 ? " " : parsedInput[1].trim();
 
         try {
-            switch(command) {
+            switch (command) {
             case "list":
                 printTasks();
                 break;
@@ -190,12 +291,85 @@ public class Duke {
             exception.handleDukeCommandException(command);
         } catch (DukeTaskException exception) {
             exception.handleDukeTaskException(command, input);
+        } catch (IOException exception) {
+            handleIOException(exception);
         }
+    }
+
+    private static void createNewData(Scanner scan) {
+        String[] parsedTask = scan.nextLine().split(" \\| ");
+
+        String taskType = parsedTask[0];
+
+        switch (taskType) {
+        case "T":
+            tasks.add(new Todo(parsedTask[2] , parsedTask[1]));
+            tasksCount++;
+            break;
+        case "D":
+            tasks.add(new Deadline(parsedTask[2], parsedTask[1], parsedTask[3]));
+            tasksCount++;
+            break;
+        case "E":
+            tasks.add(new Event(parsedTask[2], parsedTask[1], parsedTask[3], parsedTask[4]));
+            tasksCount++;
+            break;
+        }
+    }
+
+    public static void restoreSavedData() throws FileNotFoundException {
+        File file = new File(DATA_PATH);
+        Scanner scan = new Scanner(file);
+
+        while (scan.hasNext()) {
+            createNewData(scan);
+        }
+    }
+
+    private static void createDukeDirectory(File newDirectory) {
+        if (!newDirectory.isDirectory() && newDirectory.mkdir()) {
+            System.out.println("\tDirectory successfully created!");
+        } else {
+            System.out.println("\tDirectory found!");
+        }
+    }
+
+    private static void createDukeFile(File newDatabase) throws IOException {
+        if (!newDatabase.isFile() && newDatabase.createNewFile()) {
+            System.out.println("\tData text file successfully created!");
+        } else {
+            System.out.println("\tText file found!");
+        }
+    }
+
+    public static void handleFileNotFoundException() {
+        System.out.println("\t" + HORIZONTAL_LINE);
+        System.out.println("\tLooks like I can't find the file. Let me make it for you.");
+
+        File newDirectory = new File(DATA_DIRECTORY);
+        File newDatabase = new File(DATA_PATH);
+
+        try {
+            createDukeDirectory(newDirectory);
+            createDukeFile(newDatabase);
+        } catch (IOException exception){
+            handleIOException(exception);
+        }
+
+        System.out.println("\tPlease try to run the app again.");
+        System.out.println("\t" + HORIZONTAL_LINE);
     }
 
     public static void main(String[] args) {
         String input;
         Scanner in = new Scanner(System.in);
+
+        try {
+            restoreSavedData();
+        } catch (FileNotFoundException e){
+            handleFileNotFoundException();
+            System.exit(1);
+        }
 
         tellGreeting();
         while (true) {

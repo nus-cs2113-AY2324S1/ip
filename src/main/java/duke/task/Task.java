@@ -9,6 +9,15 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String description, String isDone) {
+        this.description = description;
+        this.isDone = isDone.equals("true");
+    }
+
+    public boolean getStatus() {
+        return isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
