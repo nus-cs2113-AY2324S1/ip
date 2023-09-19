@@ -1,5 +1,4 @@
 import java.util.Scanner;  // Import the Scanner class
-import java.io.File; // Import the File class
 import java.util.ArrayList; // Import the ArrayList class
 
 public class Duke {
