@@ -1,4 +1,6 @@
 import java.util.Scanner;  // Import the Scanner class
+import java.io.File; // Import the File class
+
 public class Duke {
 
     //Initialize create a list of tasks
@@ -6,6 +8,57 @@ public class Duke {
     public static int taskCount = 0;
 
     public static void main(String[] args) {
+
+        //check if there is a file to read from
+        try{
+            File file = new File("data/duke.txt");
+            Scanner fileScan = new Scanner(file);
+            while(fileScan.hasNextLine()){
+                String line = fileScan.nextLine();
+                String[] lineSplit = line.split(" \\| ");
+                if(lineSplit[0].equals("T")){
+                    tasks[taskCount] = new Todo(lineSplit[2]);
+                    if(lineSplit.length > 3){
+                        throw new DukeException("Your data file is corrupted");
+                    }
+                    if(lineSplit[1].equals("true")){
+                        tasks[taskCount].markAsDone();
+                    }
+                    taskCount++;
+                }else if(lineSplit[0].equals("D")){
+                    if(lineSplit.length > 4){
+                        throw new DukeException("Your data file is corrupted");
+                    }
+                    tasks[taskCount] = new Deadline(lineSplit[2], lineSplit[3]);
+                    if(lineSplit[1].equals("true")){
+                        tasks[taskCount].markAsDone();
+                    }
+                    taskCount++;
+                }else if(lineSplit[0].equals("E")){
+                    if(lineSplit.length > 4){
+                        throw new DukeException("Your data file is corrupted");
+                    }
+                    tasks[taskCount] = new Event(lineSplit[2], lineSplit[3]);
+                    if(lineSplit[1].equals("true")){
+                        tasks[taskCount].markAsDone();
+                    }
+                    taskCount++;
+                }
+            }
+            //print the tasks in the file
+            
+            fileScan.close();
+        //otherwise create a new file
+        } catch(Exception e){
+            //Create a new file and directory
+            try{
+                File file = new File("data/duke.txt");
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }catch(Exception e1){
+                e1.printStackTrace();
+            }
+        }
 
         //Print out the logo
         String logo = " ____        _        \n"
@@ -194,5 +247,9 @@ public class Duke {
         //Close the scanner
         userScan.close();
 
+        //Write the tasks to the file
+        FileRW.writeToFile(tasks, taskCount);
+        
     }
+
 }
