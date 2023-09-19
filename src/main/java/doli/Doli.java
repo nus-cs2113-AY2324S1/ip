@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
-/** Very simple chatbot that helps setting up an agenda with various assignments and tasks
+/** Very simple chatbot that sets up an agenda with various assignments and tasks
  *  Able to add, delete, view, clear, mark, unmark etc.
  *  Agenda is stored in working directory as Agenda.txt and retrieved when the bot is initialised
  */
