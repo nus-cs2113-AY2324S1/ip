@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.exceptions.NullValidInputException;
+
 public class Event extends Task {
     protected String timePeriod;
 
@@ -8,9 +10,12 @@ public class Event extends Task {
         this.timePeriod = timePeriod;
     }
 
-    public static String[] handleInputForEvent(String userInput) {
+    public static String[] handleInputForEvent(String userInput) throws NullValidInputException {
         String usefulInput = userInput.replace("event", "").trim();
         String[] taskAndTimePeriod = usefulInput.split("/");
+        if (taskAndTimePeriod.length < 3) {
+            throw new NullValidInputException("Not enough input for event");
+        }
         String description = taskAndTimePeriod[0];
         String timePeriod = taskAndTimePeriod[1] + taskAndTimePeriod[2];
         if (timePeriod.startsWith("from")) {
