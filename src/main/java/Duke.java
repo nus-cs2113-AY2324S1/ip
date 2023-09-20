@@ -443,6 +443,7 @@ public class Duke {
                     switch(commandType.toLowerCase()){
                         case "bye":
                             goodbye();
+                            System.exit(0);
                             break;
 
                         case "list":
