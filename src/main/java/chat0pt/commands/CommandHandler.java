@@ -73,4 +73,37 @@ public class CommandHandler {
         }
         return null;
     }
+
+    public static int deleteTask(String[] tokens, int arrayListSize){
+        int key = -1;
+        try {
+            if (tokens.length == 2) {
+                key = Integer.parseInt(tokens[1]);
+                key -= 1;
+            } else {
+                Printer.invalidDelete();
+            }
+            if (key > arrayListSize) {
+                Printer.invalidDelete();
+            }
+        }catch(NumberFormatException nfe){
+            Printer.invalidDelete();
+        }
+        return key;
+    }
+
+    public static int markChecker(String[] tokens){
+        int key = -1;
+        try {
+            if (tokens.length == 2) {
+                key = Integer.parseInt(tokens[1]);
+                key -= 1;
+            } else {
+                Printer.invalidMark();
+            }
+        }catch(NumberFormatException nfe){
+            Printer.invalidMark();
+        }
+        return key;
+    }
 }

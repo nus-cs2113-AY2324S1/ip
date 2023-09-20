@@ -37,6 +37,32 @@ public class CommandProcessor {
                 Printer.successfulTask(eventTask,tasks.size());
             }
             break;
+        case "delete":
+            int deleteKey = CommandHandler.deleteTask(splitString,tasks.size());
+            if(deleteKey != -1){
+                Task deleteTask = tasks.get(deleteKey);
+                Printer.deleteMessage(deleteTask, tasks.size());
+                tasks.remove(deleteKey);
+            }
+            break;
+        case "mark":
+            int markKey = CommandHandler.markChecker(splitString);
+            if(markKey != -1){
+                Task t = tasks.get(markKey);
+                t.setMarked(true);
+                tasks.set(markKey,t);
+                Printer.mark(t,true);
+            }
+            break;
+        case "unmark":
+            int unmarkKey = CommandHandler.markChecker(splitString);
+            if(unmarkKey != -1){
+                Task t = tasks.get(unmarkKey);
+                t.setMarked(false);
+                tasks.set(unmarkKey,t);
+                Printer.mark(t, false);
+            }
+            break;
         default:
             Printer.unsupportedCommand();
             break;
