@@ -73,4 +73,8 @@ public class Printer {
         }
         print(taskStrings);
     }
+
+    public static void failedFile(){
+        String[] message = {"Failed to access file. This session of Chat0PT would not be saved"};
+    }
 }
