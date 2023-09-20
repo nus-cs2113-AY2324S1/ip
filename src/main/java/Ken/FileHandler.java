@@ -1,6 +1,7 @@
 package Ken;
 
 import Exceptions.KenFileCorruptedException;
+import Exceptions.KenMissingTaskException;
 import Exceptions.KenReadFromFileException;
 import Exceptions.KenWriteToFileException;
 
@@ -82,7 +83,7 @@ public class FileHandler {
     public static void writeToFile(TaskList list) throws KenWriteToFileException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
-            for (int i = 1; i <= list.getSize(); i++) {
+            for (int i = 0; i < list.getSize(); i++) {
                 Task task = list.getTask(i);
                 String taskText = task.toString().trim();
                 fw.write(taskText + System.lineSeparator());
