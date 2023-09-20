@@ -50,6 +50,9 @@ public class CommandParser {
         case DeleteCommand.TYPE:
             command = new DeleteCommand();
             break;
+        case FindCommand.TYPE:
+            command = new FindCommand();
+            break;
         default:
             throw new InvalidCommandTypeException(type);
         }

@@ -113,6 +113,11 @@ public class Nuke {
         ui.printDeletedTask(deletedTask, countTasks());
     }
 
+    public void findTasks(String keyword) {
+        String[] foundTasks = tasks.find(keyword);
+        ui.printFoundTask(foundTasks);
+    }
+
     public void addTodo(String name) {
         addTask(new Todo(name));
     }
