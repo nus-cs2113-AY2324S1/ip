@@ -3,11 +3,12 @@ import java.util.Scanner;
 public class Luke {
     private static final String BYE_COMMAND = "bye";
     public static void main(String[] args) {
-        String logo = "\t _ _\n" +
-                "\t | |_ _| |_____\n" +
-                "\t | |   | | | | |/ /_ \\\\\n" +
-                "\t | |___ | |_ | |   <__ /\n" +
-                "\t | _____ |\\\\__, _ | _ |\\\\_\\\\___ |\n";
+        String logo = "\t _           _        \n"
+                + "\t| |    _   _| | _____ \n"
+                + "\t| |   | | | | |/ / _ \\\n"
+                + "\t| |___| |_| |   <  __/\n"
+                + "\t|_____|\\__,_|_|\\_\\___|\n";
+
         System.out.println("\t" + "Hello! I'm\n" + logo);
         System.out.println("\t" + "What can I do for you?");
 
@@ -73,10 +74,16 @@ public class Luke {
                     break;
 
                 case EVENT:
-                    taskList[counter] = new Event(echo);
-                    System.out.println("\tGot it. I've added this task:" + "\n" + taskList[counter]);
-                    counter += 1;
-                    System.out.println("\tNow you have " + counter + " tasks in the list.");
+
+                    try {
+                        taskList[counter] = new Event(echo);
+                        System.out.println("\tGot it. I've added this task:" + "\n" + taskList[counter]);
+                        counter += 1;
+                        System.out.println("\tNow you have " + counter + " tasks in the list.");
+                    } catch (IndexOutOfBoundsException e) {
+                        //counter -= 1;
+                        System.out.println("OOPS!!! The description of a event cannot be empty.");
+                    }
                     break;
 
                 default:

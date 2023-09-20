@@ -10,6 +10,10 @@ public class Event extends Deadline {
         String taskDuration = taskDescription.substring(slashCut);
         setDates(taskDuration);
         description = taskDescription.substring(0, slashCut);
+
+        if (description.length() <= 0) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public String getStartDate() {
