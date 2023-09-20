@@ -1,4 +1,4 @@
-package cn.yfshadaow.cs2113.ip;
+package cn.yfshadaow.cs2113.ip.task;
 
 public class Todo extends Task {
     public Todo(String name) {
