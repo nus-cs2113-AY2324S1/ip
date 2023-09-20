@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -27,6 +32,97 @@ public class Duke {
             + COMMAND_MARK + " <task number> - marks the task as done\n"
             + COMMAND_UNMARK + " <task number> - marks the task as not done yet\n"
             + COMMAND_DELETE + " <task number> - deletes the task\n";
+
+    /*
+     * This method creates a file if it does not exist.
+     * @param f the file to be created
+     * @return true if the file is created successfully, false otherwise
+     * @throws IOException if the file cannot be created
+     */
+    private static boolean createFile(File f) {
+        try {
+            return f.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error: ☹ OOPS!!! Unable to create file.");
+            return false;
+        }
+    }
+
+    /*
+     * This method creates a data directory if it does not exist.
+     * @param f the file to be created
+     * @return true if the file is created successfully, false otherwise
+     */
+    private static void makeDataDir() {
+        File dataDirectory = new File("./data/");
+        if(!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+    }
+
+    /*
+     * This method appends the task to the file.
+     * @param filePath the path of the file
+     * @param task the task to be appended to the file
+     * @throws IOException if the file cannot be written to
+     */
+    private static void appendToFile(String filePath, Task task) {
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
+            fw.write(task.toData() + "\n");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error: ☹ OOPS!!! Unable to write to file.");
+        }
+    }
+
+    /*
+     * This method loads the data from the file.
+     * @param file the file to be loaded
+     * @param list the list of tasks
+     * @return the list of tasks
+     * @throws FileNotFoundException if the file cannot be found
+     */
+    private static ArrayList<Task> loadData(File file, ArrayList<Task> list) {
+        try {
+            Scanner s = new Scanner(file);
+            while (s.hasNext()) {
+                String taskData = s.nextLine();
+                String taskType = taskData.substring(0, 1);
+
+                switch(taskType) {
+                case "T":
+                    list.add(Todo.dataToTask(taskData.substring(4)));
+                    break;
+                
+                case "D":
+                    list.add(Deadline.dataToTask(taskData.substring(4)));
+                    break;
+                
+                case "E":
+                    list.add(Event.dataToTask(taskData.substring(4)));
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: ☹ OOPS!!! File not found. Unable to load data.");
+        }
+        return list;
+    }
+
+
+    private static void writeAllToFile(ArrayList<Task> list, File f) {
+        try {
+            FileWriter fw = new FileWriter(f);
+            for(int i = 0; i < list.size(); i++) {
+                fw.write(list.get(i).toData() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            
+            System.out.println("Error: ☹ OOPS!!! Unable to write to file.");
+        }
+    }
     /*
      * This method prints the greetings message when the user starts the program.
      */
@@ -290,6 +386,12 @@ public class Duke {
 
         try (Scanner givenTask = new Scanner(System.in)) {
             ArrayList<Task> tasks = new ArrayList<>();
+            String filePath = "data/duke.txt";
+            makeDataDir();
+            File f = new File(filePath);
+            if(!createFile(f)){
+                tasks = loadData(f, tasks);
+            }
 
 
             while(true) {
@@ -315,22 +417,27 @@ public class Duke {
 
                         case "mark":
                             markTask(tasks, parts);
+                            writeAllToFile(tasks, f);
                             break;
 
                         case "unmark":
                             unmarkTask(tasks, parts);
+                            writeAllToFile(tasks, f);
                             break;
 
                         case "todo":
                             addTodo(tasks, parts);
+                            appendToFile(filePath, tasks.get(tasks.size() - 1));
                             break;
 
                         case "deadline":
                             addDeadline(tasks, parts);
+                            appendToFile(filePath, tasks.get(tasks.size() - 1));
                             break;
 
                         case "event":
                             addEvent(tasks, parts);
+                            appendToFile(filePath, tasks.get(tasks.size() - 1));
                             break;
 
                         default:
