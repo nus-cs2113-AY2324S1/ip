@@ -6,6 +6,7 @@ import taskmanagement.Deadline;
 import taskmanagement.Event;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TaskItems {
     static String outputFormat = "    ____________________________________________________________\n" +
@@ -30,13 +31,13 @@ public class TaskItems {
     }
     //to echo after a task's status is changed
     public static void echo(Task task, boolean isDone){
-        String output = isDone ? "Congrats! :D " + "taskmanagement.Task marked as done: " + task.getDescription() + " [" + task.getStatusIcon() + "]"
-                : "Oopsies!" + "taskmanagement.Task unmarked: " + task.getDescription() + " [" + task.getStatusIcon() + "]";
+        String output = isDone ? "Congrats! :D " + "Task marked as done: " + task.getDescription() + " [" + task.getStatusIcon() + "]"
+                : "Oopsies!" + "Task unmarked: " + task.getDescription() + " [" + task.getStatusIcon() + "]";
         System.out.printf(outputFormat + "%n", output);
     }
 
     //to echo when LIST command is being used
-    public static void echo(Task[] items){
+    public static void echo(ArrayList<Task> items){
         System.out.println("    ____________________________________________________________");
         int index=0;
         for(Task item : items){
@@ -54,8 +55,7 @@ public class TaskItems {
         Scanner in = new Scanner(System.in);
         String input = "";
 
-        Task[] items = new Task[100];
-        int index = 0;
+        ArrayList<Task> items = new ArrayList<>();
         Task task = null;
 
         while(!(input = in.nextLine()).equals(EXIT_BOT_COMMAND)){
@@ -66,7 +66,7 @@ public class TaskItems {
                         throw new ZranExceptions(ZranErrorMessages.EMPTY_TASK_INDEX.message);
                     }
                     try{
-                        task = items[Integer.parseInt(eventIndex) - 1];
+                        task = items.get(Integer.parseInt(eventIndex) - 1);
                         task.setAsDone();
                         echo(task, task.isDone);
                     } catch(NullPointerException e) {
@@ -83,7 +83,7 @@ public class TaskItems {
                         throw new ZranExceptions(ZranErrorMessages.EMPTY_TASK_INDEX.message);
                     }
                     try {
-                        task = items[Integer.parseInt(eventIndex) - 1];
+                        task = items.get(Integer.parseInt(eventIndex) - 1);
                         task.setAsNotDone();
                         echo(task, task.isDone);
                     } catch (NullPointerException e) {
@@ -110,7 +110,7 @@ public class TaskItems {
             } else {
                 try{
                     task = addTaskByType(input);
-                    items[index++] = task;
+                    items.add(task);
                     echo(task);
                 }
                 catch(ZranExceptions e){
