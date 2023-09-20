@@ -4,77 +4,91 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 
 public class TaskList {
-    private Task[] taskList;
+    private ArrayList<Task> taskList;
     private int taskCount;
     private String line = "____________________________________________________________";
 
     public TaskList() {
-        this.taskList = new Task[100];
+        this.taskList = new ArrayList<>();
         this.taskCount = 0;
     }
 
     public void addTodo(String taskName) {
         Task newTask = new ToDo(taskName);
-        taskList[taskCount] = newTask;
+        taskList.add(newTask);
         taskCount++;
     }
 
     public void addDeadline(String taskName, String deadline) {
         Task newTask = new Deadlines(taskName, deadline);
-        taskList[taskCount] = newTask;
+        taskList.add(newTask);
         taskCount++;
     }
 
     public void addEvent(String taskName, String startTime, String endTime) {
         Task newTask = new Event(taskName, startTime, endTime);
-        taskList[taskCount] = newTask;
+        taskList.add(newTask);
         taskCount++;
     }
 
     public String[] getTasks() {
         String[] tasks = new String[taskCount];
         for (int i = 0; i < taskCount; i++) {
-            tasks[i] = taskList[i].toString();
+            tasks[i] = taskList.get(i).toString();
         }
         return tasks;
     }
 
     public void markTaskAsDone(int taskNumber) {
-        taskList[taskNumber - 1].markAsDone();
-    }   
+        if (taskNumber >= 1 && taskNumber <= taskCount) {
+            taskList.get(taskNumber - 1).markAsDone();
+        } else {
+            System.out.println("Invalid task number.");
+        }
+    }
 
     public void unmarkTaskAsDone(int taskNumber) {
-        taskList[taskNumber - 1].unmarkAsDone();
+        if (taskNumber >= 1 && taskNumber <= taskCount) {
+            taskList.get(taskNumber - 1).unmarkAsDone();
+        } else {
+            System.out.println("Invalid task number.");
+        }
     }
 
     public void deleteTask(int taskNumber) {
-        taskList[taskNumber - 1] = null;
-        for (int i = taskNumber - 1; i < taskCount - 1; i++) {
-            taskList[i] = taskList[i + 1];
+        if (taskNumber >= 1 && taskNumber <= taskCount) {
+            taskList.remove(taskNumber - 1);
+            taskCount--;
+        } else {
+            System.out.println("Invalid task number.");
         }
-        taskCount--;
     }
 
     public String[] findTasks(String keyword) {
-        String[] tasks = new String[taskCount];
-        int taskIndex = 0;
-        for (int i = 0; i < taskCount; i++) {
-            if (taskList[i].getTaskName().contains(keyword)) {
-                tasks[taskIndex] = taskList[i].toString();
-                taskIndex++;
+        ArrayList<String> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getTaskName().contains(keyword)) {
+                matchingTasks.add(task.toString());
             }
         }
-        return tasks;
+        return matchingTasks.toArray(new String[0]);
     }
-    
+
     public int getTaskCount() {
         return taskCount;
     }
 
     public Task getTaskByNumber(int taskNumber) {
-        return taskList[taskNumber - 1];
+        if (taskNumber >= 1 && taskNumber <= taskCount) {
+            return taskList.get(taskNumber - 1);
+        } else {
+            System.out.println("Invalid task number.");
+            return null;
+        }
     }
 
     public void loadTasks() {
@@ -83,7 +97,7 @@ public class TaskList {
             if (!dataDirectory.exists()) {
                 dataDirectory.mkdir();
             }
-            
+
             File taskListFile = new File(dataDirectory, "tasks.txt");
             if (!taskListFile.exists()) {
                 taskListFile.createNewFile();
@@ -92,7 +106,7 @@ public class TaskList {
             Scanner sc = new Scanner(taskListFile);
             while (sc.hasNextLine()) {
                 String task = sc.nextLine();
-                String[] taskDetails = task.split("\\|"); 
+                String[] taskDetails = task.split("\\|");
                 switch (taskDetails[0]) {
                     case "T":
                         addTodoFromFile(taskDetails);
@@ -106,8 +120,8 @@ public class TaskList {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error: Unable to create or access data file/directory!\n" 
-            + e.getMessage() + "\n" + line + "\n");
+            System.out.println("Error: Unable to create or access data file/directory!\n"
+                    + e.getMessage() + "\n" + line + "\n");
         }
     }
 
@@ -152,12 +166,13 @@ public class TaskList {
 
             FileWriter fw = new FileWriter(taskListFile);
             for (int i = 0; i < taskCount; i++) {
-                fw.write(taskList[i].toFileString() + "\n");
+                fw.write(taskList.get(i).toFileString() + "\n");
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error: Unable to create or access data file/directory!\n" 
-            + e.getMessage() + "\n" + line + "\n");
+            System.out.println("Error: Unable to create or access data file/directory!\n"
+                    + e.getMessage() + "\n" + line + "\n");
         }
     }
 }
+
