@@ -9,18 +9,18 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Storage {
-    protected String fileName;
+    protected String filePath;
     protected File fileObject;
     protected ArrayList<Task> taskData;
 
-    public Storage(String fileName) throws IOException, SoccatException {
-        this.fileName = fileName;
-        File dataFile = new File(fileName);
+    public Storage(String filePath) throws IOException, SoccatException {
+        this.filePath = filePath;
+        File dataFile = new File(filePath);
         this.fileObject = dataFile;
         boolean isCreated = dataFile.exists();
         // Check if the file is created and create file if file is not present
         if (!isCreated) {
-            isCreated = dataFile.createNewFile();
+            isCreated = createFile(filePath, dataFile);
         }
         // If file is still not created, throw an exception
         if (!isCreated) {
@@ -33,6 +33,28 @@ public class Storage {
             dataStrings.add(dataFileScanner.nextLine());
         }
         this.taskData = parseFile(dataStrings);
+    }
+
+    public boolean createFile(String filePath, File dataFile) throws IOException {
+        String[] pathArray;
+        String fileName;
+        if (filePath.contains("/")) {
+            pathArray = filePath.split("/");
+        } else if (filePath.contains("\\")) {
+            pathArray = filePath.split("/");
+        } else {
+            pathArray = new String[] {filePath};
+        }
+        fileName = pathArray[pathArray.length - 1];
+        File directory = new File(filePath.replace(fileName, ""));
+        try {
+            boolean success;
+            success = directory.mkdirs();
+            success = dataFile.createNewFile();
+            return success;
+        } catch (IOException e) {
+            throw new IOException();
+        }
     }
 
     public ArrayList<Task> getTaskData() {
@@ -85,6 +107,8 @@ public class Storage {
                 }
                 dataFileWriter.write(taskType + taskStatus + taskDescription + "\n");
             }
+        } catch (IOException e) {
+            throw new IOException();
         }
     }
 
