@@ -1,6 +1,0 @@
-T | 0 | go home
-D | 0 | reach home | 3pm
-D | 0 | go library | 5pm
-E | 0 | go to sch | 2pm to 4pm
-T | 0 | go home
-T | 1 |  leave by 5pm

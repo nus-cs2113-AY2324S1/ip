@@ -12,12 +12,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class taskFile{
-    public static ArrayList<Task> loadTasksFromFile(String filePath) {
+public class TaskFile{
+    public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
+        try {
+            File dataDirectory = new File("./data");
+            if (!dataDirectory.exists()) {
+                dataDirectory.mkdir();
+            }
 
-        try (Scanner scanner = new Scanner(new File(filePath))) {
-            while (scanner.hasNextLine()) {
+            File taskListFile = new File(dataDirectory, "tasks.txt");
+            if (!taskListFile.exists()) {
+                taskListFile.createNewFile();
+            }
+            Scanner scanner = new Scanner(taskListFile);
+            while(scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
                 // Parse each line to create a Task and add it to loadedTasks
                 Task task = parseTaskFromString(line);
@@ -25,8 +34,9 @@ public class taskFile{
                     loadedTasks.add(task);
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + filePath);
+            printFileContents(taskListFile);
+        } catch (IOException e) {
+            System.out.println("File not found: " + e.getMessage());
         }
         return loadedTasks;
     }
@@ -59,25 +69,41 @@ public class taskFile{
         return null;
     }
 
+    public static void saveTaskListToFile(ArrayList<Task> taskList) {
+        try{
+            File dataDirectory = new File("./data");
+            if (!dataDirectory.exists()) {
+                dataDirectory.mkdir();
+            }
 
-    public static void saveTaskListToFile(String filePath, ArrayList<Task> taskList) {
-        try (FileWriter taskFile = new FileWriter(filePath)) {
+            File taskListFile = new File(dataDirectory, "tasks.txt");
+            if (!taskListFile.exists()) {
+                taskListFile.createNewFile();
+            }
+
+            FileWriter taskFile = new FileWriter(taskListFile);
             for (Task task : taskList) {
                 String taskString = task.toFileString();
                 taskFile.write(taskString);
                 taskFile.write(System.lineSeparator());
             }
+            taskFile.close();
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 
-    public static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
+    public static void printFileContents(File taskListFile) throws FileNotFoundException {
+        try {
+            Scanner s = new Scanner(taskListFile); // Create a Scanner directly from the file
+            while (s.hasNextLine()) {
+                System.out.println(s.nextLine());
+            }
+            s.close(); // Close the Scanner when done
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
+
 
 }
