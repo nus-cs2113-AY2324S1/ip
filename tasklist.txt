@@ -1,0 +1,3 @@
+event jeremy attend CS2113 lecture Friday 22 Sep 2023 /from 4 /to 6pm
+deadline jeremy submit UG draft /by today 2359
+delete 2
