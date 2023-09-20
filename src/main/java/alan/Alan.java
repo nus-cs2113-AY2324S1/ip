@@ -1,11 +1,13 @@
 package alan;
 
-import alan.task.Deadline;
-import alan.task.Event;
-import alan.task.Task;
-import alan.task.Todo;
+import alan.task.*;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static alan.AlanExceptions.checkDeadlineInputFormat;
@@ -160,6 +162,65 @@ public class Alan {
         printTaskAddedMessage(taskList);
     }
 
+    public static void saveFileHandler(ArrayList<Task> taskList) throws Exception {
+        String userWorkingDirectory = System.getProperty("user.dir");
+        java.nio.file.Path tasksFilePath = java.nio.file.Paths.get(userWorkingDirectory, "data", "tasks.txt");
+        java.nio.file.Path dataFolderPath = java.nio.file.Paths.get(userWorkingDirectory, "data");
+        File textFile = new File(String.valueOf(tasksFilePath));
+        File folder = new File(String.valueOf(dataFolderPath));
+
+        //check if folder exists
+        if (!Files.exists(dataFolderPath)) {
+            folder.mkdir();
+            System.out.println("Data Folder was not found!\nNew data folder has been created in" + userWorkingDirectory);
+        }
+
+        //check if file exists
+        if (!Files.exists(tasksFilePath)) {
+            textFile.createNewFile();
+            System.out.println("tasks.txt was not found!\nNew tasks.txt has been created in" + dataFolderPath);
+        }
+
+        //input arraylist data into text file
+        for (int i = 0; i < taskList.size(); i++) {
+            String taskDataRow = getStringOfTaskInformation(taskList, i);
+
+            if (i == 0) {
+                writeToFile(tasksFilePath.toString(), taskDataRow);
+            } else {
+                appendToFile(tasksFilePath.toString(), taskDataRow);
+            }
+        }
+    }
+
+    private static String getStringOfTaskInformation(ArrayList<Task> taskList, int i) {
+        Task task = taskList.get(i);
+        String taskDataRow = task.getTaskType() + " | " + task.getStatusValue() + " | " + task.getDescription();
+
+        if (task.getTaskType() == TaskType.D) {
+            Deadline deadline = (Deadline) task;
+            taskDataRow = taskDataRow + " | " + deadline.getBy();
+        }
+
+        if (task.getTaskType() == TaskType.E) {
+            Event event = (Event) task;
+            taskDataRow = taskDataRow + " | " + event.getFrom() + "-" +event.getTo();
+        }
+
+        taskDataRow = taskDataRow + "\n";
+        return taskDataRow;
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+    private static void appendToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAdd);
+        fw.close();
+    }
 
     public static void main(String[] args) {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -185,6 +246,13 @@ public class Alan {
                 printHorizontalLine();
             }
         } while (!userInput.equals("bye"));
+
+        //Store TaskList in Text file tasks.txt
+        try {
+            saveFileHandler(taskList);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
 
     }
 }
