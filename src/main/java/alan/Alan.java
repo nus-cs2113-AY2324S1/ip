@@ -3,11 +3,11 @@ package alan;
 import alan.task.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 import static alan.AlanExceptions.checkDeadlineInputFormat;
@@ -172,13 +172,13 @@ public class Alan {
         //check if folder exists
         if (!Files.exists(dataFolderPath)) {
             folder.mkdir();
-            System.out.println("Data Folder was not found!\nNew data folder has been created in" + userWorkingDirectory);
+            System.out.println("Data Folder was not found!\nIt's ok...new data folder has been created in" + userWorkingDirectory);
         }
 
         //check if file exists
         if (!Files.exists(tasksFilePath)) {
             textFile.createNewFile();
-            System.out.println("tasks.txt was not found!\nNew tasks.txt has been created in" + dataFolderPath);
+            System.out.println("tasks.txt was not found!\nIt's ok...new tasks.txt has been created in " + dataFolderPath);
         }
 
         //input arraylist data into text file
@@ -222,8 +222,82 @@ public class Alan {
         fw.close();
     }
 
+    private static void readFileHandler(ArrayList<Task> taskList) throws FileNotFoundException {
+        String userWorkingDirectory = System.getProperty("user.dir");
+        java.nio.file.Path tasksFilePath = java.nio.file.Paths.get(userWorkingDirectory, "data", "tasks.txt");
+        File textFile = new File(String.valueOf(tasksFilePath));
+        if (textFile.length() != 0) { //check if the file is empty
+            //read the file and store into ArrayList
+            Scanner s = new Scanner(textFile);
+            ArrayList<String> list = new ArrayList<String>();
+
+            while (s.hasNext()){
+                list.add(s.nextLine());
+            }
+            s.close();
+
+            //extract data and store into taskList
+            //todo: after this line should check if the data is in correct format
+            for (String task : list) {
+                String[] splitTaskString = task.split(" \\| ");
+                String taskType = splitTaskString[0];
+                String isDoneString = splitTaskString[1];
+                String description = splitTaskString[2];
+
+                boolean isDone = isDoneStringToBoolean(isDoneString);
+
+                switch (taskType) {
+                case "T":
+                    taskList.add(new Todo(description));
+                    break;
+                case "D":
+                    String by = splitTaskString[3];
+                    taskList.add(new Deadline(description, by));
+                    break;
+                case "E":
+                    String date = splitTaskString[3];
+                    String[] splitDate = date.split("-");
+                    String from = splitDate[0];
+                    String to = splitDate[1];
+
+                    taskList.add(new Event(description, from, to));
+                    break;
+                default:
+                    //todo handle invalid task type
+                    break;
+                }
+
+                int lastTaskIndex = taskList.size() - 1;
+                taskList.get(lastTaskIndex).setDone(isDone);
+            }
+
+        }
+    }
+
+    private static boolean isDoneStringToBoolean (String string) {
+        boolean isDone = false;
+
+        if (string.equals("1")) {
+            isDone = true;
+        }
+
+        if (string.equals("0")) {
+            isDone = false;
+        }
+
+        //todo check if isDone is correct value, error handling
+
+        return isDone;
+    }
+
     public static void main(String[] args) {
         ArrayList<Task> taskList = new ArrayList<>();
+
+        try {
+            readFileHandler(taskList);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
 
         printGreetingMessage();
 
@@ -240,8 +314,8 @@ public class Alan {
 
                 processCommandHandler(userInput, taskList);
 
-            } catch (AlanExceptions e) {
-                System.out.println(e);
+            } catch (AlanExceptions alanExceptions) {
+                System.out.println(alanExceptions.getMessage());
             } finally {
                 printHorizontalLine();
             }
