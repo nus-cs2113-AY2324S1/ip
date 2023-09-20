@@ -1,5 +1,8 @@
 package main;
 
+import data.LoadData;
+import data.StoreData;
+
 import java.util.Scanner;
 
 public class Chatbot {
@@ -10,6 +13,7 @@ public class Chatbot {
         System.out.println(LINE);
         System.out.println("Welcome back goshujin-sama, what can I do for you? (^-^)ゝ");
         ResponseProcessor processor = new ResponseProcessor();
+        LoadData.load(processor);
         waitForResponse(processor);
         System.out.println("Bye masta! ( ˘ ³˘)❤");
     }
@@ -19,6 +23,7 @@ public class Chatbot {
         do {
             response = scanner.nextLine();
             if (!"bye".equalsIgnoreCase(response)) {
+                StoreData.store(processor);
                 processor.process(response);
                 System.out.println(LINE);
             }

@@ -9,6 +9,10 @@ public class Task {
         setCompleted(isCompleted);
     }
 
+    public String getType() {
+        return "";
+    }
+
     public String getDescription() {
         return description;
     }
@@ -23,6 +27,10 @@ public class Task {
 
     public void setCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
+    }
+
+    public String getExcess(){
+        return "";
     }
 
     public String getStatus(){
