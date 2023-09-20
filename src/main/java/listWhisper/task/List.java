@@ -1,6 +1,8 @@
 package listWhisper.task;
 
 import listWhisper.exceptions.DescriptionFormatException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class List {
@@ -18,14 +20,18 @@ public class List {
         return this.tasks.get(taskId - 1);
     }
 
-    public void printAllTasks() {
+    @Override
+    public String toString() {
         if (this.getSize() == 0) {
-            System.out.println("You have no task in your list!");
+            return "You have no task in your list!\n";
         }
 
+        StringBuilder output = new StringBuilder();
+
         for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println(i + "." + this.tasks.get(i - 1));
+            output.append(i).append(".").append(this.tasks.get(i - 1)).append("\n");
         }
+        return output.toString();
     }
 
     //Actions

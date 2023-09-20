@@ -2,7 +2,8 @@ import listWhisper.exceptions.DescriptionFormatException;
 import listWhisper.exceptions.InvalidCommandException;
 import listWhisper.task.List;
 import listWhisper.task.Task;
-
+import listWhisper.task.Saver;
+import java.io.IOException;
 import java.util.Scanner;
 
 class Manager {
@@ -24,6 +25,7 @@ class Manager {
         try {
             if (input.startsWith("bye")) {
                 printByeMessage();
+                Saver.saveList(this.list);
                 exit();
             } else if (input.startsWith("list")) {
                 printListMessage();
@@ -47,7 +49,7 @@ class Manager {
             } else {
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } catch (DescriptionFormatException | InvalidCommandException e) {
+        } catch (DescriptionFormatException | InvalidCommandException | IOException e) {
             System.out.println(e);
         }
     }
@@ -90,7 +92,7 @@ class Manager {
     private void printListMessage() {
         ListWhisper.printStraightLine();
         System.out.println("Here are the tasks in your list:");
-        this.list.printAllTasks();
+        System.out.println(this.list.toString());
         ListWhisper.printStraightLine();
     }
 
