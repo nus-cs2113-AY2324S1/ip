@@ -45,7 +45,7 @@ public class ParseCommands {
         if (input.trim().equals(TODO)) {
             throw new KenParsingException("Oopsie! A todo without a description is like a party without glitter, so not fabulous!");
         }
-        String todoName = input.substring(TODO.length() + 1);
+        String todoName = input.substring(TODO.length() + 1).trim();
         return new Todo(todoName);
     }
 
@@ -54,8 +54,8 @@ public class ParseCommands {
             throw new KenParsingException("Please enter a proper deadline using '/by'.");
         }
         String[] deadlineInfo = input.substring(DEADLINE.length() + 1).split("/by", 2);
-        String deadlineName = deadlineInfo[0];
-        String by = deadlineInfo[1];
+        String deadlineName = deadlineInfo[0].trim();
+        String by = deadlineInfo[1].trim();
         if (deadlineName.isEmpty()) {
             throw new KenParsingException("Oopsie! A deadline without a description is like a party without glitter, so not fabulous!");
         }
@@ -70,9 +70,9 @@ public class ParseCommands {
             throw new KenParsingException("Please enter a proper event using '/from' and ' /to'.");
         }
         String[] eventInfo = input.substring(EVENT.length() + 1).split("/from |/to", 3);
-        String eventName = eventInfo[0];
-        String from = eventInfo[1];
-        String to = eventInfo[2];
+        String eventName = eventInfo[0].trim();
+        String from = eventInfo[1].trim();
+        String to = eventInfo[2].trim();
         if (eventName.isEmpty()) {
             throw new KenParsingException("Oopsie! An event without a description is like a party without glitter, so not fabulous!");
         }
