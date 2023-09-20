@@ -118,6 +118,11 @@ public class Duke {
             throw new RuntimeException(e);
         }
         byeToUsers();
+        try {
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
