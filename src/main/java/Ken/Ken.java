@@ -12,17 +12,20 @@ public class Ken {
 
 
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        ParseCommands parser = new ParseCommands();
+
         Ui.greetUser();
         try {
             FileHandler.readFromFile(list);
+            Command startCommand = parser.parse("list");
+            startCommand.run(list);
         } catch (Exception e) {
             Ui.printTexts(new String[] {
                     e.getMessage()
             });
         }
 
-        Scanner scan = new Scanner(System.in);
-        ParseCommands parser = new ParseCommands();
         Command command = null;
         String input;
         while (!(command instanceof Goodbye)) {

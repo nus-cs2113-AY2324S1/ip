@@ -1,7 +1,6 @@
 package Ken;
 
 import Exceptions.KenFileCorruptedException;
-import Exceptions.KenMissingTaskException;
 import Exceptions.KenReadFromFileException;
 import Exceptions.KenWriteToFileException;
 
@@ -35,34 +34,38 @@ public class FileHandler {
             Scanner in = new Scanner(file);
             while (in.hasNext()) {
                 String lineInput = in.nextLine();
-                char activityType = lineInput.charAt(1);
-                boolean isDone = lineInput.contains("[X]");
-                String lineInformation = lineInput.split("] ", 2)[1];
-                if (lineInformation.isEmpty()) {
-                    throw new KenFileCorruptedException("Sweetie, where's the sparkle? The task description is like, totally missing from the scene!");
+                char taskType = lineInput.charAt(1);
+
+                boolean isDone;
+                if (lineInput.contains("][ ]")) {
+                    isDone = false;
+                } else if (lineInput.contains("][X]")) {
+                    isDone = true;
+                } else {
+                    throw new KenFileCorruptedException("Uh-oh, darling! The task status is like, totally hiding from the spotlight!");
                 }
 
-                switch (activityType) {
+                String[] line = lineInput.split("] ", 2);
+                String lineInformation;
+                if (line.length < 2) {
+                    throw new KenFileCorruptedException("Sweetie, where's the sparkle? The task description is like, totally missing from the scene!");
+                } else {
+                    lineInformation = line[1];
+                }
+
+                switch (taskType) {
                 case TODO:
-                    String todoDescription = lineInformation.trim();
-                    Task todo = new Todo(todoDescription);
+                    Task todo = getTodo(lineInformation);
                     todo.setDone(isDone);
                     list.addTask(todo);
                     break;
                 case DEADLINE:
-                    String[] deadlineInformation = lineInformation.split("[(]by:", 2);
-                    String deadlineDescription = deadlineInformation[0].trim();
-                    String deadlineBy = deadlineInformation[1].replace(")", "").trim();
-                    Task deadline = new Deadline(deadlineDescription, deadlineBy);
+                    Task deadline = getDeadline(lineInformation);
                     deadline.setDone(isDone);
                     list.addTask(deadline);
                     break;
                 case EVENT:
-                    String[] eventInformation = lineInformation.split("[(]from:|to:", 3);
-                    String eventDescription = eventInformation[0].trim();
-                    String eventFrom = eventInformation[1].trim();
-                    String eventTo = eventInformation[2].replace(")", "").trim();
-                    Task event = new Event(eventDescription, eventFrom, eventTo);
+                    Task event = getEvent(lineInformation);
                     event.setDone(isDone);
                     list.addTask(event);
                     break;
@@ -73,8 +76,6 @@ public class FileHandler {
             }
         } catch (FileNotFoundException e) {
             throw new KenReadFromFileException();
-        } catch (KenFileCorruptedException e) {
-            throw new KenFileCorruptedException("The file is throwing a Barbie-sized tantrum. It's all corrupted, darling!");
         }
     }
 
@@ -90,5 +91,38 @@ public class FileHandler {
         } catch (Exception e) {
             throw new KenWriteToFileException();
         }
+    }
+
+    public static Task getDeadline(String input) throws KenFileCorruptedException {
+        String[] deadlineInformation = input.split("[(]by:", 2);
+        String deadlineDescription;
+        String deadlineBy;
+        try {
+            deadlineDescription = deadlineInformation[0].trim();
+            deadlineBy = deadlineInformation[1].replace(")", "").trim();
+        } catch (IndexOutOfBoundsException e) {
+            throw new KenFileCorruptedException("The deadline is like, totally missing its fabulous moment!");
+        }
+        return new Deadline(deadlineDescription, deadlineBy);
+    }
+
+    public static Task getTodo(String input) {
+        String todoDescription = input.trim();
+        return new Todo(todoDescription);
+    }
+
+    public static Task getEvent(String input) throws KenFileCorruptedException {
+        String[] eventInformation = input.split("[(]from:|to:", 3);
+        String eventDescription;
+        String eventFrom;
+        String eventTo;
+        try {
+            eventDescription = eventInformation[0].trim();
+            eventFrom = eventInformation[1].trim();
+            eventTo = eventInformation[2].replace(")", "").trim();
+        } catch (IndexOutOfBoundsException e) {
+            throw new KenFileCorruptedException("The event period is like, totally missing from the spotlight!");
+        }
+        return new Event(eventDescription, eventFrom, eventTo);
     }
 }
