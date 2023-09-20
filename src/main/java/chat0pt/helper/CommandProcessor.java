@@ -37,6 +37,14 @@ public class CommandProcessor {
                 Printer.successfulTask(eventTask,tasks.size());
             }
             break;
+        case "delete":
+            int deleteKey = CommandHandler.deleteTask(splitString,tasks.size());
+            if(deleteKey != -1){
+                Task deleteTask = tasks.get(deleteKey);
+                Printer.deleteMessage(deleteTask, tasks.size());
+                tasks.remove(deleteKey);
+            }
+            break;
         case "mark":
             int markKey = CommandHandler.markChecker(splitString);
             if(markKey != -1){

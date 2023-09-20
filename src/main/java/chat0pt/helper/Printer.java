@@ -38,6 +38,16 @@ public class Printer {
         String[] unsupported = {"Sorry! I do not support this command at this point. I can only add Deadline, Event and Todo!"};
         print(unsupported);
     }
+    public static void invalidDelete(){
+        String[] message = {"☹ Unable to delete task! Check if the format or task number is correct."};
+        print(message);
+    }
+
+    public static void deleteMessage(Task t, int size){
+        size -= 1;
+        String[] message = {"Noted. I've removed this task: ", t.toString(), "Now you have " + size + " tasks in the list."};
+        print(message);
+    }
 
     public static void invalidMark(){
         String[] message = {"Please check your mark input. It can only be a number and it has to exist in the list."};

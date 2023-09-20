@@ -34,4 +34,5 @@ public class FormatCheck {
         }
         return fromExists && toExists && fromPosition != toPosition && toPosition+1 <= tokens.length;
     }
+
 }
