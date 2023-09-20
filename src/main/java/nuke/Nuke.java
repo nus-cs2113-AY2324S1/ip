@@ -77,9 +77,9 @@ public class Nuke {
 
     private void saveTasksToStorage(Storage storage, Ui ui) {
         try {
-            storage.saveTasks(getFormattedTasks());
+            storage.saveTasks(tasks.getFormattedTasks());
         } catch (TaskSaveException e) {
-            e.tasks = getTasks();
+            e.tasks = tasks.getTasks();
             ui.handleTaskSaveError(e);
         }
     }
@@ -91,11 +91,11 @@ public class Nuke {
 
     public void addTask(Task task) {
         tasks.add(task);
-        ui.printAddedTask(task.toString(), getNumberOfTasks());
+        ui.printAddedTask(task.toString(), countTasks());
     }
 
     public void listTask() {
-        ui.printListOfTasks(getTasks());
+        ui.printListOfTasks(tasks.getTasks());
     }
 
     public void markTask(int idx) {
@@ -110,7 +110,7 @@ public class Nuke {
 
     public void deleteTask(int idx) {
         String task = tasks.delete(idx);
-        ui.printDeletedTask(task, getNumberOfTasks());
+        ui.printDeletedTask(task, countTasks());
     }
 
     public void addTodo(String name) {
@@ -125,15 +125,7 @@ public class Nuke {
         addTask(new Event(name, from, to));
     }
 
-    public int getNumberOfTasks() {
+    public int countTasks() {
         return tasks.size();
-    }
-
-    public String[] getTasks() {
-        return tasks.getTasks();
-    }
-
-    public String[] getFormattedTasks() {
-        return tasks.getFormattedTasks();
     }
 }
