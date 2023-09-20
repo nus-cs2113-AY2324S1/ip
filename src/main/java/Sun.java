@@ -1,7 +1,7 @@
 import sun.exception.InvalidActionException;
 import sun.exception.IncompleteDescriptionException;
-import sun.exception.TasksOverflowException;
 import sun.exception.InvalidTaskIndexException;
+
 import sun.task.Task;
 import sun.task.Deadline;
 import sun.task.Todo;
@@ -9,7 +9,12 @@ import sun.task.Event;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Sun {
     public static final String line = "____________________________________________________________";
@@ -26,14 +31,20 @@ public class Sun {
         System.out.println("What can I do for you?");
         System.out.println(line);
 
-        List<Task> tasks = new ArrayList<>();
+        String filePath = "./data/spaceman.txt";
+        ArrayList<Task> tasks = null;
+        try {
+            tasks = readDataFromFile(filePath);
+        } catch (FileNotFoundException e) {
+            tasks = new ArrayList<>();
+        }
 
-        Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine();
-
+        Scanner input = new Scanner(System.in);
+        String command = input.nextLine();
         while (!command.equals("bye")) {
             try {
                 getInput(command, tasks);
+                writeToFile(filePath, tasks);
             } catch (InvalidActionException e) {
                 System.out.println(line);
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -46,13 +57,13 @@ public class Sun {
                 System.out.println(line);
                 System.out.println("☹ OOPS!!! The task index is Invalid :((");
                 System.out.println(line);
-            } catch (TasksOverflowException e) {
-                System.out.println(line);
-                System.out.println("☹ OOPS!!! The maximum number of Task is 100 :((");
-                System.out.println(line);
-            }
+            }  catch (IOException e) {
+            System.out.println(line);
+            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println(line);
+        }
 
-            command = scanner.nextLine();
+            command = input.nextLine();
             System.out.println(line);
             System.out.println("What else can I do for you?");
             System.out.println(line);
@@ -61,16 +72,74 @@ public class Sun {
         System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
-
-        scanner.close();
     }
 
-    public static void getInput(String command, List<Task> tasks) throws InvalidTaskIndexException,
-            TasksOverflowException, InvalidActionException, IncompleteDescriptionException {
+    private static void writeToFile(String filePath, ArrayList<Task> tasks) throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        for (Task task : tasks) {
+            String output = null;
+            boolean isMarked = task.isDone();
+            int markedIndex;
+
+            if (isMarked) {
+                markedIndex = 1;
+            } else {
+                markedIndex = 0;
+            }
+
+            if (task instanceof Todo) {
+                output = "T | " + markedIndex + " | " + task.getDescription();
+            } else if (task instanceof Deadline) {
+                output = "D | " + markedIndex + " | " + task.getDescription()
+                        + " | " + ((Deadline) task).getBy();
+            } else if (task instanceof Event) {
+                output = "E | " + markedIndex + " | " + task.getDescription()
+                        + " | " + ((Event) task).getStart() + " | " + ((Event) task).getEnd();
+            }
+            fw.write(output);
+            fw.write("\n");
+        }
+        fw.close();
+    }
+
+    private static ArrayList<Task> readDataFromFile(String filePath) throws FileNotFoundException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(filePath);
+        Scanner data = new Scanner(file);
+        while (data.hasNext()) {
+            char taskType = data.toString().charAt(0);
+            String[] descriptions = data.nextLine().split("|");
+            switch (taskType) {
+                case 'T':
+                    Task todo = new Todo(descriptions[2]);
+                    tasks.add(todo);
+                    break;
+                case 'D':
+                    Task deadline = new Deadline(descriptions[2], descriptions[3]);
+                    tasks.add(deadline);
+                    break;
+                case 'E':
+                    Task event = new Event(descriptions[2], descriptions[3], descriptions[4]);
+                    tasks.add(event);
+                    break;
+                default:
+                    break;
+            }
+        }
+        return tasks;
+    }
+
+    public static void getInput (String command, ArrayList<Task> tasks) throws InvalidActionException,
+            IncompleteDescriptionException, InvalidTaskIndexException {
         String[] actionAndTask = command.split(" ");
         String action = actionAndTask[0];
 
-        switch (action) {
+        switch (action){
             case "list":
                 printList(tasks);
                 break;
@@ -95,12 +164,7 @@ public class Sun {
             case "todo":
             case "deadline":
             case "event":
-                if (tasks.size() < 100) {
-                    addToList(command, tasks);
-                } else {
-                    throw new TasksOverflowException();
-                    //System.out.println("Task list is full. Cannot add more tasks.");
-                }
+                addToList(command, tasks);
                 break;
             case "delete":
                 int deleteIndex = Integer.parseInt(actionAndTask[1]);
@@ -112,7 +176,6 @@ public class Sun {
                 break;
             default:
                 throw new InvalidActionException();
-                //System.out.println("Invalid command.");
         }
     }
 

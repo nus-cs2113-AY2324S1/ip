@@ -7,6 +7,10 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    public String getBy() {
+        return this.dueDate;
+    }
+
     @Override
     public String getDescription() {
         return "[D]" + super.getDescription() + " (by: " + dueDate + ")";
