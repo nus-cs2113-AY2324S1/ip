@@ -1,9 +1,74 @@
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Scanner;
 
 import commands.*;
 
 public class Duke {
+//    private static ArrayList<Task> storageArray;
+    private static void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter("src/main/java/data/duke.txt",true);
+        // Create a BufferedWriter for efficient writing
+        BufferedWriter bufferedWriter = new BufferedWriter(fw);
+        bufferedWriter.newLine();
+        bufferedWriter.write(textToAdd);
+        bufferedWriter.close();
+        fw.close();
+    }
+    public static ArrayList<Task> getTaskData() throws IOException {
+        File f = new File("src/main/java/data/duke.txt");
+        if(!f.exists()){
+            System.out.println("File does not exist");
+            return new ArrayList<>();
+        }
+        ArrayList<Task> currentArray = new ArrayList<>();
+
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String currentLine = s.nextLine();
+            String[] wordArray = currentLine.split("\\|");
+            System.out.println(currentLine);
+            System.out.println(wordArray[0]);
+            System.out.println(wordArray[1]);
+            System.out.println(wordArray[2]);
+            System.out.println(wordArray.length);
+            switch (wordArray[0]){
+            case "T":{
+                ToDo currTask = new ToDo(wordArray[2]);
+                if (Integer.parseInt(wordArray[1]) == 1) {
+                    currTask.markStatus();
+                }
+                currentArray.add(currTask);
+                System.out.println("To do added");
+                break;
+            }
+            case "D":{
+                Deadline currTask = new Deadline(wordArray[2],wordArray[3]);
+                if (Integer.parseInt(wordArray[1]) == 1) {
+                    currTask.markStatus();
+                }
+                currentArray.add(currTask);
+                System.out.println("Deadline added");
+                break;
+            }
+            case "E":{
+                Event currTask = new Event(wordArray[2],wordArray[3],wordArray[4]);
+                if (Integer.parseInt(wordArray[1]) == 1) {
+                    currTask.markStatus();
+                }
+                currentArray.add(currTask);
+                System.out.println("Event added");
+                break;
+            }
+            default:{
+                System.out.println("Should not be here");
+                break;
+            }
+            }
+        }
+        return currentArray;
+    }
 
     /**
      * Prints a list of tasks with their status icons and descriptions.
@@ -85,7 +150,7 @@ public class Duke {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         String logoRyan = " ____  _          \n"
                 + "|  _ \\| | ___   __\n"
@@ -93,10 +158,17 @@ public class Duke {
                 + "|  __/| | (_) | (__\n"
                 + "|_|   |_|\\___/ \\___|\n";
 
+        ArrayList<Task> storageArray;
+        try{
+            storageArray = getTaskData();
+        }catch (IOException e){
+            System.out.println("File not found");
+            storageArray = new ArrayList<>();
+        }
 
-        ArrayList<Task> storageArray = new ArrayList<>();
-//        Task[] storageArray = new Task[100];
         int numOfItems = 0;
+
+
 
         String line = "Hello! I'm Ryan Loh \nWhat can I do for you?\nType anything to be added to your magic list :D\n";
         System.out.println(line + logoRyan);
@@ -147,7 +219,6 @@ public class Duke {
                 System.out.println("unmark " + words[1]);
                 int index = Integer.parseInt(words[1]);
                 // we need to check if it's out of bounds first
-
                 Task currTask = storageArray.get(index - 1);
                 currTask.unmarkStatus();
                 System.out.println("Nice! I've unmarked this task: ");
@@ -162,6 +233,7 @@ public class Duke {
                 storageArray.add(currTask);
                 System.out.println("added: " + newWord);
                 numOfItems += 1;
+                writeToFile("T|0|"+newWord);
                 break;
             }
             case "deadline": {
@@ -170,6 +242,7 @@ public class Duke {
                 Deadline currTask = new Deadline(deadlineArray[0], deadlineArray[1]);
                 storageArray.add(currTask);
                 System.out.println("added: " + deadlineArray[0]);
+                writeToFile("D|0|"+deadlineArray[0]+"|"+deadlineArray[1]);
                 numOfItems += 1;
                 break;
 
@@ -182,14 +255,17 @@ public class Duke {
                 storageArray.add(currTask);
 
                 numOfItems += 1;
+                writeToFile("E|0|"+firstSplit[0]+"|"+firstSplit[1]+"|"+firstSplit[2]);
+
                 System.out.println("added: " + firstSplit[0] + ", you have now " + numOfItems + " tasks");
+
                 break;
 
             }
             default: {
                 Task currTask = new Task(userInput);
                 storageArray.add(currTask);
-//                storageArray.set(numOfItems, );
+                writeToFile("T|0|"+userInput);
                 System.out.println("added: " + userInput);
                 numOfItems += 1;
                 break;
