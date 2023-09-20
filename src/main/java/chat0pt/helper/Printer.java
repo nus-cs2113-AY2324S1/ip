@@ -39,6 +39,20 @@ public class Printer {
         print(unsupported);
     }
 
+    public static void invalidMark(){
+        String[] message = {"Please check your mark input. It can only be a number and it has to exist in the list."};
+        print(message);
+    }
+
+    public static void mark(Task t, boolean toMark){
+        String[] message = {"",t.toString()};
+        if (toMark){
+            message[0] = "Nice! I've marked this task as done:";
+        }else{
+            message[0] = "OK, I've marked this task as not done yet:";
+        }
+        print(message);
+    }
     public static void listHandler(ArrayList<Task> tasks){
         int count = 1;
         String[] taskStrings = new String[tasks.size()+1];
