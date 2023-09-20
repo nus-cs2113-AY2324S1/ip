@@ -1,14 +1,14 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Scanner;
 
 import commands.*;
 
 public class Duke {
-//    private static ArrayList<Task> storageArray;
-    private static void writeToFile(String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter("src/main/java/data/duke.txt",true);
+    private static ArrayList<Task> storageArray;
+    private static String dukeDataFile = "src/main/java/data/duke.txt";
+    private static void addToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(dukeDataFile,true);
         // Create a BufferedWriter for efficient writing
         BufferedWriter bufferedWriter = new BufferedWriter(fw);
         bufferedWriter.newLine();
@@ -16,8 +16,44 @@ public class Duke {
         bufferedWriter.close();
         fw.close();
     }
+
+    private static void removeFromFile(int lineToRemove){
+
+        // Create a temporary file to write the modified content
+        File tempFile = new File("temp.txt");
+
+        try (
+                BufferedReader reader = new BufferedReader(new FileReader(dukeDataFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        ) {
+            String currentLine;
+            int lineNumber = 0;
+
+            while ((currentLine = reader.readLine()) != null) {
+                lineNumber++;
+
+                // Check if the current line is the one to remove
+                if (lineNumber != lineToRemove) {
+                    writer.write(currentLine);
+                    writer.newLine(); // Add a new line after writing
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading/writing the file: " + e.getMessage());
+        }
+
+        // Replace the original file with the temporary file
+        if (tempFile.renameTo(new File(dukeDataFile))) {
+            System.out.println("Line removed successfully.");
+        } else {
+            System.err.println("Error renaming the temporary file.");
+        }
+    }
+
+
+
     public static ArrayList<Task> getTaskData() throws IOException {
-        File f = new File("src/main/java/data/duke.txt");
+        File f = new File(dukeDataFile);
         if(!f.exists()){
             System.out.println("File does not exist");
             return new ArrayList<>();
@@ -28,11 +64,6 @@ public class Duke {
         while (s.hasNext()) {
             String currentLine = s.nextLine();
             String[] wordArray = currentLine.split("\\|");
-            System.out.println(currentLine);
-            System.out.println(wordArray[0]);
-            System.out.println(wordArray[1]);
-            System.out.println(wordArray[2]);
-            System.out.println(wordArray.length);
             switch (wordArray[0]){
             case "T":{
                 ToDo currTask = new ToDo(wordArray[2]);
@@ -90,11 +121,11 @@ public class Duke {
      * Checks the validity of input parameters for various task-related methods.
      *
      * @param methodName    The name of the method being called.
-     * @param numberOfItems The total number of items in a list.
      * @param words         An array of words or arguments passed to the method.
      * @return True if the input parameters are valid; false otherwise.
      */
-    public static boolean isValidInputs(String methodName, int numberOfItems, String[] words) {
+    public static boolean isValidInputs(String methodName, String[] words) {
+        int numberOfItems = storageArray.size();
         switch (methodName) {
         case "mark": {
             if (words.length == 1 || !words[1].matches("-?\\d+")) {
@@ -158,7 +189,6 @@ public class Duke {
                 + "|  __/| | (_) | (__\n"
                 + "|_|   |_|\\___/ \\___|\n";
 
-        ArrayList<Task> storageArray;
         try{
             storageArray = getTaskData();
         }catch (IOException e){
@@ -166,7 +196,6 @@ public class Duke {
             storageArray = new ArrayList<>();
         }
 
-        int numOfItems = 0;
 
 
 
@@ -191,17 +220,18 @@ public class Duke {
                 System.out.println("Welcome to your to do list!. Here are the commands");
                 System.out.println("To add Deadlines, type in 'deadline <task name> /<deadline>");
                 System.out.println("example: 'deadline do 2113 assignment /tuesday 2pm");
-                System.out.println("To add Events, type in 'evmarkent <event name> /<event start time> /<event end time>");
+                System.out.println("To add Events, dltype in 'evmarkent <event name> /<event start time> /<event end time>");
                 System.out.println("example: 'deadline do 2113 assignment /tuesday 2pm/4pm");
                 break;
             }
 
             case "delete":{
-                if (!isValidInputs(initialWord, numOfItems, words)) {
+                if (!isValidInputs(initialWord, words)) {
                     break;
                 }
                 int index = Integer.parseInt(words[1]);
                 Task item = storageArray.get(index - 1);
+                removeFromFile(index);
                 storageArray.remove(index - 1);
                 System.out.println("Noted. I've removed this task: ");
                 System.out.println("[" + item.getType() + "]" + "[" + item.getStatusIcon() + "]" + item);
@@ -209,7 +239,7 @@ public class Duke {
             }
 
             case "mark": {
-                if (!isValidInputs(initialWord, numOfItems, words)) {
+                if (!isValidInputs(initialWord, words)) {
                     break;
                 }
                 int index = Integer.parseInt(words[1]);
@@ -222,7 +252,7 @@ public class Duke {
 
             }
             case "unmark": {
-                if (!isValidInputs(initialWord, numOfItems, words)) {
+                if (!isValidInputs(initialWord, words)) {
                     break;
                 }
                 // unmark an item
@@ -242,8 +272,7 @@ public class Duke {
                 ToDo currTask = new ToDo(newWord);
                 storageArray.add(currTask);
                 System.out.println("added: " + newWord);
-                numOfItems += 1;
-                writeToFile("T|0|"+newWord);
+                addToFile("T|0|"+newWord);
                 break;
             }
             case "deadline": {
@@ -252,8 +281,7 @@ public class Duke {
                 Deadline currTask = new Deadline(deadlineArray[0], deadlineArray[1]);
                 storageArray.add(currTask);
                 System.out.println("added: " + deadlineArray[0]);
-                writeToFile("D|0|"+deadlineArray[0]+"|"+deadlineArray[1]);
-                numOfItems += 1;
+                addToFile("D|0|"+deadlineArray[0]+"|"+deadlineArray[1]);
                 break;
 
             }
@@ -264,10 +292,9 @@ public class Duke {
                 Event currTask = new Event(firstSplit[0], firstSplit[1], firstSplit[2]);
                 storageArray.add(currTask);
 
-                numOfItems += 1;
-                writeToFile("E|0|"+firstSplit[0]+"|"+firstSplit[1]+"|"+firstSplit[2]);
+                addToFile("E|0|"+firstSplit[0]+"|"+firstSplit[1]+"|"+firstSplit[2]);
 
-                System.out.println("added: " + firstSplit[0] + ", you have now " + numOfItems + " tasks");
+                System.out.println("added: " + firstSplit[0] + ", you have now " + storageArray.size() + " tasks");
 
                 break;
 
@@ -275,9 +302,8 @@ public class Duke {
             default: {
                 Task currTask = new Task(userInput);
                 storageArray.add(currTask);
-                writeToFile("T|0|"+userInput);
+                addToFile("T|0|"+userInput);
                 System.out.println("added: " + userInput);
-                numOfItems += 1;
                 break;
             }
             }
