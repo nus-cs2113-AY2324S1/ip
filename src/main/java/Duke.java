@@ -13,6 +13,9 @@ public class Duke {
 
 
         File taskListFile = new File("./duke.txt");
+        if(taskListFile.exists() == false){
+            taskListFile.createNewFile();
+        }
         //Greetings & renaming
         System.out.println("Hello! I'm JARVIS");
         System.out.println("What can I do for you?");
