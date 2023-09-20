@@ -54,7 +54,7 @@ public class XiaoAiBot {
         try {
             return scanner.nextLine();
         } catch (Exception e) {
-            e.printStackTrace();
+            sendMessage(String.format("Error reading line: %s", e.getMessage()));
             return null;
         }
     }
