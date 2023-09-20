@@ -1,4 +1,4 @@
-public class Event extends Deadline {
+public class Event extends Task {
     protected String startDate;
     protected String endDate;
 
@@ -12,7 +12,7 @@ public class Event extends Deadline {
             throw new LukeTimeError();
         }
 
-        String taskDuration = taskDescription.substring(slashCut);
+        String taskDuration = taskDescription.substring(slashCut + 1);
         setDates(taskDuration);
 
         description = taskDescription.substring(0, slashCut);
@@ -30,16 +30,28 @@ public class Event extends Deadline {
         return endDate;
     }
 
-    public void setDates(String dates) {
-        int spaceCut = dates.indexOf(" ");
-        dates = dates.substring(spaceCut + 1);
+    public void setDates(String dates) throws LukeTimeError {
+        String[] words = dates.split(" ");
+        if (!words[0].equals("from")) {
+            throw new LukeTimeError();
+        }
+
+        dates = dates.substring(5);
 
         int slashCut = dates.indexOf("/");
+        if (slashCut <= 0) {
+            throw new LukeTimeError();
+        }
+
         startDate = dates.substring(0, slashCut);
         dates = dates.substring(slashCut + 1);
 
-        spaceCut = dates.indexOf(" ");
-        endDate = dates.substring(spaceCut + 1);
+        words = dates.split(" ");
+        if (!words[0].equals("to")) {
+            throw new LukeTimeError();
+        }
+
+        endDate = dates.substring(3);
     }
 
     @Override
