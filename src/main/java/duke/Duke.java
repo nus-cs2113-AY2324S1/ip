@@ -118,9 +118,13 @@ public class Duke {
 
     public static void printTaskList(){
         System.out.println(LINE_DIVIDER);
-        for (int i = 0; i < TASKS.size(); i++) {
-            Task task = TASKS.get(i);
-            System.out.println(i+1 + "." + task.toString());
+        if (!TASKS.isEmpty()){
+            for (int i = 0; i < TASKS.size(); i++) {
+                Task task = TASKS.get(i);
+                System.out.println(i+1 + "." + task.toString());
+            }
+        }else{
+            System.out.println("No data here bro...");
         }
         System.out.println(LINE_DIVIDER);
     }
