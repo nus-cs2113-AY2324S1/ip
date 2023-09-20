@@ -1,3 +1,5 @@
+package chat0pt.commands;
+
 public class Task {
     private final String tasks;
     private boolean isMarked;

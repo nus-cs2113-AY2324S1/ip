@@ -1,6 +1,8 @@
-public class Event extends Task{
-    private String from;
-    private String to;
+package chat0pt.commands;
+
+public class Event extends Task {
+    private final String from;
+    private final String to;
 
     public Event(String tasks, String from, String to) {
         super(tasks);
