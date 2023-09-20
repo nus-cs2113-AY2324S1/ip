@@ -47,6 +47,17 @@ public class Duke {
         return input.trim().isEmpty();
     }
 
+    private static void addNewData(String dataString) throws IOException {
+        FileWriter writer = new FileWriter(DATA_PATH, true);
+
+        if (tasksCount != 0) {
+            writer.write(System.lineSeparator());
+        }
+
+        writer.write(dataString);
+        writer.close();
+    }
+
     public static void addTodo(String input) throws DukeTaskException, IOException {
         if (checkEmptyTodoInput(input)) {
             throw new DukeTaskException();
@@ -54,17 +65,10 @@ public class Duke {
 
         tasks.add(new Todo(input.trim()));
 
-        FileWriter writer = new FileWriter(DATA_PATH, true);
-
-        if (tasksCount != 0) {
-            writer.write(System.lineSeparator());
-        }
-
-        writer.write("T | " + tasks.get(tasksCount).getStatus() + " | " + tasks.get(tasksCount).getDescription());
-        writer.close();
+        String dataString = "T | false | " + input.trim();
+        addNewData(dataString);
 
         tasksCount++;
-
     }
 
     public static void addDeadline(String input) throws DukeTaskException, IOException {
@@ -74,18 +78,10 @@ public class Duke {
             throw new DukeTaskException();
         }
 
-
         tasks.add(new Deadline(parsedInput[0].trim(), parsedInput[1].trim()));
 
-        FileWriter writer = new FileWriter(DATA_PATH, true);
-
-        if (tasksCount != 0) {
-            writer.write(System.lineSeparator());
-        }
-
-        writer.write("D | " + tasks.get(tasksCount).getStatus() + " | " + parsedInput[0].trim() +
-                 " | "  + parsedInput[1].trim());
-        writer.close();
+        String dataString = "D | false | " + parsedInput[0].trim() + " | "  + parsedInput[1].trim();
+        addNewData(dataString);
 
         tasksCount++;
     }
@@ -107,18 +103,11 @@ public class Duke {
         }
 
         String[] parsedInput = input.split(FROM_KEYWORD + "|" + TO_KEYWORD);
-
         tasks.add(new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim()));
 
-        FileWriter writer = new FileWriter(DATA_PATH, true);
-
-        if (tasksCount != 0) {
-            writer.write(System.lineSeparator());
-        }
-
-        writer.write("E | " + tasks.get(tasksCount).getStatus() + " | " + parsedInput[0].trim() +
-                " | "  + parsedInput[1].trim() + " | " + parsedInput[2].trim());
-        writer.close();
+        String dataString = "E | false | " + parsedInput[0].trim() + " | "  + parsedInput[1].trim()
+                + " | " + parsedInput[2].trim();
+        addNewData(dataString);
 
         tasksCount++;
     }
