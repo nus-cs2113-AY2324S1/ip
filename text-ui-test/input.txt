@@ -7,9 +7,6 @@ mark 1
 mark 2
 mark 3
 list
-<<<<<<< HEAD
 delete 1
 list
-=======
 bye
->>>>>>> branch-Level-7
