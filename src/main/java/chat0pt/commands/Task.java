@@ -1,6 +1,6 @@
 package chat0pt.commands;
 
-public class Task {
+public class Task{
     private final String tasks;
     private boolean isMarked;
 
@@ -28,6 +28,17 @@ public class Task {
             toReturn += "[X] ";
         } else{
             toReturn += "[ ] ";
+        }
+        return toReturn + tasks;
+    }
+
+
+    public String toFile(){
+        String toReturn = "";
+        if(isMarked){
+            toReturn += "true,";
+        } else{
+            toReturn += "false,";
         }
         return toReturn + tasks;
     }

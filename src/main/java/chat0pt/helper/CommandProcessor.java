@@ -3,11 +3,18 @@ package chat0pt.helper;
 import chat0pt.commands.Task;
 import chat0pt.commands.CommandHandler;
 
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CommandProcessor {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
-    public static boolean runCommand(String input){
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    public static boolean firstRun = true;
+    public static boolean runCommand(String input, ArrayList<Task> savedTasks) throws IOException {
+        if (firstRun){
+            firstRun = false;
+            tasks = savedTasks;
+        }
         String[] splitString = SplitTokens.splitString(input);
         switch(splitString[0].toLowerCase()){
         case "bye":
@@ -59,6 +66,7 @@ public class CommandProcessor {
             Printer.unsupportedCommand();
             break;
         }
+        FileHandler.writeFile(tasks);
         return true;
     }
 }

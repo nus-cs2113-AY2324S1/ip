@@ -12,8 +12,6 @@ public class FormatCheck {
             }
             position += 1;
         }
-        System.out.println(byExists);
-        System.out.println(position <= tokens.length);
         return byExists && (position <= tokens.length);
     }
     public static boolean eventFormat(String[] tokens){
