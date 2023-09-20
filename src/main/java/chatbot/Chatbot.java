@@ -95,7 +95,6 @@ public class Chatbot {
 
                 Task task = new Todo(msg);
                 tasks.add(task);
-                numOfTasks++;
 
                 if (isUserInput) {
                     saveToFile(input);
@@ -117,7 +116,6 @@ public class Chatbot {
 
                 Task task = new Deadline(desc, byDate);
                 tasks.add(task);
-                numOfTasks++;
 
                 if (isUserInput) {
                     saveToFile(input);
@@ -141,7 +139,6 @@ public class Chatbot {
 
                 Task task = new Event(desc, fromDate, toDate);
                 tasks.add(task);
-                numOfTasks++;
 
                 if (isUserInput) {
                     saveToFile(input);
