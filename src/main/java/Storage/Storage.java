@@ -1,4 +1,6 @@
-package Soccat;
+package Storage;
+
+import Soccat.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,10 +8,32 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class FileAccess {
+public class Storage {
     protected String fileName;
     protected File fileObject;
     protected ArrayList<Task> taskData;
+
+    public Storage(String fileName) throws IOException, SoccatException {
+        this.fileName = fileName;
+        File dataFile = new File(fileName);
+        this.fileObject = dataFile;
+        boolean isCreated = dataFile.exists();
+        // Check if the file is created and create file if file is not present
+        if (!isCreated) {
+            isCreated = dataFile.createNewFile();
+        }
+        // If file is still not created, throw an exception
+        if (!isCreated) {
+            throw new SoccatException();
+        }
+        // Read file and put data into fileData
+        Scanner dataFileScanner = new Scanner(dataFile);
+        ArrayList<String> dataStrings = new ArrayList<>();
+        while (dataFileScanner.hasNext()) {
+            dataStrings.add(dataFileScanner.nextLine());
+        }
+        this.taskData = parseFile(dataStrings);
+    }
 
     public ArrayList<Task> getTaskData() {
         return taskData;
@@ -67,27 +91,5 @@ public class FileAccess {
     public void setTaskData(ArrayList<Task> taskData) throws IOException {
         this.taskData = taskData;
         updateFile();
-    }
-
-    public FileAccess(String fileName) throws IOException, SoccatException {
-        this.fileName = fileName;
-        File dataFile = new File(fileName);
-        this.fileObject = dataFile;
-        boolean isCreated = dataFile.exists();
-        // Create new file if uncreated
-        if (!isCreated) {
-            isCreated = dataFile.createNewFile();
-        }
-        // Throw exception if creation failed
-        if (!isCreated) {
-            throw new SoccatException();
-        }
-        // Read file and put data into fileData
-        Scanner dataFileScanner = new Scanner(dataFile);
-        ArrayList<String> dataStrings = new ArrayList<>();
-        while (dataFileScanner.hasNext()) {
-            dataStrings.add(dataFileScanner.nextLine());
-        }
-        this.taskData = parseFile(dataStrings);
     }
 }
