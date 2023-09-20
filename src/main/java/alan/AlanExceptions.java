@@ -15,7 +15,7 @@ public class AlanExceptions extends Exception {
         super(errorMessage);
     }
 
-    public static void checkOutOfTasksIndex(int selectedIndex, ArrayList<Task> taskList) throws AlanExceptions {
+    public static void checkOutOfTaskListIndex(int selectedIndex, ArrayList<Task> taskList) throws AlanExceptions {
         int lastTaskIndex = taskList.size() - 1;
 
         if (selectedIndex > lastTaskIndex) {
