@@ -4,10 +4,18 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String description, String start, String end) {
-        super(description);
+    public Event(String description, boolean isDone, String start, String end) {
+        super(description, isDone);
         this.from = start;
         this.to = end;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
     }
 
     @Override
