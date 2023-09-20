@@ -89,7 +89,7 @@ public class Ui {
 
     public void printCommandTypeError(InvalidCommandTypeException e) {
         String desc = String.format("There is no command called '%s'.", e.type);
-        String detail = "Existing command: bye, list, mark, unmark, todo, deadline, event";
+        String detail = "Existing command: bye, list, mark, unmark, todo, deadline, event, delete";
         printCommandError(desc, detail);
     }
 
