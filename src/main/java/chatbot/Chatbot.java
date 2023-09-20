@@ -2,12 +2,14 @@ package chatbot;
 
 import chatbot.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chatbot {
 
     public static void main(String[] args) throws Exception {
-        Task[] tasks = new Task[100];
+        //Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<Task>(100);
         int numOfTasks = 0;
 
         String greetingMsg = "____________________________________________________________\n" +
@@ -28,28 +30,28 @@ public class Chatbot {
                     System.out.println(" Here are the tasks in your list:");
                     for (int i = 0; i < numOfTasks; i++) {
                         //System.out.println(" " + (i + 1) + ".[" + tasks[i].getTypeIcon() + "][" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
-                        System.out.println(" " + (i + 1) + "." + tasks[i]);
+                        System.out.println(" " + (i + 1) + "." + tasks.get(i));
                     }
                     System.out.println("____________________________________________________________");
                 } else if (input.startsWith("mark ")) {
                     String number = input.replace("mark ", "").trim();
                     int markTaskNo = Integer.parseInt(number);
                     if (markTaskNo > 0) {
-                        tasks[markTaskNo - 1].markAsDone();
+                        tasks.get(markTaskNo - 1).markAsDone();
                     }
                     System.out.println("____________________________________________________________");
                     System.out.println(" Nice! I've marked this task as done:");
-                    System.out.println("   [" + tasks[markTaskNo - 1].getStatusIcon() + "] " + tasks[markTaskNo - 1].getDescription());
+                    System.out.println("   [" + tasks.get(markTaskNo - 1).getStatusIcon() + "] " + tasks.get(markTaskNo - 1).getDescription());
                     System.out.println("____________________________________________________________");
                 } else if (input.startsWith("unmark ")) {
                     String number = input.replace("unmark ", "").trim();
                     int unmarkedTaskNo = Integer.parseInt(number);
                     if (unmarkedTaskNo > 0) {
-                        tasks[unmarkedTaskNo - 1].markAsUndone();
+                        tasks.get(unmarkedTaskNo - 1).markAsUndone();
                     }
                     System.out.println("____________________________________________________________");
                     System.out.println(" OK, I've marked this task as not done yet:");
-                    System.out.println("   [" + tasks[unmarkedTaskNo - 1].getStatusIcon() + "] " + tasks[unmarkedTaskNo - 1].getDescription());
+                    System.out.println("   [" + tasks.get(unmarkedTaskNo - 1).getStatusIcon() + "] " + tasks.get(unmarkedTaskNo - 1).getDescription());
                     System.out.println("____________________________________________________________");
                 } else if (input.startsWith("todo")) {
                     String msg = input.replace("todo", "").trim();
@@ -58,7 +60,8 @@ public class Chatbot {
                     }
 
                     Task task = new Todo(msg);
-                    tasks[numOfTasks] = task;
+                    //tasks.set(numOfTasks, task);
+                    tasks.add(task);
                     numOfTasks++;
 
                     System.out.println("____________________________________________________________");
@@ -76,7 +79,8 @@ public class Chatbot {
                     String desc = msg.substring(0, msg.indexOf("/by")); // will contain the deadline description
 
                     Task task = new Deadline(desc, byDate);
-                    tasks[numOfTasks] = task;
+                    //tasks.set(numOfTasks, task);
+                    tasks.add(task);
                     numOfTasks++;
 
                     System.out.println("____________________________________________________________");
@@ -96,13 +100,27 @@ public class Chatbot {
                     String desc = msg.substring(0, msg.indexOf("/from ")); // will contain the deadline description
 
                     Task task = new Event(desc, fromDate, toDate);
-                    tasks[numOfTasks] = task;
+                    //tasks.set(numOfTasks, task);
+                    tasks.add(task);
                     numOfTasks++;
 
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + task);
                     System.out.println(" Now you have " + String.valueOf(numOfTasks) + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } else if (input.startsWith("delete")) {
+                    String parameter = input.replace("delete", "").trim();
+                    if(parameter.isEmpty()) {
+                        throw new ChatbotEmptyDescException(" ☹ OOPS!!! The description of delete cannot be empty.");
+                    }
+                    int indexToRemove = Integer.parseInt(parameter);
+                    Task task = tasks.get(indexToRemove-1);
+                    tasks.remove(indexToRemove-1);
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Noted. I've removed this task: ");
+                    System.out.println("   " + task);
+                    System.out.println(" Now you have " + String.valueOf(tasks.size()) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 } else {
                     // unknown command
