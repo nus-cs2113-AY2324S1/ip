@@ -2,10 +2,12 @@ package alan.task;
 
 public class Task {
     private String description;
+    private TaskType type;
     private boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, TaskType type) {
         this.description = description;
+        this.type = type;
         this.isDone = false;
     }
 
@@ -25,8 +27,20 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public TaskType getTaskType() {
+        return type;
+    }
+
+    public void setTaskType(TaskType type) {
+        this.type = type;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public int getStatusValue() {
+        return (isDone ? 1 : 0);
     }
 
     @Override
