@@ -6,6 +6,9 @@ import sun.task.Task;
 import sun.task.Deadline;
 import sun.task.Todo;
 import sun.task.Event;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Sun {
@@ -23,15 +26,14 @@ public class Sun {
         System.out.println("What can I do for you?");
         System.out.println(line);
 
-        Task[] tasks = new Task[100];
-        int taskCount = 0; // Keep track of the number of tasks added
+        List<Task> tasks = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
 
         while (!command.equals("bye")) {
             try {
-                taskCount = getInput(command, tasks, taskCount);
+                getInput(command, tasks);
             } catch (InvalidActionException e) {
                 System.out.println(line);
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -63,18 +65,18 @@ public class Sun {
         scanner.close();
     }
 
-    public static int getInput(String command, Task[] tasks, int taskCount) throws InvalidTaskIndexException,
+    public static void getInput(String command, List<Task> tasks) throws InvalidTaskIndexException,
             TasksOverflowException, InvalidActionException, IncompleteDescriptionException {
         String[] actionAndTask = command.split(" ");
         String action = actionAndTask[0];
 
         switch (action) {
             case "list":
-                printList(tasks, taskCount);
+                printList(tasks);
                 break;
             case "mark":
                 int taskIndex = Integer.parseInt(actionAndTask[1]);
-                if (taskIndex >= 1 && taskIndex <= taskCount) {
+                if (taskIndex >= 1 && taskIndex <= tasks.size()) {
                     markTask(tasks, taskIndex - 1);
                 } else {
                     throw new InvalidTaskIndexException();
@@ -83,7 +85,7 @@ public class Sun {
                 break;
             case "unmark":
                 int unmarkIndex = Integer.parseInt(actionAndTask[1]);
-                if (unmarkIndex >= 1 && unmarkIndex <= taskCount) {
+                if (unmarkIndex >= 1 && unmarkIndex <= tasks.size()) {
                     unMarkTask(tasks, unmarkIndex - 1);
                 } else {
                     throw new InvalidTaskIndexException();
@@ -93,48 +95,53 @@ public class Sun {
             case "todo":
             case "deadline":
             case "event":
-                if (taskCount < tasks.length) {
-                    tasks[taskCount] = addToList(command, taskCount);
-                    taskCount++;
+                if (tasks.size() < 100) {
+                    addToList(command, tasks);
                 } else {
                     throw new TasksOverflowException();
                     //System.out.println("Task list is full. Cannot add more tasks.");
+                }
+                break;
+            case "delete":
+                int deleteIndex = Integer.parseInt(actionAndTask[1]);
+                if (deleteIndex >= 1 && deleteIndex <= tasks.size()) {
+                    deleteTask(tasks, deleteIndex);
+                } else {
+                    throw new InvalidTaskIndexException();
                 }
                 break;
             default:
                 throw new InvalidActionException();
                 //System.out.println("Invalid command.");
         }
-
-        return taskCount;
     }
 
-    public static void printList(Task[] tasks, int taskCount) {
+    public static void printList(List<Task> tasks) {
         System.out.println(line);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].getDescription());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).getDescription());
         }
         System.out.println(line);
     }
 
-    public static void markTask(Task[] tasks, int taskIndex) {
-        tasks[taskIndex].markAsDone();
+    public static void markTask(List<Task> tasks, int taskIndex) {
+        tasks.get(taskIndex).markAsDone();
         System.out.println(line);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + tasks[taskIndex].getDescription());
+        System.out.println("  " + tasks.get(taskIndex).getDescription());
         System.out.println(line);
     }
 
-    public static void unMarkTask(Task[] tasks, int taskIndex) {
-        tasks[taskIndex].markAsNotDone();
+    public static void unMarkTask(List<Task> tasks, int taskIndex) {
+        tasks.get(taskIndex).markAsNotDone();
         System.out.println(line);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + tasks[taskIndex].getDescription());
+        System.out.println("  " + tasks.get(taskIndex).getDescription());
         System.out.println(line);
     }
 
-    public static Task addToList(String command, int taskCount) throws IncompleteDescriptionException {
+    public static void addToList(String command, List<Task> tasks) throws IncompleteDescriptionException {
         Task task = null;
         String[] actionAndTask = command.split(" ");
         if (actionAndTask.length < 2) {
@@ -151,12 +158,26 @@ public class Sun {
             task = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
         }
 
+        tasks.add(task);
+
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.getDescription());
-        System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(line);
+    }
 
-        return task;
+    public static void deleteTask(List<Task> tasks, int taskIndex) throws InvalidTaskIndexException {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task deletedTask = tasks.remove(taskIndex);
+
+            System.out.println(line);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + deletedTask.getDescription());
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println(line);
+        } else {
+            throw new InvalidTaskIndexException();
+        }
     }
 }
