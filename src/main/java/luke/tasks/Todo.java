@@ -1,3 +1,5 @@
+package luke.tasks;
+
 public class Todo extends Task {
     //protected boolean isDone;
 

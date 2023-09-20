@@ -1,3 +1,6 @@
+package luke.tasks;
+import luke.errors.LukeTimeError;
+
 public class Event extends Task {
     protected String startDate;
     protected String endDate;

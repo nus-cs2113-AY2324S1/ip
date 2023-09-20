@@ -1,3 +1,7 @@
+
+package luke.tasks;
+import luke.errors.LukeTimeError;
+
 public class Deadline extends Todo {
     protected String date;
 
