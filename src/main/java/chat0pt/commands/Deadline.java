@@ -1,4 +1,8 @@
-public class Deadline extends Task{
+package chat0pt.commands;
+
+import chat0pt.commands.Task;
+
+public class Deadline extends Task {
     private String by;
     public Deadline(String tasks, String By) {
         super(tasks);

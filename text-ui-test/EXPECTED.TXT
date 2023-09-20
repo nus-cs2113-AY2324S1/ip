@@ -6,11 +6,11 @@ list
 __________________________________________
 Here are the tasks in your list:
 __________________________________________
-todo This Task
+todo This chat0pt.commands.Task
 __________________________________________
 __________________________________________
 Got it. I've added this task:
-[T][ ] This Task
+[T][ ] This chat0pt.commands.Task
 Now you have 1 tasks in your list.
 __________________________________________
 deadline NewTask /by 3 Jan
@@ -30,7 +30,7 @@ __________________________________________
 list
 __________________________________________
 Here are the tasks in your list:
-1. [T][ ]  This Task
+1. [T][ ]  This chat0pt.commands.Task
 2. [D][ ]  deadline NewTask (by: 3 Jan)
 3. [E][ ]  work 5pm (from: 3pm to:5pm)
 __________________________________________
@@ -42,7 +42,7 @@ __________________________________________
 list
 __________________________________________
 Here are the tasks in your list:
-1. [T][ ]  This Task
+1. [T][ ]  This chat0pt.commands.Task
 2. [D][X]  deadline NewTask (by: 3 Jan)
 3. [E][ ]  work 5pm (from: 3pm to:5pm)
 __________________________________________

@@ -1,4 +1,8 @@
-public class Event extends Task{
+package chat0pt.commands;
+
+import chat0pt.commands.Task;
+
+public class Event extends Task {
     private String from;
     private String to;
 
