@@ -2,10 +2,10 @@ public class Todo extends Task {
     //protected boolean isDone;
 
     public Todo(String echo) {
-        super(echo);
-        //isDone = false;
+        super(echo); //ensures superclass is properly initialised
+
         description = echo.substring(4);
-        if (description.length() <= 0) {
+        if (description.isEmpty()) {
             throw new IndexOutOfBoundsException();
         }
     }

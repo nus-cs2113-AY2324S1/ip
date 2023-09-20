@@ -2,16 +2,22 @@ public class Event extends Deadline {
     protected String startDate;
     protected String endDate;
 
-    public Event(String echo) {
+    public Event(String echo) throws LukeTimeError {
         super(echo);
         //setDates(dates);
         String taskDescription = echo.substring(5);
+
         int slashCut = taskDescription.indexOf("/");
+        if (slashCut <= 0) {
+            throw new LukeTimeError();
+        }
+
         String taskDuration = taskDescription.substring(slashCut);
         setDates(taskDuration);
+
         description = taskDescription.substring(0, slashCut);
 
-        if (description.length() <= 0) {
+        if (description.length() <= 1) {
             throw new IndexOutOfBoundsException();
         }
     }
