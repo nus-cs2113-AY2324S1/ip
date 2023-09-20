@@ -60,6 +60,20 @@ public class FileManager {
         }
     }
 
+    public void save(ArrayList<duke.Task> taskList){
+        try {
+            if (this.writer != null){
+                closeFile();
+            }
+            this.writer = new FileWriter("./test.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for (Task task:taskList){
+            write(task.taskFormatted());
+        }
+    }
+
     public void closeFile() throws IOException {
         writer.close();
     }
