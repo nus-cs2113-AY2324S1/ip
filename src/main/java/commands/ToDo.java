@@ -1,8 +1,8 @@
-package Objects;
+package commands;
 
-public class toDos extends task {
+public class ToDo extends Task {
 
-    public toDos(String description) {
+    public ToDo(String description) {
         super(description);
         this.isDone = false;
         this.type = 'T';

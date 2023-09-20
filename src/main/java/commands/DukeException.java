@@ -1,6 +1,6 @@
-package Objects;
+package commands;
 
-public class dukeException extends Exception {
+public class DukeException extends Exception {
 
     public static String outOfBoundsError(){
         return "index out of bounds, try again later.";

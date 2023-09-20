@@ -1,10 +1,10 @@
-package Objects;
+package commands;
 
-public class deadlines extends toDos {
+public class Deadline extends ToDo {
 
     protected String by;
 
-    public deadlines(String description, String by) {
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
         this.type = 'D';

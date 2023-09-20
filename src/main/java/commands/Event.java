@@ -1,9 +1,9 @@
-package Objects;
+package commands;
 
-public class events extends deadlines {
+public class Event extends Deadline {
     protected String end;
 
-    public events(String description, String by, String end) {
+    public Event(String description, String by, String end) {
         super(description,by);
         this.end = end;
         this.type = 'E';
