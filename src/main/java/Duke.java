@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -284,6 +289,43 @@ public class Duke {
             System.out.println("please enter command in the format: event <description> /from <time> /to <time>");
         }
     }
+    /*
+     * This method deletes a task.
+     *
+     * splits the command into two parts: command type and task number
+     * e.g. delete 1 will be split into "delete" and "1"
+     * the task number is then parsed into an integer
+     * If the task number is invalid, it will print an error message.
+     * if the task number is valid, it will print the task that is deleted.
+     *
+     * @param tasks the list of tasks
+     * @param parts the command that is split into two parts
+     * @throws DukeException if the task number is empty or not an integer
+     * @throws NumberFormatException if the task number is not an integer
+     *
+     */
+    private static void deleteTask(ArrayList<Task> tasks, String[] parts) {
+        try {
+            if(parts.length < 2 || parts[1].isEmpty()) {
+                throw new DukeException();
+            }
+            int taskIndex = Integer.parseInt(parts[1]) - 1;
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                Task removeTask = tasks.remove(taskIndex);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println("  " + removeTask);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else {
+                System.out.println("ERROR: ☹ OOPS!!! Invalid task number.");
+            }
+        } catch (DukeException e) {
+            System.out.println("Error: ☹ OOPS!!! Task number cannot be empty\n");
+            System.out.println("Please enter command in the format: delete <task number>");
+        } catch (NumberFormatException e) {
+            System.out.println("Error: ☹ OOPS!!! Task number must be an integer.\n");
+            System.out.println("Please enter command in the format: delete <task number>");
+        }
+    }
 
     public static void main(String[] args) {
         greet();
@@ -331,6 +373,10 @@ public class Duke {
 
                         case "event":
                             addEvent(tasks, parts);
+                            break;
+
+                        case "delete":
+                            deleteTask(tasks, parts);
                             break;
 
                         default:
