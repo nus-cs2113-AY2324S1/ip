@@ -99,18 +99,18 @@ public class Nuke {
     }
 
     public void markTask(int idx) {
-        String task = tasks.mark(idx);
-        ui.printMarkedTask(task);
+        String markedTask = tasks.mark(idx);
+        ui.printMarkedTask(markedTask);
     }
 
     public void unmarkTask(int idx) {
-        String task = tasks.unmark(idx);
-        ui.printUnmarkedTask(task);
+        String unmarkedTask = tasks.unmark(idx);
+        ui.printUnmarkedTask(unmarkedTask);
     }
 
     public void deleteTask(int idx) {
-        String task = tasks.delete(idx);
-        ui.printDeletedTask(task, countTasks());
+        String deletedTask = tasks.delete(idx);
+        ui.printDeletedTask(deletedTask, countTasks());
     }
 
     public void addTodo(String name) {
