@@ -1,5 +1,5 @@
 public class Deadline extends Todo {
-    protected String byDate;
+    protected String date;
 
     public Deadline(String echo) throws LukeTimeError {
         super(echo);
@@ -11,7 +11,7 @@ public class Deadline extends Todo {
             throw new LukeTimeError();
         }
 
-        byDate = taskDescription.substring(slashCut + 1);
+        setDate(taskDescription.substring(slashCut + 1));
 
         description = taskDescription.substring(0, slashCut);
 
@@ -20,13 +20,17 @@ public class Deadline extends Todo {
         }
     }
 
-    public String getByDate() {
-        return byDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setByDate(String date) {
-        int spaceCut = date.indexOf(" ");
-        byDate = date.substring(spaceCut + 1);
+    public void setDate(String dateString) throws LukeTimeError {
+        String[] words = dateString.split(" ");
+        if (!words[0].equals("by")) {
+            throw new LukeTimeError();
+        }
+        int spaceCut = dateString.indexOf(" ");
+        date = dateString.substring(spaceCut + 1);
     }
 
     @Override
@@ -40,6 +44,6 @@ public class Deadline extends Todo {
             isDoneString = "[ ]";
         }
 
-        return "\t[D]" + isDoneString + getDescription() + "(do by: " + getByDate() + ")";
+        return "\t[D]" + isDoneString + getDescription() + "(do by: " + getDate() + ")";
     }
 }
