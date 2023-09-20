@@ -1,10 +1,8 @@
 package chat0pt.commands;
 
-import chat0pt.commands.Task;
-
 public class Event extends Task {
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
     public Event(String tasks, String from, String to) {
         super(tasks);

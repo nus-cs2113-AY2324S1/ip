@@ -1,6 +1,5 @@
 package chat0pt.commands;
 
-import chat0pt.commands.Task;
 
 public class Deadline extends Task {
     private String by;
