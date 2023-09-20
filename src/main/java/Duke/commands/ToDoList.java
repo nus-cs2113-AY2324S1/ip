@@ -49,7 +49,8 @@ public class ToDoList {
 
         if (Echo.newList.taskList.get(j).taskType[0] == "T") {
             System.out.println(j + 1 + "." + Arrays.toString(Echo.newList.taskList.get(j).taskType) +
-                    Arrays.toString(Echo.newList.taskList.get(j).markAsDone) + " " + Echo.newList.taskList.get(j).toBeDone);
+                    Arrays.toString(Echo.newList.taskList.get(j).markAsDone) + " "
+                    + Echo.newList.taskList.get(j).toBeDone);
         }
         else if(Echo.newList.taskList.get(j).taskType[0] == "D"){
             System.out.println(j + 1 + "." + Arrays.toString(Echo.newList.taskList.get(j).taskType) +
@@ -59,7 +60,8 @@ public class ToDoList {
         }
         else if (Echo.newList.taskList.get(j).taskType[0] == "E"){
             System.out.println(j + 1 + "." + Arrays.toString(Echo.newList.taskList.get(j).taskType) +
-                    Arrays.toString(Echo.newList.taskList.get(j).markAsDone) + " " + Echo.newList.taskList.get(j).toBeDone
+                    Arrays.toString(Echo.newList.taskList.get(j).markAsDone) + " " +
+                        Echo.newList.taskList.get(j).toBeDone
                         + " (from: " + Echo.newList.taskList.get(j).startTime
                         + " to: "+ Echo.newList.taskList.get(j).endTime + ")");
         }
@@ -127,7 +129,8 @@ public class ToDoList {
 
         if (Echo.newList.taskList.get(taskNumber-1).taskType[0] == "T") {
             System.out.println(Arrays.toString(Echo.newList.taskList.get(taskNumber-1).taskType) +
-                    Arrays.toString(Echo.newList.taskList.get(taskNumber-1).markAsDone) + " " + Echo.newList.taskList.get(taskNumber-1).toBeDone);
+                    Arrays.toString(Echo.newList.taskList.get(taskNumber-1).markAsDone) + " " +
+                    Echo.newList.taskList.get(taskNumber-1).toBeDone);
         }
         else if(Echo.newList.taskList.get(taskNumber-1).taskType[0] == "D"){
             System.out.println(Arrays.toString(Echo.newList.taskList.get(taskNumber-1).taskType) +
@@ -157,7 +160,7 @@ public class ToDoList {
                         + " (by:" + toAdd.dueDate +"/ "  + ")" + System.lineSeparator());
             } else if (toAdd.taskType[0] == "E") {
                 appendToFile(taskListFile, Arrays.toString(toAdd.taskType)  + "/" +
-                        Arrays.toString(toAdd.markAsDone) + "/" + toAdd.toBeDone + "/"
+                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone + "/"
                         + " (from: "  + toAdd.startTime + "/"
                         + " to: " + toAdd.endTime + "/"+  ")" + System.lineSeparator());
             }

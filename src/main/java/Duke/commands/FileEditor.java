@@ -50,8 +50,8 @@ public class FileEditor {
                 newTask.dueDate = timing.substring(5, timing.length());
             }else if(Objects.equals(taskType, "[E]")) {
                 newTask.taskType[0] = "E";
-                newTask.startTime = timing.substring(7,timing.length());
-                newTask.endTime = timingEnd.substring(4,timingEnd.length());
+                newTask.startTime = timing.substring(8,timing.length());
+                newTask.endTime = timingEnd.substring(6,timingEnd.length());
             }
 
             if(Objects.equals(marker, "[ ]")){
