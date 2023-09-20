@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Deadline extends Task {
+    private String by;
     public String getBy() {
         return by;
     }
@@ -12,7 +13,6 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    private String by;
 
     public Deadline(String name, String by) {
         this.name = name;
