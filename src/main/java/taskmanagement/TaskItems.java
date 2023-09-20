@@ -12,6 +12,7 @@ public class TaskItems {
     static String outputFormat = "    ____________________________________________________________\n" +
             "    %s\n    ____________________________________________________________ ";
 
+    public static final String DELETE_TASK_COMMAND = "delete ";
     public static final String MARK_TASK_COMMAND = "mark ";
     public static final String UNMARK_TASK_COMMAND = "unmark ";
     public static final String LIST_TASK_COMMAND = "list";
@@ -25,9 +26,13 @@ public class TaskItems {
     public static final String USER_HELP_COMMAND = "help";
 
     //to echo after a new task is added
-    public static void echo(Task task){
-        System.out.printf((outputFormat) + "%n", "New task added: " + task.getDescription() + "\n" +
-                "    Type 'list' to view all your tasks :D");
+    public static void echo(ArrayList<Task> items, Task task, String input){
+        String output = input.startsWith(DELETE_TASK_COMMAND)? "Noted!" + "Task deleted: " + task.getDescription() + "\n" +
+                "    Number of Tasks: " + items.size()
+                : "Noted!" + "Task added: " + task.getDescription() + "\n" +
+                "    Number of Tasks: " + items.size() ;
+        System.out.printf(outputFormat + "%n", output);
+        echo(items);
     }
     //to echo after a task's status is changed
     public static void echo(Task task, boolean isDone){
@@ -39,6 +44,7 @@ public class TaskItems {
     //to echo when LIST command is being used
     public static void echo(ArrayList<Task> items){
         System.out.println("    ____________________________________________________________");
+        System.out.println("    List of Tasks:");
         int index=0;
         for(Task item : items){
             if((item != null)) {
@@ -69,7 +75,7 @@ public class TaskItems {
                         task = items.get(Integer.parseInt(eventIndex) - 1);
                         task.setAsDone();
                         echo(task, task.isDone);
-                    } catch(NullPointerException e) {
+                    } catch(NullPointerException | NumberFormatException | IndexOutOfBoundsException e ) {
                         throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_INDEX.message);
                     }
                 }
@@ -86,12 +92,20 @@ public class TaskItems {
                         task = items.get(Integer.parseInt(eventIndex) - 1);
                         task.setAsNotDone();
                         echo(task, task.isDone);
-                    } catch (NullPointerException e) {
+                    } catch(NullPointerException | NumberFormatException | IndexOutOfBoundsException e ) {
                         throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_INDEX.message);
                     }
                 }
                 catch(ZranExceptions e){
                     System.out.printf((outputFormat) + "%n", e.getMessage());
+                }
+            } else if (input.startsWith(DELETE_TASK_COMMAND)) {
+                try {
+                    String deleteIndex = input.substring(DELETE_TASK_COMMAND.length()).trim();
+                    Task deletedTask = deleteTask(items, Integer.parseInt(deleteIndex) - 1);
+                    echo(items, deletedTask, input);
+                } catch(NumberFormatException | NullPointerException | ZranExceptions e){
+                    System.out.printf((outputFormat) + "%n", ZranErrorMessages.INVALID_TASK_INDEX_DELETE.message);
                 }
             } else if(input.equals(LIST_TASK_COMMAND)){
                 echo(items);
@@ -106,12 +120,13 @@ public class TaskItems {
                                 "    UNMARK: unmark *existing task index* \n" +
                                 "    TODO: todo *task name* \n" +
                                 "    DEADLINE: deadline *task name* /by *deadline* \n" +
-                                "    EVENT: event *event name* /from *start date* /to *end date*");
+                                "    EVENT: event *event name* /from *start date* /to *end date*" +
+                                "    DELETE: delete *existing task index* \n");
             } else {
                 try{
                     task = addTaskByType(input);
                     items.add(task);
-                    echo(task);
+                    echo(items, task, input);
                 }
                 catch(ZranExceptions e){
                     System.out.println();
@@ -167,6 +182,21 @@ public class TaskItems {
         }
 
         return task;
+    }
+
+    public static Task deleteTask(ArrayList<Task> items, int deleteIndex) throws ZranExceptions{ //change to string or no
+
+        Task deletedTask = null;
+//        try{
+            if (deleteIndex<0 || deleteIndex >= items.size()){
+                throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_INDEX_DELETE.message);
+            }
+            deletedTask = items.remove(deleteIndex);
+//        } catch(ZranExceptions e) {
+//            System.out.println();
+//            System.out.printf((outputFormat) + "%n", e.getMessage());
+//        }
+        return deletedTask;
     }
 
 }

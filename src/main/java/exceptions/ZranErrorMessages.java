@@ -16,7 +16,10 @@ public enum ZranErrorMessages {
     EMPTY_TASK_INDEX("Invalid (un)mark command: Missing task index to (un)mark. \n " +
             "   Please enter an existing index to (un)mark or type help :)"),
     INVALID_TASK_INDEX("Invalid (un)mark command: Invalid task index to (un)mark. \n" +
-            "    Please enter an existing task index to (un)mark or type help :)");
+            "    Please enter an existing task index to (un)mark or type help :)"),
+
+    INVALID_TASK_INDEX_DELETE("Invalid delete command: Invalid task index to delete. \n" +
+            "    Please enter an existing task index to delete or type help :)");
 
     public final String message;
     ZranErrorMessages(String message) {
