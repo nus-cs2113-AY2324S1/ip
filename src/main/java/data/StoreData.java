@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 public class StoreData {
     public static void store(ResponseProcessor processor) {
-        Path path = Paths.get("src", "main", "java", "data", "savefile.txt");
+        Path path = Paths.get("savefile.txt");
         File file = path.toFile();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (int num = 0; num < processor.taskList.size(); num += 1){

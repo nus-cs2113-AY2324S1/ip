@@ -18,11 +18,23 @@ public class AsciiArt {
         put("ready", "(^-^)ゝ");
     }};
 
+    public static HashMap<String, String> emote = new HashMap<>() {{
+        put("line", "________________________________________");
+        put("sad", ":9");
+        put("uwu", "UwU");
+        put("good", ":>");
+        put("okay", ":)");
+        put("kiss", "<3");
+        put("cry", ":'(");
+        put("depress", ":<");
+        put("ready", "<:a");
+    }};
+
     public static String getArt(String str){
         if(isEnabled){
             return art.get(str);
         }
-        return "";
+        return emote.get(str);
     }
 
     public static void setEnabled(boolean enable){

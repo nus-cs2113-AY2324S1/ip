@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 public class LoadData {
     public static void load(ResponseProcessor processor) {
 
-        Path path = Paths.get("src", "main", "java", "data", "savefile.txt");
+        Path path = Paths.get("savefile.txt");
         File file = path.toFile();
 
 

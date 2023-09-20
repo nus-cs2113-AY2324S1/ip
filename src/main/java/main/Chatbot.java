@@ -10,9 +10,11 @@ public class Chatbot {
         System.out.println("Hello I'm Rias-chan!");
         System.out.println(picture);
         System.out.println("Welcome back goshujin-sama, what can I do for you?");
+        System.out.println();
         ResponseProcessor processor = new ResponseProcessor();
         LoadData.load(processor);
         waitForResponse(processor);
+        StoreData.store(processor);
         System.out.println("Bye masta! " + AsciiArt.getArt("kiss"));
     }
     public static void waitForResponse(ResponseProcessor processor) {
@@ -21,7 +23,7 @@ public class Chatbot {
         do {
             response = scanner.nextLine();
             if (!"bye".equalsIgnoreCase(response)) {
-                StoreData.store(processor);
+                System.out.println(AsciiArt.getArt("line"));
                 processor.process(response);
                 System.out.println(AsciiArt.getArt("line"));
             }
