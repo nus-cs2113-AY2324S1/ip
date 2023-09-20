@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chatbot {
@@ -28,11 +30,8 @@ public class Chatbot {
             //exception handling left as an exercise for the reader
         }
     }
-    public static void deleteFromFile(int index) {
 
-    }
-
-    public static void parseFile(Task[] tasks) throws IOException {
+    public static void parseFile(ArrayList<Task> tasks) throws IOException {
         Path path = Paths.get("./tasklist.txt");
         if(!Files.exists(path)) {
             return;
@@ -51,36 +50,44 @@ public class Chatbot {
         }
     }
 
-    public static void parseCommand(Task[] tasks, String input, boolean isUserInput) {
+    public static void parseCommand(ArrayList<Task> tasks, String input, boolean isUserInput) {
         try {
             if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Here are the tasks in your list:");
                 for (int i = 0; i < numOfTasks; i++) {
                     //System.out.println(" " + (i + 1) + ".[" + tasks[i].getTypeIcon() + "][" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
-                    System.out.println(" " + (i + 1) + "." + tasks[i]);
+                    System.out.println(" " + (i + 1) + "." + tasks.get(i));
                 }
                 System.out.println("____________________________________________________________");
             } else if (input.startsWith("mark ")) {
                 String number = input.replace("mark ", "").trim();
                 int markTaskNo = Integer.parseInt(number);
                 if (markTaskNo > 0) {
-                    tasks[markTaskNo - 1].markAsDone();
+                    tasks.get(markTaskNo - 1).markAsDone();
                 }
-                System.out.println("____________________________________________________________");
-                System.out.println(" Nice! I've marked this task as done:");
-                System.out.println("   [" + tasks[markTaskNo - 1].getStatusIcon() + "] " + tasks[markTaskNo - 1].getDescription());
-                System.out.println("____________________________________________________________");
+                if(isUserInput) {
+                    saveToFile(input);
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Nice! I've marked this task as done:");
+                    System.out.println("   [" + tasks.get(markTaskNo - 1).getStatusIcon() + "] " + tasks.get(markTaskNo - 1).getDescription());
+                    System.out.println("____________________________________________________________");
+                }
+
             } else if (input.startsWith("unmark ")) {
                 String number = input.replace("unmark ", "").trim();
                 int unmarkedTaskNo = Integer.parseInt(number);
                 if (unmarkedTaskNo > 0) {
-                    tasks[unmarkedTaskNo - 1].markAsUndone();
+                    tasks.get(unmarkedTaskNo - 1).markAsUndone();
                 }
-                System.out.println("____________________________________________________________");
-                System.out.println(" OK, I've marked this task as not done yet:");
-                System.out.println("   [" + tasks[unmarkedTaskNo - 1].getStatusIcon() + "] " + tasks[unmarkedTaskNo - 1].getDescription());
-                System.out.println("____________________________________________________________");
+                if(isUserInput) {
+                    saveToFile(input);
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" OK, I've marked this task as not done yet:");
+                    System.out.println("   [" + tasks.get(unmarkedTaskNo - 1).getStatusIcon() + "] " + tasks.get(unmarkedTaskNo - 1).getDescription());
+                    System.out.println("____________________________________________________________");
+                }
+
             } else if (input.startsWith("todo")) {
                 String msg = input.replace("todo", "").trim();
                 if(msg.isEmpty()) {
@@ -88,7 +95,7 @@ public class Chatbot {
                 }
 
                 Task task = new Todo(msg);
-                tasks[numOfTasks] = task;
+                tasks.add(task);
                 numOfTasks++;
 
                 if(isUserInput) {
@@ -96,7 +103,7 @@ public class Chatbot {
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + task);
-                    System.out.println(" Now you have " + String.valueOf(numOfTasks) + " tasks in the list.");
+                    System.out.println(" Now you have " + String.valueOf(tasks.size()) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
 
@@ -110,7 +117,7 @@ public class Chatbot {
                 String desc = msg.substring(0, msg.indexOf("/by")); // will contain the deadline description
 
                 Task task = new Deadline(desc, byDate);
-                tasks[numOfTasks] = task;
+                tasks.add(task);
                 numOfTasks++;
 
                 if(isUserInput) {
@@ -118,7 +125,7 @@ public class Chatbot {
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + task);
-                    System.out.println(" Now you have " + String.valueOf(numOfTasks) + " tasks in the list.");
+                    System.out.println(" Now you have " + String.valueOf(tasks.size()) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
 
@@ -134,7 +141,7 @@ public class Chatbot {
                 String desc = msg.substring(0, msg.indexOf("/from ")); // will contain the deadline description
 
                 Task task = new Event(desc, fromDate, toDate);
-                tasks[numOfTasks] = task;
+                tasks.add(task);
                 numOfTasks++;
 
                 if(isUserInput) {
@@ -142,7 +149,7 @@ public class Chatbot {
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + task);
-                    System.out.println(" Now you have " + String.valueOf(numOfTasks) + " tasks in the list.");
+                    System.out.println(" Now you have " + String.valueOf(tasks.size()) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
 
@@ -163,11 +170,9 @@ public class Chatbot {
         }
     }
     public static void main(String[] args) throws Exception {
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<Task>(100);
 
         parseFile(tasks);
-
-
 
         String greetingMsg = "____________________________________________________________\n" +
                 " Hello! I'm Chatbot\n" +
