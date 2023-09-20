@@ -196,7 +196,17 @@ public class Duke {
                 break;
             }
 
-
+            case "delete":{
+                if (!isValidInputs(initialWord, numOfItems, words)) {
+                    break;
+                }
+                int index = Integer.parseInt(words[1]);
+                Task item = storageArray.get(index - 1);
+                storageArray.remove(index - 1);
+                System.out.println("Noted. I've removed this task: ");
+                System.out.println("[" + item.getType() + "]" + "[" + item.getStatusIcon() + "]" + item);
+                break;
+            }
 
             case "mark": {
                 if (!isValidInputs(initialWord, numOfItems, words)) {
