@@ -34,6 +34,7 @@ public class Duke {
         printLine();
         System.out.println("    Bye. Hope to see you again soon!");
         printLine();
+        this.writer.save(taskList);
         this.writer.closeFile();
     }
 
@@ -102,7 +103,6 @@ public class Duke {
             Task todo = new ToDo(todoDescription);
             taskList.add(todo);
             addTaskCallback(todo);
-            this.writer.write(todo.taskFormatted());
             break;
         case "deadline":
             int byIndex = Arrays.asList(userInput).indexOf("/by");
@@ -111,7 +111,6 @@ public class Duke {
             Deadline deadline = new Deadline(deadlineDescription, deadlineTime);
             taskList.add(deadline);
             addTaskCallback(deadline);
-            this.writer.write(deadline.taskFormatted());
             break;
         case "event":
             int fromIndex = Arrays.asList(userInput).indexOf("/from");
@@ -122,7 +121,6 @@ public class Duke {
             Task event = new Event(eventDescription, from, to);
             taskList.add(event);
             addTaskCallback(event);
-            this.writer.write(event.taskFormatted());
             break;
         default:
         }
