@@ -52,6 +52,8 @@ public class Dude {
                     addEventTask(tasks, input);
                 } else if (input.startsWith("mark") || input.startsWith("unmark")) {
                     markOrUnmarkTask(tasks, input);
+                } else if (input.startsWith("delete")) {
+                    deleteTask(tasks, input);
                 } else {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -164,7 +166,28 @@ public class Dude {
         System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
     }
 
+    private static void deleteTask(ArrayList<Task> tasks, String input) {
+        String[] arrOfInput = input.split(" ");
+        if (arrOfInput.length < 2) {
+            System.out.println("Please specify the task index to delete.");
+            return;
+        }
 
+        try {
+            int index = Integer.parseInt(arrOfInput[1]) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                System.out.println("Task index out of range.");
+                return;
+            }
+
+            Task removedTask = tasks.remove(index);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task index format.");
+        }
+    }
 
     // Method to print the goodbye message
     public static void byeDude() {
