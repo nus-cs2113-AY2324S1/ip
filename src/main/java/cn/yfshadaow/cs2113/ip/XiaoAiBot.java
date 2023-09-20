@@ -1,5 +1,8 @@
 package cn.yfshadaow.cs2113.ip;
 
+import cn.yfshadaow.cs2113.ip.command.CommandHandler;
+import cn.yfshadaow.cs2113.ip.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

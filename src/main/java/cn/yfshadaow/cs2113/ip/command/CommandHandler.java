@@ -1,4 +1,10 @@
-package cn.yfshadaow.cs2113.ip;
+package cn.yfshadaow.cs2113.ip.command;
+
+import cn.yfshadaow.cs2113.ip.*;
+import cn.yfshadaow.cs2113.ip.task.Deadline;
+import cn.yfshadaow.cs2113.ip.task.Event;
+import cn.yfshadaow.cs2113.ip.task.Task;
+import cn.yfshadaow.cs2113.ip.task.Todo;
 
 import java.util.Arrays;
 import java.util.List;
