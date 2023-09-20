@@ -250,48 +250,54 @@ public class Alan {
         if (textFile.length() != 0) { //check if the file is empty
             //read the file and store into ArrayList
             Scanner s = new Scanner(textFile);
-            ArrayList<String> list = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<>();
 
             while (s.hasNext()){
                 list.add(s.nextLine());
             }
             s.close();
 
-            //extract data and store into taskList
-            //todo: after this line should check if the data is in correct format
-            for (String task : list) {
-                String[] splitTaskString = task.split(" \\| ");
-                String taskType = splitTaskString[0];
-                String isDoneString = splitTaskString[1];
-                String description = splitTaskString[2];
+            extractAndStoreDataInTaskList(taskList, list);
 
-                boolean isDone = isDoneStringToBoolean(isDoneString);
+        }
+    }
 
-                switch (taskType) {
-                case "T":
-                    taskList.add(new Todo(description));
-                    break;
-                case "D":
-                    String by = splitTaskString[3];
-                    taskList.add(new Deadline(description, by));
-                    break;
-                case "E":
-                    String date = splitTaskString[3];
-                    String[] splitDate = date.split("-");
-                    String from = splitDate[0];
-                    String to = splitDate[1];
+    private static void extractAndStoreDataInTaskList(ArrayList<Task> taskList, ArrayList<String> list) {
+        //todo: after this line should check if the data is in correct format
+        for (String task : list) {
+            String[] splitTaskString = task.split(" \\| ");
+            String taskType = splitTaskString[0];
+            String isDoneString = splitTaskString[1];
+            String description = splitTaskString[2];
+            boolean isDone = isDoneStringToBoolean(isDoneString);
 
-                    taskList.add(new Event(description, from, to));
-                    break;
-                default:
-                    //todo handle invalid task type
-                    break;
-                }
+            addTaskToTaskList(taskList, taskType, description, splitTaskString);
 
-                int lastTaskIndex = taskList.size() - 1;
-                taskList.get(lastTaskIndex).setDone(isDone);
-            }
+            int lastTaskIndex = taskList.size() - 1;
+            taskList.get(lastTaskIndex).setDone(isDone);
+        }
+    }
 
+    private static void addTaskToTaskList(ArrayList<Task> taskList, String taskType, String description, String[] splitTaskString) {
+        switch (taskType) {
+        case "T":
+            taskList.add(new Todo(description));
+            break;
+        case "D":
+            String by = splitTaskString[3];
+            taskList.add(new Deadline(description, by));
+            break;
+        case "E":
+            String date = splitTaskString[3];
+            String[] splitDate = date.split("-");
+            String from = splitDate[0];
+            String to = splitDate[1];
+
+            taskList.add(new Event(description, from, to));
+            break;
+        default:
+            //todo handle invalid task type
+            break;
         }
     }
 
