@@ -1,11 +1,15 @@
 todo test text UI
+list
 deadline peer review /by Wednesday 9pm
 list
 event CS2113 lecture Friday /from 4 /to 6pm
 todo CS2113 Exercises
+Avengers assemble
 mark 1
 mark 2
+mark
 list
+deadline
 unmark 1
 list
 bye

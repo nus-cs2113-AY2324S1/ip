@@ -8,10 +8,14 @@ import java.util.Scanner;
 
 import tasklist.TaskList;
 
+
+/**
+ * Provides the methods for managing the savefile. Creates the directory and savefile, and saves
+ * the file when needed.
+ */
 public class FileManager {
 
     public static DukeUi ui = new DukeUi();
-
     private static final String FILE_DIRECTORY = "data";
     private static final String FILE_PATH = "data/duke.txt";
     private static final File SAVE_FILE = new File("data/duke.txt");
@@ -51,6 +55,13 @@ public class FileManager {
         fw.close();
     }
 
+    /**
+     * Parses the savefile into the tasklist.
+     *
+     * @return Tasklist with the save data
+     *
+     * @throws IOException if I/O errors occur while reading the file
+     */
     public static TaskList parseSavefile() throws IOException {
         Scanner s = new Scanner(SAVE_FILE);
         TaskList taskList = new TaskList(s);

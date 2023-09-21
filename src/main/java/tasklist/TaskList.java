@@ -130,7 +130,9 @@ public class TaskList {
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please use 'mark <number>'.");
         } catch (IndexOutOfBoundsException e) {
+            ui.printLine();
             System.out.println("Please specify the task number");
+            ui.printLine();
         }
     }
 
@@ -148,10 +150,12 @@ public class TaskList {
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please use 'unmark + number'.");
         } catch (IndexOutOfBoundsException e) {
+            ui.printLine();
             System.out.println("Please specify the task number");
+            ui.printLine();
         }
     }
-    
+
     /**
      *
      * Method to delete a task.
@@ -168,10 +172,18 @@ public class TaskList {
                 System.out.println("Invalid task index.");
             }
         } catch (NumberFormatException e) {
+            ui.printLine();
             System.out.println("Invalid input. Please use 'delete <number>'.");
+            ui.printLine();
         }
     }
 
+    /**
+     * Converts tasks into one string and append to the string builder which will
+     * be written into the save file.
+     *
+     * @return returns the string of tasks in string format
+     */
     public String toString() {
         StringBuilder saveString = new StringBuilder();
         for (Task task : tasks) {
@@ -181,6 +193,12 @@ public class TaskList {
         return saveString.toString();
     }
 
+    /**
+     * Instantiates a tasklist containing data in the savefile. Uses the parseTasks() method
+     * to convert from the savefile to usable tasklist data.
+     *
+     * @param s scanner containing the lines in the savefile.
+     */
     public TaskList(Scanner s) {
         while (s.hasNextLine()) {
             String line = s.nextLine();

@@ -76,8 +76,10 @@ public class Duke {
                 taskList.deleteTask(inputWords);
                 break;
             default:
+                ui.printLine();
                 System.out.println("☹ OOPS!!! I'm sorry, " +
                         "but I don't know what that means :-(");
+                ui.printLine();
                 break;
             }
         } while (!enteredBye);

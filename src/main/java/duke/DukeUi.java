@@ -21,7 +21,7 @@ public class DukeUi {
 
     public void printWelcomeMessage() {
         printLine();
-        System.out.println("Hi! I'm Joshua");
+        System.out.println("Hi! I'm Juke");
         System.out.println("What can I do for you?");
         printLine();
     }

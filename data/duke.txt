@@ -1,3 +1,0 @@
-T|Y|read
-E|Y|hide|2 aug 3pm|4pm
-D|Y|ask|fri
