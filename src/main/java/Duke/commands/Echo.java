@@ -2,7 +2,6 @@ package duke.commands;
 
 import duke.exceptions.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -21,7 +20,7 @@ public class Echo  {
     }
 
 
-    public void echoBegin() throws DukeException, IOException, FileNotFoundException {
+    public void echoBegin() throws DukeException, IOException {
         Scanner in = new Scanner(System.in);
         String text = in.next();
         if (text.equals("bye")) {
@@ -76,11 +75,13 @@ public class Echo  {
                 newList.removeTask(text + part);
                 text = in.next();
 
-            } else {
-               System.out.println("OOPS! I'm sorry i don't know what that means.");
-               text = in.next();
+            }else{
+                text= in.nextLine();
+                System.out.println("OOPS! I dont know what that means");
+                text = in.next();
+            }
 
-            } if (text.equals("bye")) {
+            if (text.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
             }
         }
