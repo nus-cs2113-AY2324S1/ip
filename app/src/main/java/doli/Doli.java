@@ -1,5 +1,6 @@
 package doli;
 
+import doli.GUI.DialogBox;
 import doli.files.FileHandler;
 import doli.exceptions.DoliExceptions;
 import doli.tasks.Deadline;
@@ -11,11 +12,34 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
+
 /** Very simple chatbot that sets up an agenda with various assignments and tasks
  *  Able to add, delete, view, clear, mark, unmark etc.
  *  Agenda is stored in working directory as Agenda.txt and retrieved when the bot is initialised
  */
-public class Doli {
+public class Doli extends Application {
+    private VBox dialogContainer;
+    private ScrollPane scrollPane;
+    private Button enterButton;
+    private TextField userInput;
+    private Scene scene;
+    private Image userProfile = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image doliProfile = new Image(this.getClass().getResourceAsStream("/images/doli.png"));
     private static final String LOGO = " ____       _\n" +
             "|  _  \\    | | [_]\n" +
             "| | | |____| |  _\n" +
@@ -309,5 +333,79 @@ public class Doli {
             printOutput(UNRECOGNIZED_COMMAND);
             break;
         }
+    }
+    @Override
+    public void start(Stage stage) {
+        Label hw = new Label("HW");
+        Scene sc = new Scene(hw);
+        stage.setScene(sc);
+        stage.show();
+
+        scrollPane = new ScrollPane();
+        userInput = new TextField();
+        enterButton = new Button("Enter");
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(
+                scrollPane,
+                userInput,
+                enterButton
+        );
+        scene = new Scene(mainLayout);
+        stage.setScene(scene);
+        stage.show();
+
+        stage.setTitle("Doli");
+        stage.setResizable(false);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+
+        mainLayout.setPrefSize(600, 400);
+        scrollPane.setPrefSize(585, 335);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        dialogContainer.setPadding(new Insets(20, 20, 20, 20));
+
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        userInput.setPrefWidth(505);
+        enterButton.setPrefWidth(85);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(enterButton, 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setRightAnchor(enterButton, 1.0);
+
+        enterButton.setOnMouseClicked((event -> {
+            handleUserInput();
+        }));
+
+        userInput.setOnAction((event -> {
+            handleUserInput();
+        }));
+        dialogContainer.heightProperty().addListener(observable -> {
+            scrollPane.setVvalue(1.0);
+        });
+    }
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label doliText = new Label(getRespone(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialogBox(userText, new ImageView(userProfile)),
+                DialogBox.getDoliDialogBox(doliText, new ImageView(doliProfile))
+        );
+        userInput.clear();
+    }
+    private String getRespone(String input) {
+        return "Doli says: " + input;
+    }
+    public Doli() {
+
     }
 }
