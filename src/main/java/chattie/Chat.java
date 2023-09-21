@@ -14,9 +14,7 @@ public class Chat {
         System.out.println("\t____________________________________________________________");
     }
 
-    static void startChat() {
-        int count = 0;
-        ArrayList<Task> list = new ArrayList<>();
+    static void startChat(ArrayList<Task> list, int count) {
         String line;
         Scanner in = new Scanner(System.in);
 
