@@ -1,13 +1,13 @@
 //import scanner
 import javax.lang.model.type.NullType;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Botbot {
     public static String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
-    //create array for list
-    public static Task[] list = new Task[100];
-    public static int listSize = 0;
+    //create arraylist
+    public static ArrayList<Task> list = new ArrayList<>();
 
     //method to identify command
     public static String identifyCommand(String command) throws DukeException {
@@ -23,11 +23,12 @@ public class Botbot {
             return "deadline";
         } else if (command.contains("event")){
             return "event";
-        } else {
+        } else if (command.contains("delete")){
+            return "delete";
+        }else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :<");
         }
     }
-
 
     //method to mark or unmark task
     public static void markUnmarkTask(String command){
@@ -37,26 +38,25 @@ public class Botbot {
             //find the given index to unmark
             itemIndex = Integer.parseInt(command.substring(7))-1;
             //if given index is out of range
-            if (itemIndex>=listSize){
+            if (itemIndex>=list.size()){
                 System.out.println("invalid list item");
-                return;
             } else {
-                list[itemIndex].unmark();
+                list.get(itemIndex).unmark();
                 System.out.println("OK, I've marked this task as not done yet: ");
-                System.out.println(list[itemIndex]);
+                System.out.println(list.get(itemIndex));
                 System.out.println(line);
             }
         } else { //for command mark
             //find the given index to mark
             itemIndex = Integer.parseInt(command.substring(5))-1;
             //if given index is out of range
-            if (itemIndex>=listSize){
+            if (itemIndex>=list.size()){
                 System.out.println("invalid list item");
                 return;
             }else {
-                list[itemIndex].mark();
+                list.get(itemIndex).mark();
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(list[itemIndex]);
+                System.out.println(list.get(itemIndex));
                 System.out.println(line);
             }
         }
@@ -67,11 +67,10 @@ public class Botbot {
         //instantiate new todo object
         Todo todoTask = new Todo(task);
         //add to array
-        list[listSize] = todoTask;
-        listSize++;
+        list.add(todoTask);
         System.out.println("Got it. I've added this task:");
         System.out.println(todoTask);
-        System.out.println("Now you have " + (listSize) + " tasks in the list.");
+        System.out.println("Now you have " + (list.size()) + " tasks in the list.");
         System.out.println(line);
     }
 
@@ -93,11 +92,10 @@ public class Botbot {
         //instantiate new deadline object
         Deadline deadlineTask = new Deadline(task, deadline);
         //add to array
-        list[listSize] = deadlineTask;
-        listSize++;
+        list.add(deadlineTask);
         System.out.println("Got it. I've added this task:");
         System.out.println(deadlineTask);
-        System.out.println("Now you have " + (listSize) + " tasks in the list.");
+        System.out.println("Now you have " + (list.size()) + " tasks in the list.");
         System.out.println(line);
     }
 
@@ -121,14 +119,22 @@ public class Botbot {
         //instantiate new event object
         Event eventTask = new Event(task, from, to);
         //add to array
-        list[listSize] = eventTask;
-        listSize++;
+        list.add(eventTask);
         System.out.println("Got it. I've added this task:");
         System.out.println(eventTask);
-        System.out.println("Now you have " + (listSize) + " tasks in the list.");
+        System.out.println("Now you have " + (list.size()) + " tasks in the list.");
         System.out.println(line);
     }
 
+    //method to delete tasks
+    public static void deleteTasks(String command) throws DukeException {
+        int taskIndex = Integer.parseInt(command.substring(7))-1;
+        if (taskIndex>=list.size()) {
+            throw new DukeException("Invalid task item. Check item number again~");
+        }
+
+
+    }
 
     //main method
     public static void main(String[] args){
@@ -168,9 +174,9 @@ public class Botbot {
                         scanner.close();
                         return;
                     case "list":
-                        for (int i = 0; i < listSize; i++) {
+                        for (int i = 0; i < list.size(); i++) {
                             System.out.print((i + 1) + ". ");
-                            System.out.println(list[i]);
+                            System.out.println(list.get(i));
                         }
                         System.out.println(line);
                         break;
@@ -186,6 +192,8 @@ public class Botbot {
                     case "event":
                         createEventTask(input);
                         break;
+                    case "delete":
+                        deleteTasks(input);
                     default:
                         return;
                 }
