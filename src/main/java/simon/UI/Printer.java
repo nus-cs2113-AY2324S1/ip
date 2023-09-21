@@ -1,6 +1,7 @@
 package simon.UI;
 
 import simon.task.Task;
+import java.util.ArrayList;
 
 public class Printer {
     public static final String line = "____________________________________________________________";
@@ -33,21 +34,21 @@ public class Printer {
         System.out.println("\t" + line);
     }
 
-    public static void printList(Task[] tasks) {
+    public static void printList(ArrayList<Task> tasks) {
         System.out.println("\t" + line);
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < Task.getNumberOfTask(); i++) {
-            System.out.println("\t" + (i + 1) + "." + tasks[i]);
+            System.out.println("\t" + (i + 1) + "." + tasks.get(i));
         }
         System.out.println("\t" + line);
     }
 
-    public static void printAddTaskMessage(Task[] tasks) {
+    public static void printAddTaskMessage(ArrayList<Task> tasks) {
         System.out.println("\t" + "Got it. I've added this task:");
-        System.out.println("\t  " + tasks[Task.getNumberOfTask() - 1]);
+        System.out.println("\t  " + tasks.get(Task.getNumberOfTask() - 1));
     }
 
-    public static void printNumberOfTasks(Task[] tasks) {
+    public static void printNumberOfTasks(ArrayList<Task> tasks) {
         System.out.println("\tNow you have " + Task.getNumberOfTask() + " tasks in the list.");
     }
 }

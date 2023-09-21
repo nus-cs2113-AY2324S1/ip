@@ -3,48 +3,45 @@ package simon.command;
 import simon.exception.*;
 import simon.task.*;
 import static simon.UI.Printer.*;
-import static simon.constant.TaskConstants.*;
+import java.util.ArrayList;
 
 public class Commands {
-    public static void markTask(String taskNumber, Task[] tasks) {
+    public static void markTask(String taskNumber, ArrayList<Task> tasks) {
         //Convert task number to element in tasks array
         int target = Integer.parseInt(taskNumber) - 1;
         System.out.println("\t" + line);
         try {
-            tasks[target].markAsDone();
+            tasks.get(target).markAsDone();
             System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t  [X] " + tasks[target].getDescription());
+            System.out.println("\t  [X] " + tasks.get(target).getDescription());
         } catch (NullPointerException e) {
             System.out.println("\tSorry! There is no task associated with this number");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("\tSorry! The tasks number inputted is out of bounds");
-            System.out.println("\tPlease key in a number from 1-" + MAX_TASKS);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tSorry! The task number inputted is out of bounds");
+            System.out.println("\tPlease key in a number from 1-" + Task.getNumberOfTask());
         }
         System.out.println("\t" + line);
     }
 
-    public static void unmarkTask(String taskNumber, Task[] tasks) {
+    public static void unmarkTask(String taskNumber, ArrayList<Task> tasks) {
         //Convert task number to element in tasks array
         int target = Integer.parseInt(taskNumber) - 1;
         System.out.println("\t" + line);
         try {
-            tasks[target].unmarkAsDone();
+            tasks.get(target).unmarkAsDone();
             System.out.println("\tOkay, I've marked this task as not done yet:");
-            System.out.println("\t  [] " + tasks[target].getDescription());
+            System.out.println("\t  [] " + tasks.get(target).getDescription());
         } catch (NullPointerException e) {
             System.out.println("\tSorry! There is no task associated with this number");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("\tSorry! The tasks number inputted is out of bounds");
-            System.out.println("\tPlease key in a number from 1-" + MAX_TASKS);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tSorry! The task number inputted is out of bounds");
+            System.out.println("\tPlease key in a number from 1-" + Task.getNumberOfTask());
         }
         System.out.println("\t" + line);
     }
 
-    public static void addTodo(String description, Task[] tasks) throws SimonException {
-        if (Task.getNumberOfTask() == MAX_TASKS) {
-            throw new SimonException();
-        }
-        tasks[Task.getNumberOfTask()] = new Todo(description);
+    public static void addTodo(String description, ArrayList<Task> tasks) throws SimonException {
+        tasks.add(new Todo(description));
 
         System.out.println("\t" + line);
         printAddTaskMessage(tasks);
@@ -52,10 +49,7 @@ public class Commands {
         System.out.println("\t" + line);
     }
 
-    public static void addEvent(String event, Task[] tasks) throws SimonException {
-        if (Task.getNumberOfTask() == MAX_TASKS) {
-            throw new SimonException();
-        }
+    public static void addEvent(String event, ArrayList<Task> tasks) throws SimonException {
         System.out.println("\t" + line);
         try {
             //Split between 'description' and '/from and /to'
@@ -65,7 +59,7 @@ public class Commands {
             String[] time = splitEvent[1].split(" /to ", 2);
             String from = time[0];
             String to = time[1];
-            tasks[Task.getNumberOfTask()] = new Event(description, from, to);
+            tasks.add(new Event(description, from, to));
 
             printAddTaskMessage(tasks);
             printNumberOfTasks(tasks);
@@ -76,17 +70,14 @@ public class Commands {
         System.out.println("\t" + line);
     }
 
-    public static void addDeadline(String deadline, Task[] tasks) throws SimonException {
-        if (Task.getNumberOfTask() == MAX_TASKS) {
-            throw new SimonException();
-        }
+    public static void addDeadline(String deadline, ArrayList<Task> tasks) throws SimonException {
         System.out.println("\t" + line);
         try {
             //Split between 'description' and '/by'
             String[] splitDeadline = deadline.split(" /by ", 2);
             String description = splitDeadline[0];
             String by = splitDeadline[1];
-            tasks[Task.getNumberOfTask()] = new Deadline(description, by);
+            tasks.add(new Deadline(description, by));
 
 
             printAddTaskMessage(tasks);
