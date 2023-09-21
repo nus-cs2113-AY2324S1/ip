@@ -19,7 +19,7 @@ public class Event extends Task {
      * @param to the end time of the event as a string
      */
     public Event(String name, String from, String to) {
-        super(name);
+        super(name, "E");
         this.from = from;
         this.to = to;
     }
@@ -34,6 +34,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    public String toSaveString() {
+        return super.toSaveString() + "|" + from + "|" + to;
     }
 }

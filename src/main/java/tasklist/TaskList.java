@@ -2,6 +2,7 @@ package tasklist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import duke.DukeUi;
 import tasks.Deadline;
@@ -19,6 +20,10 @@ public class TaskList {
     private List<Task> tasks = new ArrayList<>();
 
     static DukeUi ui = new DukeUi();
+
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
 
     public void addTask(Task task) {
         tasks.add(task);
@@ -139,6 +144,40 @@ public class TaskList {
             System.out.println("Invalid input. Please use 'unmark + number'.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please specify the task number");
+        }
+    }
+
+    public String toString() {
+        StringBuilder saveString = new StringBuilder();
+        for (Task task : tasks) {
+            saveString.append(task.toSaveString());
+            saveString.append(System.lineSeparator());
+        }
+        return saveString.toString();
+    }
+
+    public TaskList(Scanner s) {
+        while (s.hasNextLine()) {
+            String line = s.nextLine();
+            String[] args = line.split("\\|");
+            parseTasks(args);
+        }
+    }
+
+    public void parseTasks(String[] args) {
+        switch (args[0]) {
+        case "T":
+            tasks.add(new ToDo(args[2]));
+            tasks.get(tasks.size() - 1).setDone(args[1].equals("Y"));
+            break;
+        case "D":
+            tasks.add(new Deadline(args[2], args[3]));
+            tasks.get(tasks.size() - 1).setDone(args[1].equals("Y"));
+            break;
+        case "E":
+            tasks.add(new Event(args[2], args[3], args[4]));
+            tasks.get(tasks.size() - 1).setDone(args[1].equals("Y"));
+            break;
         }
     }
 }
