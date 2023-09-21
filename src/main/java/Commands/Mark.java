@@ -4,6 +4,8 @@ import CSGPT.CSGPT;
 import CSGPT.TaskList;
 import Exceptions.CSGPTMissingTaskException;
 
+import Ui.TextUi;
+
 public class Mark extends Command {
     private final int taskNumber;
     private final boolean isDone;
@@ -17,7 +19,7 @@ public class Mark extends Command {
     public void execute(TaskList list) throws CSGPTMissingTaskException {
         try {
             list.mark(taskNumber, isDone);
-            CSGPT.printText("Consider it done:\n\t" + list.getTask(taskNumber).toString());
+            TextUi.printText("Consider it done:\n\t" + list.getTask(taskNumber).toString());
         } catch (CSGPTMissingTaskException e) {
             throw new CSGPTMissingTaskException();
         }

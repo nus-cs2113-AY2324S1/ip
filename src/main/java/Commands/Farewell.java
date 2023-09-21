@@ -2,6 +2,8 @@ package Commands;
 
 import CSGPT.CSGPT;
 import CSGPT.TaskList;
+
+import Ui.TextUi;
 public class Farewell extends Command {
     private static final String[] farewellLines = {
             "Farewell, dear pawns. Until our paths cross again in the tapestry of time.",
@@ -17,6 +19,6 @@ public class Farewell extends Command {
     };
     public void execute(TaskList list) {
         String randomFarewellLine = farewellLines[(int) (Math.random() * farewellLines.length)];
-        CSGPT.printText(randomFarewellLine);
+        TextUi.printText(randomFarewellLine);
     }
 }

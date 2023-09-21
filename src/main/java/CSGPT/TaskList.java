@@ -2,6 +2,9 @@ package CSGPT;
 
 import Exceptions.CSGPTMissingTaskException;
 import java.util.ArrayList;
+import Ui.TextUi;
+
+import javax.swing.plaf.TextUI;
 
 public class TaskList {
     private final ArrayList<Task> list;
@@ -36,7 +39,7 @@ public class TaskList {
 
     public void getTasks() {
         if (list.isEmpty()) {
-            CSGPT.printText("You have no tasks at hand, mortal.");
+            TextUi.printText("You have no tasks at hand, mortal.");
             return;
         }
         String[] text = new String[list.size() + 1];
@@ -44,6 +47,6 @@ public class TaskList {
         for (int i = 0; i < list.size(); i++) {
             text[i+1] = ((i + 1) + ". " + list.get(i).toString());
         }
-        CSGPT.printMultipleText(text);
+        TextUi.printMultipleText(text);
     }
 }
