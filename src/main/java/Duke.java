@@ -86,7 +86,7 @@ public class Duke {
 
                 try {
                     tasks.get(mark_idx).doMark();
-                } catch (NullPointerException e){
+                } catch (IndexOutOfBoundsException e){
                     printLine("☹ OOPS!!! Task number is out of List!");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
@@ -113,7 +113,7 @@ public class Duke {
 
                 try {
                     tasks.get(mark_idx).doMark();
-                } catch (NullPointerException e){
+                } catch (IndexOutOfBoundsException e){
                     printLine("☹ OOPS!!! Task number is out of List!");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
@@ -211,7 +211,40 @@ public class Duke {
                         event.getTypeIcon(), event.getStatusIcon(), event.getDescription()));
                 printLine(String.format("Now you have %d tasks in the list.", tasks_size));
                 System.out.println("    ____________________________________________________________\n");
-            } else{
+            } else if(tokens[0].equals("delete")){
+
+                int del_idx;
+
+                try {
+                    del_idx = Integer.parseInt(tokens[1]) - 1; // index starts from 0
+                } catch (ArrayIndexOutOfBoundsException e){
+                    printLine("☹ OOPS!!! <delete> needs one integer parameter!");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                } catch (NumberFormatException e) {
+                    printLine("☹ OOPS!!! Task number should be one integer!");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                }
+
+                Task del_task;
+
+                try {
+                    del_task = tasks.get(del_idx);
+                    tasks.remove(del_idx);
+                    tasks_size--;
+                } catch (IndexOutOfBoundsException e){
+                    printLine("☹ OOPS!!! Task number is out of List!");
+                    System.out.println("    ____________________________________________________________\n");
+                    continue;
+                }
+
+                printLine("Noted. I've removed this task:");
+                printLine(" [" + del_task.getStatusIcon() + "] " + del_task.getDescription());
+                printLine(String.format("now you have %d tasks in the list", tasks_size));
+                System.out.println("    ____________________________________________________________\n");
+            }
+            else{
                 // command not matched
                 printLine("☹ Sorry, I cannot understand your command: " + cmd);
                 System.out.println("    ____________________________________________________________\n");
