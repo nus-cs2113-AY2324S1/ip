@@ -37,7 +37,7 @@ public class NukeDateTime {
         }
     }
 
-    public static LocalDateTime parseDateTime(String dateTime)
+    private LocalDateTime parseDateTime(String dateTime)
             throws NukeDateTimeParseException {
         // Tries to parse using 10 different formats.
         // ISO_DATE; yyyy-MM-dd with optional offset
