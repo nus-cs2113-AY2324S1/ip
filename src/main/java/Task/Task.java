@@ -26,7 +26,7 @@ public class Task {
     Format is [NAME] /[DONE] /[TYPE] /{any additional parameters}
      */
     public String toFileLine() {
-        return name + " /" + done;
+        return name + " /" + (done ? "true" : "false");
     }
 
     public static class ToDo extends Task {
@@ -49,7 +49,7 @@ public class Task {
 
         @Override
         public String toFileLine(){
-            return super.toFileLine() + " TODO";
+            return super.toFileLine() + " /TODO";
         }
     }
 
@@ -106,6 +106,11 @@ public class Task {
                     + "] " + super.name
                     + " (by: " + by + ")";
             return out;
+        }
+
+        @Override
+        public String toFileLine(){
+            return super.toFileLine() + " /DEADLINE /" + by;
         }
     }
 }

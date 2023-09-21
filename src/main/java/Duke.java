@@ -3,15 +3,9 @@ import Task.Task.ToDo;
 import Task.Task.Deadline;
 import Task.Task.Event;
 import Task.EmptyDescriptionException;
-import Task.IO;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
 
 public class Duke {
 
@@ -120,14 +114,19 @@ public class Duke {
     }
     public static void main(String[] args) {
 
+        Task[] itemList = IO.load();
+
         System.out.println("Hello! I'm Axel!\n"
                 + "What can I do for you?\n"
                 + LINE_DIVIDER);
 
         Scanner in = new Scanner(System.in);
         String buf = in.nextLine();
-        Task[] itemList = IO.load();
         int i = 0; // current index in itemList
+        //set i
+        while (itemList[i] != null) {
+            i++;
+        }
 
         while(!buf.equalsIgnoreCase("bye")){
             switch(buf.toLowerCase().split(" ")[0]) {
@@ -170,7 +169,7 @@ public class Duke {
             buf = in.nextLine();
 
             try {
-                IO.save(itemList);
+                IO.save(itemList, i);
             } catch (IOException e) {
                 System.out.println("    I couldn't save your file, try again?\n"
                         + LINE_DIVIDER);
