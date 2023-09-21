@@ -2,17 +2,17 @@ package simon;
 
 import simon.exception.*;
 import simon.task.*;
-import static simon.constant.TaskConstants.*;
 import static simon.UI.Printer.*;
 import static simon.command.Commands.*;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 
 public class Simon {
     public static void main(String[] args) {
         //Initialise variables
         String userInput = "";
-        Task[] tasks = new Task[MAX_TASKS];
+        ArrayList<Task> tasks = new ArrayList<>();
 
         //Print out greeting when user starts the program.
         printGreeting();
@@ -25,9 +25,9 @@ public class Simon {
         }
     }
 
-    public static void processUserInput(String userInput, Task[] tasks) {
-        String[] splitInput = userInput.split(" ", 2);
-        switch (splitInput[0]) {
+    public static void processUserInput(String userInput, ArrayList<Task> tasks) {
+        String[] splitInputs = userInput.split(" ", 2);
+        switch (splitInputs[0]) {
 
         //If user types "list ..."
         case "list":
@@ -36,18 +36,18 @@ public class Simon {
 
         //If user types "mark 'n'", where n is a number referring to the task number
         case "mark":
-            markTask(splitInput[1], tasks);
+            markTask(splitInputs[1], tasks);
             break;
 
         //If user types "unmark 'n'", where n is a number referring to the task number
         case "unmark":
-            unmarkTask(splitInput[1], tasks);
+            unmarkTask(splitInputs[1], tasks);
             break;
 
         //If user types "todo ..."
         case "todo":
             try {
-                addTodo(splitInput[1], tasks);
+                addTodo(splitInputs[1], tasks);
             } catch (IndexOutOfBoundsException e) { //Empty description
                 System.out.println("\t" + line);
                 System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
@@ -62,7 +62,7 @@ public class Simon {
         //If user types "event ... /from ... /to ..."
         case "event":
             try {
-                addEvent(splitInput[1], tasks);
+                addEvent(splitInputs[1], tasks);
             } catch (IndexOutOfBoundsException e) { //Empty description
                 System.out.println("\t" + line);
                 System.out.println("\t☹ OOPS!!! The description of an event cannot be empty.");
@@ -77,7 +77,7 @@ public class Simon {
         //If user types "deadline ... /by ..."
         case "deadline":
             try {
-                addDeadline(splitInput[1], tasks);
+                addDeadline(splitInputs[1], tasks);
             } catch (IndexOutOfBoundsException e) { //Empty description
                 System.out.println("\t" + line);
                 System.out.println("\t☹ OOPS!!! The description of a deadline cannot be empty.");
