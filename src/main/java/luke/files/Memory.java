@@ -19,19 +19,22 @@ public class Memory {
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
             String currentLine = s.nextLine();
+            System.out.println(currentLine);
 
-            String taskDetails = currentLine.substring(0,5);
-            String taskDescription = currentLine.substring(4);
+            String taskDetails = currentLine.substring(0,6);
+            //System.out.println(taskDetails);
+            String taskDescription = currentLine.substring(7);
+            //System.out.println(taskDescription);
             char[] characters = taskDetails.toCharArray();
             try {
-                switch (characters[4]) {
-                    case 't':
+                switch (characters[1]) {
+                    case 'T':
                         Task newTodo = new Todo(taskDescription);
                         break;
-                    case 'd':
+                    case 'D':
                         Task newDeadline = new Deadline(taskDescription);
                         break;
-                    case 'e':
+                    case 'E':
                         Task newEvent = new Event(taskDescription);
                         break;
                     default:
@@ -40,8 +43,6 @@ public class Memory {
             } catch (LukeTimeError e) {
                 System.out.println("somethings wrong");
             }
-
-            System.out.println(currentLine);
         }
 
     }

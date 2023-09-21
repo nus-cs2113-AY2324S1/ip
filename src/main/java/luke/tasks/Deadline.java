@@ -60,6 +60,6 @@ public class Deadline extends Task {
             isDoneString = "[ ]";
         }
 
-        return isDoneString + " deadline " + getDescription() + "/by " + getDate();
+        return "[D]" + isDoneString + " deadline" + getDescription() + "/by " + getDate();
     }
 }

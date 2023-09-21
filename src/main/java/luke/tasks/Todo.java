@@ -36,7 +36,7 @@ public class Todo extends Task {
             isDoneString = "[ ]";
         }
 
-        return isDoneString + " todo " + getDescription();
+        return "[T]" + isDoneString + " todo" + getDescription();
     }
 
 }

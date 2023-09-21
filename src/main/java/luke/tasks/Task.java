@@ -35,7 +35,7 @@ public abstract class Task {
             isDoneString = "[ ]";
         }
 
-        return isDoneString + " task " + getDescription();
+        return "[T]" + isDoneString + " task" + getDescription();
     }
 
 }
