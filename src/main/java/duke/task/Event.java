@@ -13,4 +13,9 @@ public class Event extends Task {
     public String getFormattedTask() {
         return "[E] " + super.getFormattedTask() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String getSerializedString() {
+        return "E|" + super.getSerializedString() + "|" + from + "|" + to;
+    }
 }

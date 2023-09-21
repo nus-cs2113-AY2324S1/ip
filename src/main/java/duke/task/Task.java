@@ -19,4 +19,8 @@ public class Task {
     public void setStatus(boolean isDone) {
         this.isDone = isDone;
     }
+
+    public String getSerializedString() {
+        return isDone + "|" + description;
+    }
 }

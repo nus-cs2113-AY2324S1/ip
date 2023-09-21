@@ -9,4 +9,9 @@ public class Todo extends Task {
     public String getFormattedTask() {
         return "[T] " + super.getFormattedTask();
     }
+
+    @Override
+    public String getSerializedString() {
+        return "T|" + super.getSerializedString();
+    }
 }

@@ -6,14 +6,19 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.File;
 
 public class Duke {
-    private static Task[] tasks = new Task[100];
-    private static int numTasks = 0;
+    private static List<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         printGreeting();
+        loadTasks();
 
         Scanner in = new Scanner(System.in);
         String line;
@@ -36,25 +41,69 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    private static void loadTasks() {
+        File f = new File("duke.txt");
+        try {
+            f.createNewFile();
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                String[] parsed = line.split("\\|");
+                String taskType = parsed[0];
+                String description = parsed[2];
+
+                switch (taskType) {
+                case "T":
+                    tasks.add(new Todo(description));
+                    break;
+                case "D":
+                    String by = parsed[3];
+                    tasks.add(new Deadline(description, by));
+                    break;
+                case "E":
+                    String from = parsed[3];
+                    String to = parsed[4];
+                    tasks.add(new Event(description, from, to));
+                    break;
+                default:
+                    System.out.println("Unknown task type detected");
+                    break;
+                }
+
+                if (parsed[1].equals("true")) {
+                    tasks.get(tasks.size() - 1).setStatus(true);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private static void handleCommand(String line) throws DukeException {
         int divider = line.indexOf(" ");
         if (divider == -1) {
             throw new DukeException("Sorry! Not sure what you mean");
         }
 
-        if (line.contains("mark")) {
-            int idx = Integer.parseInt(line.substring(divider + 1)) - 1;
-            if (idx < 0 || tasks[idx] == null) {
-                throw new DukeException("Sorry! That's not a valid task");
-            }
 
-            markTask(idx, line.startsWith("mark"));
-            return;
-        }
         if (line.startsWith("todo")){
             String description = line.substring(divider + 1);
 
             addTask(new Todo(description));
+            return;
+        }
+
+        if (line.contains("mark") || line.startsWith("delete")) {
+            int idx = Integer.parseInt(line.substring(divider + 1)) - 1;
+            if (idx < 0 || tasks.get(idx) == null) {
+                throw new DukeException("Sorry! That's not a valid task");
+            }
+
+            if (line.contains("mark")) {
+                markTask(idx, line.startsWith("mark"));
+            } else {
+                removeTask(idx);
+            }
             return;
         }
 
@@ -108,13 +157,14 @@ public class Duke {
     }
 
     public static void markTask(int index, boolean isDone) {
-        tasks[index].setStatus(isDone);
+        tasks.get(index).setStatus(isDone);
+        saveTasks();
         if (isDone) {
             System.out.println("Nice! I've marked this task as done:");
         } else {
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println(tasks[index].getFormattedTask());
+        System.out.println(tasks.get(index).getFormattedTask());
     }
 
     private static void printGreeting() {
@@ -123,18 +173,36 @@ public class Duke {
     }
 
     public static void printTasks() {
-        for (int i = 0; i < tasks.length && tasks[i] != null; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].getFormattedTask());
+        for (int i = 0; i < tasks.size() && tasks.get(i) != null; i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).getFormattedTask());
         }
     }
 
-    public static void addTask(Task task) throws DukeException {
-        if (numTasks == tasks.length) {
-            throw new DukeException("Sorry. The task list is all full");
+    public static void addTask(Task task) {
+        tasks.add(task);
+        saveTasks();
+        System.out.println("Got it. I've added this task:\n" + task.getFormattedTask() + "\nNow you have " + tasks.size() + " tasks in the list.");
+    }
+
+    public static void removeTask(int idx) {
+        Task removedTask = tasks.remove(idx);
+        saveTasks();
+        System.out.println("Got it. I've removed this task:\n" + removedTask.getFormattedTask() + "\nNow you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void saveTasks() {
+        StringBuilder serialized = new StringBuilder();
+        for (Task task : tasks) {
+            serialized.append(task.getSerializedString()).append("\n");
         }
 
-        tasks[numTasks] = task;
-        numTasks++;
-        System.out.println("Got it. I've added this task:\n" + task.getFormattedTask() + "\nNow you have " + numTasks + " tasks in the list.");
+        File f = new File("duke.txt");
+        try {
+            FileWriter fw = new FileWriter(f);
+            fw.write(serialized.toString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -11,4 +11,9 @@ public class Deadline extends Task {
     public String getFormattedTask() {
         return "[D] " + super.getFormattedTask() + " (by: " + by  + ")";
     }
+
+    @Override
+    public String getSerializedString() {
+        return "D|" + super.getSerializedString() + "|" + by;
+    }
 }
