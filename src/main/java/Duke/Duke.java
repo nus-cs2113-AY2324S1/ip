@@ -20,6 +20,7 @@ public class Duke {
 
     private final static ArrayList<Task> records = new ArrayList<>();
     private final static String filePath = "data/duke.txt";
+    private final static String dirPath = "data";
 
 
     public static void generateResponse(String input) {
@@ -255,9 +256,10 @@ public class Duke {
         }
     }
 
-    private static void loadTaskList() {
+    private static void initialiseTaskList() {
         File file = new File(filePath);
-        if (!file.exists()) {
+        File directory = new File(dirPath);
+        if (!verifyStorageFilePresent(directory, file)) {
             return;
         }
         Scanner s;
@@ -266,6 +268,25 @@ public class Duke {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        loadTaskList(s);
+
+    }
+
+    private static boolean verifyStorageFilePresent(File directory, File file) {
+        boolean isDirectoryPresent = directory.exists() && directory.isDirectory();
+        if (file.exists()) {
+            return true;
+        } else if (!isDirectoryPresent) {
+            try {
+                directory.mkdir();
+            } catch (Exception e) {
+                System.out.println("Unable to create folder " + dirPath);
+            }
+        }
+        return false;
+    }
+
+    private static void loadTaskList(Scanner s) {
         while (s.hasNext()) {
             String storedMessage = s.nextLine();
             String[] messageFragments = storedMessage.split("\\|");
@@ -303,14 +324,13 @@ public class Duke {
                 records.get(records.size() - 1).setDone();
             }
         }
-
     }
 
     private static void saveTaskList() throws IOException {
         String taskSaveFormat;
         FileWriter fw = new FileWriter(filePath);
 
-        for (Task task: records) {
+        for (Task task : records) {
             taskSaveFormat = task.convertToSaveFormat();
             fw.write(taskSaveFormat + "\n");
         }
@@ -342,7 +362,7 @@ public class Duke {
     public static void main(String[] args) {
         try {
             printWelcomeMessage();
-            loadTaskList();
+            initialiseTaskList();
             interactWithUser();
             saveTaskList();
             printByeMessage();
