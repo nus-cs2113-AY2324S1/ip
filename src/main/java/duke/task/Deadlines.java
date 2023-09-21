@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Deadlines extends Task{
     private String dueDate;
 

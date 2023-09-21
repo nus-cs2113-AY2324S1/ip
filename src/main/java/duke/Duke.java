@@ -1,4 +1,9 @@
-import jdk.jshell.execution.Util;
+package duke;
+
+import duke.task.Deadlines;
+import duke.task.Events;
+import duke.task.ToDoList;
+import duke.task.ToDos;
 
 import java.util.Scanner;
 
@@ -49,7 +54,7 @@ public class Duke {
 
     }
 
-    private static void mainLogic(String[] command, String input) throws StringIndexOutOfBoundsException, NoTaskNameException, ArrayIndexOutOfBoundsException { //handles the inputs with logic
+    private static void mainLogic(String[] command, String input) throws StringIndexOutOfBoundsException, NoTaskNameException, ArrayIndexOutOfBoundsException {
         if (command[0].equals("list")) {
             toDoList.printList();
         } else if (command[0].equals("mark")) {
@@ -87,6 +92,15 @@ public class Duke {
                 toDoList.addToList("E", event);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new StringIndexOutOfBoundsException("event");
+            }
+
+        } else if (command[0].equals("delete")) {
+            try {
+                toDoList.deleteTask(Integer.parseInt(command[1]));
+            } catch (IndexOutOfBoundsException e) {
+                Utils.printDivider();
+                System.out.println("There is no such task number!");
+                Utils.printDivider();
             }
 
         } else {
