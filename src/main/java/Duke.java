@@ -57,11 +57,11 @@ public class Duke {
                     if(tasks.get(taskNumber-1)==null){
                         throw new IllegalArgumentException("There is no task at the task number.");
                     }
-                    //delete the task
-                    tasks.remove(taskNumber-1);
                     //print out the task that was deleted
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(tasks.get(taskNumber-1));
+                    //delete the task
+                    tasks.remove(taskNumber-1);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     //Get user input again
                     userInput = userScan.nextLine();  
