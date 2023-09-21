@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class Duke {
 
     private final static ArrayList<Task> records = new ArrayList<>();
+    private final static String filePath = "data/duke.txt";
 
 
     public static void generateResponse(String input) {
@@ -208,7 +209,7 @@ public class Duke {
 
     private static void executeListCommand() {
         printLine();
-        for (Task task: records) {
+        for (Task task : records) {
             System.out.println(task);
         }
         printLine();
@@ -294,12 +295,12 @@ public class Duke {
             default:
                 continue;
             }
-            if(task != null){
+            if (task != null) {
                 addTaskToList(task);
             }
             if (messageFragments[1].trim().equals("1")) {
                 //mark the previous task as done.
-                records[recordsNum - 1].setDone();
+                records.get(records.size() - 1).setDone();
             }
         }
 
@@ -308,8 +309,8 @@ public class Duke {
     private static void saveTaskList() throws IOException {
         String taskSaveFormat;
         FileWriter fw = new FileWriter(filePath);
-        for (int i = 0; i < recordsNum; i++) {
-            Task task = records[i];
+
+        for (Task task: records) {
             taskSaveFormat = task.convertToSaveFormat();
             fw.write(taskSaveFormat + "\n");
         }
