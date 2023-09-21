@@ -34,19 +34,14 @@ public class Simon {
             printList(tasks);
             break;
 
-        //If user types "mark 'n'", where n is an integer referring to the task number
+        //If user types "mark 'n'", where n is a number referring to the task number
         case "mark":
             markTask(splitInputs[1], tasks);
             break;
 
-        //If user types "unmark 'n'", where n is an integer referring to the task number
+        //If user types "unmark 'n'", where n is a number referring to the task number
         case "unmark":
             unmarkTask(splitInputs[1], tasks);
-            break;
-
-        //If user types "delete 'n'", where n is an integer referring to the task number
-        case "delete":
-            deleteTask(splitInputs[1], tasks);
             break;
 
         //If user types "todo ..."
