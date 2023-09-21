@@ -29,6 +29,9 @@ public class Task {
     public static int getNumberOfTask() {
         return numberOfTask;
     }
+    public static void deleteOneTask() {
+        numberOfTask--;
+    }
     public String toString() {
 
         return "[" + getStatusIcon() + "]" + " " + getDescription();

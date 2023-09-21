@@ -51,6 +51,11 @@ public class Simon {
             unmarkTask(splitInputs[1], tasks);
             break;
 
+        //If user types "delete 'n'", where n is an integer referring to the task number
+        case "delete":
+            deleteTask(splitInputs[1], tasks);
+            break;
+
         //If user types "todo ..."
         case "todo":
             try {
