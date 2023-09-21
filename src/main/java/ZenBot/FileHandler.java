@@ -44,18 +44,18 @@ public class FileHandler {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            String[] lineArray = line.split(" | ");
+            String[] lineArray = line.split(" \\| ");
 
             Task task = null;
             switch (lineArray[0]) {
             case "T":
-                task = new Todo (lineArray[4]);
+                task = new Todo (lineArray[2]);
                 break;
             case "D":
-                task = new Deadline (lineArray[4], lineArray[6]);
+                task = new Deadline (lineArray[2], lineArray[3]);
                 break;
             case "E":
-                task = new Event (lineArray[4], lineArray[6], lineArray[8]);
+                task = new Event (lineArray[2], lineArray[3], lineArray[4]);
                 break;
             }
             if (lineArray[2].equals("true")) {
