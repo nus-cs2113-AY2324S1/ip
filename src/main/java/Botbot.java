@@ -113,9 +113,10 @@ public class Botbot {
 
         //create new scanner object
         Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
 
-        while(true) {
-            String input = scanner.nextLine();
+        while(!input.equals("bye")) {
+            input = scanner.nextLine();
             System.out.println(line);
 
             //for command bye
@@ -160,6 +161,8 @@ public class Botbot {
                     addTask(input);
             }
         }
+        System.out.println("Bye! Hope to see you again soon!");
+
         //close scanner
         scanner.close();
     }
