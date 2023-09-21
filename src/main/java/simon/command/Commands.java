@@ -49,11 +49,19 @@ public class Commands {
         int target = Integer.parseInt(taskNumber) - 1;
         System.out.println("\t" + line);
         try {
-            System.out.println("\tNoted. I've removed this task: ");
-            System.out.println("\t  " + tasks.get(target));
+            String task = tasks.get(target).toString();
             tasks.remove(target);
             Task.deleteOneTask();
+            System.out.println("\tNoted. I've removed this task: ");
+            System.out.println("\t  " + task);
             printNumberOfTasks(tasks);
+
+            for (int i = target; i < Task.getNumberOfTask(); i++) {
+                String newText = tasks.get(i).toText();
+                editTextFile("src/main/java/simon/data/simon.txt", newText, i + 1);
+            }
+            deleteLineFromFile("src/main/java/simon/data/simon.txt", Task.getNumberOfTask());
+
         } catch (NullPointerException e) {
             System.out.println("\tSorry! There is no task associated with this number");
         } catch (IndexOutOfBoundsException e) {
