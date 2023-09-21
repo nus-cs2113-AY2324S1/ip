@@ -6,6 +6,18 @@ Hello, my name is
 | |_| | [] | | | |
 |____/|____|__||_|
 
+I can help you create an agenda to manage your tasks.
+Simply use one of the below listed commands to proceed:
+	• todo: adds a task with a DESCRIPTION
+	• deadline /: adds a task with DESCRIPTION and /DEADLINE
+	• event / /: adds a task with DESCRIPTION, /STARTDATE and /ENDDATE
+	• mark: marks the task with the provided INDEX as done
+	• unmark: resets the task with the provided INDEX as not done
+	• count: returns the total number of tasks in the agenda
+	• delete: deletes the task with the provided INDEX
+	• clear: deletes all tasks within the agenda
+	• list: lists all current entries in the agenda
+	• bye: exits the program
 How can I help you?
 ________________________________
 User:
@@ -47,9 +59,33 @@ Here is an overview of your agenda:
 
 ________________________________
 User:
-DoliExceptions: The description of a todo cannot be blank!
+Could not add the todo task.
 User:
-DoliExceptions: A deadline needs both a description and a time reference!
+Could not add the deadline.
 User:
-DoliExceptions: An event needs to contain a description, a start and an end date
+Could not add the event.
+User:
+Doli:
+Here is an overview of your agenda:
+   1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
+   2. [D] [ ] weekly cs2113 quiz  (by: monday 9pm)
+   3. [E] [ ] cs2113 lecture  (from: friday 4 , to: 6 pm)
+
+________________________________
+User:
+Sure, I've removed this task:
+	[D] [ ] weekly cs2113 quiz  (by: monday 9pm)Now you have a total of 2 tasks in your agenda
+User:
+Doli:
+Here is an overview of your agenda:
+   1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
+   2. [E] [ ] cs2113 lecture  (from: friday 4 , to: 6 pm)
+
+________________________________
+User:
+User:
+Doli:
+Here is an overview of your agenda:
+
+________________________________
 User:

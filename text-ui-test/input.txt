@@ -7,3 +7,8 @@ list
 todo
 deadline assignment
 event class /from 4
+list
+delete 2
+list
+clear
+list
