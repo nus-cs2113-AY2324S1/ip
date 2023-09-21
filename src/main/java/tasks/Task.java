@@ -8,15 +8,14 @@ package tasks;
 public class Task {
 
     private String name;
+
+    private String taskType;
     private boolean isDone;
 
-    public Task(String name) {
+    public Task(String name, String taskType) {
         this.name = name;
+        this.taskType = taskType;
         this.isDone = false;
-    }
-
-    public boolean isDone() {
-        return isDone;
     }
 
     public void setDone(boolean done) {
@@ -25,6 +24,13 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + name;
+        String taskTypeString = "[" + taskType + "]";
+        String completedStatusString = isDone ? "[X]" : "[ ]";
+        return taskTypeString + completedStatusString + " " + name;
+    }
+
+    public String toSaveString() {
+        String completedStatusString = isDone ? "Y" : "N";
+        return taskType + "|" + completedStatusString + "|" + name;
     }
 }

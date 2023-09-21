@@ -18,16 +18,16 @@ public class Deadline extends Task {
      * @param by the deadline of the deadline task
      */
     public Deadline(String name, String by) {
-        super(name);
+        super(name, "D");
         this.by = by;
-    }
-
-    public String getBy() {
-        return by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return super.toString() + " (by: " + by + ")";
+    }
+
+    public String toSaveString() {
+        return super.toSaveString() + "|" + by;
     }
 }
