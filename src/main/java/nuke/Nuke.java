@@ -142,6 +142,11 @@ public class Nuke {
         ui.printDeletedTask(deletedTask, countTasks());
     }
 
+    /**
+     * Finds tasks with the keyword.
+     *
+     * @param keyword keyword
+     */
     public void findTasks(String keyword) {
         String[] foundTasks = tasks.find(keyword);
         ui.printFoundTask(foundTasks);

@@ -9,11 +9,20 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.Locale;
 
+/**
+ * Represents a chronological period.
+ * It supports both {@link String} and {@link LocalDateTime}.
+ */
 public class NukeDateTime {
     private boolean isUsingLocalDateTime;
     private LocalDateTime localDateTime;
     private String string;
 
+    /**
+     * Constructs a period with a string.
+     *
+     * @param dateTime string indicating the period
+     */
     public NukeDateTime(String dateTime) {
         try {
             localDateTime = parseDateTime(dateTime);
@@ -26,6 +35,14 @@ public class NukeDateTime {
         }
     }
 
+    /**
+     * Returns a string representation of the period.
+     * The format is as following.
+     * <p>
+     * 'MMM dd yyyy, HH:mm'
+     *
+     * @return a string representation of the period
+     */
     @Override
     public String toString() {
         if (isUsingLocalDateTime) {
@@ -37,19 +54,27 @@ public class NukeDateTime {
         }
     }
 
+    /**
+     * Parses the period from {@link String} to {@link LocalDateTime}.
+     * Tries to parse using 10 different formats.
+     * <p>
+     * ISO_DATE; yyyy-MM-dd with optional offset<br>
+     * MM-dd<br>
+     * ISO_TIME; HH:mm:ss or HH:mm with optional offset<br>
+     * ISO_DATE_TIME; yyyy-MM-dd'T'HH:mm:ss or yyyy-MM-dd'T'HH:mm with optional offset<br>
+     * yyyy-MM-dd HH:mm:ss<br>
+     * yyyy-MM-dd HH:mm<br>
+     * MM-dd HH:mm:ss<br>
+     * MM-dd HH:mm<br>
+     * d/M/y HHmm<br>
+     * d/M/y
+     *
+     * @param dateTime period
+     * @return parsed period
+     * @throws NukeDateTimeParseException if parsing fails
+     */
     private LocalDateTime parseDateTime(String dateTime)
             throws NukeDateTimeParseException {
-        // Tries to parse using 10 different formats.
-        // ISO_DATE; yyyy-MM-dd with optional offset
-        // MM-dd
-        // ISO_TIME; HH:mm:ss or HH:mm with optional offset
-        // ISO_DATE_TIME; yyyy-MM-dd'T'HH:mm:ss or yyyy-MM-dd'T'HH:mm with optional offset
-        // yyyy-MM-dd HH:mm:ss
-        // yyyy-MM-dd HH:mm
-        // MM-dd HH:mm:ss
-        // MM-dd HH:mm
-        // d/M/y HHmm
-        // d/M/y
         try {
             return LocalDate.parse(
                     dateTime,
