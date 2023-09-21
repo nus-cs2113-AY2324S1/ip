@@ -1,6 +1,7 @@
 import kenergeticbot.task.Task;
 import kenergeticbot.exceptionhandler.KenergeticBotException;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -8,7 +9,9 @@ import static kenergeticbot.command.BooleanChecks.*;
 import static kenergeticbot.command.CommandList.*;
 import static kenergeticbot.command.CommonMessages.*;
 
-public class KenergeticBot {
+import kenergeticbot.fileaccess.Save;
+
+public class KenergeticBot extends Save {
 
     public static void main(String[] args) {
         printGreetingMessage();
@@ -34,11 +37,15 @@ public class KenergeticBot {
             } else {
                 try {
                     add(taskList, item);
-                } catch (KenergeticBotException e) { //exception thrown when user inputs kenergeticbot.exceptionhandler.command outside the usual commands
+                } catch (KenergeticBotException e) { //exception thrown when user inputs command outside the usual commands
                     System.out.println(e.getMessage()); 
                 }
             }
             item = input.nextLine();
+        }
+        Save.checkFileExist();
+        for (Task task : taskList) {
+                Save.writeToFile(task.printTaskToSave());
         }
         printExitMessage();
     }

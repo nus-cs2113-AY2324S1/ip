@@ -10,4 +10,9 @@ public class Event extends Task {
     public String toString() {
         return taskType + super.toString() + dateTime;
     }
+
+    public String printTaskToSave() {
+        String task = taskType.replace("[", "").replace("]","");
+        return  task + super.printTaskToSave() + " | " + dateTime;
+    }
 }
