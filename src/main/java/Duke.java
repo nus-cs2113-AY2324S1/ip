@@ -96,7 +96,6 @@ public class Duke {
     }
 
     public void addTasks(String[] userInput){
-
         switch (userInput[0]) {
         case "todo":
             String todoDescription = String.join(" ", Arrays.copyOfRange(userInput, 1, userInput.length));
