@@ -4,9 +4,14 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    String taskType;
+    String symbol;
+
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
+        taskType = "Task";
+        symbol = "t";
     }
 
     public String getStatusIcon() {
@@ -18,12 +23,20 @@ public class Task {
     }
 
     public void setDone() {
-
         this.isDone = true;
     }
 
     public void setUndone() {
         this.isDone = false;
+    }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public String convertToSaveFormat() {
+        String doneMarker = isDone ? "1" : "0";
+        return symbol + " | " + doneMarker + " | " + description;
     }
 
     @Override

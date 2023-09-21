@@ -8,12 +8,18 @@ import Duke.Task.ToDo;
 import Duke.Exception.NoDateTimeSpecifiedException;
 import Duke.Exception.NoTaskSpecifiedException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
 
     private final static ArrayList<Task> records = new ArrayList<>();
+
 
     public static void generateResponse(String input) {
 
@@ -152,7 +158,7 @@ public class Duke {
         String toDate;
         String startDateIndicator = "/from";
         String endDateIndicator = "/to";
-        String eventSplitNotation = startDateIndicator + " | " + endDateIndicator;
+        String eventSplitNotation = startDateIndicator + "|" + endDateIndicator;
         String[] eventContents = removedInstructionString.split(eventSplitNotation);
         try {
             taskDescription = eventContents[0].trim();
@@ -176,7 +182,7 @@ public class Duke {
         String byDate;
         try {
             String dateIndicator = "/by";
-            String[] deadlineContents = removedInstructionString.split(dateIndicator, 1);
+            String[] deadlineContents = removedInstructionString.split(dateIndicator, 2);
             taskDescription = deadlineContents[0].trim();
             byDate = deadlineContents[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -248,10 +254,79 @@ public class Duke {
         }
     }
 
-    private static void printWelcomeMessage() {
-        String logo = " ____        _        \n" + "|  _ \\ _   _| | _____ \n" + "| | | | | | | |/ / _ \\\n" + "| |_| | |_| |   <  __/\n" + "|____/ \\__,_|_|\\_\\___|\n";
+    private static void loadTaskList() {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return;
+        }
+        Scanner s;
+        try {
+            s = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (s.hasNext()) {
+            String storedMessage = s.nextLine();
+            String[] messageFragments = storedMessage.split("\\|");
+            Task task = null;
+            switch (messageFragments[0].trim()) {
+            case ("T"):
+                try {
+                    task = createToDo(messageFragments[2]);
+                } catch (NoTaskSpecifiedException e) {
+                    System.out.println("Failed loading Todo. Todo will be deleted.");
+                }
+                break;
+            case ("D"):
+                try {
+                    task = createDeadline(messageFragments[2]);
+                } catch (NoTaskSpecifiedException | NoDateTimeSpecifiedException e) {
+                    System.out.println("Failed loading Deadline. Deadline will be deleted.");
+                }
+                break;
+            case ("E"):
+                try {
+                    task = createEvent(messageFragments[2]);
+                } catch (NoTaskSpecifiedException | NoDateTimeSpecifiedException e) {
+                    System.out.println("Failed loading Event. Event will be deleted.");
+                }
+                break;
+            default:
+                continue;
+            }
+            if(task != null){
+                addTaskToList(task);
+            }
+            if (messageFragments[1].trim().equals("1")) {
+                //mark the previous task as done.
+                records[recordsNum - 1].setDone();
+            }
+        }
 
-        String startMessage = "____________________________________________________________\n" + "Hello! I'm Chatty\n" + "What can I do for you?\n" + "____________________________________________________________";
+    }
+
+    private static void saveTaskList() throws IOException {
+        String taskSaveFormat;
+        FileWriter fw = new FileWriter(filePath);
+        for (int i = 0; i < recordsNum; i++) {
+            Task task = records[i];
+            taskSaveFormat = task.convertToSaveFormat();
+            fw.write(taskSaveFormat + "\n");
+        }
+        fw.close();
+    }
+
+    private static void printWelcomeMessage() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+
+        String startMessage = "____________________________________________________________\n"
+                + "Hello! I'm Chatty\n"
+                + "What can I do for you?\n"
+                + "____________________________________________________________";
 
 
         System.out.println("Hello from\n" + logo);
@@ -264,9 +339,15 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        printWelcomeMessage();
-        interactWithUser();
-        printByeMessage();
+        try {
+            printWelcomeMessage();
+            loadTaskList();
+            interactWithUser();
+            saveTaskList();
+            printByeMessage();
+        } catch (IOException e) {
+            System.out.println("Please ensure that " + filePath + " exists.");
+        }
     }
 }
 
