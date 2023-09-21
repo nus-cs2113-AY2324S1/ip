@@ -16,6 +16,6 @@ public class DukeException extends Exception {
 
     @Override
     public String toString() {
-        return String.format("%s\n%s", errMsg, DIVIDER);
+        return String.format("%s", errMsg);
     }
 }
