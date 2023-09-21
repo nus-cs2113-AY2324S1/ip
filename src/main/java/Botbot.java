@@ -82,7 +82,7 @@ public class Botbot {
         if (!input.contains("/by")) {
             throw new DukeException("Ohno... Please check your format and include '/by'~");
         } else {
-            String[] parts = input.split("/by ");
+            String[] parts = input.split(" /by ");
             //check if task or deadline are null
             if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
                 throw new DukeException("Task or deadline cannot be empty... Please check your input again~");
@@ -101,20 +101,23 @@ public class Botbot {
         System.out.println(line);
     }
 
-//    public static void createDeadlineTasks(String task, String deadline){
-//        //instantiate new deadline object
-//        Deadline deadlineTask = new Deadline(task, deadline);
-//        //add to array
-//        list[listSize] = deadlineTask;
-//        listSize++;
-//        System.out.println("Got it. I've added this task:");
-//        System.out.println(deadlineTask);
-//        System.out.println("Now you have " + (listSize) + " tasks in the list.");
-//        System.out.println(line);
-//    }
-
     //method to add eventTask
-    public static void createEventTask(String task, String from, String to){
+    public static void createEventTask(String input) throws DukeException {
+        String task;
+        String from;
+        String to;
+        if (!input.contains("/from") || !input.contains("/to")) {
+            throw new DukeException("Uhoh... Please check your format and include '/from' and '/to'~");
+        } else {
+            String[] parts = input.split(" /");
+            //check if task, to, from are null
+            if (parts.length != 3 || parts[0].isEmpty() || parts[1].equals("from") || parts[2].equals("to")) {
+                throw new DukeException("Task, from or to cannot be empty... Please check your input again~");
+            }
+            task = parts[0].substring("event ".length());
+            from = parts[1].substring("from".length());
+            to = parts[2].substring("to".length());
+        }
         //instantiate new event object
         Event eventTask = new Event(task, from, to);
         //add to array
@@ -126,17 +129,6 @@ public class Botbot {
         System.out.println(line);
     }
 
-//    //method to add task to list
-//    public static void addTask(String input){
-//        //instantiate new Task object
-//        Task newTask = new Task(input);
-//        //Echo input
-//        System.out.println("Added: " + input);
-//        System.out.println(line);
-//        //edit list array
-//        list[listSize] = newTask;
-//        listSize++;
-//    }
 
     //main method
     public static void main(String[] args){
@@ -160,7 +152,6 @@ public class Botbot {
 
         //create new scanner object
         Scanner scanner = new Scanner(System.in);
-//        String input = scanner.nextLine();
 
         while(true) {
             String input = scanner.nextLine();
@@ -193,15 +184,7 @@ public class Botbot {
                         createDeadlineTasks(input);
                         break;
                     case "event":
-                        if (!input.contains("/from") || !input.contains("/to")) {
-                            System.out.println("Invalid input. No duration/invalid format.");
-                        } else {
-                            String[] parts = input.split("/");
-                            String task = parts[0].substring("event ".length());
-                            String from = parts[1].substring("from ".length());
-                            String to = parts[2].substring("to ".length());
-                            createEventTask(task, from, to);
-                        }
+                        createEventTask(input);
                         break;
                     default:
                         return;
