@@ -37,7 +37,8 @@ public class NukeDateTime {
         }
     }
 
-    private LocalDateTime parseDateTime(String dateTime) throws NukeException {
+    public static LocalDateTime parseDateTime(String dateTime)
+            throws NukeDateTimeParseException {
         // Tries to parse using 10 different formats.
         // ISO_DATE; yyyy-MM-dd with optional offset
         // MM-dd
@@ -50,36 +51,67 @@ public class NukeDateTime {
         // d/M/y HHmm
         // d/M/y
         try {
-            return LocalDate.parse(dateTime, DateTimeFormatter.ISO_DATE).atStartOfDay();
+            return LocalDate.parse(
+                    dateTime,
+                    DateTimeFormatter.ISO_DATE
+            ).atStartOfDay();
         } catch (DateTimeParseException ignored) { }
         try {
-            return LocalDate.parse(dateTime, createFormatterWithoutYear("MM-dd")).atStartOfDay();
+            return LocalDate.parse(
+                    dateTime,
+                    createFormatterWithoutYear("MM-dd")
+            ).atStartOfDay();
         } catch (DateTimeParseException ignored) { }
         try {
-            return LocalTime.parse(dateTime, DateTimeFormatter.ISO_TIME).atDate(LocalDate.now());
+            return LocalTime.parse(
+                    dateTime,
+                    DateTimeFormatter.ISO_TIME
+            ).atDate(LocalDate.now());
         } catch (DateTimeParseException ignored) { }
         try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_DATE_TIME);
+            return LocalDateTime.parse(
+                    dateTime,
+                    DateTimeFormatter.ISO_DATE_TIME
+            );
         } catch (DateTimeParseException ignored) { }
         try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            return LocalDateTime.parse(
+                    dateTime,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            );
         } catch (DateTimeParseException ignored) { }
         try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            return LocalDateTime.parse(
+                    dateTime,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            );
         } catch (DateTimeParseException ignored) { }
         try {
-            return LocalDateTime.parse(dateTime, createFormatterWithoutYear("MM-dd HH:mm:ss"));
+            return LocalDateTime.parse(
+                    dateTime,
+                    createFormatterWithoutYear("MM-dd HH:mm:ss")
+            );
         } catch (DateTimeParseException ignored) { }
         try {
-            return LocalDateTime.parse(dateTime, createFormatterWithoutYear("MM-dd HH:mm"));
+            return LocalDateTime.parse(
+                    dateTime,
+                    createFormatterWithoutYear("MM-dd HH:mm")
+            );
         } catch (DateTimeParseException ignored) { }
         try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("d/M/y HHmm"));
+            return LocalDateTime.parse(
+                    dateTime,
+                    DateTimeFormatter.ofPattern("d/M/y HHmm")
+            );
         } catch (DateTimeParseException ignored) { }
         try {
-            return LocalDate.parse(dateTime, DateTimeFormatter.ofPattern("d/M/y")).atStartOfDay();
+            return LocalDate.parse(
+                    dateTime,
+                    DateTimeFormatter.ofPattern("d/M/y")
+            ).atStartOfDay();
         } catch (DateTimeParseException ignored) { }
-        throw new NukeException();
+
+        throw new NukeDateTimeParseException();
     }
 
     private static DateTimeFormatter createFormatterWithoutYear(String pattern) {
