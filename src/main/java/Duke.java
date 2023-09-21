@@ -1,13 +1,18 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    /* print a line starts with four spaces*/
+
+    /* for file output */
+    static PrintWriter pw;
+
+    /* print a line starts with four spaces */
     static void printLine(String s){
         System.out.println("     " + s);
     }
 
-    /* simple function that returns if the string is numeric*/
+    /* simple function that returns if the string is numeric */
     static boolean isNumeric(String s){
         try{
             Integer.parseInt(s);
@@ -24,7 +29,7 @@ public class Duke {
         }
     }
 
-    /* function for check deadline input format*/
+    /* function for check deadline input format */
     static void checkDeadlineFormat(String[] schedules) throws InputFormatException{
         if(schedules.length !=2 || !schedules[1].trim().startsWith("by")){
             throw new InputFormatException();
@@ -39,11 +44,70 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args){
+    /* method for save tasks to disk */
+    static void saveTask(ArrayList <Task> tasks, int tasks_size) throws IOException{
+        FileWriter fw = new FileWriter("./duke.txt");
+        for(int i=0;i<tasks_size;i++){
+            Task task = tasks.get(i);
+            fw.write(String.format("%s | %d | %s\r\n",
+                    task.getTypeIcon(), task.isDone?1:0 , task.getDescription()));
+        }
+        fw.close();
+    }
+
+    /* Automatically load tasks from disk */
+    static ArrayList <Task> loadTask() throws FileNotFoundException{
+        ArrayList <Task> tasks = new ArrayList<>();
+
+        File f = new File ("./duke.txt");
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String[] taskTokens = s.nextLine().split("\\|");
+            if(taskTokens[0].trim().equals("T")){
+                Todo todo = new Todo(taskTokens[2].trim());
+                if(taskTokens[1].trim().equals("1")){
+                    todo.doMark();
+                }
+                tasks.add(todo);
+            } else if(taskTokens[0].trim().equals("D")){
+                // task (by: deadline)
+                String[] schedules = taskTokens[2].split(" \\(by: ");
+                // delete "(by:" and ")"
+                Deadline deadline = new Deadline(schedules[0].trim(),
+                        schedules[1].substring(0, schedules[1].length()-1).trim());
+                if(taskTokens[1].trim().equals("1")){
+                    deadline.doMark();
+                }
+                tasks.add(deadline);
+            } else{
+                // task (from: t to: t)
+                String[] schedules = taskTokens[2].split(" \\(from: ");
+                String[] times = schedules[1].split(" to: ");
+                Event event = new Event(schedules[0].trim(), times[0].trim(),
+                        times[1].substring(0, times[1].length()-1).trim());
+                if(taskTokens[1].trim().equals("1")){
+                    event.doMark();
+                }
+                tasks.add(event);
+            }
+        }
+
+        return tasks;
+
+    }
+
+    public static void main(String[] args) throws IOException {
         Scanner input = new Scanner(System.in);
         //Task[] tasks = new Task[100];
         ArrayList<Task> tasks = new ArrayList<>();
         int tasks_size = 0;
+
+        try {
+            tasks = loadTask();
+        } catch (FileNotFoundException e){
+            printLine ("Creating New File");
+        }
+        tasks_size = tasks.size();
 
         System.out.println("    ____________________________________________________________");
         printLine("Hello! I'm Nupjuk");
@@ -94,6 +158,7 @@ public class Duke {
                 printLine("Nice! I've marked this task as done:");
                 printLine(" [" + tasks.get(mark_idx).getStatusIcon() + "] " + tasks.get(mark_idx).getDescription());
                 System.out.println("    ____________________________________________________________\n");
+                saveTask(tasks, tasks_size);
 
             } else if(tokens[0].equals("unmark")){
 
@@ -122,6 +187,7 @@ public class Duke {
                 printLine("OK, I've marked this task as not done yet:");
                 printLine(" [" + tasks.get(mark_idx).getStatusIcon() + "] " + tasks.get(mark_idx).getDescription());
                 System.out.println("    ____________________________________________________________\n");
+                saveTask(tasks, tasks_size);
             } else if(tokens[0].equals("todo")) {
 
                 try{
@@ -142,6 +208,7 @@ public class Duke {
                         todo.getTypeIcon(), todo.getStatusIcon(), todo.getDescription()));
                 printLine(String.format("Now you have %d tasks in the list.", tasks_size));
                 System.out.println("    ____________________________________________________________\n");
+                saveTask(tasks, tasks_size);
 
             } else if(tokens[0].equals("deadline")){
                 // error handling
@@ -176,6 +243,7 @@ public class Duke {
                         deadline.getTypeIcon(), deadline.getStatusIcon(), deadline.getDescription()));
                 printLine(String.format("Now you have %d tasks in the list.", tasks_size));
                 System.out.println("    ____________________________________________________________\n");
+                saveTask(tasks, tasks_size);
             } else if(tokens[0].equals("event")){
                 // error handling
                 try{
@@ -211,6 +279,7 @@ public class Duke {
                         event.getTypeIcon(), event.getStatusIcon(), event.getDescription()));
                 printLine(String.format("Now you have %d tasks in the list.", tasks_size));
                 System.out.println("    ____________________________________________________________\n");
+                saveTask(tasks, tasks_size);
             } else if(tokens[0].equals("delete")){
 
                 int del_idx;
@@ -243,6 +312,7 @@ public class Duke {
                 printLine(" [" + del_task.getStatusIcon() + "] " + del_task.getDescription());
                 printLine(String.format("now you have %d tasks in the list", tasks_size));
                 System.out.println("    ____________________________________________________________\n");
+                saveTask(tasks, tasks_size);
             }
             else{
                 // command not matched
