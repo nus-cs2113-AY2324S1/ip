@@ -31,7 +31,7 @@ public class Event extends Task {
         return "[E]" + super.toString() + timePeriod;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NullValidInputException {
         handleInputForEvent("event project meeting /Mon 2pm /to 4pm");
     }
 }
