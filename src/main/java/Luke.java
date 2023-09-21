@@ -1,7 +1,9 @@
 import luke.constants.*;
 import luke.errors.LukeTimeError;;
 import luke.tasks.*;
+import luke.files.*;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Luke {
@@ -15,6 +17,17 @@ public class Luke {
                 + "\t|_____|\\__,_|_|\\_\\___|\n";
 
         System.out.println("\t" + "Hello! I'm\n" + logo);
+
+        try {
+            RetrieveMemory.printFileContents("./luke/files/memory.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("No existing memory.");
+            RetrieveMemory taskListFile = new RetrieveMemory ("./luke/files/memory.txt");
+            if(taskListFile.exists() == false){
+                taskListFile.createNewFile();
+            }
+        }
+
         System.out.println("\t" + "What can I do for you?");
 
         Task[] taskList = new Task[100];
