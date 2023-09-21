@@ -40,6 +40,24 @@ public class Commands {
         System.out.println("\t" + line);
     }
 
+    public static void deleteTask(String taskNumber, ArrayList<Task> tasks){
+        int target = Integer.parseInt(taskNumber) - 1;
+        System.out.println("\t" + line);
+        try {
+            System.out.println("\tNoted. I've removed this task: ");
+            System.out.println("\t  " + tasks.get(target));
+            tasks.remove(target);
+            Task.deleteOneTask();
+            printNumberOfTasks(tasks);
+        } catch (NullPointerException e) {
+            System.out.println("\tSorry! There is no task associated with this number");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tSorry! The task number inputted is out of bounds");
+            System.out.println("\tPlease key in a number from 1-" + Task.getNumberOfTask());
+        }
+        System.out.println("\t" + line);
+    }
+
     public static void addTodo(String description, ArrayList<Task> tasks) throws SimonException {
         tasks.add(new Todo(description));
 
