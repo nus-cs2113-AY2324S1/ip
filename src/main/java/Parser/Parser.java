@@ -18,6 +18,7 @@ public class Parser {
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String FIND_COMMAND = "find";
     private static final String FAREWELL_COMMAND = "bye";
 
     public static Command getCommand(String input) throws CSGPTParsingException {
@@ -45,6 +46,8 @@ public class Parser {
                 return getMark(input, true);
             case UNMARK_COMMAND:
                 return getMark(input, false);
+            case FIND_COMMAND:
+                return getFind(input);
             case FAREWELL_COMMAND:
                 return new Farewell();
             default:
@@ -109,6 +112,9 @@ public class Parser {
     }
 
     private static Delete getDelete(String input) throws CSGPTParsingException {
+        if (input.equals(DELETE_COMMAND)) {
+            throw new CSGPTParsingException("Please enter a valid number mortal.");
+        }
         String remainder = input.split(" ")[1];
         int taskNumber;
         try {
@@ -120,6 +126,9 @@ public class Parser {
     }
 
     private static Mark getMark(String input, boolean isDone) throws CSGPTParsingException {
+        if (input.equals(MARK_COMMAND) || input.equals(UNMARK_COMMAND)) {
+            throw new CSGPTParsingException("Please enter a valid number mortal.");
+        }
         String remainder = input.split(" ")[1];
         int taskNumber;
         try {
@@ -128,5 +137,16 @@ public class Parser {
             throw new CSGPTParsingException("Please enter a valid number mortal.");
         }
         return new Mark(taskNumber, isDone);
+    }
+
+    private static Find getFind(String input) throws CSGPTParsingException {
+        if (input.equals(FIND_COMMAND)) {
+            throw new CSGPTParsingException("Please enter a keyword mortal.");
+        }
+        String remainder = input.split(" ")[1];
+        if (remainder.isEmpty()) {
+            throw new CSGPTParsingException("Please enter a keyword mortal.");
+        }
+        return new Find(remainder);
     }
 }
