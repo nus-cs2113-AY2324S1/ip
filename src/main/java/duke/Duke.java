@@ -9,6 +9,7 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -33,9 +34,32 @@ public class Duke {
         + "     ☹ OOPS!!! The description of an event cannot be empty." + System.lineSeparator()
         + "____________________________________________________________" + System.lineSeparator();
 
+    public static final String FILE_PATH = "duke.txt";
+
     public static void main(String[] args) {
         List<Task> taskList = new LinkedList<>();
         greetToUsers();
+
+        String filePath = FILE_PATH;
+        File file = new File(filePath);
+
+        FileWriter fileWriter;
+        try {
+            fileWriter = new FileWriter(FILE_PATH);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        // Check if the file doesn't exist, then create it
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
 
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
@@ -63,7 +87,7 @@ public class Duke {
 
                 try {
 
-                    handleTheUserInput(taskList, line);
+                    handleTheUserInput(taskList, line, fileWriter);
                     feedbackOfTheExecution(taskList);
 
 
@@ -79,10 +103,16 @@ public class Duke {
 
         }
 
+        try {
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         byeToUsers();
     }
 
-    private static void handleTheUserInput(List<Task> taskList, String line) throws DukeException {
+    private static void handleTheUserInput(List<Task> taskList, String line, FileWriter fileWriter) throws DukeException {
 
         String[] words = line.split(" ");
         String firstWord = words[0];
@@ -94,23 +124,50 @@ public class Duke {
             if (nullDescription) {
                 throw new NullDescriptionInputException(NULL_DESCRIPTION_EXCEPTION_FOR_DEADLINE);
             }
-            handleDeadline(taskList, line);
+            handleDeadline(taskList, line, fileWriter);
             break;
         case "todo":
             if (nullDescription) {
                 throw new NullDescriptionInputException(NULL_DESCRIPTION_EXCEPTION_FOR_TODO);
             }
-            handleTodo(taskList, words);
+            handleTodo(taskList, words, fileWriter);
             break;
         case "event":
             if (nullDescription) {
                 throw new NullDescriptionInputException(NULL_DESCRIPTION_EXCEPTION_FOR_EVENT);
             }
-            handleEvent(taskList, line);
+            handleEvent(taskList, line, fileWriter);
             break;
+        case "delete": {
+            deleteText(taskList);
+            break;
+        }
         default: {
             throw new UndefinedTaskException(UNDEFINED_TASKS);
         }
+        }
+    }
+
+    private static void deleteText(List<Task> taskList) {
+        String filePath = FILE_PATH;
+
+        // Try to write the list to the file, overwriting the existing content
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+
+            // Loop through the list and write each element to the file
+            for (Task item : taskList) {
+                writer.write(item.toString());
+                writer.newLine(); // Add a newline to separate each item
+            }
+
+            // Close the writer to release resources
+            writer.close();
+
+            System.out.println("List has been saved and has overwritten the existing file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error: Unable to save the list to the file.");
         }
     }
 
@@ -121,34 +178,42 @@ public class Duke {
         System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
-
-    private static void handleDefault() throws DukeException {
-        String errorMessage = "____________________________________________________________" + System.lineSeparator()
-            + "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + System.lineSeparator()
-            + "     You should tell me which kind of Tasks (todo, deadline, event) you would like to add" + System.lineSeparator()
-            + "____________________________________________________________" + System.lineSeparator();
-
-        throw new DukeException(errorMessage);
-    }
-
-    private static void handleEvent(List<Task> taskList, String line) {
+    private static void handleEvent(List<Task> taskList, String line, FileWriter fileWriter) {
         String[] userfulInfo = Event.handleInputForEvent(line);
-        taskList.add(new Event(userfulInfo[0], userfulInfo[1]));
+        Event event = new Event(userfulInfo[0], userfulInfo[1]);
+        taskList.add(event);
+        try {
+            fileWriter.write(event + System.lineSeparator());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private static void handleTodo(List<Task> taskList, String[] words) {
+    private static void handleTodo(List<Task> taskList, String[] words, FileWriter fileWriter) {
         String task = "";
         for (int i = 1; i < words.length; i++) {
             task += words[i] + " ";
         }
-        taskList.add(new Todo(task.trim()));
+        Todo todo = new Todo(task.trim());
+        taskList.add(todo);
+        try {
+            fileWriter.write(todo + System.lineSeparator());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private static void handleDeadline(List<Task> taskList, String line) {
+    private static void handleDeadline(List<Task> taskList, String line, FileWriter fileWriter) {
 
         String by = line.split("/")[1];
         String description = line.split("/")[0].replace("deadline", "").trim();
-        taskList.add(new Deadline(description, by.replace("by", "").trim()));
+        Deadline deadline = new Deadline(description, by.replace("by", "").trim());
+        taskList.add(deadline);
+        try {
+            fileWriter.write(deadline + System.lineSeparator());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void greetToUsers() {
