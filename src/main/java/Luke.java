@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public class Luke {
     private static final String BYE_COMMAND = "bye";
 
-    private static final ArrayList<Task> taskList = new ArrayList<>();
-    private static int counter = 0;
+    private static ArrayList<Task> taskList = new ArrayList<>();
+
 
     private static void addTask(Task taskName) {
         taskList.add(taskName);
@@ -37,7 +37,7 @@ public class Luke {
         File taskListFile = new File("./src/main/java/luke/files/memory.txt");
         try {
             if (taskListFile.exists()) {
-                Memory.readMemory("./src/main/java/luke/files/memory.txt", taskList, counter);
+                taskList = Memory.readMemory("./src/main/java/luke/files/memory.txt", taskList);
             } else {
                 taskListFile.createNewFile();
             }
@@ -70,7 +70,7 @@ public class Luke {
                     switch (action) {
                         case LIST:
                             System.out.println("\tHere are the tasks in your list:");
-                            for (int i = 0; i < counter; i += 1) {
+                            for (int i = 0; i < taskList.size(); i += 1) {
                                 System.out.println("\t" + (i + 1) + "." + taskList.get(i));
                             }
                             break;
@@ -93,9 +93,8 @@ public class Luke {
                             Task newTodo = new Todo(echo);
                             addTask(newTodo);
 
-                            System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(counter));
-                            counter += 1;
-                            System.out.println("\tNow you have " + counter + " tasks in the list.");
+                            System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(taskList.size() - 1));
+                            System.out.println("\tNow you have " + taskList.size() + " tasks in the list.");
                             break;
 
                         case DEADLINE:
@@ -103,9 +102,8 @@ public class Luke {
                                 Task newDeadline = new Deadline(echo);
                                 addTask(newDeadline);
 
-                                System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(counter));
-                                counter += 1;
-                                System.out.println("\tNow you have " + counter + " tasks in the list.");
+                                System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(taskList.size() - 1));
+                                System.out.println("\tNow you have " + taskList.size() + " tasks in the list.");
                             } catch (LukeTimeError e) {
                                 System.out.println("OOPS!!! There's an error in the deadline's 'do by' date.");
                             }
@@ -116,9 +114,8 @@ public class Luke {
                                 Task newEvent = new Event(echo);
                                 addTask(newEvent);
 
-                                System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(counter));
-                                counter += 1;
-                                System.out.println("\tNow you have " + counter + " tasks in the list.");
+                                System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(taskList.size() - 1));
+                                System.out.println("\tNow you have " + taskList.size() + " tasks in the list.");
                             } catch (LukeTimeError e) {
                                 System.out.println("OOPS!!! There's an error in the event's start and end time.");
                             }
@@ -128,8 +125,7 @@ public class Luke {
                             taskNumber = Integer.parseInt(words[1]) - 1;
                             System.out.println("\tNoted. I've removed this task:\n" + taskList.get(taskNumber));
                             removeTask(taskNumber);
-                            System.out.println("\tNow you have " + counter + " tasks in the list.");
-                            counter -= 1;
+                            System.out.println("\tNow you have " + taskList.size() + " tasks in the list.");
                             break;
                         default:
                             assert false: "This line should never be reached";
@@ -147,7 +143,7 @@ public class Luke {
 
         //store in memory.txt
         try {
-            Memory.storeMemory("./src/main/java/luke/files/memory.txt", taskList, counter);
+            Memory.storeMemory("./src/main/java/luke/files/memory.txt", taskList);
             System.out.println("Memory Stored Safely!");
         } catch (IOException e) {
             System.out.println("IO Exception");

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Memory {
 
-    public static void readMemory(String filePath, ArrayList<Task> taskList, int counter) throws FileNotFoundException {
+    public static ArrayList<Task> readMemory(String filePath, ArrayList<Task> taskList) throws FileNotFoundException {
 
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -45,19 +45,18 @@ public class Memory {
                 }
 
                 taskList.add(newTask);
-                counter += 1;
             } catch (LukeTimeError e) {
                 System.out.println("somethings wrong");
             }
         }
-
+        return taskList;
     }
 
-    public static void storeMemory(String filePath, ArrayList<Task> taskList, int counter) throws IOException {
+    public static void storeMemory(String filePath, ArrayList<Task> taskList) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath); //overwrite file
 
-            for (int i = 0; i < counter; i += 1) {
+            for (int i = 0; i < taskList.size(); i += 1) {
                 fw.write(taskList.get(i).memoryString() + "\n");
             }
 
