@@ -225,10 +225,6 @@ public class Duke {
             super("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-    public static void main(String[] args) {
-        Duke duke = new Duke(); // Create an instance of the Duke class
-        duke.run(); // Run the chatbot
-    }
 
     private static void deleteTask(String userInput, ArrayList<Task> tasks) {
         // Check if the task list is empty
@@ -287,5 +283,10 @@ public class Duke {
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        Duke duke = new Duke(); // Create an instance of the Duke class
+        duke.run(); // Run the chatbot
     }
 }
