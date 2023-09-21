@@ -1,12 +1,33 @@
 //import scanner
+import javax.lang.model.type.NullType;
 import java.util.Scanner;
 
 public class Botbot {
-    public static String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    public static String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
     //create array for list
     public static Task[] list = new Task[100];
     public static int listSize = 0;
+
+    //method to identify command
+    public static String identifyCommand(String command) throws DukeException {
+        if (command.equals("bye")) {
+            return "bye";
+        } else if (command.equals("list")){
+            return "list";
+        } else if (command.contains("mark")){
+            return "mark";
+        } else if (command.contains("todo")){
+            return "todo";
+        } else if (command.contains("deadline")){
+            return "deadline";
+        } else if (command.contains("event")){
+            return "event";
+        } else {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :<");
+        }
+    }
+
 
     //method to mark or unmark task
     public static void markUnmarkTask(String command){
@@ -55,7 +76,20 @@ public class Botbot {
     }
 
     //method to add deadline tasks
-    public static void createDeadlineTasks(String task, String deadline){
+    public static void createDeadlineTasks(String input) throws DukeException {
+        String task;
+        String deadline;
+        if (!input.contains("/by")) {
+            throw new DukeException("Ohno... Please check your format and include '/by'~");
+        } else {
+            String[] parts = input.split(" /by ");
+            //check if task or deadline are null
+            if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
+                throw new DukeException("Task or deadline cannot be empty... Please check your input again~");
+            }
+            task = parts[0].substring("deadline ".length());
+            deadline = parts[1];
+        }
         //instantiate new deadline object
         Deadline deadlineTask = new Deadline(task, deadline);
         //add to array
@@ -68,7 +102,22 @@ public class Botbot {
     }
 
     //method to add eventTask
-    public static void createEventTask(String task, String from, String to){
+    public static void createEventTask(String input) throws DukeException {
+        String task;
+        String from;
+        String to;
+        if (!input.contains("/from") || !input.contains("/to")) {
+            throw new DukeException("Uhoh... Please check your format and include '/from' and '/to'~");
+        } else {
+            String[] parts = input.split(" /");
+            //check if task, to, from are null
+            if (parts.length != 3 || parts[0].isEmpty() || parts[1].equals("from") || parts[2].equals("to")) {
+                throw new DukeException("Task, from or to cannot be empty... Please check your input again~");
+            }
+            task = parts[0].substring("event ".length());
+            from = parts[1].substring("from".length());
+            to = parts[2].substring("to".length());
+        }
         //instantiate new event object
         Event eventTask = new Event(task, from, to);
         //add to array
@@ -80,19 +129,9 @@ public class Botbot {
         System.out.println(line);
     }
 
-    //method to add task to list
-    public static void addTask(String input){
-        //instantiate new Task object
-        Task newTask = new Task(input);
-        //Echo input
-        System.out.println("Added: " + input);
-        System.out.println(line);
-        //edit list array
-        list[listSize] = newTask;
-        listSize++;
-    }
 
-    public static void main(String[] args) {
+    //main method
+    public static void main(String[] args){
         //message
         System.out.println("Hello! I'm Botbot \n" +
                 "───────────────────────────────────────────────────────────────────────────────────────────────\n" +
@@ -118,49 +157,41 @@ public class Botbot {
             String input = scanner.nextLine();
             System.out.println(line);
 
-            //for command bye
-            if (input.equals("bye")) {
-                System.out.println("Bye! Hope to see you again soon!");
-                break;
-            //for command list
-            } else if(input.equals("list")) {
-                for (int i = 0; i < listSize; i++) {
-                    System.out.print((i + 1) + ". ");
-                    System.out.println(list[i]);
+            try {
+                //identify the command type
+                String command = identifyCommand(input);
+
+                switch (command) {
+                    case "bye":
+                        System.out.println("Bye! Hope to see you again soon!");
+                        //close scanner
+                        scanner.close();
+                        return;
+                    case "list":
+                        for (int i = 0; i < listSize; i++) {
+                            System.out.print((i + 1) + ". ");
+                            System.out.println(list[i]);
+                        }
+                        System.out.println(line);
+                        break;
+                    case "mark":
+                        markUnmarkTask(input);
+                        break;
+                    case "todo":
+                        createTodoTasks(input.substring(5));
+                        break;
+                    case "deadline":
+                        createDeadlineTasks(input);
+                        break;
+                    case "event":
+                        createEventTask(input);
+                        break;
+                    default:
+                        return;
                 }
-                System.out.println(line);
-            //for marking/unmarking command
-            }else if(input.contains("mark")){
-                markUnmarkTask(input);
-            //for todo commands
-            }else if(input.contains("todo")) {
-                createTodoTasks(input.substring(5));
-            //for deadline commands
-            }else if(input.contains("deadline")){
-                if (!input.contains("/by")){
-                    System.out.println("Invalid input. No deadline/invalid format.");
-                }else {
-                    String[] parts = input.split("/by ");
-                    String task = parts[0].substring("deadline ".length());
-                    String deadline = parts[1];
-                    createDeadlineTasks(task, deadline);
-                }
-            //for event commands
-            }else if(input.contains("event")){
-                if (!input.contains("/from") || !input.contains("/to")){
-                    System.out.println("Invalid input. No duration/invalid format.");
-                }else {
-                    String[] parts = input.split("/");
-                    String task = parts[0].substring("event ".length());
-                    String from = parts[1].substring("from ".length());
-                    String to = parts[2].substring("to ".length());
-                    createEventTask(task, from, to);
-                }
-            }else{
-                    addTask(input);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage() + "\n" + line);
             }
         }
-        //close scanner
-        scanner.close();
     }
 }
