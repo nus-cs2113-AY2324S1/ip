@@ -1,4 +1,4 @@
-package main.java.doli.tasks;
+package doli.tasks;
 
 /** Subclass of Task, specifying events with a start and ending time */
 public class Event extends Task {
