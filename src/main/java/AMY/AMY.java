@@ -7,11 +7,11 @@ import AMY.command.Task;
 import AMY.command.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 public class AMY {
     public static final String BOT_NAME = "AMY";
     public static final String LINE = "____________________________________________________________";
-    public static Task[] taskList = new Task[100];
-    public static int numberOfTasks = 0;
+    public static ArrayList<Task> taskList = new ArrayList<>();
     public static Scanner scanner = new Scanner(System.in);
 
     // Draws a line
@@ -43,25 +43,25 @@ public class AMY {
 
     // Add a task to the list
     public static void addToList(Task task) {
-        taskList[numberOfTasks] = task;
-        numberOfTasks++;
+        //taskList[numberOfTasks] = task;
+        taskList.add(task);
         System.out.println("Got it. I've added this task: ");
         System.out.println("  " + task);
-        System.out.println("Now you have " + numberOfTasks + " tasks in the list");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list");
     }
 
     // List all tasks if the user enters "list"
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numberOfTasks; i++) {
-            System.out.println((i + 1) + ". " + taskList[i]);
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i));
         }
     }
 
     // Mark task as done if the user enters "mark"
     public static void markTaskAsDone(int taskIndex) {
-        if (taskIndex >= 1 && taskIndex <= numberOfTasks) {
-            Task task = taskList[taskIndex - 1];
+        if (taskIndex >= 1 && taskIndex <= taskList.size()) {
+            Task task = taskList.get(taskIndex - 1);
             task.markAsDone();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + task);
@@ -72,8 +72,8 @@ public class AMY {
 
     // Unmark task as done if the user enters "unmark"
     public static void unmarkTask(int taskIndex) {
-        if (taskIndex >= 1 && taskIndex <= numberOfTasks) {
-            Task task = taskList[taskIndex - 1];
+        if (taskIndex >= 1 && taskIndex <= taskList.size()) {
+            Task task = taskList.get(taskIndex - 1);
             task.markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("  " + task);
