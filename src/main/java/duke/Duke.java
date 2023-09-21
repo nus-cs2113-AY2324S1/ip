@@ -6,6 +6,7 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -177,6 +178,30 @@ public class Duke {
         taskList.remove(index - 1);
         System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+        try {
+            File file = new File(FILE_PATH);
+
+            if (file.exists()) {
+                file.delete();
+                file.createNewFile();
+            }
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+
+            // Loop through the list and write each element to the file
+            for (Task item : taskList) {
+                writer.write(item.toString());
+                writer.newLine(); // Add a newline to separate each item
+            }
+
+            // Close the writer to release resources
+            writer.close();
+
+            System.out.println("List has been saved and has overwritten the existing file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error: Unable to save the list to the file.");
+        }
     }
 
     private static void feedbackOfTheExecution(List<Task> taskList) {
@@ -185,15 +210,6 @@ public class Duke {
         System.out.println("       " + taskList.get(taskList.size() - 1).toString());
         System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
-    }
-
-    private static void handleDefault() throws DukeException {
-        String errorMessage = "____________________________________________________________" + System.lineSeparator()
-            + "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + System.lineSeparator()
-            + "     You should tell me which kind of Tasks (todo, deadline, event) you would like to add" + System.lineSeparator()
-            + "____________________________________________________________" + System.lineSeparator();
-
-        throw new DukeException(errorMessage);
     }
 
     private static void handleEvent(List<Task> taskList, String line, FileWriter fileWriter) throws NullValidInputException {
