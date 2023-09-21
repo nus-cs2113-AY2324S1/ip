@@ -1,10 +1,14 @@
 package nuke.task;
 
+import nuke.NukeDateTime;
+
+import java.time.LocalDateTime;
+
 /**
  * Represents a task that has a deadline.
  */
 public class Deadline extends Task {
-    private String by;
+    private NukeDateTime by;
 
     /**
      * Constructs a task that has a deadline,
@@ -24,7 +28,7 @@ public class Deadline extends Task {
      * @return deadline of the task
      */
     public String getBy() {
-        return by;
+        return by.toString();
     }
 
     /**
@@ -33,7 +37,7 @@ public class Deadline extends Task {
      * @param by deadline of the task
      */
     public void setBy(String by) {
-        this.by = by;
+        this.by = new NukeDateTime(by);
     }
 
     @Override

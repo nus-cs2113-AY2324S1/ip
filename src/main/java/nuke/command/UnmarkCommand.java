@@ -34,7 +34,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void run(Nuke nuke) throws InvalidCommandArgumentException {
-        if(index < 0 || index >= nuke.getNumberOfTasks()) {
+        if(index < 0 || index >= nuke.countTasks()) {
             throwArgumentException(ERROR_MSG_INDEX_INVALID_VALUE);
         }
         nuke.unmarkTask(index);

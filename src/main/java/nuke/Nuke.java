@@ -80,9 +80,9 @@ public class Nuke {
 
     private void saveTasksToStorage(Storage storage, Ui ui) {
         try {
-            storage.saveTasks(getFormattedTasks());
+            storage.saveTasks(tasks.getFormattedTasks());
         } catch (TaskSaveException e) {
-            e.tasks = getTasks();
+            e.tasks = tasks.getTasks();
             ui.handleTaskSaveError(e);
         }
     }
@@ -102,14 +102,14 @@ public class Nuke {
      */
     public void addTask(Task task) {
         tasks.add(task);
-        ui.printAddedTask(task.toString(), getNumberOfTasks());
+        ui.printAddedTask(task.toString(), countTasks());
     }
 
     /**
      * Lists all tasks.
      */
     public void listTask() {
-        ui.printListOfTasks(getTasks());
+        ui.printListOfTasks(tasks.getTasks());
     }
 
     /**
@@ -118,8 +118,8 @@ public class Nuke {
      * @param idx index of the task to be marked done
      */
     public void markTask(int idx) {
-        String task = tasks.mark(idx);
-        ui.printMarkedTask(task);
+        String markedTask = tasks.mark(idx);
+        ui.printMarkedTask(markedTask);
     }
 
     /**
@@ -128,8 +128,8 @@ public class Nuke {
      * @param idx index of the task to be marked not done
      */
     public void unmarkTask(int idx) {
-        String task = tasks.unmark(idx);
-        ui.printUnmarkedTask(task);
+        String unmarkedTask = tasks.unmark(idx);
+        ui.printUnmarkedTask(unmarkedTask);
     }
 
     /**
@@ -138,8 +138,13 @@ public class Nuke {
      * @param idx index of the task to be deleted
      */
     public void deleteTask(int idx) {
-        String task = tasks.delete(idx);
-        ui.printDeletedTask(task, getNumberOfTasks());
+        String deletedTask = tasks.delete(idx);
+        ui.printDeletedTask(deletedTask, countTasks());
+    }
+
+    public void findTasks(String keyword) {
+        String[] foundTasks = tasks.find(keyword);
+        ui.printFoundTask(foundTasks);
     }
 
     /**
@@ -177,26 +182,7 @@ public class Nuke {
      *
      * @return the number of the tasks
      */
-    public int getNumberOfTasks() {
+    public int countTasks() {
         return tasks.size();
-    }
-
-    /**
-     * Returns string representations of all tasks.
-     *
-     * @return all tasks in form of {@link String}[].
-     */
-    public String[] getTasks() {
-        return tasks.getTasks();
-    }
-
-    /**
-     * Returns all tasks in form of formatted manner,
-     * which is used to save in file.
-     *
-     * @return all tasks in form of formatted manner.
-     */
-    public String[] getFormattedTasks() {
-        return tasks.getFormattedTasks();
     }
 }

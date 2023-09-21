@@ -65,6 +65,13 @@ public class TaskList {
         return task.toString();
     }
 
+    public String[] find(String keyword) {
+        return TASKS.stream()
+                .filter(task -> task.getName().contains(keyword))
+                .map(Task::toString)
+                .toArray(String[]::new);
+    }
+
     /**
      * Returns the size of the list.
      *

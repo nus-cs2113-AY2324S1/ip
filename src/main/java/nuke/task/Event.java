@@ -1,11 +1,13 @@
 package nuke.task;
 
+import nuke.NukeDateTime;
+
 /**
  * Represents an event that has the start and the end.
  */
 public class Event extends Task {
-    private String from;
-    private String to;
+    private NukeDateTime from;
+    private NukeDateTime to;
 
     /**
      * Constructs an event with the name, the start period, and the end period.
@@ -26,7 +28,7 @@ public class Event extends Task {
      * @return start period of the event
      */
     public String getFrom() {
-        return from;
+        return from.toString();
     }
 
     /**
@@ -35,7 +37,7 @@ public class Event extends Task {
      * @param from start period of the event
      */
     public void setFrom(String from) {
-        this.from = from;
+        this.from = new NukeDateTime(from);
     }
 
     /**
@@ -44,7 +46,7 @@ public class Event extends Task {
      * @return end period of the event
      */
     public String getTo() {
-        return to;
+        return to.toString();
     }
 
     /**
@@ -53,7 +55,7 @@ public class Event extends Task {
      * @param to end period of the event
      */
     public void setTo(String to) {
-        this.to = to;
+        this.to = new NukeDateTime(to);
     }
 
     @Override
