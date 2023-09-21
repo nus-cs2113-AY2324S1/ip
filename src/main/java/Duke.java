@@ -4,6 +4,7 @@ import Task.Task.Deadline;
 import Task.Task.Event;
 import Task.EmptyDescriptionException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -139,14 +140,16 @@ public class Duke {
     }
     public static void main(String[] args) {
 
+        ArrayList<Task> itemList = IO.load();
+
         System.out.println("Hello! I'm Axel!\n"
                 + "What can I do for you?\n"
                 + LINE_DIVIDER);
 
         Scanner in = new Scanner(System.in);
         String buf = in.nextLine();
-        ArrayList<Task> itemList = new ArrayList<Task>();
-        int i = 0; // current index in itemList
+
+        int i = itemList.size(); // current index in itemList
 
         while(!buf.equalsIgnoreCase("bye")){
             switch(buf.toLowerCase().split(" ")[0]) {
@@ -191,6 +194,13 @@ public class Duke {
                 break;
             }
             buf = in.nextLine();
+
+            try {
+                IO.save(itemList, i);
+            } catch (IOException e) {
+                System.out.println("    I couldn't save your file, try again?\n"
+                        + LINE_DIVIDER);
+            }
         }
 
         System.out.println(LINE_DIVIDER +

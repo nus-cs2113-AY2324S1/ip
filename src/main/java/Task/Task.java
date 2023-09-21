@@ -12,10 +12,6 @@ public class Task {
         this.done = done;
     }
 
-    public boolean getDone(){
-        return done;
-    }
-
     @Override
     public String toString(){
         String out = "["
@@ -24,11 +20,23 @@ public class Task {
         return out;
     }
 
+    /*
+    Formats class into a row in the save file
+    Each parameter separated by " /"
+    Format is [NAME] /[DONE] /[TYPE] /{any additional parameters}
+     */
+    public String toFileLine() {
+        return name + " /" + (done ? "true" : "false");
+    }
 
     public static class ToDo extends Task {
 
         public ToDo(String name){
             super(name);
+        }
+        public ToDo(String name, boolean done){
+            super(name);
+            this.done = done;
         }
 
         @Override
@@ -37,6 +45,11 @@ public class Task {
                     + (done ? "X" : " ")
                     + "] " + super.name;
             return out;
+        }
+
+        @Override
+        public String toFileLine(){
+            return super.toFileLine() + " /TODO";
         }
     }
 
@@ -50,6 +63,13 @@ public class Task {
             this.to = to;
         }
 
+        public Event(String name, boolean done, String from, String to){
+            super(name);
+            this.done = done;
+            this.from = from;
+            this.to = to;
+        }
+
         @Override
         public String toString(){
             String out = "[E]["
@@ -58,6 +78,11 @@ public class Task {
                     + " (from: " + from
                     + " to: " + to + ")";
             return out;
+        }
+
+        @Override
+        public String toFileLine(){
+            return super.toFileLine() + " /EVENT /" + from + " /" + to;
         }
     }
 
@@ -68,6 +93,12 @@ public class Task {
             this.by = by;
         }
 
+        public Deadline(String name, boolean done, String by){
+            super(name);
+            this.done = done;
+            this.by = by;
+        }
+
         @Override
         public String toString(){
             String out = "[D]["
@@ -75,6 +106,11 @@ public class Task {
                     + "] " + super.name
                     + " (by: " + by + ")";
             return out;
+        }
+
+        @Override
+        public String toFileLine(){
+            return super.toFileLine() + " /DEADLINE /" + by;
         }
     }
 }
