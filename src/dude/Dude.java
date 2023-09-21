@@ -2,8 +2,15 @@ package dude;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Dude {
+
+    private static final String DIRECTORY_PATH = "./data";
+    private static final String FILE_PATH = DIRECTORY_PATH + "/duke.txt";
 
     // Method to draw horizontal lines
     public static void drawLine() {
@@ -24,7 +31,7 @@ public class Dude {
 
         System.out.println("Hello from\n" + logo);
         drawLine();
-        System.out.println("Hello! I'm your best dude.Dude :)");
+        System.out.println("Hello! I'm your best dude:)");
         System.out.println("What can I do for you?");
         drawLine();
     }
@@ -32,7 +39,8 @@ public class Dude {
     // Method to handle the storage of tasks
     public static void storeDude() {
         Scanner scan = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        setupFile();
+        ArrayList<Task> tasks = loadFromFile();
 
         String input = scan.nextLine();
         while (!input.isEmpty()) {
@@ -86,6 +94,7 @@ public class Dude {
         }
         tasks.add(new Task(taskDescription));
         printAddedTask(tasks);
+        saveToFile(tasks);
     }
 
 
@@ -107,6 +116,7 @@ public class Dude {
 
         tasks.add(new Deadline(taskDescription, by));
         printAddedTask(tasks);
+        saveToFile(tasks);
     }
 
     private static void addEventTask(ArrayList<Task> tasks, String input) throws DudeException {
@@ -134,6 +144,7 @@ public class Dude {
 
         tasks.add(new Event(taskDescription, from, to));
         printAddedTask(tasks);
+        saveToFile(tasks);
     }
 
     private static void markOrUnmarkTask(ArrayList<Task> tasks, String input) {
@@ -158,6 +169,8 @@ public class Dude {
         } catch (NumberFormatException e) {
             System.out.println("Invalid task index format.");
         }
+
+        saveToFile(tasks);
     }
 
     private static void printAddedTask(ArrayList<Task> tasks) {
@@ -187,7 +200,70 @@ public class Dude {
         } catch (NumberFormatException e) {
             System.out.println("Invalid task index format.");
         }
+
+        saveToFile(tasks);
     }
+
+    private static void setupFile() {
+        // Check if the directory exists, if not, create it
+        File directory = new File(DIRECTORY_PATH);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        // Check if the file exists, if not, create it
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        }
+    }
+
+    private static ArrayList<Task> loadFromFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File file = new File(FILE_PATH);
+            Scanner fileReader = new Scanner(file);
+
+            while (fileReader.hasNextLine()) {
+                String line = fileReader.nextLine();
+                // Assuming the first char denotes the type of task
+                char taskType = line.charAt(0);
+                switch (taskType) {
+                case 'T':
+                    tasks.add(Task.fromFileFormat(line));
+                    break;
+                case 'D':
+                    tasks.add(Deadline.fromFileFormat(line));
+                    break;
+                case 'E':
+                    tasks.add(Event.fromFileFormat(line));
+                    break;
+                }
+            }
+
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error reading from file: " + e.getMessage());
+        }
+        return tasks;
+    }
+
+    private static void saveToFile(ArrayList<Task> tasks) {
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            for (Task task : tasks) {
+                fileWriter.write(task.toFileFormat() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
 
     // Method to print the goodbye message
     public static void byeDude() {

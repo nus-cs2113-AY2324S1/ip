@@ -1,19 +1,32 @@
 package dude;
 
 public class Event extends Task {
-    String startDate;
-    String endDate;
+    private String from;
+    private String to;
 
-    // Constructor to initialize an event with a description, start date, and end date
-    public Event(String description, String startDate, String endDate) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.type = "[E]";  // Type [E] indicates this is an dude.Event
+        this.from = from;
+        this.to = to;
+        this.type = "[E]";
+    }
+
+    @Override
+    public String toFileFormat() {
+        return super.toFileFormat() + " | " + from + " | " + to;
+    }
+
+    public static Event fromFileFormat(String fileString) {
+        String[] parts = fileString.split("\\s\\|\\s");
+        Event event = new Event(parts[2], parts[3], parts[4]);
+        if (parts[1].equals("1")) {
+            event.markAsDone();
+        }
+        return event;
     }
 
     @Override
     public String toString() {
-        return getType() + getStatusIcon() + " " + description + " (from: " + startDate + " to: " + endDate + ")";
+        return super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
