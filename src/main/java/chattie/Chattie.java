@@ -7,6 +7,7 @@ import chattie.tasks.Event;
 import chattie.tasks.Task;
 import chattie.tasks.Todo;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Chattie {
@@ -90,6 +91,11 @@ public class Chattie {
         list[count] = new Todo(todo);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + list[count]);
+        try {
+            TaskFile.updateFile(list);
+        } catch (IOException e) {
+            System.out.println("\tCan't add task to chattie.txt");
+        }
         count++;
         System.out.println("\tNow you have " + count + " tasks in the list.");
         return count;
@@ -114,6 +120,11 @@ public class Chattie {
         list[count] = new Deadline(task, by);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + list[count]);
+        try {
+            TaskFile.updateFile(list);
+        } catch (IOException e) {
+            System.out.println("\tCan't add task to chattie.txt");
+        }
         count++;
         System.out.println("\tNow you have " + count + " tasks in the list.");
         return count;
@@ -140,6 +151,11 @@ public class Chattie {
         list[count] = new Event(task, from, to);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + list[count]);
+        try {
+            TaskFile.updateFile(list);
+        } catch (IOException e) {
+            System.out.println("\tCan't add task to chattie.txt");
+        }
         count++;
         System.out.println("\tNow you have " + count + " tasks in the list.");
         return count;
@@ -156,9 +172,19 @@ public class Chattie {
             System.out.println("\tOK, I've marked this task as not done yet:");
             System.out.println("\t" + list[taskNum]);
         }
+        try {
+            TaskFile.updateFile(list);
+        } catch (IOException e) {
+            System.out.println("\tCouldn't update chattie.txt");
+        }
     }
     
     public static void main(String[] args) {
+        try {
+            TaskFile.loadFile();
+        } catch (IOException e) {
+            System.out.println("\tUnable to create chattie.txt");
+        }
         int count = 0;
         Task[] list = new Task[100];
         startChat(count, list);
