@@ -1,5 +1,7 @@
 package chattie;
 
+import chattie.tasks.TaskFile;
+
 import java.io.IOException;
 
 public class Chattie {

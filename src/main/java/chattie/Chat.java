@@ -3,6 +3,7 @@ package chattie;
 import chattie.error.ChattieException;
 import chattie.error.ErrorType;
 import chattie.tasks.Task;
+import chattie.tasks.TaskCommands;
 
 import java.util.ArrayList;
 import java.util.Scanner;

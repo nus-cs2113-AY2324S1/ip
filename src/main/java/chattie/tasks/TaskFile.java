@@ -1,4 +1,4 @@
-package chattie;
+package chattie.tasks;
 
 import chattie.tasks.Event;
 import chattie.tasks.Task;
@@ -27,13 +27,13 @@ public class TaskFile {
         }
     }
 
-    public static void writeToFile(String task) throws IOException{
+    private static void writeToFile(String task) throws IOException{
         FileWriter fileWriter = new FileWriter(FILE_PATH, true);
         fileWriter.write(task + System.lineSeparator());
         fileWriter.close();
     }
 
-    public static String lineToAdd(Task task) {
+    private static String lineToAdd(Task task) {
         String description = task.getTask();
         String done = task.isDone() ? "Done" : "Not Done";
         String taskString = "";
@@ -41,10 +41,10 @@ public class TaskFile {
             taskString = "T | " + done + " | " + description;
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            taskString = "D | " + done + " | " + description + " | " + deadline.getBy();
+            taskString = "D | " + done + " | " + description + "| " + deadline.getBy();
         } else {
             Event event = (Event) task;
-            taskString = "E | " + done + " | " + description + " | " + event.getFrom() + "-" + event.getTo();
+            taskString = "E | " + done + " | " + description + "| " + event.getFrom() + "-" + event.getTo();
         }
         return taskString;
     }
