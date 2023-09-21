@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     /* print a line starts with four spaces*/
@@ -40,7 +41,8 @@ public class Duke {
 
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
-        Task[] tasks = new Task[100];
+        //Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int tasks_size = 0;
 
         System.out.println("    ____________________________________________________________");
@@ -61,8 +63,9 @@ public class Duke {
                 }
                 else{
                     for(int i=0;i<tasks_size;i++){
+                        Task task = tasks.get(i);
                         printLine(String.format("%d.[%s][%s] %s",
-                                i+1, tasks[i].getTypeIcon(), tasks[i].getStatusIcon(), tasks[i].getDescription()));
+                                i+1, task.getTypeIcon(), task.getStatusIcon(), task.getDescription()));
                     }
                 }
                 System.out.println("    ____________________________________________________________\n");
@@ -82,14 +85,14 @@ public class Duke {
                 }
 
                 try {
-                    tasks[mark_idx].doMark();
+                    tasks.get(mark_idx).doMark();
                 } catch (NullPointerException e){
                     printLine("☹ OOPS!!! Task number is out of List!");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
                 }
                 printLine("Nice! I've marked this task as done:");
-                printLine(" [" + tasks[mark_idx].getStatusIcon() + "] " + tasks[mark_idx].getDescription());
+                printLine(" [" + tasks.get(mark_idx).getStatusIcon() + "] " + tasks.get(mark_idx).getDescription());
                 System.out.println("    ____________________________________________________________\n");
 
             } else if(tokens[0].equals("unmark")){
@@ -109,7 +112,7 @@ public class Duke {
                 }
 
                 try {
-                    tasks[mark_idx].doMark();
+                    tasks.get(mark_idx).doMark();
                 } catch (NullPointerException e){
                     printLine("☹ OOPS!!! Task number is out of List!");
                     System.out.println("    ____________________________________________________________\n");
@@ -117,7 +120,7 @@ public class Duke {
                 }
 
                 printLine("OK, I've marked this task as not done yet:");
-                printLine(" [" + tasks[mark_idx].getStatusIcon() + "] " + tasks[mark_idx].getDescription());
+                printLine(" [" + tasks.get(mark_idx).getStatusIcon() + "] " + tasks.get(mark_idx).getDescription());
                 System.out.println("    ____________________________________________________________\n");
             } else if(tokens[0].equals("todo")) {
 
@@ -132,7 +135,8 @@ public class Duke {
                 // make and add to list
                 printLine("Got it. I've added this task:");
                 Todo todo = new Todo(tokens[1]);
-                tasks[tasks_size++] = todo;
+                tasks.add(todo);
+                tasks_size++;
 
                 printLine(String.format("  [%s][%s] %s",
                         todo.getTypeIcon(), todo.getStatusIcon(), todo.getDescription()));
@@ -165,7 +169,8 @@ public class Duke {
                 printLine("Got it. I've added this task:");
 
                 Deadline deadline = new Deadline(schedules[0].trim(), schedules[1].trim().substring(2).trim());
-                tasks[tasks_size++] = deadline;
+                tasks.add(deadline);
+                tasks_size++;
 
                 printLine(String.format("  [%s][%s] %s",
                         deadline.getTypeIcon(), deadline.getStatusIcon(), deadline.getDescription()));
@@ -199,7 +204,8 @@ public class Duke {
                 Event event = new Event(schedules[0].trim(),
                         schedules[1].trim().substring(4).trim(),
                         schedules[2].trim().substring(2).trim());
-                tasks[tasks_size++] = event;
+                tasks.add(event);
+                tasks_size++;
 
                 printLine(String.format("  [%s][%s] %s",
                         event.getTypeIcon(), event.getStatusIcon(), event.getDescription()));
