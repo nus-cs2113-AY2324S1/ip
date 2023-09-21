@@ -70,4 +70,17 @@ public class Event extends Task {
 
         return "\t[E]" + isDoneString + getDescription() + "(from: " + getStartDate() + "to: " + getEndDate() + ")";
     }
+
+    @Override
+    public String memoryString() {
+        String isDoneString;
+
+        if (isDone()) {
+            isDoneString = "[X]";
+        } else {
+            isDoneString = "[ ]";
+        }
+
+        return "[E]" + isDoneString + " event" + getDescription() + "/from " + getStartDate() + "/to " + getEndDate();
+    }
 }

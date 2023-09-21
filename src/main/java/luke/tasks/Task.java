@@ -26,4 +26,16 @@ public abstract class Task {
         return "";
     }
     */
+    public String memoryString() {
+        String isDoneString;
+
+        if (isDone()) {
+            isDoneString = "[X]";
+        } else {
+            isDoneString = "[ ]";
+        }
+
+        return "[T]" + isDoneString + " task" + getDescription();
+    }
+
 }

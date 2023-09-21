@@ -1,7 +1,11 @@
 import luke.constants.*;
 import luke.errors.LukeTimeError;;
 import luke.tasks.*;
+import luke.files.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -9,6 +13,7 @@ public class Luke {
     private static final String BYE_COMMAND = "bye";
 
     private static final ArrayList<Task> taskList = new ArrayList<>();
+    private static int counter = 0;
 
     private static void addTask(Task taskName) {
         taskList.add(taskName);
@@ -28,12 +33,29 @@ public class Luke {
                 + "\t|_____|\\__,_|_|\\_\\___|\n";
 
         System.out.println("\t" + "Hello! I'm\n" + logo);
+
+        File taskListFile = new File("./src/main/java/luke/files/memory.txt");
+        try {
+            if (taskListFile.exists()) {
+                Memory.readMemory("./src/main/java/luke/files/memory.txt", taskList, counter);
+            } else {
+                taskListFile.createNewFile();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No existing memory.");
+            //File newMemory = new File("./luke/files/memory.txt");
+            //Memory taskListFile = new Memory();
+        } catch (IOException e) {
+            System.out.println("IOException.");
+        } catch (SecurityException e) {
+            System.out.println("SecurityException.");
+        }
+
         System.out.println("\t" + "What can I do for you?");
 
         //Task[] taskList = new Task[100];
 
         Scanner userInput = new Scanner(System.in);
-        int counter = 0;
         int taskNumber;
 
         String echo = userInput.nextLine();
@@ -121,6 +143,14 @@ public class Luke {
             }
 
             echo = userInput.nextLine();
+        }
+
+        //store in memory.txt
+        try {
+            Memory.storeMemory("./src/main/java/luke/files/memory.txt", taskList, counter);
+            System.out.println("Memory Stored Safely!");
+        } catch (IOException e) {
+            System.out.println("IO Exception");
         }
 
         System.out.println("\tBye. Hope to see you again soon!");
