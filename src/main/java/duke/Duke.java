@@ -1,12 +1,22 @@
 package duke;
-// ASS1, ASS2 INPUT, REMOVE 1, PRINT TO HAVE 1....
+
+
 import task.Event;
 import task.Task;
 import task.Deadline;
 import task.Todo;
 
 import exception.DukeException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 public class Duke {
@@ -14,9 +24,12 @@ public class Duke {
     public static int taskCount = 0;
     private static Task[] list = new Task[100];
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws IOException{
         printWelcomeMessage();
         Scanner keyboard = new Scanner(System.in);
+        checkAndCreateDataFolder();
+        checkAndCreateFile("data\\taskList.txt");
+        clearData();
 
         while (true) {
             int taskNo;
@@ -34,7 +47,7 @@ public class Duke {
                     return;
 
                 case "list":
-                    printList(taskCount, list);
+                    printList();
                     break;
 
                 case "mark":
@@ -71,6 +84,10 @@ public class Duke {
                     createTaskSuccessMsg();
                     break;
 
+                case "save":
+                    backupTaskFile();
+                    break;
+
                 default:
                     throw new DukeException();
                 }
@@ -80,12 +97,16 @@ public class Duke {
                 System.out.println("Your target task doesn't exist. Please input a correct task.");
             } catch (DukeException e){
                 e.incorrectFormatException(commendSplits[0]);
+            } catch (FileNotFoundException fnf){
+                System.out.println("Sorry, I cannot find the task source. Please check the task file.");
+            } catch (IOException io){
+                System.out.println("OMG! Something went wrong! Please check if the source files are available.");
             }
         }
 
     }
 
-    private static int getTaskNo(String taskNum){
+    private static int getTaskNo(String taskNum) {
         //exception: taskNum is not number, or containing non-numerical value
         return Integer.parseInt(taskNum);
     }
@@ -94,13 +115,24 @@ public class Duke {
         return list;
     }
 
-    private static void deleteTask(int deleteIndex) {
+    private static void deleteTask(int deleteIndex) throws IOException{
         if (deleteIndex <= 0 || deleteIndex> Duke.taskCount){
             System.out.println("Oh, No! invalid index! You don't have that task. Please try again.");
             return;
         }
         deleteTaskSuccessMsg(deleteIndex);
         list = Task.updatedTaskList(deleteIndex - 1);
+        overwriteToFile("data/taskList.txt", getConcatenateTasks());
+    }
+
+    //This method will return all tasks inside the list
+    private static String getConcatenateTasks() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < taskCount; i++) {
+            String taskAppend = (i +1) + ". " +  list[i].toString();
+            stringBuilder.append(taskAppend).append("\n");
+        }
+        return stringBuilder.toString();
     }
 
     //To tackle cases of invalid input like 'todo', 'event', etc.
@@ -112,18 +144,24 @@ public class Duke {
                 return true;
             }
         }
-        else if (cmd.length>=2 && cmd[0].equals("list")){
+        else if (cmd.length>=2 && cmd[0].equals("list") ){
             System.out.println("Do you mean to see the list? Please try again using 'list'.");
+            return true;
+        }else if (cmd.length>=2 && cmd[0].equals("save") ){
+            System.out.println("Do you mean to save the tasks? Please try again using 'save'.");
             return true;
         }
         return false;
     }
 
-    private static void createTaskSuccessMsg() {
+    private static void createTaskSuccessMsg() throws IOException{
         System.out.println("Got it. I've added this task:");
         System.out.println(list[taskCount]);
         taskCount++;
         System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+        String taskAppend = taskCount + ". " +  list[taskCount - 1].toString() + "\n";
+        writeToFile("data/taskList.txt", taskAppend);
     }
 
     private static void deleteTaskSuccessMsg(int deleteIndex) {
@@ -133,8 +171,21 @@ public class Duke {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    private static void printByeMessage() {
+
+    private static void printByeMessage(){
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    private static void clearData() throws IOException {
+        Path clearFile = Paths.get("data/taskList.txt");
+        Files.write(clearFile, new byte[0], StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+    }
+
+    private static void backupTaskFile() throws IOException{
+        Path sourcePath = Paths.get("data/taskList.txt");
+        Path targetPath = Paths.get("data/backup_taskList.txt");
+        Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING); //if file not exist, create one;
+        System.out.println("Great! I have saved the current tasks.");
     }
 
     private static void printWelcomeMessage() {
@@ -154,14 +205,57 @@ public class Duke {
                 "⣿⣿⠋⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿\n");
     }
 
-    private static void printList(int count, Task[] list) {
+    private static void printList() throws IOException{
         if (taskCount == 0){
             System.out.println("You don't have any tasks now. Do you want to add a new task?");
             return;
         }
+        printFileContents("data/taskList.txt");
+
+        // This is to print the whole task message directly
+        /*
         for (int i = 0; i < count; i++) {
             //example 1.[T][X] read book
             System.out.println((i + 1) + "." + list[i]);
+        }*/
+
+    }
+
+    private static void printFileContents(String filePath) throws IOException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void writeToFile(String filePath, String taskAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(taskAppend);
+        fw.close();
+    }
+
+    private static void overwriteToFile(String filePath, String taskAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(taskAppend);
+        fw.close();
+    }
+
+    public static void checkAndCreateFile(String path) throws IOException {
+        File f = new File(path);
+        if(!f.exists()){
+            if(!f.createNewFile()){
+                throw new IOException();
+            }
+        }
+    }
+
+    public static void checkAndCreateDataFolder() throws IOException {
+        File folder = new File("data");
+        if (!folder.isDirectory()) {
+            if(!folder.mkdirs()){
+                throw new IOException();
+            }
         }
     }
 

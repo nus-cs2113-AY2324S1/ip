@@ -1,9 +1,7 @@
 package task;
 
 import duke.Duke;
-import exception.DukeException;
 
-import java.util.Arrays;
 
 public class Task {
     protected String description;
