@@ -3,9 +3,22 @@ import luke.errors.LukeTimeError;;
 import luke.tasks.*;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Luke {
     private static final String BYE_COMMAND = "bye";
+
+    private static final ArrayList<Task> taskList = new ArrayList<>();
+
+    private static void addTask(Task taskName) {
+        taskList.add(taskName);
+        //System.out.println(numbers);
+    }
+
+    private static void removeTask(int taskNumber) {
+        taskList.remove(taskNumber);
+        //System.out.println(numbers);
+    }
 
     public static void main(String[] args) {
         String logo = "\t _           _        \n"
@@ -17,7 +30,8 @@ public class Luke {
         System.out.println("\t" + "Hello! I'm\n" + logo);
         System.out.println("\t" + "What can I do for you?");
 
-        Task[] taskList = new Task[100];
+        //Task[] taskList = new Task[100];
+
         Scanner userInput = new Scanner(System.in);
         int counter = 0;
         int taskNumber;
@@ -35,37 +49,39 @@ public class Luke {
                         case LIST:
                             System.out.println("\tHere are the tasks in your list:");
                             for (int i = 0; i < counter; i += 1) {
-                                System.out.println("\t" + (i + 1) + "." + taskList[i]);
+                                System.out.println("\t" + (i + 1) + "." + taskList.get(i));
                             }
                             break;
 
                         case MARK:
                             taskNumber = Integer.parseInt(words[1]) - 1;
                             System.out.println("\tWoohoo! You have accomplished:");
-                            taskList[taskNumber].setDone(true);
-                            System.out.println(taskList[taskNumber]);
+                            taskList.get(taskNumber).setDone(true);
+                            System.out.println(taskList.get(taskNumber));
                             break;
 
                         case UNMARK:
                             taskNumber = Integer.parseInt(words[1]) - 1;
                             System.out.println("\tHA! You still have to complete:");
-                            taskList[taskNumber].setDone(false);
-                            System.out.println(taskList[taskNumber]);
+                            taskList.get(taskNumber).setDone(false);
+                            System.out.println(taskList.get(taskNumber));
                             break;
 
                         case TODO:
-                            taskList[counter] = new Todo(echo);
+                            Task newTodo = new Todo(echo);
+                            addTask(newTodo);
 
-                            System.out.println("\tGot it. I've added this task:" + "\n" + taskList[counter]);
+                            System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(counter));
                             counter += 1;
                             System.out.println("\tNow you have " + counter + " tasks in the list.");
                             break;
 
                         case DEADLINE:
                             try {
-                                taskList[counter] = new Deadline(echo);
+                                Task newDeadline = new Deadline(echo);
+                                addTask(newDeadline);
 
-                                System.out.println("\tGot it. I've added this task:" + "\n" + taskList[counter]);
+                                System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(counter));
                                 counter += 1;
                                 System.out.println("\tNow you have " + counter + " tasks in the list.");
                             } catch (LukeTimeError e) {
@@ -75,9 +91,10 @@ public class Luke {
 
                         case EVENT:
                             try {
-                                taskList[counter] = new Event(echo);
+                                Task newEvent = new Event(echo);
+                                addTask(newEvent);
 
-                                System.out.println("\tGot it. I've added this task:" + "\n" + taskList[counter]);
+                                System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(counter));
                                 counter += 1;
                                 System.out.println("\tNow you have " + counter + " tasks in the list.");
                             } catch (LukeTimeError e) {
@@ -85,6 +102,13 @@ public class Luke {
                             }
                             break;
 
+                        case DELETE:
+                            taskNumber = Integer.parseInt(words[1]) - 1;
+                            System.out.println("\tNoted. I've removed this task:\n" + taskList.get(taskNumber));
+                            removeTask(taskNumber);
+                            System.out.println("\tNow you have " + counter + " tasks in the list.");
+                            counter -= 1;
+                            break;
                         default:
                             assert false: "This line should never be reached";
                             break;

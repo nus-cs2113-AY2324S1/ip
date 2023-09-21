@@ -1,5 +1,5 @@
 package luke.constants;
 
 public enum ActionType {
-    LIST, MARK, UNMARK, TODO, DEADLINE, EVENT
+    LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
 }
