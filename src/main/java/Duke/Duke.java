@@ -9,17 +9,16 @@ import Duke.Exception.NoDateTimeSpecifiedException;
 import Duke.Exception.NoTaskSpecifiedException;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
-    private static final int TASK_CAPACITY = 100;
-    private static final Task[] records = new Task[TASK_CAPACITY];
-    private static int recordsNum = 0;
+    private final static ArrayList<Task> records = new ArrayList<>();
 
     public static void generateResponse(String input) {
 
         String[] commandDetails = input.split(" ", 2);
-        String instructionString = commandDetails[0];
+        String instructionString = commandDetails[0].trim();
 
 
         switch (instructionString) {
@@ -41,6 +40,9 @@ public class Duke {
         case ("event"):
             createNewTask("event", commandDetails[1]);
             break;
+        case ("delete"):
+            deleteTask(commandDetails[1]);
+            break;
         default:
             System.out.println("Invalid Command");
             break;
@@ -51,19 +53,20 @@ public class Duke {
         int taskNum;
         try {
             taskNum = Integer.parseInt(removedInstructionString);
-            records[taskNum - 1].setDone();
+            records.get(taskNum - 1).setDone();
             executeListCommand();
         } catch (NumberFormatException e) {
             System.out.println("Please enter an integer");
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
-            if (recordsNum == 0) {
+
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            if (records.isEmpty()) {
                 System.out.println("Please create a task to continue");
-            } else if (recordsNum == 1) {
-                System.out.println("There are " + recordsNum + " task.");
+            } else if (records.size() == 1) {
+                System.out.println("There are " + records.size() + " task.");
                 System.out.println("Please enter 'mark 1' to check the first task as completed");
             } else {
-                System.out.println("There are " + recordsNum + " tasks.");
-                System.out.println("Please enter a valid number from 1 to " + recordsNum + "(inclusive).");
+                System.out.println("There are " + records.size() + " tasks.");
+                System.out.println("Please enter a valid number from 1 to " + records.size() + "(inclusive).");
             }
         }
     }
@@ -72,19 +75,19 @@ public class Duke {
         int taskNum;
         try {
             taskNum = Integer.parseInt(removedInstructionString);
-            records[taskNum - 1].setUndone();
+            records.get(taskNum - 1).setUndone();
             executeListCommand();
         } catch (NumberFormatException e) {
             System.out.println("Please enter an integer");
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
-            if (recordsNum == 0) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            if (records.isEmpty()) {
                 System.out.println("Please create a task to continue");
-            } else if (recordsNum == 1) {
-                System.out.println("There are " + recordsNum + " task.");
+            } else if (records.size() == 1) {
+                System.out.println("There are " + records.size() + " task.");
                 System.out.println("Please enter 'mark 1' to check the first task as completed");
             } else {
-                System.out.println("There are " + recordsNum + " tasks.");
-                System.out.println("Please enter a valid number from 1 to " + recordsNum + "(inclusive).");
+                System.out.println("There are " + records.size() + " tasks.");
+                System.out.println("Please enter a valid number from 1 to " + records.size() + "(inclusive).");
             }
         }
     }
@@ -135,13 +138,12 @@ public class Duke {
         printLine();
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t" + task);
-        System.out.println("\tNow you have " + recordsNum + " tasks in the list.");
+        System.out.println("\tNow you have " + records.size() + " tasks in the list.");
         printLine();
     }
 
     private static void addTaskToList(Task task) {
-        records[recordsNum] = task;
-        recordsNum++;
+        records.add(task);
     }
 
     private static Task createEvent(String removedInstructionString) throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
@@ -200,8 +202,8 @@ public class Duke {
 
     private static void executeListCommand() {
         printLine();
-        for (int i = 0; i < recordsNum; i++) {
-            System.out.println(records[i]);
+        for (Task task: records) {
+            System.out.println(task);
         }
         printLine();
     }
@@ -214,6 +216,23 @@ public class Duke {
 
     private static void printLine() {
         System.out.println("\t____________________________________________________________");
+    }
+
+    private static void deleteTask(String indexString) {
+        try {
+            int index = Integer.parseInt(indexString);
+            Task task = records.get(index - 1);
+            records.remove(index - 1);
+            printLine();
+            System.out.println("\tNoted. I've removed this task:");
+            System.out.println(task);
+            System.out.println("\tNow you have " + records.size() + " tasks in the list.");
+            printLine();
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("There are only " + records.size() + " tasks.");
+        }
     }
 
     private static void interactWithUser() {
