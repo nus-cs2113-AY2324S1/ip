@@ -3,6 +3,7 @@ import Task.Task.ToDo;
 import Task.Task.Deadline;
 import Task.Task.Event;
 import Task.EmptyDescriptionException;
+import Task.IO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,69 +16,6 @@ import java.io.FileWriter;
 public class Duke {
 
     public static final String LINE_DIVIDER = "    _____________________________________";
-
-    public static void save(Task[] tasks) throws IOException {
-        Files.delete(Paths.get("./data/duke.txt"));
-        try {
-            FileWriter writer = new FileWriter("./data/duke.txt");
-            for (Task task: tasks) {
-                writer.write(task.toFileLine()
-                        + System.lineSeparator());
-            }
-        } catch (IOException e) {
-            System.out.println(LINE_DIVIDER
-                    + "\n    Error saving file!\n"
-                    + LINE_DIVIDER);
-        }
-    }
-
-    public static Task[] load() {
-        Task[] out = new Task[100];
-        int i = 0;
-        try {
-            File in = new File("./data/duke.txt");
-            Scanner scanner = new Scanner(in);
-            while(scanner.hasNextLine()){
-                String[] params = scanner
-                        .nextLine()
-                        .split(" /");
-
-                switch(params[2]){
-                    case "TODO":
-                        ToDo todo = new ToDo(params[0],
-                                (params[1] == "true"));
-                        out[i] = todo;
-                        break;
-
-                    case "EVENT":
-                        Event event = new Event(params[0],
-                                (params[1] == "true"),
-                                params[3],
-                                params[4]);
-                        out[i] = event;
-                        break;
-
-                    case "DEADLINE":
-                        Deadline deadline = new Deadline(params[0],
-                                (params[1] == "true"),
-                                params[3]);
-                        out[i] = deadline;
-                        break;
-                    default:
-                }
-
-                i += 1;
-            }
-        } catch(NullPointerException e) {
-            System.out.println(LINE_DIVIDER
-                    + "\n    Where's the file, yo? I couldn't find it!\n"
-                    + LINE_DIVIDER);
-        } catch(FileNotFoundException e) {
-            return out;
-        }
-
-        return out;
-    }
 
     public static String RemoveCommandWord(String in) throws EmptyDescriptionException {
         int firstSpaceIndex = in.indexOf(" ") + 1;
@@ -188,7 +126,7 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String buf = in.nextLine();
-        Task[] itemList = load();
+        Task[] itemList = IO.load();
         int i = 0; // current index in itemList
 
         while(!buf.equalsIgnoreCase("bye")){
@@ -232,7 +170,7 @@ public class Duke {
             buf = in.nextLine();
 
             try {
-                save(itemList);
+                IO.save(itemList);
             } catch (IOException e) {
                 System.out.println("    I couldn't save your file, try again?\n"
                         + LINE_DIVIDER);
