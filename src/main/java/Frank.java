@@ -2,8 +2,8 @@ import java.util.Scanner;
 public class Frank {
     public static void main(String[] args) {
 
-        String solidLine = "\n------------------------------------------------------------------------------------------------------------------------------\n";
-        String logo =
+        final String SOLIDLINE = "\n------------------------------------------------------------------------------------------------------------------------------\n";
+        final String LOGO =
                 "FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRR                  AAA               NNNNNNNN        NNNNNNNNKKKKKKKKK    KKKKKKK" + System.lineSeparator() +
                 "F::::::::::::::::::::FR::::::::::::::::R                A:::A              N:::::::N       N::::::NK:::::::K    K:::::K" + System.lineSeparator() +
                 "F::::::::::::::::::::FR::::::RRRRRR:::::R              A:::::A             N::::::::N      N::::::NK:::::::K    K:::::K" + System.lineSeparator() +
@@ -21,20 +21,21 @@ public class Frank {
                 "F::::::::FF           R::::::R     R:::::R A:::::A                 A:::::A N::::::N        N::::::NK:::::::K    K:::::K" + System.lineSeparator() +
                 "FFFFFFFFFFF           RRRRRRRR     RRRRRRRAAAAAAA                   AAAAAAANNNNNNNN         NNNNNNNKKKKKKKKK    KKKKKKK ";
 
-        System.out.println(solidLine + logo + solidLine);
-        System.out.println("Hello user, I'm FRANK! Nice to meet you!\n" + solidLine);
+        System.out.println(SOLIDLINE + LOGO + SOLIDLINE);
+        System.out.println("Hello user, I'm FRANK! Nice to meet you!\n" + SOLIDLINE);
 
-        // Add, List
         TaskList user = new TaskList();
         Scanner input = new Scanner(System.in);
-        String command, description, startDate, endDate;
+        String command, description, dueDate, startDate, endDate;
         do{
-            System.out.println("Available Commands: list, deadline, event, mark <index>, unmark <index>, <Todo> (default), bye");
+            System.out.println("Available Commands: " +
+                    "list, deadline, todo, event, mark <index>, unmark <index>, " +
+                    "<Todo> (default), bye");
             command = input.nextLine();
             String[] commands = command.split(" "); // if mark or unmark will be followed by an int
             switch (commands[0]) {
             case "bye":
-                System.out.println(solidLine + "\nGoodbye User, zai jian yong ze, sampai jumpa lagi user \n" + solidLine);
+                System.out.println(SOLIDLINE + "\nGoodbye User, zai jian yong ze, sampai jumpa lagi user \n" + SOLIDLINE);
                 break;
             case "list":
                 user.printTasks();
@@ -43,9 +44,8 @@ public class Frank {
                 System.out.println("Bisa! What is the task?");
                 description = input.nextLine();
                 System.out.println("Ke Yi! When is it due?");
-                // Due Date same as StartDate
-                startDate = input.nextLine();
-                user.addTask(new Deadline(description, startDate));
+                dueDate = input.nextLine();
+                user.addTask(new Deadline(description, dueDate));
                 break;
             case "event":
                 System.out.println("Boleh! What is the event?");
@@ -62,9 +62,13 @@ public class Frank {
             case "unmark":
                 user.markTask(Integer.parseInt(commands[1]),false);
                 break;
-            default:
-                user.addTask(new Todo(command));
+            case "todo":
+                System.out.println("What is your todo?" );
+                description = input.nextLine();
+                user.addTask(new Todo(description));
                 break;
+            default:
+                System.out.println("Please provide a valid input. ");
             }
         } while(!command.equals("bye"));
     }
