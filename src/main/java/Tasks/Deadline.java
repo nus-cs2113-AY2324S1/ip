@@ -1,21 +1,22 @@
 package tasks;
 
 import exceptions.TaskEmptyDescriptionException;
+import java.time.LocalDate;
 
 public class Deadline extends Task {
-    private String deadline;
+    private LocalDate deadline;
 
-    public Deadline(String description, String deadline) throws TaskEmptyDescriptionException {
+    public Deadline(String description, String deadlineString) throws TaskEmptyDescriptionException {
         super(description);
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadlineString);
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return this.deadline;
     }
 
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
+    public void setDeadline(String deadlineString) {
+        this.deadline = LocalDate.parse(deadlineString);
     }
 
     @Override
