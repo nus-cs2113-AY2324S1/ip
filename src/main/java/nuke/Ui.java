@@ -82,6 +82,17 @@ public class Ui {
         System.out.printf("[@] Now you have %d task%s in the list.\n", taskCnt, taskCnt == 1 ? "": "s");
     }
 
+    public void printFoundTask(String[] foundTasks) {
+        if(foundTasks.length == 0) {
+            System.out.println("[@] There are no matching tasks in your list.");
+            return;
+        }
+        System.out.println("[@] Here are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.length; i++) {
+            System.out.printf("%d.%s\n", i + 1, foundTasks[i]);
+        }
+    }
+
     public void printCommandError(String description, String detail) {
         System.out.println("[@] Wrong input; " + description);
         System.out.println("[@] " + detail);
@@ -89,7 +100,7 @@ public class Ui {
 
     public void printCommandTypeError(InvalidCommandTypeException e) {
         String desc = String.format("There is no command called '%s'.", e.type);
-        String detail = "Existing command: bye, list, mark, unmark, todo, deadline, event, delete";
+        String detail = "Existing command: bye, list, mark, unmark, todo, deadline, event, delete, find";
         printCommandError(desc, detail);
     }
 

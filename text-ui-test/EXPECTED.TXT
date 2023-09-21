@@ -188,6 +188,16 @@
 2.[D][ ] return book (by: June 6th)
 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 
+[@] Wrong input; Command 'find' should have one argument, keyword for matching.
+[@] Usage: find ((keyword))
+
+[@] Wrong input; Command 'find' should not contain '/' in arguments.
+[@] Usage: find ((keyword))
+
+[@] Here are the matching tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+
 [@] Got it. I've added this task:
   [D][ ] dtTest (by: Sep 21 2023, 16:24)
 [@] Now you have 4 tasks in the list.
