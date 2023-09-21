@@ -8,23 +8,42 @@ import nuke.storage.exception.TaskSaveException;
 
 import java.util.Scanner;
 
+/**
+ * Represents UI of Nuke.
+ */
 public class Ui {
     private final String IGNORE_ERROR_COMMAND = "ignore";
 
     private final Scanner USER_IN;
 
+    /**
+     * Constructs UI of Nuke.
+     */
     public Ui() {
         USER_IN = new Scanner(System.in);
     }
 
+    /**
+     * Scans a line from user input.
+     *
+     * @return user input as a line of string
+     */
     public String scanNextLine() {
         return USER_IN.nextLine();
     }
 
+    /**
+     * Returns if user inputs to ignore error.
+     *
+     * @return if the user input equals to the {@code IGNORE_ERROR_COMMAND}.
+     */
     public boolean scanIgnore() {
         return scanNextLine().equals(IGNORE_ERROR_COMMAND);
     }
 
+    /**
+     * Scans until user input is not empty.
+     */
     public void scanWhileEmpty() {
         //noinspection StatementWithEmptyBody
         while (scanNextLine().isEmpty());

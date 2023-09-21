@@ -2,8 +2,18 @@ package nuke.task;
 
 import nuke.storage.exception.TaskParseException;
 
+/**
+ * Parser that parses formatted tasks in the save file.
+ */
 public class TaskParser {
 
+    /**
+     * Parses a line of string into {@link Task} and returns it.
+     *
+     * @param line string of formatted tasks
+     * @return task; result of parsing
+     * @throws TaskParseException if parse fails
+     */
     public static Task parseTask(String line) throws TaskParseException {
         Task task;
         String[] words = line.split(" / ");
