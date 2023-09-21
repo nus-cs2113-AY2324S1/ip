@@ -1,5 +1,6 @@
-package CSGPT;
+package Storage;
 
+import CSGPT.*;
 import Exceptions.CSGPTFileCorruptedError;
 import Exceptions.CSGPTReadFileException;
 import Exceptions.CSGPTWriteFileException;
@@ -10,7 +11,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class FileHandler {
+public class Storage {
     private static final String FILE_PATH = "data/CSGPT.txt";
     private static final String TODO_INDICATOR = "T";
     private static final String DEADLINE_INDICATOR = "D";

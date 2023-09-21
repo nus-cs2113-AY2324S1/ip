@@ -8,6 +8,7 @@ import Exceptions.CSGPTException;
 import Exceptions.CSGPTParsingException;
 import Exceptions.CSGPTWriteFileException;
 
+import Storage.Storage;
 import Ui.TextUi;
 
 public class CSGPT {
@@ -20,7 +21,7 @@ public class CSGPT {
 
         TextUi.greet();
         try {
-            FileHandler.readFromFile(taskList);
+            Storage.readFromFile(taskList);
             Command listCommand = Command.getCommand("list");
             listCommand.execute(taskList);
         } catch (Exception e) {
@@ -34,7 +35,7 @@ public class CSGPT {
                 try {
                     command.execute(taskList);
                     try {
-                        FileHandler.writeToFile(taskList);
+                        Storage.writeToFile(taskList);
                     } catch (CSGPTWriteFileException e) {
                         TextUi.printText(e.getMessage());
                     }
