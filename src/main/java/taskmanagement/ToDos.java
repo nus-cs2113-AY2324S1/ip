@@ -8,6 +8,12 @@ public class ToDos extends Task {
         taskType = "T";
     }
 
+    public ToDos(String description, boolean isDone) {
+        super(description);
+        taskType = "T";
+        this.isDone = isDone;
+    }
+
     @Override
     public String toString() {
         return "[" + taskType + "]" + "[" + getStatusIcon() + "] " + description;
