@@ -1,10 +1,7 @@
-import jdk.jshell.execution.Util;
-
 import java.util.Scanner;
 
 public class Duke {
     private static ToDoList toDoList = new ToDoList();
-
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -23,7 +20,7 @@ public class Duke {
         System.out.println(prompt);
 
         Scanner scanner = new Scanner(System.in);
-
+        toDoList.initialiseToDoList();
 
         while (true) { //continuous loop unless "bye" is input
             String input = scanner.nextLine();
@@ -58,7 +55,7 @@ public class Duke {
             toDoList.unmark(Integer.parseInt(command[1]));
         } else if (command[0].equals("todo")) {
             try {
-                ToDos toDo = new ToDos(input.substring(5)); //read whatever is behind "todo "
+                ToDos toDo = new ToDos(input.substring(5), false); //read whatever is behind "todo "
                 toDoList.addToList("T", toDo);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new StringIndexOutOfBoundsException("todo");
@@ -69,7 +66,7 @@ public class Duke {
                 String[] parts = input.split("/by"); // store the input into different array elements split by "/by"
                 String deadlineName = parts[0].substring(9).trim(); //store name by reading what is behind "deadline "
                 String due = parts[1].trim();
-                Deadlines deadline = new Deadlines(deadlineName, due);
+                Deadlines deadline = new Deadlines(deadlineName, due, false);
                 toDoList.addToList("D", deadline);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new StringIndexOutOfBoundsException("deadline");
@@ -83,7 +80,7 @@ public class Duke {
                 String[] timeFromTimeTo = parts[1].split("/to"); // split the time into time from and time to
                 String timeFrom = timeFromTimeTo[0].trim();
                 String timeTo = timeFromTimeTo[1].trim();
-                Events event = new Events(eventName, timeFrom, timeTo);
+                Events event = new Events(eventName, timeFrom, timeTo, false);
                 toDoList.addToList("E", event);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new StringIndexOutOfBoundsException("event");
