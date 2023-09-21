@@ -2,17 +2,36 @@ package duke;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Duke {
+    private static final String DATA_DIRECTORY_PATH = "./data";
+    private static final String DATA_FILE_PATH = "./data/duke.txt";
+
     public void run() {
+        // Check if the data directory exists; if not, create it
+        File dataDirectory = new File(DATA_DIRECTORY_PATH);
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+
+        // Check if the data file exists; if not, create it
+        File dataFile = new File(DATA_FILE_PATH);
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating the data file: " + e.getMessage());
+            }
+        }
         String LINE = "__________________________________________\n";
         System.out.println(LINE
-                           + "Hello I'm MatinBot\n"
-                           + "What can I do for you?\n"
-                           + LINE);
+                + "Hello I'm MatinBot\n"
+                + "What can I do for you?\n"
+                + LINE);
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = loadTasks();
         int count = 0;
         String userInput;
 
@@ -74,6 +93,7 @@ public class Duke {
             System.out.println(LINE);
         }
 
+        saveTasks(tasks);
         System.out.println("Bye. Hope to see you again soon!\n" + LINE);
         scanner.close();
     }
@@ -205,10 +225,6 @@ public class Duke {
             super("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-    public static void main(String[] args) {
-        Duke duke = new Duke(); // Create an instance of the Duke class
-        duke.run(); // Run the chatbot
-    }
 
     private static void deleteTask(String userInput, ArrayList<Task> tasks) {
         // Check if the task list is empty
@@ -233,5 +249,44 @@ public class Duke {
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! Please use 'delete [task number]'.");
         }
+    }
+
+    // Load tasks from the data file when the chatbot starts
+    private static ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File file = new File(DATA_FILE_PATH);
+            if (file.exists()) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Task task = Task.fromFileString(line);
+                    tasks.add(task);
+                }
+                reader.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+        return tasks;
+    }
+
+    // Save tasks to the data file
+    private static void saveTasks(ArrayList<Task> tasks) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_PATH));
+            for (Task task : tasks) {
+                writer.write(task.toFileString());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        Duke duke = new Duke(); // Create an instance of the Duke class
+        duke.run(); // Run the chatbot
     }
 }
