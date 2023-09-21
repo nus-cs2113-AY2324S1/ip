@@ -143,7 +143,7 @@ public class Parser {
         if (input.equals(FIND_COMMAND)) {
             throw new CSGPTParsingException("Please enter a keyword mortal.");
         }
-        String remainder = input.split(" ")[1];
+        String remainder = input.substring(FIND_COMMAND.length()).trim();
         if (remainder.isEmpty()) {
             throw new CSGPTParsingException("Please enter a keyword mortal.");
         }
