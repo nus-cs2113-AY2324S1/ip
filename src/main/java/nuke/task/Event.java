@@ -1,8 +1,10 @@
 package nuke.task;
 
+import nuke.NukeDateTime;
+
 public class Event extends Task {
-    private String from;
-    private String to;
+    private NukeDateTime from;
+    private NukeDateTime to;
 
     public Event(String name, String from, String to) {
         super(name);
@@ -11,19 +13,19 @@ public class Event extends Task {
     }
 
     public String getFrom() {
-        return from;
+        return from.toString();
     }
 
     public void setFrom(String from) {
-        this.from = from;
+        this.from = new NukeDateTime(from);
     }
 
     public String getTo() {
-        return to;
+        return to.toString();
     }
 
     public void setTo(String to) {
-        this.to = to;
+        this.to = new NukeDateTime(to);
     }
 
     @Override

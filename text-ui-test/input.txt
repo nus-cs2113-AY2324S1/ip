@@ -55,4 +55,7 @@ list
 find
 find bo/ok
 find book
+deadline dtTest /by 2023-09-21 16:24
+event dtTest /from 09-22 /to 09-23
+list
 bye
