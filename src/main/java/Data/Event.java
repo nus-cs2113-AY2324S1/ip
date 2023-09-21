@@ -1,6 +1,4 @@
-package CSGPT;
-
-import CSGPT.Task;
+package Data;
 
 public class Event extends Task {
     protected String from;

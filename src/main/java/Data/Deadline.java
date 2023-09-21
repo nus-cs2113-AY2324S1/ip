@@ -1,6 +1,4 @@
-package CSGPT;
-
-import CSGPT.Task;
+package Data;
 
 public class Deadline extends Task {
     protected String by;

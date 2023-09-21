@@ -1,4 +1,6 @@
-package CSGPT;
+package Data;
+
+import Data.Task;
 
 public class Todo extends Task {
     public Todo (String description) {

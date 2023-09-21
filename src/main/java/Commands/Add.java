@@ -1,8 +1,7 @@
 package Commands;
 
-import CSGPT.CSGPT;
-import CSGPT.Task;
-import CSGPT.TaskList;
+import Data.Task;
+import Data.TaskList;
 
 import Ui.TextUi;
 
@@ -14,9 +13,9 @@ public class Add extends Command{
     }
 
     @Override
-    public void execute(TaskList list) {
+    public void execute(TaskList list, TextUi ui) {
         list.add(task);
         String[] text = {"Added: " + task.getDescription(), "Now you have " + list.size() + " tasks in the list."};
-        TextUi.printMultipleText(text);
+        ui.printMultipleText(text);
     }
 }

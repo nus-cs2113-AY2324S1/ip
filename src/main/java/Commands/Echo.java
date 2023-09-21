@@ -1,7 +1,7 @@
 package Commands;
 
 import Ui.TextUi;
-import CSGPT.TaskList;
+import Data.TaskList;
 public class Echo extends Command {
     private final String text;
 
@@ -10,7 +10,7 @@ public class Echo extends Command {
     }
 
     @Override
-    public void execute(TaskList tasklist) {
-        TextUi.printText(text);
+    public void execute(TaskList tasklist, TextUi ui) {
+        ui.printText(text);
     }
 }

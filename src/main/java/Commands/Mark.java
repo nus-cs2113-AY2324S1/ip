@@ -1,7 +1,6 @@
 package Commands;
 
-import CSGPT.CSGPT;
-import CSGPT.TaskList;
+import Data.TaskList;
 import Exceptions.CSGPTMissingTaskException;
 
 import Ui.TextUi;
@@ -16,10 +15,10 @@ public class Mark extends Command {
     }
 
     @Override
-    public void execute(TaskList list) throws CSGPTMissingTaskException {
+    public void execute(TaskList list, TextUi ui) throws CSGPTMissingTaskException {
         try {
             list.mark(taskNumber, isDone);
-            TextUi.printText("Consider it done:\n\t" + list.getTask(taskNumber).toString());
+            ui.printText("Consider it done:\n\t" + list.getTask(taskNumber).toString());
         } catch (CSGPTMissingTaskException e) {
             throw new CSGPTMissingTaskException();
         }

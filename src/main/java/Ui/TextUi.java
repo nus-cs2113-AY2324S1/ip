@@ -10,23 +10,23 @@ public class TextUi {
             "A toast to this peculiar meeting – may it be as intriguing as the last.",
             "I trust you've brought your curiosity, for we're about to embark on quite the journey."
     };
-    public static void printHorizontalLine() {
+    public void printHorizontalLine() {
         System.out.println("\t____________________________________________________________");
     }
-    public static void printText(String text) {
+    public void printText(String text) {
         printHorizontalLine();
         System.out.println("\t" + text);
         printHorizontalLine();
     }
 
-    public static void printMultipleText(String[] texts) {
+    public void printMultipleText(String[] texts) {
         printHorizontalLine();
         for (String text : texts) {
             System.out.println("\t" + text);
         }
         printHorizontalLine();
     }
-    public static void greet() {
+    public void greet() {
 
         String randomGreetingLine = greetingLines[(int) (Math.random() * greetingLines.length)];
 

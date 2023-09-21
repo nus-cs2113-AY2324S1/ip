@@ -1,7 +1,6 @@
 package Commands;
 
-import CSGPT.CSGPT;
-import CSGPT.TaskList;
+import Data.TaskList;
 
 import Ui.TextUi;
 public class Farewell extends Command {
@@ -17,8 +16,8 @@ public class Farewell extends Command {
             "Like whispers on the wind, I vanish into the shadows. Until next we cross paths...",
             "And so, the threads of our interaction fray, yet the tapestry remains forever changed."
     };
-    public void execute(TaskList list) {
+    public void execute(TaskList list, TextUi ui) {
         String randomFarewellLine = farewellLines[(int) (Math.random() * farewellLines.length)];
-        TextUi.printText(randomFarewellLine);
+        ui.printText(randomFarewellLine);
     }
 }

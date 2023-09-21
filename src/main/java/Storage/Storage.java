@@ -1,6 +1,6 @@
 package Storage;
 
-import CSGPT.*;
+import Data.*;
 import Exceptions.CSGPTFileCorruptedError;
 import Exceptions.CSGPTReadFileException;
 import Exceptions.CSGPTWriteFileException;
@@ -27,8 +27,14 @@ public class Storage {
     private static final String DEFAULT_SEPARATOR = " | ";
     private static final String DATE_SEPARATOR = " - ";
 
-    public static void readFromFile(TaskList taskList) throws CSGPTReadFileException, CSGPTFileCorruptedError {
-        File file = new File(FILE_PATH);
+    private String filePath;
+
+    public Storage() {
+        this.filePath = FILE_PATH;
+    }
+
+    public void readFromFile(TaskList taskList) throws CSGPTReadFileException, CSGPTFileCorruptedError {
+        File file = new File(filePath);
         // Create file and directories if file does not exist
         if (!file.exists()) {
             try {
@@ -42,7 +48,7 @@ public class Storage {
         }
     }
 
-    public static void loadFileData(File file, TaskList taskList) throws CSGPTReadFileException, CSGPTFileCorruptedError {
+    public void loadFileData(File file, TaskList taskList) throws CSGPTReadFileException, CSGPTFileCorruptedError {
         try {
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
@@ -106,22 +112,22 @@ public class Storage {
         }
     }
 
-    public static void addTodo(String description, boolean isDone, TaskList taskList) {
+    public void addTodo(String description, boolean isDone, TaskList taskList) {
         Task todo = new Todo(description);
         todo.setDone(isDone);
         taskList.add(todo);
     }
-    public static void addDeadline(String description, boolean isDone, String by, TaskList taskList) {
+    public void addDeadline(String description, boolean isDone, String by, TaskList taskList) {
         Task deadline = new Deadline(description, by);
         deadline.setDone(isDone);
         taskList.add(deadline);
     }
-    public static void addEvent(String description, boolean isDone, String from, String to, TaskList taskList) {
+    public void addEvent(String description, boolean isDone, String from, String to, TaskList taskList) {
         Task event = new Event(description, from, to);
         event.setDone(isDone);
         taskList.add(event);
     }
-    public static boolean parseBoolean(String input) throws CSGPTFileCorruptedError {
+    public boolean parseBoolean(String input) throws CSGPTFileCorruptedError {
         if (input.equals(DONE_INDICATOR)) {
             return true;
         } else if (input.equals(NOT_DONE_INDICATOR)) {
@@ -130,7 +136,7 @@ public class Storage {
             throw new CSGPTFileCorruptedError("Task done status not recognised.");
         }
     }
-    public static void writeToFile(TaskList taskList) throws CSGPTWriteFileException {
+    public void writeToFile(TaskList taskList) throws CSGPTWriteFileException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
             for (int i = 1; i < taskList.size() + 1; i++) {
@@ -152,15 +158,15 @@ public class Storage {
         }
     }
 
-    public static void writeTodo(FileWriter fw, Todo todo) throws IOException {
+    public void writeTodo(FileWriter fw, Todo todo) throws IOException {
         fw.write(TODO_INDICATOR + DEFAULT_SEPARATOR + todo.getStatusIcon() + DEFAULT_SEPARATOR + todo.getDescription() + System.lineSeparator());
     }
 
-    public static void writeDeadline(FileWriter fw, Deadline deadline) throws IOException {
+    public void writeDeadline(FileWriter fw, Deadline deadline) throws IOException {
         fw.write(DEADLINE_INDICATOR + DEFAULT_SEPARATOR + deadline.getStatusIcon() + DEFAULT_SEPARATOR + deadline.getDescription() + DEFAULT_SEPARATOR + deadline.getBy() + System.lineSeparator());
     }
 
-    public static void writeEvent(FileWriter fw, Event event) throws IOException {
+    public void writeEvent(FileWriter fw, Event event) throws IOException {
         fw.write(EVENT_INDICATOR + DEFAULT_SEPARATOR + event.getStatusIcon() + DEFAULT_SEPARATOR + event.getDescription() + DEFAULT_SEPARATOR + event.getFrom() + DATE_SEPARATOR + event.getTo() + System.lineSeparator());
     }
 

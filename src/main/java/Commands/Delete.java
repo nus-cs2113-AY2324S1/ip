@@ -1,8 +1,6 @@
 package Commands;
 
-import CSGPT.CSGPT;
-import CSGPT.Task;
-import CSGPT.TaskList;
+import Data.TaskList;
 import Exceptions.CSGPTMissingTaskException;
 
 import Ui.TextUi;
@@ -14,10 +12,10 @@ public class Delete extends Command {
     }
 
     @Override
-    public void execute(TaskList list) throws CSGPTMissingTaskException {
+    public void execute(TaskList list, TextUi ui) throws CSGPTMissingTaskException {
         try {
             list.delete(taskNumber);
-            TextUi.printText("Noted. I've removed this task. Now you have " + list.size() + " tasks in the list.");
+            ui.printText("Noted. I've removed this task. Now you have " + list.size() + " tasks in the list.");
         } catch (CSGPTMissingTaskException e) {
             throw new CSGPTMissingTaskException();
         }

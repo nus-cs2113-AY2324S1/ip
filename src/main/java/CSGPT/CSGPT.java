@@ -4,47 +4,55 @@ import java.util.Scanner;
 import Commands.Command;
 import Commands.Echo;
 import Commands.Farewell;
+import Data.TaskList;
 import Exceptions.CSGPTException;
 import Exceptions.CSGPTParsingException;
 import Exceptions.CSGPTWriteFileException;
 
+import Parser.Parser;
 import Storage.Storage;
 import Ui.TextUi;
 
 public class CSGPT {
-    private static final TaskList taskList = new TaskList();
+    private final TaskList taskList = new TaskList();
+    private final Storage storage = new Storage();
+    private final TextUi ui = new TextUi();
 
-    public static void main(String[] args) {
+    public void run() {
         String input;
         Command command = new Echo("");
         Scanner in = new Scanner(System.in);
 
-        TextUi.greet();
+        ui.greet();
         try {
-            Storage.readFromFile(taskList);
-            Command listCommand = Command.getCommand("list");
-            listCommand.execute(taskList);
+            storage.readFromFile(taskList);
+            Command listCommand = Parser.getCommand("list");
+            listCommand.execute(taskList, ui);
         } catch (Exception e) {
-            TextUi.printText(e.getMessage());
+            ui.printText(e.getMessage());
         }
 
         while(!(command instanceof Farewell)) {
             input = in.nextLine();
             try {
-                command = Command.getCommand(input);
+                command = Parser.getCommand(input);
                 try {
-                    command.execute(taskList);
+                    command.execute(taskList, ui);
                     try {
-                        Storage.writeToFile(taskList);
+                        storage.writeToFile(taskList);
                     } catch (CSGPTWriteFileException e) {
-                        TextUi.printText(e.getMessage());
+                        ui.printText(e.getMessage());
                     }
                 } catch (CSGPTParsingException e) {
-                    TextUi.printText(e.getMessage());
+                    ui.printText(e.getMessage());
                 }
             } catch (CSGPTException e) {
-                TextUi.printText(e.getMessage());
+                ui.printText(e.getMessage());
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new CSGPT().run();
     }
 }

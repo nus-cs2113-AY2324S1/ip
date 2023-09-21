@@ -1,4 +1,4 @@
-package CSGPT;
+package Data;
 
 public abstract class Task {
     protected String description;
