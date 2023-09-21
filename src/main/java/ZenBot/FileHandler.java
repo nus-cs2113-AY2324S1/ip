@@ -43,8 +43,9 @@ public class FileHandler {
         }
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
+            final String FILE_DELIMITER = " \\| ";
             String line = scanner.nextLine();
-            String[] lineArray = line.split(" \\| ");
+            String[] lineArray = line.split(FILE_DELIMITER);
 
             Task task = null;
             switch (lineArray[0]) {
