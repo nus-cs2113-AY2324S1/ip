@@ -8,6 +8,26 @@ public class Botbot {
     public static Task[] list = new Task[100];
     public static int listSize = 0;
 
+    //method to identify command
+    public static String identifyCommand(String command) throws DukeException {
+        if (command.equals("bye")) {
+            return "bye";
+        } else if (command.equals("list")){
+            return "list";
+        } else if (command.contains("mark")){
+            return "mark";
+        } else if (command.contains("todo")){
+            return "todo";
+        } else if (command.contains("deadline")){
+            return "deadline";
+        } else if (command.contains("event")){
+            return "event";
+        } else {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :<");
+        }
+    }
+
+
     //method to mark or unmark task
     public static void markUnmarkTask(String command){
         int itemIndex; //int to store index of item to mark/unmark
@@ -92,7 +112,7 @@ public class Botbot {
         listSize++;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         //message
         System.out.println("Hello! I'm Botbot \n" +
                 "───────────────────────────────────────────────────────────────────────────────────────────────\n" +
@@ -113,57 +133,66 @@ public class Botbot {
 
         //create new scanner object
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+//        String input = scanner.nextLine();
 
-        while(!input.equals("bye")) {
-            input = scanner.nextLine();
+        while(true) {
+            String input = scanner.nextLine();
             System.out.println(line);
 
-            //for command bye
-            if (input.equals("bye")) {
-                System.out.println("Bye! Hope to see you again soon!");
-                break;
-            //for command list
-            } else if(input.equals("list")) {
-                for (int i = 0; i < listSize; i++) {
-                    System.out.print((i + 1) + ". ");
-                    System.out.println(list[i]);
-                }
-                System.out.println(line);
-            //for marking/unmarking command
-            }else if(input.contains("mark")){
-                markUnmarkTask(input);
-            //for todo commands
-            }else if(input.contains("todo")) {
-                createTodoTasks(input.substring(5));
-            //for deadline commands
-            }else if(input.contains("deadline")){
-                if (!input.contains("/by")){
-                    System.out.println("Invalid input. No deadline/invalid format.");
-                }else {
-                    String[] parts = input.split("/by ");
-                    String task = parts[0].substring("deadline ".length());
-                    String deadline = parts[1];
-                    createDeadlineTasks(task, deadline);
-                }
-            //for event commands
-            }else if(input.contains("event")){
-                if (!input.contains("/from") || !input.contains("/to")){
-                    System.out.println("Invalid input. No duration/invalid format.");
-                }else {
-                    String[] parts = input.split("/");
-                    String task = parts[0].substring("event ".length());
-                    String from = parts[1].substring("from ".length());
-                    String to = parts[2].substring("to ".length());
-                    createEventTask(task, from, to);
-                }
-            }else{
-                    addTask(input);
-            }
-        }
-        System.out.println("Bye! Hope to see you again soon!");
+            try {
+                //identify the command type
+                String command = identifyCommand(input);
 
-        //close scanner
-        scanner.close();
+                switch (command) {
+                    case "bye:":
+                        System.out.println("Bye! Hope to see you again soon!");
+                        //close scanner
+                        scanner.close();
+                        return;
+                    case "list":
+                        for (int i = 0; i < listSize; i++) {
+                            System.out.print((i + 1) + ". ");
+                            System.out.println(list[i]);
+                        }
+                        System.out.println(line);
+                        break;
+                    case "mark":
+                        markUnmarkTask(input);
+                        break;
+                    case "todo":
+                        createTodoTasks(input.substring(5));
+                    case "deadline":
+                        if (!input.contains("/by")) {
+                            System.out.println("Invalid input. No deadline/invalid format.");
+                        } else {
+                            String[] parts = input.split("/by ");
+                            String task = parts[0].substring("deadline ".length());
+                            String deadline = parts[1];
+                            createDeadlineTasks(task, deadline);
+                        }
+                        break;
+                    case "event":
+                        if (!input.contains("/from") || !input.contains("/to")) {
+                            System.out.println("Invalid input. No duration/invalid format.");
+                        } else {
+                            String[] parts = input.split("/");
+                            String task = parts[0].substring("event ".length());
+                            String from = parts[1].substring("from ".length());
+                            String to = parts[2].substring("to ".length());
+                            createEventTask(task, from, to);
+                        }
+                        break;
+                }
+            } catch (DukeException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
+//          else{
+//                    addTask(input);
+//                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :<");
+//                System.out.println(line);
+//                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :<");
+//            }
+        }
     }
 }
