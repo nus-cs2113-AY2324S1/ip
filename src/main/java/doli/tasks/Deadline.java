@@ -1,4 +1,4 @@
-package doli.tasks;
+package main.java.doli.tasks;
 
 /** Subclass of Task, specifying tasks containing a deadline */
 public class Deadline extends Task{

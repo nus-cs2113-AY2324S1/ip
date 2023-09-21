@@ -1,10 +1,10 @@
-package doli.files;
+package main.java.doli.files;
 
-import doli.exceptions.DoliExceptions;
-import doli.tasks.Task;
-import doli.tasks.ToDo;
-import doli.tasks.Deadline;
-import doli.tasks.Event;
+import main.java.doli.exceptions.DoliExceptions;
+import main.java.doli.tasks.Task;
+import main.java.doli.tasks.ToDo;
+import main.java.doli.tasks.Deadline;
+import main.java.doli.tasks.Event;
 
 import java.util.ArrayList;
 import java.util.Scanner;

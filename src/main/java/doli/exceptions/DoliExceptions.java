@@ -1,4 +1,4 @@
-package doli.exceptions;
+package main.java.doli.exceptions;
 
 /** Handles specific exceptions for the chatbot
  *  So far not really implemented, but rather used it as practice
