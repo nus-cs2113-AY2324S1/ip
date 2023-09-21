@@ -8,6 +8,6 @@ public class DukeException extends Exception{
     }
     @Override
     public String toString(){
-        return String.format("%s\n%s\n%s",LINE_DIVIDER, errorMessage, LINE_DIVIDER );
+        return String.format("%s", errorMessage);
     }
 }
