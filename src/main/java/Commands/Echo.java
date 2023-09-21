@@ -1,6 +1,6 @@
 package Commands;
 
-import Ui.TextUi;
+import Ui.Ui;
 import Data.TaskList;
 public class Echo extends Command {
     private final String text;
@@ -10,7 +10,7 @@ public class Echo extends Command {
     }
 
     @Override
-    public void execute(TaskList tasklist, TextUi ui) {
+    public void execute(TaskList tasklist, Ui ui) {
         ui.printText(text);
     }
 }

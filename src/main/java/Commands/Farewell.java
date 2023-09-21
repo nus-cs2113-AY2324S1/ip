@@ -2,7 +2,7 @@ package Commands;
 
 import Data.TaskList;
 
-import Ui.TextUi;
+import Ui.Ui;
 public class Farewell extends Command {
     private static final String[] farewellLines = {
             "Farewell, dear pawns. Until our paths cross again in the tapestry of time.",
@@ -16,7 +16,7 @@ public class Farewell extends Command {
             "Like whispers on the wind, I vanish into the shadows. Until next we cross paths...",
             "And so, the threads of our interaction fray, yet the tapestry remains forever changed."
     };
-    public void execute(TaskList list, TextUi ui) {
+    public void execute(TaskList list, Ui ui) {
         String randomFarewellLine = farewellLines[(int) (Math.random() * farewellLines.length)];
         ui.printText(randomFarewellLine);
     }

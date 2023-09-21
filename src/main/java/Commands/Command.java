@@ -1,15 +1,10 @@
 package Commands;
 
 import Data.TaskList;
-import Data.Task;
-import Data.Todo;
-import Data.Event;
-import Data.Deadline;
 import Exceptions.CSGPTException;
-import Exceptions.CSGPTParsingException;
-import Ui.TextUi;
+import Ui.Ui;
 
 public abstract class Command {
 
-    public abstract void execute(TaskList tasklist, TextUi ui) throws CSGPTException;
+    public abstract void execute(TaskList tasklist, Ui ui) throws CSGPTException;
 }

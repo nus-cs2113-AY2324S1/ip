@@ -1,6 +1,6 @@
 package Ui;
 
-public class TextUi {
+public class Ui {
     private static final String[] greetingLines = {
             "Ah, another day for our delightful rendezvous, don't you agree?",
             "Greetings, mortals, may my presence grace your existence.",

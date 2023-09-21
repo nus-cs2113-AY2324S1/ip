@@ -3,7 +3,7 @@ package Commands;
 import Data.TaskList;
 import Exceptions.CSGPTMissingTaskException;
 
-import Ui.TextUi;
+import Ui.Ui;
 
 public class Mark extends Command {
     private final int taskNumber;
@@ -15,7 +15,7 @@ public class Mark extends Command {
     }
 
     @Override
-    public void execute(TaskList list, TextUi ui) throws CSGPTMissingTaskException {
+    public void execute(TaskList list, Ui ui) throws CSGPTMissingTaskException {
         try {
             list.mark(taskNumber, isDone);
             ui.printText("Consider it done:\n\t" + list.getTask(taskNumber).toString());

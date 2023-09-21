@@ -11,12 +11,12 @@ import Exceptions.CSGPTWriteFileException;
 
 import Parser.Parser;
 import Storage.Storage;
-import Ui.TextUi;
+import Ui.Ui;
 
 public class CSGPT {
     private final TaskList taskList = new TaskList();
     private final Storage storage = new Storage();
-    private final TextUi ui = new TextUi();
+    private final Ui ui = new Ui();
 
     public void run() {
         String input;

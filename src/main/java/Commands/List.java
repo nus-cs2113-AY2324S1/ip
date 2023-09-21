@@ -1,12 +1,12 @@
 package Commands;
 
 import Data.TaskList;
-import Ui.TextUi;
+import Ui.Ui;
 
 public class List extends Command{
 
     @Override
-    public void execute(TaskList list, TextUi ui) {
+    public void execute(TaskList list, Ui ui) {
         list.getTasks(ui);
     }
 }

@@ -1,9 +1,8 @@
 package Data;
 
-import Data.Task;
 import Exceptions.CSGPTMissingTaskException;
 import java.util.ArrayList;
-import Ui.TextUi;
+import Ui.Ui;
 
 public class TaskList {
     private final ArrayList<Task> list;
@@ -36,7 +35,7 @@ public class TaskList {
         return list.size();
     }
 
-    public void getTasks(TextUi ui) {
+    public void getTasks(Ui ui) {
         if (list.isEmpty()) {
             ui.printText("You have no tasks at hand, mortal.");
             return;
