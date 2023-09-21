@@ -3,7 +3,9 @@ import luke.errors.LukeTimeError;;
 import luke.tasks.*;
 import luke.files.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Luke {
@@ -18,15 +20,20 @@ public class Luke {
 
         System.out.println("\t" + "Hello! I'm\n" + logo);
 
-        try {
-            RetrieveMemory.printFileContents("./luke/files/memory.txt");
-        } catch (FileNotFoundException e) {
-            System.out.println("No existing memory.");
-            RetrieveMemory taskListFile = new RetrieveMemory ("./luke/files/memory.txt");
-            if(taskListFile.exists() == false){
-                taskListFile.createNewFile();
-            }
+        File taskListFile = new File("./luke/files/memory.txt");
+        if (taskListFile.exists()) {
+            //Memory.readMemory("./memory.txt");
+        } else {
+            //taskListFile.createNewFile();
         }
+        //try {
+
+       // } catch (FileNotFoundException e) {
+            System.out.println("No existing memory.");
+            File newMemory = new File("./luke/files/memory.txt");
+            //Memory taskListFile = new Memory();
+        //}
+
 
         System.out.println("\t" + "What can I do for you?");
 
@@ -110,6 +117,13 @@ public class Luke {
             }
 
             echo = userInput.nextLine();
+        }
+
+        //store in memory.txt
+        try {
+            Memory.storeMemory("./src/main/java/luke/files/memory.txt", taskList, counter);
+        } catch (IOException e) {
+            System.out.println("IO Exception");
         }
 
         System.out.println("\tBye. Hope to see you again soon!");
