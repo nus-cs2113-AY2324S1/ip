@@ -188,5 +188,20 @@
 2.[D][ ] return book (by: June 6th)
 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 
+[@] Got it. I've added this task:
+  [D][ ] dtTest (by: Sep 21 2023, 16:24)
+[@] Now you have 4 tasks in the list.
+
+[@] Got it. I've added this task:
+  [E][ ] dtTest (from: Sep 22 2023, 00:00 to: Sep 23 2023, 00:00)
+[@] Now you have 5 tasks in the list.
+
+[@] Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4.[D][ ] dtTest (by: Sep 21 2023, 16:24)
+5.[E][ ] dtTest (from: Sep 22 2023, 00:00 to: Sep 23 2023, 00:00)
+
 [@] Bye. Hope to see you again soon!
 

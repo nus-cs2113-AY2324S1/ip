@@ -1,7 +1,11 @@
 package nuke.task;
 
+import nuke.NukeDateTime;
+
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    private String by;
+    private NukeDateTime by;
 
     public Deadline(String name, String by) {
         super(name);
@@ -9,11 +13,11 @@ public class Deadline extends Task {
     }
 
     public String getBy() {
-        return by;
+        return by.toString();
     }
 
     public void setBy(String by) {
-        this.by = by;
+        this.by = new NukeDateTime(by);
     }
 
     @Override
