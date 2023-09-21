@@ -17,9 +17,9 @@ public class EventCommand extends Command {
     private static final String REGEX_PARSE =
             "(.+)\\s" + FROM_LABEL + "\\s(.+)\\s" + TO_LABEL + "\\s(.+)";
 
-    public String name;
-    public String from;
-    public String to;
+    private String name;
+    private String from;
+    private String to;
 
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {

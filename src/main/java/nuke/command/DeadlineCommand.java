@@ -11,8 +11,8 @@ public class DeadlineCommand extends Command {
     private static final String REGEX_BY_EMPTY = "(.+)\\s" + BY_LABEL;
     private static final String REGEX_PARSE = "(.+)\\s" + BY_LABEL + "\\s(.+)";
 
-    public String name;
-    public String by;
+    private String name;
+    private String by;
 
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {

@@ -7,7 +7,7 @@ public class FindCommand extends Command {
     public static final String TYPE = "find";
     private static final String USAGE = TYPE + " ((keyword))";
 
-    public String keyword;
+    private String keyword;
 
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {

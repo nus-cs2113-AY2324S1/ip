@@ -7,7 +7,7 @@ public class TodoCommand extends Command {
     public static final String TYPE = "todo";
     private static final String USAGE = TYPE + " ((name))";
 
-    public String name;
+    private String name;
 
     @Override
     public void applyArguments(String args) throws InvalidCommandArgumentException {
