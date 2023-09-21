@@ -14,7 +14,6 @@ public class Chattie {
         try {
             TaskFile.loadFile();
             list.addAll(TaskFile.readFromFile());
-            System.out.println(list);
         } catch (FileNotFoundException e) {
             System.out.println("\tUnable to find chattie.txt");
         } catch (IOException e) {

@@ -30,7 +30,6 @@ public class TaskCommands {
         }
         String todo = line.substring(5);
         list.add(new Todo(todo));
-        System.out.println(list);
         count++;
         printAddTask(list, count);
         try {
