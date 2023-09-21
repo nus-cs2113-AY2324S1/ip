@@ -1,8 +1,9 @@
 //import scanner
+import javax.lang.model.type.NullType;
 import java.util.Scanner;
 
 public class Botbot {
-    public static String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    public static String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
     //create array for list
     public static Task[] list = new Task[100];
@@ -75,7 +76,20 @@ public class Botbot {
     }
 
     //method to add deadline tasks
-    public static void createDeadlineTasks(String task, String deadline){
+    public static void createDeadlineTasks(String input) throws DukeException {
+        String task;
+        String deadline;
+        if (!input.contains("/by")) {
+            throw new DukeException("Ohno... Please check your format and include '/by'~");
+        } else {
+            String[] parts = input.split("/by ");
+            //check if task or deadline are null
+            if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
+                throw new DukeException("Task or deadline cannot be empty... Please check your input again~");
+            }
+            task = parts[0].substring("deadline ".length());
+            deadline = parts[1];
+        }
         //instantiate new deadline object
         Deadline deadlineTask = new Deadline(task, deadline);
         //add to array
@@ -86,6 +100,18 @@ public class Botbot {
         System.out.println("Now you have " + (listSize) + " tasks in the list.");
         System.out.println(line);
     }
+
+//    public static void createDeadlineTasks(String task, String deadline){
+//        //instantiate new deadline object
+//        Deadline deadlineTask = new Deadline(task, deadline);
+//        //add to array
+//        list[listSize] = deadlineTask;
+//        listSize++;
+//        System.out.println("Got it. I've added this task:");
+//        System.out.println(deadlineTask);
+//        System.out.println("Now you have " + (listSize) + " tasks in the list.");
+//        System.out.println(line);
+//    }
 
     //method to add eventTask
     public static void createEventTask(String task, String from, String to){
@@ -100,18 +126,19 @@ public class Botbot {
         System.out.println(line);
     }
 
-    //method to add task to list
-    public static void addTask(String input){
-        //instantiate new Task object
-        Task newTask = new Task(input);
-        //Echo input
-        System.out.println("Added: " + input);
-        System.out.println(line);
-        //edit list array
-        list[listSize] = newTask;
-        listSize++;
-    }
+//    //method to add task to list
+//    public static void addTask(String input){
+//        //instantiate new Task object
+//        Task newTask = new Task(input);
+//        //Echo input
+//        System.out.println("Added: " + input);
+//        System.out.println(line);
+//        //edit list array
+//        list[listSize] = newTask;
+//        listSize++;
+//    }
 
+    //main method
     public static void main(String[] args){
         //message
         System.out.println("Hello! I'm Botbot \n" +
@@ -144,7 +171,7 @@ public class Botbot {
                 String command = identifyCommand(input);
 
                 switch (command) {
-                    case "bye:":
+                    case "bye":
                         System.out.println("Bye! Hope to see you again soon!");
                         //close scanner
                         scanner.close();
@@ -161,15 +188,9 @@ public class Botbot {
                         break;
                     case "todo":
                         createTodoTasks(input.substring(5));
+                        break;
                     case "deadline":
-                        if (!input.contains("/by")) {
-                            System.out.println("Invalid input. No deadline/invalid format.");
-                        } else {
-                            String[] parts = input.split("/by ");
-                            String task = parts[0].substring("deadline ".length());
-                            String deadline = parts[1];
-                            createDeadlineTasks(task, deadline);
-                        }
+                        createDeadlineTasks(input);
                         break;
                     case "event":
                         if (!input.contains("/from") || !input.contains("/to")) {
@@ -182,17 +203,12 @@ public class Botbot {
                             createEventTask(task, from, to);
                         }
                         break;
+                    default:
+                        return;
                 }
             } catch (DukeException e) {
-                System.out.println("Error: " + e.getMessage());
+                System.out.println(e.getMessage() + "\n" + line);
             }
-
-//          else{
-//                    addTask(input);
-//                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :<");
-//                System.out.println(line);
-//                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :<");
-//            }
         }
     }
 }
