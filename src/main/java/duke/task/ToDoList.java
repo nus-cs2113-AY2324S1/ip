@@ -1,3 +1,6 @@
+package duke.task;
+
+import duke.Utils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,10 +38,21 @@ public class ToDoList {
             System.out.println("Got it. I've added this task:");
             System.out.println(task.toString());
         } else {
-            Utils.printDivider();
             Utils.echo("added: " + task);
         }
         System.out.println("Now you have " + Number_Of_Task + " tasks in the list.");
+        saveToFile();
+        Utils.printDivider();
+    }
+
+    public void deleteTask(int taskNumber) {
+        Task taskToDelete = list.get(taskNumber - 1);
+        Utils.printDivider();
+        list.remove(taskNumber - 1);
+        Number_Of_Task -= 1;
+        Utils.echo("Noted. I've removed this task:");
+        printTask(taskToDelete);
+        Utils.printDivider();
         saveToFile();
     }
 
@@ -68,7 +82,8 @@ public class ToDoList {
         Utils.printDivider();
     }
 
-    private void saveToFile() { //saving the current todolist into the json file if it exists, else create new json file
+    private void saveToFile() {
+        //saving the current todolist into the json file if it exists, else create new json file
         // the object to write to file
         JSONArray jsonArray = new JSONArray();
 

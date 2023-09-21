@@ -1,3 +1,5 @@
+package duke.task;
+
 import org.json.JSONObject;
 
 public class Task {
