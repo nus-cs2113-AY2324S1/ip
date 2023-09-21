@@ -13,11 +13,17 @@ import Parser.Parser;
 import Storage.Storage;
 import Ui.Ui;
 
+/**
+ * Main class for CSGPT
+ */
 public class CSGPT {
     private final TaskList taskList = new TaskList();
     private final Storage storage = new Storage();
     private final Ui ui = new Ui();
 
+    /**
+     * Main method to run the program
+     */
     public void run() {
         String input;
         Command command = new Echo("");
@@ -52,6 +58,10 @@ public class CSGPT {
         }
     }
 
+    /**
+     * Main method to run the program
+     * @param args Arguments
+     */
     public static void main(String[] args) {
         new CSGPT().run();
     }
