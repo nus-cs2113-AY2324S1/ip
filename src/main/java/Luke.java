@@ -20,20 +20,22 @@ public class Luke {
 
         System.out.println("\t" + "Hello! I'm\n" + logo);
 
-        File taskListFile = new File("./luke/files/memory.txt");
-        if (taskListFile.exists()) {
-            //Memory.readMemory("./memory.txt");
-        } else {
-            //taskListFile.createNewFile();
-        }
-        //try {
-
-       // } catch (FileNotFoundException e) {
+        File taskListFile = new File("./src/main/java/luke/files/memory.txt");
+        try {
+            if (taskListFile.exists()) {
+                Memory.readMemory("./src/main/java/luke/files/memory.txt");
+            } else {
+                taskListFile.createNewFile();
+            }
+        } catch (FileNotFoundException e) {
             System.out.println("No existing memory.");
-            File newMemory = new File("./luke/files/memory.txt");
+            //File newMemory = new File("./luke/files/memory.txt");
             //Memory taskListFile = new Memory();
-        //}
-
+        } catch (IOException e) {
+            System.out.println("IOException.");
+        } catch (SecurityException e) {
+            System.out.println("SecurityException.");
+        }
 
         System.out.println("\t" + "What can I do for you?");
 
@@ -122,6 +124,7 @@ public class Luke {
         //store in memory.txt
         try {
             Memory.storeMemory("./src/main/java/luke/files/memory.txt", taskList, counter);
+            System.out.println("Memory Stored Safely!");
         } catch (IOException e) {
             System.out.println("IO Exception");
         }

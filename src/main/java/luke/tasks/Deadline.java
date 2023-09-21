@@ -1,7 +1,7 @@
 package luke.tasks;
 import luke.errors.LukeTimeError;
 
-public class Deadline extends Todo {
+public class Deadline extends Task {
     protected String date;
 
     public Deadline(String echo) throws LukeTimeError {
@@ -48,5 +48,18 @@ public class Deadline extends Todo {
         }
 
         return "\t[D]" + isDoneString + getDescription() + "(do by: " + getDate() + ")";
+    }
+
+    @Override
+    public String memoryString() {
+        String isDoneString;
+
+        if (isDone()) {
+            isDoneString = "[X]";
+        } else {
+            isDoneString = "[ ]";
+        }
+
+        return isDoneString + " deadline " + getDescription() + "/by " + getDate();
     }
 }

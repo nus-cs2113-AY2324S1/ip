@@ -25,4 +25,18 @@ public class Todo extends Task {
 
         return "\t[T]" + isDoneString + getDescription();
     }
+
+    @Override
+    public String memoryString() {
+        String isDoneString;
+
+        if (isDone()) {
+            isDoneString = "[X]";
+        } else {
+            isDoneString = "[ ]";
+        }
+
+        return isDoneString + " todo " + getDescription();
+    }
+
 }
