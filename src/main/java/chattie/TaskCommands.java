@@ -7,6 +7,7 @@ import chattie.tasks.Event;
 import chattie.tasks.Task;
 import chattie.tasks.Todo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskCommands {
@@ -35,6 +36,11 @@ public class TaskCommands {
         list.add(new Todo(todo));
         count++;
         printAddTask(list, count);
+        try {
+            TaskFile.updateFile(list);
+        } catch (IOException e) {
+            System.out.println("\tCan't add task to chattie.txt");
+        }
         return count;
     }
 
@@ -57,6 +63,11 @@ public class TaskCommands {
         list.add(new Deadline(task, by));
         count++;
         printAddTask(list, count);
+        try {
+            TaskFile.updateFile(list);
+        } catch (IOException e) {
+            System.out.println("\tCan't add task to chattie.txt");
+        }
         return count;
     }
 
@@ -81,6 +92,11 @@ public class TaskCommands {
         list.add(new Event(task, from, to));
         count++;
         printAddTask(list, count);
+        try {
+            TaskFile.updateFile(list);
+        } catch (IOException e) {
+            System.out.println("\tCan't add task to chattie.txt");
+        }
         return count;
     }
 
@@ -98,6 +114,11 @@ public class TaskCommands {
             System.out.println("\tOK, I've marked this task as not done yet:");
             System.out.println("\t" + list.get(taskNum));
         }
+        try {
+            TaskFile.updateFile(list);
+        } catch (IOException e) {
+            System.out.println("\tCan't add task to chattie.txt");
+        }
     }
 
     public static void deleteTask(ArrayList<Task> list, String[] command) throws ChattieException {
@@ -109,5 +130,10 @@ public class TaskCommands {
         System.out.println("\t" + list.get(taskNum));
         list.remove(taskNum);
         System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+        try {
+            TaskFile.updateFile(list);
+        } catch (IOException e) {
+            System.out.println("\tCan't add task to chattie.txt");
+        }
     }
 }
