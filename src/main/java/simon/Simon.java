@@ -4,15 +4,22 @@ import simon.exception.*;
 import simon.task.*;
 import static simon.UI.Printer.*;
 import static simon.command.Commands.*;
+import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import static simon.data.Commands.*;
+import static simon.data.Parser.*;
 
 public class Simon {
     public static void main(String[] args) {
         //Initialise variables
         String userInput = "";
-        ArrayList<Task> tasks = new ArrayList<>();
+        if(!isFileExist("src/main/java/simon/data/simon.txt")) {
+            System.out.println("\t" + line);
+            System.out.println("\tsimon.txt does not exist, please create simon.txt in the 'data' package");
+            System.out.println("\t" + line);
+        }
+        ArrayList<Task> tasks = readToList("src/main/java/simon/data/simon.txt");
 
         //Print out greeting when user starts the program.
         printGreeting();

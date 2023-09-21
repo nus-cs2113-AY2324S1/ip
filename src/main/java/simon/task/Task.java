@@ -33,4 +33,7 @@ public class Task {
 
         return "[" + getStatusIcon() + "]" + " " + getDescription();
     }
+    public String toText() {
+        return " " + " | " + getStatusIcon() + " | " + getDescription();
+    }
 }

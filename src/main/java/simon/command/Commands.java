@@ -4,6 +4,7 @@ import simon.exception.*;
 import simon.task.*;
 import static simon.UI.Printer.*;
 import java.util.ArrayList;
+import static simon.data.Commands.*;
 
 public class Commands {
     public static void markTask(String taskNumber, ArrayList<Task> tasks) {
@@ -14,6 +15,8 @@ public class Commands {
             tasks.get(target).markAsDone();
             System.out.println("\tNice! I've marked this task as done:");
             System.out.println("\t  [X] " + tasks.get(target).getDescription());
+            String newText = tasks.get(target).toText();
+            editTextFile("src/main/java/simon/data/simon.txt", newText, target + 1);
         } catch (NullPointerException e) {
             System.out.println("\tSorry! There is no task associated with this number");
         } catch (IndexOutOfBoundsException e) {
@@ -31,6 +34,8 @@ public class Commands {
             tasks.get(target).unmarkAsDone();
             System.out.println("\tOkay, I've marked this task as not done yet:");
             System.out.println("\t  [] " + tasks.get(target).getDescription());
+            String newText = tasks.get(target).toText();
+            editTextFile("src/main/java/simon/data/simon.txt", newText, target + 1);
         } catch (NullPointerException e) {
             System.out.println("\tSorry! There is no task associated with this number");
         } catch (IndexOutOfBoundsException e) {
@@ -42,6 +47,8 @@ public class Commands {
 
     public static void addTodo(String description, ArrayList<Task> tasks) throws SimonException {
         tasks.add(new Todo(description));
+
+        addTextToFile("src/main/java/simon/data/simon.txt", tasks.get(Task.getNumberOfTask() - 1).toText());
 
         System.out.println("\t" + line);
         printAddTaskMessage(tasks);
@@ -60,6 +67,7 @@ public class Commands {
             String from = time[0];
             String to = time[1];
             tasks.add(new Event(description, from, to));
+            addTextToFile("src/main/java/simon/data/simon.txt", tasks.get(Task.getNumberOfTask() - 1).toText());
 
             printAddTaskMessage(tasks);
             printNumberOfTasks(tasks);
@@ -78,7 +86,7 @@ public class Commands {
             String description = splitDeadline[0];
             String by = splitDeadline[1];
             tasks.add(new Deadline(description, by));
-
+            addTextToFile("src/main/java/simon/data/simon.txt", tasks.get(Task.getNumberOfTask() - 1).toText());
 
             printAddTaskMessage(tasks);
             printNumberOfTasks(tasks);
