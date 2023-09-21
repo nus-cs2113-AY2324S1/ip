@@ -2,6 +2,8 @@ package nuke.task;
 
 import nuke.NukeDateTime;
 
+import static nuke.task.TaskParser.TASK_FORMAT_SEPARATOR;
+
 /**
  * Represents an event that has the start and the end.
  */
@@ -71,7 +73,9 @@ public class Event extends Task {
 
     @Override
     public String formatData() {
-        return String.format("%s / %s / %s", super.formatData(), getFrom(), getTo());
+        return super.formatData() + TASK_FORMAT_SEPARATOR
+                + getFrom() + TASK_FORMAT_SEPARATOR
+                + getTo();
     }
 
     public static final String TYPE = "E";

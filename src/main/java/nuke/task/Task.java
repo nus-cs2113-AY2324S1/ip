@@ -1,5 +1,9 @@
 package nuke.task;
 
+import static nuke.task.TaskParser.TASK_FORMAT_MARKED;
+import static nuke.task.TaskParser.TASK_FORMAT_SEPARATOR;
+import static nuke.task.TaskParser.TASK_FORMAT_UNMARKED;
+
 /**
  * Represents a task.
  */
@@ -78,7 +82,9 @@ public abstract class Task {
      * @return the task in form of formatted manner.
      */
     public String formatData() {
-        String mark = isDone()? "1" : "0";
-        return String.format("%s / %s / %s", getType(), mark, getName());
+        String mark = isDone()? TASK_FORMAT_MARKED : TASK_FORMAT_UNMARKED;
+        return getType() + TASK_FORMAT_SEPARATOR
+                + mark + TASK_FORMAT_SEPARATOR
+                + getName();
     }
 }

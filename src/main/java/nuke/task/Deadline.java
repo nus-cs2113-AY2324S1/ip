@@ -2,7 +2,7 @@ package nuke.task;
 
 import nuke.NukeDateTime;
 
-import java.time.LocalDateTime;
+import static nuke.task.TaskParser.TASK_FORMAT_SEPARATOR;
 
 /**
  * Represents a task that has a deadline.
@@ -52,7 +52,7 @@ public class Deadline extends Task {
 
     @Override
     public String formatData() {
-        return String.format("%s / %s", super.formatData(), getBy());
+        return super.formatData() + TASK_FORMAT_SEPARATOR + getBy();
     }
 
     public static final String TYPE = "D";
