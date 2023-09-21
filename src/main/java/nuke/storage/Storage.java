@@ -17,11 +17,21 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents storage of Nuke.
+ */
 public class Storage {
     private static final String DIR_DATA = "data";
     private static final String FILENAME_TASKS = "nuke.txt";
     private static final String FILENAME_TASKS_BACKUP = "nuke_old.txt";
 
+    /**
+     * Loads saved tasks from the designated file.
+     *
+     * @return list of saved tasks
+     * @throws TaskLoadException if loading the tasks fails
+     * @throws TaskFileCopyException if both loading the tasks and backing up the file fails
+     */
     public ArrayList<Task> loadTasks()
             throws TaskLoadException, TaskFileCopyException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
@@ -53,6 +63,12 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Saves the tasks to the designated file.
+     *
+     * @param formattedTasks tasks formatted to save.
+     * @throws TaskSaveException if saving the tasks fails
+     */
     public void saveTasks(String[] formattedTasks) throws TaskSaveException {
         Path currentRelativePath = Paths.get("");
         Path currentDir = currentRelativePath.toAbsolutePath();

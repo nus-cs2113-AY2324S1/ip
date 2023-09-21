@@ -7,7 +7,18 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents parser of commands.
+ */
 public class CommandParser {
+
+    /**
+     * Parses a line of command into {@link Command} and returns it.
+     * @param commandLine string of command
+     * @return command; result of parsing
+     * @throws InvalidCommandTypeException if type of command is invalid
+     * @throws InvalidCommandArgumentException if one or more arguments of command are invalid
+     */
     public static Command parseCommand(String commandLine)
             throws InvalidCommandTypeException, InvalidCommandArgumentException {
         // Get command type and arguments.
@@ -64,23 +75,48 @@ public class CommandParser {
         return commandLine.substring(type.length()).strip();
     }
 
+    /**
+     * Returns if the string is one word.
+     * @param str string
+     * @return if the string is not one word.
+     */
     public static boolean isNotOneWord(String str) {
         if (str.isEmpty()) {
             return true;
         } else return str.split(REGEX_WHITESPACE).length != 1;
     }
 
+    /**
+     * Returns if the string is not containing exact one label
+     * @param str string
+     * @param label label
+     * @return if the string is not containing exact one label
+     */
     public static boolean isNotContainingExactOneLabel(String str, String label) {
         String[] argSplit = str.split(REGEX_WHITESPACE);
         long labelCnt = Arrays.stream(argSplit).filter(a -> a.equals(label)).count();
         return labelCnt != 1;
     }
 
+    /**
+     * Returns if the string matches the regular expression.
+     * @param str string
+     * @param regex regular expression
+     * @return if the string matches the regular expression
+     */
     public static boolean matches(String str, String regex) {
         Matcher matcher = Pattern.compile(regex).matcher(str);
         return matcher.matches();
     }
 
+    /**
+     * Parses the arguments using the regular expression and returns them.
+     * Arguments in the regular expression has to in the group.
+     *
+     * @param args arguments
+     * @param regex regular expression
+     * @return parsed arguments
+     */
     public static String[] parseArguments(String args, String regex) {
         String[] parsedArgs;
 
