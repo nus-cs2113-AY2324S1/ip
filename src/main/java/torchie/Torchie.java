@@ -1,11 +1,7 @@
 package torchie;
 
-<<<<<<< HEAD
 import torchie.storage.DataManager;
 import torchie.exception.TorchieException;
-=======
-import torchie.exception.DukeException;
->>>>>>> branch-Level-6
 import torchie.task.Deadline;
 import torchie.task.Event;
 import torchie.task.Task;
@@ -15,20 +11,8 @@ import torchie.task.ToDo;
 import java.util.Scanner;
 public class Torchie {
 
-<<<<<<< HEAD
-//    private static Task[] taskStore = new Task[100];
-//private static TaskList taskList = new TaskList();
     private static DataManager dataManager = new DataManager();
     private static TaskList taskList = dataManager.retrieveData();
-=======
-    //    private static Task[] taskStore = new Task[100];
-    private static TaskList taskList = new TaskList();
->>>>>>> branch-Level-6
-//    private static int numOfTasks = 0; // keep track of next null space in array
-
-//    public static Task[] getTaskStore() {
-//        return taskStore;
-//    }
 
     public static TaskList getTaskList() {
         return taskList;
@@ -37,39 +21,9 @@ public class Torchie {
     public static void addTask(Task t) {
         taskList.addTask(t);
     }
-<<<<<<< HEAD
-//    public static void setTaskStore(Task t) {
-//        taskStore[numOfTasks] = t;
-//        numOfTasks += 1;
-//    }
 
     public static void showList() {
         taskList.showTasks();
-        /*System.out.println("Here are the tasks in your list: ");
-        for (int i=0; i<taskStore.length; i++){
-            if (taskStore[i] == null){
-                // only print non-null tasks
-                break;
-            }
-=======
-
-    /*public static void setTaskStore(Task t) {
-        taskStore[numOfTasks] = t;
-        numOfTasks += 1;
-    }*/
-
-    public static void showList() {
-        taskList.showTasks();
-       /* System.out.println("Here are the tasks in your list: ");
-        for (int i=0; i<taskList.length; i++){
-//            if (taskStore[i] == null){
-//                // only print non-null tasks
-//                break;
-//            }
->>>>>>> branch-Level-6
-            System.out.print( (i+1) + ".");
-            taskStore[i].printTask(taskStore[i].toString());
-        }*/
     }
 
     public static void announceListSize() {
@@ -148,15 +102,10 @@ public class Torchie {
                 showList();
                 break;
             case "mark":
-//                itemNum = Integer.parseInt(input.split(" ")[1]) - 1;
-
                 try {
                     itemNum = Integer.parseInt(getContent(input)) - 1;
                     taskList.markTask(itemNum);
-<<<<<<< HEAD
                     dataManager.save(taskList);
-=======
->>>>>>> branch-Level-6
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
                             " index is an integer ");
@@ -168,10 +117,7 @@ public class Torchie {
                 try {
                     itemNum = Integer.parseInt(getContent(input)) - 1;
                     taskList.unmarkTask(itemNum);
-<<<<<<< HEAD
                     dataManager.save(taskList);
-=======
->>>>>>> branch-Level-6
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
                             " index is an integer ");
@@ -187,11 +133,7 @@ public class Torchie {
                 try {
                     td = new ToDo(getContent(input));
                     addTask(td);
-<<<<<<< HEAD
                     td.announceTaskAdd();
-=======
-//                    td.announceTaskAdd();
->>>>>>> branch-Level-6
                     announceListSize();
                     dataManager.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -202,11 +144,7 @@ public class Torchie {
                 try {
                     Deadline d = new Deadline(getContent(input), getDeadlineDate(input));
                     addTask(d);
-<<<<<<< HEAD
                     d.announceTaskAdd();
-=======
-//                    d.announceTaskAdd();
->>>>>>> branch-Level-6
                     announceListSize();
                     dataManager.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -219,11 +157,7 @@ public class Torchie {
                 try {
                     Event e = new Event(getContent(input), getEventStart(input), getEventEnd(input));
                     addTask(e);
-<<<<<<< HEAD
                     e.announceTaskAdd();
-=======
-//                    e.announceTaskAdd();
->>>>>>> branch-Level-6
                     announceListSize();
                     dataManager.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
