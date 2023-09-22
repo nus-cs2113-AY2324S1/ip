@@ -20,7 +20,7 @@ public class Tasks {
 
     public static void addTodo(String in, ArrayList<Task> itemList, int i) {
         try {
-            itemList.add(new Task.ToDo(RemoveCommandWord(in)));
+            itemList.add(new ToDo(RemoveCommandWord(in)));
         } catch (EmptyDescriptionException e) {
             e.printErrorMessage();
             return;
@@ -38,7 +38,7 @@ public class Tasks {
             String name = RemoveCommandWord(vals[0]);
             String from = RemoveCommandWord(vals[1]);
             String to = RemoveCommandWord(vals[2]);
-            itemList.add(new Task.Event(name, from, to));
+            itemList.add(new Event(name, from, to));
         } catch (IndexOutOfBoundsException e) {
             System.out.println( LINE_DIVIDER +
                     "\n    Oop, looks like you forgot to add something!\n" +
@@ -62,7 +62,7 @@ public class Tasks {
             String name = RemoveCommandWord(vals[0]);
             String by = RemoveCommandWord(vals[1]);
 
-            itemList.add(new Task.Deadline(name, by));
+            itemList.add(new Deadline(name, by));
         } catch (IndexOutOfBoundsException e) {
             System.out.println( LINE_DIVIDER +
                     "\n    Oop, looks like you forgot to add something!\n" +

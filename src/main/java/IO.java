@@ -1,7 +1,7 @@
 import Task.Task;
-import Task.Task.ToDo;
-import Task.Task.Event;
-import Task.Task.Deadline;
+import Task.ToDo;
+import Task.Event;
+import Task.Deadline;
 
 import java.io.File;
 import java.io.FileNotFoundException;
