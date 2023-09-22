@@ -1,14 +1,14 @@
 package magpie.input;
 import magpie.exceptions.MagpieException;
-import magpie.task.taskHandler;
+import magpie.task.TaskList;
 
-public class inputHandler {
+public class Parser {
 
     protected static String command;
     protected static String arguments;
     protected static String[] splitInputs;
 
-    public inputHandler(String input) {
+    public Parser(String input) {
         splitInputs = input.split(" ");
         command = splitInputs[0].toLowerCase();
         arguments = input.substring(command.length());
@@ -16,7 +16,7 @@ public class inputHandler {
 
     public int parseInt(String input) {
 
-        boolean canParse = inputValidator.isValidInt(input);
+        boolean canParse = InputValidator.isValidInt(input);
 
         if (canParse) {
             return Integer.parseInt(input);
@@ -26,62 +26,62 @@ public class inputHandler {
 
     }
 
-    public void manageTodo(taskHandler taskManager) throws MagpieException {
+    public void manageTodo(TaskList taskManager) throws MagpieException {
 
-        inputValidator.validateTodo();
-        taskHandler.addTodo(false, arguments);
+        InputValidator.validateTodo();
+        TaskList.addTodo(false, arguments);
 
     }
 
-    public void manageDeadline(taskHandler taskManager) throws MagpieException {
+    public void manageDeadline(TaskList taskManager) throws MagpieException {
 
 
-        inputValidator.validateDeadline();
+        InputValidator.validateDeadline();
         int byIndex = arguments.indexOf("/by");
         String by = arguments.substring(byIndex + 3);
         String description = arguments.substring(0, byIndex);
-        taskHandler.addDeadline(false, description, by);
+        TaskList.addDeadline(false, description, by);
 
     }
 
-    public void manageEvent(taskHandler taskManager) throws MagpieException {
+    public void manageEvent(TaskList taskManager) throws MagpieException {
 
 
-        inputValidator.validateEvent();
+        InputValidator.validateEvent();
         int fromIndex = arguments.indexOf("/from");
         int toIndex = arguments.indexOf("/to");
         String from = arguments.substring(fromIndex + 5, toIndex);
         String to = arguments.substring(toIndex + 3);
         String eventName = arguments.substring(0, fromIndex);
-        taskHandler.addEvent(false, eventName, from, to);
+        TaskList.addEvent(false, eventName, from, to);
 
     }
 
-    public void markOrUnmarkTask(taskHandler taskManager, boolean isMark) throws MagpieException {
+    public void markOrUnmarkTask(TaskList taskManager, boolean isMark) throws MagpieException {
 
 
-        inputValidator.validateIndexIsPresent();
+        InputValidator.validateIndexIsPresent();
 
         int index = parseInt(splitInputs[1]);
         if (index >= 0) {
-            taskHandler.markTask(index - 1, isMark);
+            TaskList.markTask(index - 1, isMark);
         }
 
     }
 
-    public void deleteTask(taskHandler taskManager) throws MagpieException {
-        inputValidator.validateIndexIsPresent();
+    public void deleteTask(TaskList taskManager) throws MagpieException {
+        InputValidator.validateIndexIsPresent();
         int index = parseInt(splitInputs[1]);
         if (index >= 0) {
-            taskHandler.deleteTask(index - 1);
+            TaskList.deleteTask(index - 1);
         }
     }
 
-    public void processCommand(taskHandler taskManager) throws MagpieException {
+    public void processCommand(TaskList taskManager) throws MagpieException {
 
         switch (command) {
         case "list":
-            taskHandler.listTasks();
+            TaskList.listTasks();
             break;
         case "todo":
             manageTodo(taskManager);

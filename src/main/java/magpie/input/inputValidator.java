@@ -1,16 +1,16 @@
 package magpie.input;
 import magpie.exceptions.MagpieException;
-public class inputValidator {
+public class InputValidator {
 
     public static void validateTodo() throws MagpieException {
 
-        if (inputHandler.splitInputs.length <= 1) {
+        if (Parser.splitInputs.length <= 1) {
             throw new MagpieException("Please provide a description for your task!");
         }
     }
 
     public static void validateDeadline() throws MagpieException {
-        boolean hasBy = inputHandler.arguments.contains("/by");
+        boolean hasBy = Parser.arguments.contains("/by");
 
         if (!hasBy) {
             throw new MagpieException("Please specify a deadline using /by!");
@@ -18,8 +18,8 @@ public class inputValidator {
     }
 
     public static void validateEvent() throws MagpieException {
-        boolean hasFrom = inputHandler.arguments.contains("/from");
-        boolean hasTo = inputHandler.arguments.contains("/to");
+        boolean hasFrom = Parser.arguments.contains("/from");
+        boolean hasTo = Parser.arguments.contains("/to");
 
         if(!hasFrom && !hasTo){
             throw new MagpieException("Please specify starting and ending times using /from and /to!");
@@ -35,7 +35,7 @@ public class inputValidator {
     }
 
     public static void validateIndexIsPresent() throws MagpieException {
-        if (inputHandler.splitInputs.length != 2) {
+        if (Parser.splitInputs.length != 2) {
             throw new MagpieException("Please provide one index!");
         }
     }

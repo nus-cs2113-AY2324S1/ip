@@ -1,6 +1,7 @@
 package magpie.files;
 
-import magpie.task.taskHandler;
+import magpie.exceptions.MagpieException;
+import magpie.task.TaskList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 
 
-public class fileHandler {
+public class Storage {
 
     private static String filePath;
 
@@ -27,12 +28,11 @@ public class fileHandler {
         String directoryPath = System.getProperty("user.dir") + "/data";
         filePath = directoryPath + "/data.txt";
         File directory = new File(directoryPath);
-        System.out.println(directory);
         if (!directory.exists()){
             directory.mkdir();
         }
     }
-    public fileHandler() {
+    public Storage() {
 
         createDirectory();
         taskFile = new File(filePath);
@@ -42,7 +42,7 @@ public class fileHandler {
 
             if (isCreated) {
                 System.out.println("Created new data file for tasks :)");
-                System.out.println("file created "+taskFile.getCanonicalPath());
+                System.out.println("file created " + taskFile.getCanonicalPath());
             }
             else {
                 System.out.println("Data file found! Now loading...");
@@ -57,25 +57,25 @@ public class fileHandler {
 
     }
 
-    public void addTaskLine() {
+    public void addTaskLine() throws MagpieException {
         boolean isMark = !(splitTaskLines[1].trim().equals("0"));
         switch(splitTaskLines[0].trim()) {
         case "T":
-            taskHandler.addTodo(isMark, splitTaskLines[2]);
+            TaskList.addTodo(isMark, splitTaskLines[2]);
             break;
         case "D":
-            taskHandler.addDeadline(isMark, splitTaskLines[2], splitTaskLines[3]);
+            TaskList.addDeadline(isMark, splitTaskLines[2], splitTaskLines[3]);
             break;
         case "E":
-            taskHandler.addEvent(isMark, splitTaskLines[2], splitTaskLines[3], splitTaskLines[4]);
+            TaskList.addEvent(isMark, splitTaskLines[2], splitTaskLines[3], splitTaskLines[4]);
             break;
         default:
-            System.out.println("Something's wrong with your data file!");
+            throw new MagpieException("Error: Could not read task from file");
 
         }
     }
 
-    public void readFile(taskHandler taskManager) throws FileNotFoundException {
+    public void loadFile(TaskList taskManager) {
 
         try {
             scanFile = new Scanner(taskFile);
@@ -93,6 +93,8 @@ public class fileHandler {
             System.out.println("Uh oh!! File not found!");
         } catch (ArrayIndexOutOfBoundsException e ){
             System.out.println("Uh oh!! Looks like your data file's corrupted!");
+        } catch (MagpieException e) {
+            System.out.println(e.getErrorMessage());
         }
 
     }

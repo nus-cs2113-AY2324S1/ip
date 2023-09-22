@@ -1,13 +1,13 @@
 package magpie.task;
 
 import java.util.ArrayList;
-import magpie.files.fileHandler;
-public class taskHandler {
+import magpie.files.Storage;
+public class TaskList {
 
     private static ArrayList<Task> tasks;
     private static int taskCount;
 
-    public taskHandler()  {
+    public TaskList()  {
         tasks = new ArrayList<>();
         taskCount = 0;
     }
@@ -68,7 +68,7 @@ public class taskHandler {
         System.out.println("  " + t.toString());
         System.out.println("Now you have " + taskCount + " task(s) in the list.");
         System.out.println("____________________________________________________________\n");
-        fileHandler.appendTaskToFile(t.getTextToWrite());
+        Storage.appendTaskToFile(t.getTextToWrite());
     }
 
     public static void deleteTask(int index) {
@@ -77,7 +77,7 @@ public class taskHandler {
             Task t = tasks.get(index);
             tasks.remove(index);
             taskCount--;
-            fileHandler.deleteTaskFromFile(t.getTextToWrite());
+            Storage.deleteTaskFromFile(t.getTextToWrite());
             System.out.println("____________________________________________________________\n");
             System.out.println("Noted. I've removed this task: ");
             System.out.println("  " + t);
@@ -104,7 +104,7 @@ public class taskHandler {
             }
             System.out.println("  " + item);
             System.out.println("____________________________________________________________\n");
-            fileHandler.updateTaskInFile(oldLine, item.getTextToWrite());
+            Storage.updateTaskInFile(oldLine, item.getTextToWrite());
         } catch (IndexOutOfBoundsException e) {
             displayIndexError();
         } catch (NullPointerException e) {

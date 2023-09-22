@@ -12,4 +12,5 @@ public class MagpieException extends Exception {
 
         return errorMessage;
     }
+
 }
