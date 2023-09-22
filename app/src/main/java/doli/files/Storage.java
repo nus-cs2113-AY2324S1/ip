@@ -1,38 +1,42 @@
-package main.java.doli.files;
+package doli.files;
 
-import main.java.doli.exceptions.DoliExceptions;
-import main.java.doli.tasks.Task;
-import main.java.doli.tasks.ToDo;
-import main.java.doli.tasks.Deadline;
-import main.java.doli.tasks.Event;
+import doli.exceptions.DoliExceptions;
+import doli.tasks.*;
 
 import java.util.ArrayList;
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileHandler {
-    private static final String FILE_PATH = "Agenda.txt";
+public class Storage {
+    protected String FILE_PATH;
     private static final String INFO_SEPARATOR = "|";
-    public static void initializeFile(ArrayList<Task> agenda) throws IOException {
+    public Storage(String filePath){
+        FILE_PATH = filePath;
+    }
+    public ArrayList<Task> initializeFile() throws IOException, DoliExceptions {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             try {
                 file.createNewFile();
+                return new ArrayList<>();
             } catch(IOException e) {
-                System.out.println(e);
+                throw new RuntimeException(e);
             }
         } else {
             try {
-                loadExistingFile(file, agenda);
+                return loadExistingFile(file);
             } catch (DoliExceptions e) {
                 throw new RuntimeException(e);
             }
         }
     }
-    public static void loadExistingFile(File file, ArrayList<Task> agenda) throws IOException, DoliExceptions {
+    public static ArrayList<Task> loadExistingFile(File file)
+            throws IOException, DoliExceptions {
         Scanner fs = new Scanner(file);
+        ArrayList<Task> agenda = new ArrayList<>();
         while (fs.hasNext()) {
             String line = fs.nextLine();
             String[] task = line.split("\\|");
@@ -57,8 +61,9 @@ public class FileHandler {
                 throw new DoliExceptions("Task not recognized.");
             }
         }
+        return agenda;
     }
-    public static void modifyFile(ArrayList<Task> agenda) {
+    public void modifyFile(TaskList agenda) throws DoliExceptions {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
             for (Task task : agenda) {
@@ -77,21 +82,24 @@ public class FileHandler {
             throw new RuntimeException(e);
         }
     }
-    private static void addTodo(String description, boolean isDone, ArrayList<Task> agenda) {
+    private static Task addTodo(String description, boolean isDone, ArrayList<Task> agenda) {
         ToDo todo = new ToDo(description);
         todo.setDone(isDone);
         agenda.add(todo);
+        return todo;
     }
-    private static void addDeadline(String description, boolean isDone, String date, ArrayList<Task> agenda) {
+    private static Task addDeadline(String description, boolean isDone, String date, ArrayList<Task> agenda) {
         Deadline deadline = new Deadline(description, date);
         deadline.setDone(isDone);
         agenda.add(deadline);
+        return deadline;
     }
-    private static void addEvent(String description, boolean isDone,
+    private static Task addEvent(String description, boolean isDone,
                                  String startDate, String endDate, ArrayList<Task> agenda) {
         Event event = new Event(description, startDate, endDate);
         event.setDone(isDone);
         agenda.add(event);
+        return event;
     }
     public static void writeTodo(FileWriter fw, ToDo todo) throws IOException {
         fw.write("T" + INFO_SEPARATOR + todo.getStatusIcon()
