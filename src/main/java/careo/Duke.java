@@ -1,6 +1,7 @@
 package careo;
 
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -10,7 +11,9 @@ public class Duke {
     /** ArrayList of all tasks that have been added. */
     private static ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        loadState();
+
         printIntroduction();
 
         Scanner scanner = new Scanner(System.in);
@@ -34,6 +37,26 @@ public class Duke {
         }
 
         printFarewell();
+        saveState();
+    }
+
+    private static void loadState() throws IOException, ClassNotFoundException {
+        File f = new File("t.tmp");
+        if (!f.exists()) {
+            return;
+        }
+
+        FileInputStream fis = new FileInputStream("t.tmp");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        tasks = (ArrayList<Task>) ois.readObject();
+        ois.close();
+    }
+
+    private static void saveState() throws IOException {
+        FileOutputStream fos = new FileOutputStream("t.tmp");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(tasks);
+        oos.close();
     }
 
 

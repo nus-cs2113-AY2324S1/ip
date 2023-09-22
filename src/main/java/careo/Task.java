@@ -1,7 +1,9 @@
 package careo;
 
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     /** Textual description of the task */
     protected String description;
     /** Whether the task has been completed */
