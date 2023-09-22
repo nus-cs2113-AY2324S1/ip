@@ -35,6 +35,18 @@ public class Itay {
         ui.printExit();
     }
 
+    public static void validateNonEmptyCommand(String input) throws DukeException {
+        if(input.isEmpty()) {
+            throw new DukeException(ErrorMessageType.EMPTY_COMMAND);
+        }
+    }
+
+    public static void validateNonEmptyDescription(String[] splitInput) throws DukeException {
+        if(splitInput.length == 1) {
+            throw new DukeException(ErrorMessageType.INVALID_DESCRIPTION);
+        }
+    }
+
     public static void printList() {
         ui.printList();
     }
@@ -53,21 +65,6 @@ public class Itay {
         ui.printUnmarked(taskIdx);
     }
 
-    public static int getTaskIndex(String[] splitInput) throws DukeException {
-        int taskIdx;
-        String errorMessage = "OOPS!!! Please enter a valid task number.";
-
-        try {
-            taskIdx = Integer.parseInt(splitInput[1]) - 1;
-            if (taskIdx < 0 || taskIdx >= tasks.getSize()) {
-                throw new DukeException(errorMessage);
-            }
-        } catch (ArrayIndexOutOfBoundsException | NumberFormatException inputEx) {
-            throw new DukeException(errorMessage + inputEx.getMessage());
-        }
-        return taskIdx;
-    }
-
     public static void handleDelete(String[] splitInput) throws DukeException {
         int taskIdx = getTaskIndex(splitInput);
         Task toDelete = tasks.getTaskAt(taskIdx);
@@ -77,15 +74,12 @@ public class Itay {
     }
 
     public static void handleTodo(String input, String[] splitInput) throws DukeException {
-        if(splitInput.length == 1) {
-            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-        }
         String description = input.substring(input.indexOf(' ') + 1);
         Task task = new Task(description, 'T');
         addTask(task);
     }
 
-    public static void handleDeadline(String input) throws DukeException {
+    public static void handleDeadline(String input, String[] splitInput) throws DukeException {
         try {
             int firstSlashIdx = input.indexOf('/');
 
@@ -97,12 +91,12 @@ public class Itay {
             deadline = deadline.trim();
             task.setDeadlineTime(deadline);
             addTask(task);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException inputEx) {
-            throw new DukeException("OOPS!!! Description of deadline command must be of form: deadline ___ /by ___");
+        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+            throw new DukeException(ErrorMessageType.INVALID_DEADLINE);
         }
     }
 
-    public static void handleEvent(String input) throws DukeException {
+    public static void handleEvent(String input, String[] splitInput) throws DukeException {
         try {
             int firstSlashIdx = input.indexOf('/');
             int secondSlashIdx = input.indexOf('/', firstSlashIdx + 1);
@@ -120,15 +114,57 @@ public class Itay {
             
             task.setEventTime(startTime, endTime);
             addTask(task);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException inputEx) {
-            throw new DukeException("OOPS!!! Description of event command must be of form: event ___ /from ___ /to ___");
+        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+            throw new DukeException(ErrorMessageType.INVALID_EVENT);
         } 
+    }
+
+    public static void handleFind(String input, String[] splitInput) throws DukeException {
+        validateActionCommand(splitInput);
+        String keyword = splitInput[1];
+        TaskList foundTasks = new TaskList();
+        String[] splitDescription;
+        Task task;
+        for(int i = 0; i < tasks.getSize(); i++) {
+            task = tasks.getTaskAt(i);
+            splitDescription = task.getDescription().split(" ");
+            for(String word: splitDescription) {
+                if(word.equalsIgnoreCase(keyword)) {
+                    foundTasks.addTask(task);
+                }
+            }
+        }
+        ui.printFound(foundTasks);
+    }
+
+    public static void handleBadIndicator() throws DukeException {
+        throw new DukeException(ErrorMessageType.INVALID_INDICATOR);
     }
     
     public static void addTask(Task task) throws DukeException {
         tasks.addTask(task);
         storage.save(tasks);
         ui.printAddTask(task);
+    }
+
+    public static int getTaskIndex(String[] splitInput) throws DukeException {
+        validateActionCommand(splitInput);
+        int taskIdx;
+        try {
+            taskIdx = Integer.parseInt(splitInput[1]) - 1;
+            if (taskIdx < 0 || taskIdx >= tasks.getSize()) {
+                throw new DukeException(ErrorMessageType.INVALID_TASK_NUMBER);
+            }
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new DukeException(e.getMessage(), e);
+        }
+        return taskIdx;
+    }
+
+    public static void validateActionCommand(String[] splitInput) throws DukeException {
+        if(splitInput.length > 2) {
+            throw new DukeException(ErrorMessageType.INVALID_ACTION_COMMAND);
+        }
     }
 
     public static void main(String[] args) throws DukeException {

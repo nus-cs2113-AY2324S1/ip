@@ -26,7 +26,7 @@ public class Storage {
                 file.createNewFile(); // Create the file "duke.txt" if it doesn't exist
             }
         } catch(IOException e) {
-            throw new DukeException("OOPS!!! Error creating the storage directory or file: " + e.getMessage(), e);
+            throw new DukeException("Error creating the storage directory or file: " + e.getMessage(), e);
         }
     }
 
@@ -47,7 +47,7 @@ public class Storage {
 
             reader.close();
         } catch (IOException e) {
-            throw new DukeException("OOPS!!! Error loading tasks from file: " + e.getMessage(), e);
+            throw new DukeException("Error loading tasks from file: " + e.getMessage(), e);
         }
 
         return tasks;
@@ -65,7 +65,7 @@ public class Storage {
 
             writer.close();
         } catch (IOException e) {
-            throw new DukeException("OOPS!!! Error saving tasks to file: " + e.getMessage(), e);
+            throw new DukeException("Error saving tasks to file: " + e.getMessage(), e);
         }
     }
 }

@@ -89,12 +89,9 @@ public class Task {
         }
     }
     
-    
-
     @Override
     public String toString() {
         String result = "[" + type + "][" + getStatus() + "] " + description + " " + time;
         return result.replaceAll("\\s+$", "");
     }
-    
 }   

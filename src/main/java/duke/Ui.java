@@ -36,12 +36,27 @@ public class Ui {
         printDivider();
         int numTasks = tasks.getSize();
         if(numTasks == 0) {
-        println("You have no tasks in your list."); 
+            println("You have no tasks in your list."); 
         }
         else {
             println("Here are the tasks in your list:");
-            for(int i = 0; i < numTasks ; i++) {
+            for(int i = 0; i < numTasks; i++) {
                 println(tasks.getTaskAt(i).toString());
+            }
+        }
+        printDivider();
+    }
+
+    public void printFound(TaskList foundTasks) {
+        printDivider();
+        int numTasks = foundTasks.getSize();
+        if(numTasks == 0) {
+            println("You have no matching tasks in your list.");
+        }
+        else {
+            println("Here are the matching tasks in your list:");
+            for(int i = 0; i < numTasks; i++) {
+                println(foundTasks.getTaskAt(i).toString());
             }
         }
         printDivider();
