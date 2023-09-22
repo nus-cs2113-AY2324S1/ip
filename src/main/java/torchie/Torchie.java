@@ -1,49 +1,63 @@
 package torchie;
 
-import torchie.exceptions.DukeException;
-import torchie.task.*;
+import torchie.exception.DukeException;
+import torchie.task.Deadline;
+import torchie.task.Event;
+import torchie.task.Task;
+import torchie.task.TaskList;
+import torchie.task.ToDo;
 
 import java.util.Scanner;
 public class Torchie {
 
-    private static Task[] taskStore = new Task[100];
-    private static int numOfTasks = 0; // keep track of next null space in array
+    //    private static Task[] taskStore = new Task[100];
+    private static TaskList taskList = new TaskList();
+//    private static int numOfTasks = 0; // keep track of next null space in array
 
-    public static Task[] getTaskStore() {
-        return taskStore;
+//    public static Task[] getTaskStore() {
+//        return taskStore;
+//    }
+
+    public static TaskList getTaskList() {
+        return taskList;
     }
 
-    public static void setTaskStore(Task t) {
+    public static void addTask(Task t) {
+        taskList.addTask(t);
+    }
+
+    /*public static void setTaskStore(Task t) {
         taskStore[numOfTasks] = t;
         numOfTasks += 1;
-    }
+    }*/
 
     public static void showList() {
-        System.out.println("Here are the tasks in your list: ");
-        for (int i=0; i<taskStore.length; i++){
-            if (taskStore[i] == null){
-                // only print non-null tasks
-                break;
-            }
+        taskList.showTasks();
+       /* System.out.println("Here are the tasks in your list: ");
+        for (int i=0; i<taskList.length; i++){
+//            if (taskStore[i] == null){
+//                // only print non-null tasks
+//                break;
+//            }
             System.out.print( (i+1) + ".");
             taskStore[i].printTask(taskStore[i].toString());
-        }
+        }*/
     }
 
     public static void announceListSize() {
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+        System.out.println("Now you have " + taskList.getSize() + " task(s) in the list.");
     }
 
     public static String getContent(String s) {
         // split sentence into 2 parts, first word and everything else
-        String[] words = s.split(" ",2);
+        String[] words = s.split(" ", 2);
 
         // making sure content stops before the key characters such as /
         String content = words[1];
 
         if (content.indexOf('/') != -1) {
             int keyWordIndex = content.indexOf('/');
-            content = content.substring(0,keyWordIndex-1);
+            content = content.substring(0, keyWordIndex - 1);
         }
 
         return content;
@@ -69,8 +83,8 @@ public class Torchie {
         }
 
         // second occurrence of '/' character
-        int endTimeIndex = s.indexOf('/', startTimeIndex+1);
-        return s.substring(startTimeIndex + SIZE_OF_BUFFER, endTimeIndex-1);
+        int endTimeIndex = s.indexOf('/', startTimeIndex + 1);
+        return s.substring(startTimeIndex + SIZE_OF_BUFFER, endTimeIndex - 1);
     }
 
     public static String getEventEnd(String s) throws DukeException {
@@ -80,12 +94,13 @@ public class Torchie {
         int startTimeIndex = s.indexOf('/');
 
         // second occurrence of '/' character
-        int endTimeIndex = s.indexOf('/', startTimeIndex+1);
+        int endTimeIndex = s.indexOf('/', startTimeIndex + 1);
         if (endTimeIndex == -1) {
             throw new DukeException();
         }
         return s.substring(endTimeIndex + SIZE_OF_BUFFER);
     }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -100,7 +115,7 @@ public class Torchie {
             input = scanner.nextLine();
             String firstWord = input.split(" ")[0];
 
-            switch(firstWord) {
+            switch (firstWord) {
             case "list":
                 showList();
                 break;
@@ -109,34 +124,34 @@ public class Torchie {
 
                 try {
                     itemNum = Integer.parseInt(getContent(input)) - 1;
-                    taskStore[itemNum].markItem();
+                    taskList.markTask(itemNum);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
                             " index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("Task number cannot exceed: <" + numOfTasks + ">");
+                    System.out.println("Task number cannot exceed: <" + taskList.getSize() + ">");
                 }
                 break;
             case "unmark":
                 try {
                     itemNum = Integer.parseInt(getContent(input)) - 1;
-                    taskStore[itemNum].unmarkItem();
+                    taskList.unmarkTask(itemNum);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
                             " index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("Task number cannot exceed: <" + numOfTasks + ">");
+                    System.out.println("Task number cannot exceed: <" + taskList.getSize() + ">");
                 }
                 break;
             case "bye":
                 System.out.println("Awww bye :( Let's play again soon!");
                 break;
             case "todo":
-                ToDo td = null;
+                ToDo td;
                 try {
                     td = new ToDo(getContent(input));
-                    setTaskStore(td);
-                    td.announceTaskAdd();
+                    addTask(td);
+//                    td.announceTaskAdd();
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: todo <read>");
@@ -145,8 +160,8 @@ public class Torchie {
             case "deadline":
                 try {
                     Deadline d = new Deadline(getContent(input), getDeadlineDate(input));
-                    setTaskStore(d);
-                    d.announceTaskAdd();
+                    addTask(d);
+//                    d.announceTaskAdd();
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
@@ -157,8 +172,8 @@ public class Torchie {
             case "event":
                 try {
                     Event e = new Event(getContent(input), getEventStart(input), getEventEnd(input));
-                    setTaskStore(e);
-                    e.announceTaskAdd();
+                    addTask(e);
+//                    e.announceTaskAdd();
                     announceListSize();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
@@ -167,15 +182,25 @@ public class Torchie {
                             "Example: event read </from Aug 1st 4pm> </to 6pm>");
                 }
                 break;
+            case "delete":
+                try {
+                    itemNum = Integer.parseInt(getContent(input)) - 1;
+                    taskList.deleteTask(itemNum);
+                    announceListSize();
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
+                            " index is an integer ");
+                } catch (NullPointerException e) {
+                    System.out.println("Task number cannot exceed: <" + taskList.getSize() + ">");
+                }
+                break;
             default:
                 Task t = new Task(input);
-                setTaskStore(t);
+                addTask(t);
                 System.out.println("added: " + input);
             }
 
         } while (!input.equals("bye"));
 
     }
-
-
 }
