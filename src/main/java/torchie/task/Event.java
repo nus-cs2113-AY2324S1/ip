@@ -36,4 +36,10 @@ public class Event extends Task{
         super.announceTaskAdd();
         printTask(this.toString());
     }
+
+    @Override
+    public void announceTaskDelete() {
+        super.announceTaskDelete();
+        super.printTask(this.toString());
+    }
 }

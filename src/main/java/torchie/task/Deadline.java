@@ -26,4 +26,10 @@ public class Deadline extends Task {
         super.printTask(this.toString());
     }
 
+    @Override
+    public void announceTaskDelete() {
+        super.announceTaskDelete();
+        super.printTask(this.toString());
+    }
+
 }
