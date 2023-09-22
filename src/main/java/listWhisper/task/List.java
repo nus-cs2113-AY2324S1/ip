@@ -63,19 +63,22 @@ public class List {
         }
     }
 
-    public void mark(String input) throws DescriptionFormatException {
+    public Task mark(String input) throws DescriptionFormatException {
         try {
             int taskId = getTaskId(input);
-            this.tasks.get(taskId - 1).setDone(true);
+            Task task = this.tasks.get(taskId - 1);
+            task.setDone(true);
+            return task;
         } catch (DescriptionFormatException e) {
             throw e;
         }
     }
 
-    public void unmark(String input) throws DescriptionFormatException {
+    public Task unmark(String input) throws DescriptionFormatException {
         try {
             int taskId = getTaskId(input);
             this.tasks.get(taskId - 1).setDone(false);
+            return this.tasks.get(taskId - 1);
         } catch (DescriptionFormatException e) {
             throw e;
         }
