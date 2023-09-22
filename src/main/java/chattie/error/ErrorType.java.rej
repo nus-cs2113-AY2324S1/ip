@@ -1,0 +1,7 @@
+diff a/src/main/java/chattie/error/ErrorType.java b/src/main/java/chattie/error/ErrorType.java	(rejected hunks)
+@@ -1,4 +0,4 @@
+-package chattie;
++package chattie.error;
+ 
+ public enum ErrorType {
+     TODO, EMPTY_DEADLINE, EMPTY_EVENT, INVALID_DEADLINE, INVALID_EVENT
