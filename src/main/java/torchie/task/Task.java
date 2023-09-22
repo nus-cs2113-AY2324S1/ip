@@ -33,21 +33,26 @@ public class Task {
         return ("[" + this.getStatusIcon() + "] " + this.description);
     }
 
-    public void markItem() {
+    public void markTask() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this torchie.task as done: ");
+        System.out.println("Nice! I've marked this task as done: ");
         printTask(this.toString());
     }
 
-    public void unmarkItem() {
+    public void unmarkTask() {
         this.isDone = false;
-        System.out.println("Ok, I've marked this torchie.task as not done yet: ");
+        System.out.println("Ok, I've marked this task as not done yet: ");
         printTask(this.toString());
     }
 
     public void announceTaskAdd() {
-        System.out.println("Got it. I've added this torchie.task: ");
-        System.out.print("  ");
+        System.out.println("Got it. I've added this task: ");
+        System.out.print("\t");
+    }
+
+    public void announceTaskDelete() {
+        System.out.println("Noted. I've removed this task: ");
+        System.out.print("\t");
     }
 
 }
