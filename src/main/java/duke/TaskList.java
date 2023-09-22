@@ -5,11 +5,7 @@ import java.util.ArrayList;
 public class TaskList {
     public static int FIRST_INDEX=0;
     public static int SECOND_INDEX=1;
-    public static int THIRD_INDEX=2;
-    public static int FOURTH_INDEX=3;
-    public static int FIFTH_INDEX=4;
     protected ArrayList<Task> TASKS;
-    public Ui UI = new Ui();
 
     public TaskList() {
         this.TASKS = new ArrayList<Task>();
@@ -107,7 +103,22 @@ public class TaskList {
         }
     }
 
-    public void print(){
+    public void findTasksInList(String[] arguments) throws DukeException{
+        if (arguments.length == 0){ // empty argument
+            throw new DukeException("Provide a term to find bro....");
+        }
+        System.out.println("Here are the matching tasks in the list: ");
+        String descriptionSubstring = String.join(" ", arguments);
+        for (int i=0;i<this.TASKS.size();i++){
+            Task task = TASKS.get(i);
+            String taskDescription = task.getDescription().toLowerCase();
+            if (taskDescription.contains(descriptionSubstring.toLowerCase())){
+                System.out.println(i+1 + "." + task.toString());
+            }
+        }
+    }
+
+    public void printList(){
         if (!TASKS.isEmpty()){
             for (int i = 0; i < TASKS.size(); i++) {
                 Task task = TASKS.get(i);

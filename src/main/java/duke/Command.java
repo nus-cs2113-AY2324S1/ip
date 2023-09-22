@@ -13,6 +13,10 @@ public class Command {
 
     public void execute(TaskList TASKS) throws DukeException{
         switch (this.COMMAND) {
+            case "find":
+                TASKS.findTasksInList(this.ARGUMENTS);
+                return;
+
             case "todo":
                 TASKS.addTodoInList(this.ARGUMENTS);
                 return;
@@ -26,7 +30,7 @@ public class Command {
                 return;
 
             case "list":
-                TASKS.print();
+                TASKS.printList();
                 return;
 
             case "mark":

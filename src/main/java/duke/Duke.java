@@ -6,9 +6,6 @@ public class Duke {
     private static Storage STORAGE;
     private static TaskList TASKS;
     private static Ui UI;
-    private static Parser PARSER;
-    public static int FIRST_INDEX=0;
-    public static int SECOND_INDEX=1;
     public static String DATAPATH = ".\\data\\duke.txt";
 
 
