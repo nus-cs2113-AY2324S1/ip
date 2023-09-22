@@ -1,12 +1,13 @@
 package duke;
 
-class DeadlineTask extends Task {
+public class DeadlineTask extends Task {
     private final String by;
 
-    public DeadlineTask(String var1) {
-        super(var1);
-        this.by = this.extractDeadline(var1);
+    public DeadlineTask(String description) {
+        super(description);
+        this.by = this.extractDeadline(description);
     }
+
 
     private String extractDeadline(String var1) {
         int var2 = var1.indexOf("/by");

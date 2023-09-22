@@ -3,7 +3,16 @@ package duke;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
+
+
+import duke.DeadlineTask;
+import duke.EventTask;
+import duke.DukeException;
 import duke.TasksHandler;
+import duke.TodoTask;
+
+
+
 
 public class Duke {
     public Duke() {
@@ -25,14 +34,12 @@ public class Duke {
         Scanner userInput = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
 
-
         // Load tasks from file
         try {
             TasksHandler.readFromFile(tasks);
         } catch (IOException e) {
             System.out.println("Error reading from file: " + e.getMessage());
         }
-
 
         while(userInput.hasNextLine()){
             System.out.println("____________________________________________________________");
@@ -43,7 +50,6 @@ public class Duke {
 
                     // Save tasks to file before exiting the program
                     TasksHandler.writeToFile(tasks);
-
                     break;
                 } else if (line.equals("list")) {
                     System.out.println("Here are the tasks in your list:");

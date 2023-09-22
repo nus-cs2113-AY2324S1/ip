@@ -1,6 +1,6 @@
 package duke;
 
-class EventTask extends Task {
+public class EventTask extends Task {
     private final String from;
     private final String to;
 

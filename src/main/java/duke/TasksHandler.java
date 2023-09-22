@@ -28,9 +28,6 @@ public class TasksHandler {
         fileWriter.close();
     }
 
-
-    // Add the missing 'scanner' declaration
-// Add the missing 'scanner' declaration
     public static void readFromFile(ArrayList<Task> tasks) throws IOException {
         File file = new File(FILE_PATH);
         boolean fileCreated = false;
