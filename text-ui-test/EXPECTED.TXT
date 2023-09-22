@@ -1,16 +1,16 @@
-Hello! I'm torchie.Torchie!
+Hello! I'm Torchie!
 What can I do for you?
 Let's play storetorchie today! You say something and I ll store it!
-Got it. I've added this torchie.task:
-  [T][ ] read book
-Now you have 1 torchie.task(s) in the list.
+Got it. I've added this task:
+	[T][ ] read book
+Now you have 1 task(s) in the list.
 Here are the tasks in your list:
-1.[T][ ] borrow book
-Nice! I've marked this torchie.task as done:
-[T][X] borrow book
-Got it. I've added this torchie.task:
-  [D][ ] return book (by: June 6th)
-Now you have 2 torchie.task(s) in the list.
+1.	[T][ ] read book
+Nice! I've marked this task as done:
+[T][X] read book
+Got it. I've added this task:
+	[D][ ] return book (by: June 6th)
+Now you have 2 task(s) in the list.
 Here are the tasks in your list:
-1.[T][X] borrow book
-2.[D][ ] return book (by: June 6th)
+1.	[T][X] read book
+2.	[D][ ] return book (by: June 6th)
