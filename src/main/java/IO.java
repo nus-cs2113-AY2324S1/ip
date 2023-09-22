@@ -13,10 +13,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IO {
-    protected static String FILE_NAME = "./data/duke.txt";
+    protected static String FILE_NAME = "./src/main/java/data/duke.txt";
     public static void save(ArrayList<Task> tasks, int n) throws IOException {
-        Files.createDirectories(Paths.get("./data"));
-        Files.delete(Paths.get(FILE_NAME));
+        Files.createDirectories(Paths.get("./src/main/java/data"));
+        if(Files.exists(Paths.get(FILE_NAME))) {
+            Files.delete(Paths.get(FILE_NAME));
+        }
         Files.createFile(Paths.get(FILE_NAME));
 
         FileWriter writer = new FileWriter(FILE_NAME, false);
