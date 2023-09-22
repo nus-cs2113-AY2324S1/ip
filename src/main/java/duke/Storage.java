@@ -45,8 +45,7 @@ public class Storage {
                         break;
                     case "D":
                         try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                            LocalDateTime deadlineEndParsed = LocalDateTime.parse(splitLineArguments[FOURTH_INDEX], formatter);
+                            LocalDateTime deadlineEndParsed = LocalDateTime.parse(splitLineArguments[FOURTH_INDEX]);
                             Deadline newDeadline = new Deadline(splitLineArguments[THIRD_INDEX],
                                     deadlineEndParsed);
                             TASKS.add(newDeadline);
