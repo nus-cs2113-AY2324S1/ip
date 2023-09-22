@@ -106,6 +106,7 @@ public class Tasks {
     }
 
     public static void markTask(ArrayList<Task> itemList, int i) {
+
         itemList.get(i - 1).setDone(true);
 
         System.out.println(LINE_DIVIDER + "\n"

@@ -21,56 +21,61 @@ public class Duke {
 
         int i = itemList.size(); // current index in itemList
 
+
         while(!buf.equalsIgnoreCase("bye")){
-            switch(buf.toLowerCase().split(" ")[0]) {
+            try{
+                switch(buf.toLowerCase().split(" ")[0]) {
 
-            case "list":
-                Tasks.listItems(itemList, i);
-                break;
+                case "list":
+                    Tasks.listItems(itemList, i);
+                    break;
 
-            case "mark":
-                Tasks.markTask(itemList,
-                        Integer.parseInt(buf.split(" ")[1]));
-                break;
+                case "mark":
+                    Tasks.markTask(itemList,
+                            Integer.parseInt(buf.split(" ")[1]));
+                    break;
 
-            case "unmark":
-                Tasks.unmarkTask(itemList,
-                        Integer.parseInt(buf.split(" ")[1]));
-                break;
+                case "unmark":
+                    Tasks.unmarkTask(itemList,
+                            Integer.parseInt(buf.split(" ")[1]));
+                    break;
 
-            case "todo":
-                Tasks.addTodo(buf, itemList, i);
-                i += 1;
-                break;
+                case "todo":
+                    Tasks.addTodo(buf, itemList, i);
+                    i += 1;
+                    break;
 
-            case "deadline":
-                Tasks.addDeadline(buf, itemList, i);
-                i += 1;
-                break;
+                case "deadline":
+                    Tasks.addDeadline(buf, itemList, i);
+                    i += 1;
+                    break;
 
-            case "event":
-                Tasks.addEvent(buf, itemList, i);
-                i += 1;
-                break;
+                case "event":
+                    Tasks.addEvent(buf, itemList, i);
+                    i += 1;
+                    break;
 
-            case "delete":
-                Tasks.delete(Integer.parseInt(buf.split(" ")[1]), itemList);
-                break;
+                case "delete":
+                    Tasks.delete(Integer.parseInt(buf.split(" ")[1]), itemList);
+                    break;
 
-            default:
-                System.out.println(LINE_DIVIDER +
+                default:
+                    System.out.println(LINE_DIVIDER +
                         "\n    I couldn't find a command word, try again!\n"
                         + LINE_DIVIDER);
-                break;
+                    break;
             }
-            buf = in.nextLine();
-
-            try {
                 IO.save(itemList, i);
             } catch (IOException e) {
                 System.out.println("    I couldn't save your file, try again?\n"
                         + LINE_DIVIDER);
+            } catch(ArrayIndexOutOfBoundsException e) {
+                System.out.println(LINE_DIVIDER + "\n"
+                        + "    Oops, looks like you left something out!\n"
+                        + LINE_DIVIDER);
             }
+
+            buf = in.nextLine();
         }
 
         System.out.println(LINE_DIVIDER +
