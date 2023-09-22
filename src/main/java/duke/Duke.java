@@ -2,19 +2,37 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
+import duke.TasksHandler;
 
 public class Duke {
     public Duke() {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm");
-        System.out.println(" ________  ________  ________  ________     \n|\\   ____\\|\\   __  \\|\\   __  \\|\\   __  \\    \n\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\|\\  \\   \n \\ \\  \\    \\ \\   __  \\ \\   _  _\\ \\   __  \\  \n  \\ \\  \\____\\ \\  \\ \\  \\ \\  \\\\  \\\\ \\  \\ \\  \\ \n   \\ \\_______\\ \\__\\ \\__\\ \\__\\\\ _\\\\ \\__\\ \\__\\\n    \\|_______|\\|__|\\|__|\\|__|\\|__|\\|__|\\|__|\n                                            ");
+        System.out.println(" ________  ________  ________  ________     \n" +
+                "|\\   ____\\|\\   __  \\|\\   __  \\|\\   __  \\    \n" +
+                "\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\|\\  \\   \n" +
+                " \\ \\  \\    \\ \\   __  \\ \\   _  _\\ \\   __  \\  \n" +
+                "  \\ \\  \\____\\ \\  \\ \\  \\ \\  \\\\  \\\\ \\  \\ \\  \\ \n" +
+                "   \\ \\_______\\ \\__\\ \\__\\ \\__\\\\ _\\\\ \\__\\ \\__\\\n" +
+                "    \\|_______|\\|__|\\|__|\\|__|\\|__|\\|__|\\|__|\n" +
+                "                                            ");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
         Scanner userInput = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+
+
+        // Load tasks from file
+        try {
+            TasksHandler.readFromFile(tasks);
+        } catch (IOException e) {
+            System.out.println("Error reading from file: " + e.getMessage());
+        }
+
 
         while(userInput.hasNextLine()){
             System.out.println("____________________________________________________________");
@@ -22,6 +40,10 @@ public class Duke {
 
             try {
                 if(line.equals("bye")){
+
+                    // Save tasks to file before exiting the program
+                    TasksHandler.writeToFile(tasks);
+
                     break;
                 } else if (line.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
@@ -92,4 +114,3 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 }
-

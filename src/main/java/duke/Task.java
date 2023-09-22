@@ -1,8 +1,13 @@
 package duke;
 
-class Task {
-    private final String description;
+public class Task {
+    private String description;
     private boolean isDone;
+
+    public String toFileString() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
+
 
     public Task(String description) {
         this.description = description;
@@ -10,23 +15,27 @@ class Task {
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void markAsNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
+    }
+
+    public boolean isDone() { // Public getter method for isDone
+        return isDone;
     }
 
     public String getStatusIcon() {
-        return this.isDone ? "X" : " ";
+        return (isDone ? "X" : " ");
     }
 
+    @Override
     public String toString() {
-        String var10000 = this.getStatusIcon();
-        return "[" + var10000 + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
