@@ -1,6 +1,6 @@
-import Command.Command;
-import Task.TaskList;
-import Exception.FrankException;
+import command.Command;
+import task.TaskList;
+import exception.FrankException;
 
 public class Frank {
     public static void main(String[] args) {

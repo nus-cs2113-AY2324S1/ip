@@ -1,7 +1,7 @@
-package Command;
+package command;
 
-import Task.TaskList;
-import Exception.FrankException;
+import task.TaskList;
+import exception.FrankException;
 
 public class MarkCommand extends Command {
 

@@ -1,10 +1,10 @@
-package Command;
+package command;
 
-import Task.TaskList;
-import Exception.FrankException;
+import task.TaskList;
+import exception.FrankException;
 
-public class DeleteCommand extends Command{
-    public DeleteCommand(String command) {
+public class UnmarkCommand extends Command{
+    public UnmarkCommand(String command) {
         super(command);
     }
     @Override
@@ -17,12 +17,14 @@ public class DeleteCommand extends Command{
             if(index < 0 || index + 1 > tasks.getTotalTasks()) {
                 throw new FrankException("Brough it is out of index!");
             }
+            if(!tasks.getTask(index).getIsDone()) {
+                throw new FrankException("Brough it is already unmarked!");
+            }
         } catch (NullPointerException e) {
-            throw new FrankException("Brough there is no task to mark!" );
+            throw new FrankException("Brough there is no task to unmark!" );
         } catch (NumberFormatException e) {
             throw new FrankException("Brough please put the number index in the second word. ");
         }
-
-        tasks.deleteTask(index);
+        tasks.markTask(index,false);
     }
 }

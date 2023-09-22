@@ -1,23 +1,22 @@
-import Command.Command;
-import Command.TodoCommand;
-import Command.ListCommand;
-import Command.DeadlineCommand;
-import Command.EventCommand;
-import Command.MarkCommand;
-import Command.UnmarkCommand;
-import Command.ByeCommand;
-import Command.DeleteCommand;
+import command.Command;
+import command.TodoCommand;
+import command.ListCommand;
+import command.DeadlineCommand;
+import command.EventCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
+import command.ByeCommand;
+import command.DeleteCommand;
 
-import Exception.*;
-import Exception.FrankException;
-import Exception.FrankUnknownException;
+import exception.FrankException;
+import exception.FrankUnknownException;
 
 import java.util.Scanner;
 public class CommandParser {
     public static Command getCommand() throws FrankException {
         Scanner input = new Scanner(System.in);
         System.out.println("Available Commands: " +
-                "todo, list, deadline, event, mark <index>, unmark <index>, bye");
+                "todo, list, deadline, event, mark <index>, unmark <index>, delete <index>, bye");
         String command = input.nextLine();
         String[] commands = command.split(" "); // if mark or unmark will be followed by an int
         switch (commands[0]) {

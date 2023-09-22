@@ -1,8 +1,8 @@
-package Command;
+package command;
 
-import Task.Event;
-import Task.TaskList;
-import Exception.FrankException;
+import task.Event;
+import task.TaskList;
+import exception.FrankException;
 
 public class EventCommand extends Command {
     @Override
