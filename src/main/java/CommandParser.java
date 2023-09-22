@@ -6,6 +6,7 @@ import Command.EventCommand;
 import Command.MarkCommand;
 import Command.UnmarkCommand;
 import Command.ByeCommand;
+import Command.DeleteCommand;
 
 import Exception.*;
 import Exception.FrankException;
@@ -32,6 +33,8 @@ public class CommandParser {
             return new MarkCommand(command);
         case "unmark":
             return new UnmarkCommand(command);
+        case "delete":
+            return new DeleteCommand(command);
         case "bye":
             return new ByeCommand();
         default:
