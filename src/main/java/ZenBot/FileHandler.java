@@ -18,6 +18,7 @@ import tasks.Event;
  */
 public class FileHandler {
     
+    private static final String DIRECTORY_PATH = "data";
     private static final String FILE_PATH = "data/zenbot.txt";
 
     /**
@@ -51,6 +52,10 @@ public class FileHandler {
      * @throws IOException If an error occurs while reading from the file.
      */
     public static void readFromFile(Tasklist tasks) throws TaskEmptyDescriptionException, IOException {
+        File directory = new File(DIRECTORY_PATH);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             file.createNewFile();
