@@ -15,4 +15,10 @@ public class ToDo extends Task {
         super.announceTaskAdd();
         printTask(this.toString());
     }
+
+
+    @Override
+    public String toFileFormat() {
+        return ("T | " + super.toFileFormat());
+    }
 }

@@ -26,4 +26,9 @@ public class Deadline extends Task {
         super.printTask(this.toString());
     }
 
+    @Override
+    public String toFileFormat() {
+        return ("D | " + super.toFileFormat() + " | /by " + getDeadline());
+    }
+
 }

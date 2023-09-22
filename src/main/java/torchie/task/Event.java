@@ -36,4 +36,9 @@ public class Event extends Task{
         super.announceTaskAdd();
         printTask(this.toString());
     }
+
+    @Override
+    public String toFileFormat() {
+        return ("E | " + super.toFileFormat() + " | /from " + getStartTime() + " /to " + getEndTime());
+    }
 }

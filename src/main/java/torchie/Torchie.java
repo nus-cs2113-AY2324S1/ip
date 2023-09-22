@@ -1,25 +1,41 @@
 package torchie;
 
-import torchie.exceptions.DukeException;
-import torchie.task.*;
+import torchie.storage.DataManager;
+import torchie.exception.TorchieException;
+import torchie.task.Deadline;
+import torchie.task.Event;
+import torchie.task.Task;
+import torchie.task.TaskList;
+import torchie.task.ToDo;
 
 import java.util.Scanner;
 public class Torchie {
 
-    private static Task[] taskStore = new Task[100];
-    private static int numOfTasks = 0; // keep track of next null space in array
+//    private static Task[] taskStore = new Task[100];
+//private static TaskList taskList = new TaskList();
+    private static DataManager dataManager = new DataManager();
+    private static TaskList taskList = dataManager.retrieveData();
+//    private static int numOfTasks = 0; // keep track of next null space in array
 
-    public static Task[] getTaskStore() {
-        return taskStore;
+//    public static Task[] getTaskStore() {
+//        return taskStore;
+//    }
+
+    public static TaskList getTaskList() {
+        return taskList;
     }
 
-    public static void setTaskStore(Task t) {
-        taskStore[numOfTasks] = t;
-        numOfTasks += 1;
+    public static void addTask(Task t) {
+        taskList.addTask(t);
     }
+//    public static void setTaskStore(Task t) {
+//        taskStore[numOfTasks] = t;
+//        numOfTasks += 1;
+//    }
 
     public static void showList() {
-        System.out.println("Here are the tasks in your list: ");
+        taskList.showTasks();
+        /*System.out.println("Here are the tasks in your list: ");
         for (int i=0; i<taskStore.length; i++){
             if (taskStore[i] == null){
                 // only print non-null tasks
@@ -27,11 +43,11 @@ public class Torchie {
             }
             System.out.print( (i+1) + ".");
             taskStore[i].printTask(taskStore[i].toString());
-        }
+        }*/
     }
 
     public static void announceListSize() {
-        System.out.println("Now you have " + numOfTasks + " task(s) in the list.");
+        System.out.println("Now you have " + taskList.getSize() + " task(s) in the list.");
     }
 
     public static String getContent(String s) {
@@ -49,23 +65,23 @@ public class Torchie {
         return content;
     }
 
-    public static String getDeadlineDate(String s) throws DukeException {
+    public static String getDeadlineDate(String s) throws TorchieException {
         int SIZE_OF_BUFFER = 4;
         int keyWordIndex = s.indexOf('/');
 
         if (keyWordIndex == -1) {
-            throw new DukeException();
+            throw new TorchieException();
         }
         return s.substring(keyWordIndex + SIZE_OF_BUFFER);
     }
 
-    public static String getEventStart(String s) throws DukeException {
+    public static String getEventStart(String s) throws TorchieException {
         int SIZE_OF_BUFFER = 6;
 
         // first occurrence of '/' character
         int startTimeIndex = s.indexOf('/');
         if (startTimeIndex == -1) {
-            throw new DukeException();
+            throw new TorchieException();
         }
 
         // second occurrence of '/' character
@@ -73,7 +89,7 @@ public class Torchie {
         return s.substring(startTimeIndex + SIZE_OF_BUFFER, endTimeIndex-1);
     }
 
-    public static String getEventEnd(String s) throws DukeException {
+    public static String getEventEnd(String s) throws TorchieException {
         int SIZE_OF_BUFFER = 4;
 
         // first occurrence of '/' character
@@ -82,7 +98,7 @@ public class Torchie {
         // second occurrence of '/' character
         int endTimeIndex = s.indexOf('/', startTimeIndex+1);
         if (endTimeIndex == -1) {
-            throw new DukeException();
+            throw new TorchieException();
         }
         return s.substring(endTimeIndex + SIZE_OF_BUFFER);
     }
@@ -109,35 +125,38 @@ public class Torchie {
 
                 try {
                     itemNum = Integer.parseInt(getContent(input)) - 1;
-                    taskStore[itemNum].markItem();
+                    taskList.markTask(itemNum);
+                    dataManager.save(taskList);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
                             " index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("Task number cannot exceed: <" + numOfTasks + ">");
+                    System.out.println("Task number cannot exceed: <" + taskList.getSize() + ">");
                 }
                 break;
             case "unmark":
                 try {
                     itemNum = Integer.parseInt(getContent(input)) - 1;
-                    taskStore[itemNum].unmarkItem();
+                    taskList.unmarkTask(itemNum);
+                    dataManager.save(taskList);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
                             " index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("Task number cannot exceed: <" + numOfTasks + ">");
+                    System.out.println("Task number cannot exceed: <" + taskList.getSize() + ">");
                 }
                 break;
             case "bye":
                 System.out.println("Awww bye :( Let's play again soon!");
                 break;
             case "todo":
-                ToDo td = null;
+                ToDo td;
                 try {
                     td = new ToDo(getContent(input));
-                    setTaskStore(td);
+                    addTask(td);
                     td.announceTaskAdd();
                     announceListSize();
+                    dataManager.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: todo <read>");
                 }
@@ -145,31 +164,33 @@ public class Torchie {
             case "deadline":
                 try {
                     Deadline d = new Deadline(getContent(input), getDeadlineDate(input));
-                    setTaskStore(d);
+                    addTask(d);
                     d.announceTaskAdd();
                     announceListSize();
+                    dataManager.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
-                } catch (DukeException e) {
+                } catch (TorchieException e) {
                     System.out.println("Missing <deadline>: Example: deadline read </by Aug 1st>");
                 }
                 break;
             case "event":
                 try {
                     Event e = new Event(getContent(input), getEventStart(input), getEventEnd(input));
-                    setTaskStore(e);
+                    addTask(e);
                     e.announceTaskAdd();
                     announceListSize();
+                    dataManager.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
-                } catch (DukeException e) {
+                } catch (TorchieException e) {
                     System.out.println("Missing keyword </from start time> or </by end time> " +
                             "Example: event read </from Aug 1st 4pm> </to 6pm>");
                 }
                 break;
             default:
                 Task t = new Task(input);
-                setTaskStore(t);
+                addTask(t);
                 System.out.println("added: " + input);
             }
 

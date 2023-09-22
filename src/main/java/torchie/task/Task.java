@@ -21,6 +21,10 @@ public class Task {
         return isDone;
     }
 
+    public void setIsDone(boolean b) {
+        this.isDone = b;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done torchie.task with X
     }
@@ -33,14 +37,14 @@ public class Task {
         return ("[" + this.getStatusIcon() + "] " + this.description);
     }
 
-    public void markItem() {
-        this.isDone = true;
+    public void markTask() {
+        setIsDone(true);
         System.out.println("Nice! I've marked this torchie.task as done: ");
         printTask(this.toString());
     }
 
-    public void unmarkItem() {
-        this.isDone = false;
+    public void unmarkTask() {
+        setIsDone(false);
         System.out.println("Ok, I've marked this torchie.task as not done yet: ");
         printTask(this.toString());
     }
@@ -48,6 +52,10 @@ public class Task {
     public void announceTaskAdd() {
         System.out.println("Got it. I've added this torchie.task: ");
         System.out.print("  ");
+    }
+
+    public String toFileFormat() {
+        return (getStatusIcon() + " | " + getDescription());
     }
 
 }
