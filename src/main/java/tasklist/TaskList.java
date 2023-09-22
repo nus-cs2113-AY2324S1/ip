@@ -29,10 +29,6 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void removeTask(Task task) {
-        tasks.remove(task);
-    }
-
     public List<Task> getTasks() {
         return tasks;
     }
@@ -194,8 +190,8 @@ public class TaskList {
     }
 
     /**
-     * Instantiates a tasklist containing data in the savefile. Uses the parseTasks() method
-     * to convert from the savefile to usable tasklist data.
+     * Instantiates a tasklist containing data in the file. Uses the parseTasks() method
+     * to convert from the file to usable tasklist data.
      *
      * @param s scanner containing the lines in the savefile.
      */
