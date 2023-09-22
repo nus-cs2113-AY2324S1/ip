@@ -6,9 +6,6 @@ public class Duke {
     private static Storage STORAGE;
     private static TaskList TASKS;
     private static Ui UI;
-    private static Parser PARSER;
-    public static int FIRST_INDEX=0;
-    public static int SECOND_INDEX=1;
     public static String DATAPATH = ".\\data\\duke.txt";
 
 
@@ -21,7 +18,9 @@ public class Duke {
             UI.showLoadingError(DATAPATH);
             TASKS = new TaskList();
         } catch (DukeException dukeEx) {
-            System.out.println(dukeEx);
+            UI.showError(dukeEx);
+            System.out.println("Historical data load failed.");
+            TASKS = new TaskList();
         }
     }
 

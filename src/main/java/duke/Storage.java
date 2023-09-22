@@ -3,6 +3,10 @@ package duke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -40,11 +44,17 @@ public class Storage {
                         }
                         break;
                     case "D":
-                        Deadline newDeadline = new Deadline(splitLineArguments[THIRD_INDEX],
-                                splitLineArguments[FOURTH_INDEX]);
-                        TASKS.add(newDeadline);
-                        if (splitLineArguments[SECOND_INDEX].equals("1")){
-                            newDeadline.markAsDone();
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                            LocalDateTime deadlineEndParsed = LocalDateTime.parse(splitLineArguments[FOURTH_INDEX], formatter);
+                            Deadline newDeadline = new Deadline(splitLineArguments[THIRD_INDEX],
+                                    deadlineEndParsed);
+                            TASKS.add(newDeadline);
+                            if (splitLineArguments[SECOND_INDEX].equals("1")){
+                                newDeadline.markAsDone();
+                            }
+                        } catch (DateTimeParseException dtEx){
+                            throw new DukeException("Invalid date format in your load file bro... ");
                         }
                         break;
                     case "E":

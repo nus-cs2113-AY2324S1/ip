@@ -1,15 +1,16 @@
 package duke;
 
+import javax.swing.text.DateFormatter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
     public static int FIRST_INDEX=0;
     public static int SECOND_INDEX=1;
-    public static int THIRD_INDEX=2;
-    public static int FOURTH_INDEX=3;
-    public static int FIFTH_INDEX=4;
     protected ArrayList<Task> TASKS;
-    public Ui UI = new Ui();
 
     public TaskList() {
         this.TASKS = new ArrayList<Task>();
@@ -39,11 +40,15 @@ public class TaskList {
             String[] argumentsList = argumentsString.split(" /by ");
             String deadlineDescription = argumentsList[FIRST_INDEX];
             String deadlineEndTime = argumentsList[SECOND_INDEX];
-            Deadline newDeadline = new Deadline(deadlineDescription, deadlineEndTime);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime deadlineEndParsed = LocalDateTime.parse(deadlineEndTime, formatter);
+            Deadline newDeadline = new Deadline(deadlineDescription, deadlineEndParsed);
             this.TASKS.add(newDeadline);
             printRemark(newDeadline, "Done, I've added this task: ");
         } catch(ArrayIndexOutOfBoundsException e){
-            throw new DukeException("Insufficient arguments provided, try this (deadline submission /by date)");
+            throw new DukeException("Insufficient arguments provided, try this (deadline submission /by 20-10-15 1800)");
+        } catch(DateTimeParseException dtEx) {
+            throw new DukeException("Invalid datetime format, try this (deadline submission /by 2023-10-15 1800)");
         }
 
     }
