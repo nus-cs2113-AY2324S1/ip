@@ -1,4 +1,4 @@
-package main.java.doli.tasks;
+package doli.tasks;
 
 /** Parent class defining a task with description, process and agenda overview */
 public abstract class Task {
