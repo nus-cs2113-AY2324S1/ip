@@ -1,4 +1,7 @@
-import java.util.Scanner;
+import Command.Command;
+import Task.TaskList;
+import Exception.FrankException;
+
 public class Frank {
     public static void main(String[] args) {
 
@@ -29,7 +32,6 @@ public class Frank {
         while(true){
             try {
                 command = CommandParser.getCommand();
-                assert command != null;
                 command.execute(tasks);
             } catch(FrankException e) {
                 System.out.println(e.getMessage());

@@ -1,3 +1,9 @@
+package Command;
+
+import Task.Deadline;
+import Task.TaskList;
+import Exception.FrankException;
+
 public class DeadlineCommand extends Command {
 
     @Override

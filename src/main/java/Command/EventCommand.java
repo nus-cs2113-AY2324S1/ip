@@ -1,3 +1,9 @@
+package Command;
+
+import Task.Event;
+import Task.TaskList;
+import Exception.FrankException;
+
 public class EventCommand extends Command {
     @Override
     public void execute(TaskList tasks) throws FrankException {

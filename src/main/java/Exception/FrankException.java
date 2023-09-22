@@ -1,3 +1,5 @@
+package Exception;
+
 public class FrankException extends Exception {
     public FrankException(String message) {
         super("Frank says: " + message);
