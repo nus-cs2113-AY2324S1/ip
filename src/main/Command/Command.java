@@ -43,7 +43,7 @@ public class Command extends Parser {
                 ui.printListLength(taskList.getTaskList());
             } catch(IllegalArgumentException exception) {
                 ui.printEventUsage();
-            } catch(ArrayIndexOutOfBoundsException excepttion) {
+            } catch(ArrayIndexOutOfBoundsException exception) {
                 ui.printEventUsage();
             }
             break;
@@ -53,7 +53,7 @@ public class Command extends Parser {
                 ui.printListLength(taskList.getTaskList());
             } catch(IllegalArgumentException exception) {
                 ui.printDeadlineUsage();
-            } catch(ArrayIndexOutOfBoundsException excepttion) {
+            } catch(ArrayIndexOutOfBoundsException exception) {
                 ui.printDeadlineUsage();
             }
             break;
