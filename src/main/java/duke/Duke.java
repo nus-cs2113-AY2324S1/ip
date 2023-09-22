@@ -218,7 +218,6 @@ public class Duke {
             //example 1.[T][X] read book
             System.out.println((i + 1) + "." + list[i]);
         }*/
-
     }
 
     private static void printFileContents(String filePath) throws IOException {
