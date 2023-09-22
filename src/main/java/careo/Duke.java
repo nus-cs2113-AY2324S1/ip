@@ -85,6 +85,19 @@ public class Duke {
             String taskDescription = relevantInput.strip();
 
             addTask(new ToDo(taskDescription));
+        } else if (input.startsWith("delete ")) {
+            int taskIdx = Integer.parseInt(input.substring(7)) - 1;
+            Task removedTask = tasks.remove(taskIdx);
+
+            printHorizontalLine();
+            System.out.println("    Noted. I've removed this task:");
+            System.out.println("      " + removedTask.toString());
+            if (tasks.size() == 1) {
+                System.out.println("    Now you have 1 task in the list.");
+            } else {
+                System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+            }
+            printHorizontalLine();
         } else {
             printHorizontalLine();
             System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
