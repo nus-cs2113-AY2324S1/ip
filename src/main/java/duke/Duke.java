@@ -18,7 +18,9 @@ public class Duke {
             UI.showLoadingError(DATAPATH);
             TASKS = new TaskList();
         } catch (DukeException dukeEx) {
-            System.out.println(dukeEx);
+            UI.showError(dukeEx);
+            System.out.println("Historical data load failed.");
+            TASKS = new TaskList();
         }
     }
 
