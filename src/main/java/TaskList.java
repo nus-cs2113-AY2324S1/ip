@@ -12,16 +12,24 @@ public class TaskList {
     }
 
     public void markTask(int index, boolean IsDone) {
+        Tasks[index].setIsDone(IsDone);
         System.out.println(solidLine + "Tres Bien! I have marked this as " +
                 (IsDone ? "done: " : "not done yet: "));
-        Tasks[index-1].setIsDone(IsDone);
-        System.out.println("[" + Tasks[index-1].getStatusIcon() + "] " +
-                Tasks[index-1].getDescription() + solidLine);
+        System.out.println("[" + Tasks[index].getStatusIcon() + "] " +
+                Tasks[index].getDescription() + solidLine);
     }
 
     public void addTask(Task newTask) {
         Tasks[totalTasks] = newTask;
         totalTasks++;
         System.out.println(solidLine + "added: " + newTask + solidLine);
+    }
+
+    public int getTotalTasks() {
+        return this.totalTasks;
+    }
+
+    public Task getTask(int index) {
+        return this.Tasks[index];
     }
 }
