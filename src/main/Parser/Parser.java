@@ -72,7 +72,7 @@ public class Parser {
         argumentsList = argumentsList[1].split("/to");
         String from = argumentsList[0].trim().replace(",", "");
         String to = argumentsList[1].trim().replace(",", "");
-        checkEventArgs(description, from, to);;
+        checkEventArgs(description, from, to);
         eventArguments[0] = description;
         eventArguments[1] = from;
         eventArguments[2] = to;
