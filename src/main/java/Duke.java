@@ -57,6 +57,7 @@ public class Duke {
 
                 case "delete":
                     Tasks.delete(Integer.parseInt(buf.split(" ")[1]), itemList);
+                    i -= 1;
                     break;
 
                 default:
