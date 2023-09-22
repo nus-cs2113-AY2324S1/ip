@@ -46,7 +46,7 @@ public class Duke {
 
     /* method for save tasks to disk */
     static void saveTask(ArrayList <Task> tasks, int tasks_size) throws IOException{
-        FileWriter fw = new FileWriter("./duke.txt");
+        FileWriter fw = new FileWriter("./nupjuk.txt");
         for(int i=0;i<tasks_size;i++){
             Task task = tasks.get(i);
             fw.write(String.format("%s | %d | %s\r\n",
@@ -59,7 +59,7 @@ public class Duke {
     static ArrayList <Task> loadTask() throws FileNotFoundException{
         ArrayList <Task> tasks = new ArrayList<>();
 
-        File f = new File ("./duke.txt");
+        File f = new File ("./nupjuk.txt");
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String[] taskTokens = s.nextLine().split("\\|");
