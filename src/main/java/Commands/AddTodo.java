@@ -5,6 +5,9 @@ import tasks.Tasklist;
 import zenbot.UI;
 import exceptions.TaskEmptyDescriptionException;
 
+/**
+ ** Represents a command to add a todo task to the tasklist.
+ */
 public class AddTodo extends Command {
 
     private String commandString;
@@ -16,6 +19,11 @@ public class AddTodo extends Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Create a new Todo object and add it to the tasklist.
+     * Print a message to the user to indicate that the Todo task has been added.
+     * @throws TaskEmptyDescriptionException if the description of the todo task is empty.
+     */
     @Override
     public void execute() throws TaskEmptyDescriptionException {
         description = commandString.substring(5);

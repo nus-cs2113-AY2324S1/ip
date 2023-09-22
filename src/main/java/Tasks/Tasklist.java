@@ -2,6 +2,9 @@ package tasks;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class Tasklist {
     private ArrayList<Task> taskList;
 
@@ -40,6 +43,11 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Search for tasks in the task list based on a keyword.
+     * @param searchString The keyword to search for.
+     * @return An ArrayList of tasks that match the keyword.
+     */
     public ArrayList<Task> searchTasks(String searchString) {
         ArrayList<Task> searchResults = new ArrayList<Task>();
         for (int i = 0; i < taskList.size(); i++) {

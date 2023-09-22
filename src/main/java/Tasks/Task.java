@@ -2,6 +2,9 @@ package tasks;
 
 import exceptions.TaskEmptyDescriptionException;
 
+/**
+ * Represents a task that the user wants to keep track of.
+ */
 public class Task {
     private String description;
     private boolean isDone;
@@ -38,6 +41,10 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns a string representation of the task's completion status.
+     * @return A string representation of the task's completion status.
+     */
     public String getCompletedString() {
         if (this.isDone == true) {
             return "[X] ";
@@ -46,6 +53,9 @@ public class Task {
         }
     }
 
+    /**
+     * Print the task to the user.
+     */
     public void printTask() {
         System.out.println("\t" + getCompletedString() + this.description);
     }

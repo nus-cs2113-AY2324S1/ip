@@ -3,6 +3,9 @@ package tasks;
 import exceptions.TaskEmptyDescriptionException;
 import java.time.LocalDate;
 
+/**
+ * Represents a Deadline task
+ */
 public class Deadline extends Task {
     private LocalDate deadline;
 
@@ -19,6 +22,9 @@ public class Deadline extends Task {
         this.deadline = LocalDate.parse(deadlineString);
     }
 
+    /**
+     * Print the Deadline task to the user.
+     */
     @Override
     public void printTask() {
         System.out.println("\t[D]" + getCompletedString() + getDescription() + " (by: " + getDeadline() + ")");

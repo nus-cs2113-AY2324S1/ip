@@ -4,6 +4,9 @@ import exceptions.OutOfRangeException;
 import tasks.Tasklist;
 import zenbot.UI;
 
+/**
+ * Represents a command to delete a task from the tasklist.
+ */
 public class DeleteTask extends Command {
     
     private String commandString;
@@ -15,6 +18,11 @@ public class DeleteTask extends Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Delete a task from the tasklist.
+     * Print a message to the user to indicate that the task has been deleted.
+     * @throws OutOfRangeException if the task number is out of range.
+     */
     @Override
     public void execute() throws OutOfRangeException {
         try {

@@ -4,6 +4,9 @@ import tasks.Tasklist;
 import zenbot.UI;
 import exceptions.OutOfRangeException;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkTask extends Command {
     
     private String commandString;
@@ -15,6 +18,11 @@ public class MarkTask extends Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Mark a task as done.
+     * Print a message to the user to indicate that the task has been marked as done.
+     * @throws OutOfRangeException if the task number is out of range.
+     */
     @Override
     public void execute() throws OutOfRangeException {
         try {

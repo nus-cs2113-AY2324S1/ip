@@ -1,5 +1,8 @@
 package zenbot;
 
+/**
+ * Represents the UI of the ZenBot application
+ */
 public class UI {
     
     public static void printSeperatorLine() {

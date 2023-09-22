@@ -3,6 +3,9 @@ package commands;
 import tasks.Tasklist;
 import exceptions.UnknownCommandException;
 
+/**
+ * Represents a parser that parses the user's input and returns the appropriate command.
+ */
 public class CommandParser {
     private static final String ADD_TODO_COMMAND = "todo";
     private static final String ADD_DEADLINE_COMMAND = "deadline";
@@ -14,6 +17,13 @@ public class CommandParser {
     private static final String FIND_COMMAND = "find";
     private static final String FAREWELL_COMMAND = "bye";
 
+    /**
+     * Parses the user's input and returns the appropriate command.
+     * @param commandString the user's input.
+     * @param tasklist the tasklist that the command will be executed on.
+     * @return the appropriate command.
+     * @throws UnknownCommandException if the user's input is not recognised.
+     */
     public static Command parse(String commandString, Tasklist tasklist) throws UnknownCommandException {
         String[] commandTokens = commandString.split(" ");
         String command = commandTokens[0];

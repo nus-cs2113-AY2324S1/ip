@@ -6,6 +6,9 @@ import tasks.Task;
 import tasks.Tasklist;
 import zenbot.UI;
 
+/**
+ * Represents a command to find tasks from the task list based on a keyword
+ */
 public class FindTask extends Command {
     
     private String commandString;
@@ -17,6 +20,10 @@ public class FindTask extends Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Find tasks from the task list based on a keyword and print
+     * Print a message to the user to indicate that the task has been found.
+     */
     @Override
     public void execute() {
         keyword = commandString.substring(5);

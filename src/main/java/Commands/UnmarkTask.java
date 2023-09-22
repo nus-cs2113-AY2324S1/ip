@@ -4,6 +4,9 @@ import tasks.Tasklist;
 import zenbot.UI;
 import exceptions.OutOfRangeException;
 
+/**
+ * Represents a command to unmark a task from the tasklist.
+ */
 public class UnmarkTask extends Command {
     
     private String commandString;
@@ -15,6 +18,11 @@ public class UnmarkTask extends Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Unmark a task from the tasklist.
+     * Print a message to the user to indicate that the task has been unmarked.
+     * @throws OutOfRangeException if the task number is out of range.
+     */
     @Override
     public void execute() throws OutOfRangeException {
         try {

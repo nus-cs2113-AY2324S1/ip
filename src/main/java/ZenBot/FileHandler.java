@@ -13,10 +13,18 @@ import tasks.Todo;
 import tasks.Deadline;
 import tasks.Event;
 
+/**
+ * Represents a file handler that can read and write to a file.
+ */
 public class FileHandler {
     
     private static final String FILE_PATH = "data/zenbot.txt";
 
+    /**
+     * Writes the tasks in the tasklist to a file when the user exits the application.
+     * @param tasks The tasklist to be written to the file.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public static void writeToFile(Tasklist tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(FILE_PATH);
         for (int i = 1; i <= tasks.getTaskListSize(); i++) {
@@ -36,6 +44,12 @@ public class FileHandler {
         fileWriter.close();
     }
 
+    /**
+     * Reads the tasks from a file and adds them to the tasklist when app starts.
+     * @param tasks The tasklist to be added to.
+     * @throws TaskEmptyDescriptionException If the task description is empty.
+     * @throws IOException If an error occurs while reading from the file.
+     */
     public static void readFromFile(Tasklist tasks) throws TaskEmptyDescriptionException, IOException {
         File file = new File(FILE_PATH);
         if (!file.exists()) {

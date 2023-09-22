@@ -5,6 +5,9 @@ import tasks.Tasklist;
 import zenbot.UI;
 import exceptions.TaskEmptyDescriptionException;
 
+/**
+ ** Represents a command to add an event task to the tasklist.
+ */
 public class AddEvent extends Command {
 
     private String FROM_DELIMITER = "/from";
@@ -21,6 +24,11 @@ public class AddEvent extends Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Create a new Event object and add it to the tasklist.
+     * Print a message to the user to indicate that the Event task has been added.
+     * @throws TaskEmptyDescriptionException if the description of the event task is empty.
+     */
     @Override
     public void execute() throws TaskEmptyDescriptionException {
         description = commandString.substring(6, commandString.indexOf(FROM_DELIMITER) - 1);

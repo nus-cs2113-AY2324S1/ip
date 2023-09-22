@@ -6,6 +6,9 @@ import tasks.Tasklist;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Represents a command to quit the app
+ */
 public class Farewell extends Command {
     
     private Tasklist tasks;
@@ -14,6 +17,11 @@ public class Farewell extends Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Prints farewell message and saves tasks to file
+     * @throws FileNotFoundException if given file path is invalid
+     * @throws IOException if there is an error writing to file
+     */
     @Override
     public void execute() throws FileNotFoundException, IOException{
         FileHandler.writeToFile(tasks);

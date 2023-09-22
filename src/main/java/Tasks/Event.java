@@ -2,6 +2,9 @@ package tasks;
 
 import exceptions.TaskEmptyDescriptionException;
 
+/**
+ * Represents a event task that starts and ends at a specific time.
+ */
 public class Event extends Task {
     private String startTime;
     private String endTime;
@@ -28,6 +31,9 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Print the Event task to the user.
+     */
     @Override
     public void printTask() {
         System.out.println("\t[E]" + getCompletedString() + getDescription()

@@ -5,6 +5,9 @@ import tasks.Tasklist;
 import exceptions.TaskEmptyDescriptionException;
 import zenbot.UI;
 
+/**
+ ** Represents a command to add a deadline task to the tasklist.
+ */
 public class AddDeadline extends Command {
     
     private String BY_DELIMETER = "/by";
@@ -18,6 +21,11 @@ public class AddDeadline extends Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Create a new Deadline object and add it to the tasklist.
+     * Print a message to the user to indicate that the Deadline task has been added.
+     * @throws TaskEmptyDescriptionException if the description of the deadline task is empty.
+     */
     @Override
     public void execute() throws TaskEmptyDescriptionException {
         description = commandString.substring(9, commandString.indexOf(BY_DELIMETER) - 1);

@@ -3,6 +3,9 @@ package commands;
 import tasks.Tasklist;
 import zenbot.UI;
 
+/**
+ * Represents a command to list all tasks
+ */
 public class ListTasks extends Command {
     
     private Tasklist tasks;
@@ -11,6 +14,9 @@ public class ListTasks extends Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Prints all tasks in the tasklist
+     */
     @Override
     public void execute() {
         if (tasks.getTaskListSize() == 0) {
