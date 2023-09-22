@@ -17,6 +17,13 @@ public class TaskList {
         taskList.add(t);
     }
 
+    public void deleteTask(int index) {
+        System.out.println("Size: " + getSize() + "index: " + index);
+        Task t = taskList.get(index);
+        taskList.remove(t);
+        t.announceTaskDelete();
+    }
+
     public int getSize() {
         return taskList.size();
     }
@@ -44,5 +51,4 @@ public class TaskList {
     public void unmarkTask(int index) {
         taskList.get(index).unmarkTask();
     }
-
 }

@@ -41,4 +41,9 @@ public class Event extends Task{
     public String toFileFormat() {
         return ("E | " + super.toFileFormat() + " | /from " + getStartTime() + " /to " + getEndTime());
     }
+
+    public void announceTaskDelete() {
+        super.announceTaskDelete();
+        super.printTask(this.toString());
+    }
 }

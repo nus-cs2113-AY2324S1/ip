@@ -21,4 +21,9 @@ public class ToDo extends Task {
     public String toFileFormat() {
         return ("T | " + super.toFileFormat());
     }
+    @Override
+    public void announceTaskDelete() {
+        super.announceTaskDelete();
+        super.printTask(this.toString());
+    }
 }

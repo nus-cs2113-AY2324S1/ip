@@ -31,4 +31,9 @@ public class Deadline extends Task {
         return ("D | " + super.toFileFormat() + " | /by " + getDeadline());
     }
 
+    public void announceTaskDelete() {
+        super.announceTaskDelete();
+        super.printTask(this.toString());
+    }
+
 }
