@@ -1,21 +1,25 @@
 package duke;
 
-
 class DeadlineTask extends Task {
     private final String by;
 
-    public DeadlineTask(String description) {
-        super(description);
-        this.by = this.extractDeadline(description);
+    public DeadlineTask(String var1) {
+        super(var1);
+        this.by = this.extractDeadline(var1);
     }
 
-    private String extractDeadline(String description) {
-        int byIndex = description.indexOf("/by");
-        return byIndex != -1 ? description.substring(byIndex + 3).trim() : "No Deadline";
+    private String extractDeadline(String var1) {
+        int var2 = var1.indexOf("/by");
+        return var2 != -1 ? var1.substring(var2 + 3).trim() : "No Deadline";
+    }
+
+    public String getBy() {
+        return by;
     }
 
     public String toString() {
-        String var10000 = super.toString();
-        return "[D]" + var10000 + " (by: " + this.by + ")";
+        String var1 = super.toString();
+        return "[D]" + var1 + " (by: " + this.by + ")";
     }
+
 }

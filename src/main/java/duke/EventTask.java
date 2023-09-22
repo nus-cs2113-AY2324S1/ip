@@ -27,6 +27,14 @@ class EventTask extends Task {
         return toIndex != -1 ? description.substring(toIndex + 3).trim() : "No End Date";
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
     public String toString() {
         String var10000 = super.toString();
         return "[E]" + var10000 + " (from: " + this.from + " to: " + this.to + ")";
