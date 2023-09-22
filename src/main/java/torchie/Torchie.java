@@ -83,7 +83,7 @@ public class Torchie {
         return s.substring(endTimeIndex + SIZE_OF_BUFFER);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TorchieException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Hello! I'm Torchie!");
@@ -180,9 +180,7 @@ public class Torchie {
                 }
                 break;
             default:
-                Task t = new Task(input);
-                addTask(t);
-                System.out.println("added: " + input);
+                System.out.println("Invalid Command!");
             }
 
         } while (!input.equals("bye"));
