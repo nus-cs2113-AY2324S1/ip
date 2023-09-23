@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 public class Command {
     private static final String DEFAULT_ARGS = "_ARGS";
+    public static final String OPTION_PREFIX = "/";
+    public static final String TOKEN_DELIM = " ";
     private final String ORIGINAL_INPUT;
     private final HashMap<String, String> OPTIONS = new HashMap<>();
     private final boolean IS_EMPTY;
@@ -36,15 +38,28 @@ public class Command {
         return IS_EMPTY;
     }
 
+    /**
+     * Parse the tokens in the original input
+     * to extract verb, arguments and options
+     */
     public void parse() {
-        tokens = ORIGINAL_INPUT.split(" ");
+        tokens = ORIGINAL_INPUT.split(TOKEN_DELIM);
         if (tokens.length > 0) {
             commandVerb = tokens[0].strip().toLowerCase();
         }
         parseTokens();
     }
 
-    public void parseTokens() {
+    /**
+     * Iterates through the list of extracted tokens and
+     * populates the OPTIONS hashmap accordingly.
+     * <p>
+     * Arguments will be store with {@link #DEFAULT_ARGS default argument} as key
+     * <p>
+     * Options will be store with key as in command syntax.
+     * ("{@link #OPTION_PREFIX {prefix}}myOption" will be store with "myOption" as key)
+     */
+    private void parseTokens() {
         if (IS_EMPTY) {
             return;
         }
@@ -53,7 +68,7 @@ public class Command {
         ArrayList<String> currentTokens = new ArrayList<>();
         for (int i = 1; i < tokens.length; ++i) {
             String token = tokens[i];
-            if (token.startsWith("/")) {
+            if (token.startsWith(OPTION_PREFIX)) {
                 addOption(optionKey, currentTokens);
                 optionKey = token.substring(1);
                 currentTokens.clear();

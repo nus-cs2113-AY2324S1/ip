@@ -4,6 +4,7 @@ import com.gpt.dumpgpt.action.api.Action;
 import com.gpt.dumpgpt.command.Command;
 import com.gpt.dumpgpt.shared.ProgramConstants;
 import com.gpt.dumpgpt.task.Task;
+import com.gpt.dumpgpt.task.TaskManager;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,8 @@ public class ListTask extends Action {
     }
 
     protected void execute() {
-        ArrayList<Task> tasks = Task.getTasks();
+        TaskManager taskManager = new TaskManager();
+        ArrayList<Task> tasks = taskManager.getTasks();
         if (tasks.isEmpty()) {
             ProgramConstants.printWrapped("You have no tasks :D");
             return;

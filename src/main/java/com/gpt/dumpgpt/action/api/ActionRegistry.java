@@ -19,6 +19,10 @@ public class ActionRegistry {
     private ActionRegistry() {
     }
 
+    /**
+     * Gets singleton instance of registry
+     * @return ActionRegistry instance
+     */
     public static ActionRegistry getRegistry() {
         if (actionRegistry == null) {
             actionRegistry = new ActionRegistry();
@@ -26,21 +30,27 @@ public class ActionRegistry {
         return actionRegistry;
     }
 
-    private boolean isActionVerbValid(String actionVerb) {
+    private boolean checkActionVerbValid(String actionVerb) {
         return !(actionVerb == null || actionVerb.isBlank());
     }
 
-    private boolean isAliasesValid(String[] aliases) {
+    private boolean checkAliasesValid(String[] aliases) {
         return !(aliases == null || aliases.length == 0);
     }
 
+    /**
+     * Returns a list of valid action verbs
+     * for an Action object
+     * @param action Action object to extract verbs for
+     * @return ArrayList of valid action verbs for action
+     */
     private ArrayList<String> getActionVerbs(Action action) {
         ArrayList<String> actionVerbs = new ArrayList<>();
         String actionVerb = action.getActionVerb();
         String[] aliases = action.getAliases();
 
-        boolean isVerbValid = isActionVerbValid(actionVerb),
-                isAliasesValid = isAliasesValid(aliases);
+        boolean isVerbValid = checkActionVerbValid(actionVerb),
+                isAliasesValid = checkAliasesValid(aliases);
 
         if (isVerbValid) {
             actionVerbs.add(actionVerb.strip());
@@ -59,6 +69,10 @@ public class ActionRegistry {
         return actionVerbs;
     }
 
+    /**
+     * Registers a given action with the registry
+     * @param action action to be registered
+     */
     public void registerAction(Action action) {
         ArrayList<String> actionVerbs = getActionVerbs(action);
         for (String actionVerb : actionVerbs) {
@@ -74,6 +88,16 @@ public class ActionRegistry {
         }
     }
 
+    /**
+     * Executes a command
+     * <p>
+     * Finds the matching action registered in registry based on verb
+     * parsed in command object.
+     * <p>
+     * If match found, constructions action object with
+     * command object as parameter and executes the action.
+     * @param command the command to be executed
+     */
     public void execute(Command command) {
         if (command == null || command.isEmpty()) {
             ProgramConstants.printWrapped("Please provide an input!");
