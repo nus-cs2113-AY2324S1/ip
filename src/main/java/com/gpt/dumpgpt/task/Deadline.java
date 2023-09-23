@@ -28,14 +28,14 @@ public class Deadline extends Task {
     }
 
     @Override
-    protected Serializer serialize() throws DukeException {
+    public Serializer serialize() throws DukeException {
         Serializer serializer = super.serialize();
         serializer.putString(by);
         return serializer;
     }
 
     @Override
-    protected void deserialize(Serializer serializer) throws DukeException, IOException {
+    public void deserialize(Serializer serializer) throws DukeException, IOException {
         super.deserialize(serializer);
         by = serializer.readString();
     }
