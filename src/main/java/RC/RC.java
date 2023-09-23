@@ -1,49 +1,52 @@
 package RC;
 
+import RC.UI.Ui;
 import RC.command.Exit;
+import RC.command.Parser;
 import RC.command.RCCommand;
 import RC.storage.Storage;
-
-import java.util.Scanner;
 
 public class RC {
     private Storage storage;
     private TaskList taskList;
+    private Ui ui;
 
     public RC(String filePath) {
-        this.storage = new Storage(filePath);
+        ui = new Ui();
+        this.storage = new Storage(filePath, ui);
         taskList = new TaskList();
+
         try {
-            storage.load(taskList);
+            storage.load(taskList, ui);
         } catch (RCException e) {
-            System.out.println(e.getMessage());
+            taskList = new TaskList();
+            ui.showMessage(e.getMessage());
         }
     }
 
     public void run() {
-        System.out.println("\tHello! I'm RC\n\tWhat can I do for you?\n");
-        Scanner in = new Scanner(System.in);
-        String input;
+        ui.welcomeMessage();
         RCCommand command = null;
 
         while (!(command instanceof Exit)) {
-            input = in.nextLine().trim();
+            String input = ui.input();
             try {
-                command = RCCommand.getCommand(input);
-                command.execute(taskList);
+                command = Parser.parse(input);
+                command.execute(taskList, ui);
             } catch (RCException e) {
-                System.out.println(e.getMessage());
+                ui.showMessage(e.getMessage());
             }
         }
+
         save();
-        System.out.println("\tBye. Hope to see you again soon!\n");
+        ui.exitMessage();
     }
 
     private void save() {
         try {
             storage.save(taskList);
         } catch (RCException e) {
-            System.out.println(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 

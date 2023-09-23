@@ -2,6 +2,7 @@ package RC.command;
 
 import RC.RCException;
 import RC.TaskList;
+import RC.UI.Ui;
 import RC.task.Deadline;
 
 public class DeadlineCommand extends RCCommand {
@@ -15,7 +16,7 @@ public class DeadlineCommand extends RCCommand {
     }
 
     @Override
-    public void execute(TaskList taskList) throws RCException {
+    public void execute(TaskList taskList, Ui ui) throws RCException {
         int splitIndex = input.indexOf(BY_COMMAND);
         if (splitIndex == -1) {
             throw new RCException(MESSAGE_MISSING_COMMAND);
@@ -27,6 +28,6 @@ public class DeadlineCommand extends RCCommand {
             throw new RCException(MESSAGE_EMPTY);
         }
 
-        taskList.add(new Deadline(description, by));
+        taskList.add(new Deadline(description, by), ui);
     }
 }

@@ -2,6 +2,7 @@ package RC.command;
 
 import RC.RCException;
 import RC.TaskList;
+import RC.UI.Ui;
 import RC.task.Event;
 
 public class EventCommand extends RCCommand {
@@ -16,7 +17,7 @@ public class EventCommand extends RCCommand {
     }
 
     @Override
-    public void execute(TaskList taskList) throws RCException {
+    public void execute(TaskList taskList, Ui ui) throws RCException {
         int fromIndex = input.indexOf(FROM_COMMAND);
         int toIndex = input.indexOf(TO_COMMAND);
         if (fromIndex == -1 || toIndex == -1) {
@@ -30,6 +31,6 @@ public class EventCommand extends RCCommand {
             throw new RCException(MESSAGE_EMPTY);
         }
 
-        taskList.add(new Event(description, from, to));
+        taskList.add(new Event(description, from, to), ui);
     }
 }

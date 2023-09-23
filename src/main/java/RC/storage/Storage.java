@@ -2,6 +2,7 @@ package RC.storage;
 
 import RC.RCException;
 import RC.TaskList;
+import RC.UI.Ui;
 import RC.task.Deadline;
 import RC.task.Event;
 import RC.task.Task;
@@ -18,17 +19,24 @@ import java.nio.file.Paths;
 public class Storage {
     private static final String FILE_PATH = "data/tasks.txt";
     private final Path path = Paths.get("data");
-    private static void createDirectory(Path path) throws IOException {
-        System.out.println("\tDirectory doesn't exist. Creating directory...");
+    private static final String MESSAGE_DIRECTORY_MISSING = "\tDirectory doesn't exist. Creating directory...";
+    private static final String MESSAGE_WRITE_ERROR = "\tOOPS!!! Error writing to file.";
+    private static final String MESSAGE_LOAD_COMPLETE = "\tLoading is complete.";
+    private static final String MESSAGE_LOAD_ERROR = "\tError loading file. File might be corrupted, creating new file...";
+    private static final String MESSAGE_FILE_NOT_FOUND = "\tFile not found. Creating new file...";
+    private static final String MESSAGE_LOAD_FILE = "\tLoading existing file...";
+
+    private static void createDirectory(Path path, Ui ui) throws IOException {
+        ui.showMessage(MESSAGE_DIRECTORY_MISSING);
         Files.createDirectory(path);
     }
 
-    public Storage(String filePath) {
+    public Storage(String filePath, Ui ui) {
         if (!Files.exists(path)) {
             try {
-                createDirectory(path);
+                createDirectory(path, ui);
             } catch (IOException e) {
-                System.out.println("\tError: " + e.getMessage());
+                ui.showMessage("\tError: " + e.getMessage());
             }
         }
     }
@@ -37,61 +45,69 @@ public class Storage {
         write(tasks);
     }
 
-    public void load(TaskList taskList) throws RCException {
+    public void load(TaskList taskList, Ui ui) throws RCException {
         try {
             BufferedReader inputFile = new BufferedReader(new FileReader(FILE_PATH));
             String line;
-            System.out.println("\tLoading existing file...");
+            ui.showMessage(MESSAGE_LOAD_FILE);
 
             while ((line = inputFile.readLine()) != null) {
                 String[] split = line.split("\\|");
                 String command = split[0].trim();
-                String input;
-                String isDone = split[1].trim();
-                Task task;
-                switch (command) {
-                case "T":
-                    input = split[2].trim();
-                    task = new Todo(input);
-                    break;
-                case "D":
-                    input = split[2].trim();
-                    String byString = split[3].trim();
-                    task = new Deadline(input, byString);
-                    break;
-                case "E":
-                    input = split[2].trim();
-                    String fromString = split[3].trim();
-                    String toString = split[4].trim();
-                    task = new Event(input, fromString, toString);
-                    break;
-                default:
-                    throw new RCException("\tError loading file.");
-                }
-                if (isDone.equals("1")) {
-                    task.markAsDone();
-                }
+                final Task task = getTask(split, command);
                 taskList.load(task);
             }
             inputFile.close();
         } catch (IOException e) {
-            String message = "\tFile not found. Creating new file...";
-            throw new RCException(message);
+            throw new RCException(MESSAGE_FILE_NOT_FOUND);
+        } catch (IndexOutOfBoundsException e) {
+            throw new RCException(MESSAGE_LOAD_ERROR);
         }
-        System.out.println("\tLoading is complete.");
+
+        ui.showMessage(MESSAGE_LOAD_COMPLETE);
+    }
+
+    private static Task getTask(String[] split, String command) throws RCException {
+        String input;
+        String isDone = split[1].trim();
+        Task task;
+
+        switch (command) {
+        case "T":
+            input = split[2].trim();
+            task = new Todo(input);
+            break;
+        case "D":
+            input = split[2].trim();
+            String byString = split[3].trim();
+            task = new Deadline(input, byString);
+            break;
+        case "E":
+            input = split[2].trim();
+            String fromString = split[3].trim();
+            String toString = split[4].trim();
+            task = new Event(input, fromString, toString);
+            break;
+        default:
+            throw new RCException(MESSAGE_LOAD_ERROR);
+        }
+
+        if (isDone.equals("1")) { // anything not "1" will be counted as not done
+            task.markAsDone();
+        }
+        return task;
     }
 
     public static void write(TaskList taskList) throws RCException {
         try {
             FileWriter fr = new FileWriter(FILE_PATH);
-            for (int i = 0; i < taskList.tasks.size(); i++) {
-                String text = taskList.tasks.get(i).formatString() + "\n";
+            for (Task task : taskList.tasks) {
+                String text = task.formatString() + "\n";
                 fr.write(text);
             }
             fr.close();
         } catch (IOException e) {
-            String errorMessage = "\tOOPS!!! Error writing to file.";
-            throw new RCException(errorMessage);
+            throw new RCException(MESSAGE_WRITE_ERROR);
         }
     }
 }

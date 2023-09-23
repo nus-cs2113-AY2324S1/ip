@@ -2,6 +2,7 @@ package RC.command;
 
 import RC.RCException;
 import RC.TaskList;
+import RC.UI.Ui;
 
 public class Unmark extends RCCommand {
     private String index;
@@ -11,7 +12,7 @@ public class Unmark extends RCCommand {
     }
 
     @Override
-    public void execute(TaskList taskList) throws RCException {
-        taskList.unmarkTask(index);
+    public void execute(TaskList taskList, Ui ui) throws RCException {
+        taskList.unmarkTask(index, ui);
     }
 }

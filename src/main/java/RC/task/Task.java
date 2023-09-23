@@ -10,7 +10,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone ? "X" : " "); // returns "X" if task is done, " " otherwise
     }
 
     public String getDescription() {
