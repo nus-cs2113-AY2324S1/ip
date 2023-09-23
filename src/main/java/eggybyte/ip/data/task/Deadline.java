@@ -1,19 +1,13 @@
+package eggybyte.ip.data.task;
+
 public class Deadline extends Todo {
-    protected String by;
+    protected final static String type = "D";
+    public final String by;
 
     public Deadline(String description, String by) {
-        super(description);
+        super(description, type);
         this.by = by;
         isDone = false;
-        type = "D";
-    }
-
-    public String getBy() {
-        return by;
-    }
-
-    public void setBy(String by) {
-        this.by = by;
     }
 
     @Override

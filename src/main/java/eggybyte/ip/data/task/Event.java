@@ -1,12 +1,13 @@
+package eggybyte.ip.data.task;
+
 public class Event extends Todo {
-    protected String from, to;
+    protected final static String type = "E";
+    public String from, to;
 
     public Event(String description, String from, String to) {
-        super(description);
+        super(description, type);
         this.from = from;
         this.to = to;
-        isDone = false;
-        type = "E";
     }
 
     @Override

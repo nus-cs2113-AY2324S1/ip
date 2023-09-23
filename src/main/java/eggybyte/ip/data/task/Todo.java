@@ -1,11 +1,18 @@
+package eggybyte.ip.data.task;
+
 public class Todo extends Task {
+    protected final String description;
+    protected final String type;
     protected boolean isDone;
-    protected String type;
 
     public Todo(String description) {
-        super(description);
+        this(description, "T");
+    }
+
+    public Todo(String description, String type) {
+        this.description = description;
+        this.type = type;
         isDone = false;
-        type = "T";
     }
 
     public boolean isDone() {
