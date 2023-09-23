@@ -96,8 +96,14 @@ I've deleted the following task:
 You now have 2 tasks in the list!
 ____________________________________________________________
 User: ____________________________________________________________
+1. [E][X] an event working (from: A | to: Z)
+____________________________________________________________
+User: ____________________________________________________________
+Invalid task number provided for deletion...
+____________________________________________________________
+User: ____________________________________________________________
 I've deleted the following task:
-	[D][ ] deadline task (by: Week 4)
+	[E][X] an event working (from: A | to: Z)
 You now have 1 task in the list!
 ____________________________________________________________
 User: ____________________________________________________________
@@ -110,12 +116,12 @@ User: ____________________________________________________________
 Invalid task number provided for deletion...
 ____________________________________________________________
 User: ____________________________________________________________
-I've deleted the following task:
-	[E][X] an event working (from: A | to: Z)
-You now have 0 task in the list!
+1. [D][ ] deadline task (by: Week 4)
 ____________________________________________________________
 User: ____________________________________________________________
-You have no tasks :D
+I've deleted the following task:
+	[D][ ] deadline task (by: Week 4)
+You now have 0 task in the list!
 ____________________________________________________________
 User: ____________________________________________________________
 Bye. Hope to see you again soon!

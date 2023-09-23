@@ -6,6 +6,8 @@ import com.gpt.dumpgpt.shared.Ui;
 import com.gpt.dumpgpt.task.Task;
 import com.gpt.dumpgpt.task.TaskManager;
 
+import java.util.ArrayList;
+
 public class DeleteTask extends AddTask {
     private static final String INVALID_TASK_ERROR_MESSAGE = "Invalid task number provided for deletion...";
     private static final String SUCCESS_PROMPT = "I've deleted the following task:";
@@ -26,6 +28,7 @@ public class DeleteTask extends AddTask {
         throwIfInvalidTask(task);
         if (taskManager.deleteTask(task)) {
             printSuccess(ui, SUCCESS_PROMPT, taskManager, task);
+            taskManager.setLastOperation(task);
             return;
         }
 
