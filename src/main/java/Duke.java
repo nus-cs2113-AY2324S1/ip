@@ -6,6 +6,11 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
+import classes.RemyException;
+import classes.Ui;
+import classes.Storage;
+import classes.Parser;
+import classes.TaskList;
 
 public class Duke {
 	static Ui ui;
@@ -21,7 +26,8 @@ public class Duke {
     		toDoList = new TaskList();
         	storage.checkForTextFile(toDoList);
     		ui.greetUser();
-            String command = ui.getUserCommand();
+            String userCommand = ui.getUserCommand();
+            Command command = parser.parse(userCommand);
             while (!command.equals("bye")) {
             	String strippedCommand = command.strip();
         		String[] userCmd = strippedCommand.split(" ");
@@ -46,11 +52,6 @@ public class Duke {
             		catch (NumberFormatException e) {
             			printLines();
                 		System.out.println("     Please specify the number of the task that you want to mark/unmark");
-                		printLines();
-                	}
-                	catch (NullPointerException e) {
-                		printLines();
-                		System.out.println("     Cannot mark/unmark a non-existent task");
                 		printLines();
                 	}
             		catch (ArrayIndexOutOfBoundsException e) {

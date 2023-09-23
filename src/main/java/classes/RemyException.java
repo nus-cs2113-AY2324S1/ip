@@ -1,3 +1,4 @@
+package classes;
 
 public class RemyException extends Exception {
 	

@@ -1,6 +1,8 @@
+package classes;
 import java.util.Scanner;
 
 import task.Task;
+import command.Command;
 
 public class Ui {
 	Scanner input = new Scanner(System.in);
