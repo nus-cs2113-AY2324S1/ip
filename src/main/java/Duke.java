@@ -13,6 +13,7 @@ import task.ToDo;
 
 public class Duke {
 	static ArrayList<Task> toDoList = new ArrayList<>();
+	static Ui ui = new Ui();
 	
     public static void main(String[] args) {
     	File dir = new File("data");
@@ -21,7 +22,7 @@ public class Duke {
     	
     	try {
     		FileWriter writeFile = new FileWriter("./data/toDoList.txt", true);
-    		greetUser();
+    		ui.greetUser();
             Scanner input = new Scanner(System.in);
             String command = input.nextLine();
             while (!command.equals("bye")) {
@@ -145,27 +146,12 @@ public class Duke {
             	command = input.nextLine();
                 }
                 
-            	sayGoodbye();
+            	ui.sayGoodbye();
                 input.close();
     	}
 		catch (IOException e) {
 			System.out.println(e);
 		}
-    }
-    
-    public static void greetUser() {
-    	 printLines();
-    	 System.out.println("\n"
-    	 		+ "    __________                      \n"
-    	 		+ "    \\______   \\ ____   _____ ___.__.\n"
-    	 		+ "     |       _// __ \\ /     <   |  |\n"
-    	 		+ "     |    |   \\  ___/|  Y Y  \\___  |\n"
-    	 		+ "     |____|_  /\\___  >__|_|  / ____|\n"
-    	 		+ "            \\/     \\/      \\/\\/     \n"
-    	 		+ "");
-         System.out.println("    Hello! I'm Remy");
-         System.out.println("    What can I do for you?");
-         printLines();
     }
     
     public static void printLines() {
@@ -190,12 +176,6 @@ public class Duke {
     	System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
     	printLines();
     	System.out.println();
-    }
-    
-    public static void sayGoodbye() {
-    	printLines();
-        System.out.println("    Bye. Hope to see you again soon!");
-        printLines();
     }
     
     public static void printToDoList() {
