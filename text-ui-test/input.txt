@@ -6,13 +6,17 @@ todo hi
 deadline
 deadline deadline task
 deadline bad /by
-deadline deadline task /by Week 4
+deadline deadline task /by 10/12/2022
+deadline deadline task /by 10/12/2022 16:00
 event
 event an event
 event an event      /from
-event an event      /from A
-event an event      /from A /to
-event an event working     /from A /to Z
+event an event      /from 10/12/2022 18:00
+event an event      /from 10/12/2022 18:00 /to
+event an event working     /from 10/12/2022 /to 10/12/2022 19:00
+event an event working     /from 10/12/2022 18:00 /to 10/12/2022
+event an event working     /from 10/12/2022 18:00 /to 10/12/2022 19:00
+event an event working     /from 10/12/2022 20:00 /to 10/12/2022 19:00
 list
 mark -1
 mark 0

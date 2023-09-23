@@ -46,7 +46,7 @@ public class AddTask extends Action {
         task.validate();
     }
 
-    private Task createNewTask() {
+    private Task createNewTask() throws DukeException {
         Command command = getCommand();
         switch (command.getCommandVerb()) {
         case "deadline":
