@@ -1,7 +1,9 @@
 package com.gpt.dumpgpt.action.impl;
 
 import com.gpt.dumpgpt.command.Command;
+
 import com.gpt.dumpgpt.shared.DukeException;
+import com.gpt.dumpgpt.shared.Ui;
 import com.gpt.dumpgpt.task.Task;
 import com.gpt.dumpgpt.task.TaskManager;
 
@@ -14,11 +16,11 @@ public class UnmarkTask extends MarkTask {
     }
 
     @Override
-    protected void execute() throws DukeException {
+    protected void execute(Ui ui) throws DukeException {
         TaskManager taskManager = new TaskManager();
         Task task = taskManager.getTask(getCommand());
         throwIfInvalidTask(PRINT_ACTION, task);
         task.unmarkDone();
-        printSuccess(PRINT_ACTION, task);
+        printSuccess(ui, PRINT_ACTION, task);
     }
 }

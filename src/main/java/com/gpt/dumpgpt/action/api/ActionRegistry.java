@@ -2,7 +2,7 @@ package com.gpt.dumpgpt.action.api;
 
 import com.gpt.dumpgpt.command.Command;
 import com.gpt.dumpgpt.shared.DukeException;
-import com.gpt.dumpgpt.shared.ProgramConstants;
+import com.gpt.dumpgpt.shared.Ui;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ActionRegistry {
+    public static final String UNKNOWN_COMMAND = "Unknown command...";
+    public static final String UNEXPECTED_ERROR = "Unexpected error when executing command...";
+    public static final String MISSING_INPUT = "Please provide an input!";
     private static ActionRegistry actionRegistry;
     private final HashMap<String, Constructor<? extends Action>> ACTIONS = new HashMap<>();
 
@@ -21,6 +24,7 @@ public class ActionRegistry {
 
     /**
      * Gets singleton instance of registry
+     *
      * @return ActionRegistry instance
      */
     public static ActionRegistry getRegistry() {
@@ -41,6 +45,7 @@ public class ActionRegistry {
     /**
      * Returns a list of valid action verbs
      * for an Action object
+     *
      * @param action Action object to extract verbs for
      * @return ArrayList of valid action verbs for action
      */
@@ -71,6 +76,7 @@ public class ActionRegistry {
 
     /**
      * Registers a given action with the registry
+     *
      * @param action action to be registered
      */
     public void registerAction(Action action) {
@@ -96,28 +102,29 @@ public class ActionRegistry {
      * <p>
      * If match found, constructions action object with
      * command object as parameter and executes the action.
+     *
      * @param command the command to be executed
      */
-    public void execute(Command command) {
+    public void execute(Command command, Ui ui) {
         if (command == null || command.isEmpty()) {
-            ProgramConstants.printWrapped("Please provide an input!");
+            ui.printWrapped(MISSING_INPUT);
             return;
         }
 
         String verb = command.getCommandVerb();
         Constructor<? extends Action> actionConstructor = ACTIONS.get(verb);
         if (actionConstructor == null) {
-            ProgramConstants.printWrapped("Unknown command...");
+            ui.printWrapped(UNKNOWN_COMMAND);
             return;
         }
 
         try {
             Action action = actionConstructor.newInstance(command);
-            action.execute();
+            action.execute(ui);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            System.out.println("Unexpected error when executing command...");
+            ui.printWrapped(UNEXPECTED_ERROR);
         } catch (DukeException e) {
-            ProgramConstants.printWrapped(e.toString());
+            ui.printWrapped(e.toString());
         }
     }
 }

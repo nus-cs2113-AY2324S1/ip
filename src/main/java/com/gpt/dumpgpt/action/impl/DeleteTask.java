@@ -2,6 +2,7 @@ package com.gpt.dumpgpt.action.impl;
 
 import com.gpt.dumpgpt.command.Command;
 import com.gpt.dumpgpt.shared.DukeException;
+import com.gpt.dumpgpt.shared.Ui;
 import com.gpt.dumpgpt.task.Task;
 import com.gpt.dumpgpt.task.TaskManager;
 
@@ -19,12 +20,12 @@ public class DeleteTask extends AddTask {
         return null;
     }
 
-    protected void execute() throws DukeException {
+    protected void execute(Ui ui) throws DukeException {
         TaskManager taskManager = new TaskManager();
         Task task = taskManager.getTask(getCommand());
         throwIfInvalidTask(task);
         if (taskManager.deleteTask(task)) {
-            printSuccess(SUCCESS_PROMPT, taskManager, task);
+            printSuccess(ui, SUCCESS_PROMPT, taskManager, task);
             return;
         }
 
@@ -34,6 +35,7 @@ public class DeleteTask extends AddTask {
 
     /**
      * Ensure task is non-null
+     *
      * @param task the task object to be checked
      * @throws DukeException exception with error message
      */

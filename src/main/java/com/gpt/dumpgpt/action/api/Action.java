@@ -2,6 +2,7 @@ package com.gpt.dumpgpt.action.api;
 
 import com.gpt.dumpgpt.command.Command;
 import com.gpt.dumpgpt.shared.DukeException;
+import com.gpt.dumpgpt.shared.Ui;
 
 public abstract class Action {
     private final String ACTION_VERB;
@@ -15,6 +16,7 @@ public abstract class Action {
     /**
      * Returns the command object passed when
      * constructing this action instance
+     *
      * @return Command object passed to constructor
      */
     protected Command getCommand() {
@@ -24,6 +26,7 @@ public abstract class Action {
     /**
      * Returns the action verb string passed when
      * constructing this action instance
+     *
      * @return action verb string
      */
     protected String getActionVerb() {
@@ -32,6 +35,7 @@ public abstract class Action {
 
     /**
      * Returns aliases associated with this action
+     *
      * @return string array of aliases
      */
     protected String[] getAliases() {
@@ -40,7 +44,8 @@ public abstract class Action {
 
     /**
      * Executes the action
+     *
      * @throws DukeException any exception from execution
      */
-    protected abstract void execute() throws DukeException;
+    protected abstract void execute(Ui ui) throws DukeException;
 }

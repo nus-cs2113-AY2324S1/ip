@@ -37,7 +37,7 @@ public class Task {
         return getNameWithStatus();
     }
 
-    protected Serializer serialize() throws DukeException {
+    public Serializer serialize() throws DukeException {
         Serializer serializer = new Serializer();
         serializer.setType(type);
         serializer.putBoolean(isDone);
@@ -45,7 +45,7 @@ public class Task {
         return serializer;
     }
 
-    protected void deserialize(Serializer serializer) throws DukeException, IOException {
+    public void deserialize(Serializer serializer) throws DukeException, IOException {
         if (!serializer.getType().equals(type)) {
             throw new DukeException("Unexpected type...");
         }

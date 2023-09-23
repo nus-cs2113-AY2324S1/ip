@@ -4,6 +4,7 @@ import com.gpt.dumpgpt.action.api.Action;
 import com.gpt.dumpgpt.command.Command;
 import com.gpt.dumpgpt.shared.DukeException;
 import com.gpt.dumpgpt.shared.ProgramConstants;
+import com.gpt.dumpgpt.shared.Ui;
 import com.gpt.dumpgpt.task.Deadline;
 import com.gpt.dumpgpt.task.Event;
 import com.gpt.dumpgpt.task.Task;
@@ -30,12 +31,12 @@ public class AddTask extends Action {
         return ALIASES;
     }
 
-    protected void execute() throws DukeException {
+    protected void execute(Ui ui) throws DukeException {
         TaskManager taskManager = new TaskManager();
         Task task = createNewTask();
         throwIfInvalidTask(task);
         taskManager.addTask(task);
-        printSuccess(SUCCESS_PROMPT, taskManager, task);
+        printSuccess(ui, SUCCESS_PROMPT, taskManager, task);
     }
 
     private static void throwIfInvalidTask(Task task) throws DukeException {
@@ -60,19 +61,20 @@ public class AddTask extends Action {
 
     /**
      * Prints a standard success message
-     * @param prompt string that will be printed as the before
-     *               the standard task summary lines
+     *
+     * @param prompt      string that will be printed as the before
+     *                    the standard task summary lines
      * @param taskManager instance of TaskManager
-     * @param task the task that was operated upon
+     * @param task        the task that was operated upon
      */
-    protected void printSuccess(String prompt, TaskManager taskManager, Task task) {
+    protected void printSuccess(Ui ui, String prompt, TaskManager taskManager, Task task) {
         int tasksCount = taskManager.getTasks().size();
         String taskSummary = String.format(
                 "You now have %d %s in the list!",
                 tasksCount,
                 (tasksCount > 1) ? "tasks" : "task"
         );
-        ProgramConstants.printWrapped(new String[]{
+        ui.printWrapped(new String[]{
                 prompt,
                 "\t" + task.toString(),
                 taskSummary
