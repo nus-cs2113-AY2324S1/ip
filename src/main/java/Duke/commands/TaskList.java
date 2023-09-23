@@ -152,14 +152,14 @@ public class TaskList {
     public void addFile(Task toAdd) throws IOException {
             if (toAdd.taskType[0] == "T") {
                 appendToFile(taskListFile, Arrays.toString(toAdd.taskType) + "/" +
-                        Arrays.toString(toAdd.markAsDone) + "/ " +  toAdd.toBeDone  + "/ / " + System.lineSeparator());
+                        Arrays.toString(toAdd.markAsDone) + "/ " +  toAdd.toBeDone.trim()  + "/ / " + System.lineSeparator());
             } else if (toAdd.taskType[0] == "D") {
                 appendToFile(taskListFile, Arrays.toString(toAdd.taskType) +"/" +
-                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone + "/"
+                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone.trim() + "/"
                         + " (by:" + toAdd.dueDate +"/ "  + ")" + System.lineSeparator());
             } else if (toAdd.taskType[0] == "E") {
                 appendToFile(taskListFile, Arrays.toString(toAdd.taskType)  + "/" +
-                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone + "/"
+                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone.trim() + "/"
                         + " (from: "  + toAdd.startTime + "/"
                         + " to: " + toAdd.endTime + "/"+  ")" + System.lineSeparator());
             }
