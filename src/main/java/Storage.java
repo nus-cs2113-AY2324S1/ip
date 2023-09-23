@@ -2,34 +2,29 @@ import neo.task.Deadline;
 import neo.task.Event;
 import neo.task.Task;
 import neo.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Storage {
-    private final String filePath;
-    private final String fileDirectory;
+public abstract class Storage {
+    private final static String filePath = "data/data.txt";
+    private final static String fileDirectory = "data";
 
-    public Storage(String filePath, String fileDirectory) {
-        this.filePath = filePath;
-        this.fileDirectory = fileDirectory;
-    }
-    private boolean checkMarked(int mark) {
+    private static boolean checkMarked(int mark) {
         return (mark == 1);
     }
 
-    public void findFile(ArrayList<Task> list) {
+    public static void findFile(ArrayList<Task> list) {
         try {
-            generateFile(filePath, fileDirectory, list);
+            generateFile(list);
         } catch (IOException e) {
             System.out.println("Error with data.txt file");
         }
     }
 
-    private void generateFile(String filePath, String fileDirectory, ArrayList<Task> list) throws IOException {
+    private static void generateFile(ArrayList<Task> list) throws IOException {
         File directory = new File(fileDirectory);
 
         if (directory.mkdir()) {
@@ -44,7 +39,7 @@ public class Storage {
         readFile(list, s);
     }
 
-    private void readFile(ArrayList<Task> list, Scanner s) {
+    private static void readFile(ArrayList<Task> list, Scanner s) {
         while (s.hasNext()) {
             String line = s.nextLine();
             String[] task = line.split(" / ");
@@ -71,14 +66,14 @@ public class Storage {
             }
         }
     }
-    public void updateFile(ArrayList<Task> list) {
+    public static void updateFile(ArrayList<Task> list) {
         try {
-            writeToFile(filePath, list);
+            writeToFile(list);
         } catch (IOException e) {
             System.out.println("Error with data.txt file.");
         }
     }
-    private void writeToFile(String filePath, ArrayList<Task> list) throws IOException {
+    private static void writeToFile(ArrayList<Task> list) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 
         for (Task task : list) {
