@@ -20,7 +20,7 @@ public class Ui {
         return in.nextLine().trim();
     }
 
-    public void println(String str) {
+    private void println(String str) {
         System.out.println(str);
     }
 
@@ -50,16 +50,32 @@ public class Ui {
         printDivider();
         int numTasks = tasks.getSize();
         if(numTasks == 0) {
-        println("You have no tasks in your list."); 
+            println("You have no tasks in your list."); 
         }
         else {
             println("Here are the tasks in your list:");
-            for(int i = 0; i < numTasks ; i++) {
+            for(int i = 0; i < numTasks; i++) {
                 println(tasks.getTaskAt(i).toString());
             }
         }
         printDivider();
     }
+
+    public void printFound(TaskList foundTasks) {
+        printDivider();
+        int numTasks = foundTasks.getSize();
+        if(numTasks == 0) {
+            println("You have no matching tasks in your list.");
+        }
+        else {
+            println("Here are the matching tasks in your list:");
+            for(int i = 0; i < numTasks; i++) {
+                println(foundTasks.getTaskAt(i).toString());
+            }
+        }
+        printDivider();
+    }
+
     /**
      * Prints a message to indicate that a task has been marked as done.
      *
@@ -121,7 +137,7 @@ public class Ui {
         printDivider();
     }
 
-    public void printDivider() {
+    private void printDivider() {
         String divider = "-".repeat(60);
         println(divider);
     }
