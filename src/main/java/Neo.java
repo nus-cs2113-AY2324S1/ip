@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import neo.task.Task;
 import neo.util.Parser;
 import neo.util.Storage;
-import neo.util.TaskList;
+import neo.task.TaskList;
 import neo.util.Ui;
 
 public class Neo {

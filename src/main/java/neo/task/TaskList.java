@@ -1,10 +1,6 @@
-package neo.util;
+package neo.task;
 
 import neo.exception.NeoException;
-import neo.task.Deadline;
-import neo.task.Event;
-import neo.task.Task;
-import neo.task.Todo;
 import neo.type.CommandType;
 import neo.type.ErrorType;
 import java.util.ArrayList;
