@@ -1,10 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 
 import task.Deadline;
 import task.Event;
@@ -14,14 +11,12 @@ import task.ToDo;
 public class Duke {
 	static ArrayList<Task> toDoList = new ArrayList<>();
 	static Ui ui = new Ui();
+	static Storage storage;
 	
     public static void main(String[] args) {
-    	File dir = new File("data");
-		File textFile = new File("./data/toDoList.txt");
-    	checkForTextFile(dir, textFile);
-    	
     	try {
-    		FileWriter writeFile = new FileWriter("./data/toDoList.txt", true);
+    		storage = new Storage("data", "./data/toDoList.txt");
+        	storage.checkForTextFile(toDoList);
     		ui.greetUser();
             Scanner input = new Scanner(System.in);
             String command = input.nextLine();
@@ -37,13 +32,11 @@ public class Duke {
             			if (userCmd[0].equals("mark")) {
                 			toDoList.get(index).setDone(true);
                 			System.out.println("     Nice! I've marked this task as done:");
-                			textFile = markTaskFromFile(textFile, index, true);
-                			writeFile = new FileWriter(textFile, true);
+                			storage.markTaskFromFile(index, true);
                 		} else {
                 			toDoList.get(index).setDone(false);
                 			System.out.println("     OK, I've marked this task as not done yet:");
-                			textFile = markTaskFromFile(textFile, index, false);
-                			writeFile = new FileWriter(textFile, true);
+                			storage.markTaskFromFile(index, false);
                 		}
             			System.out.println("       " + toDoList.get(index));
             			System.out.println("    ____________________________________________________________");
@@ -72,8 +65,7 @@ public class Duke {
             			Task toDoTask = new ToDo(description);
             			addTask(toDoTask);
             			ToDo toDoTemp = (ToDo) toDoTask;
-            			writeToDoTaskToFile(writeFile, toDoTemp);
-                		writeFile.flush();
+            			storage.writeToDoTaskToFile(toDoTemp);
         			}
         			catch (RemyException e) {
         				printLines();
@@ -92,8 +84,7 @@ public class Duke {
             			Task deadlineTask = new Deadline(descAndDue[0], descAndDue[1]);
             			addTask(deadlineTask);
             			Deadline deadlineTemp = (Deadline) deadlineTask;
-            			writeDeadlineTaskToFile(writeFile, deadlineTemp);
-                		writeFile.flush();
+            			storage.writeDeadlineTaskToFile(deadlineTemp);
         			}
         			catch (RemyException e) {
         				printLines();
@@ -109,8 +100,7 @@ public class Duke {
             			Task eventTask = new Event(info[0], info[1], info[2]);
             			addTask(eventTask);
             			Event eventTemp = (Event) eventTask;
-            			writeEventTaskToFile(writeFile, eventTemp);
-                		writeFile.flush();
+            			storage.writeEventTaskToFile(eventTemp);
         			}
         			catch (RemyException e) {
         				printLines();
@@ -126,8 +116,7 @@ public class Duke {
         			try {
         				int index = Integer.valueOf(userCmd[1]) - 1;
             			deleteTask(index);
-            			textFile = deleteTaskFromFile(textFile, index);
-            			writeFile = new FileWriter(textFile, true);
+            			storage.deleteTaskFromFile(index);
         			}
         			catch (IndexOutOfBoundsException e) {
         				printLines();
@@ -149,9 +138,9 @@ public class Duke {
             	ui.sayGoodbye();
                 input.close();
     	}
-		catch (IOException e) {
-			System.out.println(e);
-		}
+    	catch (IOException e) {
+    		System.out.println("     File not found and could not be initialized to write to");
+    	}
     }
     
     public static void printLines() {
@@ -235,154 +224,5 @@ public class Duke {
     	printLines();
     	System.out.println("     Sorry I don't understand that command (◡︵◡)");
     	printLines();
-    }
-    
-    public static void createTaskListFile() {
-    	try {
-    		FileWriter outputFile = new FileWriter("./data/toDoList.txt");
-			outputFile.close();
-    	}
-    	catch (java.io.IOException e) {
-    		System.out.println(e);
-    	}
-    }
-    
-    public static void checkForTextFile(File dir, File textFile) {
-    	if (dir.exists() && textFile.exists()) {
-    		try {
-    			Scanner s = new Scanner(textFile);
-        		while (s.hasNextLine()) {
-        			textToTask(s.nextLine().split(","));
-        		}
-        		s.close();
-    		}
-    		catch (FileNotFoundException e) {
-    			System.out.println(e);
-    		}
-    	}
-    	if (!dir.exists()) {
-    		dir.mkdir();
-    	}
-    	if (!textFile.exists()) {
-    		createTaskListFile();
-    	}
-	}
-    
-    public static void writeToDoTaskToFile(FileWriter writeFile, ToDo task) {
-    	try {
-    		writeFile.write("todo," + task.getDescription() + ",o" + "\n");
-    	}
-    	catch (IOException e) {
-    		System.out.println(e);
-    	}
-    }
-    
-    public static void writeDeadlineTaskToFile(FileWriter writeFile, Deadline task) {
-    	try {
-    		writeFile.write("deadline," + task.getDescription() + "," + task.getDue() + ",o" + "\n");
-    	}
-    	catch (IOException e) {
-    		System.out.println(e);
-    	}
-    }
-    
-    public static void writeEventTaskToFile(FileWriter writeFile, Event task) {
-    	try {
-    		writeFile.write("event," + task.getDescription() + "," + task.getFrom() + "," + task.getTo() + ",o" + "\n");
-    	}
-    	catch (IOException e) {
-    		System.out.println(e);
-    	}
-    }
-    
-    public static void textToTask(String[] existingTask) {
-    	if (existingTask[0].equals("todo")) {
-    		Task toDoTask = new ToDo(existingTask[1]);
-    		if (existingTask[2].equals("x")) {
-    			toDoTask.setDone(true);
-    		}
-    		toDoList.add(toDoTask);
-    	} else if (existingTask[0].equals("deadline")) {
-    		Task deadlineTask = new Deadline(existingTask[1], existingTask[2]);
-    		if (existingTask[3].equals("x")) {
-    			deadlineTask.setDone(true);
-    		}
-    		toDoList.add(deadlineTask);
-    	} else if (existingTask[0].equals("event")) {
-    		Task eventTask = new Event(existingTask[1], existingTask[2], existingTask[3]);
-    		if (existingTask[4].equals("x")) {
-    			eventTask.setDone(true);
-    		}
-    		toDoList.add(eventTask);
-    	}
-    }
-    
-    public static File deleteTaskFromFile(File textFile, int taskIndex) {
-    	try {
-        	Scanner readFile = new Scanner(textFile);
-        	File tempFile = new File("./data/temp.txt");
-        	FileWriter tempWriter = new FileWriter(tempFile);
-        	
-        	int currIndex = 0;
-        	while (readFile.hasNextLine()) {
-    			String line = readFile.nextLine();
-        		if (currIndex != taskIndex) {
-            		tempWriter.write(line + "\n");
-        		}
-        		currIndex++;
-        	}
-        	readFile.close();
-        	tempWriter.close();
-        	textFile.delete();
-        	tempFile.renameTo(textFile);
-        	tempFile = new File("./data/toDoList.txt");
-        	return tempFile;
-    	}
-    	catch (FileNotFoundException e) {
-    		System.out.println(e);
-        	return textFile;
-    	}
-    	catch (IOException e) {
-    		System.out.println(e);
-        	return textFile;
-    	}
-    }
-    
-    public static File markTaskFromFile(File textFile, int taskIndex, boolean done) {
-    	try {
-        	Scanner readFile = new Scanner(textFile);
-        	File tempFile = new File("./data/temp.txt");
-        	FileWriter tempWriter = new FileWriter(tempFile);
-        	
-        	int currIndex = 0;
-        	while (readFile.hasNextLine()) {
-    			String line = readFile.nextLine();
-        		if (currIndex != taskIndex) {
-            		tempWriter.write(line + "\n");
-        		} else {
-        			if (done) {
-        				tempWriter.write(line.substring(0, line.length() - 1) + "x" + "\n");
-        			} else {
-        				tempWriter.write(line.substring(0, line.length() - 1) + "o" + "\n");
-        			}
-        			
-        		}
-        		currIndex++;
-        	}
-        	readFile.close();
-        	tempWriter.close();
-        	textFile.delete();
-        	tempFile.renameTo(textFile);
-        	tempFile = new File("./data/toDoList.txt");
-        	return tempFile;
-    	}
-    	catch (FileNotFoundException e) {
-    		System.out.println(e);
-        	return textFile;
-    	}
-    	catch (IOException e) {
-    		System.out.println(e);
-        	return textFile;
-    	}
     }
 }
