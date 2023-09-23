@@ -2,7 +2,7 @@ package torchie.storage;
 
 import torchie.exception.CorruptedFileException;
 import torchie.exception.TorchieException;
-import torchie.parser.TaskDurationParser;
+import torchie.parser.TaskDetailsParser;
 import torchie.task.TaskList;
 import torchie.task.Task;
 import torchie.task.ToDo;
@@ -90,7 +90,7 @@ public class DataManager {
         }
 
         Task task = null;
-        TaskDurationParser taskDurationParser = new TaskDurationParser();
+        TaskDetailsParser taskDetailsParser = new TaskDetailsParser();
 
         switch(taskType) {
         case "T":
@@ -99,7 +99,7 @@ public class DataManager {
         case "D":
             try {
                 String taskDuration =  taskDetails[3];
-                String date = taskDurationParser.getDeadlineDate(taskDuration);
+                String date = taskDetailsParser.getDeadlineDate(taskDuration);
                 task = new Deadline(taskDescription, date);
             } catch (TorchieException e) {
                 throw new CorruptedFileException();
@@ -108,8 +108,8 @@ public class DataManager {
         case "E":
             try {
                 String taskDuration =  taskDetails[3];
-                String eventStart = taskDurationParser.getEventStart(taskDuration);
-                String eventEnd = taskDurationParser.getEventEnd(taskDuration);
+                String eventStart = taskDetailsParser.getEventStart(taskDuration);
+                String eventEnd = taskDetailsParser.getEventEnd(taskDuration);
                 task = new Event(taskDescription, eventStart, eventEnd);
             } catch (TorchieException e) {
                 throw new CorruptedFileException();
