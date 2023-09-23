@@ -5,22 +5,22 @@ import duke.exceptions.*;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Echo  {
-    public Echo() {
+public class Ui  {
+    public Ui() {
 
     }
-     public static ToDoList newList;
+     public static TaskList newList;
 
     static {
         try {
-            newList = new ToDoList();
+            newList = new TaskList();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
 
-    public void echoBegin() throws DukeException, IOException {
+    public void UiBegin() throws DukeException, IOException {
         Scanner in = new Scanner(System.in);
         String text = in.next();
         if (text.equals("bye")) {
