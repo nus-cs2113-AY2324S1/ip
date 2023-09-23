@@ -1,54 +1,73 @@
 package com.gpt.dumpgpt;
 
 import com.gpt.dumpgpt.action.api.ActionRegistry;
-import com.gpt.dumpgpt.action.impl.*;
+import com.gpt.dumpgpt.action.impl.AddTask;
+import com.gpt.dumpgpt.action.impl.DeleteTask;
+import com.gpt.dumpgpt.action.impl.EndProgram;
+import com.gpt.dumpgpt.action.impl.ListTask;
+import com.gpt.dumpgpt.action.impl.MarkTask;
+import com.gpt.dumpgpt.action.impl.UnmarkTask;
 import com.gpt.dumpgpt.command.Command;
-import com.gpt.dumpgpt.shared.ApplicationState;
+import com.gpt.dumpgpt.command.Parser;
 import com.gpt.dumpgpt.shared.DukeException;
 import com.gpt.dumpgpt.shared.ProgramConstants;
-import com.gpt.dumpgpt.task.Task;
+import com.gpt.dumpgpt.shared.Storage;
+import com.gpt.dumpgpt.shared.Ui;
+import com.gpt.dumpgpt.task.TaskManager;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Duke {
-    private final static Scanner SCANNER = new Scanner(System.in);
+    private final String TASKS_FILE;
+    private final Ui UI;
 
     public static void main(String[] args) {
+        (new Duke("data/tasks.bin")).run();
+    }
+
+    public Duke(String tasksFile) {
+        TASKS_FILE = tasksFile;
+        UI = new Ui();
+    }
+
+    public void run() {
         restoreTasksSafely();
-        ProgramConstants.greet();
+        UI.greet();
         mainLoop();
     }
 
-    private static void restoreTasksSafely() {
+    private void restoreTasksSafely() {
         try {
-            Task.restoreTasks();
+            Storage storage = new Storage(TASKS_FILE);
+            TaskManager.restoreTasks(storage.restoreTasks());
         } catch (Exception e) {
-            ProgramConstants.printWrapped("Failed to restore old tasks...");
+            UI.printWrapped("Failed to restore old tasks...");
         }
     }
 
-    private static void saveTasksSafely() {
+    private void saveTasksSafely() {
         try {
-            Task.saveTasks();
+            TaskManager taskManager = new TaskManager();
+            Storage storage = new Storage(TASKS_FILE);
+            storage.saveTasks(taskManager.getTasks());
         } catch (IOException e) {
-            ProgramConstants.printWrapped("Failed to save tasks...");
+            UI.printWrapped("Failed to save tasks...");
         } catch (DukeException e) {
-            ProgramConstants.printWrapped(e.toString());
+            UI.printWrapped(e.toString());
         }
     }
 
-    public static void mainLoop() {
+    public void mainLoop() {
         ActionRegistry registry = registerActions();
-        ApplicationState state = ApplicationState.getAppState();
-        while (!state.getApplicationEnded()) {
-            Command userCommand = getCommand();
-            registry.execute(userCommand);
+        while (!ProgramConstants.getIsEnded()) {
+            String userInput = UI.getInput();
+            Command userCommand = Parser.parse(userInput);
+            registry.execute(userCommand, UI);
             saveTasksSafely();
         }
     }
 
-    public static ActionRegistry registerActions() {
+    public ActionRegistry registerActions() {
         ActionRegistry registry = ActionRegistry.getRegistry();
         registry.registerAction(new AddTask(null));
         registry.registerAction(new DeleteTask(null));
@@ -59,11 +78,4 @@ public class Duke {
         return registry;
     }
 
-    public static Command getCommand() {
-        System.out.print("User: ");
-        String userInput = SCANNER.nextLine();
-        Command userCommand = new Command(userInput);
-        userCommand.parse();
-        return userCommand;
-    }
 }
