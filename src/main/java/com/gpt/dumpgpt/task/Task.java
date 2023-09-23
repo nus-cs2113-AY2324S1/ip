@@ -1,11 +1,12 @@
 package com.gpt.dumpgpt.task;
 
 import com.gpt.dumpgpt.shared.DukeException;
+import com.gpt.dumpgpt.shared.Serializable;
 import com.gpt.dumpgpt.shared.Serializer;
 
 import java.io.IOException;
 
-public class Task {
+public class Task implements Serializable {
     protected String type;
     protected String name;
     protected Boolean isDone;
@@ -37,7 +38,7 @@ public class Task {
         return getNameWithStatus();
     }
 
-    public Serializer serialize() throws DukeException {
+    public Serializer serialize() throws DukeException, IOException {
         Serializer serializer = new Serializer();
         serializer.setType(type);
         serializer.putBoolean(isDone);
@@ -46,9 +47,7 @@ public class Task {
     }
 
     public void deserialize(Serializer serializer) throws DukeException, IOException {
-        if (!serializer.getType().equals(type)) {
-            throw new DukeException("Unexpected type...");
-        }
+        serializer.assertType(type);
         isDone = serializer.readBoolean();
         name = serializer.readString();
     }

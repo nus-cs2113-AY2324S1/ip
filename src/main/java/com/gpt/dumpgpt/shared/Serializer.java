@@ -1,5 +1,6 @@
 package com.gpt.dumpgpt.shared;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,6 +85,14 @@ public class Serializer {
         outputStream.write(BYTES_MARKER);
         outputStream.writeBytes(intToBytes(bytes.length));
         outputStream.writeBytes(bytes);
+        ++totalFields;
+    }
+
+    public void putSerializable(Serializable serializable) throws DukeException, IOException {
+        ByteArrayOutputStream serializableBytes = new ByteArrayOutputStream();
+        Serializer serializer = serializable.serialize();
+        serializer.writeObject(serializableBytes);
+        putBytes(serializableBytes.toByteArray());
         ++totalFields;
     }
 
@@ -214,6 +223,14 @@ public class Serializer {
         return readMarkedByteField('R');
     }
 
+    public Serializer readSerializable() throws DukeException, IOException {
+        byte[] objectBytes = readBytes();
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(objectBytes);
+        Serializer serializer = new Serializer(inputStream);
+        serializer.readObjectInfo();
+        return serializer;
+    }
+
     private void checkCanDeserialize() throws DukeException {
         if (inputStream == null) {
             throw new DukeException("Serializer instance not deserializable");
@@ -234,4 +251,9 @@ public class Serializer {
         return objectType;
     }
 
+    public void assertType(String type) throws DukeException {
+        if (!getType().equals(type)) {
+            throw new DukeException("Unexpected type...");
+        }
+    }
 }
