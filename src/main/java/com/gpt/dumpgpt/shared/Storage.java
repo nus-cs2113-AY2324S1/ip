@@ -3,7 +3,6 @@ package com.gpt.dumpgpt.shared;
 import com.gpt.dumpgpt.task.Deadline;
 import com.gpt.dumpgpt.task.Event;
 import com.gpt.dumpgpt.task.Task;
-import com.gpt.dumpgpt.task.TaskManager;
 import com.gpt.dumpgpt.task.Todo;
 
 import java.io.ByteArrayInputStream;

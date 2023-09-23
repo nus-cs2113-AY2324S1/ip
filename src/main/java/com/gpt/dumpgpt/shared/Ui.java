@@ -1,7 +1,5 @@
 package com.gpt.dumpgpt.shared;
 
-import com.gpt.dumpgpt.command.Command;
-import com.gpt.dumpgpt.command.Parser;
 import com.gpt.dumpgpt.task.TaskManager;
 
 import java.util.Scanner;

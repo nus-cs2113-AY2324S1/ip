@@ -1,7 +1,5 @@
 package com.gpt.dumpgpt.shared;
 
-import com.gpt.dumpgpt.task.TaskManager;
-
 public final class ProgramConstants {
     public static final int INVALID_POS_NUM = -1;
     private static boolean isEnded = false;
@@ -27,7 +25,6 @@ public final class ProgramConstants {
         }
         return taskNumber;
     }
-
 
     public static void setIsEnded(boolean newIsEnded) {
         isEnded = newIsEnded;

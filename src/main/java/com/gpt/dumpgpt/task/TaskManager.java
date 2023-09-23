@@ -42,6 +42,7 @@ public class TaskManager {
      * Restore tasks by setting {@link #TASKS} to provided ArrayList of tasks
      * <p>
      * Do nothing if {@link #TASKS} is not null
+     *
      * @param tasks tasks to restore
      */
     public static void restoreTasks(ArrayList<Task> tasks) {
