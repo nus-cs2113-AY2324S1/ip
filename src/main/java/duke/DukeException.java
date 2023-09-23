@@ -17,6 +17,11 @@ public class DukeException extends Exception {
         this.errMsg = errMsg;
     }
 
+    /**
+     * Constructs a DukeException with an error message based on the provided error message type.
+     *
+     * @param errMsgType The type of error message to generate.
+     */
     public DukeException(ErrorMessageType errMsgType) {
         switch (errMsgType) {
             case EMPTY_COMMAND:

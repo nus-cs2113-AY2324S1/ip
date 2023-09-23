@@ -170,6 +170,13 @@ public class Itay {
         } 
     }
 
+    /**
+     * Handles the find command to search for tasks containing a specified keyword in their descriptions.
+     *
+     * @param input      The user's input.
+     * @param splitInput An array containing the user's input.
+     * @throws DukeException If there's an issue with the find operation or input validation.
+     */
     public static void handleFind(String input, String[] splitInput) throws DukeException {
         validateActionCommand(splitInput);
         String keyword = splitInput[1];

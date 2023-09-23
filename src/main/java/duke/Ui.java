@@ -61,6 +61,11 @@ public class Ui {
         printDivider();
     }
 
+    /**
+     * Prints the list of tasks that match a specified keyword in their descriptions.
+     *
+     * @param foundTasks A TaskList containing tasks that match the keyword.
+     */
     public void printFound(TaskList foundTasks) {
         printDivider();
         int numTasks = foundTasks.getSize();
