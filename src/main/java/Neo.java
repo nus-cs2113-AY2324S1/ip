@@ -275,15 +275,7 @@ public class Neo {
             System.out.println("Error with data.txt file");
         }
     }
-    public static void welcomeMessage() {
-        System.out.println("Hello! I'm Neo.");
-        System.out.println("What can I do for you?");
 
-    }
-    public static String readInput() {
-        Scanner in = new Scanner(System.in);
-        return in.nextLine();
-    }
     private static void handleInput(String line, ArrayList<Task> list) {
         while (!line.equals("bye")) {
             if (line.equals("list")) {
@@ -304,7 +296,7 @@ public class Neo {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             updateFile(list);
-            line = readInput();
+            line = Ui.readInput();
         }
     }
 
@@ -316,15 +308,15 @@ public class Neo {
         }
     }
 
-    private static void byeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public static void run(ArrayList<Task> list) {
+        Ui.welcomeMessage();
+        String input = Ui.readInput();
+        handleInput(input, list);
+        Ui.byeMessage();
     }
     public static void main(String[] args) {
         ArrayList<Task> list = new ArrayList<>();
         findFile(list);
-        welcomeMessage();
-        String line = readInput();
-        handleInput(line, list);
-        byeMessage();
+        run(list);
     }
 }
