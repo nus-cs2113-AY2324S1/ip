@@ -31,5 +31,6 @@ public class Bot {
             command.execute(storage, ui, taskList);
             isExit = command.isExit();
         }
+        ui.printByeMessage();
     }
 }

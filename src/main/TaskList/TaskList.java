@@ -1,5 +1,6 @@
 package TaskList;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Task.Deadline;
@@ -29,20 +30,20 @@ public class TaskList {
         return task;
     }
 
-    public Deadline addDeadlineToList(String[] argumentList) {
-            Deadline deadline = new Deadline(argumentList[0], argumentList[1]);
+    public Deadline addDeadlineToList(String description, LocalDate by) {
+            Deadline deadline = new Deadline(description, by);
             taskList.add(deadline);
             return deadline;
     }
 
-    public Event addEventToList(String[] argumentList) {
-        Event event = new Event(argumentList[0], argumentList[1], argumentList[2]);
+    public Event addEventToList(String description, LocalDate from, LocalDate to) {
+        Event event = new Event(description, from, to);
         taskList.add(event);
         return event;
     }
 
-    public ToDo addToDoToList(String arguments) {
-        ToDo todo = new ToDo(arguments);
+    public ToDo addToDoToList(String description) {
+        ToDo todo = new ToDo(description);
         taskList.add(todo);
         return todo;
     }
@@ -51,6 +52,5 @@ public class TaskList {
         Task deletedTask = taskList.get(index);
         taskList.remove(index);
         return deletedTask;
-
     }
 }

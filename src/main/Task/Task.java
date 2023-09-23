@@ -1,9 +1,12 @@
 package Task;
 
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     
     private String name;
     private boolean isCompleted;
+    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM uuuu");
 
     public Task(String name) {
         this.name = name;
