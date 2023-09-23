@@ -5,12 +5,11 @@ import neo.task.Task;
 import neo.task.Todo;
 import neo.type.CommandType;
 import neo.type.ErrorType;
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
 public class Neo {
+    private final Storage storage;
+    private final ArrayList<Task> list = new ArrayList<>();
 
     public static void printList(ArrayList<Task> list) {
         int listIndex = 1;
@@ -212,71 +211,9 @@ public class Neo {
         list.add(toAdd);
         printAddedTask(list);
     }
-    public static boolean checkMarked(int mark) {
-        return (mark == 1);
-    }
-    public static void generateFile(String filePath, String fileDirectory, ArrayList<Task> list) throws IOException {
-        File directory = new File(fileDirectory);
 
-        if (directory.mkdir()) {
-            System.out.println("Creating new data folder...");
-        }
-        File f = new File(filePath);
-        if (f.createNewFile()) {
-            System.out.println("Creating new data.txt file...");
-        }
 
-        Scanner s = new Scanner(f);
-        readFile(list, s);
-    }
-
-    private static void readFile(ArrayList<Task> list, Scanner s) {
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            String[] task = line.split(" / ");
-            String taskType = task[0];
-            int mark = Integer.parseInt(task[1]);
-            boolean isMarked = checkMarked(mark);
-
-            switch (taskType) {
-            case "T":
-                Todo todo = new Todo(task[2]);
-                todo.setDone(isMarked);
-                list.add(todo);
-                break;
-            case "D":
-                Deadline deadline = new Deadline(task[2], task[3]);
-                deadline.setDone(isMarked);
-                list.add(deadline);
-                break;
-            case "E":
-                Event event = new Event(task[2], task[3], task[4]);
-                event.setDone(isMarked);
-                list.add(event);
-                break;
-            }
-        }
-    }
-
-    public static void writeToFile(String filePath, ArrayList<Task> list) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-
-        for (Task task : list) {
-            String formatTask = task.formatTask();
-            fw.write(formatTask + System.lineSeparator());
-        }
-        
-        fw.close();
-    }
-    private static void findFile(ArrayList<Task> list) {
-        try {
-            generateFile("data/data.txt", "data", list);
-        } catch (IOException e) {
-            System.out.println("Error with data.txt file");
-        }
-    }
-
-    private static void handleInput(String line, ArrayList<Task> list) {
+    private void handleInput(String line, ArrayList<Task> list) {
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 printList(list);
@@ -295,28 +232,25 @@ public class Neo {
             } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            updateFile(list);
+            storage.updateFile(list);
             line = Ui.readInput();
         }
     }
 
-    private static void updateFile(ArrayList<Task> list) {
-        try {
-            writeToFile("data/data.txt", list);
-        } catch (IOException e) {
-            System.out.println("Error with data.txt file.");
-        }
+
+
+    public Neo(String filePath, String fileDirectory) {
+        storage = new Storage(filePath, fileDirectory);
+        storage.findFile(list);
     }
 
-    public static void run(ArrayList<Task> list) {
+    public void run() {
         Ui.welcomeMessage();
         String input = Ui.readInput();
         handleInput(input, list);
         Ui.byeMessage();
     }
     public static void main(String[] args) {
-        ArrayList<Task> list = new ArrayList<>();
-        findFile(list);
-        run(list);
+        new Neo("data/data.txt", "data").run();
     }
 }
