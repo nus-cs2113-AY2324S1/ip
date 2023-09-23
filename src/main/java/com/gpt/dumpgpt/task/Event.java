@@ -1,6 +1,6 @@
 package com.gpt.dumpgpt.task;
 
-import com.gpt.dumpgpt.command.Parser;
+import com.gpt.dumpgpt.shared.DukeDateTime;
 import com.gpt.dumpgpt.shared.DukeException;
 import com.gpt.dumpgpt.shared.ProgramConstants;
 import com.gpt.dumpgpt.shared.Serializer;
@@ -10,28 +10,28 @@ import java.time.LocalDateTime;
 
 public class Event extends Task {
     private static final String TYPE = "Event";
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected DukeDateTime from;
+    protected DukeDateTime to;
 
     public Event(String name, String from, String to) throws DukeException {
         super(name, TYPE);
-        this.from = Parser.parseDateTime(from);
-        this.to = Parser.parseDateTime(to);
+        this.from = new DukeDateTime(from);
+        this.to = new DukeDateTime(to);
     }
 
     @Override
     public void validate() throws DukeException {
         super.validate();
 
-        if (from == null) {
+        if (from.getOriginalDatetime() == null) {
             throw new DukeException("From cannot be empty...");
         }
 
-        if (to == null) {
+        if (to.getOriginalDatetime() == null) {
             throw new DukeException("To cannot be empty...");
         }
 
-        if (from.isAfter(to)) {
+        if (from.getDateTime().isAfter(to.getDateTime())) {
             throw new DukeException("From cannot be set to after to...");
         }
     }
@@ -41,23 +41,25 @@ public class Event extends Task {
         return String.format(
                 "[E]%s (from: %s | to: %s)",
                 super.toString(),
-                this.from.format(ProgramConstants.DATETIME_PRINT_FORMATTER),
-                this.to.format(ProgramConstants.DATETIME_PRINT_FORMATTER)
+                this.from,
+                this.to
         );
     }
 
     @Override
-    public Serializer serialize() throws DukeException {
+    public Serializer serialize() throws DukeException, IOException {
         Serializer serializer = super.serialize();
-        serializer.putString(from.format(ProgramConstants.DATETIME_INPUT_FORMATTER));
-        serializer.putString(to.format(ProgramConstants.DATETIME_INPUT_FORMATTER));
+        serializer.putSerializable(from);
+        serializer.putSerializable(to);
         return serializer;
     }
 
     @Override
     public void deserialize(Serializer serializer) throws DukeException, IOException {
         super.deserialize(serializer);
-        from = LocalDateTime.parse(serializer.readString(), ProgramConstants.DATETIME_INPUT_FORMATTER);
-        to = LocalDateTime.parse(serializer.readString(), ProgramConstants.DATETIME_INPUT_FORMATTER);
+        from = new DukeDateTime();
+        from.deserialize(serializer.readSerializable());
+        to = new DukeDateTime();
+        to.deserialize(serializer.readSerializable());
     }
 }

@@ -56,19 +56,14 @@ public class Storage {
         try (FileInputStream inputStream = new FileInputStream(tasksFile)) {
             Serializer serializer = new Serializer(inputStream);
             serializer.readObjectInfo();
-            if (!serializer.getType().equals(SERIALIZER_TYPE)) {
-                throw new DukeException("Failed to restore old tasks...");
-            }
+            serializer.assertType(SERIALIZER_TYPE);
 
             ArrayList<Task> tasks = new ArrayList<>();
             int totalTasks = serializer.readInt();
-            byte[] tasksBytes = serializer.readBytes();
-            ByteArrayInputStream taskStream = new ByteArrayInputStream(tasksBytes);
 
-            Serializer tasksSerializer = new Serializer(taskStream);
             for (int i = 0; i < totalTasks; ++i) {
-                tasksSerializer.readObjectInfo();
-                Task task = readTask(tasksSerializer);
+                Serializer taskSerializer = serializer.readSerializable();
+                Task task = readTask(taskSerializer);
                 if (task == null) {
                     throw new DukeException("Failed to restore old tasks...");
                 }
@@ -91,14 +86,14 @@ public class Storage {
                 FileOutputStream outputStream = new FileOutputStream(tasksFile);
                 ByteArrayOutputStream tasksBytes = new ByteArrayOutputStream()
         ) {
-            for (Task task : tasks) {
-                task.serialize().writeObject(tasksBytes);
-            }
-
             Serializer serializer = new Serializer();
             serializer.setType(SERIALIZER_TYPE);
             serializer.putInt(tasks.size());
-            serializer.putBytes(tasksBytes.toByteArray());
+
+            for (Task task : tasks) {
+                serializer.putSerializable(task);
+            }
+
             serializer.writeObject(outputStream);
         }
     }

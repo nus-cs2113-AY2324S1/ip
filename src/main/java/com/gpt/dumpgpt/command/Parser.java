@@ -10,8 +10,6 @@ import java.util.ArrayList;
 public class Parser {
     private static final String OPTION_PREFIX = "/";
     private static final String TOKEN_DELIM = " ";
-    public static final String WRONG_DATETIME_FORMAT =
-            "Expects datetime format to be " + ProgramConstants.DATETIME_INPUT_FORMAT;
 
     public static Command parse(String userInput) {
         Command command = new Command();
@@ -21,18 +19,6 @@ public class Parser {
         setCommandVerb(command, tokens);
         collectArgumentsAndOptions(command, tokens);
         return command;
-    }
-
-    public static LocalDateTime parseDateTime(String userInput) throws DukeException {
-        if (userInput == null) {
-            return null;
-        }
-
-        try {
-            return LocalDateTime.parse(userInput, ProgramConstants.DATETIME_INPUT_FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw new DukeException(WRONG_DATETIME_FORMAT);
-        }
     }
 
     private static String[] getTokens(Command command) {
