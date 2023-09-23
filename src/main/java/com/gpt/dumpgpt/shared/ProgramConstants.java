@@ -34,7 +34,6 @@ public final class ProgramConstants {
         return taskNumber;
     }
 
-
     public static void setIsEnded(boolean newIsEnded) {
         isEnded = newIsEnded;
     }
