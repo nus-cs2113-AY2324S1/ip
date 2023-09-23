@@ -1,7 +1,20 @@
 package magpie.input;
 import magpie.exceptions.MagpieException;
+
+/**
+ * <b>InputValidator</b> class is responsible for validating parsed user input for each command e.g adding Deadline.<br>
+ * Ensures that the necessary arguments are present <i>(e.g /by)</i> and <code>int</code>
+ * can be parsed from <code>String</code>.<br>
+ * Throws <code>MagpieException</code> if validation fails.
+ */
 public class InputValidator {
 
+
+    /**
+     * Validates user input for adding a <code>Todo</code> Task by checking number of arguments.
+     *
+     * @throws MagpieException if splitInputs.length <= 1.
+     */
     public static void validateTodo() throws MagpieException {
 
         if (Parser.splitInputs.length <= 1) {
@@ -9,6 +22,12 @@ public class InputValidator {
         }
     }
 
+    /**
+     * Validates user input for adding a <code>Deadline</code> Task by checking number of arguments and if "/by" was
+     * given.
+     *
+     * @throws MagpieException if splitInputs.length <= 3 or if "/by" is missing.
+     */
     public static void validateDeadline() throws MagpieException {
 
         if (Parser.splitInputs.length <= 3) {
@@ -21,6 +40,13 @@ public class InputValidator {
             throw new MagpieException("Please specify a deadline using /by!");
         }
     }
+
+    /**
+     * Validates user input for adding a <code>Event</code> Task by checking number of arguments,
+     * and if "/from" and "/to" was given.
+     *
+     * @throws MagpieException if splitInputs.length <= 5 or if "/from" or "/to" is missing.
+     */
 
     public static void validateEvent() throws MagpieException {
 
@@ -44,12 +70,25 @@ public class InputValidator {
 
     }
 
+    /**
+     * Validate user input contains exactly one target by checking if number of arguments is 2.
+     *
+     * @throws MagpieException if splitInputs.length != 2
+     */
+
     public static void validateTargetIsPresent() throws MagpieException {
         if (Parser.splitInputs.length != 2) {
             throw new MagpieException("Please provide one target! e.g delete 2 or find book");
         }
     }
 
+
+    /**
+     * Validate if given String can be parsed into an Integer.
+     *
+     * @param input <code>String</code> input to be validated.
+     * @return <code>true</code> if input can be parsed, otherwise <code>false</code>.
+     */
     public static boolean isValidInt(String input) {
         int number = -1;
 

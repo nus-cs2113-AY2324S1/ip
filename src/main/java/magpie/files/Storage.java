@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileWriter;
 
-
+/**
+ * <b>Storage</b> class is responsible for loading tasks from the file and saving tasks in the file.<br>
+ * Contains methods to related to file operations such as reading, writing, and saving files.
+ */
 public class Storage {
 
     private static String filePath;
@@ -17,13 +20,14 @@ public class Storage {
 
     private Scanner scanFile;
 
-    private StringBuffer buffer;
-
     private static String taskFileContents = "";
 
     private String taskLine;
     private String[] splitTaskLines;
 
+    /**
+     * Checks if data/data.txt path exists and creates directory if it doesn't exist.
+     */
     public void createDirectory() {
         String directoryPath = System.getProperty("user.dir") + "/data";
         filePath = directoryPath + "/data.txt";
@@ -32,6 +36,11 @@ public class Storage {
             directory.mkdir();
         }
     }
+
+    /**
+     * Constructor that calls <code>createDirectory</code> and initializes <code>taskFile</code> for file handling.
+     * Creates a new <code>data.txt</code> file if not present.
+     */
     public Storage() {
 
         createDirectory();
@@ -51,12 +60,19 @@ public class Storage {
 
         }
         catch (IOException e) {
-            System.out.println("Hmmmm...an IOException occured. Check that data directory exists or try again!");
+            System.out.println("Hmmmm...an IOException occurred. Check that data directory exists or try again!");
         }
 
 
     }
 
+    /**
+     * Matches type of task in <code>TaskLine</code> to a <code>Switch case</code>.
+     * Pass required <code>Task</code> arguments and call its respective <code>add</code>
+     * methods to load task into list.
+     *
+     * @throws MagpieException if data file contains invalid task lines.
+     */
     public void addTaskLine() throws MagpieException {
         boolean isMark = !(splitTaskLines[1].trim().equals("0"));
         switch(splitTaskLines[0].trim()) {
@@ -75,14 +91,18 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads data file line by line using a <code>Scanner</code> object. For each line, retrieve
+     * Task Details by splitting using "|" and call <code>addTaskLine</code> to load task.
+     *
+     * @param taskManager taskManager TaskList object for task operations.
+     */
     public void loadFile(TaskList taskManager) {
 
         try {
             scanFile = new Scanner(taskFile);
-            buffer = new StringBuffer();
             while(scanFile.hasNext()){
                 taskLine = scanFile.nextLine();
-                buffer.append(taskLine+System.lineSeparator());
                 splitTaskLines = taskLine.split("\\|");
 
                 addTaskLine();
@@ -99,22 +119,44 @@ public class Storage {
 
     }
 
+    /**
+     * Appends details of a new <code>Task</code> to <code>taskFileContents</code>.
+     *
+     * @param newTask Task to be appended.
+     */
     public static void appendTaskToFile(String newTask) {
         taskFileContents += newTask + System.lineSeparator();
 
     }
 
+    /**
+     * Deletes details of a <code>Task</code> from <code>taskFileContents</code>.
+     *
+     * @param taskToDelete Task to be deleted.
+     */
     public static void deleteTaskFromFile(String taskToDelete) {
 
         taskFileContents = taskFileContents.replace(taskToDelete + "\r\n", "");
 
     }
-
+    /**
+     * Updates details of a <code>Task</code> in <code>taskFileContents</code>,
+     * typically to update mark or unmark status.
+     *
+     * @param oldLine Line to be replaced.
+     * @param newLine New Line to replace old Line.
+     */
     public static void updateTaskInFile(String oldLine, String newLine) {
         taskFileContents = taskFileContents.replace(oldLine, newLine);
 
     }
 
+    /**
+     * Writes <code>data.txt</code> with contents of <code>taskFileContents</code> to save all task details onto
+     * hard disk.
+     *
+     * @throws IOException if file writing was unsuccessful.
+     */
     public void saveToFile() throws IOException {
         FileWriter writer = new FileWriter(filePath);
 
