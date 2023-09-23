@@ -1,6 +1,9 @@
+import java.util.Scanner;
+
 import task.Task;
 
 public class Ui {
+	Scanner input = new Scanner(System.in);
 	
 	public void greetUser() {
     	 printLines();
@@ -25,6 +28,7 @@ public class Ui {
     	printLines();
         System.out.println("    Bye. Hope to see you again soon!");
         printLines();
+        endRemy();
     }
 	
 	public void printTaskAdded(Task task, TaskList toDoList) {
@@ -63,5 +67,13 @@ public class Ui {
     	printLines();
     	System.out.println("     Sorry I don't understand that command (◡︵◡)");
     	printLines();
+    }
+    
+    public String getUserCommand() {
+    	return input.nextLine();
+    }
+    
+    public void endRemy() {
+    	input.close();
     }
 }

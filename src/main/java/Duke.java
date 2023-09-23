@@ -8,19 +8,20 @@ import task.Task;
 import task.ToDo;
 
 public class Duke {
-	static TaskList toDoList;
 	static Ui ui;
 	static Storage storage;
+	static Parser parser;
+	static TaskList toDoList;
 	
     public static void main(String[] args) {
     	try {
     		ui = new Ui();
-    		toDoList = new TaskList();
     		storage = new Storage("data", "./data/toDoList.txt");
+        	parser = new Parser();
+    		toDoList = new TaskList();
         	storage.checkForTextFile(toDoList);
     		ui.greetUser();
-            Scanner input = new Scanner(System.in);
-            String command = input.nextLine();
+            String command = ui.getUserCommand();
             while (!command.equals("bye")) {
             	String strippedCommand = command.strip();
         		String[] userCmd = strippedCommand.split(" ");
@@ -137,11 +138,10 @@ public class Duke {
         			ui.invalidCommandResponse();
         		}
             	
-            	command = input.nextLine();
+            	command = ui.getUserCommand();
                 }
-                
+            
             	ui.sayGoodbye();
-                input.close();
     	}
     	catch (IOException e) {
     		System.out.println("     File not found and could not be initialized to write to");
