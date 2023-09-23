@@ -1,6 +1,14 @@
 package com.gpt.dumpgpt.shared;
 
+import java.time.format.DateTimeFormatter;
+
 public final class ProgramConstants {
+    public static final String DATETIME_INPUT_FORMAT = "dd/MM/yyyy HH:mm";
+    public static final DateTimeFormatter DATETIME_INPUT_FORMATTER =
+            DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
+    public static final String DATETIME_PRINT_FORMAT = "dd/MM/yyyy | hh:mma";
+    public static final DateTimeFormatter DATETIME_PRINT_FORMATTER =
+            DateTimeFormatter.ofPattern(DATETIME_PRINT_FORMAT);
     public static final int INVALID_POS_NUM = -1;
     private static boolean isEnded = false;
 

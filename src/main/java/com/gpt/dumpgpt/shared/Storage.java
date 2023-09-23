@@ -26,15 +26,15 @@ public class Storage {
         Task task = null;
         switch (type) {
         case "Todo":
-            task = new Todo("");
+            task = new Todo(null);
             task.deserialize(serializer);
             break;
         case "Deadline":
-            task = new Deadline("", "");
+            task = new Deadline(null, null);
             task.deserialize(serializer);
             break;
         case "Event":
-            task = new Event("", "", "");
+            task = new Event(null, null, null);
             task.deserialize(serializer);
             break;
         default:
