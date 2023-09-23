@@ -1,3 +1,5 @@
+package neo.util;
+
 import neo.exception.NeoException;
 import neo.task.Deadline;
 import neo.task.Event;

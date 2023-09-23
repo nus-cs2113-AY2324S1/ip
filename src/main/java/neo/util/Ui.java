@@ -1,3 +1,5 @@
+package neo.util;
+
 import java.util.Scanner;
 
 public abstract class Ui {
