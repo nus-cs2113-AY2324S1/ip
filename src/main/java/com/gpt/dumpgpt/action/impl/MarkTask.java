@@ -3,10 +3,11 @@ package com.gpt.dumpgpt.action.impl;
 import com.gpt.dumpgpt.action.api.Action;
 import com.gpt.dumpgpt.command.Command;
 import com.gpt.dumpgpt.shared.DukeException;
-import com.gpt.dumpgpt.shared.ProgramConstants;
 import com.gpt.dumpgpt.shared.Ui;
 import com.gpt.dumpgpt.task.Task;
 import com.gpt.dumpgpt.task.TaskManager;
+
+import java.util.ArrayList;
 
 public class MarkTask extends Action {
     private static final String ACTION_VERB = "mark";
@@ -52,5 +53,6 @@ public class MarkTask extends Action {
         throwIfInvalidTask(PRINT_ACTION, task);
         task.markDone();
         printSuccess(ui, PRINT_ACTION, task);
+        taskManager.setLastOperation(task);
     }
 }

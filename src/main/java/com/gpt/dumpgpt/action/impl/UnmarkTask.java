@@ -21,5 +21,6 @@ public class UnmarkTask extends MarkTask {
         throwIfInvalidTask(PRINT_ACTION, task);
         task.unmarkDone();
         printSuccess(ui, PRINT_ACTION, task);
+        taskManager.setLastOperation(task);
     }
 }
