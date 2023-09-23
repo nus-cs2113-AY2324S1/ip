@@ -37,6 +37,7 @@ public class AddTask extends Action {
         throwIfInvalidTask(task);
         taskManager.addTask(task);
         printSuccess(ui, SUCCESS_PROMPT, taskManager, task);
+        taskManager.setLastOperation(task);
     }
 
     private static void throwIfInvalidTask(Task task) throws DukeException {

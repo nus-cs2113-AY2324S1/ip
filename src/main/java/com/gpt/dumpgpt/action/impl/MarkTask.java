@@ -7,6 +7,8 @@ import com.gpt.dumpgpt.shared.Ui;
 import com.gpt.dumpgpt.task.Task;
 import com.gpt.dumpgpt.task.TaskManager;
 
+import java.util.ArrayList;
+
 public class MarkTask extends Action {
     private static final String ACTION_VERB = "mark";
     private static final String PRINT_ACTION = "done";
@@ -51,5 +53,6 @@ public class MarkTask extends Action {
         throwIfInvalidTask(PRINT_ACTION, task);
         task.markDone();
         printSuccess(ui, PRINT_ACTION, task);
+        taskManager.setLastOperation(task);
     }
 }

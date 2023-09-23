@@ -4,6 +4,7 @@ import com.gpt.dumpgpt.action.api.ActionRegistry;
 import com.gpt.dumpgpt.action.impl.AddTask;
 import com.gpt.dumpgpt.action.impl.DeleteTask;
 import com.gpt.dumpgpt.action.impl.EndProgram;
+import com.gpt.dumpgpt.action.impl.FindTask;
 import com.gpt.dumpgpt.action.impl.ListTask;
 import com.gpt.dumpgpt.action.impl.MarkTask;
 import com.gpt.dumpgpt.action.impl.UnmarkTask;
@@ -75,6 +76,7 @@ public class Duke {
         registry.registerAction(new MarkTask(null));
         registry.registerAction(new UnmarkTask(null));
         registry.registerAction(new EndProgram(null));
+        registry.registerAction(new FindTask(null));
         return registry;
     }
 
