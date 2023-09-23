@@ -1,6 +1,6 @@
-package simon.UI;
+package UI;
 
-import simon.task.Task;
+import task.Task;
 import java.util.ArrayList;
 
 public class Printer {

@@ -1,25 +1,25 @@
-package simon;
-
-import simon.exception.*;
-import simon.task.*;
-import static simon.UI.Printer.*;
-import static simon.command.Commands.*;
-import java.io.File;
+import exception.*;
+import task.*;
+import static UI.Printer.*;
+import static commands.TaskCommands.*;
 import java.util.Scanner;
 import java.util.ArrayList;
-import static simon.data.Commands.*;
-import static simon.data.Parser.*;
+import static commands.DataCommands.*;
+import static data.Parser.*;
+import static data.FilePath.SimonFilePath.simontxtFilePath;
 
 public class Simon {
     public static void main(String[] args) {
         //Initialise variables
         String userInput = "";
-        if(!isFileExist("src/main/java/simon/data/simon.txt")) {
+
+        if(!isFileExist(simontxtFilePath)) {
             System.out.println("\t" + line);
             System.out.println("\tsimon.txt does not exist, please create simon.txt in the 'data' package");
             System.out.println("\t" + line);
+            return;
         }
-        ArrayList<Task> tasks = readToList("src/main/java/simon/data/simon.txt");
+        ArrayList<Task> tasks = readToList(simontxtFilePath);
 
         //Print out greeting when user starts the program.
         printGreeting();

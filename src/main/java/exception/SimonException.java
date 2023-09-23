@@ -1,4 +1,4 @@
-package simon.exception;
+package exception;
 
 public class SimonException extends Exception{
 }

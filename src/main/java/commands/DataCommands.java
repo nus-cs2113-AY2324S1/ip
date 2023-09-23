@@ -1,4 +1,4 @@
-package simon.data;
+package commands;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Commands {
+public class DataCommands {
     public static void addTextToFile(String filePath, String textToAdd) {
         try {
             // Create a FileWriter object with the specified file path in append mode (true).

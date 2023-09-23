@@ -1,6 +1,6 @@
-package simon.data;
+package data;
 
-import simon.task.*;
+import task.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

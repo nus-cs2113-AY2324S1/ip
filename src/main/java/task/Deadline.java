@@ -1,4 +1,4 @@
-package simon.task;
+package task;
 
 public class Deadline extends Task {
 
