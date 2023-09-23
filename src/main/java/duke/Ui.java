@@ -15,7 +15,7 @@ public class Ui {
         return in.nextLine().trim();
     }
 
-    public void println(String str) {
+    private void println(String str) {
         System.out.println(str);
     }
 
@@ -99,7 +99,7 @@ public class Ui {
 
     }
 
-    public void printDivider() {
+    private void printDivider() {
         String divider = "-".repeat(60);
         println(divider);
     }

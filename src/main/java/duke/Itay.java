@@ -15,7 +15,7 @@ public class Itay {
         p = new Parser();
     }
 
-    public void run() throws DukeException {
+    private void run() throws DukeException {
         ui.printIntro();
 
         while(true) {
@@ -141,13 +141,13 @@ public class Itay {
         throw new DukeException(ErrorMessageType.INVALID_INDICATOR);
     }
     
-    public static void addTask(Task task) throws DukeException {
+    private static void addTask(Task task) throws DukeException {
         tasks.addTask(task);
         storage.save(tasks);
         ui.printAddTask(task);
     }
 
-    public static int getTaskIndex(String[] splitInput) throws DukeException {
+    private static int getTaskIndex(String[] splitInput) throws DukeException {
         validateActionCommand(splitInput);
         int taskIdx;
         try {
@@ -161,7 +161,7 @@ public class Itay {
         return taskIdx;
     }
 
-    public static void validateActionCommand(String[] splitInput) throws DukeException {
+    private static void validateActionCommand(String[] splitInput) throws DukeException {
         if(splitInput.length > 2) {
             throw new DukeException(ErrorMessageType.INVALID_ACTION_COMMAND);
         }
