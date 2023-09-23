@@ -8,6 +8,9 @@ import java.io.IOException;
 import static duke.commands.Storage.loadFileContents;
 
 
+/**
+ * Represents entry point to the duke programme.
+ */
 public class Duke {
     public static void main(String[] args) throws DukeException, IOException ,FileNotFoundException{
 

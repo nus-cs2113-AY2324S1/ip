@@ -8,17 +8,20 @@ import java.util.Objects;
 import java.util.Scanner;
 import static duke.commands.Ui.newList;
 
+/**
+ * Represents a class to handle management of tasks to load
+ * into the duke.txt file.
+ */
 public class Storage {
 
-    public static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-    }
-
+    /**
+     * Loads task information from hard drive into task-list.
+     * Enables user to save previously inputted tasks.
+     *
+     *
+     * @param filePath relative path of file duke.txt.
+     * @throws FileNotFoundException If file is not found.
+     */
     public static void loadFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner reader = new Scanner(f);
