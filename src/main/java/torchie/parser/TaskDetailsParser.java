@@ -2,8 +2,23 @@ package torchie.parser;
 
 import torchie.exception.TorchieException;
 
-public class TaskDurationParser {
-    public TaskDurationParser() {
+public class TaskDetailsParser {
+    public TaskDetailsParser() {
+    }
+
+    public String getContent(String s) {
+        // split sentence into 2 parts, first word and everything else
+        String[] words = s.split(" ", 2);
+
+        // making sure content stops before the key characters such as /
+        String content = words[1];
+
+        if (content.indexOf('/') != -1) {
+            int keyWordIndex = content.indexOf('/');
+            content = content.substring(0, keyWordIndex - 1);
+        }
+
+        return content;
     }
 
     public String getDeadlineDate(String s) throws TorchieException {

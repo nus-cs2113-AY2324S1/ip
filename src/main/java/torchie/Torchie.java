@@ -1,5 +1,7 @@
 package torchie;
 
+import torchie.exception.InvalidFormatException;
+import torchie.parser.TaskDetailsParser;
 import torchie.storage.DataManager;
 import torchie.exception.TorchieException;
 import torchie.task.Deadline;
@@ -7,91 +9,17 @@ import torchie.task.Event;
 import torchie.task.Task;
 import torchie.task.TaskList;
 import torchie.task.ToDo;
-
 import java.util.Scanner;
 public class Torchie {
-
-    private static DataManager dataManager = new DataManager();
-    private static TaskList taskList = dataManager.retrieveData();
-
-    public static TaskList getTaskList() {
-        return taskList;
-    }
-
-    public static void addTask(Task t) {
-        taskList.addTask(t);
-    }
-
-    public static void showList() {
-        taskList.showTasks();
-    }
-
-    public static void announceListSize() {
-        System.out.println("Now you have " + taskList.getSize() + " task(s) in the list.");
-    }
-
-    public static String getContent(String s) {
-        // split sentence into 2 parts, first word and everything else
-        String[] words = s.split(" ", 2);
-
-        // making sure content stops before the key characters such as /
-        String content = words[1];
-
-        if (content.indexOf('/') != -1) {
-            int keyWordIndex = content.indexOf('/');
-            content = content.substring(0, keyWordIndex - 1);
-        }
-
-        return content;
-    }
-
-    public static String getDeadlineDate(String s) throws TorchieException {
-        int SIZE_OF_BUFFER = 4;
-        int keyWordIndex = s.indexOf('/');
-
-        if (keyWordIndex == -1) {
-            throw new TorchieException();
-        }
-        return s.substring(keyWordIndex + SIZE_OF_BUFFER);
-    }
-
-    public static String getEventStart(String s) throws TorchieException {
-        int SIZE_OF_BUFFER = 6;
-
-        // first occurrence of '/' character
-        int startTimeIndex = s.indexOf('/');
-        if (startTimeIndex == -1) {
-            throw new TorchieException();
-        }
-
-        // second occurrence of '/' character
-        int endTimeIndex = s.indexOf('/', startTimeIndex + 1);
-        return s.substring(startTimeIndex + SIZE_OF_BUFFER, endTimeIndex - 1);
-    }
-
-    public static String getEventEnd(String s) throws TorchieException {
-        int SIZE_OF_BUFFER = 4;
-
-        // first occurrence of '/' character
-        int startTimeIndex = s.indexOf('/');
-
-        // second occurrence of '/' character
-        int endTimeIndex = s.indexOf('/', startTimeIndex + 1);
-        if (endTimeIndex == -1) {
-            throw new TorchieException();
-        }
-        return s.substring(endTimeIndex + SIZE_OF_BUFFER);
-    }
-
     public static void main(String[] args) throws TorchieException {
+        // initialisation
+        DataManager dataManager = new DataManager();
+        TaskDetailsParser taskDetailsParser = new TaskDetailsParser();
+        TaskList taskList = dataManager.retrieveData();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Hello! I'm Torchie!");
-        System.out.println("What can I do for you?");
-        System.out.println("Let's play storetorchie today! You say something and I ll store it!");
-
+        taskList.start();
         String input;
-        int itemNum;
 
         do {
             input = scanner.nextLine();
@@ -99,30 +27,31 @@ public class Torchie {
 
             switch (firstWord) {
             case "list":
-                showList();
+                taskList.showTasks();
                 break;
             case "mark":
                 try {
-                    itemNum = Integer.parseInt(getContent(input)) - 1;
+                    String itemNum_str = taskDetailsParser.getContent(input);
+                    int itemNum = Integer.parseInt(itemNum_str) - 1;
                     taskList.markTask(itemNum);
                     dataManager.save(taskList);
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
-                            " index is an integer ");
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Invalid Format! Correct format: \"mark <index>\", where index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("Task number cannot exceed: <" + taskList.getSize() + ">");
+                    System.out.println("Task number to mark cannot exceed: <" + taskList.getSize() + ">");
                 }
                 break;
             case "unmark":
                 try {
-                    itemNum = Integer.parseInt(getContent(input)) - 1;
+                    String itemNum_str = taskDetailsParser.getContent(input);
+                    int itemNum = Integer.parseInt(itemNum_str) - 1;
                     taskList.unmarkTask(itemNum);
                     dataManager.save(taskList);
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Invalid Format! Correct format: \"unmark <index>\" where" +
                             " index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("Task number cannot exceed: <" + taskList.getSize() + ">");
+                    System.out.println("Task number to unmark cannot exceed: <" + taskList.getSize() + ">");
                 }
                 break;
             case "bye":
@@ -131,10 +60,12 @@ public class Torchie {
             case "todo":
                 ToDo td;
                 try {
-                    td = new ToDo(getContent(input));
-                    addTask(td);
+                    String taskDescription = taskDetailsParser.getContent(input);
+                    td = new ToDo(taskDescription);
+
+                    taskList.addTask(td);
                     td.announceTaskAdd();
-                    announceListSize();
+                    taskList.announceListSize();
                     dataManager.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: todo <read>");
@@ -142,10 +73,13 @@ public class Torchie {
                 break;
             case "deadline":
                 try {
-                    Deadline d = new Deadline(getContent(input), getDeadlineDate(input));
-                    addTask(d);
+                    String taskDescription = taskDetailsParser.getContent(input);
+                    String taskDeadline = taskDetailsParser.getDeadlineDate(input);
+                    Deadline d = new Deadline(taskDescription, taskDeadline);
+
+                    taskList.addTask(d);
                     d.announceTaskAdd();
-                    announceListSize();
+                    taskList.announceListSize();
                     dataManager.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
@@ -155,10 +89,14 @@ public class Torchie {
                 break;
             case "event":
                 try {
-                    Event e = new Event(getContent(input), getEventStart(input), getEventEnd(input));
-                    addTask(e);
+                    String taskDescription = taskDetailsParser.getContent(input);
+                    String taskEventStart = taskDetailsParser.getEventStart(input);
+                    String taskEventEnd = taskDetailsParser.getEventEnd(input);
+                    Event e = new Event(taskDescription, taskEventStart, taskEventEnd);
+
+                    taskList.addTask(e);
                     e.announceTaskAdd();
-                    announceListSize();
+                    taskList.announceListSize();
                     dataManager.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
@@ -169,14 +107,16 @@ public class Torchie {
                 break;
             case "delete":
                 try {
-                    itemNum = Integer.parseInt(getContent(input)) - 1;
+                    String itemNum_str = taskDetailsParser.getContent(input);
+                    int itemNum = Integer.parseInt(itemNum_str) - 1;
                     taskList.deleteTask(itemNum);
-                    announceListSize();
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid Format! Correct format: \"mark <index>\" where" +
+                    taskList.announceListSize();
+                    dataManager.save(taskList);
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Invalid Format! Correct format: \"delete <index>\" where" +
                             " index is an integer ");
                 } catch (NullPointerException e) {
-                    System.out.println("Task number cannot exceed: <" + taskList.getSize() + ">");
+                    System.out.println("Task number to delete cannot exceed: <" + taskList.getSize() + ">");
                 }
                 break;
             default:
@@ -187,3 +127,9 @@ public class Torchie {
 
     }
 }
+/**
+ * This method does something extremely useful ...
+ *
+ * @param
+ * @throws MyBusinessException if ... happens
+ */
