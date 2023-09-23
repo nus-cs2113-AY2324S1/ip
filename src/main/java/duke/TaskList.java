@@ -2,6 +2,11 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class represents a list of tasks in the Duke application.
+ * It manages tasks using Java's ArrayList methods, providing functionality to access,
+ * add, and remove tasks from the list.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -28,5 +33,5 @@ public class TaskList {
 
     public void removeTaskAt(int idx) {
         tasks.remove(idx);
-    }
+    }   
 }

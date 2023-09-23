@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * DukeException is a custom exception class specific to the Duke application.
+ * It is used to handle and propagate exceptions that occur during the execution of Duke's functionalities.
+ */
 public class DukeException extends Exception {
 
     private String errMsg;

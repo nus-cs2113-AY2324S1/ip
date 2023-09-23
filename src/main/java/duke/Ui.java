@@ -2,6 +2,11 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface for the Duke application.
+ * The Ui class handles interactions with the user, including reading commands,
+ * printing messages, and displaying task information.
+ */
 public class Ui {
 
     private TaskList tasks;
@@ -19,6 +24,9 @@ public class Ui {
         System.out.println(str);
     }
 
+    /**
+    * Prints the introductory message when the application starts.
+    */
     public void printIntro() {
         printDivider();
         println("Hello! I'm Itay!");
@@ -26,12 +34,18 @@ public class Ui {
         printDivider();
     }
 
+    /**
+    * Prints the exit message when the application terminates.
+    */
     public void printExit() {
         printDivider();
         println("Bye. Hope to see you again soon!");
         printDivider();
     }
 
+    /**
+    * Prints the list of tasks, including their descriptions and statuses.
+    */
     public void printList() {
         printDivider();
         int numTasks = tasks.getSize();
@@ -62,6 +76,11 @@ public class Ui {
         printDivider();
     }
 
+    /**
+     * Prints a message to indicate that a task has been marked as done.
+     *
+     * @param taskIdx The index of the task to mark.
+     */
     public void printMarked(int taskIdx) {
         printDivider();
         println("Nice! I've marked this task as done:");
@@ -69,6 +88,11 @@ public class Ui {
         printDivider();
     }
 
+    /**
+     * Prints a message to indicate that a task has been unmarked.
+     *
+     * @param taskIdx The index of the task to unmark.
+     */
     public void printUnmarked(int taskIdx) {
         printDivider();
         println("OK, I've marked this task as not done yet:");
@@ -76,6 +100,11 @@ public class Ui {
         printDivider();
     }
 
+    /**
+     * Prints a message to indicate that a task has been deleted from the task list.
+     *
+     * @param toDelete The task to delete.
+     */
     public void printDelete(Task toDelete) {
         printDivider();
         println("Got it. I've removed this task:");
@@ -84,6 +113,11 @@ public class Ui {
         printDivider();
     }
 
+    /**
+     * Prints a message to indicate that a task has been added to the task list.
+     *
+     * @param task The task to add.
+     */
     public void printAddTask(Task task) {
         printDivider();
         println("Got it. I've added this task:");   
@@ -92,11 +126,15 @@ public class Ui {
         printDivider();   
     }
 
+    /**
+    * Prints an exception message.
+    *
+    * @param exception The exception message to print.
+    */
     public void printException(String exception) {
         printDivider();
         println(exception);
         printDivider();
-
     }
 
     private void printDivider() {

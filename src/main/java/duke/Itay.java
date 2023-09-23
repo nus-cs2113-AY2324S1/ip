@@ -1,5 +1,13 @@
 package duke;
 
+/**
+ * Represents the main class for the Duke application.
+ * Duke is a task management program that allows users to add, delete, and manage tasks.
+ * Itay class initializes the application and provides methods to handle user commands.
+ * @author Itay Refaely
+ * @version 1.0
+ * @since 24/09/2023
+ */
 public class Itay {
     
     private static Storage storage;
@@ -7,6 +15,12 @@ public class Itay {
     private static Ui ui;
     private static Parser p;
 
+    /**
+     * Constructs a new instance of the Itay class.
+     *
+     * @param filePath The file path to be used for data storage.
+     * @throws DukeException If there is an issue initializing the storage or loading tasks.
+     */
     public Itay(String filePath) throws DukeException {
         storage = new Storage(filePath);
         // Load tasks from the data file at startup
@@ -51,6 +65,12 @@ public class Itay {
         ui.printList();
     }
 
+    /**
+     * Marks a task as done based on user input.
+     *
+     * @param splitInput An array containing the user's input.
+     * @throws DukeException If there's an error handling the mark operation.
+     */
     public static void handleMark(String[] splitInput) throws DukeException {
         int taskIdx = getTaskIndex(splitInput);
         tasks.getTaskAt(taskIdx).setStatus(true);
@@ -58,6 +78,12 @@ public class Itay {
         ui.printMarked(taskIdx);
     }
 
+    /**
+     * Unmarks a previously marked task as not done based on user input.
+     *
+     * @param splitInput An array containing the user's input.
+     * @throws DukeException If there's an error handling the unmark operation.
+     */
     public static void handleUnmark(String[] splitInput) throws DukeException {
         int taskIdx = getTaskIndex(splitInput);
         tasks.getTaskAt(taskIdx).setStatus(false);
@@ -65,6 +91,12 @@ public class Itay {
         ui.printUnmarked(taskIdx);
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param splitInput An array containing the user's input.
+     * @throws DukeException If there's an error handling the delete operation.
+     */
     public static void handleDelete(String[] splitInput) throws DukeException {
         int taskIdx = getTaskIndex(splitInput);
         Task toDelete = tasks.getTaskAt(taskIdx);
@@ -73,13 +105,26 @@ public class Itay {
         ui.printDelete(toDelete);
     }
 
+    /**
+     * Handles the addition of a Todo task to the task list.
+     *
+     * @param input      The user's input.
+     * @param splitInput An array containing the user's input.
+     * @throws DukeException If there's an error handling the Todo task.
+     */
     public static void handleTodo(String input, String[] splitInput) throws DukeException {
         String description = input.substring(input.indexOf(' ') + 1);
         Task task = new Task(description, 'T');
         addTask(task);
     }
 
-    public static void handleDeadline(String input, String[] splitInput) throws DukeException {
+    /**
+     * Handles the addition of a Deadline task to the task list.
+     *
+     * @param input The user's input.
+     * @throws DukeException If there's an error handling the Deadline task.
+     */
+    public static void handleDeadline(String input) throws DukeException {
         try {
             int firstSlashIdx = input.indexOf('/');
 
@@ -96,7 +141,13 @@ public class Itay {
         }
     }
 
-    public static void handleEvent(String input, String[] splitInput) throws DukeException {
+    /**
+     * Handles the addition of an Event task to the task list.
+     *
+     * @param input The user's input.
+     * @throws DukeException If there's an error handling the Event task.
+     */
+    public static void handleEvent(String input) throws DukeException {
         try {
             int firstSlashIdx = input.indexOf('/');
             int secondSlashIdx = input.indexOf('/', firstSlashIdx + 1);
@@ -111,7 +162,7 @@ public class Itay {
             temp = temp.substring(secondSlashIdx);
             String endTime = temp.substring(temp.indexOf(' '));
             endTime = endTime.trim();
-            
+
             task.setEventTime(startTime, endTime);
             addTask(task);
         } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
