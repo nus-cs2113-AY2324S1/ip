@@ -3,7 +3,9 @@ package com.gpt.dumpgpt.action.impl;
 import com.gpt.dumpgpt.action.api.Action;
 import com.gpt.dumpgpt.command.Command;
 import com.gpt.dumpgpt.shared.ProgramConstants;
+import com.gpt.dumpgpt.shared.Ui;
 import com.gpt.dumpgpt.task.Task;
+import com.gpt.dumpgpt.task.TaskManager;
 
 import java.util.ArrayList;
 
@@ -14,22 +16,23 @@ public class ListTask extends Action {
         super(command, ACTION_VERB);
     }
 
-    protected void execute() {
-        ArrayList<Task> tasks = Task.getTasks();
+    protected void execute(Ui ui) {
+        TaskManager taskManager = new TaskManager();
+        ArrayList<Task> tasks = taskManager.getTasks();
         if (tasks.isEmpty()) {
-            ProgramConstants.printWrapped("You have no tasks :D");
+            ui.printWrapped("You have no tasks :D");
             return;
         }
 
-        printTasks(tasks);
+        printTasks(ui, tasks);
     }
 
-    private void printTasks(ArrayList<Task> tasks) {
+    private void printTasks(Ui ui, ArrayList<Task> tasks) {
         int idx = 1;
-        ProgramConstants.printSeparator();
+        ui.printSeparator();
         for (Task task : tasks) {
             System.out.printf("%d. %s\n", idx++, task);
         }
-        ProgramConstants.printSeparator();
+        ui.printSeparator();
     }
 }

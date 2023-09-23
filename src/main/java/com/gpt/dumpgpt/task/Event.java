@@ -32,7 +32,7 @@ public class Event extends Task {
     }
 
     @Override
-    protected Serializer serialize() throws DukeException {
+    public Serializer serialize() throws DukeException {
         Serializer serializer = super.serialize();
         serializer.putString(from);
         serializer.putString(to);
@@ -40,7 +40,7 @@ public class Event extends Task {
     }
 
     @Override
-    protected void deserialize(Serializer serializer) throws DukeException, IOException {
+    public void deserialize(Serializer serializer) throws DukeException, IOException {
         super.deserialize(serializer);
         from = serializer.readString();
         to = serializer.readString();

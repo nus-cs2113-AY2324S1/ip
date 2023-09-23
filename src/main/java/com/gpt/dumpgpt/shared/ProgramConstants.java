@@ -1,16 +1,18 @@
 package com.gpt.dumpgpt.shared;
 
-import com.gpt.dumpgpt.task.Task;
+import com.gpt.dumpgpt.task.TaskManager;
 
 public final class ProgramConstants {
-    public static final String BOT_NAME = "DumbGPT";
-    public static final String SEPARATOR = "____________________________________________________________";
     public static final int INVALID_POS_NUM = -1;
+    private static boolean isEnded = false;
 
-    public static void printSeparator() {
-        System.out.println(SEPARATOR);
-    }
-
+    /**
+     * Parses a string into number if is valid
+     *
+     * @param number string to be parsed
+     * @return a positive integer if parsed string was valid
+     * otherwise, will return {@link #INVALID_POS_NUM}
+     */
     public static int parsePositiveNumber(String number) {
         int taskNumber = INVALID_POS_NUM;
 
@@ -26,26 +28,13 @@ public final class ProgramConstants {
         return taskNumber;
     }
 
-    public static void printWrapped(String printOut) {
-        printSeparator();
-        System.out.println(printOut);
-        printSeparator();
+
+    public static void setIsEnded(boolean newIsEnded) {
+        isEnded = newIsEnded;
     }
 
-    public static void printWrapped(String[] printOut) {
-        printSeparator();
-        for (String line : printOut) {
-            System.out.println(line);
-        }
-        printSeparator();
-    }
-
-    public static void greet() {
-        printWrapped(new String[]{
-                String.format("Hello I'm %s", ProgramConstants.BOT_NAME),
-                "What can I do for you?",
-                String.format("You currently have %d tasks!", Task.getTasks().size())
-        });
+    public static boolean getIsEnded() {
+        return isEnded;
     }
 
     private ProgramConstants() {
