@@ -1,3 +1,5 @@
+import task.Task;
+
 public class Ui {
 	
 	public void greetUser() {
@@ -23,5 +25,43 @@ public class Ui {
     	printLines();
         System.out.println("    Bye. Hope to see you again soon!");
         printLines();
+    }
+	
+	public void printTaskAdded(Task task, TaskList toDoList) {
+    	printLines();
+    	System.out.println("     Got it. I've added this task:");
+    	System.out.println("       " + task);
+    	System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
+    	printLines();
+    	System.out.println();
+	}
+	
+	public void printTaskRemoved(Task task, TaskList toDoList) {
+		printLines();
+    	System.out.println("     Noted. I've removed this task:");
+    	System.out.println("       " + task);
+    	System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
+    	printLines();
+    	System.out.println();
+	}
+	
+    public void printToDoList(TaskList toDoList) {
+    	printLines();
+    	if (!toDoList.isEmpty()) {
+    		System.out.println("     " + "Here's your tasks:");
+        	for (int i = 0; i < toDoList.size(); i++) {
+        		System.out.println("     " + Integer.toString(i + 1) + "." + toDoList.getTask(i));
+
+        	}
+    	} else {
+    		System.out.println("     You do not currently have any tasks!");
+    	}
+    	printLines();
+    }
+    
+    public void invalidCommandResponse() {
+    	printLines();
+    	System.out.println("     Sorry I don't understand that command (◡︵◡)");
+    	printLines();
     }
 }

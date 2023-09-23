@@ -9,7 +9,6 @@ import task.Event;
 import task.Task;
 import task.ToDo;
 
-import java.util.List;
 
 public class Storage {
 	private static File dir;
@@ -21,7 +20,7 @@ public class Storage {
 		textFile = new File(textFileName);
 	}
 
-	public void checkForTextFile(List<Task> taskList) throws IOException {
+	public void checkForTextFile(TaskList taskList) throws IOException {
 		if (dir.exists() && textFile.exists()) {
     		try {
     			Scanner s = new Scanner(textFile);
@@ -43,25 +42,25 @@ public class Storage {
 		writeFile = new FileWriter(textFile, true);
 	}
 
-    public static void textToTask(String[] existingTask, List<Task> taskList) {
+    public static void textToTask(String[] existingTask, TaskList taskList) {
     	if (existingTask[0].equals("todo")) {
     		Task toDoTask = new ToDo(existingTask[1]);
     		if (existingTask[2].equals("x")) {
     			toDoTask.setDone(true);
     		}
-    		taskList.add(toDoTask);
+    		taskList.addTask(toDoTask);
     	} else if (existingTask[0].equals("deadline")) {
     		Task deadlineTask = new Deadline(existingTask[1], existingTask[2]);
     		if (existingTask[3].equals("x")) {
     			deadlineTask.setDone(true);
     		}
-    		taskList.add(deadlineTask);
+    		taskList.addTask(deadlineTask);
     	} else if (existingTask[0].equals("event")) {
     		Task eventTask = new Event(existingTask[1], existingTask[2], existingTask[3]);
     		if (existingTask[4].equals("x")) {
     			eventTask.setDone(true);
     		}
-    		taskList.add(eventTask);
+    		taskList.addTask(eventTask);
     	}
     }
     

@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.IOException;
 
 import task.Deadline;
@@ -9,12 +8,14 @@ import task.Task;
 import task.ToDo;
 
 public class Duke {
-	static ArrayList<Task> toDoList = new ArrayList<>();
-	static Ui ui = new Ui();
+	static TaskList toDoList;
+	static Ui ui;
 	static Storage storage;
 	
     public static void main(String[] args) {
     	try {
+    		ui = new Ui();
+    		toDoList = new TaskList();
     		storage = new Storage("data", "./data/toDoList.txt");
         	storage.checkForTextFile(toDoList);
     		ui.greetUser();
@@ -24,21 +25,21 @@ public class Duke {
             	String strippedCommand = command.strip();
         		String[] userCmd = strippedCommand.split(" ");
             	if (command.equals("list")) {
-            		printToDoList();
+            		ui.printToDoList(toDoList);
             	} else if (userCmd[0].contains("mark")) {
             		try {
             			System.out.println("    ____________________________________________________________");
             			int index = Integer.parseInt(userCmd[1]) - 1;
             			if (userCmd[0].equals("mark")) {
-                			toDoList.get(index).setDone(true);
+                			toDoList.setTaskStatus(index, true);
                 			System.out.println("     Nice! I've marked this task as done:");
                 			storage.markTaskFromFile(index, true);
                 		} else {
-                			toDoList.get(index).setDone(false);
+                			toDoList.setTaskStatus(index, false);
                 			System.out.println("     OK, I've marked this task as not done yet:");
                 			storage.markTaskFromFile(index, false);
                 		}
-            			System.out.println("       " + toDoList.get(index));
+            			System.out.println("       " + toDoList.getTask(index));
             			System.out.println("    ____________________________________________________________");
             		}
             		catch (NumberFormatException e) {
@@ -63,7 +64,8 @@ public class Duke {
         				}
             			String description = String.join(" ", Arrays.copyOfRange(userCmd, 1, userCmd.length));
             			Task toDoTask = new ToDo(description);
-            			addTask(toDoTask);
+            			toDoList.addTask(toDoTask);
+            			ui.printTaskAdded(toDoTask, toDoList);
             			ToDo toDoTemp = (ToDo) toDoTask;
             			storage.writeToDoTaskToFile(toDoTemp);
         			}
@@ -82,7 +84,8 @@ public class Duke {
             				throw new RemyException("Error: Please specify a due date for this task with '/by'");
             			}
             			Task deadlineTask = new Deadline(descAndDue[0], descAndDue[1]);
-            			addTask(deadlineTask);
+            			toDoList.addTask(deadlineTask);
+            			ui.printTaskAdded(deadlineTask, toDoList);
             			Deadline deadlineTemp = (Deadline) deadlineTask;
             			storage.writeDeadlineTaskToFile(deadlineTemp);
         			}
@@ -98,7 +101,8 @@ public class Duke {
         					throw new RemyException("Error: Please input your event in the right format");
         				}
             			Task eventTask = new Event(info[0], info[1], info[2]);
-            			addTask(eventTask);
+            			toDoList.addTask(eventTask);
+            			ui.printTaskAdded(eventTask, toDoList);
             			Event eventTemp = (Event) eventTask;
             			storage.writeEventTaskToFile(eventTemp);
         			}
@@ -115,7 +119,8 @@ public class Duke {
         		} else if (userCmd[0].equals("delete")) {
         			try {
         				int index = Integer.valueOf(userCmd[1]) - 1;
-            			deleteTask(index);
+            			Task removed = toDoList.deleteTask(index);
+            			ui.printTaskRemoved(removed, toDoList);
             			storage.deleteTaskFromFile(index);
         			}
         			catch (IndexOutOfBoundsException e) {
@@ -129,7 +134,7 @@ public class Duke {
         				printLines();
         			}
         		} else {
-        			invalidCommandResponse();
+        			ui.invalidCommandResponse();
         		}
             	
             	command = input.nextLine();
@@ -145,40 +150,6 @@ public class Duke {
     
     public static void printLines() {
     	System.out.println("    ____________________________________________________________");
-    }
-    
-    public static void addTask(Task task) {
-    	toDoList.add(task);
-    	printLines();
-    	System.out.println("     Got it. I've added this task:");
-    	System.out.println("       " + task);
-    	System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
-    	printLines();
-    	System.out.println();
-    }
-    
-    public static void deleteTask(int index) {
-    	Task removed = toDoList.remove(index);
-    	printLines();
-    	System.out.println("     Noted. I've removed this task:");
-    	System.out.println("       " + removed);
-    	System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
-    	printLines();
-    	System.out.println();
-    }
-    
-    public static void printToDoList() {
-    	printLines();
-    	if (!toDoList.isEmpty()) {
-    		System.out.println("     " + "Here's your tasks:");
-        	for (int i = 0; i < toDoList.size(); i++) {
-        		System.out.println("     " + Integer.toString(i + 1) + "." + toDoList.get(i));
-
-        	}
-    	} else {
-    		System.out.println("     You do not currently have any tasks!");
-    	}
-    	printLines();
     }
     
     public static String[] getDeadlineDescription(String[] description) {
@@ -218,11 +189,5 @@ public class Duke {
 		}
     	String[] info = {desc.strip(), from.strip(), to.strip()};
     	return info;
-    }
-    
-    public static void invalidCommandResponse() {
-    	printLines();
-    	System.out.println("     Sorry I don't understand that command (◡︵◡)");
-    	printLines();
     }
 }
