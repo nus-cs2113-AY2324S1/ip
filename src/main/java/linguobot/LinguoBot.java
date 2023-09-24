@@ -1,82 +1,46 @@
 package linguobot;
 
 import linguobot.task.Task;
-import linguobot.command.LinguoBotException;
 import linguobot.command.CommandResponse;
 import linguobot.file.TaskFile;
 
-
 import java.util.Scanner;
 import java.util.ArrayList;
-
 public class LinguoBot {
+    private TaskFile taskFile;
+    private ArrayList<Task> taskList;
+    private Scanner in;
+
+    public LinguoBot() {
+        taskFile = new TaskFile("./data/tasks.txt");
+        taskList = taskFile.loadTasksFromFile();
+        in = new Scanner(System.in);
+    }
+
     public static void main(String[] args) {
-        String logo = " \n" +
-                "                                       \n" +
-                " __    _                 _____     _   \n" +
-                "|  |  |_|___ ___ _ _ ___| __  |___| |_ \n" +
-                "|  |__| |   | . | | | . | __ -| . |  _|\n" +
-                "|_____|_|_|_|_  |___|___|_____|___|_|  \n" +
-                "            |___|                      \n";
+        LinguoBot linguoBot = new LinguoBot();
+        linguoBot.run();
+    }
 
-        System.out.println("Hello I'm " + logo);
-        System.out.println("What can I do for you?");
-
-        TaskFile taskFile = new TaskFile("./data/tasks.txt");
-        ArrayList<Task> taskList = taskFile.loadTasksFromFile();
-
-        Scanner in = new Scanner(System.in);
-
+    public void run() {
+        CommandResponse.displayWelcomeMessage();
+        TaskFile.printFile();
         while (true) {
-            String line = in.nextLine();
-
-            if (line.equals("list")) {
+            String userInput = in.nextLine();
+            if (userInput.equals("list")) {
                 CommandResponse.printTaskList(taskList);
-            } else if (line.startsWith("mark")) {
-                int MARK_START_INDEX = 5;
-                int taskIndex = Integer.parseInt(line.substring(MARK_START_INDEX)) - 1;
-                try {
-                    CommandResponse.markTaskAsDone(taskList, taskIndex);
-                } catch (LinguoBotException e) {
-                    CommandResponse.printLine();
-                    System.out.println("Error: " + e.getMessage());
-                    CommandResponse.printLine();
-                }
-            } else if (line.startsWith("unmark")) {
-                int UNMARK_START_INDEX = 7;
-                int taskIndex = Integer.parseInt(line.substring(UNMARK_START_INDEX)) - 1;
-                try {
-                    CommandResponse.markTaskAsUndone(taskList, taskIndex);
-                } catch (LinguoBotException e) {
-                    CommandResponse.printLine();
-                    System.out.println("Error: " + e.getMessage());
-                    CommandResponse.printLine();
-                }
-            } else if (line.contains("delete")) {
-                int DELETE_START_INDEX = 7;
-                int taskIndex = Integer.parseInt(line.substring(DELETE_START_INDEX)) - 1;
-                try {
-                    CommandResponse.deleteTask(taskList, taskIndex);
-                } catch (LinguoBotException e) {
-                    CommandResponse.printLine();
-                    System.out.println("Error: " + e.getMessage());
-                    CommandResponse.printLine();
-                }
-            } else if (line.contains("bye")) {
-                CommandResponse.printLine();
-                System.out.println("Bye. Hope to see you again soon!");
-                CommandResponse.printLine();
+            } else if (userInput.startsWith("mark")) {
+                CommandResponse.markTaskAsDone(taskList, userInput);
+            } else if (userInput.startsWith("unmark")) {
+                CommandResponse.markTaskAsUndone(taskList, userInput);
+            } else if (userInput.contains("delete")) {
+                CommandResponse.deleteTask(taskList, userInput);
+            } else if (userInput.contains("bye")) {
+                CommandResponse.displayGoodbyeMessage();
                 break;
             } else {
-                try {
-                    CommandResponse.addTask(line, taskList);
-                } catch (LinguoBotException e) {
-                    CommandResponse.printLine();
-                    System.out.println("Error: " + e.getMessage());
-                    CommandResponse.printLine();
-                }
+                CommandResponse.addTask(userInput, taskList);
             }
         }
     }
-
 }

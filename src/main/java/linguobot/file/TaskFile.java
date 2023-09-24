@@ -8,63 +8,64 @@ import linguobot.task.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class TaskFile{
-    private File tasks;
+    private static File tasks;
 
-    public TaskFile (String filename) {
+    public TaskFile(String filename) {
         tasks = new File(filename);
+        createFile();
     }
 
-    public void createFile() {
+    private void createFile() {
         try {
-            if (tasks.exists()) {
-                System.out.println("file exists");
-                return;
+            if (!tasks.exists()) {
+                if (!tasks.getParentFile().exists()) {
+                    tasks.getParentFile().mkdirs();
+                }
+                tasks.createNewFile();
             }
-            if (!tasks.getParentFile().exists()) {
-                tasks.getParentFile().mkdirs();
-            }
-            tasks.createNewFile();
         } catch (IOException e) {
             System.out.println("Cannot create file; reason: " + e.getMessage());
         }
     }
 
-    private ArrayList readFile() throws IOException {
-        if (!tasks.exists()) {
-            createFile();
-        }
-        if (tasks.length() == 0) {
-            System.out.println("You do not have any prior tasks.");
-        }
-        else {
-            System.out.println("Your tasks are as follows:");
-            Scanner s = new Scanner(tasks); // Create a Scanner directly from the file
-            while (s.hasNextLine()) {
-                System.out.println(s.nextLine());
+    public ArrayList<String> readFile() {
+        ArrayList<String> dataItems = new ArrayList<>();
+
+        try (Scanner scanner = new Scanner(tasks)) {
+            while (scanner.hasNextLine()) {
+                dataItems.add(scanner.nextLine());
             }
-            s.close(); // Close the Scanner when done
+        } catch (IOException e) {
+            System.out.println("Error reading tasks from file: " + e.getMessage());
         }
-        ArrayList<String> dataItems = (ArrayList) Files.readAllLines(tasks.toPath(), Charset.defaultCharset());
 
         return dataItems;
     }
+    public static void printFile() {
+        try (Scanner scanner = new Scanner(tasks)) {
+            if (!scanner.hasNextLine()) {
+                System.out.println("You do not have any prior tasks.");
+            } else {
+                System.out.println("Your tasks are as follows:");
+                while (scanner.hasNextLine()) {
+                    System.out.println(scanner.nextLine());
+                }
+                scanner.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
 
-//    to load data from file into the taskList
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> taskList = null;
-        try {
-            ArrayList<String> dataItems = readFile();
-            taskList = parseTaskFromString(dataItems);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ArrayList<String> dataItems = readFile();
+        taskList = parseTaskFromString(dataItems);
         return taskList;
     }
 
@@ -133,6 +134,5 @@ public class TaskFile{
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
-
 
 }
