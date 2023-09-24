@@ -13,7 +13,6 @@ import java.util.Scanner;
 
 public class DukeFile {
     protected String fileName;
-    protected int taskCount = 0;
 
     public DukeFile() {
         this.fileName = "./data/duke.txt";
