@@ -40,11 +40,11 @@ Creates an Event task with the description `Music Concert` from `August 16` to `
 ### `Marking Tasks` - Mark tasks as done/undone
 All tasks can either be marked as done, or marked as undone.
 
-Command: `mark [TASK_NUMBER]`\
-Marks the nth task in the list as done.
+Command: `mark [N]`\
+Marks the Nth task in the list as done.
 
-Command: `unmark [TASK_NUMBER]`\
-Marks the nth task in the list as not done.
+Command: `unmark [N]`\
+Marks the Nth task in the list as not done.
 
 ### `Deleting Tasks` - Delete tasks from the list
 
