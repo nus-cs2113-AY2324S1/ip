@@ -20,11 +20,13 @@ public class Find extends RCCommand {
             throw new RCException(MESSAGE_EMPTY);
         }
 
+        int count = 1;
         ui.showMessage(MESSAGE_FIND_TASKS);
         for (Task task : taskList.tasks) {
             String taskDesc = task.toString();
             if (taskDesc.contains(keyword)) {
-                ui.showMessage("\t  " + taskDesc);
+                ui.showMessage("\t" + count + "." + taskDesc);
+                count++;
             }
         }
     }
