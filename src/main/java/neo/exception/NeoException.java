@@ -34,6 +34,7 @@ public class NeoException extends Exception {
             break;
         default:
             System.out.println("Unable to print exception.");
+            break;
         }
     }
 }

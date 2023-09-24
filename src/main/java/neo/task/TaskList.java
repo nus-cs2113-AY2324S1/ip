@@ -168,6 +168,7 @@ public abstract class TaskList {
             break;
         default:
             System.out.println("Unable to catch format error.");
+            break;
         }
     }
 
