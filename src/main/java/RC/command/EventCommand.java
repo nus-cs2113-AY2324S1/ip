@@ -9,7 +9,8 @@ public class EventCommand extends RCCommand {
     private String input;
     private static final String FROM_COMMAND = "/from";
     private static final String TO_COMMAND = "/to";
-    private static final String MESSAGE_MISSING_COMMAND = "\tOOPS!!! Please include /from and /to for the start and end time.";
+    private static final String MESSAGE_MISSING_COMMAND = "\tOOPS!!! Please include /from and /to for the " +
+            "start and end time.";
     private static final String MESSAGE_EMPTY = "\tOOPS!!! Please ensure description, start and end time are filled.";
 
     public EventCommand(String input) {

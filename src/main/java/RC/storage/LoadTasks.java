@@ -15,7 +15,8 @@ import java.io.IOException;
 public abstract class LoadTasks {
     private static final String FILE_PATH = "data/tasks.txt";
     private static final String MESSAGE_LOAD_COMPLETE = "\tLoading is complete.";
-    private static final String MESSAGE_LOAD_ERROR = "\tError loading file. File might be corrupted, creating new file...";
+    private static final String MESSAGE_LOAD_ERROR = "\tError loading file. File might be corrupted, " +
+            "creating new file...";
     private static final String MESSAGE_FILE_NOT_FOUND = "\tFile not found. Creating new file...";
     private static final String MESSAGE_LOAD_FILE = "\tLoading existing file...";
 
