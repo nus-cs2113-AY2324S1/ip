@@ -5,6 +5,10 @@ import duke.exceptions.*;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents how the programme interacts with the user
+ * and how programme reacts to user inputs.
+ */
 public class Ui  {
     public Ui() {
 
@@ -20,6 +24,13 @@ public class Ui  {
     }
 
 
+    /**
+     * User interface that takes in commands to enable programme to run specific methods.
+     *
+     *
+     * @throws DukeException If todo description is empty.
+     * @throws IOException If input is unaccepted.
+     */
     public void UiBegin() throws DukeException, IOException {
         Scanner in = new Scanner(System.in);
         String text = in.next();
