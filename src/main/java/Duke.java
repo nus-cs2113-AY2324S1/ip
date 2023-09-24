@@ -45,12 +45,12 @@ public class Duke {
             		}
             		catch (NumberFormatException e) {
             			printLines();
-                		System.out.println("     Please specify the number of the task that you want to mark/unmark");
+                		System.out.println("     Please specify the number of the task that you want to mark/unmark!!!");
                 		printLines();
                 	}
             		catch (ArrayIndexOutOfBoundsException e) {
             			printLines();
-                		System.out.println("     Please specify a number of the task that you want to mark/unmark");
+                		System.out.println("     Please specify a number of the task that you want to mark/unmark!!!");
                 		printLines();
             		}
         		} else if (command[0].equals("todo")) {
@@ -74,10 +74,10 @@ public class Duke {
         			try {
         				String[] descAndDue = getDeadlineDescription(command);
         				if (descAndDue[0] == "") {
-        					throw new RemyException("Error: Please specify a description for this deadline");
+        					throw new RemyException("Error: Please specify a description for this deadline!!!");
         				}
             			if (descAndDue[1] == "") {
-            				throw new RemyException("Error: Please specify a due date for this task with '/by'");
+            				throw new RemyException("Error: Please specify a due date for this task with '/by'!!!");
             			}
             			Task deadlineTask = new Deadline(descAndDue[0], descAndDue[1]);
             			toDoList.addTask(deadlineTask);
@@ -94,7 +94,7 @@ public class Duke {
         			try {
         				String[] info = getEventDescription(command);
         				if (info[0] == "" | info[1] == "" | info[2] == "") {
-        					throw new RemyException("Error: Please input your event in the right format");
+        					throw new RemyException("Error: Please input your event in the right format!!!");
         				}
             			Task eventTask = new Event(info[0], info[1], info[2]);
             			toDoList.addTask(eventTask);
@@ -109,7 +109,7 @@ public class Duke {
         			}
         			catch (IllegalArgumentException e) {
         				printLines();
-        				System.out.println("     Error: Please input your event in the right format");
+        				System.out.println("     Error: Please input your event in the right format!!!");
         				printLines();
         			}
         		} else if (command[0].equals("delete")) {
@@ -121,12 +121,21 @@ public class Duke {
         			}
         			catch (IndexOutOfBoundsException e) {
         				printLines();
-        				System.out.println("     Error: Cannot delete a non-existent task");
+        				System.out.println("     Error: Cannot delete a non-existent task!!!");
         				printLines();
         			}
         			catch (NumberFormatException e) {
         				printLines();
-        				System.out.println("     Error: Cannot index a non-integer value");
+        				System.out.println("     Error: Cannot index a non-integer value!!!");
+        				printLines();
+        			}
+        		} else if (command[0].equals("find")) {
+        			try {
+            			ui.searchForTasks(toDoList, command[1]);
+        			}
+        			catch (ArrayIndexOutOfBoundsException e) {
+        				printLines();
+        				System.out.println("     Please specify the keyword that you want to search!!!");
         				printLines();
         			}
         		} else {

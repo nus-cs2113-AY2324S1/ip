@@ -1,5 +1,6 @@
 package classes;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import task.Task;
 
@@ -72,6 +73,20 @@ public class Ui {
     
     public String getUserCommand() {
     	return input.nextLine();
+    }
+    
+    public void searchForTasks(TaskList tasks, String keyword) {
+    	printLines();
+    	ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+    	if (matchingTasks.isEmpty()) {
+    		System.out.println("     No tasks found!!!");
+    	} else {
+    		System.out.println("     Here's what I found:");
+    		for (int i = 0; i < matchingTasks.size(); i++) {
+    	    	System.out.println("     " + Integer.toString(i + 1) + "." + matchingTasks.get(i));
+    		}
+    	}
+    	printLines();
     }
     
     public void endRemy() {
