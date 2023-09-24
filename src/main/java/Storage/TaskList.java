@@ -51,8 +51,9 @@ public class TaskList {
      * @throws IOException if the attempt to update task file failed
      * */
     public Task removeTask(int taskIndex, Storage taskFile) throws IOException, IndexOutOfBoundsException {
+        Task task = tasks.remove(taskIndex);
         taskFile.setTaskData(tasks);
-        return tasks.remove(taskIndex);
+        return task;
     }
 
     /**
@@ -85,8 +86,8 @@ public class TaskList {
         ArrayList<Integer> resultTasks = new ArrayList<Integer>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            String taskName = task.getName();
-            if (taskName.contains(searchWord)) {
+            String taskNameLowerCase = task.getName().toLowerCase();
+            if (taskNameLowerCase.contains(searchWord.toLowerCase())) {
                 resultTasks.add(i);
             }
         }
