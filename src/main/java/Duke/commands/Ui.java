@@ -86,7 +86,12 @@ public class Ui  {
                 newList.removeTask(text + part);
                 text = in.next();
 
-            }else{
+            }else if ((text.startsWith(newList.find))){
+                String part = in.nextLine();
+                newList.findTask(part);
+                text = in.next();
+            }
+            else{
                 text= in.nextLine();
                 System.out.println("OOPS! I dont know what that means");
                 text = in.next();

@@ -19,9 +19,10 @@ public class TaskList {
     public String unmarked;
     public String toDo;
     public String delete;
+    public String find;
 
     String taskListFile = "./duke.txt";
-    Parser Parser = new Parser();
+    static Parser Parser = new Parser();
 
     public TaskList() throws IOException {
         taskList = new ArrayList<>();
@@ -31,6 +32,7 @@ public class TaskList {
         unmarked = "unmark";
         toDo = "todo";
         delete ="delete";
+        find = "find";
     }
 
     /**
@@ -68,24 +70,9 @@ public class TaskList {
     System.out.println("Here are the tasks in your list");
     for(int j = 0; j < taskList.size(); j += 1) {
 
-        if (Ui.newList.taskList.get(j).taskType[0] == "T") {
-            System.out.println(j + 1 + "." + Parser.parseTaskType(Ui.newList.taskList.get(j)) +
-                    Parser.parseMarkAsDone(Ui.newList.taskList.get(j)) + " "
-                    + Ui.newList.taskList.get(j).toBeDone);
-        }
-        else if(Ui.newList.taskList.get(j).taskType[0] == "D"){
-            System.out.println(j + 1 + "." + Parser.parseTaskType(Ui.newList.taskList.get(j)) +
-                    Parser.parseMarkAsDone(Ui.newList.taskList.get(j))
-                    + " " + Ui.newList.taskList.get(j).toBeDone
-                    + " (by: " + Ui.newList.taskList.get(j).dueDate + ")");
-        }
-        else if (Ui.newList.taskList.get(j).taskType[0] == "E"){
-            System.out.println(j + 1 + "." + Parser.parseTaskType(Ui.newList.taskList.get(j)) +
-                    Parser.parseMarkAsDone(Ui.newList.taskList.get(j)) + " " +
-                        Ui.newList.taskList.get(j).toBeDone
-                        + " (from: " + Ui.newList.taskList.get(j).startTime
-                        + " to: "+ Ui.newList.taskList.get(j).endTime + ")");
-        }
+        System.out.print(j+1);
+        duke.commands.Parser.parseAndPrintTasks(taskList.get(j));
+        System.out.print("\n");
 
     }
 }
@@ -213,6 +200,41 @@ public class TaskList {
         finalFile();
     }
 
+
+    /**
+     * Finds specific task containing words user inputs.
+     *
+     * @param toFind string used to find tasks within task-list.
+     */
+    public static void findTask(String toFind){
+        System.out.println("Here are the matching tasks in your list: ");
+
+        int taskNumberCounter = 0;
+        for(int i = 0; i <Ui.newList.taskList.size(); i += 1){
+            boolean taskfound = false;
+            Task taskToSearch = Ui.newList.taskList.get(i);
+            String taskInstructions = taskToSearch.toBeDone;
+            String[] splitTaskInstructions = taskInstructions.split(" ");
+
+            for(int j = 0; j < splitTaskInstructions.length; j += 1){
+                if( toFind.contains(splitTaskInstructions[j])){
+                    taskfound = true;
+                }
+                break;
+            }
+
+
+            if(taskfound == true){
+                System.out.print(taskNumberCounter+1);
+                duke.commands.Parser.parseAndPrintTasks(taskToSearch);
+                System.out.print("\n");
+            }
+
+            taskNumberCounter += 1;
+
+        }
+    }
+
     /**
      * Add tasks to duke.txt file.
      *
@@ -222,14 +244,14 @@ public class TaskList {
     public void addFile(Task toAdd) throws IOException {
             if (toAdd.taskType[0] == "T") {
                 appendToFile(taskListFile, Arrays.toString(toAdd.taskType) + "/" +
-                        Arrays.toString(toAdd.markAsDone) + "/ " +  toAdd.toBeDone  + "/ / " + System.lineSeparator());
+                        Arrays.toString(toAdd.markAsDone) + "/ " +  toAdd.toBeDone.trim()  + "/ / " + System.lineSeparator());
             } else if (toAdd.taskType[0] == "D") {
                 appendToFile(taskListFile, Arrays.toString(toAdd.taskType) +"/" +
-                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone + "/"
+                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone.trim() + "/"
                         + " (by:" + toAdd.dueDate +"/ "  + ")" + System.lineSeparator());
             } else if (toAdd.taskType[0] == "E") {
                 appendToFile(taskListFile, Arrays.toString(toAdd.taskType)  + "/" +
-                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone + "/"
+                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone.trim() + "/"
                         + " (from: "  + toAdd.startTime + "/"
                         + " to: " + toAdd.endTime + "/"+  ")" + System.lineSeparator());
             }
