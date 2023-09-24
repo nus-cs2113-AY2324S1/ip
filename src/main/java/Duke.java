@@ -15,29 +15,24 @@ import classes.TaskList;
 public class Duke {
 	static Ui ui;
 	static Storage storage;
-	static Parser parser;
 	static TaskList toDoList;
 	
     public static void main(String[] args) {
     	try {
     		ui = new Ui();
     		storage = new Storage("data", "./data/toDoList.txt");
-        	parser = new Parser();
     		toDoList = new TaskList();
         	storage.checkForTextFile(toDoList);
     		ui.greetUser();
-            String userCommand = ui.getUserCommand();
-            Command command = parser.parse(userCommand);
-            while (!command.equals("bye")) {
-            	String strippedCommand = command.strip();
-        		String[] userCmd = strippedCommand.split(" ");
-            	if (command.equals("list")) {
+            String[] command = Parser.parse(ui.getUserCommand());
+            while (!command[0].equals("bye")) {
+            	if (command[0].equals("list")) {
             		ui.printToDoList(toDoList);
-            	} else if (userCmd[0].contains("mark")) {
+            	} else if (command[0].contains("mark")) {
             		try {
             			System.out.println("    ____________________________________________________________");
-            			int index = Integer.parseInt(userCmd[1]) - 1;
-            			if (userCmd[0].equals("mark")) {
+            			int index = Integer.parseInt(command[1]) - 1;
+            			if (command[0].equals("mark")) {
                 			toDoList.setTaskStatus(index, true);
                 			System.out.println("     Nice! I've marked this task as done:");
                 			storage.markTaskFromFile(index, true);
@@ -59,12 +54,12 @@ public class Duke {
                 		System.out.println("     Please specify a number of the task that you want to mark/unmark");
                 		printLines();
             		}
-        		} else if (userCmd[0].equals("todo")) {
+        		} else if (command[0].equals("todo")) {
         			try {
-        				if (userCmd.length == 1) {
+        				if (command.length == 1) {
         					throw new RemyException("Error: Your todo task description cannot be empty!!!");
         				}
-            			String description = String.join(" ", Arrays.copyOfRange(userCmd, 1, userCmd.length));
+            			String description = String.join(" ", Arrays.copyOfRange(command, 1, command.length));
             			Task toDoTask = new ToDo(description);
             			toDoList.addTask(toDoTask);
             			ui.printTaskAdded(toDoTask, toDoList);
@@ -76,9 +71,9 @@ public class Duke {
         				System.out.println("     " + e.getMessage());
         				printLines();
         			}
-        		} else if (userCmd[0].equals("deadline")) {
+        		} else if (command[0].equals("deadline")) {
         			try {
-        				String[] descAndDue = getDeadlineDescription(userCmd);
+        				String[] descAndDue = getDeadlineDescription(command);
         				if (descAndDue[0] == "") {
         					throw new RemyException("Error: Please specify a description for this deadline");
         				}
@@ -96,9 +91,9 @@ public class Duke {
         				System.out.println("     " + e.getMessage());
         				printLines();
         			}
-        		} else if (userCmd[0].equals("event")) {
+        		} else if (command[0].equals("event")) {
         			try {
-        				String[] info = getEventDescription(userCmd);
+        				String[] info = getEventDescription(command);
         				if (info[0] == "" | info[1] == "" | info[2] == "") {
         					throw new RemyException("Error: Please input your event in the right format");
         				}
@@ -118,9 +113,9 @@ public class Duke {
         				System.out.println("     Error: Please input your event in the right format");
         				printLines();
         			}
-        		} else if (userCmd[0].equals("delete")) {
+        		} else if (command[0].equals("delete")) {
         			try {
-        				int index = Integer.valueOf(userCmd[1]) - 1;
+        				int index = Integer.valueOf(command[1]) - 1;
             			Task removed = toDoList.deleteTask(index);
             			ui.printTaskRemoved(removed, toDoList);
             			storage.deleteTaskFromFile(index);
@@ -139,7 +134,7 @@ public class Duke {
         			ui.invalidCommandResponse();
         		}
             	
-            	command = ui.getUserCommand();
+            	command = Parser.parse(ui.getUserCommand());
                 }
             
             	ui.sayGoodbye();
