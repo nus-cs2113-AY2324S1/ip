@@ -85,13 +85,21 @@ public class Command extends Parser {
             }
             break;
         case "delete":
-            try{
+            try {
                 ui.printTask(taskList.deleteTaskFromList(getDeleteArguments()), true);
                 ui.printListLength(taskList.getTaskList());
             } catch (IndexOutOfBoundsException exception) {
                 ui.printDeleteUsage();
             } catch (IllegalArgumentException exception) {
                 ui.printDeleteUsage();
+            }
+            break;
+        case "find":
+            try {
+                ui.printFindList(taskList.getTaskList(), getFindArguments());
+                
+            } catch (IllegalArgumentException exception) {
+                ui.printFindUsage();
             }
             break;
         default:
