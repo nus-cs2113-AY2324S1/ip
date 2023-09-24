@@ -13,7 +13,8 @@ public class Ui {
     private static final String DEADLINE_USAGE_MSG = "Usage: deadline <description> /by <end>";
     private static final String MARK_LIST_USAGE_MSG = "Usage: mark <index>";
     private static final String UNMARK_LIST_USAGE_MSG = "Usage: unmark <index>";
-    private static final String DELETE_TASK_USAGE_MSG = "Usage: delete <index>";    
+    private static final String DELETE_TASK_USAGE_MSG = "Usage: delete <index>";
+    private static final String FIND_TASK_USAGE_MSG = "Usage: find <keyword>";
 
     public void printByeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
@@ -37,10 +38,30 @@ public class Ui {
     public void printList(ArrayList<Task> taskList) {
         System.out.println("Here are the task in your list:");
         Iterator<Task> taskListIter = taskList.iterator();
-        for(int i = 1; taskListIter.hasNext() ; i++) {
-            Task event = taskListIter.next();
-            System.out.println(i + "." + event);
+        for(int i = 1; taskListIter.hasNext(); i++) {
+            Task task = taskListIter.next();
+            System.out.println(i + "." + task);
         }
+    }
+
+    public void printFindList(ArrayList<Task> taskList, String find) {
+        boolean isFound = false;
+        String output = "Here are the matching tasks in your list:\n";
+        Iterator<Task> taskListIter = taskList.iterator();
+        for(int i = 1; taskListIter.hasNext();) {
+            Task task = taskListIter.next();
+            if(task.getName().contains(find)) {
+                output += i + "." + task + "\n";
+                isFound = true;
+                i++;
+            }
+        }
+        if(isFound) {
+            System.out.print(output);
+        } else {
+            System.out.println("No Tasks Found");
+        }
+        
     }
 
     public void printTask(Task task, boolean isDelete) {
@@ -95,5 +116,9 @@ public class Ui {
 
     public void printDeleteUsage() {
         System.out.println(DELETE_TASK_USAGE_MSG);
+    }
+
+    public void printFindUsage() {
+        System.out.println(FIND_TASK_USAGE_MSG);
     }
 }

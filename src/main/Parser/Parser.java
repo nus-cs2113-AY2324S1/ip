@@ -106,5 +106,14 @@ public class Parser {
         return index;
     }
 
-    
+    public void checkKeyword(String keyword) {
+        if(keyword.isBlank() || keyword.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public String getFindArguments() throws IllegalArgumentException {
+        checkKeyword(arguments);
+        return arguments;
+    }
 }
