@@ -37,27 +37,27 @@ public class Parser {
         Itay.validateNonEmptyDescription(splitInput);
 
         switch(lowerCaseIndicator) {
-            case("mark"):
-                Itay.handleMark(splitInput);
-                break;
-            case("unmark"):
-                Itay.handleUnmark(splitInput);
-                break;
-            case("delete"):
-                Itay.handleDelete(splitInput);
-                break;
-            case("todo"):
-                Itay.handleTodo(input, splitInput);
-                break;
-            case("deadline"):
-                Itay.handleDeadline(input);
-                break;
-            case("event"):
-                Itay.handleEvent(input);
-                break;
-            case("find"):
-                Itay.handleFind(input, splitInput);
-                break;
+        case("mark"):
+            Itay.handleMark(splitInput);
+            break;
+        case("unmark"):
+            Itay.handleUnmark(splitInput);
+            break;
+        case("delete"):
+            Itay.handleDelete(splitInput);
+            break;
+        case("todo"):
+            Itay.handleTodo(input, splitInput);
+            break;
+        case("deadline"):
+            Itay.handleDeadline(input);
+            break;
+        case("event"):
+            Itay.handleEvent(input);
+            break;
+        case("find"):
+            Itay.handleFind(input, splitInput);
+            break;
         }
     }
     
