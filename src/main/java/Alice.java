@@ -6,12 +6,13 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Alice {
     private static final String LINE = "\n____________________________________________________________\n";
-    private static Task[] tasks = new Task[100];
-    private static int numberOfTasks = 0;
+    //private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks= new ArrayList<>();
 
     /**
      * For printing the hello message
@@ -42,9 +43,9 @@ public class Alice {
      */
     public static void listTasks() {
         int itemNumber;
-        for (int i = 0; i < numberOfTasks; i++){
+        for (int i = 0; i < tasks.size(); i++){
             itemNumber = i + 1;
-            System.out.println(itemNumber + ". " + tasks[i].toString());
+            System.out.println(itemNumber + ". " + tasks.get(i));
         }
         System.out.println(LINE);
     }
@@ -54,11 +55,25 @@ public class Alice {
      * @param newTask is a class
      */
     public static void addTask(Task newTask) {
-        tasks[numberOfTasks] = newTask;
-        numberOfTasks++;
+        tasks.add(newTask);
         System.out.println(" Gotcha! I have added the following task:");
         System.out.println("   " + newTask.toString());
-        System.out.println(" Total no. of tasks: " + numberOfTasks + " --- YOU'VE GOT THIS!\n" + LINE);
+        System.out.println(" Total no. of tasks: " + tasks.size() + " --- YOU'VE GOT THIS!\n" + LINE);
+    }
+
+    public static void deleteTask(String userInput) throws InvalidCommandException{
+        int taskId = Integer.parseInt(userInput.split(" ")[1]);
+        if (taskId > tasks.size() || taskId < 1) {
+            throw new InvalidCommandException();
+        }
+
+        int taskPosition = taskId - 1;
+
+        System.out.println(" Gotcha! I have removed the following task:");
+        System.out.println("   " + tasks.get(taskPosition));
+
+        tasks.remove(taskPosition);
+        System.out.println(" Total no. of tasks: " + tasks.size() + " --- YOU'VE GOT THIS!\n" + LINE);
     }
 
     /**
@@ -130,14 +145,14 @@ public class Alice {
         String actionOfInput = userInputArray[0];
         taskId = Integer.parseInt(userInputArray[1]) - 1;
 
-        if (taskId+1 > numberOfTasks || taskId+1 < 0) {
+        if (taskId+1 > tasks.size() || taskId+1 < 0) {
             throw new InvalidCommandException();
         }
 
         if (actionOfInput.equals("mark")){
-            tasks[taskId].markTask();
+            tasks.get(taskId).markTask();
         } else {
-            tasks[taskId].unmarkTask();
+            tasks.get(taskId).unmarkTask();
         }
     }
 
@@ -173,6 +188,9 @@ public class Alice {
                     break;
                 case "todo":
                     addTodo(userInput);
+                    break;
+                case "delete":
+                    deleteTask(userInput);
                     break;
                 default:
                     throw new InvalidCommandException();
