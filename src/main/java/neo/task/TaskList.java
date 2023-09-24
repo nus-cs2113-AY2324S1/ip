@@ -23,6 +23,46 @@ public abstract class TaskList {
             listIndex++;
         }
     }
+    public static int findCounter(String toFind) {
+        int count = 0;
+
+        for (Task task : list) {
+            if (task.description.contains(toFind) || toFind.contains(task.description)) {
+                count ++;
+            }
+        }
+
+        return count;
+    }
+    public static void find(String line) {
+        try {
+            String[] words = line.split(" ");
+            String toFind = words[1];
+            int count = findCounter(toFind);
+
+            if (count == 0) {
+                System.out.println("There are no matching tasks in your list.");
+            } else {
+                System.out.println("Here are the matching tasks in your list:");
+                printMatchingTasks(toFind);
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! Please give the keyword to find in the list.");
+        }
+    }
+
+    private static void printMatchingTasks(String toFind) {
+        int listIndex = 1;
+
+        for (Task task : list) {
+            if (task.description.contains(toFind) || toFind.contains(task.description)) {
+                System.out.print(listIndex + ". ");
+                System.out.println(task);
+            }
+            listIndex++;
+        }
+    }
 
     public static void printAddedTask() {
         int listSize = list.size();

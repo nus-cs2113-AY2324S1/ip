@@ -65,6 +65,9 @@ public abstract class Storage {
                 event.setDone(isMarked);
                 list.add(event);
                 break;
+            default:
+                System.out.println("Unable to add task from data.txt");
+                break;
             }
         }
     }

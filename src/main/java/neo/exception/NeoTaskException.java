@@ -32,6 +32,9 @@ public class NeoTaskException extends Exception {
                 System.out.println("OOPS!!! Did you mean Event?");
             }
             break;
+        default:
+            System.out.println("Unable to print exception.");
+            break;
         }
     }
 }
