@@ -178,7 +178,9 @@ public class Duke {
 
     private static void clearData() throws IOException {
         Path clearFile = Paths.get("data/taskList.txt");
-        Files.write(clearFile, new byte[0], StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+        if (Files.size(clearFile) != 0) {
+            Files.write(clearFile, new byte[0], StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+        }
     }
 
     private static void backupTaskFile() throws IOException{
