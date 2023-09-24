@@ -13,12 +13,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileManager {
-    private final String filePath = "C:\\Users\\chark\\Downloads\\CS2113\\ip\\src\\main\\java\\data\\alice.txt";
     private File file;
+    private String fileName;
+    private String dataDirectory;
+    private String filePath;
 
     public FileManager() {
+        this.dataDirectory = "./data/";
+        this.fileName = "alice.txt";
+        this.filePath = this.dataDirectory + this.fileName;
+
+        this.file = new File(filePath);
+        File fileDirectory = new File(dataDirectory);
+
         try {
-            this.file = new File(filePath);
+            if (!fileDirectory.isDirectory()) {
+                fileDirectory.mkdirs();
+            }
             if (!this.file.exists()) {
                 this.file.createNewFile();
             }
