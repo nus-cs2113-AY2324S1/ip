@@ -1,4 +1,4 @@
-package task;
+package data.task;
 
 public class Task {
     protected boolean isMarked;
