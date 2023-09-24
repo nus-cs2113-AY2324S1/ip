@@ -67,6 +67,7 @@ public abstract class Storage {
                 break;
             default:
                 System.out.println("Unable to add task from data.txt");
+                break;
             }
         }
     }
