@@ -6,13 +6,25 @@ import neo.util.ErrorCatcher;
 import neo.type.CommandType;
 import java.util.ArrayList;
 
-
+/**
+ * Represents the list of all tasks. This class is abstract as its main purpose is to provide
+ * methods to create and manipulate the tasks in the list.
+ */
 public abstract class TaskList {
-    private static final ArrayList<Task> list = new ArrayList<>();
+    protected static ArrayList<Task> list = new ArrayList<>();
 
+    /**
+     * Getter for the list.
+     *
+     * @return the list.
+     */
     public static ArrayList<Task> getList() {
         return list;
     }
+
+    /**
+     * Prints all the tasks in the list along with its list number.
+     */
     public static void printList() {
         int listIndex = 1;
 
@@ -23,28 +35,39 @@ public abstract class TaskList {
             listIndex++;
         }
     }
-    public static int findCounter(String toFind) {
-        int count = 0;
 
+    /**
+     * Decides if there is a match between the input string and the description of tasks in the list.
+     *
+     * @param toFind The string acting as the keyword to find in the tasks.
+     * @return True if there is a match, otherwise false.
+     */
+    private static boolean isMatch(String toFind) {
         for (Task task : list) {
             if (task.description.contains(toFind) || toFind.contains(task.description)) {
-                count ++;
+                return true;
             }
         }
-
-        return count;
+        return false;
     }
+
+    /**
+     * Finds all matches between the input string and the description of tasks in the list.
+     * Prints all possible matches between the input string and tasks. Also prints the
+     * exception where the keyword is not given.
+     *
+     * @param line This is the input string from the user, where the 2nd word is the keyword.
+     */
     public static void find(String line) {
         try {
             String[] words = line.split(" ");
             String toFind = words[1];
-            int count = findCounter(toFind);
 
-            if (count == 0) {
-                System.out.println("There are no matching tasks in your list.");
-            } else {
+            if (isMatch(toFind)) {
                 System.out.println("Here are the matching tasks in your list:");
                 printMatchingTasks(toFind);
+            } else {
+                System.out.println("There are no matching tasks in your list.");
             }
         }
         catch (ArrayIndexOutOfBoundsException e) {
@@ -64,7 +87,7 @@ public abstract class TaskList {
         }
     }
 
-    public static void printAddedTask() {
+    private static void printAddedTask() {
         int listSize = list.size();
         int arrayListIndex = listSize - 1;
 
@@ -78,6 +101,12 @@ public abstract class TaskList {
         }
     }
 
+    /**
+     * Marks the given task specified in the input string from the user. Prints exceptions
+     * where task index given is not specified or out of bounds of the task list.
+     *
+     * @param line This is the input string which contains the task index.
+     */
     public static void markTask(String line) {
         try {
             String[] words = line.split(" ");
@@ -96,6 +125,12 @@ public abstract class TaskList {
         }
     }
 
+    /**
+     * Unmarks the given task specified in the input string from the user. Prints exceptions
+     * where task index given is not specified or out of bounds of the task list.
+     *
+     * @param line This is the input string which contains the task index.
+     */
     public static void unmarkTask(String line) {
         try {
             String[] words = line.split(" ");
@@ -114,6 +149,12 @@ public abstract class TaskList {
         }
     }
 
+    /**
+     * Deletes the given task specified in the input string from the user. Prints exceptions
+     * where task index given is not specified or out of bounds of the task list.
+     *
+     * @param line This is the input string which contains the task index.
+     */
     public static void deleteTask(String line) {
         try {
             String[] words = line.split(" ");
@@ -139,6 +180,13 @@ public abstract class TaskList {
         }
     }
 
+    /**
+     * Adds task of type Event to the list. Prints exceptions where there are formatting issues,
+     * empty descriptions or incompatible date and time formats.
+     *
+     * @param line This is the string containing the description of event and its
+     *             /from and /to dates.
+     */
     public static void handleEvent(String line) {
         try {
             addEvent(line);
@@ -175,6 +223,13 @@ public abstract class TaskList {
         printAddedTask();
     }
 
+    /**
+     * Adds a task of type Deadline to the list. Prints exceptions where there are formatting issues,
+     * empty descriptions or incompatible date and time formats.
+     *
+     * @param line This is the string containing the description of deadline and its
+     *             /by date.
+     */
     public static void handleDeadline(String line) {
         try {
             addDeadline(line);
@@ -205,6 +260,11 @@ public abstract class TaskList {
         printAddedTask();
     }
 
+    /**
+     * Adds a task of type Todo to the list.
+     *
+     * @param line This is the string containing the description of the todo task.
+     */
     public static void handleTodo(String line) {
         try {
             addTodo(line);

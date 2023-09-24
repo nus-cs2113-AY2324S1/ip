@@ -2,16 +2,27 @@ package neo.exception;
 
 import neo.type.ErrorType;
 
+/**
+ * A form of throwable that indicates conditions specific to Neo chatbot that can be caught.
+ */
 public class NeoTaskException extends Exception {
     protected String description;
     protected ErrorType type;
 
-
+    /**
+     * Constructs exception with parameters to indicate the type of excpetion.
+     *
+     * @param description Describes which part of task caused the error
+     * @param type The type of error that was caused
+     */
     public NeoTaskException(String description, ErrorType type) {
         this.description = description;
         this.type = type;
     }
 
+    /**
+     * Prints the exception and recommended actions to the user.
+     */
     public void printException() {
         switch (this.type) {
         case EMPTY:
