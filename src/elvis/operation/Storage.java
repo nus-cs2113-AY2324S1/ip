@@ -1,5 +1,6 @@
-package elvis;
+package elvis.operation;
 
+import elvis.command.InputCommand;
 import elvis.task.Task;
 
 import java.io.File;
@@ -9,59 +10,59 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
-public class FileManager {
+public class Storage {
     private static final String FILE_PATH = "./tasks.txt";
     private static final String FILE_NAME = "tasks.txt";
     private static File openedFile;
 
     public static void fileManager() {
 
-        SystemOperation.bootUpOne();
+        BootUpShutDown.bootUpOne();
         boolean hasFile = bootUp();
-        loadTasksFromFile();
+        loadTaskFromFile();
         if (hasFile) {
-            System.out.println("These are tasks loaded from before: ");
-            TaskManager.inputTaskFromFile("list");
+            Ui.taskLoadedMessagePrinter();
+            Parser.inputTaskFromFile("list");
         }
-        SystemOperation.bootUpTwo();
-        TaskManager.inputTaskManually();
+        BootUpShutDown.bootUpTwo();
+        Parser.inputTaskManually();
     }
 
     //Checks for any previously saved file, creates if missing
     public static boolean bootUp() {
         System.out.print(System.lineSeparator());
-        System.out.println("Checking if \"tasks.txt\" already exists...");
+        Ui.checkFileMessagePrinter();
         File file = new File(FILE_PATH);
 
         if (!file.exists()) {   //File doesn't exist, so create it
             try {
                 if (file.createNewFile()) { //Returns true if successfully created
                     openedFile = file;      //File used to save tasks
-                    System.out.println("File does not exist.\nCreating new file...\nFile created successfully.");
+                    Ui.noFileMessagePrinter();
                 } else {
-                    System.out.println("File creation failed.");
+                    Ui.fileCreationFailMessagePrinter();
                 }
             } catch (IOException exception) {
-                System.out.println("An error occurred: " + exception.getMessage());
+                Ui.errorMessagePrinter(exception);
             }
             return false;
         } else {
-            System.out.println("File already exists.\nOpening existing file...\n");
+            Ui.fileExistMessagePrinter();
             openedFile = file;      //File used to save tasks
             return true;
         }
     }
 
-    public static void loadTasksFromFile() {
+    public static void loadTaskFromFile() {
         try {
             File file = openedFile;
             Scanner fileReader = new Scanner(openedFile);     // create a Scanner using the File as the source
             while (fileReader.hasNext()) {
                 String lineOfFile = fileReader.nextLine();
-                TaskManager.inputTaskFromFile(lineOfFile);   // Parse each line into the tasks ArrayList
+                Parser.inputTaskFromFile(lineOfFile);   // Parse each line into the tasks ArrayList
             }
         } catch (FileNotFoundException exception) {
-            System.out.println("Data file not found.");
+            Ui.fileNotFoundMessagePrinter();
         }
     }
 
@@ -74,7 +75,7 @@ public class FileManager {
             }
             writer.close();
         } catch (IOException exception) {
-            System.out.println("Error saving tasks to file: " + exception.getMessage());
+            Ui.errorMessagePrinter(exception);
         }
     }
 }

@@ -1,8 +1,7 @@
-package elvis;
+package elvis.operation;
 
 //Stores Logo, BootUp, ShutDown, Horizontal Lines
-public class SystemOperation {
-    private static final int NUMBER_OF_UNDERSCORES = 60;
+public class BootUpShutDown {
 
     //Logo for ELVIS the Chatbot
     public static final String LOGO =
@@ -30,31 +29,24 @@ public class SystemOperation {
                     "         \\/____/                    \\/____/                                     \\/____/                    \\/____/         \n" +
                     "                                                                                                                                \n";
 
-    public static void printHorizontalLines() {
-        for (int i = 0; i < NUMBER_OF_UNDERSCORES; i++) {
-            System.out.print("_");
-        }
-        System.out.print(System.lineSeparator());
-    }
-
     public static void bootUpOne() {
         //ChatBot BootUp
-        System.out.println(SystemOperation.LOGO);
+        System.out.println(LOGO);
 
     }
 
     public static void bootUpTwo() {
         //ChatBot BootUp
-        SystemOperation.printHorizontalLines();
+        Ui.printHorizontalLines();
         System.out.println("Hello! I'm ELVIS");
         System.out.println("What can I do for you?");
-        SystemOperation.printHorizontalLines();
+        Ui.printHorizontalLines();
     }
 
     public static void shutDown() {
         //ChatBot Ending
-        SystemOperation.printHorizontalLines();
+        Ui.printHorizontalLines();
         System.out.println("Bye. Hope to see you again soon!");
-        SystemOperation.printHorizontalLines();
+        Ui.printHorizontalLines();
     }
 }
