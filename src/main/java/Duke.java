@@ -156,6 +156,13 @@ public class Duke {
     	System.out.println("    ____________________________________________________________");
     }
     
+    /**
+     * Given a deadline command, this method parses the user input and extracts the necessary
+     * details to create a Deadline Task object.
+     * 
+     * @param description the description of the deadline task
+     * @return the necessary information extracted to create a deadline task
+     */
     public static String[] getDeadlineDescription(String[] description) {
     	String due = "";
     	String desc = "";
@@ -171,6 +178,13 @@ public class Duke {
     	return descAndDue;
     }
     
+    /**
+     * Given an event command, this method parses the user input and extracts the necessary
+     * details to create an Event Task object.
+     * 
+     * @param description the description of the event task
+     * @return the necessary information extracted to create an event task
+     */
     public static String[] getEventDescription(String[] description) {
     	int fromIndex = 0;
     	int toIndex = 0;
