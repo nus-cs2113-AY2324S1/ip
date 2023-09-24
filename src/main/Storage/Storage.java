@@ -18,6 +18,8 @@ import Task.ToDo;
 import TaskList.TaskList;
 
 public class Storage {
+    
+    private static final String FILE_IO_ERROR = "error with file";
     private static final String FILE_PATH = "data\\";
     private static final String FILE_NAME = "data.txt";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM uuuu");
@@ -27,16 +29,26 @@ public class Storage {
         this.file = new File(FILE_PATH + FILE_NAME);    
     }
 
+    /**
+     * Writes data to file.
+     * 
+     * @param data Data to be written into the file.
+     */
     public void writeToFile(String data) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH + FILE_NAME, true);
             fw.write(data + "\n");
             fw.close();
         } catch (IOException exception) {
-            System.out.println("Cannot write to file");
+            System.out.println(FILE_IO_ERROR);
         }
     }
 
+    /**
+     * Refreshes the data taken from taskList and updates and write to file.
+     * 
+     * @param taskList TaskList object that contains the updated task list.
+     */
     public void refreshData(TaskList taskList) {
         try {
             PrintWriter writer = new PrintWriter(FILE_PATH +FILE_NAME);
@@ -60,6 +72,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts data from file and stores into the TaskList object.
+     * 
+     * @param task Task to be stored into the task list.
+     * @param isCompleted Used to check whether task is completed or not completed.
+     * @param taskList TaskList object that the task is going to be stored in.
+     */
     public void dataToList(Task task, String isCompleted, TaskList taskList) {
         if(isCompleted.equals("1")) {
             task.setCompleted(true);
@@ -69,6 +88,13 @@ public class Storage {
         taskList.getTaskList().add(task);
     }
 
+    /**
+     * Gets the file data and parses it into dataToList function.
+     * 
+     * @param taskList TaskList object that the task is going to be stored in.
+     * @throws IOException If the file cannot be found.
+     * @throws DateTimeParseException If data in file is not in the correct format.
+     */
     public void getFileData(TaskList taskList) throws IOException, DateTimeParseException {
         try{
             Scanner reader = new Scanner(file);
@@ -93,12 +119,17 @@ public class Storage {
             }
             reader.close();
         } catch (FileNotFoundException exception) {
-            System.out.println("File not found");
+            System.out.println(FILE_IO_ERROR);
         } catch (ArrayIndexOutOfBoundsException exception) {
-            
+            System.out.println(FILE_IO_ERROR);
         }
     }
 
+    /**
+     * Get the file and store into TaskList object.
+     * 
+     * @param taskList TaskList object that the task is going to be stored in.
+     */
     public void importToArrayList(TaskList taskList) {
         try {
             File directory = new File(FILE_PATH);
@@ -109,9 +140,9 @@ public class Storage {
                 file.createNewFile();
             }
         } catch (IOException exception) {
-            System.out.println("An error occurred.");
+            System.out.println(FILE_IO_ERROR);
         } catch (DateTimeParseException exception) {
-            System.out.println("An error occurred.");
+            System.out.println(FILE_IO_ERROR);
         }
     }
 }

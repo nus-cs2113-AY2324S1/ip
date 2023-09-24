@@ -25,6 +25,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + getFrom() + " to: " + getTo() +  ")";
     }
 
+    /**
+     * Converts the object into a string format to be stored in the file.
+     * 
+     * @return Formatted string to be stored in the file.
+     */
     public String toFile() {
         return "E," + (isCompleted() ? "1" : "0") + "," + getName() + "," + getFrom()  + "," + getTo();
     }
