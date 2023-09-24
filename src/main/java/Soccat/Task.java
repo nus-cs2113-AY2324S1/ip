@@ -1,6 +1,13 @@
 package Soccat;
 
 public class Task {
+
+    public static final String SPLIT_CHAR = "|";
+    public static final String DONE_CHAR = "1";
+    public static final String NOT_DONE_CHAR = "0";
+    public static final int TYPE_IDX = 0;
+    public static final int ISDONE_IDX = 1;
+    public static final int NAME_IDX = 2;
     private String name;
     private Boolean isDone;
     private static int taskCount = 0;
@@ -19,16 +26,7 @@ public class Task {
     }
 
     public void setDone(Boolean isDone) {
-        if (this.isDone == isDone) {
-            System.out.println("You have not made any changes to the status: ");
-            return;
-        }
         this.isDone = isDone;
-        if (isDone) {
-            System.out.println("Nice! I've marked this task as done:");
-        } else {
-            System.out.println("OK, I've marked this task as not done yet:");
-        }
     }
 
     @Override

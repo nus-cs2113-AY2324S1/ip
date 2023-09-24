@@ -1,13 +1,20 @@
 package Command;
 
+import Storage.Storage;
 import Storage.TaskList;
 import Soccat.Task;
+import Ui.Ui;
+
+import java.io.IOException;
 
 public class MarkCommand extends Command{
     public static final String COMMAND_WORD_DONE = "mark";
     public static final boolean MARK_DONE = true;
     public static final String COMMAND_WORD_UNDONE = "unmark";
     public static final boolean MARK_UNDONE = false;
+    public static final String INVALID_PROMPT = "Oops, please try mark <taskIndex> or unmark <taskIndex>!";
+    public static final String DONE_MESSAGE = "Nice! I've marked this task as done:";
+    public static final String UNDONE_MESSAGE = "OK, I've marked this task as not done yet:";
     private final boolean isDone;
     private final int taskIndex;
 
@@ -18,19 +25,23 @@ public class MarkCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks) {
+    public boolean execute(TaskList tasks, Ui ui, Storage taskFile) {
+        ui.displayLine();
         int taskListLength = tasks.getTaskListLength();
         if (taskListLength == 0) {
-            System.out.println("No tasks to mark for now, you may take a break!");
-            return;
+            ui.displayTaskCount(tasks);
+            return false;
         }
+        Task task;
         try {
-            Task task = tasks.getTask(taskIndex);
-            task.setDone(isDone);
-            System.out.println("\t" + task);
+            task = tasks.markTask(taskIndex, isDone, tasks, taskFile);
+            ui.displayMessage((isDone) ? DONE_MESSAGE : UNDONE_MESSAGE);
+            ui.displayTask(task);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oops, task number is out of range!");
-            System.out.println("Please use index from 1 to " + tasks.getTaskListLength());
+            ui.displayError(ui.INDEX_OFB_EXCEPTION_MESSAGE + tasks.getTaskListLength());
+        } catch (IOException e) {
+            ui.displayError(ui.IO_EXCEPTION_MESSAGE);
         }
+        return false;
     }
 }

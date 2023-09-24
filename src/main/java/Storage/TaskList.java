@@ -2,6 +2,7 @@ package Storage;
 
 import Soccat.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -11,8 +12,9 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task, Storage taskFile) throws IOException {
         tasks.add(task);
+        taskFile.setTaskData(tasks);
     }
 
     public int getTaskListLength() {
@@ -27,7 +29,20 @@ public class TaskList {
         return tasks.get(taskIndex);
     }
 
-    public Task removeTask(int taskIndex) throws IndexOutOfBoundsException {
+    public Task removeTask(int taskIndex, Storage taskFile) throws IOException, IndexOutOfBoundsException {
+        taskFile.setTaskData(tasks);
         return tasks.remove(taskIndex);
     }
+
+    public Task markTask(int taskIndex, boolean isDone, TaskList tasks, Storage taskFile)
+            throws IOException, IndexOutOfBoundsException{
+        Task task = tasks.getTask(taskIndex);
+        if (task.getDone() == isDone) {
+            return task;
+        }
+        task.setDone(isDone);
+        taskFile.setTaskData(tasks.getTasks());
+        return task;
+    }
+
 }

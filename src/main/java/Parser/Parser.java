@@ -11,10 +11,12 @@ import Command.DeleteCommand;
 import Command.ExitCommand;
 
 public class Parser {
+
+
     public Command parseCommand(String userInput) {
         String[] tokens = userInput.split(" ");
         if (tokens.length == 0) {
-            return new InvalidCommand("Oops, your command is not recognized, please try again!");
+            return new InvalidCommand(Command.INVALID_PROMPT);
         }
 
         final String commandWord = tokens[0];
@@ -38,13 +40,13 @@ public class Parser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:
-            return new InvalidCommand("Oops, your command is not recognized, please try again!");
+            return new InvalidCommand(Command.INVALID_PROMPT);
         }
     }
 
     private Command parseToDoCommand(String arguments) {
         if (arguments.isEmpty()) {
-            return new InvalidCommand("Oops, Todo task cannot be empty!");
+            return new InvalidCommand(TodoCommand.INVALID_PROMPT);
         }
         return new TodoCommand(arguments);
     }
@@ -54,7 +56,7 @@ public class Parser {
             final String[] deadlineTokens = arguments.split(" /by ");
             return new DeadlineCommand(deadlineTokens[0], deadlineTokens[1]);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return new InvalidCommand("Oops, please try deadline <task> /by <deadline>!");
+            return new InvalidCommand(DeadlineCommand.INVALID_PROMPT);
         }
     }
 
@@ -65,7 +67,7 @@ public class Parser {
             String by = eventTokens[2].replace("to ", "");
             return new EventCommand(eventTokens[0], from, by);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return new InvalidCommand("Oops, please try event <task> /from <start> /to <end>!");
+            return new InvalidCommand(EventCommand.INVALID_PROMPT);
         }
     }
 
@@ -74,7 +76,7 @@ public class Parser {
             int taskIndex = Integer.parseInt(arguments) - 1;
             return new MarkCommand(isDone, taskIndex);
         } catch (NumberFormatException e) {
-            return new InvalidCommand("Oops, please try mark <taskIndex> or unmark <taskIndex>!");
+            return new InvalidCommand(MarkCommand.INVALID_PROMPT);
         }
     }
 
@@ -83,7 +85,7 @@ public class Parser {
             int taskIndex = Integer.parseInt(arguments) - 1;
             return new DeleteCommand(taskIndex);
         } catch (NumberFormatException e) {
-            return new InvalidCommand("Oops, please try delete <taskIndex>!");
+            return new InvalidCommand(DeleteCommand.INVALID_PROMPT);
         }
     }
 }

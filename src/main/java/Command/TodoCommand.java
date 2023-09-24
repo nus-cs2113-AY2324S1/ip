@@ -1,11 +1,16 @@
 package Command;
 
 import Soccat.Todo;
+import Storage.Storage;
 import Storage.TaskList;
+import Ui.Ui;
+
+import java.io.IOException;
 
 public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
+    public static final String INVALID_PROMPT = "Oops, Todo task cannot be empty!";
 
     private final Todo todoTask;
 
@@ -14,10 +19,14 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
-        tasks.addTask(todoTask);
-        System.out.println("Got it. I've added this task: ");
-        System.out.println("\t" + todoTask);
-        System.out.println("Now you have " + tasks.getTaskListLength() + " tasks in the list.");
+    public boolean execute(TaskList tasks, Ui ui, Storage taskFile) {
+        ui.displayLine();
+        try {
+            tasks.addTask(todoTask, taskFile);
+            ui.displayAddedTask(todoTask, tasks, COMMAND_WORD);
+        } catch (IOException e) {
+            System.out.println("IO Exception occurred during file storage!");
+        }
+        return false;
     }
 }

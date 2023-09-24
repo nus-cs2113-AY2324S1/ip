@@ -3,47 +3,43 @@ import Soccat.SoccatException;
 import Parser.Parser;
 import Storage.Storage;
 import Storage.TaskList;
+import Ui.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Soccat {
 
-    static TaskList tasks;
+    private TaskList tasks;
     static final String FILENAME = "data/Soccat.txt";
-    static Storage taskFile;
+    private Storage taskFile;
+    private Ui ui;
 
-    public static void processCommand(String line) {
-        Scanner textIn = new Scanner(System.in);
-        Command command;
-        while (true) {
-            String commandInput = textIn.nextLine();
-            command = new Parser().parseCommand(commandInput);
-            command.execute(tasks);
-            System.out.println(line);
-            storeData();
+    public Soccat(String fileName) {
+        this.ui = new Ui();
+        try {
+            this.taskFile = new Storage(fileName);
+            this.tasks = new TaskList(taskFile.getTaskData());
+        } catch (SoccatException e) {
+            ui.displayError(ui.FILE_CREATION_ERROR + fileName);
+        } catch (IOException e) {
+            ui.displayError(ui.IO_EXCEPTION_MESSAGE);
         }
     }
 
-    public static void storeData() {
-        try {
-            taskFile.setTaskData(tasks.getTasks());
-        } catch (IOException e) {
-            System.out.println("IO Exception occurred during file storage!");
+    public void run() {
+        ui.displayWelcome();
+        Scanner textIn = new Scanner(System.in);
+        boolean isExit = false;
+        while (!isExit) {
+            String commandInput = textIn.nextLine();
+            Command command = new Parser().parseCommand(commandInput);
+            isExit = command.execute(tasks, ui, taskFile);
+            ui.displayLine();
         }
     }
 
     public static void main(String[] args) {
-        try {
-            taskFile = new Storage(FILENAME);
-        } catch (SoccatException e) {
-            System.out.println("Failed to create data file " + FILENAME);
-        } catch (IOException e) {
-            System.out.println("IO Exception during file creation of " + FILENAME);
-        }
-        tasks = new TaskList(taskFile.getTaskData());
-        String line = "____________________________________________________________";
-        System.out.println(line + "\nHello! I'm soccat!\nWhat can I do for you?\n" + line);
-        processCommand(line);
+        new Soccat(FILENAME).run();
     }
 }

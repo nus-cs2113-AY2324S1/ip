@@ -65,19 +65,19 @@ public class Storage {
         ArrayList<Task> taskData = new ArrayList<>();
         int dataLength = dataStrings.size();
         for (int i=0; i<dataLength; i++) {
-            String[] tokens = dataStrings.get(i).split("\\|");
-            switch(tokens[0]) {
-            case "T":
-                taskData.add(new Todo(tokens[2]));
+            String[] tokens = dataStrings.get(i).split("\\" + Task.SPLIT_CHAR);
+            switch(tokens[Task.TYPE_IDX]) {
+            case Todo.TASK_CHAR:
+                taskData.add(new Todo(tokens[Task.NAME_IDX]));
                 break;
-            case "D":
-                taskData.add(new Deadline(tokens[2], tokens[3]));
+            case Deadline.TASK_CHAR:
+                taskData.add(new Deadline(tokens[Task.NAME_IDX], tokens[Deadline.BY_IDX]));
                 break;
-            case "E":
-                taskData.add(new Event(tokens[2], tokens[3], tokens[4]));
+            case Event.TASK_CHAR:
+                taskData.add(new Event(tokens[Task.NAME_IDX], tokens[Event.FROM_IDX], tokens[Event.TO_IDX]));
                 break;
             }
-            if (tokens[1].equals("1")) {
+            if (tokens[Task.ISDONE_IDX].equals(Task.DONE_CHAR)) {
                 taskData.get(i).setDone(true);
             }
         }
@@ -85,30 +85,22 @@ public class Storage {
     }
 
     private void updateFile() throws IOException {
-        try (FileWriter dataFileWriter = new FileWriter(this.fileObject)) {
+        FileWriter dataFileWriter = new FileWriter(this.fileObject);
+        try {
             for (Task task : this.taskData) {
-                String taskType = "";
-                String taskStatus = "";
-                String taskDescription = "";
                 if (task instanceof Todo) {
-                    taskType = "T|";
-                    taskDescription = task.getName();
+                    dataFileWriter.write(((Todo) task).toTokenString());
                 } else if (task instanceof Deadline) {
-                    taskType = "D|";
-                    taskDescription = task.getName() + "|" + ((Deadline) task).getBy();
+                    dataFileWriter.write(((Deadline) task).toTokenString());
                 } else if (task instanceof Event) {
-                    taskType = "E|";
-                    taskDescription = task.getName() + "|" + ((Event) task).getFrom() + "|" + ((Event) task).getTo();
+                    dataFileWriter.write(((Event) task).toTokenString());
                 }
-                if (task.getDone()) {
-                    taskStatus = "1|";
-                } else {
-                    taskStatus = "0|";
-                }
-                dataFileWriter.write(taskType + taskStatus + taskDescription + "\n");
             }
+            dataFileWriter.close();
         } catch (IOException e) {
             throw new IOException();
+        } finally {
+            dataFileWriter.close();
         }
     }
 

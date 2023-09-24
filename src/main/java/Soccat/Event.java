@@ -2,6 +2,10 @@ package Soccat;
 
 public class Event extends Task {
 
+    public static final String TASK_CHAR = "E";
+    public static final int NAME_IDX = 2;
+    public static final int FROM_IDX = 3;
+    public static final int TO_IDX = 4;
     protected String from;
     protected String to;
 
@@ -19,9 +23,18 @@ public class Event extends Task {
         return to;
     }
 
+    public String toTokenString() {
+        String description = super.getName() + Task.SPLIT_CHAR + from + Task.SPLIT_CHAR + to;
+        if (super.getDone()) {
+            return TASK_CHAR + Task.SPLIT_CHAR + Task.DONE_CHAR + Task.SPLIT_CHAR + description + "\n";
+        } else {
+            return TASK_CHAR + Task.SPLIT_CHAR + Task.NOT_DONE_CHAR + Task.SPLIT_CHAR + description + "\n";
+        }
+    }
+
     @Override
     public String toString() {
         String event = " (from: " + from + " to: " + to + ")";
-        return "[E]" + super.toString() + event;
+        return "[" + TASK_CHAR + "]" + super.toString() + event;
     }
 }

@@ -1,11 +1,16 @@
 package Command;
 
 import Soccat.Task;
+import Storage.Storage;
 import Storage.TaskList;
+import Ui.Ui;
+
+import java.io.IOException;
 
 public class DeleteCommand extends Command{
 
     public static final String COMMAND_WORD = "delete";
+    public static final String INVALID_PROMPT = "Oops, please try delete <taskIndex>!";
     private final int taskIndex;
 
     public DeleteCommand(int taskIndex) {
@@ -13,19 +18,21 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks) {
+    public boolean execute(TaskList tasks, Ui ui, Storage taskFile) {
+        ui.displayLine();
         int taskListLength = tasks.getTaskListLength();
         if (taskListLength == 0) {
-            System.out.println("No tasks to delete for now, you may take a break!");
-            return;
+            ui.displayTaskCount(tasks);
+            return false;
         }
         try {
-            Task task = tasks.removeTask(taskIndex);
-            System.out.println("Noted, I have removed this task:");
-            System.out.println("\t" + task);
+            Task task = tasks.removeTask(taskIndex, taskFile);
+            ui.displayRemovedTask(task, tasks);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oops, task number is out of range!");
-            System.out.println("Please use index from 1 to " + tasks.getTaskListLength());
+            ui.displayError(ui.INDEX_OFB_EXCEPTION_MESSAGE + tasks.getTaskListLength());
+        } catch (IOException e) {
+            ui.displayError(ui.IO_EXCEPTION_MESSAGE);
         }
+        return false;
     }
 }

@@ -3,10 +3,14 @@ package Command;
 import Soccat.Deadline;
 import Storage.TaskList;
 import Storage.Storage;
+import Ui.Ui;
+
+import java.io.IOException;
 
 public class DeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";
+    public static final String INVALID_PROMPT = "Oops, please try deadline <task> /by <deadline>!";
 
     private final Deadline deadlineTask;
 
@@ -15,10 +19,14 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
-        tasks.addTask(deadlineTask);
-        System.out.println("Got it. I've added this task: ");
-        System.out.println("\t" + deadlineTask);
-        System.out.println("Now you have " + tasks.getTaskListLength() + " tasks in the list.");
+    public boolean execute(TaskList tasks, Ui ui, Storage taskFile) {
+        ui.displayLine();
+        try {
+            tasks.addTask(deadlineTask, taskFile);
+            ui.displayAddedTask(deadlineTask, tasks, COMMAND_WORD);
+        } catch (IOException e) {
+            ui.displayError(ui.IO_EXCEPTION_MESSAGE);
+        }
+        return false;
     }
 }

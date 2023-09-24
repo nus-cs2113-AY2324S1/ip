@@ -1,6 +1,8 @@
 package Command;
 
+import Storage.Storage;
 import Storage.TaskList;
+import Ui.Ui;
 
 public class InvalidCommand extends Command {
 
@@ -11,7 +13,9 @@ public class InvalidCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
-        System.out.println(this.errorFeedback);
+    public boolean execute(TaskList tasks, Ui ui, Storage taskFile) {
+        ui.displayLine();
+        ui.displayError(this.errorFeedback);
+        return false;
     }
 }

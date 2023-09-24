@@ -1,7 +1,9 @@
 package Command;
 
 import Soccat.Task;
+import Storage.Storage;
 import Storage.TaskList;
+import Ui.Ui;
 
 import java.util.ArrayList;
 
@@ -10,15 +12,12 @@ public class ListCommand extends Command{
     public static final String COMMAND_WORD = "list";
 
     @Override
-    public void execute(TaskList tasks) {
-        ArrayList<Task> taskArrayList = tasks.getTasks();
-        if (taskArrayList.isEmpty()) {
-            System.out.println("Great, You have no tasks for now!");
+    public boolean execute(TaskList tasks, Ui ui, Storage taskFile) {
+        ui.displayLine();
+        if (tasks.getTaskListLength() == 0) {
+            ui.displayTaskCount(tasks);
         }
-        for (int i = 0; i < taskArrayList.size(); i++) {
-            // Add 1 to change array index to 1 based index
-            int arrayIndex = i+1;
-            System.out.println(arrayIndex + ". " + taskArrayList.get(i));
-        }
+        ui.displayAllTasks(tasks);
+        return false;
     }
 }

@@ -1,11 +1,16 @@
 package Command;
 
 import Soccat.Event;
+import Storage.Storage;
 import Storage.TaskList;
+import Ui.Ui;
+
+import java.io.IOException;
 
 public class EventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
+    public static final String INVALID_PROMPT = "Oops, please try event <task> /from <start> /to <end>!";
 
     private final Event eventTask;
 
@@ -14,10 +19,14 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
-        tasks.addTask(eventTask);
-        System.out.println("Got it. I've added this task: ");
-        System.out.println("\t" + eventTask);
-        System.out.println("Now you have " + tasks.getTaskListLength() + " tasks in the list.");
+    public boolean execute(TaskList tasks, Ui ui, Storage taskFile) {
+        ui.displayLine();
+        try {
+            tasks.addTask(eventTask, taskFile);
+            ui.displayAddedTask(eventTask, tasks, COMMAND_WORD);
+        } catch (IOException e) {
+            ui.displayError(ui.IO_EXCEPTION_MESSAGE);
+        }
+        return false;
     }
 }
