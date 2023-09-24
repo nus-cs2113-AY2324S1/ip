@@ -1,4 +1,8 @@
 package duke.tasks;
+
+/**
+ * Represents an overarching task class and what a task should contain.
+ */
 public class Task {
     public  String toBeDone;
     public String[] markAsDone;
@@ -15,6 +19,7 @@ public class Task {
         taskType[0] = " ";
 
     }
+
     public void setDone(){
         markAsDone[0] ="X";
     }
