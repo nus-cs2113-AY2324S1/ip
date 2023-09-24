@@ -1,12 +1,11 @@
 package duke;
 
 
-import task.Event;
-import task.Task;
-import task.Deadline;
-import task.Todo;
+import CommandFormat.Command;
+import task.*;
 
 import exception.DukeException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -27,20 +26,22 @@ public class Duke {
     public static void main(String[] args) throws IOException{
         printWelcomeMessage();
         Scanner keyboard = new Scanner(System.in);
-        checkAndCreateDataFolder();
-        checkAndCreateFile("data\\taskList.txt");
-        clearData();
+        outputFileInitialization();
+        executeCommand(keyboard);
+    }
 
+    private static void executeCommand(Scanner keyboard) {
         while (true) {
             int taskNo;
-            String command = keyboard.nextLine().trim().toLowerCase(); //small letter and remove front and back space
-            String[] commendSplits = command.split(" ");
-            if (missingOrExtraTaskDescription(commendSplits)){
+            String command = keyboard.nextLine();
+            command = Command.formattedCommand(command);
+            String[] commandSplits = command.split(" ");
+            if (missingOrExtraTaskDescription(commandSplits)){
                 continue;
             }
 
             try {
-                switch (commendSplits[0]) {
+                switch (commandSplits[0]) {
                 case "bye":
                     printByeMessage();
                     keyboard.close();
@@ -52,17 +53,17 @@ public class Duke {
 
                 case "mark":
                     // command format e.g. mark 1
-                    taskNo = getTaskNo(commendSplits[1]);
+                    taskNo = getTaskNo(commandSplits[1]);
                     list[taskNo - 1].setDone(taskNo, taskCount, list);
                     break;
 
                 case "unmark":
-                    taskNo = getTaskNo(commendSplits[1]);
+                    taskNo = getTaskNo(commandSplits[1]);
                     list[taskNo - 1].setNotDone(taskNo, taskCount, list);
                     break;
 
                 case "delete":
-                    taskNo = getTaskNo(commendSplits[1]);
+                    taskNo = getTaskNo(commandSplits[1]);
                     deleteTask(taskNo);
                     break;
 
@@ -96,14 +97,19 @@ public class Duke {
             } catch (NullPointerException npe){
                 System.out.println("Your target task doesn't exist. Please input a correct task.");
             } catch (DukeException e){
-                e.incorrectFormatException(commendSplits[0]);
+                e.incorrectFormatException(commandSplits[0]);
             } catch (FileNotFoundException fnf){
                 System.out.println("Sorry, I cannot find the task source. Please check the task file.");
             } catch (IOException io){
                 System.out.println("OMG! Something went wrong! Please check if the source files are available.");
             }
         }
+    }
 
+    private static void outputFileInitialization() throws IOException {
+        checkAndCreateDataFolder();
+        checkAndCreateFile("data\\taskList.txt");
+        clearData(); //if the output file in not empty
     }
 
     private static int getTaskNo(String taskNum) {
