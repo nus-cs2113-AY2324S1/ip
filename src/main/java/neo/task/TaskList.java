@@ -166,6 +166,8 @@ public abstract class TaskList {
                 throw new NeoException("/to", ErrorType.FORMAT);
             }
             break;
+        default:
+            System.out.println("Unable to catch format error.");
         }
     }
 
