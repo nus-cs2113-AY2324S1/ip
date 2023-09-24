@@ -1,4 +1,11 @@
-import java.sql.SQLOutput;
+import exceptions.DukeException;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidFormatException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 import java.util.Scanner;
 
 public class Alice {
@@ -11,15 +18,8 @@ public class Alice {
      */
     public static void printHelloMessage() {
         System.out.println("Hi there! I am");
-        String[] alice = {
-                "  _   _    _    _   _   ",
-                " / \\ / \\  / \\  / \\_/ \\",
-                "( A )( L )( I )( C )( E )",
-                " \\_/ \\_/  \\_/  \\_/ \\_/"
-        };
-        for (String line : alice) {
-            System.out.println(line);
-        }
+        String alice = " / \\ / \\  / \\  / \\_/ \\\n( A )( L )( I )( C )( E )\n \\_/ \\_/  \\_/  \\_/ \\_/\n";
+        System.out.println(alice);
         System.out.println("What can I do for you?");
         System.out.println(LINE);
     }
@@ -66,7 +66,10 @@ public class Alice {
      * then, calls addTask to add task to tasks array
      * @param userInput input from user (eg. todo borrow book)
      */
-    public static void addTodo(String userInput) {
+    public static void addTodo(String userInput) throws InvalidFormatException {
+        if (userInput.split(" ").length < 2) {
+            throw new InvalidFormatException();
+        }
         final int LENGTH_OF_COMMAND = 5; //length of "size "
 
         String description = userInput.substring(LENGTH_OF_COMMAND);
@@ -79,13 +82,14 @@ public class Alice {
      * then, calls addTask to add deadline task to tasks array
      * @param userInput input from user (eg. deadline return book /by Sunday)
      */
-    public static void addDeadline(String userInput) throws DukeException{
+    public static void addDeadline(String userInput) throws InvalidFormatException {
         final int LENGTH_OF_COMMAND = 9; //length of "deadline "
 
         String[] inputArray = userInput.split(" /");
         if (inputArray.length == 1) {
-            throw new DukeException();
+            throw new InvalidFormatException();
         }
+
         String description = inputArray[0].substring(LENGTH_OF_COMMAND);
         String date = inputArray[1];
 
@@ -98,13 +102,14 @@ public class Alice {
      * then, calls addTask to add event task to tasks array
      * @param userInput input from user (eg. event project meeting /from Mon 2pm /to 4pm)
      */
-    public static void addEvent(String userInput) throws DukeException{
+    public static void addEvent(String userInput) throws InvalidFormatException{
         final int LENGTH_OF_COMMAND = 6; //length of "event "
 
         String[] inputArray = userInput.split(" /");
         if (inputArray.length < 3) {
-            throw new DukeException();
+            throw new InvalidFormatException();
         }
+
         String description = inputArray[0].substring(LENGTH_OF_COMMAND);
         String startDate = inputArray[1].strip();
         String endDate = inputArray[2].strip();
@@ -113,108 +118,73 @@ public class Alice {
         addTask(newTask);
     }
 
+    /**
+     * Either marks or unmarks a task.
+     * @param userInput Input from user.
+     * @throws InvalidCommandException The task number specified is not within the list.
+     */
+    public static void changeStatus(String userInput) throws InvalidCommandException{
+        int taskId;
 
-    public static void deadlineExceptionMessage() {
-        System.out.println("☹ OOPS!!! Your formatting is wrong!");
-        System.out.println("It should be in the format ---> deadline <action> /<date>");
-        System.out.println("eg. deadline return book /by Sunday" + LINE);
-    }
+        String[] userInputArray = userInput.split(" ");
+        String actionOfInput = userInputArray[0];
+        taskId = Integer.parseInt(userInputArray[1]) - 1;
 
-    public static void eventExceptionMessage() {
-        System.out.println("☹ OOPS!!! Your format is wrong!");
-        System.out.println("Format: event <event name> /<start time> /<end time>");
-        System.out.println("eg. event project meeting /from Mon 2pm /to 4pm" + LINE);
+        if (taskId+1 > numberOfTasks || taskId+1 < 0) {
+            throw new InvalidCommandException();
+        }
+
+        if (actionOfInput.equals("mark")){
+            tasks[taskId].markTask();
+        } else {
+            tasks[taskId].unmarkTask();
+        }
     }
 
     /**
      * Records down task from user input.
      * User is able to mark and unmark tasks, and also list all the tasks.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidCommandException, InvalidFormatException{
         printHelloMessage();
-        int taskId;
 
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
         String actionOfInput;
 
+
         while (!(userInput.equals("bye"))){
             actionOfInput = userInput.split(" ")[0];
-            switch (actionOfInput){
-            case "list":
-                listTasks();
-                break;
-            case "unmark":
-                try {
-                    taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    tasks[taskId].unmarkTask();
-                } catch (NumberFormatException e) {
-                    System.out.println("☹ OOPS!!! You should key in your item number instead of a text! eg. unmark 1" + LINE);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("☹ OOPS!!! your item number is missing! eg. unmark 1" + LINE);
-                } catch (NullPointerException e) {
-                    switch (numberOfTasks) {
-                    case 0:
-                        System.out.println("☹ OOPS!!! You don't have any items... ");
-                        break;
-                    case 1:
-                        System.out.println("☹ OOPS!!! There's only 1 task! To unmark it, type unmark 1.");
-                        break;
-                    default:
-                        System.out.println("☹ OOPS!!! Your item number is out of range... Please select a number from 1 to " + numberOfTasks +LINE);
-                    }
-                }
-                break;
-            case "mark":
-                try {
-                    taskId = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    tasks[taskId].markTask();
-                }catch (NumberFormatException e) {
-                    System.out.println("☹ OOPS!!! You should key in your item number instead of a text! eg. mark 1" + LINE);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("☹ OOPS!!! your item number is missing! eg. mark 1" + LINE);
-                } catch (NullPointerException e) {
-                    switch (numberOfTasks) {
-                    case 0:
-                        System.out.println("☹ OOPS!!! You don't have any items... ");
-                        break;
-                    case 1:
-                        System.out.println("☹ OOPS!!! There's only 1 task! To mark it, type mark 1.");
-                        break;
-                    default:
-                        System.out.println("☹ OOPS!!! Your item number is out of range... Please select a number from 1 to " + numberOfTasks +LINE);
-                    }
-                }
-                break;
-            case "deadline":
-                try {
+
+            try{
+                switch (actionOfInput) {
+                case "list":
+                    listTasks();
+                    break;
+                case "mark":
+                case "unmark":
+                    changeStatus(userInput);
+                    break;
+                case "deadline":
                     addDeadline(userInput);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    deadlineExceptionMessage();
-                } catch (DukeException e) {
-                    deadlineExceptionMessage();
-                }
-                break;
-            case "event":
-                try {
+                    break;
+                case "event":
                     addEvent(userInput);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    eventExceptionMessage();
-                } catch (DukeException e) {
-                    eventExceptionMessage();
-                }
-                break;
-            case "todo":
-                try {
+                    break;
+                case "todo":
                     addTodo(userInput);
-                } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty." + LINE);
+                    break;
+                default:
+                    throw new InvalidCommandException();
                 }
-                break;
-            default:
-                Task newTask = new Task(userInput);
-                addTask(newTask);
+            } catch (IndexOutOfBoundsException e){
+                System.out.println("You have an extra input OR you are missing an input!\n CORRECT IT BEFORE THE KNAVE OF HEART COMES!" + LINE);
+            } catch (InvalidCommandException e){
+
+            } catch (InvalidFormatException e) {
+
             }
+
             userInput = in.nextLine();
         }
         printByeMessage();

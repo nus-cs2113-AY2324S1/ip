@@ -1,3 +1,5 @@
+package tasks;
+
 public class Task {
     private static final String LINE = "____________________________________________________________\n";
     private String description;
@@ -59,4 +61,3 @@ public class Task {
         return statusOfTask + getDescription();
     }
 }
-
