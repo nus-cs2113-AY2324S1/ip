@@ -48,8 +48,8 @@ and everything following the word `/by` being the deadline date of the task.
 
 Command `event [TASK_DESCRIPTION] /from [DATE_FROM] /to [DATE_TO]`<br />
 Example: `event Music Concert /from August 16 /to August 18`<br />
-This command creates an "event" task with everything between the words `event` and `/from` consisting of the task description,<br />
-everything between the words `/from` and `/to` consisting of the starting date of the event, and everything following the word<br />
+This command creates an "event" task with everything between the words `event` and `/from` consisting of the task description,
+everything between the words `/from` and `/to` consisting of the starting date of the event, and everything following the word
 `/to` consisting of the end date of the event.
 
 ### Marking Tasks
