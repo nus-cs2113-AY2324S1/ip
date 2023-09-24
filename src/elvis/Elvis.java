@@ -1,8 +1,10 @@
 package elvis;
+
+import elvis.operation.Storage;
+
 public class Elvis {
 
     public static void main(String[] args) {
-        //Functionalities of ChatBot
-        FileManager.fileManager();
+        Storage.fileManager();
     }
 }
