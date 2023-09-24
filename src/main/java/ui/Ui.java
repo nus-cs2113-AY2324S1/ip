@@ -50,7 +50,7 @@ public class Ui {
 
     public static void printTaskAddedMessage(Task task) {
         System.out.println(LINE);
-        System.out.println("Got it. I've added this data.task:");
+        System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.getDetails());
         printTaskCount();
         System.out.println(LINE);
@@ -58,7 +58,7 @@ public class Ui {
 
     public static void printTaskRemovedMessage(Task task) {
         System.out.println(LINE);
-        System.out.println("Noted. I've removed this data.task:");
+        System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task.getDescription());
         printTaskCount();
         System.out.println(LINE);
