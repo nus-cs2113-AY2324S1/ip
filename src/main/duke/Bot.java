@@ -20,6 +20,9 @@ public class Bot {
         input = new Scanner(System.in);
     }
 
+    /**
+     * Runs the chat bot
+     */
     public void runBot() {
         storage.importToArrayList(taskList);
         ui.printBotMessage();

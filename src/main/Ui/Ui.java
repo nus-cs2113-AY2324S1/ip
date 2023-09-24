@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import Task.Task;
+import TaskList.TaskList;
 
 public class Ui {
     private static final String BOT_NAME = "JS";
@@ -31,23 +32,34 @@ public class Ui {
         System.out.println(LINE_DIVIDER);
     }
 
-    public void printListLength(ArrayList<Task> taskList) {
-        System.out.println("Now you have " + taskList.size() + " task in the list");
+    public void printListLength(TaskList taskList) {
+        System.out.println("Now you have " + taskList.getTaskList() + " task in the list");
     }
 
-    public void printList(ArrayList<Task> taskList) {
+    /**
+     * Prints the all the task in the task list.
+     * 
+     * @param taskList TaskList object to be used.
+     */
+    public void printList(TaskList taskList) {
         System.out.println("Here are the task in your list:");
-        Iterator<Task> taskListIter = taskList.iterator();
+        Iterator<Task> taskListIter = taskList.getTaskList().iterator();
         for(int i = 1; taskListIter.hasNext(); i++) {
             Task task = taskListIter.next();
             System.out.println(i + "." + task);
         }
     }
 
-    public void printFindList(ArrayList<Task> taskList, String find) {
+    /**
+     * Prints the tasks that contains the keyword
+     * 
+     * @param taskList TaskList object to be searched through.
+     * @param find Keyword to be used in the search.
+     */
+    public void printFindList(TaskList taskList, String find) {
         boolean isFound = false;
         String output = "Here are the matching tasks in your list:\n";
-        Iterator<Task> taskListIter = taskList.iterator();
+        Iterator<Task> taskListIter = taskList.getTaskList().iterator();
         for(int i = 1; taskListIter.hasNext();) {
             Task task = taskListIter.next();
             if(task.getName().contains(find)) {
@@ -61,9 +73,14 @@ public class Ui {
         } else {
             System.out.println("No Tasks Found");
         }
-        
     }
 
+    /**
+     * Prints task that is added or deleted
+     * 
+     * @param task Newly created task or deleted task
+     * @param isDelete check if it is new task or deleted task
+     */
     public void printTask(Task task, boolean isDelete) {
         if(task == null) {
             return;
@@ -77,6 +94,11 @@ public class Ui {
         System.out.println(task);
     }
 
+    /**
+     * Print task that is marked or unmarked
+     * 
+     * @param task Task that is marked or unmarked.
+     */
     public void printMarked(Task task) {
         if(task == null) {
             return;

@@ -19,6 +19,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + getBy() + ")";
     }
 
+    /**
+     * Converts the object into a string format to be stored in the file.
+     * 
+     * @return Formatted string to be stored in the file.
+     */
     public String toFile() {
         return "D," + (isCompleted() ? "1" : "0") + "," + getName() + "," + getBy();
     }
