@@ -1,20 +1,25 @@
 package RC.task;
 
-public class Deadline extends Task {
-    private String by;
+import RC.RCException;
+import RC.command.DateTimeParser;
 
-    public Deadline(String description, String by) {
+import java.time.LocalDateTime;
+
+public class Deadline extends Task {
+    private final LocalDateTime dateTime;
+
+    public Deadline(String description, String dateTime) throws RCException{
         super(description);
-        this.by = by;
+        this.dateTime = DateTimeParser.getDateTime(dateTime);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.dateTime.format(DateTimeParser.strFormatter) + ")";
     }
 
     @Override
     public String formatString() {
-        return "D | " + super.formatString() + " | " + this.by;
+        return "D | " + super.formatString() + " | " + this.dateTime.format(DateTimeParser.dateFormatter);
     }
 }
