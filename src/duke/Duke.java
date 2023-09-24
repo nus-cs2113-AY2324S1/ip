@@ -4,11 +4,11 @@ import duke.todo.Todo;
 import duke.task.Task;
 import duke.event.Event;
 import duke.deadline.Deadline;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Duke {
 
@@ -113,7 +113,7 @@ public class Duke {
 
         ui.printWelcome();
 
-        DukeFile f = new DukeFile();
+        Storage f = new Storage();
         try {
             taskItems = f.readTasksFromFile();
         } catch (IOException e) {
