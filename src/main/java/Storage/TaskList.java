@@ -45,4 +45,16 @@ public class TaskList {
         return task;
     }
 
+    public ArrayList<Integer> searchTasks(String searchWord) {
+        ArrayList<Integer> resultTasks = new ArrayList<Integer>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String taskName = task.getName();
+            if (taskName.contains(searchWord)) {
+                resultTasks.add(i);
+            }
+        }
+        return resultTasks;
+    }
+
 }

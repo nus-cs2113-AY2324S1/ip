@@ -2,6 +2,7 @@ package Ui;
 import Soccat.Task;
 import Storage.TaskList;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Ui {
@@ -37,8 +38,17 @@ public class Ui {
         ArrayList<Task> taskArrayList = tasks.getTasks();
         for (int i = 0; i < taskArrayList.size(); i++) {
             // Add 1 to change array index to 1 based index
-            int arrayIndex = i+1;
+            int arrayIndex = i + 1;
             System.out.println(arrayIndex + ". " + taskArrayList.get(i));
+        }
+    }
+
+    public void displaySelectedTasks(TaskList tasks, ArrayList<Integer> indexes) {
+        ArrayList<Task> taskArrayList = tasks.getTasks();
+        for (Integer index : indexes) {
+            // Add 1 to change array index to 1 based index
+            int arrayIndex = index + 1;
+            System.out.println(arrayIndex + ". " + taskArrayList.get(index));
         }
     }
 

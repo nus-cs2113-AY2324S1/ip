@@ -9,6 +9,7 @@ import Command.ListCommand;
 import Command.MarkCommand;
 import Command.DeleteCommand;
 import Command.ExitCommand;
+import Command.FindCommand;
 
 public class Parser {
 
@@ -39,6 +40,8 @@ public class Parser {
             return parseDeleteCommand(commandArguments);
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+        case FindCommand.COMMAND_WORD:
+            return parseFindCommand(commandArguments);
         default:
             return new InvalidCommand(Command.INVALID_PROMPT);
         }
@@ -88,4 +91,12 @@ public class Parser {
             return new InvalidCommand(DeleteCommand.INVALID_PROMPT);
         }
     }
+
+    private Command parseFindCommand(String arguments) {
+        if (arguments.isEmpty()) {
+            return new InvalidCommand(FindCommand.INVALID_PROMPT);
+        }
+        return new FindCommand(arguments);
+    }
+
 }
