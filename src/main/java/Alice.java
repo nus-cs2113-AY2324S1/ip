@@ -1,41 +1,43 @@
-import exceptions.DukeException;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidFormatException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+import storage.FileManager;
 
 import java.util.ArrayList;
+import java.io.*;
 import java.util.Scanner;
 
 public class Alice {
     private static final String LINE = "\n____________________________________________________________\n";
-    //private static Task[] tasks = new Task[100];
+    private static final String TAB_SPACE = "    ";
     private static ArrayList<Task> tasks= new ArrayList<>();
+    private static FileManager file = new FileManager();
+    private static int numberOfTasks;
 
     /**
      * For printing the hello message
      */
     public static void printHelloMessage() {
-        System.out.println("Hi there! I am");
-        String alice = " / \\ / \\  / \\  / \\_/ \\\n( A )( L )( I )( C )( E )\n \\_/ \\_/  \\_/  \\_/ \\_/\n";
+        System.out.println("    Hi there! I am");
+        String alice = "     / \\ / \\  / \\  / \\_/ \\\n    ( A )( L )( I )( C )( E )\n     \\_/ \\_/  \\_/  \\_/ \\_/\n";
         System.out.println(alice);
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
+        System.out.println("    What can I do for you?\n");
     }
 
     /**
      * For printing the bye message
      */
     public static void printByeMessage() {
-        System.out.println(" Bye for now... We will miss you:( See you again very soon!");
-        System.out.println("   *****   ");
-        System.out.println(" *       * ");
-        System.out.println("*  O   O  *");
-        System.out.println("*    ∆    *");
-        System.out.println(" *       * ");
-        System.out.println("   *****   ");
+        System.out.println("    Bye for now... We will miss you:( See you again very soon!");
+        System.out.println("       *****   ");
+        System.out.println("     *       * ");
+        System.out.println("    *  O   O  *");
+        System.out.println("    *    ∆    *");
+        System.out.println("     *       * ");
+        System.out.println("       *****   ");
     }
 
     /**
@@ -45,7 +47,7 @@ public class Alice {
         int itemNumber;
         for (int i = 0; i < tasks.size(); i++){
             itemNumber = i + 1;
-            System.out.println(itemNumber + ". " + tasks.get(i));
+            System.out.println(TAB_SPACE + itemNumber + ". " + tasks.get(i));
         }
         System.out.println(LINE);
     }
@@ -56,9 +58,9 @@ public class Alice {
      */
     public static void addTask(Task newTask) {
         tasks.add(newTask);
-        System.out.println(" Gotcha! I have added the following task:");
-        System.out.println("   " + newTask.toString());
-        System.out.println(" Total no. of tasks: " + tasks.size() + " --- YOU'VE GOT THIS!\n" + LINE);
+        System.out.println("    Gotcha! I have added the following task:");
+        System.out.println(TAB_SPACE + TAB_SPACE + newTask.toString());
+        System.out.println("    Total no. of tasks: " + tasks.size() + " --- YOU'VE GOT THIS!\n" + LINE);
     }
 
     public static void deleteTask(String userInput) throws InvalidCommandException{
@@ -69,11 +71,11 @@ public class Alice {
 
         int taskPosition = taskId - 1;
 
-        System.out.println(" Gotcha! I have removed the following task:");
-        System.out.println("   " + tasks.get(taskPosition));
+        System.out.println("    Gotcha! I have removed the following task:");
+        System.out.println(TAB_SPACE + TAB_SPACE + tasks.get(taskPosition));
 
         tasks.remove(taskPosition);
-        System.out.println(" Total no. of tasks: " + tasks.size() + " --- YOU'VE GOT THIS!\n" + LINE);
+        System.out.println("    Total no. of tasks: " + tasks.size() + " --- YOU'VE GOT THIS!\n" + LINE);
     }
 
     /**
@@ -160,13 +162,13 @@ public class Alice {
      * Records down task from user input.
      * User is able to mark and unmark tasks, and also list all the tasks.
      */
-    public static void main(String[] args) throws InvalidCommandException, InvalidFormatException{
+    public static void main(String[] args) throws InvalidCommandException, InvalidFormatException, FileNotFoundException {
         printHelloMessage();
+        tasks = file.retrieve();
 
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
         String actionOfInput;
-
 
         while (!(userInput.equals("bye"))){
             actionOfInput = userInput.split(" ")[0];
@@ -196,15 +198,15 @@ public class Alice {
                     throw new InvalidCommandException();
                 }
             } catch (IndexOutOfBoundsException e){
-                System.out.println("You have an extra input OR you are missing an input!\n CORRECT IT BEFORE THE KNAVE OF HEART COMES!" + LINE);
+                System.out.println("    You have an extra input OR you are missing an input!\n CORRECT IT BEFORE THE KNAVE OF HEART COMES!" + LINE);
             } catch (InvalidCommandException e){
 
             } catch (InvalidFormatException e) {
 
             }
-
             userInput = in.nextLine();
         }
+        file.save(tasks);
         printByeMessage();
     }
 }

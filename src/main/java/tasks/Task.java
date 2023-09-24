@@ -1,7 +1,10 @@
 package tasks;
 
 public class Task {
-    private static final String LINE = "____________________________________________________________\n";
+    public static final String LINE = "____________________________________________________________\n";
+    private static final String TAB_SPACE = "    ";
+
+    public static final String SEPARATOR = " | ";
     private String description;
     private boolean isDone;
 
@@ -32,8 +35,8 @@ public class Task {
      */
     public void markTask() {
         setIsDone(true);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("   " + this.toString());
+        System.out.println(TAB_SPACE + "Nice! I've marked this task as done:");
+        System.out.println(TAB_SPACE + TAB_SPACE + this.toString() + System.lineSeparator());
         System.out.println(LINE);
     }
 
@@ -43,8 +46,8 @@ public class Task {
      */
     public void unmarkTask() {
         setIsDone(false);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("   " + this.toString());
+        System.out.println(TAB_SPACE + "OK, I've marked this task as not done yet:");
+        System.out.println(TAB_SPACE + TAB_SPACE + this.toString() + System.lineSeparator());
         System.out.println(LINE);
     }
 
@@ -59,5 +62,13 @@ public class Task {
     public String toString() {
         String statusOfTask = "[" + getStatusIcon() + "] ";
         return statusOfTask + getDescription();
+    }
+
+    public String encode() {
+        String isDoneSymbol = "0"; //default is unmarked
+        if (getIsDone()) {
+            isDoneSymbol = "1";
+        }
+        return SEPARATOR + isDoneSymbol + SEPARATOR +getDescription();
     }
 }
