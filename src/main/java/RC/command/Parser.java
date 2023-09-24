@@ -10,6 +10,7 @@ public class Parser {
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
     private static final String DELETE_COMMAND = "delete";
+    private static final String FIND_COMMAND = "find";
     private static final String EXIT_COMMAND = "bye";
 
     public static RCCommand parse(String input) throws RCException {
@@ -32,6 +33,8 @@ public class Parser {
             return new Unmark(restOfInput);
         case DELETE_COMMAND:
             return new Delete(restOfInput);
+        case FIND_COMMAND:
+            return new Find(restOfInput);
         case EXIT_COMMAND:
             return new Exit();
         default:
