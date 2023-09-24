@@ -7,6 +7,11 @@ import Ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to add a todo.
+ * A <code>TodoCommand</code> corresponds to a command
+ * consisting of a task only.
+ * */
 public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
@@ -18,6 +23,15 @@ public class TodoCommand extends Command {
         this.todoTask = new Todo(taskName);
     }
 
+    /**
+     * Executes the todo command to add a todo task
+     * to the list of tasks, and update the storage file.
+     *
+     * @param tasks The taskList object containing tasks
+     * @param ui The ui object to display messages to users
+     * @param taskFile The storage file for tasks to be stored
+     * @return Boolean of whether to exit the application.
+     * */
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage taskFile) {
         ui.displayLine();

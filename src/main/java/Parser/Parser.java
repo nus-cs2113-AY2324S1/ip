@@ -11,9 +11,19 @@ import Command.DeleteCommand;
 import Command.ExitCommand;
 import Command.FindCommand;
 
+/**
+ * Represents a parser object to parse commands.
+ * Parser object consists of methods to parse various commands.
+ * */
+
 public class Parser {
 
-
+    /**
+     * Parse a userInput to conform to a command object
+     *
+     * @param userInput the command entered by the user
+     * @return Command object that is executable based on the user input
+     * */
     public Command parseCommand(String userInput) {
         String[] tokens = userInput.split(" ");
         if (tokens.length == 0) {
