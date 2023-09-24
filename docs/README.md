@@ -42,7 +42,7 @@ Exits programme.
 
 ## Usage
 
-### `todo` - Describe action
+### `todo` - Adds task of type todo
 
 Adds a task of type todo into the task-list to be saved.
 
@@ -58,7 +58,7 @@ todo task is added successfully into task-list.
 added: cry
 Now you have 1 tasks in the list.
 ```
-### `deadline` - Describe action
+### `deadline` - Add task of type deadline
 
 Adds a task of type deadline with a due date into the task list successfully.
 
@@ -74,7 +74,7 @@ task of type deadline is successfully added into the task-list.
 added: sleep (by: sunday)
 Now you have 2 tasks in your list.
 ```
-### `event` - Describe action
+### `event` - Add task of type event
 
 Adds a task of type event with a due date into the task list successfully.
 
@@ -90,7 +90,7 @@ task of type event is successfully added into the task-list.
 added:  cs2113 lecture (from: 4pm to: 6pm)
 Now you have 3 tasks in the list.
 ```
-### `list` - Describe action
+### `list` - Displays all tasks
 
 List out all existing tasks previously entered into the bot.
 
@@ -109,7 +109,7 @@ Here are the tasks in your list
 3.[E][ ]  cs2113 lecture (from: 4pm to:  6pm)
 ```
 
-### `mark` - Describe action
+### `mark` - Mark task as completed
 
 Marks a task as done based on task number of task in the list.
 
@@ -126,7 +126,7 @@ Task Completed!
 [X]  cry
 ```
 
-### `unmark` - Describe action
+### `unmark` - Unmark a completed task
 
 Unmark a task as done based on task number of task in the list.
 
@@ -143,7 +143,7 @@ Task marked as uncompleted!
 [ ]  cry
 ```
 
-### `delete` - Describe action
+### `delete` - Remove task from task-list
 
 Removes a task from the list based on task number of task in the list.
 
@@ -161,7 +161,7 @@ Task Removed
 Now you have 2 tasks in the list.
 ```
 
-### `find` - Describe action
+### `find` - Search for specific task in list
 
 Searches and prints out list of tasks with description matching user input.
 
@@ -177,7 +177,7 @@ Successfully prints task found based on user input.
 Here are the matching tasks in your list: 
 1.[E][ ]  cs2113 lecture (from: 4pm to:  6pm)
 ```
-### `bye` - Describe action
+### `bye` - Terminates programme
 
 End the programme
 
