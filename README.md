@@ -43,7 +43,7 @@ This command creates a "todo" task with everything following the word `todo` bei
 
 Command: `deadline [TASK_DESCRIPTION] /by [DEADLINE_DATE]`<br />
 Example: `deadline Finish Assignment 1 /by January 7`<br />
-This command creates a "deadline" task with everything between the words `deadline` and `/by` consisting of the task description<br />
+This command creates a "deadline" task with everything between the words `deadline` and `/by` consisting of the task description
 and everything following the word `/by` being the deadline date of the task.
 
 Command `event [TASK_DESCRIPTION] /from [DATE_FROM] /to [DATE_TO]`<br />
