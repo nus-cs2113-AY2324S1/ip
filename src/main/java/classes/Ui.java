@@ -33,6 +33,12 @@ public class Ui {
         endRemy();
     }
 	
+	/**
+	 * Notifies the user that a task has been added to their list.
+	 * 
+	 * @param task the task that was added to the list
+	 * @param toDoList the list containing all the tasks
+	 */
 	public void printTaskAdded(Task task, TaskList toDoList) {
     	printLines();
     	System.out.println("     Got it. I've added this task:");
@@ -42,6 +48,12 @@ public class Ui {
     	System.out.println();
 	}
 	
+	/**
+	 * Notifies the user that a task has been removed from their list.
+	 * 
+	 * @param task the task that was removed from the list
+	 * @param toDoList the list containing all the tasks
+	 */
 	public void printTaskRemoved(Task task, TaskList toDoList) {
 		printLines();
     	System.out.println("     Noted. I've removed this task:");
@@ -51,6 +63,11 @@ public class Ui {
     	System.out.println();
 	}
 	
+	/**
+	 * Prints out the entire user's list.
+	 * 
+	 * @param toDoList the list containing all the tasks
+	 */
     public void printToDoList(TaskList toDoList) {
     	printLines();
     	if (!toDoList.isEmpty()) {
@@ -75,6 +92,12 @@ public class Ui {
     	return input.nextLine();
     }
     
+    /**
+     * Searches for all tasks whose descriptions match a specific keyword and prints them out
+     * 
+     * @param tasks the list containing all the user's tasks
+     * @param keyword the keyword to be matched
+     */
     public void searchForTasks(TaskList tasks, String keyword) {
     	printLines();
     	ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
