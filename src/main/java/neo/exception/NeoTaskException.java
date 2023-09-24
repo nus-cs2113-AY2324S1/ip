@@ -2,12 +2,12 @@ package neo.exception;
 
 import neo.type.ErrorType;
 
-public class NeoException extends Exception {
+public class NeoTaskException extends Exception {
     protected String description;
     protected ErrorType type;
 
 
-    public NeoException(String description, ErrorType type) {
+    public NeoTaskException(String description, ErrorType type) {
         this.description = description;
         this.type = type;
     }

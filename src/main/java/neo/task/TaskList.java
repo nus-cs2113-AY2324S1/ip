@@ -1,9 +1,11 @@
 package neo.task;
 
-import neo.exception.NeoException;
+import neo.exception.NeoTaskException;
+import neo.exception.NeoTimeException;
+import neo.util.ErrorCatcher;
 import neo.type.CommandType;
-import neo.type.ErrorType;
 import java.util.ArrayList;
+
 
 public abstract class TaskList {
     private static final ArrayList<Task> list = new ArrayList<>();
@@ -137,57 +139,19 @@ public abstract class TaskList {
         }
     }
 
-    private static void catchFormatError(CommandType type, String line) throws NeoException {
-        switch (type) {
-        case TODO:
-            if (line.contains("/from") || (line.contains("/to"))) {
-                throw new NeoException("/from", ErrorType.MISUSE);
-            }
-            if (line.contains("/by")) {
-                throw new NeoException("/by", ErrorType.MISUSE);
-            }
-            break;
-        case DEADLINE:
-            if (line.contains("/from") || (line.contains("/to"))) {
-                throw new NeoException("/from", ErrorType.MISUSE);
-            }
-            if (!line.contains("/by")) {
-                throw new NeoException("/by", ErrorType.FORMAT);
-            }
-            break;
-        case EVENT:
-            if (line.contains("/by")) {
-                throw new NeoException("/by", ErrorType.MISUSE);
-            }
-            if (!line.contains("/from")) {
-                throw new NeoException("/from", ErrorType.FORMAT);
-            }
-            if (!line.contains("/to")) {
-                throw new NeoException("/to", ErrorType.FORMAT);
-            }
-            break;
-        default:
-            System.out.println("Unable to catch format error.");
-            break;
-        }
-    }
-
-    private static void catchEmptyDescription(String field, String description) throws NeoException {
-        if (description.isBlank()) {
-            throw new NeoException(field, ErrorType.EMPTY);
-        }
-    }
-
     public static void handleEvent(String line) {
         try {
             addEvent(line);
-        } catch (NeoException e) {
+        } catch (NeoTaskException e) {
+            e.printException();
+        } catch (NeoTimeException e) {
             e.printException();
         }
     }
 
-    private static void addEvent(String line) throws NeoException {
-        catchFormatError(CommandType.EVENT, line);
+    private static void addEvent(String line) throws NeoTaskException, NeoTimeException {
+        ErrorCatcher.catchFormatError(CommandType.EVENT, line);
+
 
         int fromIndex = line.indexOf("/from");
         int toIndex = line.indexOf("/to");
@@ -199,9 +163,12 @@ public abstract class TaskList {
         String from = line.substring(fromIndex + fromStringLength, toIndex).trim();
         String to = line.substring(toIndex + toStringLength).trim();
 
-        catchEmptyDescription("description", description);
-        catchEmptyDescription("/from", from);
-        catchEmptyDescription("/to", to);
+        ErrorCatcher.catchEmptyDescription("description", description);
+        ErrorCatcher.catchEmptyDescription("/from", from);
+        ErrorCatcher.catchEmptyDescription("/to", to);
+        ErrorCatcher.catchTimeFormatError(from);
+        ErrorCatcher.catchTimeFormatError(to);
+
 
         Event toAdd = new Event(description, from, to);
         list.add(toAdd);
@@ -211,13 +178,16 @@ public abstract class TaskList {
     public static void handleDeadline(String line) {
         try {
             addDeadline(line);
-        } catch (NeoException e) {
+        } catch (NeoTaskException e) {
+            e.printException();
+        } catch (NeoTimeException e) {
             e.printException();
         }
     }
 
-    private static void addDeadline(String line) throws NeoException {
-        catchFormatError(CommandType.DEADLINE, line);
+    private static void addDeadline(String line) throws NeoTaskException, NeoTimeException {
+        ErrorCatcher.catchFormatError(CommandType.DEADLINE, line);
+
 
         int byIndex = line.indexOf("/by");
         int byStringLength = 3;
@@ -226,8 +196,9 @@ public abstract class TaskList {
         String description = line.substring(deadlineStringLength, byIndex).trim();
         String by = line.substring(byIndex + byStringLength).trim();
 
-        catchEmptyDescription("description", description);
-        catchEmptyDescription("/by", by);
+        ErrorCatcher.catchEmptyDescription("description", description);
+        ErrorCatcher.catchEmptyDescription("/by", by);
+        ErrorCatcher.catchTimeFormatError(by);
 
         Deadline toAdd = new Deadline(description, by);
         list.add(toAdd);
@@ -237,18 +208,18 @@ public abstract class TaskList {
     public static void handleTodo(String line) {
         try {
             addTodo(line);
-        } catch (NeoException e) {
+        } catch (NeoTaskException e) {
             e.printException();
         }
     }
-    private static void addTodo(String line) throws NeoException {
-        catchFormatError(CommandType.TODO, line);
+    private static void addTodo(String line) throws NeoTaskException {
+        ErrorCatcher.catchFormatError(CommandType.TODO, line);
 
         int todoStringLength = 4;
 
         String description = line.substring(todoStringLength).trim();
 
-        catchEmptyDescription("description", description);
+        ErrorCatcher.catchEmptyDescription("description", description);
 
         Todo toAdd = new Todo(description);
         list.add(toAdd);
