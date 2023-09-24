@@ -1,9 +1,18 @@
 package Parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     
     protected String command;
     protected String arguments;
+    protected String description;
+    protected LocalDate by;
+    protected LocalDate from;
+    protected LocalDate to;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM uuuu");
 
     public Parser() {
         this.command = "";
@@ -26,6 +35,22 @@ public class Parser {
         return arguments;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getBy() {
+        return by;
+    }
+
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    public LocalDate getTo() {
+        return to;
+    }
+    
     public void checkFrom(String from) {
         if(from.isBlank()) {
             throw new IllegalArgumentException("From Blank");
@@ -64,36 +89,41 @@ public class Parser {
         checkBy(by);
     }
 
-    public String[] getEventArguments() throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
+    public void checkEventDate(String from, String to) {
+        this.from = LocalDate.parse(from, FORMATTER);
+        this.to = LocalDate.parse(to, FORMATTER);
+        if(this.to.isBefore(this.from)) {
+            throw new DateTimeParseException("To before from", to, 0);
+        }
+    }
+
+    public void checkDeadlineDate(String by) {
+        this.by = LocalDate.parse(by, FORMATTER);
+    }
+
+    public void setEventArguments() throws ArrayIndexOutOfBoundsException, IllegalArgumentException, DateTimeParseException {
         checkDescription(arguments);
-        String[] eventArguments = new String[3];
         String[] argumentsList = arguments.split("/from");
-        String description = argumentsList[0].trim().replace(",", "");
+        this.description = argumentsList[0].trim().replace(",", "");
         argumentsList = argumentsList[1].split("/to");
         String from = argumentsList[0].trim().replace(",", "");
         String to = argumentsList[1].trim().replace(",", "");
         checkEventArgs(description, from, to);
-        eventArguments[0] = description;
-        eventArguments[1] = from;
-        eventArguments[2] = to;
-        return eventArguments;
+        checkEventDate(from, to);
     }
 
-    public String[] getDeadlineArguments() throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
+    public void setDeadlineArguments() throws ArrayIndexOutOfBoundsException, IllegalArgumentException, DateTimeParseException {
         checkDescription(arguments);
-        String[] deadlineArguments = new String[2];
         String[] argumentsList = arguments.split("/by");
-        String description = argumentsList[0].trim().replace(",", "");
+        this.description = argumentsList[0].trim().replace(",", "");
         String by = argumentsList[1].trim().replace(",", "");
         checkDeadlineArgs(description, by);
-        deadlineArguments[0] = description;
-        deadlineArguments[1] = by;
-        return deadlineArguments;
+        checkDeadlineDate(by);
     }
 
-    public String getToDoArguments() throws IllegalArgumentException {
+    public void setToDoArguments() throws IllegalArgumentException {
         checkDescription(arguments);
-        return arguments.replace(",", "");
+        this.description = arguments.replace(",", "");
     }
 
     public int getMarkListArguments() throws IndexOutOfBoundsException, NumberFormatException {
@@ -106,5 +136,14 @@ public class Parser {
         return index;
     }
 
-    
+    public void checkKeyword(String keyword) {
+        if(keyword.isBlank() || keyword.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public String getFindArguments() throws IllegalArgumentException {
+        checkKeyword(arguments);
+        return arguments;
+    }
 }

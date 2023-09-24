@@ -1,5 +1,7 @@
 package Command;
 
+import java.time.format.DateTimeParseException;
+
 import Parser.Parser;
 import Storage.Storage;
 import TaskList.TaskList;
@@ -32,28 +34,35 @@ public class Command extends Parser {
             return;
         case "todo":
             try {
-                ui.printTask(taskList.addToDoToList(getToDoArguments()), false);
+                setToDoArguments();
+                ui.printTask(taskList.addToDoToList(getDescription()), false);
             } catch (IllegalArgumentException exception) {
                 ui.printToDoUsage();
             }
             break;
         case "event":
             try {
-                ui.printTask(taskList.addEventToList(getEventArguments()), false);
+                setEventArguments();
+                ui.printTask(taskList.addEventToList(getDescription(), getFrom(), getTo()), false);
                 ui.printListLength(taskList.getTaskList());
             } catch(IllegalArgumentException exception) {
                 ui.printEventUsage();
             } catch(ArrayIndexOutOfBoundsException exception) {
+                ui.printEventUsage();
+            } catch(DateTimeParseException exception) {
                 ui.printEventUsage();
             }
             break;
         case "deadline":
             try {
-                ui.printTask(taskList.addDeadlineToList(getDeadlineArguments()), false);
+                setDeadlineArguments();
+                ui.printTask(taskList.addDeadlineToList(getDescription(), getBy()), false);
                 ui.printListLength(taskList.getTaskList());
             } catch(IllegalArgumentException exception) {
                 ui.printDeadlineUsage();
             } catch(ArrayIndexOutOfBoundsException exception) {
+                ui.printDeadlineUsage();
+            } catch(DateTimeParseException exception) {
                 ui.printDeadlineUsage();
             }
             break;
@@ -76,13 +85,21 @@ public class Command extends Parser {
             }
             break;
         case "delete":
-            try{
+            try {
                 ui.printTask(taskList.deleteTaskFromList(getDeleteArguments()), true);
                 ui.printListLength(taskList.getTaskList());
             } catch (IndexOutOfBoundsException exception) {
                 ui.printDeleteUsage();
             } catch (IllegalArgumentException exception) {
                 ui.printDeleteUsage();
+            }
+            break;
+        case "find":
+            try {
+                ui.printFindList(taskList.getTaskList(), getFindArguments());
+                
+            } catch (IllegalArgumentException exception) {
+                ui.printFindUsage();
             }
             break;
         default:
