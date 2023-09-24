@@ -1,14 +1,13 @@
 package elvis.operation;
 
-import elvis.command.InputCommand;
 import elvis.task.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.io.IOException;
+
 
 public class Storage {
     private static final String FILE_PATH = "./tasks.txt";

@@ -1,5 +1,11 @@
 package elvis.operation;
 
+import java.util.Scanner;
+
+import elvis.command.InsertCommand;
+import elvis.command.ListCommand;
+import elvis.command.MarkTaskCommand;
+import elvis.command.UnmarkTaskCommand;
 import elvis.exception.EmptyDeadlineException;
 import elvis.exception.EmptyDeleteException;
 import elvis.exception.EmptyEventException;
@@ -9,7 +15,6 @@ import elvis.exception.EmptyMarkException;
 import elvis.exception.EmptyToDoException;
 import elvis.exception.EmptyUnmarkException;
 import elvis.exception.UnknownInputException;
-import java.util.Scanner;
 
 //For adding, removing, marking, unmarking of Tasks
 public class Parser {
@@ -39,7 +44,7 @@ public class Parser {
                 Parser.errorHandler(inputBuffer);      //Checks for any errors and handles them
                 Ui.printHorizontalLines();
             }
-            TaskList.saveRequester();
+            TaskList.saver();
         }
         BootUpShutDown.shutDown();
     }
@@ -117,19 +122,19 @@ public class Parser {
 
         //Functionalities
         if (inputBuffer.equals("list")) {
-            TaskList.listOut(isFromFile);
+            ListCommand.listOut(isFromFile);
         } else if (firstWord.equals("delete") && hasInteger && !bufferScanner.hasNext()) {
             TaskList.taskRemover(numberInput);
         } else if (firstWord.equals("mark") && hasInteger && !bufferScanner.hasNext()) {
-            TaskList.taskMarker(numberInput);
+            MarkTaskCommand.taskMarker(numberInput);
         } else if (firstWord.equals("unmark") && hasInteger && !bufferScanner.hasNext()) {
-            TaskList.taskUnmarker(numberInput);
+            UnmarkTaskCommand.taskUnmarker(numberInput);
         } else if (firstWord.equals("todo")) {
-            TaskList.insertToDo(inputBuffer, isFromFile);
+            InsertCommand.insertToDo(inputBuffer, isFromFile);
         } else if (firstWord.equals("deadline")) {
-            TaskList.insertDeadline(inputBuffer, isFromFile);
+            InsertCommand.insertDeadline(inputBuffer, isFromFile);
         } else if (firstWord.equals("event")) {
-            TaskList.insertEvent(inputBuffer, isFromFile);
+            InsertCommand.insertEvent(inputBuffer, isFromFile);
         } else {
             throw new UnknownInputException();
         }
