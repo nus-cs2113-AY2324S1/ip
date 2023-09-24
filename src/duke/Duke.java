@@ -4,6 +4,7 @@ import duke.todo.Todo;
 import duke.task.Task;
 import duke.event.Event;
 import duke.deadline.Deadline;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.io.IOException;
@@ -16,30 +17,6 @@ public class Duke {
 
     public static void println(String line) {
         System.out.println("\t" + line);
-    }
-    public static void printWelcome() {
-
-        String BOB = "\t   ___    ___  ___ \n"
-                + "\t  / __\\  /___\\/ __\\\n"
-                + "\t /__\\// //  //__\\/\\\n"
-                + "\t/ \\/  \\/ \\_// \\/  \\\n"
-                + "\t\\_____/\\___/\\_____/\n";
-
-        println(LINE);
-        println("Hello! I'm\n" + BOB);
-        println("What can I do for you?");
-        println(LINE);
-    }
-
-    public static void printFarewell() {
-        println("Bye. Hope to see you again soon!");
-        println(LINE);
-    }
-
-    public static void printList() {
-        for (int i = 0; i < taskItems.size(); i++) {
-            println(String.format("%d. %s", i+1, taskItems.get(i).getTask()));
-        }
     }
 
     public static int getItemIdx(String line) {
@@ -132,9 +109,9 @@ public class Duke {
 
     public static void main(String[] args) {
         String line;
-        Scanner in = new Scanner(System.in);
+        Ui ui = new Ui();
 
-        printWelcome();
+        ui.printWelcome();
 
         DukeFile f = new DukeFile();
         try {
@@ -143,12 +120,12 @@ public class Duke {
             println(String.valueOf(e));
         }
 
-        line = in.nextLine();
+        line = ui.getCommand();
         while (line.equals("bye") == false) {
             println(LINE);
 
             if (line.startsWith("list")) {
-                printList();
+                ui.printList(taskItems);
             } else if (line.startsWith("mark")) {
                 markItem(line);
             } else if (line.startsWith("unmark")) {
@@ -175,7 +152,7 @@ public class Duke {
 
             println(LINE);
 
-            line = in.nextLine();
+            line = ui.getCommand();
         }
 
         String tasksToWrite = "";
@@ -189,6 +166,6 @@ public class Duke {
             println(String.valueOf(e));
         }
 
-        printFarewell();
+        ui.printFarewell();
     }
 }

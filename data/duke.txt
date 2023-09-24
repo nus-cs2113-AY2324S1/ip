@@ -2,3 +2,4 @@ T | true | helloworld
 T | false | goodbyeworld
 E | false | world | hello | goodbye
 D | true | ohno | tomorrow
+T | false | potatoes
