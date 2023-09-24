@@ -1,16 +1,34 @@
 package commands;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class DataCommands {
+    public static void createDirectory(String folderPath) {
+
+        File folder = new File(folderPath);
+
+        if (folder.mkdir()) {
+            System.out.println("Folder created successfully.");
+        } else {
+            System.out.println("Failed to create the folder.");
+        }
+    }
+    public static void createFileInDirectory(String directoryPath, String fileName) {
+
+        // Create the full path to the text file
+        String filePath = directoryPath + "/" + fileName;
+
+        try (FileWriter writer = new FileWriter(filePath)) {
+
+            System.out.println("Text file created successfully at: " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void addTextToFile(String filePath, String textToAdd) {
         try {
             // Create a FileWriter object with the specified file path in append mode (true).

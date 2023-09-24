@@ -6,18 +6,23 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import static commands.DataCommands.*;
 import static data.Parser.*;
-import static data.FilePath.SimonFilePath.simontxtFilePath;
+import static data.SimonFilePath.simontxtFilePath;
 
 public class Simon {
     public static void main(String[] args) {
         //Initialise variables
         String userInput = "";
 
+        String userDirectory = System.getProperty("user.dir");
+        System.out.println("User's home directory: " + userDirectory);
+
         if(!isFileExist(simontxtFilePath)) {
             System.out.println("\t" + line);
-            System.out.println("\tsimon.txt does not exist, please create simon.txt in the 'data' package");
+            System.out.println("\tsimon.txt does not exist, creating simon.txt in 'data' folder");
+            String dataFolderDirectory = userDirectory + "/" + "data";
+            createDirectory(dataFolderDirectory);
+            createFileInDirectory(dataFolderDirectory, "simon.txt");
             System.out.println("\t" + line);
-            return;
         }
         ArrayList<Task> tasks = readToList(simontxtFilePath);
 

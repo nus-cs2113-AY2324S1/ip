@@ -5,7 +5,7 @@ import task.*;
 import static UI.Printer.*;
 import java.util.ArrayList;
 import static commands.DataCommands.*;
-import static data.FilePath.SimonFilePath.simontxtFilePath;
+import static data.SimonFilePath.simontxtFilePath;
 
 public class TaskCommands {
     public static void markTask(String taskNumber, ArrayList<Task> tasks) {
