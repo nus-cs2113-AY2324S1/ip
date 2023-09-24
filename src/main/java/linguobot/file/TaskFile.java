@@ -6,67 +6,109 @@ import linguobot.task.Task;
 import linguobot.task.Todo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class TaskFile{
-    public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException {
-        ArrayList<Task> loadedTasks = new ArrayList<>();
+    private File tasks;
+
+    public TaskFile (String filename) {
+        tasks = new File(filename);
+    }
+
+    public void createFile() {
         try {
-            File dataDirectory = new File("./data");
-            if (!dataDirectory.exists()) {
-                dataDirectory.mkdir();
+            if (tasks.exists()) {
+                System.out.println("file exists");
+                return;
+            }
+            if (!tasks.getParentFile().exists()) {
+                tasks.getParentFile().mkdirs();
+            }
+            tasks.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Cannot create file; reason: " + e.getMessage());
+        }
+    }
+
+    private ArrayList readFile() throws IOException {
+        if (!tasks.exists()) {
+            createFile();
+        }
+        if (tasks.length() == 0) {
+            System.out.println("You do not have any prior tasks.");
+        }
+        else {
+            System.out.println("Your tasks are as follows:");
+            Scanner s = new Scanner(tasks); // Create a Scanner directly from the file
+            while (s.hasNextLine()) {
+                System.out.println(s.nextLine());
+            }
+            s.close(); // Close the Scanner when done
+        }
+        ArrayList<String> dataItems = (ArrayList) Files.readAllLines(tasks.toPath(), Charset.defaultCharset());
+
+        return dataItems;
+    }
+
+//    to load data from file into the taskList
+    public ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> taskList = null;
+        try {
+            ArrayList<String> dataItems = readFile();
+            taskList = parseTaskFromString(dataItems);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return taskList;
+    }
+
+    public static ArrayList<Task> parseTaskFromString(ArrayList<String> taskFile) {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        for (String taskString : taskFile) {
+            String[] parts = taskString.split("\\s*\\|\\s*");
+            if (parts.length < 2) {
+                continue;
             }
 
-            File taskListFile = new File(dataDirectory, "tasks.txt");
-            if (!taskListFile.exists()) {
-                taskListFile.createNewFile();
-            }
-            Scanner scanner = new Scanner(taskListFile);
-            while(scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
-                // Parse each line to create a Task and add it to loadedTasks
-                Task task = parseTaskFromString(line);
-                if (task != null) {
-                    loadedTasks.add(task);
+            String taskType = parts[0];
+            Task task = null;
+
+            switch (taskType) {
+            case "T":
+                if (parts.length >= 3) {
+                    task = new Todo(parts[2]);
                 }
-            }
-            printFileContents(taskListFile);
-        } catch (IOException e) {
-            System.out.println("File not found: " + e.getMessage());
-        }
-        return loadedTasks;
-    }
-    public static Task parseTaskFromString(String taskString) {
-        String[] parts = taskString.split("\\s*\\|\\s*");
-        String taskType = parts[0];
-        switch (taskType) {
-        case "T":
-            if (parts.length >= 3) {
-                return new Todo(parts[2]);
-            }
-            break;
-        case "D":
-            if (parts.length >= 4) {
-                return new Deadline(parts[2], parts[3]);
-            }
-            break;
-        case "E":
-            if (parts.length >= 4) {
-                if (parts[3].contains("to")) {
-                    String[] eventParts = parts[3].split("to");
-                    return new Event(parts[2], eventParts[0], eventParts[1]);
+                break;
+            case "D":
+                if (parts.length >= 4) {
+                    task = new Deadline(parts[2], parts[3]);
                 }
+                break;
+            case "E":
+                if (parts.length >= 4) {
+                    if (parts[3].contains("to")) {
+                        String[] eventParts = parts[3].split("to");
+                        task = new Event(parts[2], eventParts[0], eventParts[1]);
+                    }
+                }
+                break;
+            default:
+                // Invalid task type, return null
+                break;
             }
-            break;
-        default:
-            // Invalid task type, return null
-            break;
+
+            if (task != null) {
+                tasks.add(task);
+            }
         }
-        return null;
+        return tasks;
     }
 
     public static void saveTaskListToFile(ArrayList<Task> taskList) {
@@ -80,7 +122,6 @@ public class TaskFile{
             if (!taskListFile.exists()) {
                 taskListFile.createNewFile();
             }
-
             FileWriter taskFile = new FileWriter(taskListFile);
             for (Task task : taskList) {
                 String taskString = task.toFileString();
@@ -88,18 +129,6 @@ public class TaskFile{
                 taskFile.write(System.lineSeparator());
             }
             taskFile.close();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    public static void printFileContents(File taskListFile) throws FileNotFoundException {
-        try {
-            Scanner s = new Scanner(taskListFile); // Create a Scanner directly from the file
-            while (s.hasNextLine()) {
-                System.out.println(s.nextLine());
-            }
-            s.close(); // Close the Scanner when done
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }

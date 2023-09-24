@@ -3,12 +3,11 @@ package linguobot;
 import linguobot.task.Task;
 import linguobot.command.LinguoBotException;
 import linguobot.command.CommandResponse;
+import linguobot.file.TaskFile;
+
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.FileNotFoundException;
-
-import static linguobot.file.TaskFile.*;
 
 public class LinguoBot {
     public static void main(String[] args) {
@@ -23,14 +22,8 @@ public class LinguoBot {
         System.out.println("Hello I'm " + logo);
         System.out.println("What can I do for you?");
 
-        ArrayList<Task> taskList;
-
-        try {
-            taskList = loadTasksFromFile(); // Load tasks from the file
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            taskList = new ArrayList<>(); // Create a new task list if the file doesn't exist
-        }
+        TaskFile taskFile = new TaskFile("./data/tasks.txt");
+        ArrayList<Task> taskList = taskFile.loadTasksFromFile();
 
         Scanner in = new Scanner(System.in);
 
