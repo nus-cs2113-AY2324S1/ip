@@ -216,22 +216,17 @@ public class TaskList {
             String taskInstructions = taskToSearch.toBeDone;
             String[] splitTaskInstructions = taskInstructions.split(" ");
 
-            for(int j = 0; j < splitTaskInstructions.length; j += 1){
-                if( toFind.contains(splitTaskInstructions[j])){
-                    taskfound = true;
-                }
-                break;
+            String wordToBeSearched = Arrays.toString(splitTaskInstructions);
+            if(wordToBeSearched.contains(toFind)){
+                taskfound = true;
             }
-
 
             if(taskfound == true){
                 System.out.print(taskNumberCounter+1);
                 duke.commands.Parser.parseAndPrintTasks(taskToSearch);
                 System.out.print("\n");
+                taskNumberCounter += 1;
             }
-
-            taskNumberCounter += 1;
-
         }
     }
 
