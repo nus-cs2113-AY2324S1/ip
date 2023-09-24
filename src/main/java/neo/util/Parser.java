@@ -9,6 +9,8 @@ public abstract class Parser {
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 TaskList.printList();
+            } else if (input.startsWith("find")) {
+                TaskList.find(input);
             } else if (input.startsWith("mark")) {
                 TaskList.markTask(input);
             } else if (input.startsWith("unmark")) {
