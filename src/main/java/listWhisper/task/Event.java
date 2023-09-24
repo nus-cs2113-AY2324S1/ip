@@ -5,7 +5,7 @@ class Event extends Task {
     protected String end;
 
     public Event(String description, String start, String end) {
-        super(description, TaskType.E);
+        super(description, TaskType.event);
         this.start = start;
         this.end = end;
     }

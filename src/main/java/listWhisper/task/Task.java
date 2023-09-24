@@ -25,7 +25,7 @@ public abstract class Task {
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder("[");
-        output.append(this.type).append("]");
+        output.append(this.type.toString().substring(0).toUpperCase()).append("]");
 
         if (isDone) {
             output.append("[X] ");
