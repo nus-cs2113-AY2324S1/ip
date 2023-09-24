@@ -1,5 +1,9 @@
 package Soccat;
 
+/**
+ * Represents a deadline with <code>task</code>, <code>start</code> and <code>end</code>.
+ * */
+
 public class Event extends Task {
 
     public static final String TASK_CHAR = "E";
@@ -23,6 +27,12 @@ public class Event extends Task {
         return to;
     }
 
+    /**
+     * Converts an event object to a string,
+     * delimited by the token <code>SPLIT_CHAR</code>
+     *
+     * @return string of parsed event.
+     * */
     public String toTokenString() {
         String description = super.getName() + Task.SPLIT_CHAR + from + Task.SPLIT_CHAR + to;
         if (super.getDone()) {

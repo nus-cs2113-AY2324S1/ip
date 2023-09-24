@@ -2,8 +2,14 @@ package Ui;
 import Soccat.Task;
 import Storage.TaskList;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+/**
+ * Represents a user-interface object that works with
+ * display to the command line interface.
+ * */
 
 public class Ui {
 
@@ -43,6 +49,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Display selected tasks on the CLI based on selected indexes
+     *
+     * @param tasks An arraylist containing tasks
+     * @param indexes An arraylist of integers of 0-based task index for <code>tasks</code>
+     * */
     public void displaySelectedTasks(TaskList tasks, ArrayList<Integer> indexes) {
         ArrayList<Task> taskArrayList = tasks.getTasks();
         for (Integer index : indexes) {

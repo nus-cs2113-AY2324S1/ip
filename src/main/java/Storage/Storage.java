@@ -8,11 +8,25 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+
+/**
+ * Represents a storage object corresponding to a data file.
+ * Storage object contains various methods to create, read from,
+ * write to and update the datafile.
+ * */
+
 public class Storage {
     protected String filePath;
     protected File fileObject;
     protected ArrayList<Task> taskData;
 
+    /**
+     * Attempt to create a storage object from a file pointed to by the file path
+     *
+     * @param filePath The relative path to the storage file
+     * @throws IOException If the file creation has failed
+     * @throws SoccatException If file is not created after trying to create file
+     * */
     public Storage(String filePath) throws IOException, SoccatException {
         this.filePath = filePath;
         File dataFile = new File(filePath);
@@ -35,6 +49,15 @@ public class Storage {
         this.taskData = parseFile(dataStrings);
     }
 
+    /**
+     * Attempt to create missing files and folders pointed to by the path
+     * by creating missing parent folders and then creating the file
+     *
+     * @param filePath The relative path to the file
+     * @param dataFile The file object to be created
+     * @return boolean value of whether file creation is successful
+     * @throws IOException If file creation failed
+     * */
     public boolean createFile(String filePath, File dataFile) throws IOException {
         String[] pathArray;
         String fileName;
@@ -61,6 +84,13 @@ public class Storage {
         return taskData;
     }
 
+    /**
+     * Read the contents of the file containing tasks in string format
+     * and convert them to the corresponding task formats.
+     *
+     * @param dataStrings An ArrayList of lines read from the file
+     * @return ArrayList of tasks from parsed lines
+     * */
     private ArrayList<Task> parseFile(ArrayList<String> dataStrings) {
         ArrayList<Task> taskData = new ArrayList<>();
         int dataLength = dataStrings.size();
@@ -84,6 +114,12 @@ public class Storage {
         return taskData;
     }
 
+    /**
+     * Updates the file based on the contents of tasks.
+     * Convert tasks to token strings and write them to the file.
+     *
+     * @throws IOException if file writing operation is unsuccessful
+     * */
     private void updateFile() throws IOException {
         FileWriter dataFileWriter = new FileWriter(this.fileObject);
         try {
@@ -104,6 +140,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Update the Storage object of tasks and call
+     * updateFile() function to write the changes to the file.
+     *
+     * @throws IOException if the update function has errors
+     * */
     public void setTaskData(ArrayList<Task> taskData) throws IOException {
         this.taskData = taskData;
         updateFile();

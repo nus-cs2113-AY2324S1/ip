@@ -1,5 +1,10 @@
 package Soccat;
 
+/**
+ * Represents a task that is able to represent the
+ * type of task and has the status of done or undone.
+ * */
+
 public class Task {
 
     public static final String SPLIT_CHAR = "|";

@@ -7,6 +7,13 @@ import Ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command mark or unmark tasks.
+ * A <code>MarkCommand</code> corresponds to a command
+ * consisting of a taskIndex and updates the task
+ * to boolean <code>isDone</code>.
+ * */
+
 public class MarkCommand extends Command{
     public static final String COMMAND_WORD_DONE = "mark";
     public static final boolean MARK_DONE = true;
@@ -24,6 +31,15 @@ public class MarkCommand extends Command{
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Mark a specific task in the task list to
+     * either done or undone.
+     *
+     * @param tasks The taskList object containing tasks
+     * @param ui The ui object to display messages to users
+     * @param taskFile The storage file for tasks to be stored
+     * @return Boolean of whether to exit the application.
+     * */
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage taskFile) {
         ui.displayLine();

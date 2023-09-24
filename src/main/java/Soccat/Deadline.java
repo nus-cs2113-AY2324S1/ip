@@ -1,5 +1,9 @@
 package Soccat;
 
+/**
+ * Represents a deadline with <code>task</code> and <code>deadline</code>.
+ * */
+
 public class Deadline extends Task {
 
     public static final String TASK_CHAR = "D";
@@ -15,6 +19,12 @@ public class Deadline extends Task {
         return by;
     }
 
+    /**
+     * Converts a deadline object to a string,
+     * delimited by the token <code>SPLIT_CHAR</code>
+     *
+     * @return string of parsed deadline.
+     * */
     public String toTokenString() {
         String description = super.getName() + Task.SPLIT_CHAR + by;
         if (super.getDone()) {
