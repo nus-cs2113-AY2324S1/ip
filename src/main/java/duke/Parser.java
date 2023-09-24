@@ -58,6 +58,8 @@ public class Parser {
         case("find"):
             Itay.handleFind(input, splitInput);
             break;
+        default:
+            Itay.handleBadIndicator();
         }
     }
     
