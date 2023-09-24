@@ -10,4 +10,9 @@ public class Todo extends Task {
         String typeOfTask = "[T]";
         return typeOfTask + super.toString();
     }
+
+    @Override
+    public String encode() {
+        return "Todo" + super.encode();
+    }
 }

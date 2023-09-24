@@ -22,4 +22,9 @@ public class Deadline extends Task {
         String task = super.getDescription() + " (by: " + getDeadline() + ")";
         return typeOfTask + statusOfTask + task;
     }
+
+    @Override
+    public String encode() {
+        return "Deadline" + super.encode() + SEPARATOR + getDeadline();
+    }
 }

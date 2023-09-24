@@ -1,17 +1,19 @@
-import exceptions.DukeException;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidFormatException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+import storage.FileManager;
 
+import java.io.*;
 import java.util.Scanner;
 
 public class Alice {
     private static final String LINE = "\n____________________________________________________________\n";
     private static Task[] tasks = new Task[100];
-    private static int numberOfTasks = 0;
+    private static FileManager file = new FileManager();
+    private static int numberOfTasks;
 
     /**
      * For printing the hello message
@@ -141,17 +143,22 @@ public class Alice {
         }
     }
 
+    public static void updateFile() {
+
+    }
+
     /**
      * Records down task from user input.
      * User is able to mark and unmark tasks, and also list all the tasks.
      */
-    public static void main(String[] args) throws InvalidCommandException, InvalidFormatException{
+    public static void main(String[] args) throws InvalidCommandException, InvalidFormatException, FileNotFoundException {
         printHelloMessage();
+        tasks = file.retrieve();
+        numberOfTasks = file.getNoOfTasks();
 
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
         String actionOfInput;
-
 
         while (!(userInput.equals("bye"))){
             actionOfInput = userInput.split(" ")[0];
@@ -184,9 +191,9 @@ public class Alice {
             } catch (InvalidFormatException e) {
 
             }
-
             userInput = in.nextLine();
         }
+        file.save(tasks);
         printByeMessage();
     }
 }

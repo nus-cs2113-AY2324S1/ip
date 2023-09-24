@@ -33,4 +33,9 @@ public class Event extends Task {
         String task = super.getDescription() + " (from: " + getStart() + " to: " + getEnd() + ")";
         return typeOfTask + statusOfTask + task;
     }
+
+    @Override
+    public String encode() {
+        return "Event" + super.encode() + SEPARATOR + getStart() + SEPARATOR + getEnd();
+    }
 }

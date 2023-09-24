@@ -1,7 +1,8 @@
 package tasks;
 
 public class Task {
-    private static final String LINE = "____________________________________________________________\n";
+    public static final String LINE = "____________________________________________________________\n";
+    public static final String SEPARATOR = " | ";
     private String description;
     private boolean isDone;
 
@@ -59,5 +60,13 @@ public class Task {
     public String toString() {
         String statusOfTask = "[" + getStatusIcon() + "] ";
         return statusOfTask + getDescription();
+    }
+
+    public String encode() {
+        String isDoneSymbol = "0"; //default is unmarked
+        if (getIsDone()) {
+            isDoneSymbol = "1";
+        }
+        return SEPARATOR + isDoneSymbol + SEPARATOR +getDescription();
     }
 }
