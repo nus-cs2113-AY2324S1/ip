@@ -1,27 +1,16 @@
 package neo.task;
 
+
 public class Event extends Task {
 
     protected String from;
     protected String to;
-    protected String formattedFrom;
-    protected String formattedTo;
+
 
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
-
-        if (hasTime(from)) {
-            formattedFrom = formatDateAndTime(from);
-        } else {
-            formattedFrom = formatDate(from);
-        }
-        if (hasTime(to)) {
-            formattedTo = formatDateAndTime(to);
-        } else {
-            formattedTo = formatDate(to);
-        }
     }
 
     @Override
@@ -30,6 +19,6 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
+        return "[E]" + super.toString() + " (from: " + dateTimeFormatter(from) + " to: " + dateTimeFormatter(to) + ")";
     }
 }

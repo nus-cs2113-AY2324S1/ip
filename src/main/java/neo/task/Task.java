@@ -3,7 +3,6 @@ package neo.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 
 public class Task {
@@ -22,17 +21,24 @@ public class Task {
     private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-    public boolean hasTime(String line) {
+
+    private boolean hasTime(String line) {
         String[] dateAndTime = line.split(" ");
         return dateAndTime.length == 2;
     }
-
-    public String formatDate(String line) throws DateTimeParseException {
+    public String dateTimeFormatter(String line) {
+        if (hasTime(line)) {
+            return formatDateAndTime(line);
+        } else {
+            return formatDate(line);
+        }
+    }
+    private String formatDate(String line) {
         LocalDate date = LocalDate.parse(line, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        return date.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL));
+        return date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
     }
 
-    public String formatDateAndTime(String line) throws DateTimeParseException {
+    private String formatDateAndTime(String line) {
         LocalDateTime dateTime = LocalDateTime.parse(line, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
         return dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT));
     }
