@@ -23,7 +23,7 @@ public class NeoTimeException extends Exception {
             printValueError();
             break;
         default:
-            System.out.println("Sorry. I do not understand what timings you have put.");
+            System.out.println("Unable to print exception.");
             break;
         }
     }
@@ -41,6 +41,9 @@ public class NeoTimeException extends Exception {
             break;
         case MINUTE:
             System.out.println("Please make sure the minutes is from 0-59.");
+        default:
+            System.out.println("Unable to print exception.");
+            break;
         }
     }
 
@@ -51,6 +54,9 @@ public class NeoTimeException extends Exception {
             break;
         case DATE_AND_TIME:
             System.out.println("Please make sure you have the correct format for date and time. (DD/MM/YYYY HHmm)");
+        default:
+            System.out.println("Unable to print exception.");
+            break;
         }
     }
 }
