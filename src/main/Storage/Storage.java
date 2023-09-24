@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -17,6 +20,7 @@ import TaskList.TaskList;
 public class Storage {
     private static final String FILE_PATH = "data\\";
     private static final String FILE_NAME = "data.txt";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM uuuu");
     private File file;
 
     public Storage() {
@@ -65,7 +69,7 @@ public class Storage {
         taskList.getTaskList().add(task);
     }
 
-    public void getFileData(TaskList taskList) {
+    public void getFileData(TaskList taskList) throws IOException, DateTimeParseException {
         try{
             Scanner reader = new Scanner(file);
             while(reader.hasNextLine()) {
@@ -75,10 +79,15 @@ public class Storage {
                     ToDo todoTask = new ToDo(dataSplit[2]);
                     dataToList(todoTask, isCompleted, taskList);
                 } else if(dataSplit[0].equals("D")) {
-                    Deadline deadlineTask = new Deadline(dataSplit[2], dataSplit[3]);
+                    Deadline deadlineTask = new Deadline(dataSplit[2], LocalDate.parse(dataSplit[3], FORMATTER));
                     dataToList(deadlineTask, isCompleted, taskList);
                 } else {
-                    Event eventTask = new Event(dataSplit[2], dataSplit[3], dataSplit[4]);
+                    LocalDate from = LocalDate.parse(dataSplit[3], FORMATTER);
+                    LocalDate to = LocalDate.parse(dataSplit[4], FORMATTER);
+                    if(from.isAfter(to)) {
+                        throw new IOException("Error");
+                    }
+                    Event eventTask = new Event(dataSplit[2], from, to);
                     dataToList(eventTask, isCompleted, taskList);
                 }
             }
@@ -100,6 +109,8 @@ public class Storage {
                 file.createNewFile();
             }
         } catch (IOException exception) {
+            System.out.println("An error occurred.");
+        } catch (DateTimeParseException exception) {
             System.out.println("An error occurred.");
         }
     }
