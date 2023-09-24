@@ -18,19 +18,6 @@ public abstract class Task {
         }
     }
 
-    public String toFileString() throws IOException {
-        int status = isDone ? 1 : 0;
-        if (this instanceof ToDo) {
-            return String.format("%s %d %s", "todo", status, description);
-        } else if (this instanceof Deadline) {
-            return String.format("%s %d %s/by%s", "deadline", status, description, getDate());
-        } else if (this instanceof Event) {
-            return String.format("%s %d %s/from%s/to%s", "event", status, description,
-                    getStartTime(), getEndTime());
-        }
-        throw new IOException();
-    }
-
     //Getting the To-Do attribute of the task instance
     public String getDescription() {
         return this.description;
@@ -39,6 +26,10 @@ public abstract class Task {
     //Getting the isDone attribute of the task instance
     public String getStatus() {
         return (this.isDone ? "X" : " ");    // mark done task with X
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
     //Setting the status of the isDone

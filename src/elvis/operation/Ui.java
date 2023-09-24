@@ -97,10 +97,23 @@ public class Ui {
     }
 
     public static void taskAddedMessagePrinter() {
+        boolean isToDo = true;
         int arrayLastIndex = TaskList.getArraySize() - 1;
+        char taskType = TaskList.getTaskType(arrayLastIndex);
         System.out.println("Got it. I've added this task:");
-        System.out.println("[" + TaskList.getTaskType(arrayLastIndex) + "]" +
+        System.out.print("[" + taskType + "]" +
                 "[" + TaskList.getTaskStatus(arrayLastIndex) + "] " + TaskList.getTaskDescription(arrayLastIndex));
+        if (taskType == 'D') {
+            isToDo = false;
+            System.out.println(" (by: " + TaskList.getTask(arrayLastIndex).getDate() + ")");
+        } else if(taskType == 'E') {
+            isToDo = false;
+            System.out.println(" (from: " + TaskList.getTask(arrayLastIndex).getStartTime() + " to: " +
+                    TaskList.getTask(arrayLastIndex).getEndTime() + ")");
+        }
+        if (isToDo) {   //If "todo" is printed last, need additional line separator
+            System.out.print(System.lineSeparator());
+        }
         System.out.println("Now you have " + (TaskList.getArraySize()) + " task(s) in the list.");
     }
 

@@ -6,7 +6,7 @@ public class Help {
         String helpPage =
                 "\n\n" +
                 "---------------------------HELP PAGE----------------------------\n\n"+
-                "To add a todo, type \"todo + {description}\": \n" +
+                "1. To add a todo, type \"todo + {description}\"\n" +
                 "Example: todo borrow book\n" +
                 "    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
@@ -14,7 +14,7 @@ public class Help {
                 "     Now you have 5 tasks in the list.\n" +
                 "    ____________________________________________________________\n" +
                 "\n" +
-                "To list out all the tasks, type \"list\": \n" +
+                "2. To list out all the tasks, type \"list\"\n" +
                 "Example: list\n" +
                 "    ____________________________________________________________\n" +
                 "     Here are the tasks in your list:\n" +
@@ -25,7 +25,7 @@ public class Help {
                 "     5.[T][ ] borrow book\n" +
                 "    ____________________________________________________________\n" +
                 "\n" +
-                "To add a deadline, type \"deadline + {description} + /by + {when}\": \n" +
+                "3. To add a deadline, type \"deadline + {description} + /by + {when}\"\n" +
                 "Example: deadline return book /by Sunday\n" +
                 "    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
@@ -33,13 +33,22 @@ public class Help {
                 "     Now you have 6 tasks in the list.\n" +
                 "    ____________________________________________________________\n" +
                 "\n" +
-                "To add an event, type \"deadline + {description} + /from + {when} + /to {when}\": \n" +
+                "4. To add an event, type \"deadline + {description} + /from + {when} + /to {when}\"\n" +
                 "Example: event project meeting /from Mon 2pm /to 4pm\n" +
                 "    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
                 "       [E][ ] project meeting (from: Mon 2pm to: 4pm)\n" +
                 "     Now you have 7 tasks in the list.\n" +
                 "    ____________________________________________________________\n\n" +
+                "\n" +
+                "5. To delete a task, type \"delete + {task number}\"\n" +
+                "Example: delete 1\n" +
+                "    ____________________________________________________________\n" +
+                "     Noted. I've removed this task:\n" +
+                "       [E][ ] project meeting (from: Mon 2pm to: 4pm)\n" +
+                "     Now you have 6 tasks in the list.\n" +
+                "    ____________________________________________________________\n\n" +
+
                 "-------------------------HELP PAGE END--------------------------\n";
         System.out.println(helpPage);
     }

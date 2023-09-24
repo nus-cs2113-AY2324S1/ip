@@ -1,6 +1,9 @@
 package elvis.operation;
 
+import elvis.task.Deadline;
+import elvis.task.Event;
 import elvis.task.Task;
+import elvis.task.ToDo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
@@ -70,11 +73,24 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(FILE_PATH);
             for (Task task : tasks) {
-                writer.write(task.toFileString() + "\n");
+                writer.write(toFileString(task) + "\n");
             }
             writer.close();
         } catch (IOException exception) {
             Ui.errorMessagePrinter(exception);
         }
+    }
+
+    public static String toFileString(Task task) throws IOException {
+        int status = task.getIsDone() ? 1 : 0;
+        if (task instanceof ToDo) {
+            return String.format("%s %d %s", "todo", status, task.getDescription());
+        } else if (task instanceof Deadline) {
+            return String.format("%s %d %s/by%s", "deadline", status, task.getDescription(), task.getDate());
+        } else if (task instanceof Event) {
+            return String.format("%s %d %s/from%s/to%s", "event", status, task.getDescription(),
+                    task.getStartTime(), task.getEndTime());
+        }
+        throw new IOException();
     }
 }

@@ -2,10 +2,7 @@ package elvis.operation;
 
 import java.util.Scanner;
 
-import elvis.command.InsertCommand;
-import elvis.command.ListCommand;
-import elvis.command.MarkTaskCommand;
-import elvis.command.UnmarkTaskCommand;
+import elvis.command.*;
 import elvis.exception.EmptyDeadlineException;
 import elvis.exception.EmptyDeleteException;
 import elvis.exception.EmptyEventException;
@@ -124,7 +121,7 @@ public class Parser {
         if (inputBuffer.equals("list")) {
             ListCommand.listOut(isFromFile);
         } else if (firstWord.equals("delete") && hasInteger && !bufferScanner.hasNext()) {
-            TaskList.taskRemover(numberInput);
+            DeleteCommand.taskRemover(numberInput);
         } else if (firstWord.equals("mark") && hasInteger && !bufferScanner.hasNext()) {
             MarkTaskCommand.taskMarker(numberInput);
         } else if (firstWord.equals("unmark") && hasInteger && !bufferScanner.hasNext()) {
