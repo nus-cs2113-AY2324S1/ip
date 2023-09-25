@@ -6,13 +6,13 @@ Remy is a task tracker that will help you with managing your tasks as well as be
 
 ## Usage
 
-### `List` - Lists all tasks
+### `list` - Lists all tasks
 
 This command lists out all your current tasks for you to view.
 
 Command: `list`
 
-### `Tasks` - Create a task
+### `task` - Create a task
 
 There are 3 different types of tasks, each with their own unique way of creation
 
@@ -37,7 +37,7 @@ everything between the words `/from` and `/to` consisting of the starting date o
 Example: `event Music Concert /from August 16 /to August 18`\
 Creates an Event task with the description `Music Concert` from `August 16` to `August 18`.
 
-### `Marking Tasks` - Mark tasks as done/undone
+### `mark/unmark` - Mark tasks as done/undone
 All tasks can either be marked as done, or marked as undone.
 
 Command: `mark [N]`\
@@ -46,7 +46,7 @@ Marks the Nth task in the list as done.
 Command: `unmark [N]`\
 Marks the Nth task in the list as not done.
 
-### `Deleting Tasks` - Delete tasks from the list
+### `delete` - Delete tasks from the list
 
 Command: `delete [N]`\
 Deletes the Nth task in the list.
@@ -54,7 +54,7 @@ Deletes the Nth task in the list.
 Example: `delete 2`\
 This command will delete the 2nd task in the list.
 
-### `Finding Tasks` - Search for specific tasks
+### `find` - Search for specific tasks
 
 Command: `find [KEYWORD]`\
 Finds all Tasks in the list whose description contains the specified KEYWORD and returns them all to the user.
@@ -62,7 +62,7 @@ Finds all Tasks in the list whose description contains the specified KEYWORD and
 Example: `find walk`\
 This command will return all tasks whose description contains the word `walk`.
 
-### `Exit` - Exit the program
+### `bye` - Exit the program
 
 Command: `bye`\
 This command tells Remy goodbye and exits the application.
