@@ -24,6 +24,18 @@ public class TaskList {
         return this.TASKS;
     }
 
+    /**
+     * Adds a new ToDo task to the task list with the specified arguments.
+     * <p>
+     * This method creates a new ToDo object with the description provided in the arguments array.
+     * If no argument is provided for the description, it throws a DukeException.
+     * After the creation of the ToDo object, it is added to the task list, and a remark is printed indicating the task has been added.
+     * </p>
+     *
+     * @param arguments An array of Strings containing the description for the todo to be added.
+     * It can contain multiple elements, which will be joined to form the task description.
+     * @throws DukeException If the arguments provided are empty, indicating that no description has been provided for the todo.
+     */
     public void addTodoInList(String[] arguments) throws DukeException{
         if (arguments.length == 0){ // empty argument
             throw new DukeException("The description of a todo cannot be empty!");
@@ -34,6 +46,23 @@ public class TaskList {
         printRemark(newToDo, "Done, I've added this task: ");
     }
 
+    /**
+     * Adds a new Deadline task to the task list with the specified arguments.
+     * <p>
+     * This method creates a new Deadline object with the description and end time provided in the arguments array.
+     * The expected format for the arguments is: [deadlineDescription] /by [deadlineEndTime], and the expected
+     * datetime format is "yyyy-MM-dd HHmm".
+     * After the creation of the Deadline object, it is added to the task list, and a remark is printed indicating
+     * the task has been added.
+     * </p>
+     * <p>
+     * If the arguments are not in the expected format or are insufficient, or if the datetime is not in the expected format,
+     * it throws a DukeException with an appropriate message guiding the user to provide input in the correct format.
+     * </p>
+     *
+     * @param arguments An array of Strings containing the description and end time for the deadline to be added.
+     * @throws DukeException If the arguments provided are insufficient, not in the expected format, or if the datetime is in an invalid format.
+     */
     public void addDeadlineInList(String[] arguments) throws DukeException{
         try{
             String argumentsString = String.join(" ", arguments);
@@ -53,6 +82,18 @@ public class TaskList {
 
     }
 
+    /**
+     * Adds a new Event task to the task list with the specified arguments.
+     * <p>
+     * The method creates a new Event object with description, start time, and end time provided in the arguments array.
+     * The expected format for the arguments is: [eventDescription] /from [eventStartTime] /to [eventEndTime].
+     * After the creation of the Event object, it is added to the task list and a remark is printed indicating the task has been added.
+     * If the arguments are not in the expected format or are insufficient, it throws a DukeException.
+     * </p>
+     *
+     * @param arguments An array of Strings containing the description, start time, and end time for the event to be added.
+     * @throws DukeException If the arguments provided are insufficient or not in the expected format.
+     */
     public void addEventInList(String[] arguments) throws DukeException{
         try {
             String argumentsString = String.join(" ", arguments);
@@ -69,7 +110,18 @@ public class TaskList {
         }
     }
 
-    /* Marks the task from {@code arguments} as complete */
+    /**
+     * Marks a task in the task list as complete based on the provided index.
+     * <p>
+     * This method attempts to parse the first element of the provided arguments array as an integer
+     * and uses it as an index to access and mark the task at that position in the task list as complete.
+     * After marking, it prints a message indicating that the task has been marked as done along with the task details.
+     * If the parsed integer is not a valid index, or if the first element is not an integer, it throws a DukeException.
+     * </p>
+     *
+     * @param arguments An array of Strings containing the index of the task to be marked as its first element.
+     * @throws DukeException If the provided index is not a valid integer, or if it's out of the bounds of the task list.
+     */
     public void markTaskComplete(String[] arguments) throws DukeException{
         try{
             int taskIndex = Integer.parseInt(arguments[FIRST_INDEX]);
@@ -84,8 +136,19 @@ public class TaskList {
         }
     }
 
-    /* Marks the task from {@code arguments} as incomplete */
-    public void unmarkTaskIncomplete(String[] arguments) throws DukeException{
+    /**
+     * Marks a task in the task list as incomplete based on the provided index.
+     * <p>
+     * This method attempts to parse the first element of the provided arguments array as an integer
+     * and uses it as an index to access and unmark the task at that position in the task list. After unmarking,
+     * it prints a message indicating that the task has been marked as undone along with the task details.
+     * If the parsed integer is not a valid index, or if the first element is not an integer, it throws a DukeException.
+     * </p>
+     *
+     * @param arguments An array of Strings containing the index of the task to be unmarked as its first element.
+     * @throws DukeException If the provided index is not a valid integer, or if it's out of the bounds of the task list.
+     */
+    public void markTaskIncomplete(String[] arguments) throws DukeException{
         try{
             int taskIndex = Integer.parseInt(arguments[FIRST_INDEX]);
             Task taskToUnmark = this.TASKS.get(taskIndex-1);
@@ -99,6 +162,17 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list based on the provided index.
+     * <p>
+     * This method attempts to parse the first element of the provided arguments array as an integer to use it as an index to delete
+     * the task at that position in the task list. After deletion, it prints a remark with the deleted task.
+     * If the parsed integer is not a valid index or if the first element is not an integer, it throws a DukeException.
+     * </p>
+     *
+     * @param arguments An array of Strings containing the index of the task to be deleted as its first element.
+     * @throws DukeException If the provided index is not a valid integer, or if it's out of the bounds of the task list.
+     */
     public void deleteTaskInList(String[] arguments) throws DukeException{
         try {
             int taskIndex = Integer.parseInt(arguments[FIRST_INDEX]);
@@ -112,6 +186,20 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches and prints the tasks in the task list that contain the provided search term.
+     * <p>
+     * The method prints the matching tasks line by line with their index in the task list.
+     * The search is case-insensitive and looks for the search term in the task descriptions.
+     * If no arguments are provided, it throws a DukeException indicating that a term to find is required.
+     * </p>
+     * <p>
+     * The search term is constructed by joining the elements of the provided arguments array with a space.
+     * </p>
+     *
+     * @param arguments An array of Strings containing the words of the search term.
+     * @throws DukeException If no arguments are provided to form a search term.
+     */
     public void findTasksInList(String[] arguments) throws DukeException{
         if (arguments.length == 0){ // empty argument
             throw new DukeException("Provide a term to find bro....");
