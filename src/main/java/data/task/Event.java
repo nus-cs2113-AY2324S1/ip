@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event in the TaskList.
+ */
 public class Event extends Task {
 
     protected LocalDateTime start;

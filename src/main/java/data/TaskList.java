@@ -13,6 +13,10 @@ import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 
+/**
+ * Contains the list of tasks.
+ * Able to do operations such as adding tasks, deleting tasks, mark tasks as done and mark tasks as not done.
+ */
 public class TaskList {
     public static final String LINE = "------------------------------------------------------------";
     public static final String MESSAGE_UNMARK = "OK, I've marked this data.task as not done yet:";
@@ -75,6 +79,10 @@ public class TaskList {
         Ui.printTaskAddedMessage(event);
     }
 
+    /**
+     * Deletes a specific task based on the index.
+     * @param taskIndex index of the task to be deleted
+     */
     public void deleteTask(int taskIndex) {
         Task task = tasks.get(taskIndex-1);
         tasks.remove(task);
@@ -82,6 +90,10 @@ public class TaskList {
         Ui.printTaskRemovedMessage(task);
     }
 
+    /**
+     * Marks a specific task as done based on the index.
+     * @param taskIndex index of the task to be marked as done
+     */
     public void markTask(int taskIndex) {
         tasks.get(taskIndex-1).markTask();
         System.out.println(LINE);
@@ -90,6 +102,10 @@ public class TaskList {
         System.out.println(LINE);
     }
 
+    /**
+     * Marks a specific task as not done based on the index.
+     * @param taskIndex index of the task to be marked as not done
+     */
     public void unMarkTask(int taskIndex) {
         tasks.get(taskIndex-1).unMarkTask();
         System.out.println(LINE);

@@ -17,6 +17,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the file used to store the task data.
+ */
 public class Storage {
     private String filePath;
 
@@ -24,6 +27,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads data from the storage file and return it.
+     * @return an arraylist of tasks
+     * @throws FileNotFoundException If the storage file does not exist.
+     */
     public ArrayList<Task> readDataFromFile() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -56,6 +64,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes the data to the storage file.
+     * Creates a new file if the file does not exist.
+     * @param taskList list of tasks
+     * @throws IOException If there were errors converting and/or storing the data to the file.
+     */
     public void writeToFile(TaskList taskList) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {

@@ -1,15 +1,27 @@
 package data.task;
 
+/**
+ * Represents a Task in the TaskList.
+ */
 public class Task {
     protected boolean isMarked;
     protected String description;
     private static int count = 0;
 
+    /**
+     * Initializes the Task object.
+     * @param description description of the task
+     */
     public Task (String description) {
         this.description = description;
         count++;
     }
 
+    /**
+     * Initializes the Task object.
+     * @param description description of the task
+     * @param setMark status of the task
+     */
     public Task (String description, int setMark) {
         this.description = description;
         if (setMark == 1) {
@@ -20,10 +32,16 @@ public class Task {
         count++;
     }
 
+    /**
+     * Mark task as done.
+     */
     public void markTask() {
         isMarked = true;
     }
 
+    /**
+     * Mark task as not done.
+     */
     public void unMarkTask() {
         isMarked = false;
     }

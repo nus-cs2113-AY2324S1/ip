@@ -3,6 +3,9 @@ package data.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline in the TaskList.
+ */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
