@@ -17,12 +17,12 @@ public class TaskList {
         tasks.add(new ToDo(description, isDone));
     }
 
-    public static void addDeadline(String description, int isDone, String date) {
-        tasks.add(new Deadline(description, isDone, date));
+    public static void addDeadline(String description, int isDone, String byWhen) {
+        tasks.add(new Deadline(description, isDone, byWhen));
     }
 
-    public static void addEvent(String description, int isDone, String startTime, String endTime) {
-        tasks.add(new Event(description, isDone, startTime, endTime));
+    public static void addEvent(String description, int isDone, String startDateTime, String endDateTime) {
+        tasks.add(new Event(description, isDone, startDateTime, endDateTime));
     }
 
     public static void taskRemover(int nthTask) {

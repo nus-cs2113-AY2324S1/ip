@@ -3,12 +3,14 @@ package elvis.operation;
 import elvis.task.Deadline;
 import elvis.task.Event;
 import elvis.task.Task;
-
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Ui {
     private static final int NUMBER_OF_UNDERSCORES = 60;
     private static Scanner in = new Scanner(System.in);  //Scanner for Input
+    private static final DateTimeFormatter STD_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     public static String inputRequester() {
         return in.nextLine().trim();
@@ -92,6 +94,10 @@ public class Ui {
         System.out.println("Nice! I've marked this task as done:");
     }
 
+    public static void invalidDateTimeMessagePrinter() {
+        System.out.println("😭 OOPS!!! Invalid Date/Time input");
+    }
+
     public static void taskUnmarkedMessagePrinter() {
         System.out.println("OK, I've marked this task as not done yet:");
     }
@@ -103,14 +109,19 @@ public class Ui {
         System.out.println("Got it. I've added this task:");
         System.out.print("[" + taskType + "]" +
                 "[" + TaskList.getTaskStatus(arrayLastIndex) + "] " + TaskList.getTaskDescription(arrayLastIndex));
+
         if (taskType == 'D') {
             isToDo = false;
-            System.out.println(" (by: " + TaskList.getTask(arrayLastIndex).getDate() + ")");
+            LocalDateTime dateTime = TaskList.getTask(arrayLastIndex).getDateTime();
+            System.out.println(" (by: " + dateTime.format(STD_FORMAT) + ")");
         } else if(taskType == 'E') {
             isToDo = false;
-            System.out.println(" (from: " + TaskList.getTask(arrayLastIndex).getStartTime() + " to: " +
-                    TaskList.getTask(arrayLastIndex).getEndTime() + ")");
+            LocalDateTime startDateTime = TaskList.getTask(arrayLastIndex).getStartDateTime();
+            LocalDateTime endDateTime = TaskList.getTask(arrayLastIndex).getEndDateTime();
+            System.out.println(" (from: " + startDateTime.format(STD_FORMAT) +
+                    " to: " + endDateTime.format(STD_FORMAT) + ")");
         }
+
         if (isToDo) {   //If "todo" is printed last, need additional line separator
             System.out.print(System.lineSeparator());
         }
@@ -128,11 +139,12 @@ public class Ui {
         if (task instanceof Deadline) {
             isToDo = false;
             Deadline deadlineTask = (Deadline) task;
-            System.out.println(" (by: " + deadlineTask.getDate() + ")");
+            System.out.println(" (by: " + deadlineTask.getDateTime().format(STD_FORMAT) + ")");
         } else if (task instanceof Event) {
             isToDo = false;
             Event eventTask = (Event) task;
-            System.out.println(" (from: " + eventTask.getStartTime() + " to: " + eventTask.getEndTime() + ")");
+            System.out.println(" (from: " + eventTask.getStartDateTime().format(STD_FORMAT) +
+                    " to: " + eventTask.getEndDateTime().format(STD_FORMAT) + ")");
         }
 
         if (isToDo) {   //If "todo" is printed last, need additional line separator

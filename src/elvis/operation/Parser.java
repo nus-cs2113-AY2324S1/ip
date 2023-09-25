@@ -1,5 +1,6 @@
 package elvis.operation;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import elvis.command.*;
@@ -12,6 +13,8 @@ import elvis.exception.EmptyMarkException;
 import elvis.exception.EmptyToDoException;
 import elvis.exception.EmptyUnmarkException;
 import elvis.exception.UnknownInputException;
+import elvis.exception.UnknownDateTimeFormatException;
+
 
 //For adding, removing, marking, unmarking of Tasks
 public class Parser {
@@ -71,6 +74,8 @@ public class Parser {
             Ui.emptyDescriptionMessagePrinter("event");
         } catch (UnknownInputException exception) {
             Ui.unknownInputMessagePrinter();
+        } catch (UnknownDateTimeFormatException | DateTimeParseException exception) {
+            Ui.invalidDateTimeMessagePrinter();
         } finally {
             if (!validInput) {
                 Ui.printHorizontalLines();
@@ -81,7 +86,7 @@ public class Parser {
 
     public static void errorChecker(String inputBuffer) throws EmptyInputException, EmptyListException,
             EmptyToDoException, EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException,
-            EmptyEventException, EmptyDeleteException {
+            EmptyEventException, EmptyDeleteException, UnknownDateTimeFormatException {
 
         Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
         String firstWord;
@@ -103,8 +108,12 @@ public class Parser {
             throw new EmptyToDoException();
         } else if (firstWord.equals("deadline") && !bufferScanner.hasNext()) {
             throw new EmptyDeadlineException();
+        }  else if (firstWord.equals("deadline") && !(DateTimeHandler.isDateTimeValid('D', inputBuffer))) {
+            throw new UnknownDateTimeFormatException();
         } else if (firstWord.equals("event") && !bufferScanner.hasNext()) {
             throw new EmptyEventException();
+        } else if (firstWord.equals("event") && !(DateTimeHandler.isDateTimeValid('E', inputBuffer))) {
+            throw new UnknownDateTimeFormatException();
         }
     }
 
