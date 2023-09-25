@@ -10,6 +10,11 @@ public class Duke {
         String userInput;
         List<Task> tasks = new ArrayList<>();
 
+        startDuke(scanner, tasks);
+    }
+
+    private static void startDuke(Scanner scanner, List<Task> tasks) {
+        String userInput;
         while (true) {
             System.out.print("You: ");
             userInput = scanner.nextLine().trim();
@@ -21,54 +26,57 @@ public class Duke {
                 scanner.close();
                 return;
             }
+            commands(userInput, tasks);
+        }
+    }
 
-            String[] inputParts = userInput.split(" ", 2);
-            String command = inputParts[0].toLowerCase();
-            String argument = inputParts.length > 1 ? inputParts[1] : "";
+    private static void commands(String userInput, List<Task> tasks) {
+        String[] inputParts = userInput.split(" ", 2);
+        String command = inputParts[0].toLowerCase();
+        String argument = inputParts.length > 1 ? inputParts[1] : "";
 
-            switch (command) {
-                case "list":
-                    if (tasks.isEmpty()) {
-                        System.out.println("En: There are no tasks in your list.");
-                    } else {
-                        System.out.println("En: Here are the tasks in your list:");
-                        for (int i = 0; i < tasks.size(); i++) {
-                            System.out.println(" " + (i + 1) + "." + tasks.get(i));
-                        }
+        switch (command) {
+            case "list":
+                if (tasks.isEmpty()) {
+                    System.out.println("En: There are no tasks in your list.");
+                } else {
+                    System.out.println("En: Here are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println(" " + (i + 1) + "." + tasks.get(i));
                     }
-                    printLines();
-                    break;
+                }
+                printLines();
+                break;
 
-                case "mark":
-                    try {
-                        int taskNumber = Integer.parseInt(argument);
-                        if (taskNumber >= 1 && taskNumber <= tasks.size()) {
-                            Task task = tasks.get(taskNumber - 1);
-                            task.markDone();
-                            System.out.println("En: I've marked this task as done:");
-                            System.out.println("  " + task);
-                        } else {
-                            System.out.println("En: Invalid task number. Please enter a valid task number.");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("En: Invalid task number format. Please enter a valid task number.");
-                    }
-                    printLines();
-                    break;
-
-                default:
-                    Task task = createTask(userInput);
-                    if (task != null) {
-                        tasks.add(task);
-                        System.out.println("En: Yessir. I've added this task:");
+            case "mark":
+                try {
+                    int taskNumber = Integer.parseInt(argument);
+                    if (taskNumber >= 1 && taskNumber <= tasks.size()) {
+                        Task task = tasks.get(taskNumber - 1);
+                        task.markDone();
+                        System.out.println("En: I've marked this task as done:");
                         System.out.println("  " + task);
-                        System.out.println("En: Now you have " + tasks.size() + " tasks in the list.");
-                        printLines();
                     } else {
-                        System.out.println("En: I don't understand that command.");
-                        printLines();
+                        System.out.println("En: Invalid task number. Please enter a valid task number.");
                     }
-            }
+                } catch (NumberFormatException e) {
+                    System.out.println("En: Invalid task number format. Please enter a valid task number.");
+                }
+                printLines();
+                break;
+
+            default:
+                Task task = createTask(userInput);
+                if (task != null) {
+                    tasks.add(task);
+                    System.out.println("En: Yessir. I've added this task:");
+                    System.out.println("  " + task);
+                    System.out.println("En: Now you have " + tasks.size() + " tasks in the list.");
+                    printLines();
+                } else {
+                    System.out.println("En: I don't understand that command.");
+                    printLines();
+                }
         }
     }
 
