@@ -136,7 +136,7 @@ Format: `help`
 ```
 
 
-### 2. Adding a todo: `todo`
+### 1. Adding a todo: `todo`
 
 Adds a todo to the Tasklist.
 
@@ -153,7 +153,7 @@ Example: `todo read books`
    ____________________________________________________________
 ```
 
-### 3. Adding a deadline: `deadline`
+### 1. Adding a deadline: `deadline`
 
 Adds a deadline to the Tasklist.
 
@@ -185,7 +185,7 @@ Example: `deadline return book /by 2023/06/28 1300`
    ____________________________________________________________
 ```
 
-### 4. Adding a event: `event`
+### 1. Adding a event: `event`
 
 Adds an event to the Tasklist.
 
@@ -218,7 +218,7 @@ Example: `deadline return book /by 2023/06/28 1300`
 
 ```
 
-### 5. Listing all tasks: `list`
+### 1. Listing all tasks: `list`
 
 Lists all tasks in the Tasklist.
 
@@ -237,7 +237,7 @@ Format: `list`
 
 ```
 
-### 6. Finding a task: `find`
+### 1. Finding a task: `find`
 
 Finds all tasks in the Tasklist that matches the keyword.
 
@@ -256,7 +256,7 @@ Example: `find book`
 
 ```
 
-### 7. Deleting a task: `delete`
+### 1. Deleting a task: `delete`
 
 Deletes a specific task in the Tasklist.
 
