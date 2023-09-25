@@ -1,3 +1,6 @@
+import fredbot.Parser;
+import fredbot.Storage;
+import fredbot.TaskList;
 import fredbot.error.*;
 import fredbot.task.Deadline;
 import fredbot.task.Event;
@@ -37,6 +40,12 @@ public class FredBot {
     public static final String WRITE_FILE_ERROR_MESSAGE = "Could not write to file. Exiting Application...";
     public static final String FIND_FILE_ERROR_MESSAGE = "Could not find file to load. Exiting Application...";
 
+    private Storage storage;
+    private TaskList tasks;
+    public FredBot(String filePath) {
+        storage = new Storage(filePath);
+        tasks = storage.loadTasks();
+    }
     public static void loadTasksfromfile(ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File(TASK_FILE_PATH);
         Scanner s = new Scanner(f);
