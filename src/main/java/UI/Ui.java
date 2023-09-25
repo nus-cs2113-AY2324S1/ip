@@ -1,4 +1,4 @@
-package Ken;
+package UI;
 
 public class Ui {
     public static void printLine() {

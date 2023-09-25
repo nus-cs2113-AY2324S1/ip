@@ -1,8 +1,8 @@
 package Commands;
 
 import Exceptions.KenMissingTaskException;
-import Ken.TaskList;
-import Ken.Ui;
+import Tasks.TaskList;
+import UI.Ui;
 
 public class Update extends Command {
     private final int taskNumber;

@@ -1,16 +1,16 @@
-package Ken;
+package Storage;
 
 import Exceptions.KenFileCorruptedException;
-import Exceptions.KenMissingTaskException;
 import Exceptions.KenReadFromFileException;
 import Exceptions.KenWriteToFileException;
+import Tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-public class FileHandler {
+public class Storage {
     private static final String FILE_PATH = "data/kenbot.txt";
     private static final char TODO = 'T';
     private static final char DEADLINE = 'D';

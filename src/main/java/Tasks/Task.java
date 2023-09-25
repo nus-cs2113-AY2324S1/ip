@@ -1,4 +1,4 @@
-package Ken;
+package Tasks;
 
 public class Task {
     protected String description;

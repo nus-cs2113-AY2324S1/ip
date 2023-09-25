@@ -4,20 +4,23 @@ import Commands.Command;
 import Commands.Goodbye;
 import Exceptions.KenException;
 import Exceptions.KenParsingException;
+import Parser.ParseCommands;
+import Storage.Storage;
+import Tasks.TaskList;
+import UI.Ui;
 
 import java.util.Scanner;
 
 public class Ken {
-    private static final TaskList list = new TaskList();
+    private final TaskList list = new TaskList();
 
-
-    public static void main(String[] args) {
+    public void execute() {
         Scanner scan = new Scanner(System.in);
         ParseCommands parser = new ParseCommands();
 
         Ui.greetUser();
         try {
-            FileHandler.readFromFile(list);
+            Storage.readFromFile(list);
             Command startCommand = parser.parse("list");
             startCommand.run(list);
         } catch (Exception e) {
@@ -45,5 +48,9 @@ public class Ken {
                 });
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Ken().execute();
     }
 }

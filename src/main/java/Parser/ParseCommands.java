@@ -1,8 +1,12 @@
-package Ken;
+package Parser;
 
 import Commands.*;
 import Exceptions.KenException;
 import Exceptions.KenParsingException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
 
 public class ParseCommands {
     private static final String TODO = "todo";

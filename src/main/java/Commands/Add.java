@@ -1,8 +1,8 @@
 package Commands;
 
-import Ken.Task;
-import Ken.TaskList;
-import Ken.Ui;
+import Tasks.Task;
+import Tasks.TaskList;
+import UI.Ui;
 
 public class Add extends Command {
     private final Task task;

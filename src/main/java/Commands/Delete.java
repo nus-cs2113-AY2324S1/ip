@@ -1,9 +1,8 @@
 package Commands;
 
-import Exceptions.KenException;
 import Exceptions.KenMissingTaskException;
-import Ken.TaskList;
-import Ken.Ui;
+import Tasks.TaskList;
+import UI.Ui;
 
 public class Delete extends Command{
     private final int taskNumber;
