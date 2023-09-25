@@ -2,7 +2,7 @@
 
 Elvis is a chatbot for managing todo, deadline, event for use via a Command Line Interface (CLI) 
 
---------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
 
@@ -13,6 +13,7 @@ Elvis is a chatbot for managing todo, deadline, event for use via a Command Line
 1. Copy the file to the folder you want to use as the home folder for your Elvis.
 
 1. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Elvis.jar command to run the application.
+  
 ```
              _____                      _____            _____                      _____                      _____          
             /\    \                    /\    \          /\    \                    /\    \                    /\    \         
@@ -49,10 +50,10 @@ Elvis is a chatbot for managing todo, deadline, event for use via a Command Line
 Some example commands you can try:
 - `list` : Lists all contacts.
 - `bye` : Exits the app.
-
+  
 1. Refer to the [Features](https://woodenclock.github.io/ip/#features) below for details of each command.
    
-**--------------------------------------------------------------------------------------------------------------------**
+--------------------------------------------------------------------------------------------------------------------------------------
 
 ## Features
 **Notes about the command format:**
@@ -131,9 +132,7 @@ Shows the help page.
 ```
 Format: `help`
 
---------------------------------------------------------------------------------------------------------------------
-
-### Adding a todo: `todo`
+### 2. Adding a todo: `todo`
 
 Adds a todo to the Tasklist.
 
