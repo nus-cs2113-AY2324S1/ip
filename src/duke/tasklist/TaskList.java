@@ -6,6 +6,7 @@ import duke.event.Event;
 import duke.task.Task;
 import duke.todo.Todo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -35,12 +36,11 @@ public class TaskList {
                 taskItems.get(markIdx).getTask());
     }
 
-    public String handleCreateTodo(String line) throws DukeException {
-        if (line.isEmpty()) {
+    public String handleCreateTodo(String description) throws DukeException {
+        if (description.isEmpty()) {
             throw new DukeException("The description of a todo cannot be empty");
         }
 
-        String description = line;
         if (description.trim().length() == 0) {
             throw new DukeException("The description of a todo cannot be empty");
         }
@@ -57,7 +57,7 @@ public class TaskList {
         }
 
         // Extract task description and deadline from user input
-        if (byIdx == 0 || line.isEmpty()) {
+        if (byIdx == 0) {
             throw new DukeException("The description of a deadline cannot be empty");
         }
 
@@ -71,7 +71,7 @@ public class TaskList {
             throw new DukeException("The /by of a deadline cannot be empty");
         }
 
-        String deadline = line.substring(deadlineIdx);
+        LocalDate deadline = LocalDate.parse(line.substring(deadlineIdx));
 
         taskItems.add(new Deadline(description, deadline));
 
