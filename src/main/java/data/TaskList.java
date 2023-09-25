@@ -7,6 +7,10 @@ import data.task.Task;
 import data.task.Todo;
 import ui.Ui;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -47,8 +51,10 @@ public class TaskList {
         String[] descriptions = deadlineDescription.split("/by");
         String description = descriptions[0].trim();
         String date = descriptions[1].trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime formattedDate = LocalDateTime.parse(date, formatter);
 
-        Task deadline = new Deadline(description, date);
+        Task deadline = new Deadline(description, formattedDate);
         tasks.add(deadline);
         Ui.printTaskAddedMessage(deadline);
     }
@@ -59,8 +65,12 @@ public class TaskList {
         String[] eventTime = descriptions[1].split("/to");
         String eventStart = eventTime[0].trim();
         String eventEnd = eventTime[1].trim();
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime formattedStart = LocalDateTime.parse(eventStart, formatterStart);
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+        LocalTime formattedEnd = LocalTime.parse(eventEnd, formatterEnd);
 
-        Task event = new Event(description, eventStart, eventEnd);
+        Task event = new Event(description, formattedStart, formattedEnd);
         tasks.add(event);
         Ui.printTaskAddedMessage(event);
     }
