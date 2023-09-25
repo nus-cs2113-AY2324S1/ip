@@ -13,7 +13,7 @@ public class Parser {
     protected LocalDate by;
     protected LocalDate from;
     protected LocalDate to;
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM uuuu");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Parser() {
         this.command = "";

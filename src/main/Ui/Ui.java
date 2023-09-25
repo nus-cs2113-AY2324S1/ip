@@ -32,7 +32,7 @@ public class Ui {
     }
 
     public void printListLength(TaskList taskList) {
-        System.out.println("Now you have " + taskList.getTaskList() + " task in the list");
+        System.out.println("Now you have " + taskList.getLength() + " task in the list");
     }
 
     /**
@@ -61,7 +61,7 @@ public class Ui {
         Iterator<Task> taskListIter = taskList.getTaskList().iterator();
         for(int i = 1; taskListIter.hasNext();) {
             Task task = taskListIter.next();
-            if(task.getName().contains(find)) {
+            if(task.getName().toLowerCase().contains(find.toLowerCase())) {
                 output += i + "." + task + "\n";
                 isFound = true;
                 i++;

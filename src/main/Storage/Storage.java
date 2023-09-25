@@ -22,7 +22,7 @@ public class Storage {
     private static final String FILE_IO_ERROR = "error with file";
     private static final String FILE_PATH = "data\\";
     private static final String FILE_NAME = "data.txt";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM uuuu");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private File file;
 
     public Storage() {
