@@ -19,12 +19,8 @@ public class TaskList {
         taskItems = tasks;
     }
 
-    public static int getItemIdx(String line) {
-        return Integer.parseInt(line.split(" ")[1]) - 1;
-    }
-
     public String markItem(String line) {
-        int markIdx = getItemIdx(line);
+        int markIdx = Integer.parseInt(line);
         taskItems.get(markIdx).setIsDone(true);
 
         return String.format("Nice! I've marked this task as done: \n"
@@ -32,7 +28,7 @@ public class TaskList {
     }
 
     public String unmarkItem(String line) {
-        int markIdx = getItemIdx(line);
+        int markIdx = Integer.parseInt(line);
         taskItems.get(markIdx).setIsDone(false);
 
         return String.format("Nice! I've marked this task as undone: \n" +
@@ -40,12 +36,11 @@ public class TaskList {
     }
 
     public String handleCreateTodo(String line) throws DukeException {
-        int spaceIdx = line.indexOf(" ");
-        if (spaceIdx == -1) {
+        if (line.isEmpty()) {
             throw new DukeException("The description of a todo cannot be empty");
         }
 
-        String description = line.substring(spaceIdx+1);
+        String description = line;
         if (description.trim().length() == 0) {
             throw new DukeException("The description of a todo cannot be empty");
         }
@@ -62,12 +57,11 @@ public class TaskList {
         }
 
         // Extract task description and deadline from user input
-        int spaceIdx = line.indexOf(" ");
-        if (spaceIdx == -1 || spaceIdx >= byIdx) {
+        if (byIdx == 0 || line.isEmpty()) {
             throw new DukeException("The description of a deadline cannot be empty");
         }
 
-        String description = line.substring(spaceIdx+1, byIdx-1);
+        String description = line.substring(0,byIdx-1);
         if (description.trim().length() == 0) {
             throw new DukeException("The description of a deadline cannot be empty");
         }
@@ -89,7 +83,7 @@ public class TaskList {
         int toIdx = line.indexOf("/to");
 
         // Extract task description, start time and end time from user input
-        String description = line.substring(line.indexOf(" ")+1, fromIdx-1);
+        String description = line.substring(0, fromIdx-1);
         String start = line.substring(fromIdx+ "/from ".length(), toIdx-1);
         String end = line.substring(toIdx+ "/to ".length());
 
@@ -99,7 +93,7 @@ public class TaskList {
     }
 
     public String handleDeleteTask(String line) {
-        int deleteIdx = getItemIdx(line);
+        int deleteIdx = Integer.parseInt(line);
 
         String deleteMessage = taskItems.get(deleteIdx).getTaskDeleted(taskItems.size()-1);
         taskItems.remove(deleteIdx);
@@ -110,7 +104,7 @@ public class TaskList {
     public String handleGetList() {
         String result = "";
         for (int i = 0; i < taskItems.size(); i++) {
-            result += String.format("%d. %s\n", i+1, taskItems.get(i).getTask());
+            result += String.format("%d. %s\n\t", i+1, taskItems.get(i).getTask()) ;
         }
 
         return result.trim();

@@ -1,5 +1,7 @@
 package duke.storage;
 
+import duke.Duke;
+import duke.DukeException;
 import duke.deadline.Deadline;
 import duke.event.Event;
 import duke.task.Task;
@@ -14,9 +16,6 @@ import java.util.Scanner;
 public class Storage {
     protected String fileName;
 
-    public Storage() {
-        this.fileName = "./data/duke.txt";
-    }
     public Storage(String fileName) {
         this.fileName = fileName;
     }
@@ -50,10 +49,17 @@ public class Storage {
         return task;
     }
 
-    public ArrayList<Task> readTasksFromFile() throws IOException {
+    public ArrayList<Task> load() throws DukeException {
+        Scanner s;
+
         File taskFile = new File(fileName);
         ArrayList<Task> taskList = new ArrayList<>();
-        Scanner s = new Scanner(taskFile);
+        try {
+            s = new Scanner(taskFile);
+        } catch (IOException e) {
+            throw new DukeException("");
+        }
+
         String line;
 
         while (s.hasNext()) {

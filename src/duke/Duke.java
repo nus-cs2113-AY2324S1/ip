@@ -1,5 +1,6 @@
 package duke;
 
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
@@ -8,73 +9,91 @@ import java.io.IOException;
 
 public class Duke {
 
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    public static void main(String[] args) {
-        String line;
+    public Duke() {
+        this("./data/duke.txt");
+    }
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.printLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        String command, arguments;
         String result;
-
-        Ui ui = new Ui();
-        TaskList tasks;
 
         ui.printWelcome();
 
-        Storage f = new Storage();
-        try {
-            tasks = new TaskList(f.readTasksFromFile());
-        } catch (IOException e) {
-            ui.println(String.valueOf(e));
-            tasks = new TaskList();
-        }
+        do {
+            String[] line = new Parser().parseCommand(ui.getCommand());
+            command = line[0];
+            arguments = line[1].trim();
 
-        line = ui.getCommand();
-        while (line.equals("bye") == false) {
             ui.printLine();
 
-            if (line.startsWith("list")) {
+            switch (command) {
+            case "list":
                 result = tasks.handleGetList();
-                ui.printCommandResult(result);
-            } else if (line.startsWith("mark")) {
-                result = tasks.markItem(line);
-                ui.printCommandResult(result);
-            } else if (line.startsWith("unmark")) {
-                result = tasks.unmarkItem(line);
-                ui.printCommandResult(result);
-            } else if (line.startsWith("todo")) {
+                break;
+            case "mark":
+                result = tasks.markItem(arguments);
+                break;
+            case "unmark":
+                result = tasks.unmarkItem(arguments);
+                break;
+            case "todo":
                 try {
-                    result = tasks.handleCreateTodo(line);
-                    ui.printCommandResult(result);
+                    result = tasks.handleCreateTodo(arguments);
                 } catch (DukeException e) {
-                    ui.println(String.valueOf(e));
+                    result = String.valueOf(e);
                 }
-            } else if (line.startsWith("deadline")) {
+                break;
+            case "deadline":
                 try {
-                    result = tasks.handleCreateDeadline(line);
-                    ui.printCommandResult(result);
+                    result = tasks.handleCreateDeadline(arguments);
                 } catch (DukeException e) {
-                    ui.println(String.valueOf(e));
+                    result = String.valueOf(e);
                 }
-            } else if (line.startsWith("event")) {
-                result = tasks.handleCreateEvent(line);
-                ui.printCommandResult(result);
-            } else if (line.startsWith("delete")) {
-                result = tasks.handleDeleteTask(line);
-                ui.printCommandResult(result);
-            } else {
-                ui.println("I don't know that command");
+                break;
+            case "event":
+                result = tasks.handleCreateEvent(arguments);
+                break;
+            case "delete":
+                result = tasks.handleDeleteTask(arguments);
+                break;
+            default:
+                result = "I don't know that command";
             }
 
+            if (command.equals("bye")) {
+                break;
+            }
+
+            ui.printCommandResult(result);
             ui.printLine();
 
-            line = ui.getCommand();
-        }
-
+        } while (true);
 
         try {
-            f.writeTasksToFile(tasks.handleWriteList());
+            storage.writeTasksToFile(tasks.handleWriteList());
         } catch (IOException e) {
             ui.println(String.valueOf(e));
         }
 
         ui.printFarewell();
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }

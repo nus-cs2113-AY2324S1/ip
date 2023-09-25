@@ -45,6 +45,10 @@ public class Ui {
         println(result);
     }
 
+    public void printLoadingError() {
+        println("Unable to find file. Defaulting to empty list...");
+    }
+
     public String getCommand() {
         return in.nextLine();
     }
