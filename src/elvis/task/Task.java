@@ -2,58 +2,106 @@ package elvis.task;
 
 import java.time.LocalDateTime;
 
-//Task Class that stores the description and isDone of task
+/**
+ * Abstract class representing a generic task.
+ * Stores the description and completion status of a task.
+ */
 public abstract class Task {
 
+    /**
+     * Description of the task.
+     */
     protected String description;
+
+    /**
+     * Flag indicating whether the task is completed.
+     */
     protected boolean isDone;
 
-    //Constructor of the Task Class
+    /**
+     * Constructs a new Task instance.
+     *
+     * @param description    The description of the task.
+     * @param isDoneFromFile The completion status read from a file.
+     */
     public Task(String description, int isDoneFromFile) {
         this.description = description.trim();
-        if (isDoneFromFile == 1) {
-            this.isDone = true;
-        } else {
-            this.isDone = false;
-        }
+        this.isDone = isDoneFromFile == 1;
     }
 
-    //Getting the To-Do attribute of the task instance
+    /**
+     * Retrieves the description of the task.
+     *
+     * @return The description of the task.
+     */
     public String getDescription() {
         return this.description;
     }
 
-    //Getting the isDone attribute of the task instance
+    /**
+     * Retrieves the completion status of the task.
+     *
+     * @return "X" if the task is completed, otherwise " ".
+     */
     public String getStatus() {
-        return (this.isDone ? "X" : " ");    // mark done task with X
+        return (this.isDone ? "X" : " ");
     }
 
+    /**
+     * Retrieves the boolean value of the completion status.
+     *
+     * @return true if the task is completed, otherwise false.
+     */
     public boolean getIsDone() {
         return isDone;
     }
 
-    //Setting the status of the isDone
+    /**
+     * Sets the completion status of the task.
+     *
+     * @param truthValue The new completion status.
+     */
     public void setStatus(boolean truthValue) {
         this.isDone = truthValue;
     }
 
-    //Getting the taskType attribute of ToDo, Deadline, Event instantiations (Polymorphism)
+    /**
+     * Retrieves the type of the task.
+     * This method is intended to be overridden by subclasses.
+     *
+     * @return '?' as a placeholder for the task type.
+     */
     public char getTaskType() {
         return '?';
     }
 
+    /**
+     * Placeholder method for getting the task's date and time.
+     * Intended to be overridden by subclasses.
+     *
+     * @return A default LocalDateTime object.
+     */
     public LocalDateTime getDateTime() {
-        LocalDateTime date = LocalDateTime.parse("0000-00-00 00:00");
-        return date;
+        return LocalDateTime.parse("0000-01-01T00:00");
     }
 
+    /**
+     * Placeholder method for getting the task's start date and time.
+     * Intended to be overridden by subclasses.
+     *
+     * @return A default LocalDateTime object.
+     */
     public LocalDateTime getStartDateTime() {
-        LocalDateTime time = LocalDateTime.parse("0000-00-00 00:00");
-        return time;
+        return LocalDateTime.parse("0000-01-01T00:00");
     }
 
+    /**
+     * Placeholder method for getting the task's end date and time.
+     * Intended to be overridden by subclasses.
+     *
+     * @return A default LocalDateTime object.
+     */
     public LocalDateTime getEndDateTime() {
-        LocalDateTime date = LocalDateTime.parse("0000-00-00 00:00");
-        return date;
+        return LocalDateTime.parse("0000-01-01T00:00");
     }
 }

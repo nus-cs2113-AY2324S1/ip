@@ -9,51 +9,94 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents the user interface of the application.
+ * Provides methods to interact with the user and display messages.
+ */
 public class Ui {
     private static final int NUMBER_OF_UNDERSCORES = 60;
     private static Scanner in = new Scanner(System.in);  //Scanner for Input
     private static final DateTimeFormatter STD_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
+    /**
+     * Requests input from the user via the console.
+     *
+     * @return The user's input as a trimmed string.
+     */
     public static String inputRequester() {
         return in.nextLine().trim();
     }
 
+    /**
+     * Prints an error message to the console.
+     *
+     * @param exception The exception that occurred.
+     */
     public static void errorMessagePrinter(Exception exception) {
         System.out.println("An error occurred: " + exception.getMessage());
     }
 
+    /**
+     * Prints out appropriate message when checking if file exists
+     */
     public static void checkFileMessagePrinter() {
         System.out.println("Checking if \"tasks.txt\" already exists...");
     }
 
+    /**
+     * Prints out appropriate message when no file found
+     */
     public static void noFileMessagePrinter() {
         System.out.println("File does not exist.\nCreating new file...\nFile created successfully.");
     }
 
+    /**
+     * Prints out appropriate message when creation of new file failed
+     */
     public static void fileCreationFailMessagePrinter() {
         System.out.println("File creation failed.");
     }
 
+    /**
+     * Prints out appropriate message when file already exists
+     */
     public static void fileExistMessagePrinter() {
         System.out.println("File already exists.\nOpening existing file...\n");
     }
 
+    /**
+     * Prints out appropriate message when file is not found
+     */
     public static void fileNotFoundMessagePrinter() {
         System.out.println("File not found.");
     }
 
+    /**
+     * Prints out appropriate message when tasks are loaded
+     */
     public static void taskLoadedMessagePrinter() {
         System.out.println("These are tasks loaded from before: ");
     }
 
+    /**
+     * Prints out appropriate message when file is corrupt
+     */
     public static void corruptFileMessagePrinter() {
-        System.out.println("😭 File is corrupted.\tUnable to read file");
+        System.out.println("😭 File is corrupted.\nUnable to read file");
     }
 
+    /**
+     * Prints out appropriate message when help is requested
+     */
     public static void helpRequestMessagePrinter() {
         System.out.println("No worries, I'm here to help!");
     }
 
+    /**
+     * Prints out appropriate message when input is empty
+     *
+     * @param description
+     */
     public static void emptyDescriptionMessagePrinter(String description) {
         if (description == null) {
             System.out.println("😭 OOPS!!! The description cannot be empty.");
@@ -74,38 +117,75 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints out appropriate message when there is nothing to list
+     */
     public static void emptyListMessagePrinter() {
         System.out.println("😭 OOPS!!! Nothing to list.");
     }
 
+    /**
+     * Prints out appropriate message when input is invalid
+     */
     public static void unknownInputMessagePrinter() {
         System.out.println("😭 OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
+    /**
+     * Prints out appropriate message when beginning to list
+     */
     public static void listMessagePrinter() {
         System.out.println("Here are the tasks in your list: ");
     }
 
+    /**
+     * Prints out appropriate message when showing how many tasks are in array
+     */
+    public static void taskCountPrinter() {
+        System.out.println("Now you have " + (TaskList.getArraySize()) + " task(s) in the list.");
+    }
+
+    /**
+     * Prints out appropriate message when help is requested
+     */
     public static void noSuchTaskMessagePrinter() {
         System.out.println("No such Task!");
     }
 
+    /**
+     * Prints out appropriate message when task is removed
+     */
     public static void taskRemovedMessagePrinter() {
         System.out.println("Noted. I've removed this task:");
     }
 
+    /**
+     * Prints out appropriate message when task is marked
+     */
     public static void taskMarkedMessagePrinter() {
         System.out.println("Nice! I've marked this task as done:");
     }
 
-    public static void invalidDateTimeMessagePrinter() {
-        System.out.println("😭 OOPS!!! Invalid Date/Time input");
-    }
-
+    /**
+     * Prints out appropriate message when task is unmarked
+     */
     public static void taskUnmarkedMessagePrinter() {
         System.out.println("OK, I've marked this task as not done yet:");
     }
 
+    /**
+     * Prints out appropriate message when invalid datetime input
+     */
+    public static void invalidDateTimeMessagePrinter() {
+        System.out.println("😭 OOPS!!! Invalid Date/Time input");
+    }
+
+    /**
+     * Prints a message to inform the user that no matching tasks were found.
+     *
+     * @param hasMatch       Indicates whether any matching tasks were found.
+     * @param matchingTasks  A list of indices of matching tasks.
+     */
     public static void findTaskMessagePrinter(boolean hasMatch, ArrayList<Integer> matchingTasks) {
         if (!hasMatch) {
             System.out.println("No matching tasks found.");
@@ -118,6 +198,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints out appropriate message whenever task is added
+     * Contents of the message depends on the type of task
+     */
     public static void taskAddedMessagePrinter() {
         boolean isToDo = true;
         int arrayLastIndex = TaskList.getArraySize() - 1;
@@ -144,7 +228,13 @@ public class Ui {
         System.out.println("Now you have " + (TaskList.getArraySize()) + " task(s) in the list.");
     }
 
-    //Prints task eg "[T][X] read book" without the preceding index eg"1."
+    /**
+     * Prints task details to the console, including type, status, description, and, if applicable,
+     * date and time information.
+     * Prints task eg "[T][X] read book" without the preceding index eg "1."
+     *
+     * @param nthTask The index of the task to print.
+     */
     public static void print(int nthTask) {
         boolean isToDo = true;
         Task task = TaskList.getTask(nthTask);
@@ -168,10 +258,9 @@ public class Ui {
         }
     }
 
-    public static void taskCountPrinter() {
-        System.out.println("Now you have " + (TaskList.getArraySize()) + " task(s) in the list.");
-    }
-
+    /**
+     * Prints horizontal lines made up of underscores to the console.
+     */
     public static void printHorizontalLines() {
         for (int i = 0; i < NUMBER_OF_UNDERSCORES; i++) {
             System.out.print("_");

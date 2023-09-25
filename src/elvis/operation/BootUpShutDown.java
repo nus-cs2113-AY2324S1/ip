@@ -1,9 +1,14 @@
 package elvis.operation;
 
-//Stores Logo, BootUp, ShutDown, Horizontal Lines
+/**
+ * Manages the boot-up and shut-down sequences for the ELVIS chatbot.
+ * Also stores the logo for the chatbot.
+ */
 public class BootUpShutDown {
 
-    //Logo for ELVIS the Chatbot
+    /**
+     * Logo for ELVIS the Chatbot
+     */
     public static final String LOGO =
             "\n" +
                     "          _____                      _____            _____                      _____                      _____          \n" +
@@ -29,12 +34,18 @@ public class BootUpShutDown {
                     "         \\/____/                    \\/____/                                     \\/____/                    \\/____/         \n" +
                     "                                                                                                                                \n";
 
+    /**
+     * Displays the first part of the boot-up sequence, which includes the ELVIS logo.
+     */
     public static void bootUpOne() {
         //ChatBot BootUp
         System.out.println(LOGO);
 
     }
 
+    /**
+     * Displays the second part of the boot-up sequence, which includes a greeting message.
+     */
     public static void bootUpTwo() {
         //ChatBot BootUp
         Ui.printHorizontalLines();
@@ -43,6 +54,9 @@ public class BootUpShutDown {
         Ui.printHorizontalLines();
     }
 
+    /**
+     * Displays the shut-down sequence, which includes a farewell message.
+     */
     public static void shutDown() {
         //ChatBot Ending
         Ui.printHorizontalLines();

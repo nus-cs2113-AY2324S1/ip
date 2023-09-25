@@ -1,7 +1,11 @@
 package elvis.operation;
-
-//This is the help page to be displayed
+/**
+ * This is the help page to be displayed
+ */
 public class Help {
+    /**
+     * Prints out help page
+     */
     public static void helper() {
         String helpPage =
                 "\n\n" +

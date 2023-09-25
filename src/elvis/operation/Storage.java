@@ -12,18 +12,25 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
 
-
+/**
+ * Manages the storage of tasks in a file.
+ * Writes to and Reads from file, and inputs the tasks to TaskList
+ */
 public class Storage {
     private static final String FILE_PATH = "./tasks.txt";
     private static final String FILE_NAME = "tasks.txt";
     private static final DateTimeFormatter STD_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static File openedFile;
 
+    /**
+     * Acts as the main function of Storage
+     * Runs the bootup sequence
+     * Runs the taskLoader that loads tasks from txt file
+     */
     public static void fileManager() {
-
         BootUpShutDown.bootUpOne();
         boolean hasFile = bootUp();
-        loadTaskFromFile();
+        taskLoader();
         if (hasFile) {
             Ui.taskLoadedMessagePrinter();
             Parser.inputTaskFromFile("list");
@@ -32,7 +39,10 @@ public class Storage {
         Parser.inputTaskManually();
     }
 
-    //Checks for any previously saved file, creates if missing
+    /**
+     * Manages the storage of tasks in a file.
+     * Checks for any previously saved file, creates if missing
+     */
     public static boolean bootUp() {
         System.out.print(System.lineSeparator());
         Ui.checkFileMessagePrinter();
@@ -57,7 +67,10 @@ public class Storage {
         }
     }
 
-    public static void loadTaskFromFile() {
+    /**
+     * Loads tasks from file into the TaskList
+     */
+    public static void taskLoader() {
         try {
             File file = openedFile;
             Scanner fileReader = new Scanner(openedFile);     // create a Scanner using the File as the source
@@ -70,7 +83,10 @@ public class Storage {
         }
     }
 
-    // Write each task in the desired format to the file
+    /**
+     * Manages the storage of tasks in a file.
+     * Write each task in the desired format to the file
+     */
     public static void saver(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(FILE_PATH);
@@ -83,6 +99,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns String that is in the format to be written to file
+     *
+     * @param task
+     * @return String
+     * @throws IOException when there is problem with formatting the task
+     */
     public static String toFileString(Task task) throws IOException {
         int status = task.getIsDone() ? 1 : 0;
         if (task instanceof ToDo) {

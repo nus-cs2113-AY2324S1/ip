@@ -6,10 +6,18 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-
+/**
+ * Handles date and time parsing and validation for the ELVIS chatbot.
+ */
 public class DateTimeHandler {
+    /**
+     * Standard date-time format used for parsing.
+     */
     private static final DateTimeFormatter STD_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
+    /**
+     * Regular expression pattern to match various date-time formats.
+     */
     private static final Pattern DATE_TIME_PATTERN = Pattern.compile(
             "\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4}|" +     // dd/mm/yyyy 1800
             "\\d{4}/\\d{1,2}/\\d{1,2}\\s+\\d{4}|" +     // yyyy/mm/dd 1800
@@ -21,6 +29,13 @@ public class DateTimeHandler {
             "\\d{4}-\\d{1,2}-\\d{1,2}\\s+\\d{2}:\\d{2}|"       // yyyy-mm-dd 18:00
     );
 
+    /**
+     * Validates the date-time format based on the task type.
+     *
+     * @param taskType    The type of task ('D' for Deadline, 'E' for Event).
+     * @param inputBuffer The input string containing the date-time information.
+     * @return True if the date-time format is valid, false otherwise.
+     */
     public static boolean isDateTimeValid (char taskType, String inputBuffer) {
         if (taskType == 'D') {
             CharSequence byWhen = inputBuffer.substring(inputBuffer.indexOf("/by") + 3).trim(); //Get rid of "/by..."
@@ -40,6 +55,13 @@ public class DateTimeHandler {
         return false;
     }
 
+    /**
+     * Parses a date-time string into a LocalDateTime object.
+     *
+     * @param input The date-time string to be parsed.
+     * @return A LocalDateTime object representing the parsed date-time.
+     * @throws DateTimeParseException If the date-time string cannot be parsed.
+     */
     public static LocalDateTime dateTimeParser(String input) throws DateTimeParseException {
         Matcher matcher = DATE_TIME_PATTERN.matcher(input);
 
@@ -53,6 +75,12 @@ public class DateTimeHandler {
         return null; // Return null if no pattern matches
     }
 
+    /**
+     * Determines the appropriate date-time pattern for parsing.
+     *
+     * @param input The date-time string to be parsed.
+     * @return The date-time pattern as a string.
+     */
     private static String getPattern(String input) {
         // Map the matched input to the corresponding pattern
         if (input.matches("\\d{1}-\\d{1}-\\d{4}\\s+\\d{4}")) {

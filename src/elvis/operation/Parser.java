@@ -16,9 +16,15 @@ import elvis.exception.EmptyToDoException;
 import elvis.exception.UnknownInputException;
 import elvis.exception.UnknownDateTimeFormatException;
 
-
-//For adding, removing, marking, unmarking of Tasks
+/**
+ * For adding, removing, marking, unmarking of Tasks
+ */
 public class Parser {
+    /**
+     * Inputs tasks from file
+     *
+     * @param lineOfFile
+     */
     public static void inputTaskFromFile(String lineOfFile) {
         try {
             Parser.taskManager(lineOfFile, true);      //Checks for any errors and handles them
@@ -29,6 +35,9 @@ public class Parser {
         }
     }
 
+    /**
+     * For adding, tasks manually, not from the saved file
+     */
     public static void inputTaskManually() {
         while (true) {
             String inputBuffer = Ui.inputRequester(); //Requests for Input
@@ -50,6 +59,11 @@ public class Parser {
         BootUpShutDown.shutDown();
     }
 
+    /**
+     * Handles exceptions thrown by the errorChecker
+     *
+     * @param inputBuffer
+     */
     public static void errorHandler(String inputBuffer) {
         boolean validInput = false;
         try {
@@ -87,6 +101,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks for errors in the input and throws appropriate exceptions
+     *
+     * @param inputBuffer
+     * @throws EmptyInputException
+     * @throws EmptyListException
+     * @throws EmptyToDoException
+     * @throws EmptyMarkException
+     * @throws EmptyUnmarkException
+     * @throws EmptyDeadlineException
+     * @throws EmptyEventException
+     * @throws EmptyDeleteException
+     * @throws EmptyFindException
+     * @throws UnknownDateTimeFormatException
+     */
     public static void errorChecker(String inputBuffer) throws EmptyInputException, EmptyListException,
             EmptyToDoException, EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException,
             EmptyEventException, EmptyDeleteException, EmptyFindException, UnknownDateTimeFormatException {
@@ -122,6 +151,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Calls appropriate command classes according to the input analyzed
+     *
+     * @param inputBuffer
+     * @param isFromFile
+     * @throws UnknownInputException
+     */
     public static void taskManager(String inputBuffer, boolean isFromFile) throws UnknownInputException {
         Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
         String firstWord = bufferScanner.next();            //Stores first word in the input

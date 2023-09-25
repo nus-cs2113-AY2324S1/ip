@@ -5,7 +5,17 @@ import elvis.operation.TaskList;
 import elvis.operation.Ui;
 import java.util.Scanner;
 
+/**
+ * Command class for inserting task in TaskList
+ */
 public class InsertCommand extends Command {
+    /**
+     * Inserts a todo task to TaskList
+     *
+     * @param inputBuffer
+     * @param isFromFile
+     * @throws UnknownInputException
+     */
     public static void insertToDo(String inputBuffer, boolean isFromFile) throws UnknownInputException {
         String description = inputBuffer.replace("todo ", "");
         if (isFromFile) {
@@ -18,6 +28,13 @@ public class InsertCommand extends Command {
         }
     }
 
+    /**
+     * Inserts a deadline task to TaskList
+     *
+     * @param inputBuffer
+     * @param isFromFile
+     * @throws UnknownInputException
+     */
     public static void insertDeadline(String inputBuffer, boolean isFromFile) throws UnknownInputException {
         String byWhen = inputBuffer.substring(inputBuffer.indexOf("/by") +3).trim();
         String description = inputBuffer.replace("deadline ", "").trim();  //Get rid of "deadline "
@@ -32,6 +49,13 @@ public class InsertCommand extends Command {
         }
     }
 
+    /**
+     * Inserts an event task to TaskList
+     *
+     * @param inputBuffer
+     * @param isFromFile
+     * @throws UnknownInputException
+     */
     public static void insertEvent(String inputBuffer, boolean isFromFile) throws UnknownInputException {
         String fromWhen = inputBuffer.substring(inputBuffer.indexOf("/from") + 5, inputBuffer.indexOf("/to")).trim();
         String toWhen = inputBuffer.substring(inputBuffer.indexOf("/to") + 3).trim();
