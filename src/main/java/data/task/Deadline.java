@@ -1,5 +1,8 @@
 package data.task;
 
+/**
+ * Represents a Deadline in the TaskList.
+ */
 public class Deadline extends Task {
 
     protected String by;

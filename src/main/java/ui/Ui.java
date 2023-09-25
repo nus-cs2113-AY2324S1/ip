@@ -6,6 +6,9 @@ import data.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * UI of the application.
+ */
 public class Ui {
     public static final String LINE = "------------------------------------------------------------";
     public static final String LOGO = "  ____  _____   ___    _____ _____ __    __   ___   __   __\n"

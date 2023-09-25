@@ -1,7 +1,9 @@
 package data.task;
 
+/**
+ * Represents an Event in the TaskList.
+ */
 public class Event extends Task {
-
     protected String start;
     protected String end;
     public Event (String description, String start, String end) {

@@ -1,5 +1,8 @@
 package data.task;
 
+/**
+ * Represents a Todo in the TaskList.
+ */
 public class Todo extends Task{
     public Todo (String description) {
         super(description);
