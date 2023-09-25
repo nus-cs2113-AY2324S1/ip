@@ -71,6 +71,7 @@ Some example commands you can try:
 1. Refer to the [Features](https://woodenclock.github.io/ip/#features) below for details of each command.
 
 [:arrow_up:](https://woodenclock.github.io/ip/)
+
 --------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -153,7 +154,6 @@ Format: `help`
    
    -------------------------HELP PAGE END--------------------------
 ```
-[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 2. Adding a todo: `todo`
@@ -172,9 +172,9 @@ Example: `todo read books`
    Now you have 1 task(s) in the list.
    ____________________________________________________________
 ```
-[:arrow_up:](https://woodenclock.github.io/ip/)
 
-### 2. Adding a deadline: `deadline`
+
+### 3. Adding a deadline: `deadline`
 
 Adds a deadline to the Tasklist.
 
@@ -205,9 +205,9 @@ Example: `deadline return book /by 2023/06/28 1300`
    Now you have 2 task(s) in the list.
    ____________________________________________________________
 ```
-[:arrow_up:](https://woodenclock.github.io/ip/)
 
-### 3. Adding an event: `event`
+
+### 4. Adding an event: `event`
 
 Adds an event to the Tasklist.
 
@@ -227,7 +227,7 @@ Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
   - dmyyyy
 - Time must be 24-Hr "HHmm" format (e.g. 1300 OR 13:00)
 
-Example: `deadline return book /by 2023/06/28 1300`
+Example: `event project meeting /from 2022-08-06 1300 /to 6-8-2022 1500`
 
 ```
    ____________________________________________________________
@@ -239,9 +239,9 @@ Example: `deadline return book /by 2023/06/28 1300`
    ____________________________________________________________
 
 ```
-[:arrow_up:](https://woodenclock.github.io/ip/)
 
-### 4. Listing all tasks: `list`
+
+### 5. Listing all tasks: `list`
 
 Lists all tasks in the Tasklist.
 
@@ -265,9 +265,9 @@ Legend:
    ____________________________________________________________
 
 ```
-[:arrow_up:](https://woodenclock.github.io/ip/)
 
-### 5. Finding a task: `find`
+
+### 6. Finding a task: `find`
 
 Finds all tasks in the Tasklist that matches the keyword.
 
@@ -285,9 +285,9 @@ Example: `find book`
    ____________________________________________________________
 
 ```
-[:arrow_up:](https://woodenclock.github.io/ip/)
 
-### 6. Deleting a task: `delete`
+
+### 7. Deleting a task: `delete`
 
 Deletes a specific task in the Tasklist.
 
@@ -305,9 +305,9 @@ Example: `delete 3`
    ____________________________________________________________
 
 ```
-[:arrow_up:](https://woodenclock.github.io/ip/)
 
-### 7. Marking a task: `mark`
+
+### 8. Marking a task: `mark`
 
 Marks a specific task in the Tasklist.
 
@@ -324,9 +324,9 @@ Example: `mark 2`
    ____________________________________________________________
 
 ```
-[:arrow_up:](https://woodenclock.github.io/ip/)
 
-### 8. Unmarking a task: `unmark`
+
+### 9. Unmarking a task: `unmark`
 
 Unmarks a specific task in the Tasklist.
 
@@ -343,32 +343,31 @@ Example: `unmark 2`
    ____________________________________________________________
 
 ```
-[:arrow_up:](https://woodenclock.github.io/ip/)
 
-### 9. Exiting program: `bye`
+
+### 10. Exiting program: `bye`
 
 Exits the program
 
-Format: `unmark INDEX`
-
-Example: `unmark 2`
+Format: `bye`
 
 ```
    ____________________________________________________________
-   unmark 2
+   bye
    ____________________________________________________________
-   OK, I've marked this task as not done yet:
-   [D][ ] return book (by: 28/06/2023 1300)
+   Bye. Hope to see you again soon!
    ____________________________________________________________
 
 ```
 
-### 10. Saving the Tasklist
+
+### 11. Saving the Tasklist
 
 Tasklist data are saved in the hard disk automatically after every valid command changes the data. 
 There is no need to save manually.
 
 [:arrow_up:](https://woodenclock.github.io/ip/)
+
 --------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -377,12 +376,14 @@ There is no need to save manually.
 Action | Format, Examples
 ------ | -----------------
 help | `help`
-todo | Format: `todo TASK_TO_DO` 
-Example: `todo read books`
-deadline | Format: `deadline TASK_TO_DO /by DATE TIME` 
-Example: `deadline return book /by 2023/06/28 1300`
-event | Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
-Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
-
+todo | Format: `todo TASK_TO_DO` Example: `todo read books`
+deadline | Format: `deadline TASK_TO_DO /by DATE TIME` Example: `deadline return book /by 2023/06/28 1300`
+event | Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME` Example: `event project meeting /from 2022-08-06 1300 /to 6-8-2022 1500`
+list | Format: `list`
+find | Format: `find` Example: `find book`
+delete | Format: `delete INDEX` Example: `delete 3`
+mark | Format: `mark INDEX` Example: `mark 2`
+unmark | Format: `unmark INDEX` Example: `unmark 2`
+bye | Format: `unmark INDEX`
 
 [:arrow_up:](https://woodenclock.github.io/ip/)
