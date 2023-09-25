@@ -2,6 +2,20 @@
 
 Elvis is a chatbot for managing todo, deadline, event for use via a Command Line Interface (CLI) 
 
+- [Quick start](https://woodenclock.github.io/ip/#quick-start)
+- [Features](https://woodenclock.github.io/ip/#features)
+    - [Viewing help: `help`](https://woodenclock.github.io/ip/#1-viewing-help--help)
+    - [Adding a todo: `todo`](https://woodenclock.github.io/ip/#2-adding-a-todo-todo)
+    - [Adding a deadline: `deadline`](https://woodenclock.github.io/ip/#2-adding-a-deadline-deadline)
+    - [Adding an event: `event`](https://woodenclock.github.io/ip/#3-adding-an-event-event)
+    - [Listing all tasks: `list`](https://woodenclock.github.io/ip/#4-listing-all-tasks-list)
+    - [Finding a task: `find`](https://woodenclock.github.io/ip/#5-finding-a-task-find)
+    - [Deleting a task: `delete`](https://woodenclock.github.io/ip/#6-deleting-a-task-delete)
+    - [Marking a task: `mark`](https://woodenclock.github.io/ip/#7-marking-a-task-mark)
+    - [Unmarking a task: `unmark`](https://woodenclock.github.io/ip/#8-unmarking-a-task-unmark)
+    - [Exiting program: `bye`](https://woodenclock.github.io/ip/#9-exiting-program-bye)
+    - [Saving the Tasklist](https://woodenclock.github.io/ip/#10-saving-the-tasklist)
+
 --------------------------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
