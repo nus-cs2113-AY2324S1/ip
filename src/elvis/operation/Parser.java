@@ -10,8 +10,9 @@ import elvis.exception.EmptyEventException;
 import elvis.exception.EmptyInputException;
 import elvis.exception.EmptyListException;
 import elvis.exception.EmptyMarkException;
-import elvis.exception.EmptyToDoException;
 import elvis.exception.EmptyUnmarkException;
+import elvis.exception.EmptyFindException;
+import elvis.exception.EmptyToDoException;
 import elvis.exception.UnknownInputException;
 import elvis.exception.UnknownDateTimeFormatException;
 
@@ -66,6 +67,8 @@ public class Parser {
             Ui.emptyDescriptionMessagePrinter("mark");
         } catch (EmptyUnmarkException exception) {
             Ui.emptyDescriptionMessagePrinter("unmark");
+        } catch (EmptyFindException exception) {
+            Ui.emptyDescriptionMessagePrinter("find");
         } catch (EmptyToDoException exception) {
             Ui.emptyDescriptionMessagePrinter("todo");
         } catch (EmptyDeadlineException exception) {
@@ -86,7 +89,7 @@ public class Parser {
 
     public static void errorChecker(String inputBuffer) throws EmptyInputException, EmptyListException,
             EmptyToDoException, EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException,
-            EmptyEventException, EmptyDeleteException, UnknownDateTimeFormatException {
+            EmptyEventException, EmptyDeleteException, EmptyFindException, UnknownDateTimeFormatException {
 
         Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
         String firstWord;
@@ -103,6 +106,8 @@ public class Parser {
         }else if (firstWord.equals("mark") && !bufferScanner.hasNext()) {
             throw new EmptyMarkException();
         } else if (firstWord.equals("unmark") && !bufferScanner.hasNext()) {
+            throw new EmptyUnmarkException();
+        } else if (firstWord.equals("find") && !bufferScanner.hasNext()) {
             throw new EmptyUnmarkException();
         } else if (firstWord.equals("todo") && !bufferScanner.hasNext()) {
             throw new EmptyToDoException();
@@ -135,6 +140,8 @@ public class Parser {
             MarkTaskCommand.taskMarker(numberInput);
         } else if (firstWord.equals("unmark") && hasInteger && !bufferScanner.hasNext()) {
             UnmarkTaskCommand.taskUnmarker(numberInput);
+        } else if (firstWord.equals("find")) {
+            FindCommand.finder(inputBuffer);
         } else if (firstWord.equals("todo")) {
             InsertCommand.insertToDo(inputBuffer, isFromFile);
         } else if (firstWord.equals("deadline")) {

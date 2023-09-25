@@ -12,7 +12,7 @@ public class UnmarkTaskCommand extends Command {
             return;
         }
         TaskList.setTaskStatus(nthTask, false);
-        Ui.taskMarkedMessagePrinter();
+        Ui.taskUnmarkedMessagePrinter();
         Ui.print(nthTask);
     }
 }

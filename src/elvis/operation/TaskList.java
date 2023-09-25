@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 public class TaskList {
     private static ArrayList<Task> tasks = new ArrayList<>();   //Keeps track of all Task Instances made
+    public static ArrayList<Task> getArray() {
+        return tasks;
+    }
 
     public static int getArraySize() {
         return tasks.size();
