@@ -136,7 +136,7 @@ Format: `help`
 ```
 
 
-### 1. Adding a todo: `todo`
+### 2. Adding a todo: `todo`
 
 Adds a todo to the Tasklist.
 
@@ -153,7 +153,7 @@ Example: `todo read books`
    ____________________________________________________________
 ```
 
-### 1. Adding a deadline: `deadline`
+### 2. Adding a deadline: `deadline`
 
 Adds a deadline to the Tasklist.
 
@@ -185,7 +185,7 @@ Example: `deadline return book /by 2023/06/28 1300`
    ____________________________________________________________
 ```
 
-### 1. Adding a event: `event`
+### 3. Adding a event: `event`
 
 Adds an event to the Tasklist.
 
@@ -218,7 +218,7 @@ Example: `deadline return book /by 2023/06/28 1300`
 
 ```
 
-### 1. Listing all tasks: `list`
+### 4. Listing all tasks: `list`
 
 Lists all tasks in the Tasklist.
 
@@ -237,7 +237,7 @@ Format: `list`
 
 ```
 
-### 1. Finding a task: `find`
+### 5. Finding a task: `find`
 
 Finds all tasks in the Tasklist that matches the keyword.
 
@@ -256,7 +256,7 @@ Example: `find book`
 
 ```
 
-### 1. Deleting a task: `delete`
+### 6. Deleting a task: `delete`
 
 Deletes a specific task in the Tasklist.
 
@@ -275,6 +275,41 @@ Example: `delete 3`
 
 ```
 
+### 7. Marking a task: `mark`
+
+Marks a specific task in the Tasklist.
+
+Format: `mark INDEX`
+
+Example: `mark 2`
+
+```
+   ____________________________________________________________
+   mark 2
+   ____________________________________________________________
+   Nice! I've marked this task as done:
+   [D][X] return book (by: 28/06/2023 1300)
+   ____________________________________________________________
+
+```
+
+### 8. Unmarking a task: `unmark`
+
+Unmarks a specific task in the Tasklist.
+
+Format: `unmark INDEX`
+
+Example: `unmark 2`
+
+```
+   ____________________________________________________________
+   unmark 2
+   ____________________________________________________________
+   OK, I've marked this task as not done yet:
+   [D][ ] return book (by: 28/06/2023 1300)
+   ____________________________________________________________
+
+```
 
 
 
