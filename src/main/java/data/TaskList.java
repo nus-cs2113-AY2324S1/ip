@@ -7,6 +7,10 @@ import data.task.Task;
 import data.task.Todo;
 import ui.Ui;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 
 /**
@@ -51,8 +55,10 @@ public class TaskList {
         String[] descriptions = deadlineDescription.split("/by");
         String description = descriptions[0].trim();
         String date = descriptions[1].trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime formattedDate = LocalDateTime.parse(date, formatter);
 
-        Task deadline = new Deadline(description, date);
+        Task deadline = new Deadline(description, formattedDate);
         tasks.add(deadline);
         Ui.printTaskAddedMessage(deadline);
     }
@@ -63,8 +69,12 @@ public class TaskList {
         String[] eventTime = descriptions[1].split("/to");
         String eventStart = eventTime[0].trim();
         String eventEnd = eventTime[1].trim();
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime formattedStart = LocalDateTime.parse(eventStart, formatterStart);
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+        LocalTime formattedEnd = LocalTime.parse(eventEnd, formatterEnd);
 
-        Task event = new Event(description, eventStart, eventEnd);
+        Task event = new Event(description, formattedStart, formattedEnd);
         tasks.add(event);
         Ui.printTaskAddedMessage(event);
     }
@@ -101,6 +111,28 @@ public class TaskList {
         System.out.println(LINE);
         System.out.println(MESSAGE_UNMARK);
         System.out.println("  " + tasks.get(taskIndex-1).getDetails());
+        System.out.println(LINE);
+    }
+
+    public void findTask(String keyword) {
+        ArrayList<Task> results = new ArrayList<>();
+        boolean isFound = false;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                isFound = true;
+                results.add(task);
+            }
+        }
+        System.out.println(LINE);
+        if (isFound) {
+            int resultCount = 1;
+            System.out.println("Here are the matching tasks in your list:");
+            for (Task task : results) {
+                System.out.println(resultCount + ". " + task.getDetails());
+            }
+        } else {
+            System.out.println("No matching tasks are found :/");
+        }
         System.out.println(LINE);
     }
 }

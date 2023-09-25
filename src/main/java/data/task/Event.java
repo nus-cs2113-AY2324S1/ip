@@ -1,18 +1,24 @@
 package data.task;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an Event in the TaskList.
  */
 public class Event extends Task {
-    protected String start;
-    protected String end;
-    public Event (String description, String start, String end) {
+
+    protected LocalDateTime start;
+    protected LocalTime end;
+
+    public Event (String description, LocalDateTime start, LocalTime end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
-    public Event (String description, String start, String end, int setMark) {
+    public Event (String description, LocalDateTime start, LocalTime end, int setMark) {
         super(description, setMark);
         this.start = start;
         this.end = end;
@@ -20,14 +26,24 @@ public class Event extends Task {
 
     @Override
     public String getDetails() {
-        return "[E]" + super.getDetails() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.getDetails() + " (from: " + getFormattedStart() + " to: " + getFormattedEnd() + ")";
     }
 
-    public String getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public String getEnd() {
+    public String getFormattedStart() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm MMMM d, yyyy");
+        return start.format(formatter);
+    }
+
+    public LocalTime getEnd() {
         return end;
+    }
+
+    public String getFormattedEnd() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
+        return end.format(formatter);
     }
 }

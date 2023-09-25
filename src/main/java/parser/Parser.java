@@ -51,6 +51,9 @@ public class Parser {
         case "delete":
             tasks.deleteTask(Integer.parseInt(actionAndDescriptions[1]));
             break;
+        case "find":
+            tasks.findTask(actionAndDescriptions[1]);
+            break;
         default:
             throw new InvalidActionException(MESSAGE_UNKNOWN);
         }
