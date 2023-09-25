@@ -5,6 +5,7 @@ import linguobot.task.Event;
 import linguobot.task.Task;
 import linguobot.task.Todo;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import static linguobot.file.TaskFile.saveTaskListToFile;
@@ -124,9 +125,15 @@ public class CommandResponse {
                     throw new LinguoBotException("Deadline description cannot be empty.");
                 }
                 if (indexBy == -1) {
-                    throw new LinguoBotException("Invalid input. Please include 'by' for deadlines.");
+                    throw new LinguoBotException("Invalid input. Please include 'by D/M/YYYY' for deadlines.");
                 }
-                taskList.add(new Deadline(line.substring(8, indexBy - 1), line.substring(indexBy + 2)));
+                String description = line.substring(8, indexBy).trim();
+                String date = line.substring(indexBy + 2).trim();
+                if (!date.matches("\\d{1,2}/\\d{1,2}/\\d{4}") && !date.matches("\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{2} [APap][Mm]")) {
+                    throw new LinguoBotException("Invalid date format. Please use the format 'D/M/YYYY H:MM AM/PM', e.g., '5/4/2023 6:00 PM'");
+                } else {
+                    taskList.add(new Deadline(description, date));
+                }
             } else if (line.startsWith("event")) {
                 int indexFrom = line.indexOf("from");
                 int indexTo = line.indexOf("to", indexFrom);
