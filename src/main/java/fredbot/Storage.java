@@ -47,7 +47,7 @@ public class Storage {
         TaskList tasks = null;
         try {
             ArrayList<String> dataItems = readFile();
-            tasks = parse(dataItems);
+            tasks = Parser.parseFromFile(dataItems);
         } catch (IOException e) {
             e.printStackTrace();
             // need to do something here
