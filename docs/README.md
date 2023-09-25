@@ -372,11 +372,14 @@ There is no need to save manually.
 ## Command summary
 
 Action | Format, Examples
+------ | -----------------
 help | `help`
 todo | Format: `todo TASK_TO_DO` 
 Example: `todo read books`
 deadline | Format: `deadline TASK_TO_DO /by DATE TIME` 
 Example: `deadline return book /by 2023/06/28 1300`
+event | Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
+Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
 
 
 [:arrow_up:](https://woodenclock.github.io/ip/)
