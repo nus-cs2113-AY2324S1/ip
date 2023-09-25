@@ -1,6 +1,7 @@
 //import scanner
 import javax.lang.model.type.NullType;
 import java.util.Scanner;
+//import ArrayList
 import java.util.ArrayList;
 
 public class Botbot {
@@ -132,8 +133,11 @@ public class Botbot {
         if (taskIndex>=list.size()) {
             throw new DukeException("Invalid task item. Check item number again~");
         }
-
-
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(list.get(taskIndex));
+        list.remove(taskIndex);
+        System.out.println("Now you have " + (list.size()) + " tasks in the list.");
+        System.out.println(line);
     }
 
     //main method
@@ -194,6 +198,7 @@ public class Botbot {
                         break;
                     case "delete":
                         deleteTasks(input);
+                        break;
                     default:
                         return;
                 }
