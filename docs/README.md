@@ -46,7 +46,7 @@ Some example commands you can try:
 - `bye` : Exits the app.
 6. Refer to the [Features](https://woodenclock.github.io/ip/#features) below for details of each command.
 
-##<span style="color:orange">Features</span>
+##Features
 
 ### Feature-ABC
 
