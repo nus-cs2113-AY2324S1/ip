@@ -16,4 +16,8 @@ class Event extends Task {
         output.append("(").append(this.start).append(this.end).append(")");
         return output.toString();
     }
+    @Override
+    public String formatAsInput() {
+        return super.formatAsInput() + "/" + this.start + "/" + this.end;
+    }
 }

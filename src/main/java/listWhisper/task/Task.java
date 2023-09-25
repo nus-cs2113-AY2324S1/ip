@@ -5,12 +5,21 @@ import listWhisper.task.TaskType;
 public abstract class Task {
     private final String description;
     private boolean isDone;
-    private TaskType type;
+
+    protected TaskType type;
 
     public Task(String description, TaskType type) {
         this.description = description;
         this.type = type;
         this.isDone = false;
+    }
+
+    protected TaskType getType() {
+        return type;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDone(boolean isDone) {
@@ -33,5 +42,9 @@ public abstract class Task {
             output.append("[ ] ");
         }
         return output.append(this.description).toString();
+    }
+
+    public String formatAsInput() {
+        return this.type + " " + this.isDone + " " + this.description;
     }
 }

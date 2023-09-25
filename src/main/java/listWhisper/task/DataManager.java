@@ -9,9 +9,9 @@ public abstract class DataManager {
     private final static String userWorkingDirectory = System.getProperty("user.dir");
     private final static  java.nio.file.Path FILE_PATH = java.nio.file.Paths.get(userWorkingDirectory, "data.txt");
 
-    public static void saveList(ListOfTasks listOfTasks) throws IOException {
+    public static void saveList(String listOfFormattedTasks) throws IOException {
         Files.delete(FILE_PATH);
-        Files.writeString(FILE_PATH, listOfTasks.toString());
+        Files.writeString(FILE_PATH, listOfFormattedTasks);
     }
 
     public static ArrayList<String> readFile() throws IOException {

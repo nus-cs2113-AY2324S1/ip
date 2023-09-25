@@ -30,7 +30,7 @@ public class StringSplitter {
     }
 
     public static String[] splitInput(String line) {
-        return line.split(" ", 2);
+        return line.split(" ", 3);
     }
 
 }
