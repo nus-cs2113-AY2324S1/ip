@@ -1,10 +1,18 @@
 package data;
 
+import static ui.Messages.LINE;
+import static ui.Messages.MESSAGE_MARK;
+import static ui.Messages.MESSAGE_UNMARK;
+import static ui.Messages.MESSAGE_EMPTY_TODO;
+import static ui.Messages.MESSAGE_EMPTY_DEADLINE;
+import static ui.Messages.MESSAGE_EMPTY_EVENT;
+
 import data.exception.IncompleteDescriptionException;
 import data.task.Deadline;
 import data.task.Event;
 import data.task.Task;
 import data.task.Todo;
+
 import ui.Ui;
 
 import java.time.LocalDateTime;
@@ -18,13 +26,6 @@ import java.util.ArrayList;
  * Able to do operations such as adding tasks, deleting tasks, mark tasks as done and mark tasks as not done.
  */
 public class TaskList {
-    public static final String LINE = "------------------------------------------------------------";
-    public static final String MESSAGE_UNMARK = "OK, I've marked this data.task as not done yet:";
-    public static final String MESSAGE_MARK = "Nice! I've marked this data.task as done:";
-    public static final String MESSAGE_EMPTY_TODO = "☹ OOPS!!! The description of a todo cannot be empty.";
-    public static final String MESSAGE_EMPTY_DEADLINE = "☹ OOPS!!! The description of a deadline cannot be empty.";
-    public static final String MESSAGE_EMPTY_EVENT = "☹ OOPS!!! The description of an event cannot be empty.";
-
     private ArrayList<Task> tasks;
 
     public TaskList() {

@@ -1,16 +1,17 @@
 package parser;
 
+import static ui.Messages.MESSAGE_UNKNOWN;
+
 import data.TaskList;
 import data.exception.IncompleteDescriptionException;
 import data.exception.InvalidActionException;
+
 import ui.Ui;
 
 /**
  * Parses user input.
  */
 public class Parser {
-    public static final String MESSAGE_UNKNOWN = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
-
     /**
      * Validates the input from the user.
      * Returns true if the user command is to exit the program.

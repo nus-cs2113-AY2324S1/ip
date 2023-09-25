@@ -1,5 +1,9 @@
 package ui;
 
+import static ui.Messages.LINE;
+import static ui.Messages.LOGO;
+import static ui.Messages.MESSAGE_BYE;
+
 import data.TaskList;
 import data.task.Task;
 
@@ -10,16 +14,6 @@ import java.util.Scanner;
  * UI of the application.
  */
 public class Ui {
-    public static final String LINE = "------------------------------------------------------------";
-    public static final String LOGO = "  ____  _____   ___    _____ _____ __    __   ___   __   __\n"
-            + "/     /|  __ \\ /   \\  /   __|     |  \\  /  | /   \\ |  \\ |  |\n"
-            + "\\   __\\| |__) |  _  \\|   /  |   __|   \\/   |/  _  \\|   \\|  |\n"
-            + " \\__   |  ___/  |_|  |  |   |   __|        |  |_|  |       |\n"
-            + "/      | |   |   _   |   \\__|     |   __   |   _   |       |\n"
-            + "|____ /|_|   |__| |__|\\_____|_____|__|  |__|__| |__|__|\\___|\n";
-
-    public static final String MESSAGE_BYE = "Bye. Hope to see you again soon!";
-
     private final Scanner input;
 
     public Ui() {
