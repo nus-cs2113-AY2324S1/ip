@@ -3,8 +3,9 @@ package elvis.operation;
 import elvis.task.Deadline;
 import elvis.task.Event;
 import elvis.task.Task;
-
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Ui {
     private static final int NUMBER_OF_UNDERSCORES = 60;
@@ -92,6 +93,10 @@ public class Ui {
         System.out.println("Nice! I've marked this task as done:");
     }
 
+    public static void invalidDateTimeMessagePrinter() {
+        System.out.println("😭 OOPS!!! Invalid Date/Time input");
+    }
+
     public static void taskUnmarkedMessagePrinter() {
         System.out.println("OK, I've marked this task as not done yet:");
     }
@@ -105,11 +110,12 @@ public class Ui {
                 "[" + TaskList.getTaskStatus(arrayLastIndex) + "] " + TaskList.getTaskDescription(arrayLastIndex));
         if (taskType == 'D') {
             isToDo = false;
-            System.out.println(" (by: " + TaskList.getTask(arrayLastIndex).getDate() + ")");
+            LocalDateTime date = TaskList.getTask(arrayLastIndex).getDateTime();
+            System.out.println(" (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yy")) + ")");
         } else if(taskType == 'E') {
             isToDo = false;
-            System.out.println(" (from: " + TaskList.getTask(arrayLastIndex).getStartTime() + " to: " +
-                    TaskList.getTask(arrayLastIndex).getEndTime() + ")");
+            System.out.println(" (from: " + TaskList.getTask(arrayLastIndex).getStartDateTime() + " to: " +
+                    TaskList.getTask(arrayLastIndex).getEndDateTime() + ")");
         }
         if (isToDo) {   //If "todo" is printed last, need additional line separator
             System.out.print(System.lineSeparator());
@@ -128,11 +134,11 @@ public class Ui {
         if (task instanceof Deadline) {
             isToDo = false;
             Deadline deadlineTask = (Deadline) task;
-            System.out.println(" (by: " + deadlineTask.getDate() + ")");
+            System.out.println(" (by: " + deadlineTask.getDateTime() + ")");
         } else if (task instanceof Event) {
             isToDo = false;
             Event eventTask = (Event) task;
-            System.out.println(" (from: " + eventTask.getStartTime() + " to: " + eventTask.getEndTime() + ")");
+            System.out.println(" (from: " + eventTask.getStartDateTime() + " to: " + eventTask.getEndDateTime() + ")");
         }
 
         if (isToDo) {   //If "todo" is printed last, need additional line separator

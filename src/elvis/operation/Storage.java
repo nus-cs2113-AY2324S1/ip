@@ -86,10 +86,10 @@ public class Storage {
         if (task instanceof ToDo) {
             return String.format("%s %d %s", "todo", status, task.getDescription());
         } else if (task instanceof Deadline) {
-            return String.format("%s %d %s/by%s", "deadline", status, task.getDescription(), task.getDate());
+            return String.format("%s %d %s/by%s", "deadline", status, task.getDescription(), task.getDateTime());
         } else if (task instanceof Event) {
             return String.format("%s %d %s/from%s/to%s", "event", status, task.getDescription(),
-                    task.getStartTime(), task.getEndTime());
+                    task.getStartDateTime(), task.getEndDateTime());
         }
         throw new IOException();
     }
