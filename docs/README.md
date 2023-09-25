@@ -156,7 +156,6 @@ Example: `todo read books`
 ### 2. Adding a deadline: `deadline`
 
 Adds a deadline to the Tasklist.
-
 Format: `deadline TASK_TO_DO /by DATE TIME`
 
 **Warning**:
@@ -185,7 +184,7 @@ Example: `deadline return book /by 2023/06/28 1300`
    ____________________________________________________________
 ```
 
-### 3. Adding a event: `event`
+### 3. Adding an event: `event`
 
 Adds an event to the Tasklist.
 
@@ -223,6 +222,12 @@ Example: `deadline return book /by 2023/06/28 1300`
 Lists all tasks in the Tasklist.
 
 Format: `list`
+
+Legend:
+- A todo shows up as `[T][ ]...`, where T stands for todo.
+- A deadline shows up as `[D][ ]...`, where D stands for deadline.
+- An event shows up as `[E][ ]...`, where E stands for event.
+- The second bracket shows if the task is done, with an `X` (e.g. `[T][X]...` ).
 
 ```
    ____________________________________________________________
@@ -296,6 +301,24 @@ Example: `mark 2`
 ### 8. Unmarking a task: `unmark`
 
 Unmarks a specific task in the Tasklist.
+
+Format: `unmark INDEX`
+
+Example: `unmark 2`
+
+```
+   ____________________________________________________________
+   unmark 2
+   ____________________________________________________________
+   OK, I've marked this task as not done yet:
+   [D][ ] return book (by: 28/06/2023 1300)
+   ____________________________________________________________
+
+```
+
+### 9. Exiting program: `bye`
+
+Exits the program
 
 Format: `unmark INDEX`
 
