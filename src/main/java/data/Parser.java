@@ -22,9 +22,7 @@ public class Parser {
                 String[] splitInputs = line.split(" \\| ");
                 switch(splitInputs[0]) {
 
-
                 case "T":
-                    System.out.println();
                     newList.add(new Todo(splitInputs[2]));
                     if (splitInputs[1].equals("X")) {
                         newList.get(Task.getNumberOfTask() - 1).markAsDone();
@@ -51,7 +49,7 @@ public class Parser {
             // Close the BufferedReader to release resources.
             bufferedReader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An IOException occurred: " + e.getMessage());
         }
 
         return newList;

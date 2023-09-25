@@ -1,11 +1,11 @@
 package commands;
 
-import exception.*;
 import task.*;
 import static UI.Printer.*;
 import java.util.ArrayList;
-import static commands.DataCommands.*;
+import static data.DataMethods.*;
 import static data.SimonFilePath.simontxtFilePath;
+import exception.SimonException;
 
 public class TaskCommands {
     public static void markTask(String taskNumber, ArrayList<Task> tasks) {
@@ -73,6 +73,12 @@ public class TaskCommands {
     }
 
     public static void addTodo(String description, ArrayList<Task> tasks) throws SimonException {
+
+        String[] splitDescriptions = description.split(" ");
+        if (splitDescriptions.length == 0 || splitDescriptions[0].isEmpty()) {
+            throw new SimonException();
+        }
+
         tasks.add(new Todo(description));
 
         addTextToFile(simontxtFilePath, tasks.get(Task.getNumberOfTask() - 1).toText());
@@ -84,34 +90,47 @@ public class TaskCommands {
     }
 
     public static void addEvent(String event, ArrayList<Task> tasks) throws SimonException {
-        System.out.println("\t" + line);
         try {
             //Split between 'description' and '/from and /to'
-            String[] splitEvent = event.split(" /from ", 2);
-            String description = splitEvent[0];
+            String[] splitElements = event.split(" /from ", 2);
+            String description = splitElements[0];
+
+            String[] splitDescriptions = description.split(" ");
+            if (splitDescriptions.length == 0 || splitDescriptions[0].isEmpty()) {
+                throw new SimonException();
+            }
+
             //Split between '/from' and '/to'
-            String[] time = splitEvent[1].split(" /to ", 2);
+            String[] time = splitElements[1].split(" /to ", 2);
             String from = time[0];
             String to = time[1];
             tasks.add(new Event(description, from, to));
             addTextToFile(simontxtFilePath, tasks.get(Task.getNumberOfTask() - 1).toText());
-
+            System.out.println("\t" + line);
             printAddTaskMessage(tasks);
             printNumberOfTasks(tasks);
+            System.out.println("\t" + line);
         } catch (IndexOutOfBoundsException e) {
+            System.out.println("\t" + line);
             System.out.println("\tPlease include when the time of your event in the following format:");
             System.out.println("\tevent [description] /from [start time] /to [end time]");
+            System.out.println("\t" + line);
         }
-        System.out.println("\t" + line);
     }
 
     public static void addDeadline(String deadline, ArrayList<Task> tasks) throws SimonException {
         System.out.println("\t" + line);
         try {
             //Split between 'description' and '/by'
-            String[] splitDeadline = deadline.split(" /by ", 2);
-            String description = splitDeadline[0];
-            String by = splitDeadline[1];
+            String[] splitElements = deadline.split(" /by ", 2);
+            String description = splitElements[0];
+
+            String[] splitDescriptions = description.split(" ");
+            if (splitDescriptions.length == 0 || splitDescriptions[0].isEmpty()) {
+                throw new SimonException();
+            }
+
+            String by = splitElements[1];
             tasks.add(new Deadline(description, by));
             addTextToFile(simontxtFilePath, tasks.get(Task.getNumberOfTask() - 1).toText());
 

@@ -1,34 +1,49 @@
-package commands;
+package data;
 
 import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static UI.Printer.line;
 
-public class DataCommands {
+
+public class DataMethods {
+    public static void createSimonTxt(String userDirectory) {
+        String dataDirectory = userDirectory + "/" + "data";
+        createDirectory(dataDirectory);
+        createFileInDirectory(dataDirectory, "simon.txt");
+    }
     public static void createDirectory(String folderPath) {
 
         File folder = new File(folderPath);
-
         if (folder.mkdir()) {
-            System.out.println("Folder created successfully.");
+            System.out.println("\tFolder created successfully.");
         } else {
-            System.out.println("Failed to create the folder.");
+            System.out.println("\tFolder already exists");
         }
     }
+
     public static void createFileInDirectory(String directoryPath, String fileName) {
 
         // Create the full path to the text file
         String filePath = directoryPath + "/" + fileName;
 
-        try (FileWriter writer = new FileWriter(filePath)) {
+        File file = new File(filePath);
 
-            System.out.println("Text file created successfully at: " + filePath);
+        try {
+            // Create the file
+            if (file.createNewFile()) {
+                System.out.println("\tText file created successfully at: " + filePath);
+            } else {
+                System.out.println("\tFile already exists.");
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("\tAn IOException occurred: " + e.getMessage());
         }
     }
+
+
     public static void addTextToFile(String filePath, String textToAdd) {
         try {
             // Create a FileWriter object with the specified file path in append mode (true).
@@ -48,7 +63,7 @@ public class DataCommands {
 
             //System.out.println("Text added to the file successfully.");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An IOException occurred: " + e.getMessage());
         }
     }
 
@@ -60,7 +75,6 @@ public class DataCommands {
 
             StringBuilder fileContent = new StringBuilder();
             String line;
-
             int currentLine = 1;
 
             while ((line = bufferedReader.readLine()) != null) {
@@ -86,7 +100,7 @@ public class DataCommands {
             bufferedWriter.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An IOException occurred: " + e.getMessage());
         }
     }
 
@@ -103,7 +117,6 @@ public class DataCommands {
 
             List<String> fileContent = new ArrayList<>();
             String line;
-
             while ((line = bufferedReader.readLine()) != null) {
                 fileContent.add(line);
             }
@@ -127,7 +140,7 @@ public class DataCommands {
             bufferedWriter.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An IOException occurred: " + e.getMessage());
         }
     }
 
