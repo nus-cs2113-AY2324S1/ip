@@ -15,7 +15,7 @@ Elvis is a chatbot for managing todo, deadline, event for use via a Command Line
     - [Unmarking a task: `unmark`](https://woodenclock.github.io/ip/#8-unmarking-a-task-unmark)
     - [Exiting program: `bye`](https://woodenclock.github.io/ip/#9-exiting-program-bye)
     - [Saving the Tasklist](https://woodenclock.github.io/ip/#10-saving-the-tasklist)
-
+- [Command summary](https://woodenclock.github.io/ip/#command-summary)
 --------------------------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
@@ -172,6 +172,7 @@ Example: `todo read books`
 ### 2. Adding a deadline: `deadline`
 
 Adds a deadline to the Tasklist.
+
 Format: `deadline TASK_TO_DO /by DATE TIME`
 
 **Warning**:
@@ -359,49 +360,10 @@ There is no need to save manually.
 --------------------------------------------------------------------------------------------------------------------------------------
 
 
+## Command summary
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
+Action | Format, Examples
+______ | ____________________________________________________________
+help | `help`
+todo | Format: `todo TASK_TO_DO` Example: `todo read books`
+deadline | Format: `deadline TASK_TO_DO /by DATE TIME` Example: `deadline return book /by 2023/06/28 1300`
