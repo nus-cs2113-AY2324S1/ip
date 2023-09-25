@@ -1,63 +1,113 @@
 package parser;
 
 import static ui.Messages.MESSAGE_UNKNOWN;
+import static ui.Messages.MESSAGE_EMPTY_TODO;
+import static ui.Messages.MESSAGE_EMPTY_DEADLINE;
+import static ui.Messages.MESSAGE_EMPTY_EVENT;
+
+import commands.*;
 
 import data.TaskList;
 import data.exception.IncompleteDescriptionException;
 import data.exception.InvalidActionException;
 
-import ui.Ui;
+import data.task.Deadline;
+import data.task.Event;
+import data.task.Todo;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Parses user input.
  */
 public class Parser {
     /**
-     * Validates the input from the user.
-     * Returns true if the user command is to exit the program.
+     * Returns the Command inputted by the user.
      * @param text input text from user
      * @param tasks list of tasks
-     * @return indicator to check if the user wants to exit the program
+     * @return a Command object to be executed
      * @throws InvalidActionException If user input is not a valid action.
      * @throws IncompleteDescriptionException If user input is incomplete.
      */
-    public static boolean inputValidation (String text, TaskList tasks) throws InvalidActionException,
+    public static Command parseCommand(String text, TaskList tasks) throws InvalidActionException,
             IncompleteDescriptionException {
-        String[] actionAndDescriptions = text.split(" ");
-        String action = actionAndDescriptions[0];
-        boolean isExit = false;
-
-        switch (action){
-        case "bye":
-            isExit = true;
-            break;
-        case "list":
-            Ui.printList(tasks);
-            break;
-        case "mark":
-            tasks.markTask(Integer.parseInt(actionAndDescriptions[1]));
-            break;
-        case "unmark":
-            tasks.unMarkTask(Integer.parseInt(actionAndDescriptions[1]));
-            break;
-        case "todo":
-            tasks.addTodo(text);
-            break;
-        case "deadline":
-            tasks.addDeadline(text);
-            break;
-        case "event":
-            tasks.addEvent(text);
-            break;
-        case "delete":
-            tasks.deleteTask(Integer.parseInt(actionAndDescriptions[1]));
-            break;
-        case "find":
-            tasks.findTask(actionAndDescriptions[1]);
-            break;
-        default:
-            throw new InvalidActionException(MESSAGE_UNKNOWN);
+        String[] commandTypeAndArgs = text.split(" ", 2);
+        String commandType = commandTypeAndArgs[0];
+        String arguments;
+        if (commandTypeAndArgs.length > 1) {
+            arguments = commandTypeAndArgs[1];
+        } else {
+            arguments = null;
         }
-        return isExit;
+        try {
+            switch (commandType){
+            case "bye":
+                return new ExitCommand();
+            case "list":
+                return new ListCommand();
+            case "mark":
+                return new MarkCommand(parseTaskIndex(arguments));
+            case "unmark":
+                return new UnmarkCommand(parseTaskIndex(arguments));
+            case "todo":
+                return new AddCommand(parseTodo(arguments));
+            case "deadline":
+                return new AddCommand(parseDeadline(arguments));
+            case "event":
+                return new AddCommand(parseEvent(arguments));
+            case "delete":
+                return new DeleteCommand(parseTaskIndex(arguments));
+            case "find":
+                return new FindCommand(arguments);
+            default:
+                return new InvalidCommand();
+            }
+        } catch (IncompleteDescriptionException e) {
+            throw e;
+        }
+    }
+
+    public static Todo parseTodo(String arguments) throws IncompleteDescriptionException {
+        if (arguments == null) {
+            throw new IncompleteDescriptionException(MESSAGE_EMPTY_TODO);
+        } else {
+            return new Todo(arguments);
+        }
+    }
+
+    public static Deadline parseDeadline(String arguments) throws IncompleteDescriptionException {
+        if (arguments == null) {
+            throw new IncompleteDescriptionException(MESSAGE_EMPTY_DEADLINE);
+        } else {
+            String[] descriptions = arguments.split("/by");
+            String description = descriptions[0].trim();
+            String date = descriptions[1].trim();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime formattedDate = LocalDateTime.parse(date, formatter);
+            return new Deadline(description, formattedDate);
+        }
+    }
+
+    public static Event parseEvent(String arguments) throws IncompleteDescriptionException {
+        if (arguments == null) {
+            throw new IncompleteDescriptionException(MESSAGE_EMPTY_EVENT);
+        } else {
+            String[] descriptions = arguments.split("/from");
+            String description = descriptions[0].trim();
+            String[] eventTime = descriptions[1].split("/to");
+            String eventStart = eventTime[0].trim();
+            String eventEnd = eventTime[1].trim();
+            DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime formattedStart = LocalDateTime.parse(eventStart, formatterStart);
+            DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+            LocalTime formattedEnd = LocalTime.parse(eventEnd, formatterEnd);
+            return new Event(description, formattedStart, formattedEnd);
+        }
+    }
+
+    public static int parseTaskIndex(String arguments) {
+        return Integer.parseInt(arguments);
     }
 }

@@ -20,7 +20,7 @@ public class Ui {
         this.input = new Scanner(System.in);
     }
 
-    public void showLine() {
+    public static void showLine() {
         System.out.println(LINE);
     }
 
@@ -31,7 +31,7 @@ public class Ui {
         System.out.println("What can I do for you?");
         System.out.println(LINE);
     }
-    public void printGoodbyeMessage() {
+    public static void printGoodbyeMessage() {
         System.out.println(LINE);
         System.out.println(MESSAGE_BYE);
         System.out.println(LINE);
@@ -56,7 +56,7 @@ public class Ui {
     public static void printTaskRemovedMessage(Task task) {
         System.out.println(LINE);
         System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task.getDescription());
+        System.out.println("  " + task.getDetails());
         printTaskCount();
         System.out.println(LINE);
     }

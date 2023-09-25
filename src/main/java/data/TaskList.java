@@ -39,45 +39,9 @@ public class TaskList {
         return tasks;
     }
 
-    public void addTodo(String todoDescription) throws IncompleteDescriptionException {
-        String[] descriptions = todoDescription.split(" ");
-
-        if (descriptions.length < 2) {
-            throw new IncompleteDescriptionException(MESSAGE_EMPTY_TODO);
-        } else {
-            String description = descriptions[1];
-            Task todo = new Todo(description);
-            tasks.add(todo);
-            Ui.printTaskAddedMessage(todo);
-        }
-    }
-
-    public void addDeadline(String deadlineDescription) {
-        String[] descriptions = deadlineDescription.split("/by");
-        String description = descriptions[0].trim();
-        String date = descriptions[1].trim();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime formattedDate = LocalDateTime.parse(date, formatter);
-
-        Task deadline = new Deadline(description, formattedDate);
-        tasks.add(deadline);
-        Ui.printTaskAddedMessage(deadline);
-    }
-
-    public void addEvent(String eventDescription) {
-        String[] descriptions = eventDescription.split("/from");
-        String description = descriptions[0].trim();
-        String[] eventTime = descriptions[1].split("/to");
-        String eventStart = eventTime[0].trim();
-        String eventEnd = eventTime[1].trim();
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime formattedStart = LocalDateTime.parse(eventStart, formatterStart);
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
-        LocalTime formattedEnd = LocalTime.parse(eventEnd, formatterEnd);
-
-        Task event = new Event(description, formattedStart, formattedEnd);
-        tasks.add(event);
-        Ui.printTaskAddedMessage(event);
+    public void addTask(Task task) {
+        tasks.add(task);
+        Ui.printTaskAddedMessage(task);
     }
 
     /**

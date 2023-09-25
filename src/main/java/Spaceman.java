@@ -1,3 +1,5 @@
+import commands.Command;
+import commands.ExitCommand;
 import data.exception.IncompleteDescriptionException;
 import data.exception.InvalidActionException;
 import data.TaskList;
@@ -41,23 +43,24 @@ public class Spaceman {
         while (!isExit) {
             try {
                 String fullCommand = ui.getUserCommand();
-                isExit = Parser.inputValidation(fullCommand, tasks);
+                Command command = Parser.parseCommand(fullCommand, tasks);
+                command.execute(tasks);
+                isExit = ExitCommand.isExit(command);
                 storage.writeToFile(tasks);
             } catch (InvalidActionException e) {
-                ui.showLine();
+                Ui.showLine();
                 System.out.println(e.getMessage());
-                ui.showLine();
+                Ui.showLine();
             } catch (IncompleteDescriptionException e) {
-                ui.showLine();
+                Ui.showLine();
                 System.out.println(e.getMessage());
-                ui.showLine();
+                Ui.showLine();
             } catch (IOException e) {
-                ui.showLine();
+                Ui.showLine();
                 System.out.println("Something went wrong: " + e.getMessage());
-                ui.showLine();
+                Ui.showLine();
             }
         }
-        ui.printGoodbyeMessage();
     }
 
     public static void main(String[] args) {
