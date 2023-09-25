@@ -15,14 +15,12 @@ import java.util.Scanner;
  * The {@code load} method reads tasks from the file, and the {@code save} method writes tasks to the file, both using
  * specific string formats to represent different task types.
  * </p>
- * <p>
  * Tasks are represented differently based on their types:
  * <ul>
  *     <li>"T" for ToDo.</li>
  *     <li>"D" for Deadline along with end time.</li>
  *     <li>"E" for Event along with start and end times.</li>
  * </ul>
- * </p>
  * <p>
  * The data file is located at the path provided during the instantiation of the {@code Storage} object. If no file exists
  * at the given path when loading tasks, a new file will be created at the same location.
@@ -71,7 +69,7 @@ public class Storage {
      * It prints a message indicating the successful loading of historical data if any data is present in the file.
      * </p>
      *
-     * @return ArrayList<Task> A list of tasks loaded from the data file.
+     * @return {@code ArrayList<Task>} A list of tasks loaded from the data file.
      * @throws IOException If an I/O error occurs when creating a new file or reading from the existing file.
      * @throws DukeException If there is a DateTimeParseException while parsing the deadline end time, or if the data file contains corrupt data.
      */
@@ -125,7 +123,6 @@ public class Storage {
 
     /**
      * Saves the tasks from the given TaskList to the data file represented by the filePath.
-     * <p>
      * This method iterates over each task in the TaskList and converts it to a formatted string representation,
      * which is then written to the data file. The tasks are saved in different formats depending on their type.
      * <ul>
@@ -133,7 +130,6 @@ public class Storage {
      *     <li>Deadline tasks are saved in the format: "D | completionStatus | description | by"</li>
      *     <li>Event tasks are saved in the format: "E | completionStatus | description | start | end"</li>
      * </ul>
-     * </p>
      * After writing all tasks to the file, it closes the FileWriter.
      *
      * @param TASKS The TaskList containing tasks to be saved.
