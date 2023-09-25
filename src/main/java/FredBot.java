@@ -46,6 +46,18 @@ public class FredBot {
         storage = new Storage(filePath);
         tasks = storage.loadTasks();
     }
+    public void run() {
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String line;
+                Scanner in = new Scanner(System.in);
+                line = in.nextLine();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
     public static void loadTasksfromfile(ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File(TASK_FILE_PATH);
         Scanner s = new Scanner(f);
