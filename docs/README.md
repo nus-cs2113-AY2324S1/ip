@@ -256,6 +256,25 @@ Example: `find book`
 
 ```
 
+### 7. Deleting a task: `delete`
+
+Deletes a specific task in the Tasklist.
+
+Format: `delete INDEX`
+
+Example: `delete 3`
+
+```
+   ____________________________________________________________
+   delete 3
+   ____________________________________________________________
+   Noted. I've removed this task:
+   [E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
+   Now you have 2 task(s) in the list.
+   ____________________________________________________________
+
+```
+
 
 
 
