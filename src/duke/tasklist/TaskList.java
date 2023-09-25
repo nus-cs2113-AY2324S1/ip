@@ -101,6 +101,17 @@ public class TaskList {
         return deleteMessage;
     }
 
+    public String handleFindTask(String keyword) {
+        String result = "";
+        for (int i = 0; i < taskItems.size(); i++) {
+            if (taskItems.get(i).getTask().contains(keyword)) {
+                result += String.format("%d. %s\n\t", i+1, taskItems.get(i).getTask()) ;
+            }
+        }
+
+        return result.trim();
+    }
+
     public String handleGetList() {
         String result = "";
         for (int i = 0; i < taskItems.size(); i++) {
