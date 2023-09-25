@@ -1,16 +1,18 @@
+import common.Messages;
 import listWhisper.exceptions.DescriptionFormatException;
 import listWhisper.exceptions.InvalidCommandException;
-import listWhisper.task.List;
-import listWhisper.task.Saver;
-
+import listWhisper.task.DataManager;
+import listWhisper.task.ListOfTasks;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Manager {
-    List list;
+    ListOfTasks listOfTasks;
 
-    public Manager() {
-        this.list = new List();
+    public Manager() throws IOException, DescriptionFormatException {
+        this.listOfTasks = new ListOfTasks();
+        Manager.loadTasksToList(this.listOfTasks);
     }
 
     public void readInput() {
@@ -25,26 +27,26 @@ class Manager {
         try {
             if (input.startsWith("bye")) {
                 Messages.printByeMessage();
-                Saver.saveList(this.list);
+                DataManager.saveList(this.listOfTasks);
                 exit();
             } else if (input.startsWith("list")) {
-                Messages.printListMessage(this.list);
+                Messages.printListMessage(this.listOfTasks);
             } else if (input.startsWith("mark")) {
-                Messages.printMarkMessage(this.list.mark(input));
+                Messages.printMarkMessage(this.listOfTasks.mark(input));
             } else if (input.startsWith("unmark")) {
-                this.list.unmark(input);
-                Messages.printUnmarkMessage(this.list.unmark(input));
+                this.listOfTasks.unmark(input);
+                Messages.printUnmarkMessage(this.listOfTasks.unmark(input));
             } else if (input.startsWith("todo")) {
-                this.list.addTodo(input.substring("todo".length()));
-                Messages.printAddMessage(this.list);
+                this.listOfTasks.addTodo(input.substring("todo".length()));
+                Messages.printAddMessage(this.listOfTasks);
             } else if (input.startsWith("deadline")) {
-                this.list.addDeadline(input.substring("deadline".length()));
-                Messages.printAddMessage(this.list);
+                this.listOfTasks.addDeadline(input.substring("deadline".length()));
+                Messages.printAddMessage(this.listOfTasks);
             } else if (input.startsWith("event")) {
-                this.list.addEvent(input.substring("event".length()));
-                Messages.printAddMessage(this.list);
+                this.listOfTasks.addEvent(input.substring("event".length()));
+                Messages.printAddMessage(this.listOfTasks);
             } else if (input.startsWith("delete")) {
-                Messages.printDeleteMessage(this.list, this.list.delete(input));
+                Messages.printDeleteMessage(this.listOfTasks, this.listOfTasks.delete(input));
             } else {
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -55,5 +57,9 @@ class Manager {
 
     private static void exit() {
         System.exit(0);
+    }
+    private static void loadTasksToList(ListOfTasks listOfTasks) throws IOException, DescriptionFormatException {
+        ArrayList<String> data = DataManager.readFile();
+        listOfTasks.load(data);
     }
 }

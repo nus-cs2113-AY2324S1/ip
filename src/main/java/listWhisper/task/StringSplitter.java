@@ -2,8 +2,6 @@ package listWhisper.task;
 
 import listWhisper.exceptions.DescriptionFormatException;
 
-import java.util.ArrayList;
-
 public class StringSplitter {
     public static String[] splitInputIntoEventFormat(String description)
             throws DescriptionFormatException {
@@ -31,7 +29,7 @@ public class StringSplitter {
         return descriptionAndTime;
     }
 
-    public static String[] splitData(String line) {
+    public static String[] splitInput(String line) {
         return line.split(" ", 2);
     }
 
