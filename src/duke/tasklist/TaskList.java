@@ -1,0 +1,127 @@
+package duke.tasklist;
+
+import duke.DukeException;
+import duke.deadline.Deadline;
+import duke.event.Event;
+import duke.task.Task;
+import duke.todo.Todo;
+
+import java.util.ArrayList;
+
+public class TaskList {
+    private ArrayList<Task> taskItems;
+
+    public TaskList() {
+        this(new ArrayList<>());
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        taskItems = tasks;
+    }
+
+    public static int getItemIdx(String line) {
+        return Integer.parseInt(line.split(" ")[1]) - 1;
+    }
+
+    public String markItem(String line) {
+        int markIdx = getItemIdx(line);
+        taskItems.get(markIdx).setIsDone(true);
+
+        return String.format("Nice! I've marked this task as done: \n"
+                + taskItems.get(markIdx).getTask());
+    }
+
+    public String unmarkItem(String line) {
+        int markIdx = getItemIdx(line);
+        taskItems.get(markIdx).setIsDone(false);
+
+        return String.format("Nice! I've marked this task as undone: \n" +
+                taskItems.get(markIdx).getTask());
+    }
+
+    public String handleCreateTodo(String line) throws DukeException {
+        int spaceIdx = line.indexOf(" ");
+        if (spaceIdx == -1) {
+            throw new DukeException("The description of a todo cannot be empty");
+        }
+
+        String description = line.substring(spaceIdx+1);
+        if (description.trim().length() == 0) {
+            throw new DukeException("The description of a todo cannot be empty");
+        }
+
+        taskItems.add(new Todo(description));
+
+        return taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size());
+    }
+
+    public String handleCreateDeadline(String line) throws DukeException {
+        int byIdx = line.indexOf("/by");
+        if (byIdx == -1) {
+            throw new DukeException("The /by of a deadline must be specified");
+        }
+
+        // Extract task description and deadline from user input
+        int spaceIdx = line.indexOf(" ");
+        if (spaceIdx == -1 || spaceIdx >= byIdx) {
+            throw new DukeException("The description of a deadline cannot be empty");
+        }
+
+        String description = line.substring(spaceIdx+1, byIdx-1);
+        if (description.trim().length() == 0) {
+            throw new DukeException("The description of a deadline cannot be empty");
+        }
+
+        int deadlineIdx = byIdx+ "/by ".length();
+        if (deadlineIdx >= line.length()) {
+            throw new DukeException("The /by of a deadline cannot be empty");
+        }
+
+        String deadline = line.substring(deadlineIdx);
+
+        taskItems.add(new Deadline(description, deadline));
+
+        return taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size());
+    }
+
+    public String handleCreateEvent(String line) {
+        int fromIdx = line.indexOf("/from");
+        int toIdx = line.indexOf("/to");
+
+        // Extract task description, start time and end time from user input
+        String description = line.substring(line.indexOf(" ")+1, fromIdx-1);
+        String start = line.substring(fromIdx+ "/from ".length(), toIdx-1);
+        String end = line.substring(toIdx+ "/to ".length());
+
+        taskItems.add(new Event(description, start, end));
+
+        return taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size());
+    }
+
+    public String handleDeleteTask(String line) {
+        int deleteIdx = getItemIdx(line);
+
+        String deleteMessage = taskItems.get(deleteIdx).getTaskDeleted(taskItems.size()-1);
+        taskItems.remove(deleteIdx);
+
+        return deleteMessage;
+    }
+
+    public String handleGetList() {
+        String result = "";
+        for (int i = 0; i < taskItems.size(); i++) {
+            result += String.format("%d. %s\n", i+1, taskItems.get(i).getTask());
+        }
+
+        return result.trim();
+    }
+
+    public String handleWriteList() {
+        String tasksToWrite = "";
+        for (Task task : taskItems) {
+            tasksToWrite += task.getTaskForFile() + '\n';
+        }
+
+        return tasksToWrite;
+    }
+}

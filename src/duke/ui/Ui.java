@@ -21,26 +21,28 @@ public class Ui {
         in = new Scanner(System.in);
     }
 
-    private void println(String line) {
+    public void println(String line) {
         System.out.println("\t" + line);
     }
 
-    public void printWelcome() {
+    public void printLine() {
         println(LINE);
+    }
+
+    public void printWelcome() {
+        printLine();
         println("Hello! I'm\n" + BOB);
         println("What can I do for you?");
-        println(LINE);
+        printLine();
     }
 
     public void printFarewell() {
         println("Bye. Hope to see you again soon!");
-        println(LINE);
+        printLine();
     }
 
-    public void printList(ArrayList<Task> taskItems) {
-        for (int i = 0; i < taskItems.size(); i++) {
-            println(String.format("%d. %s", i+1, taskItems.get(i).getTask()));
-        }
+    public void printCommandResult(String result) {
+        println(result);
     }
 
     public String getCommand() {
