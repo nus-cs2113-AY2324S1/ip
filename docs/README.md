@@ -52,7 +52,7 @@ Some example commands you can try:
 
 1. Refer to the [Features](https://woodenclock.github.io/ip/#features) below for details of each command.
    
---------------------------------------------------------------------------------------------------------------------
+**--------------------------------------------------------------------------------------------------------------------**
 
 ## Features
 **Notes about the command format:**
