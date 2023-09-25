@@ -67,7 +67,7 @@ Some example commands you can try:
   
 1. Refer to the [Features](https://woodenclock.github.io/ip/#features) below for details of each command.
 
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 --------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -150,7 +150,7 @@ Format: `help`
    
    -------------------------HELP PAGE END--------------------------
 ```
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 2. Adding a todo: `todo`
@@ -169,7 +169,7 @@ Example: `todo read books`
    Now you have 1 task(s) in the list.
    ____________________________________________________________
 ```
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 ### 2. Adding a deadline: `deadline`
 
@@ -202,7 +202,7 @@ Example: `deadline return book /by 2023/06/28 1300`
    Now you have 2 task(s) in the list.
    ____________________________________________________________
 ```
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 ### 3. Adding an event: `event`
 
@@ -236,7 +236,7 @@ Example: `deadline return book /by 2023/06/28 1300`
    ____________________________________________________________
 
 ```
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 ### 4. Listing all tasks: `list`
 
@@ -262,7 +262,7 @@ Legend:
    ____________________________________________________________
 
 ```
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 ### 5. Finding a task: `find`
 
@@ -282,7 +282,7 @@ Example: `find book`
    ____________________________________________________________
 
 ```
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 ### 6. Deleting a task: `delete`
 
@@ -302,7 +302,7 @@ Example: `delete 3`
    ____________________________________________________________
 
 ```
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 ### 7. Marking a task: `mark`
 
@@ -321,7 +321,7 @@ Example: `mark 2`
    ____________________________________________________________
 
 ```
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 ### 8. Unmarking a task: `unmark`
 
@@ -340,7 +340,7 @@ Example: `unmark 2`
    ____________________________________________________________
 
 ```
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 ### 9. Exiting program: `bye`
 
@@ -365,7 +365,7 @@ Example: `unmark 2`
 Tasklist data are saved in the hard disk automatically after every valid command changes the data. 
 There is no need to save manually.
 
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
 --------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -379,4 +379,4 @@ deadline | Format: `deadline TASK_TO_DO /by DATE TIME`
 Example: `deadline return book /by 2023/06/28 1300`
 
 
-[:arrow_up:Back to the top](https://woodenclock.github.io/ip/)
+[:arrow_up:](https://woodenclock.github.io/ip/)
