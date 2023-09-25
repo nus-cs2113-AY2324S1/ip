@@ -1,11 +1,11 @@
    todo borrow book
-   deadline return book /by June 6th
-        event project meeting     /from Aug 6th 2pm     /to 4pm
-     todo join sports club
-todo goto supermarket book
+   deadline return book /by 2023/06/28 1300
+        event project meeting     /from 2022-08-06 1300   /to 6-8-2022 1500
+     event join sports club  /from 22/04/2021 09:00 /to 27/05/2021 1600
+event goto supermarket book /from 2023/06/28 13:00   /to 2023-6-30 15:00
+event individual project pitching /from 2002-02-05 05:00  /to 05-05-2002 2000
    mark 1
 mark 4
-   event go to workshop /from Tmr 1pm    /to 3pm
 list
     mark 6
         unmark 6
@@ -13,28 +13,5 @@ list
         list
       delete 3
             list
-            delete 6
-            delete 5
-            delete 4
-            delete 3
-            delete 2
-            delete 1
-            delete 1
-            delete 1
-            delete 1
-             delete 1
-             delete 1
-             delete 1
- delete 1
- delete 1
- delete 1
-delete 1
-delete 1
-delete 1
-delete 1
-delete 1
-delete 1
-delete 1
-delete 1
 list
      bye

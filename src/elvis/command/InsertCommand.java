@@ -19,7 +19,7 @@ public class InsertCommand extends Command {
     }
 
     public static void insertDeadline(String inputBuffer, boolean isFromFile) throws UnknownInputException {
-        String byWhen = inputBuffer.substring(inputBuffer.indexOf("/by" +3)).trim();
+        String byWhen = inputBuffer.substring(inputBuffer.indexOf("/by") +3).trim();
         String description = inputBuffer.replace("deadline ", "").trim();  //Get rid of "deadline "
         description = description.substring(0, description.indexOf("/by")).trim();          //Get rid of "/by..."
         if (isFromFile) {

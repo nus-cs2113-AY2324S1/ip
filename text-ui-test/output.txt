@@ -28,10 +28,7 @@ File already exists.
 Opening existing file...
 
 These are tasks loaded from before: 
-1.[T][ ] join sports club
-2.[T][ ] goto supermarket book
-3.[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
-Now you have 3 task(s) in the list.
+Now you have 0 task(s) in the list.
 ____________________________________________________________
 Hello! I'm ELVIS
 What can I do for you?
@@ -39,183 +36,112 @@ ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] borrow book
-Now you have 4 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[D][ ] return book (by: June 6th)
-Now you have 5 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-Now you have 6 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[T][ ] join sports club
-Now you have 7 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[T][ ] goto supermarket book
-Now you have 8 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this task as done:
-[T][X] join sports club
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this task as done:
-[T][X] borrow book
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
-Now you have 9 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Here are the tasks in your list: 
-1.[T][X] join sports club
-2.[T][ ] goto supermarket book
-3.[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
-4.[T][X] borrow book
-5.[D][ ] return book (by: June 6th)
-6.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-7.[T][ ] join sports club
-8.[T][ ] goto supermarket book
-9.[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
-Now you have 9 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this task as done:
-[E][X] project meeting (from: Aug 6th 2pm to: 4pm)
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this task as done:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this task as done:
-[T][ ] join sports club
-____________________________________________________________
-____________________________________________________________
-Here are the tasks in your list: 
-1.[T][ ] join sports club
-2.[T][ ] goto supermarket book
-3.[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
-4.[T][X] borrow book
-5.[D][ ] return book (by: June 6th)
-6.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-7.[T][ ] join sports club
-8.[T][ ] goto supermarket book
-9.[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
-Now you have 9 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Noted. I've removed this task:
-[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
-Now you have 8 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Here are the tasks in your list: 
-1.[T][ ] join sports club
-2.[T][ ] goto supermarket book
-3.[T][X] borrow book
-4.[D][ ] return book (by: June 6th)
-5.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-6.[T][ ] join sports club
-7.[T][ ] goto supermarket book
-8.[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
-Now you have 8 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Noted. I've removed this task:
-[T][ ] join sports club
-Now you have 7 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Noted. I've removed this task:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-Now you have 6 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Noted. I've removed this task:
-[D][ ] return book (by: June 6th)
-Now you have 5 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Noted. I've removed this task:
-[T][X] borrow book
-Now you have 4 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Noted. I've removed this task:
-[T][ ] goto supermarket book
-Now you have 3 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Noted. I've removed this task:
-[T][ ] join sports club
-Now you have 2 task(s) in the list.
-____________________________________________________________
-____________________________________________________________
-Noted. I've removed this task:
-[T][ ] goto supermarket book
 Now you have 1 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
+dateTimeParser: 28/06/2023 1300
+Got it. I've added this task:
+[D][ ] return book (by: 28/06/2023 1300)
+Now you have 2 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+from: 2022-08-06 1300
+to: 6-8-2022 1500
+dateTimeParser: 06/08/2022 1300
+dateTimeParser: 06/08/2022 1500
+Got it. I've added this task:
+[E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
+Now you have 3 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+from: 22/04/2021 09:00
+to: 27/05/2021 1600
+dateTimeParser: 22/04/2021 0900
+dateTimeParser: 27/05/2021 1600
+Got it. I've added this task:
+[E][ ] join sports club (from: 22/04/2021 0900 to: 27/05/2021 1600)
+Now you have 4 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+from: 2023/06/28 13:00
+to: 2023-6-30 15:00
+dateTimeParser: 28/06/2023 1300
+dateTimeParser: 30/06/2023 1500
+Got it. I've added this task:
+[E][ ] goto supermarket book (from: 28/06/2023 1300 to: 30/06/2023 1500)
+Now you have 5 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+from: 2002-02-05 05:00
+to: 05-05-2002 2000
+dateTimeParser: 05/02/2002 0500
+dateTimeParser: 05/05/2002 2000
+Got it. I've added this task:
+[E][ ] individual project pitching (from: 05/02/2002 0500 to: 05/05/2002 2000)
+Now you have 6 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[T][X] borrow book
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[E][X] join sports club (from: 22/04/2021 0900 to: 27/05/2021 1600)
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list: 
+1.[T][X] borrow book
+2.[D][ ] return book (by: 28/06/2023 1300)
+3.[E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
+4.[E][X] join sports club (from: 22/04/2021 0900 to: 27/05/2021 1600)
+5.[E][ ] goto supermarket book (from: 28/06/2023 1300 to: 30/06/2023 1500)
+6.[E][ ] individual project pitching (from: 05/02/2002 0500 to: 05/05/2002 2000)
+Now you have 6 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[E][X] individual project pitching (from: 05/02/2002 0500 to: 05/05/2002 2000)
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[E][ ] individual project pitching (from: 05/02/2002 0500 to: 05/05/2002 2000)
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[T][ ] borrow book
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list: 
+1.[T][ ] borrow book
+2.[D][ ] return book (by: 28/06/2023 1300)
+3.[E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
+4.[E][X] join sports club (from: 22/04/2021 0900 to: 27/05/2021 1600)
+5.[E][ ] goto supermarket book (from: 28/06/2023 1300 to: 30/06/2023 1500)
+6.[E][ ] individual project pitching (from: 05/02/2002 0500 to: 05/05/2002 2000)
+Now you have 6 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
 Noted. I've removed this task:
-[E][ ] go to workshop (from: Tmr 1pm to: 3pm)
-Now you have 0 task(s) in the list.
+[E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
+Now you have 5 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
-No such Task!
+Here are the tasks in your list: 
+1.[T][ ] borrow book
+2.[D][ ] return book (by: 28/06/2023 1300)
+3.[E][X] join sports club (from: 22/04/2021 0900 to: 27/05/2021 1600)
+4.[E][ ] goto supermarket book (from: 28/06/2023 1300 to: 30/06/2023 1500)
+5.[E][ ] individual project pitching (from: 05/02/2002 0500 to: 05/05/2002 2000)
+Now you have 5 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-No such Task!
-____________________________________________________________
-____________________________________________________________
-? OOPS!!! Nothing to list.
+Here are the tasks in your list: 
+1.[T][ ] borrow book
+2.[D][ ] return book (by: 28/06/2023 1300)
+3.[E][X] join sports club (from: 22/04/2021 0900 to: 27/05/2021 1600)
+4.[E][ ] goto supermarket book (from: 28/06/2023 1300 to: 30/06/2023 1500)
+5.[E][ ] individual project pitching (from: 05/02/2002 0500 to: 05/05/2002 2000)
+Now you have 5 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

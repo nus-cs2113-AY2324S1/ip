@@ -1,16 +1,19 @@
 package elvis.task;
 
+import elvis.operation.DateTimeHandler;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private final char taskType = 'D';
     private final int DATE = 0;
     private final int TIME = 1;
-    private LocalDateTime date;
+    private LocalDateTime dateTime;
 
     public Deadline(String description, int isDoneFromFile, String byWhen) {
         super(description, isDoneFromFile);
-        this.date = LocalDateTime.parse(byWhen);
+        this.dateTime = DateTimeHandler.dateTimeParser(byWhen);
     }
 
     @Override
@@ -20,6 +23,6 @@ public class Deadline extends Task {
 
     @Override
     public LocalDateTime getDateTime() {
-        return date;
+        return dateTime;
     }
 }

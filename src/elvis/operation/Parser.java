@@ -1,5 +1,6 @@
 package elvis.operation;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import elvis.command.*;
@@ -73,7 +74,7 @@ public class Parser {
             Ui.emptyDescriptionMessagePrinter("event");
         } catch (UnknownInputException exception) {
             Ui.unknownInputMessagePrinter();
-        } catch (UnknownDateTimeFormatException exception) {
+        } catch (UnknownDateTimeFormatException | DateTimeParseException exception) {
             Ui.invalidDateTimeMessagePrinter();
         } finally {
             if (!validInput) {
