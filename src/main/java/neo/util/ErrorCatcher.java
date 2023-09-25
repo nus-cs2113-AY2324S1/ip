@@ -8,7 +8,19 @@ import neo.type.TimeErrorType;
 import neo.type.TimeType;
 import neo.type.TimeValueType;
 
+/**
+ * Represents the methods related to catching input errors. This class is abstract as its
+ * main purpose is to provide methods to catch errors.
+ */
 public abstract class ErrorCatcher {
+
+    /**
+     * Catches errors when user inputs the wrong format while trying to add tasks to the list.
+     *
+     * @param type This is the type of task that the user intends to add.
+     * @param line This is the user input line.
+     * @throws NeoTaskException If wrong format is detected.
+     */
     public static void catchFormatError(CommandType type, String line) throws NeoTaskException {
         switch (type) {
         case TODO:
@@ -37,6 +49,9 @@ public abstract class ErrorCatcher {
             if (!line.contains("/to")) {
                 throw new NeoTaskException("/to", ErrorType.FORMAT);
             }
+            break;
+        default:
+            System.out.println("Unable to catch format error.");
             break;
         }
     }
@@ -105,6 +120,13 @@ public abstract class ErrorCatcher {
         String[] dateAndTime = line.split(" ");
         return dateAndTime.length == 2;
     }
+
+    /**
+     * Catches errors when user inputs the date or date and time in a wrong format.
+     *
+     * @param line This is the string representing the date or date and time.
+     * @throws NeoTimeException If errors are detected in the format of the date or date and time.
+     */
     public static void catchTimeFormatError(String line) throws NeoTimeException {
         if (hasTime(line)) {
             catchDateAndTimeError(line);
@@ -113,6 +135,13 @@ public abstract class ErrorCatcher {
         }
     }
 
+    /**
+     * Catches errors when the description of task or its dates are empty.
+     *
+     * @param field This is the part of the task. E.g.: /by, /from, /to
+     * @param description This is the description of the task.
+     * @throws NeoTaskException If empty fields are detected.
+     */
     public static void catchEmptyDescription(String field, String description) throws NeoTaskException {
         if (description.isBlank()) {
             throw new NeoTaskException(field, ErrorType.EMPTY);

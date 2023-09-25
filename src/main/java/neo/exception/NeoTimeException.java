@@ -3,17 +3,32 @@ package neo.exception;
 import neo.type.TimeErrorType;
 import neo.type.TimeType;
 import neo.type.TimeValueType;
+
+/**
+ * A form of throwable that indicates conditions specific to time parsing in Neo chatbot that can be
+ * caught.
+ */
 public class NeoTimeException extends Exception {
     protected TimeType timeType;
     protected TimeValueType timeValueType;
     protected TimeErrorType timeErrorType;
 
+    /**
+     * Constructs exception with parameters to indicate the type of exception.
+     *
+     * @param timeType It specifies whether the exception has time included or not.
+     * @param timeValueType It specifies which component of date or time has an impossible value.
+     * @param timeErrorType It specifies which type of error occurred.
+     */
     public NeoTimeException(TimeType timeType, TimeValueType timeValueType, TimeErrorType timeErrorType) {
         this.timeType = timeType;
         this.timeValueType = timeValueType;
         this.timeErrorType = timeErrorType;
     }
 
+    /**
+     * Prints the exception and recommended actions to the user.
+     */
     public void printException() {
         switch (timeErrorType) {
         case FORMAT:
