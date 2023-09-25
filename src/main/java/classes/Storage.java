@@ -46,9 +46,9 @@ public class Storage {
     		dir.mkdir();
     	}
     	if (!textFile.exists()) {
-    		createTaskListFile();
+    		textFile.createNewFile();
     	}
-		writeFile = new FileWriter(textFile, true);
+		writeFile = new FileWriter(textFile.toPath().toString(), true);
 	}
 	
 	/**
@@ -81,19 +81,6 @@ public class Storage {
     }
     
     /**
-     * If toDoList.txt does not exist in the data directory, the file is created.
-     */
-    public static void createTaskListFile() {
-    	try {
-    		FileWriter outputFile = new FileWriter("./data/toDoList.txt");
-			outputFile.close();
-    	}
-    	catch (java.io.IOException e) {
-    		System.out.println(e);
-    	}
-    }
-    
-    /**
      * Marks the task as done on the hard drive when the user wants to mark it in their list.
      * 
      * @param taskIndex the index of the task to be marked
@@ -103,7 +90,7 @@ public class Storage {
     	try {
         	Scanner readFile = new Scanner(textFile);
         	File tempFile = new File("./data/temp.txt");
-        	FileWriter tempWriter = new FileWriter(tempFile);
+        	FileWriter tempWriter = new FileWriter(tempFile.toPath().toString());
         	
         	int currIndex = 0;
         	while (readFile.hasNextLine()) {
@@ -125,7 +112,7 @@ public class Storage {
         	textFile.delete();
         	tempFile.renameTo(textFile);
         	textFile = new File("./data/toDoList.txt");
-        	writeFile = new FileWriter(textFile, true);
+        	writeFile = new FileWriter(textFile.toPath().toString(), true);
     	}
     	catch (FileNotFoundException e) {
     		System.out.println(e);
@@ -190,7 +177,7 @@ public class Storage {
     	try {
         	Scanner readFile = new Scanner(textFile);
         	File tempFile = new File("./data/temp.txt");
-        	FileWriter tempWriter = new FileWriter(tempFile);
+        	FileWriter tempWriter = new FileWriter(tempFile.toPath().toString());
         	
         	int currIndex = 0;
         	while (readFile.hasNextLine()) {
@@ -205,7 +192,7 @@ public class Storage {
         	textFile.delete();
         	tempFile.renameTo(textFile);
         	textFile = new File("./data/toDoList.txt");
-        	writeFile = new FileWriter(textFile, true);
+        	writeFile = new FileWriter(textFile.toPath().toString(), true);
     	}
     	catch (FileNotFoundException e) {
     		System.out.println(e);

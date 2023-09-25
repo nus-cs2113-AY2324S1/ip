@@ -148,7 +148,7 @@ public class Duke {
             	ui.sayGoodbye();
     	}
     	catch (IOException e) {
-    		System.out.println("     File not found and could not be initialized to write to");
+    		System.out.println("     toDoList.txt not found and could not be initialized to write to");
     	}
     }
     
