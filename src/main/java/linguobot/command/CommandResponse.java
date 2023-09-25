@@ -157,5 +157,33 @@ public class CommandResponse {
             CommandResponse.printLine();
         }
     }
+    public static void findTask(ArrayList<Task> taskList, String userInput) {
+        try {
+            int FIND_TASK_INDEX = 5;
+            if (userInput.length() <= FIND_TASK_INDEX) {
+                throw new LinguoBotException("Invalid format. Please enter keyword after 'find'");
+            }
+            String keyword = userInput.substring(FIND_TASK_INDEX);
+            boolean found = false;
+            CommandResponse.printLine();
+            for (Task task : taskList) {
+                if (task.getDescription().contains(keyword)) {
+                    if (!found) {
+                        System.out.println("Here are the matching tasks in your list:");
+                        found = true;
+                    }
+                    System.out.println(task);
+                }
+            }
+            if (!found) {
+                System.out.println("No such task found.");
+            }
+            CommandResponse.printLine();
+        } catch (LinguoBotException e) {
+            printLine();
+            System.out.println("Error: " + e.getMessage());
+            printLine();
+        }
+    }
 
 }
