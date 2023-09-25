@@ -2,9 +2,8 @@
 Elvis is a chatbot for managing todo, deadline, event for use via a Command Line Interface (CLI) 
 ---
 ## Quick start
-
 1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest addressbook.jar from [here](https://github.com/woodenclock/ip/releases).
+2. Download the latest `addressbook.jar` from [here](https://github.com/woodenclock/ip/releases).
 3. Copy the file to the folder you want to use as the home folder for your Elvis.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Elvis.jar command to run the application.
 ```
