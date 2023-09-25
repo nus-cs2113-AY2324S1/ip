@@ -15,26 +15,5 @@ list
             list
             delete 6
             delete 5
-            delete 4
-            delete 3
-            delete 2
-            delete 1
-            delete 1
-            delete 1
-            delete 1
-             delete 1
-             delete 1
-             delete 1
- delete 1
- delete 1
- delete 1
-delete 1
-delete 1
-delete 1
-delete 1
-delete 1
-delete 1
-delete 1
-delete 1
 list
      bye

@@ -4,6 +4,7 @@ import elvis.task.Deadline;
 import elvis.task.Event;
 import elvis.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -59,6 +60,8 @@ public class Ui {
             System.out.println("😭 OOPS!!! The description of a mark cannot be empty.");
         } else if (description.equals("unmark")) {
             System.out.println("😭 OOPS!!! The description of an unmark cannot be empty.");
+        }else if (description.equals("find")) {
+            System.out.println("😭 OOPS!!! The description of a find cannot be empty.");
         } else if (description.equals("todo")) {
             System.out.println("😭 OOPS!!! The description of a todo cannot be empty.");
         } else if (description.equals("deadline")) {
@@ -94,6 +97,18 @@ public class Ui {
 
     public static void taskUnmarkedMessagePrinter() {
         System.out.println("OK, I've marked this task as not done yet:");
+    }
+
+    public static void findTaskMessagePrinter(boolean hasMatch, ArrayList<Integer> matchingTasks) {
+        if (!hasMatch) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.print((i+1) + ".");
+                print(i);
+            }
+        }
     }
 
     public static void taskAddedMessagePrinter() {
