@@ -29,6 +29,8 @@ public class LinguoBot {
             String userInput = in.nextLine();
             if (userInput.equals("list")) {
                 CommandResponse.printTaskList(taskList);
+            }else if (userInput.startsWith("find")) {
+                CommandResponse.findTask(taskList, userInput);
             } else if (userInput.startsWith("mark")) {
                 CommandResponse.markTaskAsDone(taskList, userInput);
             } else if (userInput.startsWith("unmark")) {
