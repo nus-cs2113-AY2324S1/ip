@@ -105,13 +105,8 @@ public class ListOfTasks {
     }
 
     public void load(ArrayList<String> data) throws DescriptionFormatException {
-        String[] splittedData;
-        String command;
-
         for (String line : data) {
-            splittedData = StringSplitter.splitInput(line);
-            command = splittedData[0];
-            taskClassifier(command, splittedData);
+            TaskClassifier.classifyTaskForLoading(this, line);
         }
     }
 }
