@@ -1,3 +1,4 @@
+import common.Messages;
 import listWhisper.exceptions.DescriptionFormatException;
 
 import java.io.IOException;
@@ -17,14 +18,9 @@ public class ListWhisper {
     }
 
     private static void greetUser() {
-        ListWhisper.printStraightLine();
+        Messages.printStraightLine();
         System.out.println("Hello! I'm ListWhisper");
         System.out.println("What can I do for you?");
-        ListWhisper.printStraightLine();
+        Messages.printStraightLine();
     }
-
-    public static void printStraightLine() {
-        System.out.println("-----------------------------------------------------");
-    }
-
 }
