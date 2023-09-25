@@ -10,6 +10,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,12 +39,14 @@ public class Storage {
                 tasks.add(todo);
                 break;
             case 'D':
-                Task deadline = new Deadline(descriptions[2].trim(), descriptions[3].trim(), isMarked);
+                LocalDateTime formattedDate = LocalDateTime.parse(descriptions[3].trim());
+                Task deadline = new Deadline(descriptions[2].trim(), formattedDate, isMarked);
                 tasks.add(deadline);
                 break;
             case 'E':
-                Task event = new Event(descriptions[2].trim(), descriptions[3].trim(), descriptions[4].trim(),
-                        isMarked);
+                LocalDateTime formattedStart= LocalDateTime.parse(descriptions[3].trim());
+                LocalTime formattedEnd = LocalTime.parse(descriptions[4].trim());
+                Task event = new Event(descriptions[2].trim(), formattedStart, formattedEnd, isMarked);
                 tasks.add(event);
                 break;
             default:
