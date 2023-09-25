@@ -24,7 +24,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+//    public abstract String toString(String date);
+
     public String toFileString() {
         return "";
     }
+
+//    public abstract String toFileString(String date);
 }
