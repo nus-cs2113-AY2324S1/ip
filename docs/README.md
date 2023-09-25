@@ -55,7 +55,7 @@ Some example commands you can try:
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
-![image](https://github.com/woodenclock/ip/assets/69474977/67dc3b1f-0cc8-4445-a08e-d487596c99e3) Notes about the command format:
+**Notes about the command format:**
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `todo TASK_TO_DO`, `TASK_TO_DO` is a parameter which can be used as `todo read books`.
