@@ -97,4 +97,26 @@ public class TaskList {
         System.out.println("  " + tasks.get(taskIndex-1).getDetails());
         System.out.println(LINE);
     }
+
+    public void findTask(String keyword) {
+        ArrayList<Task> results = new ArrayList<>();
+        boolean isFound = false;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                isFound = true;
+                results.add(task);
+            }
+        }
+        System.out.println(LINE);
+        if (isFound) {
+            int resultCount = 1;
+            System.out.println("Here are the matching tasks in your list:");
+            for (Task task : results) {
+                System.out.println(resultCount + ". " + task.getDetails());
+            }
+        } else {
+            System.out.println("No matching tasks are found :/");
+        }
+        System.out.println(LINE);
+    }
 }
