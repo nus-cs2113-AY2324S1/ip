@@ -218,6 +218,25 @@ Examples: `deadline return book /by 2023/06/28 1300`
 
 ```
 
+### 5. Listing all tasks: `list`
+
+Lists all tasks in the Tasklist.
+
+Format: `list`
+
+```
+   ____________________________________________________________
+   list
+   ____________________________________________________________
+   Here are the tasks in your list:
+   1.[T][ ] read books
+   2.[D][ ] return book (by: 28/06/2023 1300)
+   3.[E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
+   Now you have 3 task(s) in the list.
+   ____________________________________________________________
+
+```
+
 
 
 
