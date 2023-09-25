@@ -7,6 +7,7 @@ import elvis.task.ToDo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class Storage {
     private static final String FILE_PATH = "./tasks.txt";
     private static final String FILE_NAME = "tasks.txt";
+    private static final DateTimeFormatter STD_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static File openedFile;
 
     public static void fileManager() {
@@ -86,10 +88,11 @@ public class Storage {
         if (task instanceof ToDo) {
             return String.format("%s %d %s", "todo", status, task.getDescription());
         } else if (task instanceof Deadline) {
-            return String.format("%s %d %s/by%s", "deadline", status, task.getDescription(), task.getDate());
+            return String.format("%s %d %s/by%s", "deadline", status, task.getDescription(),
+                    task.getDateTime().format(STD_FORMAT));
         } else if (task instanceof Event) {
             return String.format("%s %d %s/from%s/to%s", "event", status, task.getDescription(),
-                    task.getStartTime(), task.getEndTime());
+                    task.getStartDateTime().format(STD_FORMAT), task.getEndDateTime().format(STD_FORMAT));
         }
         throw new IOException();
     }

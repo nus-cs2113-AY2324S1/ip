@@ -1,6 +1,6 @@
 package elvis.task;
 
-import java.io.IOException;
+import java.time.LocalDateTime;
 
 //Task Class that stores the description and isDone of task
 public abstract class Task {
@@ -42,15 +42,18 @@ public abstract class Task {
         return '?';
     }
 
-    public String getDate() {
-        return "?";
+    public LocalDateTime getDateTime() {
+        LocalDateTime date = LocalDateTime.parse("0000-00-00 00:00");
+        return date;
     }
 
-    public String getStartTime() {
-        return "?";
+    public LocalDateTime getStartDateTime() {
+        LocalDateTime time = LocalDateTime.parse("0000-00-00 00:00");
+        return time;
     }
 
-    public String getEndTime() {
-        return "?";
+    public LocalDateTime getEndDateTime() {
+        LocalDateTime date = LocalDateTime.parse("0000-00-00 00:00");
+        return date;
     }
 }

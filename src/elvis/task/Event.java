@@ -1,14 +1,18 @@
 package elvis.task;
 
+import elvis.operation.DateTimeHandler;
+
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     private final char taskType = 'E';
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
 
-    public Event(String description, int isDoneFromFile, String startTime, String endTime) {
+    public Event(String description, int isDoneFromFile, String fromWhen, String toWhen) {
         super(description, isDoneFromFile);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startDateTime = DateTimeHandler.dateTimeParser(fromWhen);
+        this.endDateTime = DateTimeHandler.dateTimeParser(toWhen);
     }
 
     @Override
@@ -17,12 +21,11 @@ public class Event extends Task {
     }
 
     @Override
-    public String getStartTime() {
-        return startTime;
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
     }
-
     @Override
-    public String getEndTime() {
-        return endTime;
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 }
