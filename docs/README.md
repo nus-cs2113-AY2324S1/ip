@@ -52,11 +52,13 @@ Some example commands you can try:
 - `bye` : Exits the app.
   
 1. Refer to the [Features](https://woodenclock.github.io/ip/#features) below for details of each command.
+
    
 --------------------------------------------------------------------------------------------------------------------------------------
 
+
 ## Features
-**Notes about the command format:**
+:information_source:**Notes about the command format:**
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `todo TASK_TO_DO`, `TASK_TO_DO` is a parameter which can be used as `todo read books`.
@@ -333,6 +335,16 @@ Example: `unmark 2`
    ____________________________________________________________
 
 ```
+
+### 10. Saving the Tasklist
+
+Tasklist data are saved in the hard disk automatically after every valid command changes the data. 
+There is no need to save manually.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 
