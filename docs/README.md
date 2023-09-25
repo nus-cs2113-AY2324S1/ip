@@ -154,6 +154,7 @@ Format: `help`
    
    -------------------------HELP PAGE END--------------------------
 ```
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 2. Adding a todo: `todo`
@@ -172,6 +173,7 @@ Example: `todo read books`
    Now you have 1 task(s) in the list.
    ____________________________________________________________
 ```
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 3. Adding a deadline: `deadline`
@@ -205,6 +207,7 @@ Example: `deadline return book /by 2023/06/28 1300`
    Now you have 2 task(s) in the list.
    ____________________________________________________________
 ```
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 4. Adding an event: `event`
@@ -237,8 +240,8 @@ Example: `event project meeting /from 2022-08-06 1300 /to 6-8-2022 1500`
    [E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
    Now you have 3 task(s) in the list.
    ____________________________________________________________
-
 ```
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 5. Listing all tasks: `list`
@@ -263,8 +266,8 @@ Legend:
    3.[E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
    Now you have 3 task(s) in the list.
    ____________________________________________________________
-
 ```
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 6. Finding a task: `find`
@@ -283,8 +286,8 @@ Example: `find book`
    1.[T][ ] read books
    2.[D][ ] return book (by: 28/06/2023 1300)
    ____________________________________________________________
-
 ```
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 7. Deleting a task: `delete`
@@ -303,8 +306,8 @@ Example: `delete 3`
    [E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
    Now you have 2 task(s) in the list.
    ____________________________________________________________
-
 ```
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 8. Marking a task: `mark`
@@ -322,8 +325,8 @@ Example: `mark 2`
    Nice! I've marked this task as done:
    [D][X] return book (by: 28/06/2023 1300)
    ____________________________________________________________
-
 ```
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 9. Unmarking a task: `unmark`
@@ -341,8 +344,8 @@ Example: `unmark 2`
    OK, I've marked this task as not done yet:
    [D][ ] return book (by: 28/06/2023 1300)
    ____________________________________________________________
-
 ```
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 10. Exiting program: `bye`
@@ -357,8 +360,8 @@ Format: `bye`
    ____________________________________________________________
    Bye. Hope to see you again soon!
    ____________________________________________________________
-
 ```
+[:arrow_up:](https://woodenclock.github.io/ip/)
 
 
 ### 11. Saving the Tasklist
