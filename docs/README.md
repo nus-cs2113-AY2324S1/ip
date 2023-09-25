@@ -142,7 +142,7 @@ Adds a todo to the Tasklist.
 
 Format: `todo TASK_TO_DO`
 
-Examples: `todo read books`
+Example: `todo read books`
 
 ```
    todo read books
@@ -173,7 +173,7 @@ Format: `deadline TASK_TO_DO /by DATE TIME`
   - dmyyyy
 - Time must be 24-Hr "HHmm" format (e.g. 1300 OR 13:00)
 
-Examples: `deadline return book /by 2023/06/28 1300`
+Example: `deadline return book /by 2023/06/28 1300`
 
 ```
    ____________________________________________________________
@@ -205,7 +205,7 @@ Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
   - dmyyyy
 - Time must be 24-Hr "HHmm" format (e.g. 1300 OR 13:00)
 
-Examples: `deadline return book /by 2023/06/28 1300`
+Example: `deadline return book /by 2023/06/28 1300`
 
 ```
    ____________________________________________________________
@@ -233,6 +233,25 @@ Format: `list`
    2.[D][ ] return book (by: 28/06/2023 1300)
    3.[E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
    Now you have 3 task(s) in the list.
+   ____________________________________________________________
+
+```
+
+### 6. Finding a task: `find`
+
+Finds all tasks in the Tasklist that matches the keyword.
+
+Format: `find`
+
+Example: `find book`
+
+```
+   ____________________________________________________________
+   find book
+   ____________________________________________________________
+   Here are the matching tasks in your list:
+   1.[T][ ] read books
+   2.[D][ ] return book (by: 28/06/2023 1300)
    ____________________________________________________________
 
 ```
