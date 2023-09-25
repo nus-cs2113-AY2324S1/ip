@@ -46,7 +46,7 @@ Elvis is a chatbot for managing todo, deadline, event for use via a Command Line
     What can I do for you?
     ____________________________________________________________
 ```
-1. Type commands below the horizontal line and press Enter to execute it. e.g. typing `help` and pressing `Enter` will open the help page.
+1. Type commands below the horizontal line and press Enter to execute it. (e.g. typing `help` and pressing `Enter` will open the help page).
 Some example commands you can try:
 - `list` : Lists all contacts.
 - `bye` : Exits the app.
@@ -63,9 +63,13 @@ Some example commands you can try:
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
+
 ### 1. Viewing help : `help`
 
 Shows the help page.
+
+Format: `help`
+
 ```
    ____________________________________________________________
    help
@@ -130,13 +134,16 @@ Shows the help page.
    
    -------------------------HELP PAGE END--------------------------
 ```
-Format: `help`
+
 
 ### 2. Adding a todo: `todo`
 
 Adds a todo to the Tasklist.
 
 Format: `todo TASK_TO_DO`
+
+Examples: `todo read books`
+
 ```
    todo read books
    ____________________________________________________________
@@ -146,8 +153,37 @@ Format: `todo TASK_TO_DO`
    ____________________________________________________________
 ```
 
-Examples:
-* `todo read books`
+### 3. Adding a deadline: `deadline`
+
+Adds a deadline to the Tasklist.
+
+Format: `deadline TASK_TO_DO /by DATE TIME`
+
+**Warning**:
+- Ensure there is only 1 whitespace between date and time
+- Year, month, date must be divided by "/" or "-" (e.g. 2021/06/28 OR 2021-06-28)
+- Date can be one of following formats:
+  - yyyymmdd
+  - yyyymmd
+  - yyyymdd
+  - yyyymd
+  - ddmmyyyy
+  - dmmyyyy
+  - ddmyyyy
+  - dmyyyy
+- Time must be 24-Hr "HHmm" format (e.g. 1300 OR 13:00)
+
+Examples: `deadline return book /by 2023/06/28 1300`
+
+```
+   ____________________________________________________________
+   deadline return book /by 2023/06/28 1300
+   ____________________________________________________________
+   Got it. I've added this task:
+   [D][ ] return book (by: 28/06/2023 1300)
+   Now you have 2 task(s) in the list.
+   ____________________________________________________________
+```
 
 
 
