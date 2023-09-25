@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the methods relating to writing and reading from data.txt file.
+ */
 public abstract class Storage {
     private final static String filePath = "data/data.txt";
     private final static String fileDirectory = "data";
@@ -18,6 +21,14 @@ public abstract class Storage {
         return (mark == 1);
     }
 
+    /**
+     * Finds and read data.txt file in data/data.txt path relative to working directory.
+     * If data.txt and its parent folder does not exist, it will create those files.
+     * Content of data.txt are used to fill up the task list.
+     *
+     * @param list This is the list of tasks to be filled up according to the content
+     *             of existing data.txt file.
+     */
     public static void findFile(ArrayList<Task> list) {
         try {
             generateFile(list);
@@ -71,6 +82,12 @@ public abstract class Storage {
             }
         }
     }
+
+    /**
+     * Writes to data.txt file.
+     *
+     * @param list This is the list of tasks to be written into the file.
+     */
     public static void updateFile(ArrayList<Task> list) {
         try {
             writeToFile(list);
