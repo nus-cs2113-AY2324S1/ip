@@ -185,6 +185,39 @@ Examples: `deadline return book /by 2023/06/28 1300`
    ____________________________________________________________
 ```
 
+### 4. Adding a event: `event`
+
+Adds an event to the Tasklist.
+
+Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
+
+**Warning**:
+- Ensure there is only 1 whitespace between date and time
+- Year, month, date must be divided by "/" or "-" (e.g. 2021/06/28 OR 2021-06-28)
+- Date can be one of following formats:
+  - yyyymmdd
+  - yyyymmd
+  - yyyymdd
+  - yyyymd
+  - ddmmyyyy
+  - dmmyyyy
+  - ddmyyyy
+  - dmyyyy
+- Time must be 24-Hr "HHmm" format (e.g. 1300 OR 13:00)
+
+Examples: `deadline return book /by 2023/06/28 1300`
+
+```
+   ____________________________________________________________
+   event project meeting /from 2022-08-06 1300 /to 6-8-2022 1500       
+   ____________________________________________________________
+   Got it. I've added this task:
+   [E][ ] project meeting (from: 06/08/2022 1300 to: 06/08/2022 1500)
+   Now you have 3 task(s) in the list.
+   ____________________________________________________________
+
+```
+
 
 
 
