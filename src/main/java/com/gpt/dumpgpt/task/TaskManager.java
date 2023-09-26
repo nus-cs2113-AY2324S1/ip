@@ -7,35 +7,53 @@ import java.util.ArrayList;
 
 public class TaskManager {
     private static ArrayList<Task> TASKS = null;
+    private static Task lastOperationTask = null;
+    private static ArrayList<Task> lastOperationTasks = null;
 
     public TaskManager() {
-        if (TASKS == null) {
+        if (getTasks() == null) {
             TASKS = new ArrayList<>();
         }
     }
 
     public void addTask(Task task) {
-        TASKS.add(task);
+        getTasks().add(task);
     }
 
     public boolean deleteTask(Task task) {
-        return TASKS.remove(task);
-    }
-
-    public Task getTask(int pos) {
-        if (pos < 0 || pos >= TASKS.size()) {
-            return null;
+        boolean isRemoved = getTasks().remove(task);
+        if (lastOperationTasks != null) {
+            lastOperationTasks.remove(task);
         }
-        return TASKS.get(pos);
+        return isRemoved;
     }
 
     public Task getTask(Command command) {
         int taskNumber = ProgramConstants.parsePositiveNumber(command.getArguments());
-        return getTask(--taskNumber);
+        if (lastOperationTasks != null) {
+            return getTask(lastOperationTasks, --taskNumber);
+        }
+        return getTask(getTasks(), --taskNumber);
     }
 
     public ArrayList<Task> getTasks() {
         return TASKS;
+    }
+
+    public void setLastOperation(Task task) {
+        lastOperationTask = task;
+    }
+
+    public Task getLastOperationTask() {
+        return lastOperationTask;
+    }
+
+    public void setLastOperation(ArrayList<Task> tasks) {
+        lastOperationTasks = tasks;
+    }
+
+    public ArrayList<Task> getLastOperationTasks() {
+        return lastOperationTasks;
     }
 
     /**
@@ -51,4 +69,10 @@ public class TaskManager {
         }
     }
 
+    private Task getTask(ArrayList<Task> tasks, int pos) {
+        if (pos < 0 || pos >= tasks.size()) {
+            return null;
+        }
+        return tasks.get(pos);
+    }
 }

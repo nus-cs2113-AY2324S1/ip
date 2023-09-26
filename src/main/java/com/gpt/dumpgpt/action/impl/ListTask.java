@@ -11,16 +11,27 @@ import java.util.ArrayList;
 
 public class ListTask extends Action {
     private static final String ACTION_VERB = "list";
+    public static final String NO_TASKS_PROMPT = "You have no tasks :D";
 
     public ListTask(Command command) {
         super(command, ACTION_VERB);
     }
 
+    public ListTask(Command command, String actionVerb) {
+        super(command, actionVerb);
+    }
+
     protected void execute(Ui ui) {
         TaskManager taskManager = new TaskManager();
         ArrayList<Task> tasks = taskManager.getTasks();
+        listTasks(ui, taskManager, tasks, NO_TASKS_PROMPT);
+    }
+
+    protected void listTasks(Ui ui, TaskManager taskManager, ArrayList<Task> tasks, String prompt) {
+        taskManager.setLastOperation(tasks);
         if (tasks.isEmpty()) {
-            ui.printWrapped("You have no tasks :D");
+            ui.printWrapped(prompt);
+            taskManager.setLastOperation(tasks);
             return;
         }
 
