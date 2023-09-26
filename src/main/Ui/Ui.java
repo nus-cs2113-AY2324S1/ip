@@ -9,8 +9,8 @@ public class Ui {
     private static final String BOT_NAME = "JS";
     private static final String LINE_DIVIDER = "----------------------------------------";
     private static final String TODO_USAGE_MSG = "Usage: todo <description>";
-    private static final String EVENT_USAGE_MSG = "Usage: event <description> /from <dd mmm yyyy> /to <dd mmm yyyy>";
-    private static final String DEADLINE_USAGE_MSG = "Usage: deadline <description> /by <dd mmm yyyy>";
+    private static final String EVENT_USAGE_MSG = "Usage: event <description> /from <dd/mm/yyyy> /to <dd/mm/yyyy>";
+    private static final String DEADLINE_USAGE_MSG = "Usage: deadline <description> /by <dd/mm/yyyy>";
     private static final String MARK_LIST_USAGE_MSG = "Usage: mark <index>";
     private static final String UNMARK_LIST_USAGE_MSG = "Usage: unmark <index>";
     private static final String DELETE_TASK_USAGE_MSG = "Usage: delete <index>";
