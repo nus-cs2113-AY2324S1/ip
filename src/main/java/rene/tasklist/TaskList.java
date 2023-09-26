@@ -1,14 +1,19 @@
 package rene.tasklist;
-import rene.storage.Storage;
+
 import rene.task.Task;
 import rene.task.ToDo;
 import rene.task.Deadline;
 import rene.task.Event;
 import rene.exception.ReneExceptions;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> allTasks; //array of inputs
+    DateTimeFormatter inputDateTimeFormatter = DateTimeFormatter.ofPattern( "dd-MM-yyyy HH:mm" );
     public void addToTaskList(String input, Task.TaskType taskType, boolean showMessage){
         switch (taskType) {
             case TODO:
@@ -50,7 +55,8 @@ public class TaskList {
                     if (deadlineTiming.equals("")) {
                         throw new ReneExceptions("Incomplete Due Time");
                     }
-                    allTasks.add(new Deadline(deadlineDescription, deadlineTiming));
+                    LocalDateTime  deadlineDateTime = LocalDateTime.parse(deadlineTiming, inputDateTimeFormatter);
+                    allTasks.add(new Deadline(deadlineDescription, deadlineDateTime));
                     if (showMessage) {
                         System.out.println("    I have added the following task OwO:");
                         System.out.printf("      [D][] %s\n", viewTaskByIndex(getTaskListSize()));
@@ -60,6 +66,10 @@ public class TaskList {
                 } catch (IndexOutOfBoundsException incompleteCommand) {
                     System.out.println("    Ohnus! You did not use '/by' to signal due time!");
                     System.out.println("    Pwease format your input as deadline [task name] /by [time]!");
+                    return;
+                } catch (DateTimeParseException incorrectTimeFormat){
+                    System.out.println("    Ohnus! You did not use give a correct date time for due time!");
+                    System.out.println("    Pwease format your deadline as dd-MM-yyyy HH:mm!");
                     return;
                 } catch (ReneExceptions incompleteCommand) {
                     String exceptionMessage = incompleteCommand.getMessage();
@@ -82,6 +92,8 @@ public class TaskList {
                 String eventEndTiming = null;
                 String[] eventDetails;
                 String eventDescription = null;
+                LocalDateTime  eventStartDateTime;
+                LocalDateTime  eventEndDateTime;
 
                 try {
                     eventDetails = input.split("event")[1].strip().split("/");
@@ -99,9 +111,14 @@ public class TaskList {
                     if (eventStartTiming.equals("")) {
                         throw new ReneExceptions("Incomplete Start Time");
                     }
+                    eventStartDateTime = LocalDateTime.parse(eventStartTiming, inputDateTimeFormatter);
                 } catch (IndexOutOfBoundsException incompleteCommand) {
                     System.out.println("    Ohnus! You did not use '/from' to signal start time!");
                     System.out.println("    Pwease format your input as event [task name] /from [start time] /to [end time]!");
+                    return;
+                } catch (DateTimeParseException incorrectTimeFormat){
+                    System.out.println("    Ohnus! You did not use give a correct date time for start time!");
+                    System.out.println("    Pwease format your deadline as dd-MM-yyyy HH:mm !");
                     return;
                 } catch (ReneExceptions incompleteCommand) {
                     String exceptionMessage = incompleteCommand.getMessage();
@@ -123,7 +140,11 @@ public class TaskList {
                     if (eventEndTiming.equals("")) {
                         throw new ReneExceptions("Incomplete Start Time");
                     }
-                    allTasks.add(new Event(eventDescription, eventStartTiming, eventEndTiming));
+                    eventEndDateTime = LocalDateTime .parse(eventEndTiming, inputDateTimeFormatter);
+                    if(eventEndDateTime.isBefore(eventStartDateTime)){
+                        throw new ReneExceptions("Invalid end time");
+                    }
+                    allTasks.add(new Event(eventDescription, eventStartDateTime, eventEndDateTime));
                     if (showMessage) {
                         System.out.println("    I have added the following task OwO:");
                         System.out.printf("      [E][] %s\n", viewTaskByIndex(getTaskListSize()));
@@ -133,10 +154,23 @@ public class TaskList {
                     System.out.println("    Ohnus! You did not use '/to' to signal end time!");
                     System.out.println("    Pwease format your input as event [task name] /from [start time] /to [end time]!");
                     return;
-                } catch (ReneExceptions incompleteCommand) {
-                    System.out.println("    Ohnus! You did not use give event a end time!");
-                    System.out.println("    Pwease format your input as event [task name] /from [start time] /to [end time]!");
+                } catch (DateTimeParseException incorrectTimeFormat){
+                    System.out.println("    Ohnus! You did not use give a correct date time for end time!");
+                    System.out.println("    Pwease format your deadline as dd-MM-yyyy HH:mm!");
                     return;
+                } catch (ReneExceptions incorrectCommand) {
+                    String exceptionMessage = incorrectCommand.getMessage();
+                    switch (exceptionMessage) {
+                        case "Invalid end time":
+                            System.out.println("    Your end time cannot be earlier than start time! :<");
+                            return;
+                        case "Incomplete Start Time":
+                            System.out.println("    Ohnus! You did not use give event a start time!");
+                            System.out.println("    Pwease format your input as event [task name] /from [start time] /to [end time]!");
+                            return;
+                        default:
+                            return;
+                    }
                 }
                 break;
         }
@@ -164,31 +198,39 @@ public class TaskList {
             case DEADLINE:
                 if (task.taskIsDone()) {
                     if (asList) {
-                        System.out.printf("    %d: [D][X] %s %s\n", taskIndex + 1, task.getTaskDescription(), task.getTaskTiming());
+                        System.out.printf("    %d: [D][X] %s %s\n",
+                                taskIndex + 1, task.getTaskDescription(), task.getTaskTiming(false));
                     } else {
-                        System.out.printf("        [D][X] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                        System.out.printf("        [D][X] %s %s\n",
+                                task.getTaskDescription(), task.getTaskTiming(false));
                     }
                 }
                 else {
                     if (asList) {
-                        System.out.printf("    %d: [D][] %s %s\n", taskIndex + 1, task.getTaskDescription(), task.getTaskTiming());
+                        System.out.printf("    %d: [D][] %s %s\n",
+                                taskIndex + 1, task.getTaskDescription(), task.getTaskTiming(false));
                     } else {
-                        System.out.printf("        [D][] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                        System.out.printf("        [D][] %s %s\n",
+                                task.getTaskDescription(), task.getTaskTiming(false));
                     }
                 }
                 break;
             case EVENT:
                 if (task.taskIsDone()) {
                     if (asList) {
-                        System.out.printf("    %d: [E][X] %s %s\n", taskIndex+1, task.getTaskDescription(), task.getTaskTiming());
+                        System.out.printf("    %d: [E][X] %s %s\n",
+                                taskIndex+1, task.getTaskDescription(), task.getTaskTiming(false));
                     } else {
-                        System.out.printf("        [E][X] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                        System.out.printf("        [E][X] %s %s\n",
+                                task.getTaskDescription(), task.getTaskTiming(false));
                     }
                 } else {
                     if (asList) {
-                        System.out.printf("    %d: [E][] %s %s\n", taskIndex+1, task.getTaskDescription(), task.getTaskTiming());
+                        System.out.printf("    %d: [E][] %s %s\n",
+                                taskIndex+1, task.getTaskDescription(), task.getTaskTiming(false));
                     } else {
-                        System.out.printf("        [E][] %s %s\n", task.getTaskDescription(), task.getTaskTiming());
+                        System.out.printf("        [E][] %s %s\n",
+                                task.getTaskDescription(), task.getTaskTiming(false));
                     }
                 }
                 break;
@@ -246,7 +288,7 @@ public class TaskList {
                     return allTasks.get(index-1).getTaskDescription();
                 case DEADLINE:
                 case EVENT:
-                    return allTasks.get(index-1).getTaskDescription() + " " + allTasks.get(index-1).getTaskTiming();
+                    return allTasks.get(index-1).getTaskDescription() + " " + allTasks.get(index-1).getTaskTiming(false);
                 default:
                     return "Task Not Found";
             }
@@ -255,6 +297,8 @@ public class TaskList {
             return "Task Not Found";
         }
     }
+
+
     public int getTaskListSize(){
         return allTasks.size();
     }

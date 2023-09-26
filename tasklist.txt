@@ -1,7 +1,6 @@
 Latest Tasks
-T | undone |  complete cs2113 assignment
-D | undone |  finish 2113 | (by: tonight)
-E | done |  watch 2271 lecture | (from: 9am to: 9pm)
-T | undone |  efjefwew
-D | undone |  oopsie | (by: xxx)
-E | undone |  something | (from: 90p to: lop)
+D | undone |  trial | (by: 22-04-2002 18:00)
+D | undone |  tiral2 | (by: 30-09-2013 19:04)
+E | undone |  trial 333 | (from: 18-04-2022 19:00 to: 19-04-2022 07:00)
+D | undone |  emergency | (by: 22-04-2019 13:30)
+E | undone |  emergencies | (from: 30-06-2002 00:00 to: 18-07-2003 00:00)

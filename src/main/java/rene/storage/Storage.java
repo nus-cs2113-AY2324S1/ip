@@ -108,19 +108,19 @@ public class Storage {
                     case DEADLINE:
                         if (task.taskIsDone()) {
                             writeToFile(dataFile.getPath(), "D | done |  " + task.getTaskDescription()
-                                    + " | "  + task.getTaskTiming() + System.lineSeparator(), true);
+                                    + " | "  + task.getTaskTiming(true) + System.lineSeparator(), true);
                         } else {
                             writeToFile(dataFile.getPath(), "D | undone |  " + task.getTaskDescription()
-                                    + " | "  + task.getTaskTiming() + System.lineSeparator(), true);
+                                    + " | "  + task.getTaskTiming(true) + System.lineSeparator(), true);
                         }
                         break;
                     case EVENT:
                         if (task.taskIsDone()) {
                             writeToFile(dataFile.getPath(), "E | done |  " + task.getTaskDescription()
-                                    + " | "  + task.getTaskTiming() + System.lineSeparator(), true);
+                                    + " | "  + task.getTaskTiming(true) + System.lineSeparator(), true);
                         } else {
                             writeToFile(dataFile.getPath(), "E | undone |  " + task.getTaskDescription()
-                                    + " | "  + task.getTaskTiming() + System.lineSeparator(), true);
+                                    + " | "  + task.getTaskTiming(true) + System.lineSeparator(), true);
                         }
                         break;
                 }
