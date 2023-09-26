@@ -6,6 +6,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.ui.TextUi;
 
 import java.util.ArrayList;
 import java.io.FileWriter;
@@ -15,6 +16,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
+
+    private static TextUi ui;
 
     private static final String NAME = "MudMud";
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -29,18 +32,6 @@ public class Duke {
 
     public static String getInput(Scanner in) {
         return in.nextLine().trim();
-    }
-
-    public static void tellGreeting() {
-        System.out.println("\t" + HORIZONTAL_LINE);
-        System.out.println("\tOh hello! I'm " + NAME + ".");
-        System.out.println("\tHow can I help you today?");
-        System.out.println("\t" + HORIZONTAL_LINE);
-    }
-
-    public static void tellGoodbye() {
-        System.out.println("\tGoodbye! I am going to sleep now.");
-        System.out.println("\t" + HORIZONTAL_LINE);
     }
 
     public static boolean checkEmptyTodoInput(String input) {
@@ -160,7 +151,7 @@ public class Duke {
 
         tasksCount--;
 
-        printNumOfTasks();
+        ui.printNumOfTasks(tasksCount);
     }
 
     private static void modifyTaskData(int index, int currentIndex, Scanner scanner, String change,
@@ -238,29 +229,11 @@ public class Duke {
         System.out.println("\t\t" + tasks.get(index));
     }
 
-    public static void printNumOfTasks() {
-        System.out.println("\tI took a peak at the list and you have " + tasksCount
-                + (tasksCount == 1 ? " task" : " tasks") + " currently.");
-    }
-
-    public static void printRecentTask(Task task) {
-        System.out.println("\tI have added the following task into the list:");
-        System.out.println("\t\t" + task);
-        printNumOfTasks();
-    }
-
-    public static void printTasks() {
-        System.out.println("\tHere are your tasks you have inputted:");
-        for (int i = 1; i <= tasksCount; i++) {
-            System.out.println("\t" + i + "." + tasks.get(i - 1));
-        }
-    }
-
     public static void handleIndexOutOfBoundsException() {
         System.out.println("\tUmm, you tried to access a task that does not exist.");
         System.out.println("\tPerhaps you should put a valid number based on the number of tasks " +
                 "you have currently. ");
-        printNumOfTasks();
+        ui.printNumOfTasks(tasksCount);
     }
 
     public static void handleNumberFormatException(String input) {
@@ -281,7 +254,7 @@ public class Duke {
         try {
             switch (command) {
             case "list":
-                printTasks();
+                ui.printTasks(tasks, tasksCount);
                 break;
             case "mark":
                 setMarkAsDone(input);
@@ -294,18 +267,18 @@ public class Duke {
                 break;
             case "todo":
                 addTodo(input);
-                printRecentTask(tasks.get(tasksCount - 1));
+                ui.printRecentTask(tasks.get(tasksCount - 1), tasksCount);
                 break;
             case "deadline":
                 addDeadline(input);
-                printRecentTask(tasks.get(tasksCount - 1));
+                ui.printRecentTask(tasks.get(tasksCount - 1), tasksCount);
                 break;
             case "event":
                 addEvent(input);
-                printRecentTask(tasks.get(tasksCount - 1));
+                ui.printRecentTask(tasks.get(tasksCount - 1), tasksCount);
                 break;
             case "bye":
-                tellGoodbye();
+                ui.tellGoodbye();
                 System.exit(0);
             default:
                 throw new DukeCommandException();
@@ -398,7 +371,7 @@ public class Duke {
             System.exit(1);
         }
 
-        tellGreeting();
+        ui.tellGreeting();
         while (true) {
             input = getInput(in);
             System.out.println("\t" + HORIZONTAL_LINE);
