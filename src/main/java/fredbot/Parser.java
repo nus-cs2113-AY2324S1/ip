@@ -7,6 +7,8 @@ import fredbot.task.Event;
 import fredbot.task.Task;
 import fredbot.task.Todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Parser {
@@ -28,13 +30,16 @@ public class Parser {
                break;
            case 'D':
                String[] argumentsDeadline = line.substring(6).split("by:");
-               tasks.addTask(new Deadline(argumentsDeadline[0].trim(),argumentsDeadline[1].trim()));
+
+               tasks.addTask(new Deadline(argumentsDeadline[0].trim(),LocalDate.parse(argumentsDeadline[1].trim())));
                tasks.markTask(Task.getNumTask() - 1, line.charAt(4) == 'X');
                break;
            case 'E':
                String[] argumentsEvent = line.substring(6).split("to:|from:");
+               LocalDate from = LocalDate.parse(argumentsEvent[1].trim());
+               LocalDate to = LocalDate.parse(argumentsEvent[2].trim());
                tasks.addTask(new Event(argumentsEvent[0].trim(),
-                       argumentsEvent[1].trim(), argumentsEvent[2].trim()));
+                       from, to));
                tasks.markTask(Task.getNumTask() - 1, line.charAt(4) == 'X');
                break;
            }
@@ -79,7 +84,13 @@ public class Parser {
                 throw new FredBotDeadlineErrorException();
             }
             String[] arguments = fullCommand.split("/by");
-            return new AddCommand(new Deadline(arguments[0].trim(),arguments[1].trim()));
+            LocalDate by;
+            try {
+                by = LocalDate.parse(arguments[1].trim());
+            } catch (DateTimeParseException e) {
+                throw new FredBotDeadlineErrorException();
+            }
+            return new AddCommand(new Deadline(arguments[0].trim(), by));
         }
         if (fullCommand.startsWith(COMMAND_ADD_EVENT)) {
             fullCommand = fullCommand.replace(COMMAND_ADD_EVENT, "").trim();
@@ -87,7 +98,15 @@ public class Parser {
                 throw new FredBotEventErrorException();
             }
             String[] arguments = fullCommand.split("/to|/from");
-            return new AddCommand(new Event(arguments[0].trim(), arguments[1].trim(), arguments[2].trim()));
+            LocalDate from;
+            LocalDate to;
+            try {
+                from = LocalDate.parse(arguments[1].trim());
+                to = LocalDate.parse(arguments[2].trim());
+            } catch (DateTimeParseException e) {
+                throw new FredBotEventErrorException();
+            }
+            return new AddCommand(new Event(arguments[0].trim(), from, to));
         }
         if (fullCommand.startsWith(COMMAND_DELETE)) {
             int index = Integer.parseInt(fullCommand.substring(6).trim());
