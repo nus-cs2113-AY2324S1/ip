@@ -30,10 +30,14 @@ public abstract class TaskList {
 
         System.out.println("Here are the tasks in your list:");
         for (Task task : list) {
-            System.out.print((listIndex) + ". ");
-            System.out.println(task);
+            printTask(task, listIndex);
             listIndex++;
         }
+    }
+
+    private static void printTask(Task task, int listIndex) {
+        System.out.print(listIndex + ". ");
+        System.out.println(task);
     }
 
     /**
@@ -80,8 +84,7 @@ public abstract class TaskList {
 
         for (Task task : list) {
             if (task.description.contains(toFind) || toFind.contains(task.description)) {
-                System.out.print(listIndex + ". ");
-                System.out.println(task);
+                printTask(task, listIndex);
             }
             listIndex++;
         }
