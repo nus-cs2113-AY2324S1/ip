@@ -21,6 +21,10 @@ public class Ui {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Prints a message with lines as dividers given a specified string
+     * @param message string specified to be printed with lines
+     */
     public void printMessage(String message) {
         System.out.print(DIVIDER);
         System.out.println(message);
@@ -34,16 +38,28 @@ public class Ui {
         printMessage(FAREWELL);
     }
 
+    /**
+     * Prints the task that is added to stdout with a message at the bottom showing the number of task currently
+     * @param tasks an object of the tasklist class representing the current tasklist
+     */
     public void printAddTask(TaskList tasks) {
         printMessage(INDENT + INDENT + tasks.getTask(Task.getNumTask() - 1).toString() + System.lineSeparator() +
                 INDENT + "Now you have " + (Task.getNumTask()) + " tasks in the list\n");
     }
 
+    /**
+     * Prints the task that is removed to stdout with a message at the bottom showing the number of task currently
+     * @param task an object of the Task class representing the removed task
+     */
     public void printRemoveTask(Task task) {
         printMessage(INDENT + REMOVE_TASK_MESSAGE + INDENT + task.toString() + System.lineSeparator() +
                 INDENT + "Now you have " + (Task.getNumTask()) + " tasks in the list\n");
     }
 
+    /**
+     * Prints the task that is marked to stdout with a message at the top saying that it is marked/unmarked
+     * @param task an object of the Task class representing the marked/unmarked task
+     */
     public void printMarkTask(Task task) {
         String message;
         if (task.getDone()) {
@@ -56,6 +72,10 @@ public class Ui {
         printMessage(message);
     }
 
+    /**
+     * Print all task to the stdout with a visual index given to each task
+     * @param tasks an object of tasklist class that contains all the current tasks
+     */
     public void printAllTasks(TaskList tasks) {
         StringBuilder taskList = new StringBuilder();
         taskList.append(INDENT).append(TASK_LIST_MESSAGE);
