@@ -49,13 +49,14 @@ public class NeoTimeException extends Exception {
             System.out.println("Please make sure the day is from 0-31.");
             break;
         case MONTH:
-            System.out.println("Please make sure the month is from 0-31.");
+            System.out.println("Please make sure the month is from 0-12.");
             break;
         case HOUR:
             System.out.println("Please make sure the hours is from 0-23.");
             break;
         case MINUTE:
             System.out.println("Please make sure the minutes is from 0-59.");
+            break;
         default:
             System.out.println("Unable to print exception.");
             break;
@@ -69,6 +70,7 @@ public class NeoTimeException extends Exception {
             break;
         case DATE_AND_TIME:
             System.out.println("Please make sure you have the correct format for date and time. (DD/MM/YYYY HHmm)");
+            break;
         default:
             System.out.println("Unable to print exception.");
             break;
