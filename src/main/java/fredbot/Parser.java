@@ -18,6 +18,8 @@ public class Parser {
     public static final String COMMAND_ADD_DEADLINE = "deadline";
     public static final String COMMAND_ADD_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
+
     public static TaskList parseFromFile(ArrayList<String> dataItems) { //Need to check for formatting
        TaskList tasks = new TaskList();
        for (String line: dataItems) {
@@ -112,6 +114,10 @@ public class Parser {
                 throw new FredBotDeleteErrorException();
             }
             return new DeleteCommand(index - 1);
+        }
+        if (fullCommand.startsWith(COMMAND_FIND)) {
+            fullCommand = fullCommand.replace(COMMAND_FIND, "").trim();
+            return new FindCommand(fullCommand);
         }
         if (fullCommand.equals("bye")) {
             return new ExitCommand();

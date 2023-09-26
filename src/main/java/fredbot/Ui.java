@@ -3,6 +3,7 @@ package fredbot;
 import fredbot.task.Task;
 
 import java.util.Scanner;
+import java.util.Set;
 
 public class Ui {
     public static final String INDENT = "    ";
@@ -14,6 +15,7 @@ public class Ui {
     public static final String TASK_LIST_MESSAGE = "Here are the tasks in your list\n";
     public static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:\n";
     public static final String FAREWELL = "     Bye. Hope to see you again soon!";
+    public static final String TASK_FOUND_MESSAGE = "Here are the matching tasks in your list:\n";
 
     private Scanner scanner;
 
@@ -63,6 +65,16 @@ public class Ui {
         for (int i = 0; i < numTask; i++) {
             String number = (i + 1) + ".";
             taskList.append(INDENT).append(number).append(tasks.getTask(i).toString()).append("\n"); // Can be formatted
+        }
+        printMessage(taskList.toString());
+    }
+
+    public void printFoundTasks(TaskList tasks, Set<Integer> set) {
+        StringBuilder taskList = new StringBuilder();
+        taskList.append(INDENT).append(TASK_FOUND_MESSAGE);
+        for (Integer value: set) {
+            String number = (value + 1) + ".";
+            taskList.append(INDENT).append(number).append(tasks.getTask(value).toString()).append("\n");
         }
         printMessage(taskList.toString());
     }
