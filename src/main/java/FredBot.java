@@ -1,6 +1,8 @@
 import fredbot.Parser;
 import fredbot.Storage;
 import fredbot.TaskList;
+import fredbot.Ui;
+import fredbot.commands.Command;
 import fredbot.error.*;
 import fredbot.task.Deadline;
 import fredbot.task.Event;
@@ -42,21 +44,38 @@ public class FredBot {
 
     private Storage storage;
     private TaskList tasks;
+    private Ui ui;
     public FredBot(String filePath) {
+        ui = new Ui();
         storage = new Storage(filePath);
         tasks = storage.loadTasks();
     }
     public void run() {
+        ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String line;
-                Scanner in = new Scanner(System.in);
-                line = in.nextLine();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parseCommand(fullCommand);
+                c.execute(tasks, storage, ui);
+                isExit = c.isExit();
+            } catch (FredBotCommandErrorException e) {
+                printMessage(INDENT + COMMAND_ERROR_MESSAGE);
+            } catch (FredBotDeadlineErrorException e) {
+                printMessage(INDENT + DEADLINE_ERROR_MESSAGE);
+            } catch (FredBotTodoErrorException e) {
+                printMessage(INDENT + TODO_ERROR_MESSAGE);
+            } catch (FredBotEventErrorException e) {
+                printMessage(INDENT + EVENT_ERROR_MESSAGE);
+            } catch (FredBotMarkErrorException | FredBotDeleteErrorException e) {
+                printMessage(INDENT + MARK_ERROR_MESSAGE);
             }
+//            } catch (IOException e) {
+//                printMessage(INDENT + WRITE_FILE_ERROR_MESSAGE);
+//                System.exit(0);
+//            }
         }
+        ui.showGoodBye();
     }
     public static void loadTasksfromfile(ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File(TASK_FILE_PATH);
@@ -187,62 +206,63 @@ public class FredBot {
         System.out.println(DIVIDER);
     }
     public static void main(String[] args) {
-        // Task[] tasks = new Task[MAX_NUM_TASKS];
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        printMessage(GREETING);
-        try {
-            loadTasksfromfile(tasks);
-        } catch (FileNotFoundException e) {
-            printMessage(INDENT + FIND_FILE_ERROR_MESSAGE);
-            System.exit(0);
-        }
-
-
-        String line;
-        Scanner in = new Scanner(System.in);
-        line = in.nextLine();
-
-        while (!line.equals("bye")) {
-            try {
-                if (line.equals("list")) {
-                    printTasks(tasks);
-                } else if (line.startsWith(COMMAND_MARK)) {
-                    int index = Integer.parseInt(line.substring(5).trim());
-                    changeStatus(tasks, true, index);
-                } else if (line.startsWith(COMMAND_UNMARK)) {
-                    int index = Integer.parseInt(line.substring(7).trim());
-                    changeStatus(tasks, false, index);
-                } else if (line.startsWith(COMMAND_ADD_TODO)){
-                    addTodo(tasks, line.replace(COMMAND_ADD_TODO, "").trim());
-                } else if (line.startsWith(COMMAND_ADD_DEADLINE)) {
-                    addDeadline(tasks, line.replace(COMMAND_ADD_DEADLINE, "").trim());
-                } else if (line.startsWith(COMMAND_ADD_EVENT)) {
-                    addEvent(tasks, line.replace(COMMAND_ADD_EVENT, "").trim());
-                } else if (line.startsWith(COMMAND_DELETE)) {
-                    int index = Integer.parseInt(line.substring(6).trim());
-                    deleteTask(tasks, index);
-                } else {
-                    throw new FredBotCommandErrorException();
-                }
-            } catch (FredBotCommandErrorException e) {
-                printMessage(INDENT + COMMAND_ERROR_MESSAGE);
-            } catch (FredBotDeadlineErrorException e) {
-                printMessage(INDENT + DEADLINE_ERROR_MESSAGE);
-            } catch (FredBotTodoErrorException e) {
-                printMessage(INDENT + TODO_ERROR_MESSAGE);
-            } catch (FredBotEventErrorException e) {
-                printMessage(INDENT + EVENT_ERROR_MESSAGE);
-            } catch (FredBotMarkErrorException | FredBotDeleteErrorException e) {
-                printMessage(INDENT + MARK_ERROR_MESSAGE);
-            } catch (IOException e) {
-                printMessage(INDENT + WRITE_FILE_ERROR_MESSAGE);
-                System.exit(0);
-            }
-
-            line = in.nextLine();
-        }
-        
-        printMessage(FAREWELL);
+//        // Task[] tasks = new Task[MAX_NUM_TASKS];
+//        ArrayList<Task> tasks = new ArrayList<>();
+//
+//        printMessage(GREETING);
+//        try {
+//            loadTasksfromfile(tasks);
+//        } catch (FileNotFoundException e) {
+//            printMessage(INDENT + FIND_FILE_ERROR_MESSAGE);
+//            System.exit(0);
+//        }
+//
+//
+//        String line;
+//        Scanner in = new Scanner(System.in);
+//        line = in.nextLine();
+//
+//        while (!line.equals("bye")) {
+//            try {
+//                if (line.equals("list")) {
+//                    printTasks(tasks);
+//                } else if (line.startsWith(COMMAND_MARK)) {
+//                    int index = Integer.parseInt(line.substring(5).trim());
+//                    changeStatus(tasks, true, index);
+//                } else if (line.startsWith(COMMAND_UNMARK)) {
+//                    int index = Integer.parseInt(line.substring(7).trim());
+//                    changeStatus(tasks, false, index);
+//                } else if (line.startsWith(COMMAND_ADD_TODO)){
+//                    addTodo(tasks, line.replace(COMMAND_ADD_TODO, "").trim());
+//                } else if (line.startsWith(COMMAND_ADD_DEADLINE)) {
+//                    addDeadline(tasks, line.replace(COMMAND_ADD_DEADLINE, "").trim());
+//                } else if (line.startsWith(COMMAND_ADD_EVENT)) {
+//                    addEvent(tasks, line.replace(COMMAND_ADD_EVENT, "").trim());
+//                } else if (line.startsWith(COMMAND_DELETE)) {
+//                    int index = Integer.parseInt(line.substring(6).trim());
+//                    deleteTask(tasks, index);
+//                } else {
+//                    throw new FredBotCommandErrorException();
+//                }
+//            } catch (FredBotCommandErrorException e) {
+//                printMessage(INDENT + COMMAND_ERROR_MESSAGE);
+//            } catch (FredBotDeadlineErrorException e) {
+//                printMessage(INDENT + DEADLINE_ERROR_MESSAGE);
+//            } catch (FredBotTodoErrorException e) {
+//                printMessage(INDENT + TODO_ERROR_MESSAGE);
+//            } catch (FredBotEventErrorException e) {
+//                printMessage(INDENT + EVENT_ERROR_MESSAGE);
+//            } catch (FredBotMarkErrorException | FredBotDeleteErrorException e) {
+//                printMessage(INDENT + MARK_ERROR_MESSAGE);
+//            } catch (IOException e) {
+//                printMessage(INDENT + WRITE_FILE_ERROR_MESSAGE);
+//                System.exit(0);
+//            }
+//
+//            line = in.nextLine();
+//        }
+//
+//        printMessage(FAREWELL);
+        new FredBot("data/tasks.txt").run();
     }
 }
