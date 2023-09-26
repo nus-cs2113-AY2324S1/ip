@@ -10,6 +10,7 @@ import commands.Command;
 import commands.ListCommand;
 import commands.AsciiCommand;
 import commands.DeleteCommand;
+import commands.FindCommand;
 
 import task.Task;
 
@@ -27,6 +28,7 @@ public class ResponseProcessor {
         put("list", new ListCommand());
         put("ascii", new AsciiCommand());
         put("delete", new DeleteCommand());
+        put("find", new FindCommand());
     }};
     public void process(String response) {
         String command = response.split(" ")[0];
