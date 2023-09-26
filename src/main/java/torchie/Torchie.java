@@ -9,7 +9,9 @@ import torchie.task.Event;
 import torchie.task.Task;
 import torchie.task.TaskList;
 import torchie.task.ToDo;
+
 import java.util.Scanner;
+
 public class Torchie {
     public static void main(String[] args) throws TorchieException {
         // initialisation
