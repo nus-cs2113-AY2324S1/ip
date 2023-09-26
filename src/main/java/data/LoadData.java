@@ -11,16 +11,23 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+/**
+ * Represents a load data function to load task list from a savefile.txt
+ */
 public class LoadData {
     public static void load(ResponseProcessor processor) {
 
         String directory = System.getProperty("user.dir");
         Path path = Paths.get(directory + "/savefile.txt");
         File file = path.toFile();
+
         if (!file.exists()){
             return;
         }
+        
+        /*
+         * Loop through the txt file and load the data line by line
+         */
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             line = reader.readLine();

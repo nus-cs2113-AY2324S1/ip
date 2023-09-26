@@ -3,7 +3,9 @@ package commands;
 import ascii.AsciiArt;
 import main.ResponseProcessor;
 import task.Todo;
-
+/**
+ * Represents a todo Command to add a new todo task to the task list
+ */
 public class TodoCommand extends Command {
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {

@@ -2,7 +2,9 @@ package commands;
 
 import ascii.AsciiArt;
 import main.ResponseProcessor;
-
+/**
+ * Represents a mark Command to mark a task as complete
+ */
 public class MarkCommand extends Command {
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {

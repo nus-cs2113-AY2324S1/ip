@@ -3,7 +3,9 @@ package commands;
 import ascii.AsciiArt;
 import main.ResponseProcessor;
 import task.Task;
-
+/**
+ * Represents a list Command to list out the tasks in the task list
+ */
 public class ListCommand extends Command {
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {

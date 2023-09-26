@@ -3,7 +3,9 @@ package commands;
 import ascii.AsciiArt;
 import main.ResponseProcessor;
 import task.Task;
-
+/**
+ * Represents a find Command to search for a string in the task list
+ */
 public class FindCommand extends Command {
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {

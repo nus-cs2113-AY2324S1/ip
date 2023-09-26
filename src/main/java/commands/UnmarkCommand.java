@@ -2,7 +2,9 @@ package commands;
 
 import ascii.AsciiArt;
 import main.ResponseProcessor;
-
+/**
+ * Represents an unmark Command to unmark a task as complete
+ */
 public class UnmarkCommand extends Command {
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {
