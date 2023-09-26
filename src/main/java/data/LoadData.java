@@ -17,13 +17,14 @@ import java.nio.file.Paths;
 public class LoadData {
     public static void load(ResponseProcessor processor) {
 
-        Path path = Paths.get("savefile.txt");
+        String directory = System.getProperty("user.dir");
+        Path path = Paths.get(directory + "/savefile.txt");
         File file = path.toFile();
 
         if (!file.exists()){
             return;
         }
-
+        
         /*
          * Loop through the txt file and load the data line by line
          */
@@ -48,7 +49,6 @@ public class LoadData {
                 }
                 line = reader.readLine();
             }
-
         } catch (IOException | NullPointerException | ArrayIndexOutOfBoundsException e) {
             System.out.println("memory file corrupted :(");
             System.out.println(e.getMessage());

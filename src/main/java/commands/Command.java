@@ -2,6 +2,9 @@ package commands;
 import ascii.AsciiArt;
 import main.ResponseProcessor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 /**
  * Represents a general Command with basic functionalities
  */
@@ -33,7 +36,18 @@ public abstract class Command {
         }
         return index;
     }
-
+  
+    public String processDate (String date) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        try {
+            LocalDate parsedDate = LocalDate.parse(date, inputFormatter);
+            return parsedDate.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            return date;
+        }
+    }
+  
     /**
      * A method to get the index of a certain string
      *

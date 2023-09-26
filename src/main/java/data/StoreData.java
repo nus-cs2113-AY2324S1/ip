@@ -12,7 +12,8 @@ import java.nio.file.Paths;
  */
 public class StoreData {
     public static void store(ResponseProcessor processor) {
-        Path path = Paths.get("savefile.txt");
+        String directory = System.getProperty("user.dir");
+        Path path = Paths.get(directory + "/savefile.txt");
         File file = path.toFile();
         /*
           Loop through the txt file and write the data line by line

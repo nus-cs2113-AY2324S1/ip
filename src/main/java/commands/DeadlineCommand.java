@@ -10,9 +10,9 @@ public class DeadlineCommand extends Command {
 
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {
-        int indexBy = getIndex(statement,"/by");
+        int indexBy = getIndex(statement,"/by ");
         String description = statement.substring(0, indexBy);
-        String by = statement.substring(indexBy + 3);
+        String by = processDate(statement.substring(indexBy + 4));
         isValidTask(description);
         if (!by.isBlank()) {
             processor.taskList.add(new Deadline(description, by));
