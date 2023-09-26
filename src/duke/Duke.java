@@ -7,16 +7,28 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Duke task manager.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes Duke with a default save file ./data/duke.txt.
+     */
     public Duke() {
         this("./data/duke.txt");
     }
 
+    /**
+     * Initializes Duke. Loads saved tasks from file path provided by filePath if the file
+     * exists, else creates a new empty list.
+     *
+     * @param filePath path to an existing Duke savefile.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -28,6 +40,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs Duke. Reads in user input and processes commands until "bye" command is received.
+     */
     public void run() {
         String command, arguments;
         String result;
@@ -93,7 +108,10 @@ public class Duke {
         ui.printFarewell();
     }
 
-    public static void main(String[] args) {
+    /**
+     * Creates and starts running a new instance of Duke.
+     */
+    public static void main() {
         new Duke().run();
     }
 }

@@ -13,9 +13,18 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Loads and stores task list from and to a given text file.
+ */
 public class Storage {
     protected String fileName;
 
+    /**
+     * Constructs new Storage from {@param fileName}. Tasks will be loaded and saved into
+     * this file.
+     *
+     * @param fileName path to file used to store tasks.
+     */
     public Storage(String fileName) {
         this.fileName = fileName;
     }
@@ -49,6 +58,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Loads previously saved tasks from file used for storage.
+     *
+     * @return ArrayList of tasks from save file.
+     * @throws DukeException if unable to read from file.
+     */
     public ArrayList<Task> load() throws DukeException {
         Scanner s;
 
@@ -72,6 +87,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Writes tasks into save file.
+     *
+     * @param tasks prepared list of tasks in the form of a String to be written into
+     *              the save file.
+     * @throws IOException thrown if unable to write to file.
+     */
     public void writeTasksToFile(String tasks) throws IOException {
         FileWriter fw = new FileWriter(fileName);
 
