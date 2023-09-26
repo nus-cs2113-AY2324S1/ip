@@ -1,5 +1,6 @@
 package Duchess.FunctionObjects;
 
+import Duchess.FunctionObjects.UI;
 import Duchess.TaskObjects.Deadline;
 import Duchess.TaskObjects.Event;
 import Duchess.TaskObjects.Task;
@@ -7,6 +8,7 @@ import Duchess.TaskObjects.TaskList;
 import Duchess.TaskObjects.ToDo;
 import Duchess.TextObjects.Constants;
 import Duchess.TextObjects.DefaultStrings;
+import Duchess.ErrorObjects.DuchessError;
 import Duchess.ErrorObjects.IncompleteTaskError;
 import Duchess.ErrorObjects.UnrecognisedCommandError;
 
@@ -22,9 +24,17 @@ public class CommandHandler {
 
     private StringHandler stringHandler = new StringHandler();
 
+    private UI ui;
+
     /** Constructor class to be declared. */
-    public CommandHandler(){
-        taskList.importTasks(Constants.taskFilePath);
+    public CommandHandler(UI ui, String FilePath){
+        this.ui = ui;
+        try {
+            taskList.importTasks(FilePath);
+        } catch (DuchessError e){
+            ui.printError(e);
+        }
+        
     }
     
     
@@ -37,7 +47,7 @@ public class CommandHandler {
     * @return Flag to initiate exit of program.
     * @see Message echoed in console.
     */
-    public int ParseCommand (String command) throws IncompleteTaskError, UnrecognisedCommandError  {
+    public boolean ParseCommand (String command) throws IncompleteTaskError, UnrecognisedCommandError  {
         String[] commandArray = command.split(" "); // Split input into array of strings
         switch (commandArray[0]) { // Check first word of input for command
 
@@ -48,8 +58,12 @@ public class CommandHandler {
 
             case Constants.endCommand:
                 System.out.println(DefaultStrings.endString);
-                taskList.saveTasks(Constants.taskFilePath);
-                return Constants.exitFlag; // Exit program
+                try{
+                    taskList.saveTasks(Constants.taskFilePath);
+                } catch (Exception e){
+                    System.out.println(DefaultStrings.fileNotFoundError);
+                }
+                return true; // Exit program
 
             case Constants.listCommand:
                 taskList.listTasks();
@@ -70,8 +84,7 @@ public class CommandHandler {
                 try{
                     Task newToDo = stringHandler.processToDoString(command);
                     taskList.addTask(newToDo);
-                    System.out.println(DefaultStrings.addedString + newToDo.toString());
-                    System.out.println(DefaultStrings.splittingLine);
+                    ui.printTask(newToDo);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new IncompleteTaskError(DefaultStrings.emptyToDoString, new ToDo());
                 }
@@ -82,8 +95,7 @@ public class CommandHandler {
                 try{
                     Task newDeadline = stringHandler.processDeadlineString(command);
                     taskList.addTask(newDeadline);
-                    System.out.println(DefaultStrings.addedString + newDeadline.toString());
-                    System.out.println(DefaultStrings.splittingLine);
+                    ui.printTask(newDeadline);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new IncompleteTaskError(DefaultStrings.emptyDeadlineString, new Deadline());
                 }
@@ -94,8 +106,7 @@ public class CommandHandler {
                 try{
                     Task newEvent = stringHandler.processEventString(command);
                     taskList.addTask(newEvent);
-                    System.out.println(DefaultStrings.addedString + newEvent.toString());
-                    System.out.println(DefaultStrings.splittingLine);
+                    ui.printTask(newEvent);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new IncompleteTaskError(DefaultStrings.emptyEventString, new Event());
                 }
@@ -111,7 +122,7 @@ public class CommandHandler {
                 throw new UnrecognisedCommandError(DefaultStrings.unrecognisedString);
         } 
 
-        return Constants.stayFlag; // Continue program
+        return false; // Continue program
 
     }   
 

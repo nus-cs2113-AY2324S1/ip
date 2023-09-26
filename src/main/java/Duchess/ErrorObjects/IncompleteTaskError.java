@@ -10,7 +10,5 @@ public class IncompleteTaskError extends DuchessError{
         this.task = task;
     }
 
-    public void HandleError(){
-        System.out.println("Error: " + this.getMessage());
-    }
+
 }

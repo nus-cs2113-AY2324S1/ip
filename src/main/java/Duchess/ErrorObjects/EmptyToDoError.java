@@ -7,8 +7,5 @@ public class EmptyToDoError extends IncompleteTaskError {
     }
 
 
-    public void HandleError() {
-        System.out.println("Error: " + this.getMessage());
-    }
     
 }

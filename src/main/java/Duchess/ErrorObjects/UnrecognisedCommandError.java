@@ -6,7 +6,4 @@ public class UnrecognisedCommandError extends DuchessError {
         super(message);
     }
     
-    public void HandleError() {
-        System.out.println("Error: " + this.getMessage());
-    }
 }

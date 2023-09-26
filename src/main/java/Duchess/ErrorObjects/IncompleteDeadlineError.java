@@ -7,8 +7,5 @@ public class IncompleteDeadlineError extends IncompleteTaskError{
         super(message, task);
     }
 
-    public void HandleError(){
-        System.out.println("Error: " + this.getMessage());
-    }
     
 }

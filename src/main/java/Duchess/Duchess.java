@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 import Duchess.ErrorObjects.DuchessError;
 import Duchess.FunctionObjects.CommandHandler;
-import Duchess.FunctionObjects.ErrorHandler;
+import Duchess.FunctionObjects.UI;
 import Duchess.TextObjects.Constants;
 import Duchess.TextObjects.DefaultStrings;
 
@@ -16,27 +16,34 @@ public class Duchess {
     /** Main method that instantiates CommandHandler object and take
      * input from the user to echo.
      */
+
+    private UI ui;
+    private CommandHandler commandHandler;
+
     
-    public static void main(String[] args) {
 
-        System.out.println(DefaultStrings.logo);
-        CommandHandler ActiveCommandHandler = new CommandHandler();
-        ErrorHandler ActiveErrorHandler = new ErrorHandler();
-        Scanner sc = new Scanner(System.in);
-        int endProgram = Constants.stayFlag;
-
-
-        while (endProgram == Constants.stayFlag) {
+    public Duchess(String filepath){
+        this.ui = new UI();
+        this.commandHandler = new CommandHandler(ui, filepath);
+    }
+    
+    public void run(){
+        ui.printWelcome();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                String command = sc.nextLine();
-                endProgram = ActiveCommandHandler.ParseCommand(command);
+                String command = ui.getCommand();
+                isExit = commandHandler.ParseCommand(command);
             } catch (DuchessError e) {
-                ActiveErrorHandler.HandleError(e);
+                ui.printError(e);
+            } finally {
+                ui.printLine();
             }
         }
+    }
+    public static void main(String[] args) {
 
-        sc.close();
-
+        new Duchess(Constants.taskFilePath).run();
 
     }
 

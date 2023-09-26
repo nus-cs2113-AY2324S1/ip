@@ -8,6 +8,8 @@ import Duchess.FunctionObjects.FileHandler;
 
 import Duchess.TextObjects.DefaultStrings;
 
+import Duchess.ErrorObjects.FileNotFoundError;
+
 
 public class TaskList {
 
@@ -19,16 +21,16 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
-    public void importTasks(String filepath){
+    public void importTasks(String filepath) throws FileNotFoundError{
         try{
             fileHandler = new FileHandler(filepath);
             this.tasks = fileHandler.load();
         } catch (Exception e){
-            System.out.println(DefaultStrings.fileNotFoundError);
+            throw new FileNotFoundError(DefaultStrings.fileNotFoundError);
         }
     }
 
-    public void saveTasks(String filepath){
+    public void saveTasks(String filepath) throws FileNotFoundError{
         try{
             fileHandler = new FileHandler(filepath);
             fileHandler.save(this.tasks);
@@ -36,11 +38,10 @@ public class TaskList {
             File file = new File(filepath);
             file.getParentFile().mkdirs();
             try {
-                System.out.println(DefaultStrings.newFileCreatedMessage);
                 fileHandler = new FileHandler(filepath);
                 fileHandler.save(this.tasks);
             } catch (Exception f){
-                System.out.println(DefaultStrings.fileNotFoundError);
+                throw new FileNotFoundError(DefaultStrings.fileNotFoundError);
             }
         }
     }
