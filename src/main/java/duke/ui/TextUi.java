@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.task.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TextUi {
@@ -10,15 +11,15 @@ public class TextUi {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
     public void tellGreeting() {
-        System.out.println("\t" + HORIZONTAL_LINE);
+        showLine();
         System.out.println("\tOh hello! I'm " + NAME + ".");
         System.out.println("\tHow can I help you today?");
-        System.out.println("\t" + HORIZONTAL_LINE);
+        showLine();
     }
 
     public void tellGoodbye() {
         System.out.println("\tGoodbye! I am going to sleep now.");
-        System.out.println("\t" + HORIZONTAL_LINE);
+        showLine();
     }
 
     public void printNumOfTasks(int tasksCount) {
@@ -37,5 +38,41 @@ public class TextUi {
         for (int i = 1; i <= tasksCount; i++) {
             System.out.println("\t" + i + "." + tasks.get(i - 1));
         }
+    }
+
+    public void showLine() {
+        System.out.println("\t" + HORIZONTAL_LINE);
+    }
+
+    public void printDeletedTask(Task removedTask) {
+        System.out.println("\tI have surgically removed this task:");
+        System.out.println("\t\t" + removedTask);
+    }
+
+    public void printModifiedTask(Task completedTask, boolean isMarking) {
+        if (isMarking) {
+            System.out.println("\tYay! You have completed this task:");
+        } else {
+            System.out.println("\tOh no! It seems that you haven't finish this task:");
+        }
+
+        System.out.println("\t\t" + completedTask);
+    }
+
+    public void handleIndexOutOfBoundsException(int tasksCount) {
+        System.out.println("\tUmm, you tried to access a task that does not exist.");
+        System.out.println("\tPerhaps you should put a valid number based on the number of tasks " +
+                "you have currently. ");
+        printNumOfTasks(tasksCount);
+    }
+
+    public void handleNumberFormatException(String input) {
+        System.out.println("\tPlease use a valid number for marking or unmarking a task.");
+        System.out.println("\tThe number you tried to input is: " + input);
+    }
+
+    public void handleIOException(IOException exception) {
+        System.out.println("Something went wrong! Please try again!");
+        System.out.println(exception.getMessage());
     }
 }

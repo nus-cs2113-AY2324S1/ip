@@ -1,0 +1,3 @@
+T | true | hello
+D | true | do this | tomorrow
+E | false | party | 9 | 12

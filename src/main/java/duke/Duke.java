@@ -143,11 +143,10 @@ public class Duke {
         try {
             deleteTaskData(index);
         } catch (IOException exception) {
-            handleIOException(exception);
+            ui.handleIOException(exception);
         }
 
-        System.out.println("\tI have surgically removed this task:");
-        System.out.println("\t\t" + removedTask);
+        ui.printDeletedTask(removedTask);
 
         tasksCount--;
 
@@ -205,13 +204,12 @@ public class Duke {
         try {
             updateTaskDatabase(index, true);
         } catch (IOException exception) {
-            handleIOException(exception);
+            ui.handleIOException(exception);
         }
 
         tasks.get(index).markAsDone();
 
-        System.out.println("\tYay! You have completed this task:");
-        System.out.println("\t\t" + tasks.get(index));
+        ui.printModifiedTask(tasks.get(index), true);
     }
 
     public static void setUnmarkAsDone(String input) {
@@ -220,30 +218,12 @@ public class Duke {
         try {
             updateTaskDatabase(index, false);
         } catch (IOException exception) {
-            handleIOException(exception);
+            ui.handleIOException(exception);
         }
 
         tasks.get(index).unmarkAsDone();
 
-        System.out.println("\tOh no! It seems that you haven't finish this task:");
-        System.out.println("\t\t" + tasks.get(index));
-    }
-
-    public static void handleIndexOutOfBoundsException() {
-        System.out.println("\tUmm, you tried to access a task that does not exist.");
-        System.out.println("\tPerhaps you should put a valid number based on the number of tasks " +
-                "you have currently. ");
-        ui.printNumOfTasks(tasksCount);
-    }
-
-    public static void handleNumberFormatException(String input) {
-        System.out.println("\tPlease use a valid number for marking or unmarking a task.");
-        System.out.println("\tThe number you tried to input is: " + input);
-    }
-
-    public static void handleIOException(IOException exception) {
-        System.out.println("Something went wrong! Please try again!");
-        System.out.println(exception.getMessage());
+        ui.printModifiedTask(tasks.get(index), false);
     }
 
     public static void executeCommand(String input) {
@@ -284,15 +264,15 @@ public class Duke {
                 throw new DukeCommandException();
             }
         } catch (IndexOutOfBoundsException exception) {
-            handleIndexOutOfBoundsException();
+            ui.handleIndexOutOfBoundsException(tasksCount);
         } catch (NumberFormatException exception) {
-            handleNumberFormatException(input);
+            ui.handleNumberFormatException(input);
         } catch (DukeCommandException exception) {
             exception.handleDukeCommandException(command);
         } catch (DukeTaskException exception) {
             exception.handleDukeTaskException(command, input);
         } catch (IOException exception) {
-            handleIOException(exception);
+            ui.handleIOException(exception);
         }
     }
 
@@ -343,7 +323,7 @@ public class Duke {
     }
 
     public static void handleFileNotFoundException() {
-        System.out.println("\t" + HORIZONTAL_LINE);
+        ui.showLine();
         System.out.println("\tLooks like I can't find the file. Let me make it for you.");
 
         File newDirectory = new File(DATA_DIRECTORY);
@@ -353,11 +333,11 @@ public class Duke {
             createDukeDirectory(newDirectory);
             createDukeFile(newDatabase);
         } catch (IOException exception){
-            handleIOException(exception);
+            ui.handleIOException(exception);
         }
 
         System.out.println("\tPlease try to run the app again.");
-        System.out.println("\t" + HORIZONTAL_LINE);
+        ui.showLine();
     }
 
     public static void main(String[] args) {
@@ -371,12 +351,13 @@ public class Duke {
             System.exit(1);
         }
 
+        ui = new TextUi();
         ui.tellGreeting();
         while (true) {
             input = getInput(in);
-            System.out.println("\t" + HORIZONTAL_LINE);
+            ui.showLine();
             executeCommand(input);
-            System.out.println("\t" + HORIZONTAL_LINE);
+            ui.showLine();
         }
     }
 }
