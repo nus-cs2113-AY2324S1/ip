@@ -42,10 +42,20 @@ public class DukeDateTime implements Serializable {
         }
     }
 
+    /**
+     * Format date with default print format specified in {@link #DATETIME_PRINT_FORMAT}
+     *
+     * @return formatted date
+     */
     public String format() {
         return format(DATETIME_PRINT_FORMATTER);
     }
 
+    /**
+     * Format date with default print format specified by {@code formatter}
+     *
+     * @return formatted date
+     */
     public String format(DateTimeFormatter formatter) {
         return localDateTime.format(formatter);
     }
