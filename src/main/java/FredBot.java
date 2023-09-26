@@ -49,6 +49,8 @@ public class FredBot {
                 ui.showFatalError(e.getMessage());
                 // printMessage(INDENT + WRITE_FILE_ERROR_MESSAGE);
                 System.exit(0);
+            } catch (NumberFormatException e) {
+                ui.showError("Incorrect number entered");
             }
         }
         ui.showGoodBye();

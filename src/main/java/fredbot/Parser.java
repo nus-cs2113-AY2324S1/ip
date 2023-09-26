@@ -46,7 +46,8 @@ public class Parser {
             FredBotDeadlineErrorException,
             FredBotEventErrorException,
             FredBotDeleteErrorException,
-            FredBotMarkErrorException {
+            FredBotMarkErrorException,
+            NumberFormatException {
         if (fullCommand.equals("list")) {
             return new ListCommand();
         }
