@@ -1,1 +1,9 @@
 remote_theme: just-the-docs/just-the-docs
+search_enabled: false
+callouts:
+  warning:
+    title: Warning
+    color: red
+  important:
+    title: Important
+    color: blue

@@ -41,7 +41,7 @@ interface**.
 
 ## Features
 
-{: .note }
+{: .important }
 > * Words in `UPPER_CASE` are argument and parameters to be supplied by the user.<br>
     e.g. in `deadline TASK_NAME /by BY_DATE`, `TASK_NAME` is an argument while `BY_DATE` is a parameter
     which can be used as `deadline CS2113 Work /by 12/01/2024 10:00`.
