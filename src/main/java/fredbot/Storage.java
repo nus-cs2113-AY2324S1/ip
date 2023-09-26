@@ -17,6 +17,10 @@ public class Storage {
         dataFile = new File(fileName);
     }
 
+    /**
+     * Creates a new file if file does not exist
+     * creates a new directory as well if the path to the file does not exist
+     */
     public void createFile()
     {
         try {
@@ -33,10 +37,17 @@ public class Storage {
             // should do something here
         }
     }
-    
+
+    /**
+     * Returns an array list of strings where each string in the array list contains each line in the file
+     * specified in order.
+     * @return an array list of strings containing information of the task
+     * @throws IOException if there is an error reading from the file
+     */
     private ArrayList<String> readFile() throws IOException {
         if (!dataFile.exists()) {
-            throw new FileNotFoundException();
+            createFile();
+            return new ArrayList<String>();
         }
         if (dataFile.length() == 0) {
             System.out.println("0 tasks loaded");
@@ -44,7 +55,13 @@ public class Storage {
         }
         return (ArrayList<String>) Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
     }
-    
+
+    /**
+     * Returns a tasklist object that contains the current tasks loaded from strings in the file to
+     * the form of the task objects
+     * @return a tasklist object that contains current task and provide operation for adding, removing etc.
+     * @throws IOException if there is an error reading from the file
+     */
     public TaskList loadTasks() throws IOException {
         TaskList tasks = null;
         ArrayList<String> dataItems = readFile();
@@ -52,6 +69,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Updates the file specified with the new tasklist object after each operation (add, delete, mark)
+     * @param tasks tasklist containing the updated tasks
+     * @throws IOException if there is an error updating the file
+     */
     public void addTaskstoFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter("./data/tasks.txt");
         StringBuilder tasksText = new StringBuilder();

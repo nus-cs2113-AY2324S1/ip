@@ -20,6 +20,11 @@ public class Parser {
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_FIND = "find";
 
+    /**
+     * Returns a tasklist object after parsing through each line in data items loaded from the file
+     * @param dataItems array list of strings each representing a task
+     * @return a tasklist object that is loaded with tasks from the file specified
+     */
     public static TaskList parseFromFile(ArrayList<String> dataItems) { //Need to check for formatting
        TaskList tasks = new TaskList();
        for (String line: dataItems) {
@@ -47,6 +52,18 @@ public class Parser {
        return tasks;
     }
 
+    /**
+     * Returns a command given the string containing the full command provided by the user after parsing it
+     * @param fullCommand the string provided by the user from stdin
+     * @return a command initialized appropriately specified by the string in fullcommand
+     * @throws FredBotCommandErrorException when the command given is completely unrecognizable
+     * @throws FredBotTodoErrorException when there is an error with the todo command provided
+     * @throws FredBotDeadlineErrorException when there is an error with the deadline command provided
+     * @throws FredBotEventErrorException when there is an error with the event command provided
+     * @throws FredBotDeleteErrorException when there is an error with the delete command provided
+     * @throws FredBotMarkErrorException when there is an error with the mark command provided
+     * @throws NumberFormatException when there is an error with the number provided in mark and delete
+     */
     public static Command parseCommand(String fullCommand) throws
             FredBotCommandErrorException,
             FredBotTodoErrorException,
@@ -125,10 +142,20 @@ public class Parser {
         throw new FredBotCommandErrorException();
     }
 
+    /**
+     * Returns a boolean that states whether the string provided after todo command is valid
+     * @param TodoString string argument for todo command
+     * @return a boolean that define the validity
+     */
     public static boolean checkTodo(String TodoString) {
         return !TodoString.isEmpty();
     }
 
+    /**
+     * Returns a boolean that states whether the string provided after deadline command is valid
+     * @param Deadline string argument for deadline command
+     * @return a boolean that define the validity
+     */
     public static boolean checkDeadline(String Deadline) {
         if (Deadline.isEmpty()) {
             return false;
@@ -137,6 +164,11 @@ public class Parser {
         return arguments.length == 2;
     }
 
+    /**
+     * Returns a boolean that states whether the string provided after event command is valid
+     * @param Event string argument for event command
+     * @return a boolean that define the validity
+     */
     public static boolean checkEvent(String Event) {
         if (Event.isEmpty()) {
             return false;
@@ -145,6 +177,11 @@ public class Parser {
         return arguments.length == 3;
     }
 
+    /**
+     * Returns a boolean that states whether the string provided after mark/delete command is valid
+     * @param index argument for mark/delete command
+     * @return a boolean that define the validity
+     */
     public static boolean checkBounds(int index) {
         return index >= 1 && index <= Task.getNumTask();
     }

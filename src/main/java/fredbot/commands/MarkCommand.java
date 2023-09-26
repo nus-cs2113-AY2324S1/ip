@@ -15,6 +15,13 @@ public class MarkCommand extends Command{
         this.mark = mark;
     }
 
+    /**
+     * This function marks a task in current tasklist and print a message to output and update file
+     * @param tasks an object of the TaskList class to store current tasks
+     * @param storage an object of the Storage class to interact with the file on disk
+     * @param ui an object of the Ui class to interact with stdout and stdin
+     * @throws IOException error when there is an issue with file I/O
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         tasks.markTask(index, mark);

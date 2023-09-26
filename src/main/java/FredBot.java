@@ -24,6 +24,12 @@ public class FredBot {
     private final Storage storage;
     private TaskList tasks = new TaskList();
     private final Ui ui;
+
+    /**
+     * Constructor for the Fredbot class that creates the UI, Storage, and Tasklist objects that is needed for the
+     * bot
+     * @param filePath the path from which the saved tasks files are read from
+     */
     public FredBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -34,6 +40,10 @@ public class FredBot {
             System.exit(0);
         }
     }
+
+    /**
+     * Method that is the core of the running of the FredBot
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
