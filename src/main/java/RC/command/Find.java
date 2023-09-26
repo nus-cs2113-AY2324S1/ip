@@ -5,6 +5,9 @@ import RC.TaskList;
 import RC.UI.Ui;
 import RC.task.Task;
 
+/**
+ * Represents a command to find tasks based on given keyword.
+ */
 public class Find extends RCCommand {
     private String keyword;
     private static final String MESSAGE_FIND_TASKS = "\tHere are the matching tasks in your list:";
@@ -14,6 +17,13 @@ public class Find extends RCCommand {
         this.keyword = keyword;
     }
 
+    /**
+     * Displays all tasks matching the keyword.
+     *
+     * @param taskList The task list containing tasks.
+     * @param ui The user interface for displaying messages.
+     * @throws RCException If the keyword is empty.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui) throws RCException {
         if (keyword.isEmpty()) {

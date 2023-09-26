@@ -5,6 +5,9 @@ import RC.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the list of tasks.
+ */
 public class TaskList {
     private static final String MESSAGE_INTEGER_MISSING = "\tOOPS!!! Please enter a valid integer.";
     private static final String MESSAGE_INDEX_OUT_OF_RANGE = "\tOOPS!!! Index is out of range of list.";
@@ -14,6 +17,12 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a task to the task list and displays a confirmation message.
+     *
+     * @param task The task to be added.
+     * @param ui The user interface for displaying messages.
+     */
     public void add(Task task, Ui ui) {
         tasks.add(task);
 
@@ -23,10 +32,22 @@ public class TaskList {
         ui.showMessage(message);
     }
 
+    /**
+     * Loads a task to the task list.
+     *
+     * @param task The task to be loaded.
+     */
     public void load(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Deletes a task in the task list based on its index and displays a confirmation message.
+     *
+     * @param index The index of the task to be deleted.
+     * @param ui The user interface for displaying messages.
+     * @throws RCException If the provided index is invalid.
+     */
     public void delete(String index, Ui ui) throws RCException {
         final int taskNum = getTaskNum(index);
 
@@ -37,6 +58,13 @@ public class TaskList {
         ui.showMessage(message);
     }
 
+    /**
+     * Marks a task as done based in its index and displays a confirmation message.
+     *
+     * @param index The index of the task to be marked as done.
+     * @param ui The user interface for displaying messages.
+     * @throws RCException If the provided index is invalid.
+     */
     public void markAsDone(String index, Ui ui) throws RCException {
         final int taskNum = getTaskNum(index);
 
@@ -44,6 +72,13 @@ public class TaskList {
         ui.showMessage("\tNice! I've marked this task as done:\n\t  " + tasks.get(taskNum));
     }
 
+    /**
+     * Unmarks a task as done based in its index and displays a confirmation message.
+     *
+     * @param index The index of the task to be unmarked.
+     * @param ui The user interface for displaying messages.
+     * @throws RCException If the provided index is invalid.
+     */
     public void unmarkTask(String index, Ui ui) throws RCException {
         final int taskNum = getTaskNum(index);
 
@@ -51,6 +86,12 @@ public class TaskList {
         ui.showMessage("\tOK, I've marked this task as not done yet:\n\t  " + tasks.get(taskNum));
     }
 
+    /**
+     * Checks if the provided index is valid for accessing the tasks in the list.
+     *
+     * @param index The index to be checked.
+     * @return True if the index is within the bounds specified, false otherwise.
+     */
     public boolean isValidIndex(int index) {
         return (index >= 0 && index < tasks.size());
     }

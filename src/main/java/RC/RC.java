@@ -6,14 +6,24 @@ import RC.command.Parser;
 import RC.command.RCCommand;
 import RC.storage.Storage;
 
+/**
+ * The main class representing RC chatbot.
+ * It manages tasks and user interactions.
+ */
 public class RC {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructs an RC instance and loads file if it exists, otherwise
+     * create a new file.
+     *
+     * @param filePath The file path where data is stored and retrieved.
+     */
     public RC(String filePath) {
         ui = new Ui();
-        this.storage = new Storage(filePath, ui);
+        storage = new Storage(filePath, ui);
         taskList = new TaskList();
 
         try {
@@ -24,6 +34,10 @@ public class RC {
         }
     }
 
+    /**
+     * Starts the RC chatbot and handles user interaction.
+     * Saves storage when user exits chatbot.
+     */
     public void run() {
         ui.welcomeMessage();
         RCCommand command = null;
@@ -42,6 +56,9 @@ public class RC {
         ui.exitMessage();
     }
 
+    /**
+     * Saves current taskList to storage.
+     */
     private void save() {
         try {
             storage.save(taskList);
@@ -50,6 +67,11 @@ public class RC {
         }
     }
 
+    /**
+     * Main starting point of RC chatbot.
+     *
+     * @param args Unused.
+     */
     public static void main(String[] args) {
         new RC("data").run();
     }

@@ -12,6 +12,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Represents the loading of tasks from a file to the task list.
+ */
 public abstract class LoadTasks {
     private static final String FILE_PATH = "data/tasks.txt";
     private static final String MESSAGE_LOAD_COMPLETE = "\tLoading is complete.";
@@ -20,6 +23,13 @@ public abstract class LoadTasks {
     private static final String MESSAGE_FILE_NOT_FOUND = "\tFile not found. Creating new file...";
     private static final String MESSAGE_LOAD_FILE = "\tLoading existing file...";
 
+    /**
+     * Loads tasks from a file into the provided task list.
+     *
+     * @param taskList The task list for loading tasks.
+     * @param ui The user interface for displaying messages.
+     * @throws RCException If there is an issue loading the file.
+     */
     public static void load(TaskList taskList, Ui ui) throws RCException {
         try {
             BufferedReader inputFile = new BufferedReader(new FileReader(FILE_PATH));
@@ -27,10 +37,7 @@ public abstract class LoadTasks {
             ui.showMessage(MESSAGE_LOAD_FILE);
 
             while ((line = inputFile.readLine()) != null) {
-                String[] split = line.split("\\|");
-                String command = split[0].trim();
-
-                final Task task = getTask(split, command);
+                final Task task = getTask(line);
 
                 taskList.load(task);
             }
@@ -44,7 +51,16 @@ public abstract class LoadTasks {
         ui.showMessage(MESSAGE_LOAD_COMPLETE);
     }
 
-    private static Task getTask(String[] split, String command) throws RCException {
+    /**
+     * Creates a todo, deadline or event task based on the input string.
+     *
+     * @param line The data containing the task to be loaded.
+     * @return The task created from the data.
+     * @throws RCException If there is an issue parsing task data or the command is not recognised.
+     */
+    private static Task getTask(String line) throws RCException {
+        String[] split = line.split("\\|");
+        String command = split[0].trim();
         String input;
         String isDone = split[1].trim();
         Task task;

@@ -5,6 +5,9 @@ import RC.TaskList;
 import RC.UI.Ui;
 import RC.task.Event;
 
+/**
+ * Represents a command for creating and adding an event task to the task list.
+ */
 public class EventCommand extends RCCommand {
     private String input;
     private static final String FROM_COMMAND = "/from";
@@ -17,6 +20,13 @@ public class EventCommand extends RCCommand {
         this.input = input;
     }
 
+    /**
+     * Creates an event task and adds it to the task list.
+     *
+     * @param taskList The task list where the event task will be added.
+     * @param ui The user interface for displaying messages.
+     * @throws RCException If the input is in the wrong format.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui) throws RCException {
         int fromIndex = input.indexOf(FROM_COMMAND);
