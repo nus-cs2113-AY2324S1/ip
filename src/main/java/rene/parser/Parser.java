@@ -32,6 +32,8 @@ public class Parser {
                     return new CommandDeadline(userInput);
                 case "event":
                     return new CommandEvent(userInput);
+                case "find":
+                    return new CommandFind(userInput);
                 default:
                     throw new ReneExceptions("Invalid Input");
             }
@@ -44,12 +46,14 @@ public class Parser {
             if (exceptionMessage.equals("Invalid Input")) {
                 System.out.println("    Pwease enter a valid command :0");
                 System.out.println("    Valid commands are: todo,\n" +
-                        "                        deadline: /by [time],\n" +
-                        "                        event: /from [start] /to [end],\n" +
+                        "                        deadline /by [time],\n" +
+                        "                        event /from [start] /to [end],\n" +
                         "                        list,\n" +
                         "                        mark [task number],\n" +
                         "                        unmark [task number],\n" +
                         "                        delete [task number],\n" +
+                        "                        find /description [description]\n" +
+                        "                        find /time [time]\n" +
                         "                        bye");
             }
         }
