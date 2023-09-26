@@ -15,7 +15,7 @@ public class Ui {
     public static final String TASK_LIST_MESSAGE = "Here are the tasks in your list\n";
     public static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:\n";
     public static final String FAREWELL = "     Bye. Hope to see you again soon!";
-    public static final String TASK_FOUND_MESSAGE = "Here are the matching tasks in your list:";
+    public static final String TASK_FOUND_MESSAGE = "Here are the matching tasks in your list:\n";
 
     private Scanner scanner;
 

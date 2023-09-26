@@ -10,10 +10,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class FindCommand extends Command {
-    private String queryString;
+    private final String queryString;
 
     public FindCommand(String queryString) {
-        this.queryString = queryString
+        this.queryString = queryString;
     }
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
@@ -25,5 +25,6 @@ public class FindCommand extends Command {
                 hash_Set.add(i);
             }
         }
+        ui.printFoundTasks(tasks, hash_Set);
     }
 }
