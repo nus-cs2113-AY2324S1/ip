@@ -2,6 +2,10 @@ package commands;
 import ascii.AsciiArt;
 import main.ResponseProcessor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public abstract class Command {
     public abstract void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException;
 
@@ -17,6 +21,17 @@ public abstract class Command {
             throw new IllegalArgumentException ("You need " + content +" in you command uwu! " + AsciiArt.getArt("sad"));
         }
         return index;
+    }
+
+    public String processDate (String date) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        try {
+            LocalDate parsedDate = LocalDate.parse(date, inputFormatter);
+            return parsedDate.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            return date;
+        }
     }
 
     public int parseInt(String value, ResponseProcessor processor){
