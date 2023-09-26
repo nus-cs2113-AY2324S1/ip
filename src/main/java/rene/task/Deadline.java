@@ -1,15 +1,25 @@
 package rene.task;
-public class Deadline extends Task {
-    private String dueTime;
 
-    public Deadline(String description, String dueTime){
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Deadline extends Task {
+    private LocalDateTime dueTime;
+
+    public Deadline(String description, LocalDateTime  dueTime){
         super(description, TaskType.DEADLINE);
         this.dueTime = dueTime;
     }
 
     @Override
-    public String getTaskTiming() {
-        return "(by: " + dueTime + ")";
+    public String getTaskTiming(boolean useDefaultTiming) {
+        String deadlineTiming;
+        if(useDefaultTiming){
+            deadlineTiming = dueTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        } else {
+            deadlineTiming = dueTime.format(DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm"));
+        }
+        return "(by: " + deadlineTiming + ")";
     }
 
 }

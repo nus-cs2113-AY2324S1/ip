@@ -1,14 +1,6 @@
 package rene.parser;
 
-import rene.command.Command;
-import rene.command.CommandMark;
-import rene.command.CommandUnmark;
-import rene.command.CommandList;
-import rene.command.CommandExit;
-import rene.command.CommandDelete;
-import rene.command.CommandTodo;
-import rene.command.CommandDeadline;
-import rene.command.CommandEvent;
+import rene.command.*;
 import rene.exception.ReneExceptions;
 
 public class Parser {

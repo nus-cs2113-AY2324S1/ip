@@ -33,9 +33,10 @@ public class Task {
         return description;
     }
 
-    public String getTaskTiming(){
+    public String getTaskTiming(boolean useDefaultTiming){
         return "";
     }
+
     public TaskType getTaskType(){
         return taskType;
     }
