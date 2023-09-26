@@ -13,6 +13,8 @@
     -  [Locating tasks by name: `find`](#locating-tasks-by-name-find)
 -  [Command summary](#command-summary)
 
+***
+
 ## Quick start
 1. Ensure you have Java 11 or above installed in your Computer.
 
@@ -22,8 +24,10 @@
 
 4. Open a command terminal, `cd` into the folder you put the har file in, and use `java -jar ip.jar` command to run the application.
 
+***
+
 ## Features
->[!Note]<br>
+>[!NOTE]<br>
 > - Words in UPPER_CASE are the parameters to be supplied by the user.<br>
 e.g in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be as `todo DESCRIPTION`
 > - Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.<br>
@@ -39,7 +43,7 @@ Format: `list`
 
 Exiting the program
 
-Format: `exit`
+Format: `bye`
 
 ### Adding ToDo task: `todo`
 
@@ -127,3 +131,20 @@ Format: `find KEYWORD`
 
 Examples:
 - `find midterms` returns `cs1010 midterms` and `cs2100 midterms`
+
+***
+
+## Command Summary
+
+| Action   | Format, Examples                                                                            |
+|----------|---------------------------------------------------------------------------------------------|
+| list     | `list`                                                                                      |
+| bye      | `bye`                                                                                       |
+| todo     | `todo DESCRIPTION` `todo powerpoint slides for cs2113`                                      |
+| event    | `event DESCRIPTION /from FROM /to TO` `event Overseas Trip /from 26/09/2023 /to 29/09/2023` |
+| deadline | `deadline /by BY` `deadline assignment 1 /by 30/09/2023`                                    |
+| unmark   | `unmark INDEX` `unmark 1` `unmark 3`                                                        |
+| mark     | `mark INDEX` `mark 1` `mark 3`                                                              |
+| delete   | `delete INDEX` `delete 1`                                                                   |
+| find     | `find KEYWORD` `find midterms`                                                              |
+
