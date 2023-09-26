@@ -9,6 +9,7 @@ import rene.command.CommandDelete;
 import rene.command.CommandTodo;
 import rene.command.CommandDeadline;
 import rene.command.CommandEvent;
+import rene.command.CommandFind;
 import rene.exception.ReneExceptions;
 
 public class Parser {
