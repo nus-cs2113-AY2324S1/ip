@@ -70,4 +70,12 @@ public class Ui {
     public String readCommand() {
         return scanner.nextLine();
     }
+
+    public void showError(String ErrorMessage) {
+        printMessage(INDENT + ErrorMessage);
+    }
+
+    public void showFatalError(String ErrorMessage) {
+        printMessage(INDENT + "Fatal Error" + ErrorMessage);
+    }
 }

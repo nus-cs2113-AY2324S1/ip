@@ -15,18 +15,14 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         if (task == null) {
             System.out.println("error");
             return;
         }
         tasks.addTask(task);
         ui.printAddTask(tasks);
-        try {
-            storage.addTaskstoFile(tasks);
-        } catch (IOException e) {
-            System.out.println("unable to add to file");
-        }
+        storage.addTaskstoFile(tasks);
     }
 
     public void setTask(Task task) {

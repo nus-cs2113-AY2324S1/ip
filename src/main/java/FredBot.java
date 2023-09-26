@@ -27,15 +27,20 @@ public class FredBot {
     public static final String MARK_ERROR_MESSAGE = "This task does not exist!";
     public static final String TASK_FILE_PATH = "./data/tasks.txt";
     public static final String WRITE_FILE_ERROR_MESSAGE = "Could not write to file. Exiting Application...";
-    public static final String FIND_FILE_ERROR_MESSAGE = "Could not find file to load. Exiting Application...";
+    public static final String READ_FILE_ERROR_MESSAGE = "Could not read file. Exiting Application...";
 
     private final Storage storage;
-    private final TaskList tasks;
+    private TaskList tasks = new TaskList();
     private final Ui ui;
     public FredBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = storage.loadTasks();
+        try {
+            tasks = storage.loadTasks();
+        } catch (IOException e) {
+            ui.showFatalError(e.getMessage());
+            System.exit(0);
+        }
     }
     public void run() {
         ui.showWelcome();
@@ -46,21 +51,13 @@ public class FredBot {
                 Command c = Parser.parseCommand(fullCommand);
                 c.execute(tasks, storage, ui);
                 isExit = c.isExit();
-            } catch (FredBotCommandErrorException e) {
-                printMessage(INDENT + COMMAND_ERROR_MESSAGE);
-            } catch (FredBotDeadlineErrorException e) {
-                printMessage(INDENT + DEADLINE_ERROR_MESSAGE);
-            } catch (FredBotTodoErrorException e) {
-                printMessage(INDENT + TODO_ERROR_MESSAGE);
-            } catch (FredBotEventErrorException e) {
-                printMessage(INDENT + EVENT_ERROR_MESSAGE);
-            } catch (FredBotMarkErrorException | FredBotDeleteErrorException e) {
-                printMessage(INDENT + MARK_ERROR_MESSAGE);
+            } catch (FredBotException e) {
+                ui.showError(e.getMessage());
+            } catch (IOException e) {
+                ui.showFatalError(e.getMessage());
+                // printMessage(INDENT + WRITE_FILE_ERROR_MESSAGE);
+                System.exit(0);
             }
-//            } catch (IOException e) {
-//                printMessage(INDENT + WRITE_FILE_ERROR_MESSAGE);
-//                System.exit(0);
-//            }
         }
         ui.showGoodBye();
     }

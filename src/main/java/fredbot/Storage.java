@@ -45,15 +45,10 @@ public class Storage {
         return (ArrayList<String>) Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
     }
     
-    public TaskList loadTasks() {
+    public TaskList loadTasks() throws IOException {
         TaskList tasks = null;
-        try {
-            ArrayList<String> dataItems = readFile();
-            tasks = Parser.parseFromFile(dataItems);
-        } catch (IOException e) {
-            e.printStackTrace();
-            // need to do something here
-        }
+        ArrayList<String> dataItems = readFile();
+        tasks = Parser.parseFromFile(dataItems);
         return tasks;
     }
 

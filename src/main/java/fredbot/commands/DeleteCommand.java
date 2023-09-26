@@ -14,13 +14,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         ui.printRemoveTask(tasks.removeTask(index));
-        try {
-            storage.addTaskstoFile(tasks);
-        } catch (IOException e) {
-            System.out.println("unable to add to file");
-        }
+        storage.addTaskstoFile(tasks);
     }
 
     public void setIndex(int index) {

@@ -16,7 +16,7 @@ public class Parser {
     public static final String COMMAND_ADD_DEADLINE = "deadline";
     public static final String COMMAND_ADD_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
-    public static TaskList parseFromFile(ArrayList<String> dataItems) {
+    public static TaskList parseFromFile(ArrayList<String> dataItems) { //Need to check for formatting
        TaskList tasks = new TaskList();
        for (String line: dataItems) {
            switch (line.charAt(1)) {
