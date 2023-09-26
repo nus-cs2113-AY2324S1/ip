@@ -7,11 +7,11 @@ import task.Event;
 public class EventCommand extends Command {
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {
-        int indexFrom = getIndex(statement, "/from");
-        int indexTo = getIndex(statement, "/to");
+        int indexFrom = getIndex(statement, "/from ");
+        int indexTo = getIndex(statement, "/to ");
         String description = statement.substring(0, indexFrom);
-        String from = statement.substring(indexFrom + 5, indexTo);
-        String to = statement.substring(indexTo + 3);
+        String from = processDate(statement.substring(indexFrom + 6, indexTo));
+        String to = processDate(statement.substring(indexTo + 4));
         isValidTask(description);
         if (!from.isEmpty() && !to.isEmpty()) {
             processor.taskList.add(new Event(description, from, to));
