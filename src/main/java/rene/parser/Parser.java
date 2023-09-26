@@ -32,6 +32,8 @@ public class Parser {
                     return new CommandDeadline(userInput);
                 case "event":
                     return new CommandEvent(userInput);
+                case "find":
+                    return new CommandFind(userInput);
                 default:
                     throw new ReneExceptions("Invalid Input");
             }

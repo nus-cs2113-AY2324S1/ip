@@ -298,7 +298,74 @@ public class TaskList {
         }
     }
 
+    public void searchListByDescription(String keyword){
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        if(allTasks.isEmpty()){
+            System.out.println("    Task list is empty! Time to add some OWO");
+        }
+        else {
+            System.out.println("    Here are tasks that matched your search:");
+            for (Task task : allTasks) {
+                if(task.getTaskDescription().contains(keyword)){
+                    matchedTasks.add(task);
+                    printTask(task, true);
+                }
+            }
+            if(matchedTasks.isEmpty()){
+                System.out.println("    No results found :< Check your keyword is correct?");
+            }
+        }
+    }
 
+    public void searchListByTime(String dateTime){
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        if(allTasks.isEmpty()){
+            System.out.println("    Task list is empty! Time to add some OWO");
+        }
+        else {
+            System.out.println("    Here are tasks that matched your search:");
+            for (Task task : allTasks) {
+                if(task.getTaskTiming(true).contains(dateTime)){
+                    matchedTasks.add(task);
+                    printTask(task, true);
+                }
+            }
+            if(matchedTasks.isEmpty()){
+                System.out.println("    No results found :< Check your time format is in dd-MM-yyyy HH:mm?");
+            }
+        }
+    }
+
+    public void searchList(String input){
+        String[] searchDetails;
+        String[] searchInfo;
+        try {
+            searchDetails = input.split("find")[1].strip().split("/");
+            searchInfo = searchDetails[1].strip().split(" ");
+        } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
+            System.out.println("    Ohnus! You did not indicate if you are searching by description or time :<");
+            System.out.println("    Pwease format your input as find /description [description] or find /time [time]!");
+            return;
+        }
+        try{
+            String searchCriteria = searchInfo[0].strip();
+            String searchKeyword = searchInfo[1].strip();
+            switch (searchCriteria){
+                case "description":
+                    searchListByDescription(searchKeyword);
+                    break;
+                case "time":
+                    searchListByTime(searchKeyword);
+                    break;
+                default:
+                    break;
+            }
+        } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
+            System.out.println("    Ohnus! You did not indicate the keywords you are searching by :<");
+            System.out.println("    Pwease format your input as find /description [description] or find /time [time]!");
+        }
+
+    }
     public int getTaskListSize(){
         return allTasks.size();
     }
