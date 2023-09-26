@@ -4,6 +4,9 @@ import RC.RCException;
 import RC.TaskList;
 import RC.UI.Ui;
 
+/**
+ * Represents commands that can be executed.
+ */
 public abstract class RCCommand {
     public RCCommand() {
     }

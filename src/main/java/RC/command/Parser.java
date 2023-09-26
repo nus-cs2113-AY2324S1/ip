@@ -2,6 +2,9 @@ package RC.command;
 
 import RC.RCException;
 
+/**
+ * Handles the input given by the user.
+ */
 public class Parser {
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
@@ -13,10 +16,17 @@ public class Parser {
     private static final String FIND_COMMAND = "find";
     private static final String EXIT_COMMAND = "bye";
 
+    /**
+     * Parses user input and returns a command corresponding to the input.
+     *
+     * @param input The input given by the user.
+     * @return A command that is parsed from user input.
+     * @throws RCException If there is an error parsing user input.
+     */
     public static RCCommand parse(String input) throws RCException {
         String[] split = input.split(" ", 2);
         String command = split[0].toLowerCase();
-        String restOfInput = split.length > 1 ? split[1] : "";
+        String restOfInput = split.length > 1 ? split[1] : ""; // checks if the rest of input is empty
 
         switch (command) {
         case TODO_COMMAND:
