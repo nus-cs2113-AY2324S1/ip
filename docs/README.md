@@ -18,18 +18,20 @@
 ## Quick start
 1. Ensure you have Java 11 or above installed in your Computer.
 
-2. Download the latest addressbook.jar from here.
+2. Download the latest addressbook.jar from [here](https://github.com/sRanay/ip/releases).
 
 3. Copy the file to the folder you want to use as the home folder for RanayBot.
 
-4. Open a command terminal, `cd` into the folder you put the har file in, and use `java -jar ip.jar` command to run the application.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use `java -jar ip.jar` command to run the application.
+
+5. Refer to the [Features](#features) below for details of each command.
 
 ***
 
 ## Features
->[!NOTE]<br>
+> **Note**  
 > - Words in UPPER_CASE are the parameters to be supplied by the user.<br>
-e.g in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be as `todo DESCRIPTION`
+e.g in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be as `todo assignment 1`
 > - Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.<br>
 e.g. if the command specifies `list 12`, it will be interpreted as `list`.
 
@@ -60,10 +62,10 @@ Example:
 
 Creates a Event task and add it into the task list.
 
-Format: `event DESCRIPTION /from FROM /to TO`
+Format: `event DESCRIPTION /from START_DATE /to END_DATE`
 
-- `FROM` and `TO` must be in the format: `DD/MM/YYYY`.
-- `FROM` must be before `TO`
+- `START_DATE` and `END_DATE` must be in the format: `DD/MM/YYYY`.
+- `START_DATE` must be before `END_DATE`
 
 Examples:
 - `event Overseas Trip /from 26/09/2023 /to 29/09/2023`
@@ -72,10 +74,10 @@ Examples:
 
 Creates a Deadline task and add it into the task list.
 
-Format: `deadline /by BY`
+Format: `deadline /by DUE_DATE`
 
-- `BY` must be in the format: `DD/MM/YYYY`.
-- `BY` must be after the current day's date.
+- `DUE_DATE` must be in the format: `DD/MM/YYYY`.
+- `DUE_DATE` must be after the current day's date.
 
 Example: 
 - `deadline assignment 1 /by 30/09/2023`
