@@ -9,7 +9,7 @@ public class DukeDateTime implements Serializable {
     public static final String DATETIME_INPUT_FORMAT = "dd/MM/yyyy HH:mm";
     public static final DateTimeFormatter DATETIME_INPUT_FORMATTER =
             DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
-    public static final String DATETIME_PRINT_FORMAT = "dd/MM/yyyy | hh:mma";
+    public static final String DATETIME_PRINT_FORMAT = "dd/MM/yyyy - hh:mma";
     public static final DateTimeFormatter DATETIME_PRINT_FORMATTER =
             DateTimeFormatter.ofPattern(DATETIME_PRINT_FORMAT);
     public static final String SERIALIZER_TYPE = "DukeDateTime";
