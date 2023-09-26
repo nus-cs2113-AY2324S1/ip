@@ -47,8 +47,12 @@ public abstract class TaskList {
      * @return True if there is a match, otherwise false.
      */
     public static boolean isMatch(String toFind) {
+        String keyword = toFind.toLowerCase();
+
         for (Task task : list) {
-            if (task.description.contains(toFind) || toFind.contains(task.description)) {
+            String description = task.description.toLowerCase();
+
+            if (description.contains(keyword) || keyword.contains(description)) {
                 return true;
             }
         }
@@ -81,9 +85,11 @@ public abstract class TaskList {
 
     private static void printMatchingTasks(String toFind) {
         int listIndex = 1;
+        String keyword = toFind.toLowerCase();
 
         for (Task task : list) {
-            if (task.description.contains(toFind) || toFind.contains(task.description)) {
+            String description = task.description.toLowerCase();
+            if (description.contains(keyword) || keyword.contains(description)) {
                 printTask(task, listIndex);
             }
             listIndex++;
