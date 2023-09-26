@@ -7,12 +7,6 @@ public class Event extends Task{
         this.startTime = startTime;
         this.endTime = endTime;
     }
-    public String getEventStartTime(){
-        return startTime;
-    }
-    public String getEventEndTime(){
-        return endTime;
-    }
 
     @Override
     public String getTaskTiming() {

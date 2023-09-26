@@ -7,9 +7,6 @@ public class Deadline extends Task {
         this.dueTime = dueTime;
     }
 
-    public String getDeadlineDueTime(){
-        return dueTime;
-    }
     @Override
     public String getTaskTiming() {
         return "(by: " + dueTime + ")";
