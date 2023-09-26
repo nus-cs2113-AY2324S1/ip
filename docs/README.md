@@ -3,6 +3,19 @@
 DumpGPT is a **cross-platform application that allows users to track their tasks, optimized for use via a command-line
 interface**.
 
+* [Quick Start](#quick-start)
+* [Features](#features)
+    * [Adding a Todo: `todo`](#adding-a-todo-todo)
+    * [Adding a Task with Deadline: `deadline`](#adding-a-task-with-deadline-deadline)
+    * [Adding a Event: `event`](#adding-an-event-event)
+    * [Marking task as done: `mark`](#marking-task-as-done-mark)
+    * [Marking task as undone: `unmark`](#marking-task-as-undone-unmark)
+    * [Deleting a task: `delete`](#deleting-a-task-delete)
+    * [Listing all tasks: `list`](#listing-all-tasks-list)
+    * [Finding tasks: `find`](#finding-tasks-find)
+    * [Exiting the program: `exit`](#exiting-the-program-bye)
+* [Command Summary](#command-summary)
+
 ## Quick Start
 
 1. Ensure that you have Java 11 installed on your Computer.
@@ -46,7 +59,7 @@ interface**.
     lines
     as space characters surrounding line-breaks may be omitted when copied over to the application.
 
-### Adding a Todo: `todo`
+### Adding a todo: `todo`
 
 Adds a todo task.
 
@@ -59,7 +72,7 @@ Examples:
 * `todo Buy groceries`<br>
   Adds a task "Buy groceries" as todo
 
-### Adding a Todo: `deadline`
+### Adding a task with deadline: `deadline`
 
 Adds a task with a deadline.
 
@@ -78,7 +91,7 @@ Examples:
 * `deadline Complete CS2113 /by 12/01/2024 10:00`<br>
   Adds a task named "Complete CS2113" with a deadline of 12 January 2024 at 10am.
 
-### Adding a Todo: `event`
+### Adding an event: `event`
 
 Adds an event which spans a given duration FROM_DATE and TO_DATE.
 
@@ -99,7 +112,7 @@ Examples:
 * `event Graduation /from 12/01/2024 10:00 /to 12/01/2024 12:00`<br>
   Adds an event named "Graduation" which starts at 12 January 2024 10am and ends at 12 January 2024 12pm.
 
-### Marking task: `mark`
+### Marking task as done: `mark`
 
 Marks a task as done.
 
@@ -114,7 +127,7 @@ Examples:
 * `mark 1`<br>
   Marks first task in list as done
 
-### Marking task: `unmark`
+### Marking task as undone: `unmark`
 
 Marks a task as undone.
 
@@ -129,7 +142,7 @@ Examples:
 * `unmark 1`<br>
   Marks first task in list as undone
 
-### Marking task: `delete`
+### Deleting a task: `delete`
 
 Deletes a given task.
 
@@ -144,7 +157,7 @@ Examples:
 * `delete 1`<br>
   Deletes first task in list
 
-### Listing tasks: `list`
+### Listing all tasks: `list`
 
 Lists all tasks.
 
@@ -166,13 +179,14 @@ ____________________________________________________________
 User:
 ```
 
-### Finding a task: `find`
+### Finding tasks: `find`
 
-Find a task with specified name
+Find a task with substring of name
 
 Format: `find PART_OF_NAME`
 
 * `PART_OF_NAME` is case-sensitive
+* All tasks containing `PART_OF_NAME` in their `TASK_NAME` will be outputted.
 * This command affects `TASK_IDX` parameter for `mark`, `unmark` and `delete`.<br>
   e.g. if this command is run, then all subsequent `TASK_IDX` specified in `mark`, `unmark` and `delete` command will
   use the index output from this command as reference.
@@ -181,7 +195,7 @@ Example Output:
 
 ```
 ____________________________________________________________
-User: find Com
+User: find Compl
 ____________________________________________________________
 1. [D][ ] Complete CS2113 (by: 12/01/2024 - 10:00AM)
 ____________________________________________________________
@@ -195,7 +209,7 @@ ____________________________________________________________
 > Any other calls to `mark`, `unmark` or `delete` will fail even if there are still tasks remaining until `list`
 > or `find` is executed and return non-empty list of tasks.
 
-### Exit: `bye`
+### Exiting the program: `bye`
 
 Exits the program
 
@@ -212,3 +226,18 @@ ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
 ```
+
+## Command Summary
+
+| Action                                | Format                                        | Example                                                        |
+|---------------------------------------|-----------------------------------------------|----------------------------------------------------------------|
+| Add todo                              | `todo TASK_NAME`                              | `todo Buy groceries`                                           |
+| Add task with deadline                | `deadline TASK_NAME /by BY_DATE`              | `deadline Complete CS2113 /by 12/01/2024 10:00`                |
+| Add an event                          | `event TASK_NAME /from FROM_DATE /to TO_DATE` | `event Graduation /from 12/01/2024 10:00 /to 12/01/2024 12:00` |
+| Mark task as done                     | `mark TASK_IDX`                               | `mark 1`                                                       |
+| Mark task as undone                   | `unmark TASK_IDX`                             | `unmark 1`                                                     |
+| Delete a task                         | `delete TASK_IDX`                             | `delete 1`                                                     |
+| List all tasks                        | `list`                                        | `list`                                                         |
+| Find task with name containing a term | `find PART_OF_NAME`                           | `find Compl`                                                   |
+| Exit the program                      | `exit`                                        | `exit`                                                         |
+
