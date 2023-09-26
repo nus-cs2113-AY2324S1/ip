@@ -17,14 +17,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FredBot {
-    public static final String INDENT = "    ";
-    public static final String DIVIDER = "    ____________________________________________________________\n";
-    public static final String TASK_LIST_MESSAGE = "Here are the tasks in your list\n";
-    public static final String COMMAND_ERROR_MESSAGE = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
-    public static final String TODO_ERROR_MESSAGE = "☹ OOPS!!! The description of a todo cannot be empty.";
-    public static final String DEADLINE_ERROR_MESSAGE = "☹ OOPS!!! The description of a deadline cannot be empty.";
-    public static final String EVENT_ERROR_MESSAGE = "☹ OOPS!!! The description of a event cannot be empty.";
-    public static final String MARK_ERROR_MESSAGE = "This task does not exist!";
     public static final String TASK_FILE_PATH = "./data/tasks.txt";
     public static final String WRITE_FILE_ERROR_MESSAGE = "Could not write to file. Exiting Application...";
     public static final String READ_FILE_ERROR_MESSAGE = "Could not read file. Exiting Application...";
@@ -61,11 +53,7 @@ public class FredBot {
         }
         ui.showGoodBye();
     }
-    public static void printMessage(String message) {
-        System.out.print(DIVIDER);
-        System.out.println(message);
-        System.out.println(DIVIDER);
-    }
+
     public static void main(String[] args) {
         new FredBot(TASK_FILE_PATH).run();
     }
