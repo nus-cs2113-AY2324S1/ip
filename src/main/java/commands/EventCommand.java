@@ -3,7 +3,9 @@ package commands;
 import ascii.AsciiArt;
 import main.ResponseProcessor;
 import task.Event;
-
+/**
+ * Represents a deadline Command to add a new event task to the task list
+ */
 public class EventCommand extends Command {
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {

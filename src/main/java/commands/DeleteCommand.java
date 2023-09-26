@@ -2,7 +2,9 @@ package commands;
 
 import ascii.AsciiArt;
 import main.ResponseProcessor;
-
+/**
+ * Represents a delete Command to remove a task in the task list
+ */
 public class DeleteCommand extends Command {
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {

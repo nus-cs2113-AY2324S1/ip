@@ -1,7 +1,4 @@
 package ascii;
-
-import commands.*;
-
 import java.util.HashMap;
 
 public class AsciiArt {

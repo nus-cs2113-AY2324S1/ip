@@ -2,7 +2,9 @@ package commands;
 
 import ascii.AsciiArt;
 import main.ResponseProcessor;
-
+/**
+ * Represents an ascii Command to turn on and off ascii art
+ */
 public class AsciiCommand extends Command {
     @Override
     public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {

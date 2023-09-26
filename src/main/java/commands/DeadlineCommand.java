@@ -3,7 +3,9 @@ package commands;
 import ascii.AsciiArt;
 import main.ResponseProcessor;
 import task.Deadline;
-
+/**
+ * Represents a deadline Command to add a new deadline task to the task list
+ */
 public class DeadlineCommand extends Command {
 
     @Override

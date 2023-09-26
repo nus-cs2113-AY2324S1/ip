@@ -4,7 +4,9 @@ import ascii.AsciiArt;
 import data.LoadData;
 import data.StoreData;
 import java.util.Scanner;
-
+/**
+ * Main class that is initiated upon start up to welcome user and read inputs
+ */
 public class Chatbot {
     public static void main(String[] args) {
         System.out.println("Hello I'm Rias-chan!");
@@ -17,6 +19,11 @@ public class Chatbot {
         StoreData.store(processor);
         System.out.println("Bye masta! " + AsciiArt.getArt("kiss"));
     }
+    /**
+     * Wait for user to type and process the input
+     *
+     * @param processor The main processor of the code
+     */
     public static void waitForResponse(ResponseProcessor processor) {
         Scanner scanner = new Scanner(System.in);
         String response;
