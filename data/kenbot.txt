@@ -1,5 +1,4 @@
 [D][ ] return book (by: Sep 26 2023 6:00 PM)
 [D][X] meet mother (by: Aug 23 1234 6:30 PM)
 [D][X] meet father (by: Sep 28 1969 12:01 AM)
-[T][ ] read book
 [E][ ] dinner (from: Sep 26 2023 6:30 PM to: Sep 26 2023 8:00 PM)

@@ -22,6 +22,7 @@ public class ParseCommands {
     private static final String UNMARK = "unmark";
     private static final String BYE = "bye";
     private static final String DELETE = "delete";
+    private static final String FIND = "find";
     public Command parse(String input) throws KenException {
         String command = input.contains(" ") ? input.split(" ")[0] : input;
         switch (command) {
@@ -42,12 +43,23 @@ public class ParseCommands {
             return getStatus(input, false);
         case DELETE:
             return getDelete(input);
+        case FIND:
+            return getMatchTask(input);
         case BYE:
             return new Goodbye();
         default:
             throw new KenParsingException("Uh-oh, darling! Your input needs a makeover for me to understand!");
         }
 
+    }
+
+    private Command getMatchTask(String input) throws KenParsingException {
+        String trimmedInput = input.trim();
+        if (trimmedInput.equals(FIND)) {
+            throw new KenParsingException("Barbie, darling, could you, like, pick a keyword to find some fab tasks?");
+        }
+        String keyword = trimmedInput.split(" ", 2)[1];
+        return new Find(keyword);
     }
 
     private static Task getTodo(String input) throws KenParsingException {
