@@ -3,6 +3,12 @@ package duke.todo;
 import duke.task.Task;
 
 public class Todo extends Task {
+
+    /**
+     * Constructs a new Todo.
+     *
+     * @param description contains description of Todo.
+     */
     public Todo(String description) {
         super(description);
     }

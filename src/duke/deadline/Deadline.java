@@ -9,6 +9,12 @@ public class Deadline extends Task {
 
     protected LocalDate deadline;
 
+    /**
+     * Constructs new Deadline.
+     *
+     * @param description description of the task.
+     * @param deadline date to complete task by.
+     */
     public Deadline(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;
