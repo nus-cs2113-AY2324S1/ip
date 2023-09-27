@@ -1,8 +1,10 @@
 import commands.Command;
 import commands.ExitCommand;
+
 import data.exception.IncompleteDescriptionException;
 import data.exception.InvalidActionException;
 import data.TaskList;
+
 import ui.Ui;
 import storage.Storage;
 import parser.Parser;
@@ -11,7 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Entry point of the Spaceman application which serves as a personal assistance chatbot.
+ * Entry point of the Spaceman application which serves as a personal assistance chat-bot.
  * Initializes the application and starts the interaction with the user.
  */
 public class Spaceman {
@@ -39,6 +41,10 @@ public class Spaceman {
      */
     public void run() {
         ui.printWelcomeMessage();
+        runProgramUntilTermination();
+    }
+
+    private void runProgramUntilTermination() {
         boolean isExit = false;
         while (!isExit) {
             try {

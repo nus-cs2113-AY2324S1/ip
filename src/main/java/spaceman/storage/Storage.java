@@ -1,10 +1,10 @@
-package storage;
+package spaceman.storage;
 
-import data.TaskList;
-import data.task.Deadline;
-import data.task.Event;
-import data.task.Task;
-import data.task.Todo;
+import spaceman.data.TaskList;
+import spaceman.data.task.Deadline;
+import spaceman.data.task.Event;
+import spaceman.data.task.Task;
+import spaceman.data.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
