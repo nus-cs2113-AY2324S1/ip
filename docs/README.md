@@ -2,6 +2,13 @@
 
 Neo Chatbot is a desktop app for **keeping track of tasks**, optimised for use via a **Command Line Interface (CLI)**.
 
+## Quick Start
+1. Ensure you have Java `11` installed in your Computer.
+2. Download the latest ip.jar from [here](https://github.com/NeoMinWei/ip/releases/download/A-Release/ip.jar).
+3. Copy the file to the folder you want to use as the *home folder* for Neo Chatbot.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar ip.jar` command to run the application.
+5. Refer to the **Features** section below for details of each command.
+
 ## Features 
 ### Notes about the command format
 - Words in `UPPER_CASE` are parameters to be supplied by the user.
