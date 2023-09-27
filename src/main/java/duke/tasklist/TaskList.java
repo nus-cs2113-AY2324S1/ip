@@ -1,6 +1,7 @@
 package duke.tasklist;
 
 import duke.exception.DukeTaskException;
+import duke.parser.TaskParser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -23,11 +24,13 @@ public class TaskList {
     private Storage storage;
     private TextUi ui;
     private ArrayList<Task> tasks;
+    private TaskParser parser;
     private int tasksCount = 0;
 
     public TaskList()  {
         ui = new TextUi();
         storage = new Storage();
+        parser = new TaskParser();
 
         try {
             tasks = storage.restoreSavedData();
@@ -52,7 +55,7 @@ public class TaskList {
     }
 
     public int setMarkAsDone(String input) throws IOException {
-        int index = parseIndex(input);
+        int index = parser.parseIndex(input);
 
         storage.updateTaskDatabase(index, true);
 
@@ -61,13 +64,8 @@ public class TaskList {
         return index;
     }
 
-    // will delete later
-    public static int parseIndex(String input) {
-        return Integer.parseInt(input) - 1;
-    }
-
     public int setUnmarkAsDone(String input) throws IOException {
-        int index = parseIndex(input);
+        int index = parser.parseIndex(input);
 
         storage.updateTaskDatabase(index, false);
 
@@ -77,7 +75,7 @@ public class TaskList {
     }
 
     public void deleteTask(String input) throws IOException {
-        int index = parseIndex(input);
+        int index = parser.parseIndex(input);
         Task removedTask = tasks.remove(index);
 
         storage.deleteTaskData(index);
@@ -107,7 +105,7 @@ public class TaskList {
     }
 
     public void addDeadline(String input) throws DukeTaskException, IOException {
-        String[] parsedInput = input.split(BY_KEYWORD);
+        String[] parsedInput = parser.parseTask(input, BY_KEYWORD);
 
         if (!(parsedInput.length == 2)) {
             throw new DukeTaskException();
@@ -137,7 +135,9 @@ public class TaskList {
             throw new DukeTaskException();
         }
 
-        String[] parsedInput = input.split(FROM_KEYWORD + "|" + TO_KEYWORD);
+        String regex = FROM_KEYWORD + "|" + TO_KEYWORD;
+        String[] parsedInput = parser.parseTask(input, regex);
+
         tasks.add(new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim()));
 
         String dataString = EVENT_DATA_TEMPLATE + parsedInput[0].trim() + " | "  + parsedInput[1].trim()

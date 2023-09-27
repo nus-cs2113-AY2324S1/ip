@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Duke {
 
     private static TextUi ui;
-    private static Storage storage;
     private static TaskList tasks;
 
     public static void executeCommand(String input) {
@@ -73,7 +72,6 @@ public class Duke {
         String input;
         Scanner in = new Scanner(System.in);
         ui = new TextUi();
-
         tasks = new TaskList();
 
         ui = new TextUi();
