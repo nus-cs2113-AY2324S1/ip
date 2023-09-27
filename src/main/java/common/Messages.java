@@ -1,22 +1,23 @@
 package common;
 
-import listWhisper.task.ListOfTasks;
+import listWhisper.task.TaskList;
 import listWhisper.task.Task;
 
 public class Messages {
-    public static void printAddMessage(ListOfTasks listOfTasks) {
+    public static void printAddMessage(TaskList taskList) {
         printStraightLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(listOfTasks.getTask(listOfTasks.getSize()) + "\n");
         System.out.println(String.format("Now you have %d tasks in the list.", listOfTasks.getSize()));
+        System.out.println(taskList.getTask(taskList.getSize()) + "\n");
+        System.out.println(String.format(MESSAGE_SHOW_NUMBER_OF_TASKS, taskList.getSize()));
         printStraightLine();
     }
 
-    public static void printDeleteMessage(ListOfTasks listOfTasks, Task task) {
+    public static void printDeleteMessage(TaskList taskList, Task task) {
         printStraightLine();
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
-        System.out.println(String.format("Now you have %d tasks in the list.", listOfTasks.getSize()));
+        System.out.println(String.format(MESSAGE_SHOW_NUMBER_OF_TASKS, taskList.getSize()));
         printStraightLine();
     }
 

@@ -8,7 +8,7 @@ import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 
 public abstract class TaskClassifier {
-    public static String classifyTaskForExecution(ListOfTasks listOfTasks, String input) throws DescriptionFormatException {
+    public static String classifyTaskForExecution(TaskList taskList, String input) throws DescriptionFormatException {
         String[] inputStrings = StringSplitter.splitInput(input);
         String command = inputStrings[0];
 

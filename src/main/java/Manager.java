@@ -1,17 +1,18 @@
 import listWhisper.exceptions.DescriptionFormatException;
-import listWhisper.task.DataManager;
-import listWhisper.task.ListOfTasks;
+import storage.DataManager;
+import listWhisper.task.TaskList;
 import listWhisper.task.TaskClassifier;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 class Manager {
-    ListOfTasks listOfTasks;
+    TaskList taskList;
 
     public Manager() throws IOException, DescriptionFormatException {
-        this.listOfTasks = new ListOfTasks();
-        Manager.loadTasksToList(this.listOfTasks);
+        this.taskList = new TaskList();
+        Manager.loadTasksToList(this.taskList);
     }
 
     public void readInput() throws DescriptionFormatException, IOException {

@@ -1,13 +1,15 @@
 package listWhisper.task;
+import storage.DataManager;
+import common.StringSplitter;
 import listWhisper.exceptions.DescriptionFormatException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ListOfTasks {
+public class TaskList {
     ArrayList<Task> tasks;
 
-    public ListOfTasks() {
+    public TaskList() {
         this.tasks = new ArrayList<Task>(100);
     }
 
