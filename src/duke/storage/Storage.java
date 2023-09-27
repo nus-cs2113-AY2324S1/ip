@@ -1,6 +1,5 @@
 package duke.storage;
 
-import duke.Duke;
 import duke.DukeException;
 import duke.deadline.Deadline;
 import duke.event.Event;
@@ -9,6 +8,7 @@ import duke.todo.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Scanner;
@@ -47,7 +47,7 @@ public class Storage {
                 task = new Event(details[2], details[3], details[4]);
                 break;
             case 'D':
-                task = new Deadline(details[2], details[3]);
+                task = new Deadline(details[2], LocalDate.parse(details[3]));
                 break;
             default:
                 task = new Task("");
