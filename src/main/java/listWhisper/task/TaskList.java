@@ -1,5 +1,4 @@
 package listWhisper.task;
-import storage.DataManager;
 import listWhisper.exceptions.DescriptionFormatException;
 
 import java.util.ArrayList;

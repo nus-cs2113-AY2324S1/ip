@@ -1,7 +1,7 @@
 import common.Command;
 import listWhisper.task.Parser;
 import listWhisper.task.TaskList;
-import storage.DataManager;
+import storage.Storage;
 import ui.Ui;
 import java.io.IOException;
 import java.lang.String;
@@ -18,10 +18,10 @@ public class ListWhisper {
     public ListWhisper() {
         this.ui = new Ui();
         this.parser = new Parser();
-        DataManager dataManager = new DataManager(this.ui);
+        Storage storage = new Storage(this.ui);
 
         try {
-            this.taskList = dataManager.load(this.parser);
+            this.taskList = storage.load(this.parser);
         } catch (IOException e) {
             Ui.showError(e);
             taskList = new TaskList();

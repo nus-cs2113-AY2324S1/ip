@@ -9,12 +9,12 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-public class DataManager {
+public class Storage {
     private final static String userWorkingDirectory = System.getProperty("user.dir");
     private final static  java.nio.file.Path FILE_PATH = java.nio.file.Paths.get(userWorkingDirectory, "data.txt");
     private final Ui ui;
 
-    public DataManager(Ui ui) {
+    public Storage(Ui ui) {
         this.ui = ui;
     }
 
