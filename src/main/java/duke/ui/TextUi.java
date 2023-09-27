@@ -1,9 +1,11 @@
 package duke.ui;
 
 import duke.task.Task;
+import duke.tasklist.TaskList;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TextUi {
 
@@ -27,16 +29,16 @@ public class TextUi {
                 + (tasksCount == 1 ? " task" : " tasks") + " currently.");
     }
 
-    public void printRecentTask(Task task, int tasksCount) {
+    public void printRecentTask(TaskList tasks) {
         System.out.println("\tI have added the following task into the list:");
-        System.out.println("\t\t" + task);
-        printNumOfTasks(tasksCount);
+        System.out.println("\t\t" + tasks.getRecentTask());
+        printNumOfTasks(tasks.getTasksCount());
     }
 
-    public void printTasks(ArrayList<Task> tasks, int tasksCount) {
+    public void printTasks(TaskList tasks) {
         System.out.println("\tHere are your tasks you have inputted:");
-        for (int i = 1; i <= tasksCount; i++) {
-            System.out.println("\t" + i + "." + tasks.get(i - 1));
+        for (int i = 1; i <= tasks.getTasksCount(); i++) {
+            System.out.println("\t" + i + "." + tasks.getTask(i - 1));
         }
     }
 
@@ -74,5 +76,9 @@ public class TextUi {
     public void handleIOException(IOException exception) {
         System.out.println("Something went wrong! Please try again!");
         System.out.println(exception.getMessage());
+    }
+
+    public String getInput(Scanner in) {
+        return in.nextLine().trim();
     }
 }
