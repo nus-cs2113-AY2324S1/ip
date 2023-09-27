@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=Level-5
-set MESSAGE="Handle Errors"
+set TAG_NAME=A-Packages
+set MESSAGE="Organize into Packages"
 
 rem create a branch
 git branch branch-%TAG_NAME%
