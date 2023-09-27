@@ -1,7 +1,6 @@
 package duke.commands;
 
 import duke.exceptions.*;
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -22,7 +21,6 @@ public class Ui  {
             throw new RuntimeException(e);
         }
     }
-
 
     /**
      * User interface that takes in commands to enable programme to run specific methods.

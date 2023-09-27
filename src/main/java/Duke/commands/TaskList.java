@@ -1,8 +1,6 @@
 package duke.commands;
 
 import duke.tasks.*;
-
-
 import java.util.ArrayList;
 import java.io.*;
 import java.util.Arrays;
@@ -22,7 +20,6 @@ public class TaskList {
     public String find;
 
     String taskListFile = "./duke.txt";
-    static Parser Parser = new Parser();
 
     public TaskList() throws IOException {
         taskList = new ArrayList<>();
@@ -56,11 +53,10 @@ public class TaskList {
      * @throws IOException If unacceptable input is given.
      */
     private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend);
         fw.close();
     }
-
 
     /**
      * Prints out current tasks in the tasklist.
@@ -69,7 +65,6 @@ public class TaskList {
 
     System.out.println("Here are the tasks in your list");
     for(int j = 0; j < taskList.size(); j += 1) {
-
         System.out.print(j+1);
         duke.commands.Parser.parseAndPrintTasks(taskList.get(j));
         System.out.print("\n");
@@ -111,6 +106,7 @@ public class TaskList {
             Task taskToBeUnmarked = Ui.newList.taskList.get(taskNumber - 1);
             taskToBeUnmarked.setNotDone();
             finalFile();
+
             System.out.println("Task marked as uncompleted!");
             System.out.println(Arrays.toString(taskToBeUnmarked.markAsDone)+ " " + taskToBeUnmarked.toBeDone);
         }
@@ -178,23 +174,24 @@ public class TaskList {
         System.out.println("Task Removed");
 
         if (Ui.newList.taskList.get(taskNumber-1).taskType[0] == "T") {
-            System.out.println(Arrays.toString(Ui.newList.taskList.get(taskNumber-1).taskType) +
-                    Arrays.toString(Ui.newList.taskList.get(taskNumber-1).markAsDone) + " " +
-                    Ui.newList.taskList.get(taskNumber-1).toBeDone);
+            System.out.println(Arrays.toString(Ui.newList.taskList.get(taskNumber-1).taskType)
+                    + Arrays.toString(Ui.newList.taskList.get(taskNumber-1).markAsDone) + " "
+                    + Ui.newList.taskList.get(taskNumber-1).toBeDone);
         }
         else if(Ui.newList.taskList.get(taskNumber-1).taskType[0] == "D"){
-            System.out.println(Arrays.toString(Ui.newList.taskList.get(taskNumber-1).taskType) +
-                    Arrays.toString(Ui.newList.taskList.get(taskNumber-1).markAsDone)
+            System.out.println(Arrays.toString(Ui.newList.taskList.get(taskNumber-1).taskType)
+                    + Arrays.toString(Ui.newList.taskList.get(taskNumber-1).markAsDone)
                     + " " + Ui.newList.taskList.get(taskNumber-1).toBeDone
                     + " (by: " + Ui.newList.taskList.get(taskNumber-1).dueDate + ")");
         }
         else{
             System.out.println(Arrays.toString(Ui.newList.taskList.get(taskNumber-1).taskType) +
-                    Arrays.toString(Ui.newList.taskList.get(taskNumber-1).markAsDone) + " " +
-                    Ui.newList.taskList.get(taskNumber-1).toBeDone
+                    Arrays.toString(Ui.newList.taskList.get(taskNumber-1).markAsDone) + " "
+                    + Ui.newList.taskList.get(taskNumber-1).toBeDone
                     + " (from: " + Ui.newList.taskList.get(taskNumber-1).startTime
                     + " to: "+ Ui.newList.taskList.get(taskNumber-1).endTime + ")");
         }
+
         Ui.newList.taskList.remove(taskNumber-1);
         System.out.println("Now you have " +Ui.newList.taskList.size() + " tasks in the list.");
         finalFile();
@@ -238,15 +235,16 @@ public class TaskList {
      */
     public void addFile(Task toAdd) throws IOException {
             if (toAdd.taskType[0] == "T") {
-                appendToFile(taskListFile, Arrays.toString(toAdd.taskType) + "/" +
-                        Arrays.toString(toAdd.markAsDone) + "/ " +  toAdd.toBeDone.trim()  + "/ / " + System.lineSeparator());
+                appendToFile(taskListFile, Arrays.toString(toAdd.taskType) + "/"
+                        + Arrays.toString(toAdd.markAsDone) + "/ " +  toAdd.toBeDone.trim()  + "/ / "
+                        + System.lineSeparator());
             } else if (toAdd.taskType[0] == "D") {
-                appendToFile(taskListFile, Arrays.toString(toAdd.taskType) +"/" +
-                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone.trim() + "/"
+                appendToFile(taskListFile, Arrays.toString(toAdd.taskType) +"/"
+                        + Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone.trim() + "/"
                         + " (by:" + toAdd.dueDate +"/ "  + ")" + System.lineSeparator());
             } else if (toAdd.taskType[0] == "E") {
-                appendToFile(taskListFile, Arrays.toString(toAdd.taskType)  + "/" +
-                        Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone.trim() + "/"
+                appendToFile(taskListFile, Arrays.toString(toAdd.taskType)  + "/"
+                        + Arrays.toString(toAdd.markAsDone) + "/ " + toAdd.toBeDone.trim() + "/"
                         + " (from: "  + toAdd.startTime + "/"
                         + " to: " + toAdd.endTime + "/"+  ")" + System.lineSeparator());
             }
