@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=A-CodeQuality
-set MESSAGE="Improve Code Quality"
+set TAG_NAME=Level-5
+set MESSAGE="Handle Errors"
 
 rem create a branch
 git branch branch-%TAG_NAME%

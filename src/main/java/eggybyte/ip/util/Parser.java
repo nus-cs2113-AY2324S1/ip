@@ -47,8 +47,6 @@ public class Parser {
                 case ByeCommand.COMMAND_WORD:
                     return new ByeCommand(arguments);
                 default:
-                    // return new RepeatCommand(commandWord, arguments);
-                    // return new TodoCommand(new String[] { userInput });
                     throw new Exception("I'm sorry, but I don't know what that means :-(");
             }
         } catch (Exception exception) {
