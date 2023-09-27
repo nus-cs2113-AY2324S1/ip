@@ -16,12 +16,12 @@ public class Deadline extends Task {
         setIsDone(isDone);
     }
 
-    @Override
-    public String getDescription() {
-        return description + " (by: " + getBy() + ")";
-    }
-
     public String getBy() {
         return by;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (by: " + getBy() + ")";
     }
 }

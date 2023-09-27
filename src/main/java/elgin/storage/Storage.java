@@ -1,5 +1,6 @@
 package elgin.storage;
 
+import elgin.exception.DukeException;
 import elgin.task.Deadline;
 import elgin.task.Event;
 import elgin.task.Task;
@@ -17,10 +18,14 @@ public class Storage {
 
     private static final String DONE_VALUE = "1";
     private static final String NEW_LINE = System.getProperty("line.separator");
-    private static final String TASK_FILE_DIRECTORY_PATH = Path.of("data").toAbsolutePath().toString();
-    private static final String TASK_FILE_PATH = Path.of("data/tasks.txt").toAbsolutePath().toString();
-
     private static final String SEPARATOR = " | ";
+    private final String TASK_FILE_DIRECTORY_PATH;
+    private final String TASK_FILE_PATH;
+
+    public Storage() {
+        TASK_FILE_DIRECTORY_PATH = Path.of("data").toAbsolutePath().toString();
+        TASK_FILE_PATH = Path.of("data/tasks.txt").toAbsolutePath().toString();
+    }
 
     public static void checkAndCreateDirectory(String dirPath) {
         File directory = new File(dirPath);
@@ -29,18 +34,18 @@ public class Storage {
         }
     }
 
-    public static void checkAndCreateFile(String filePath) {
+    public static void checkAndCreateFile(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                throw new IOException(e.getMessage());
             }
         }
     }
 
-    public static ArrayList<Task> getSavedTasks() {
+    public ArrayList<Task> getSavedTasks() throws IOException {
         checkAndCreateDirectory(TASK_FILE_DIRECTORY_PATH);
         checkAndCreateFile(TASK_FILE_PATH);
 
@@ -56,13 +61,13 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            throw new FileNotFoundException(e.getMessage());
         }
 
         return savedTasks;
     }
 
-    public static Task parseTask(String taskLine) {
+    public Task parseTask(String taskLine) {
         String[] taskInfo = taskLine.split(" \\| ");
         switch (taskInfo[0]) {
         case "T":
@@ -86,7 +91,7 @@ public class Storage {
 
     }
 
-    private static void deleteFileContent(String filePath) {
+    private void deleteFileContent(String filePath) {
         try {
             FileWriter writer = new FileWriter(filePath);
             writer.write("");
@@ -96,7 +101,7 @@ public class Storage {
         }
     }
 
-    private static void appendToFile(String filePath, String content) {
+    private void appendToFile(String filePath, String content) {
         try {
             FileWriter writer = new FileWriter(filePath, true);
             writer.write(content);
@@ -106,7 +111,7 @@ public class Storage {
         }
     }
 
-    public static void saveTasks(ArrayList<Task> tasks) {
+    public void saveToFile(ArrayList<Task> tasks) {
         deleteFileContent(TASK_FILE_PATH);
         for (Task task : tasks) {
             String taskAsString = getTaskAsString(task);
@@ -114,7 +119,7 @@ public class Storage {
         }
     }
 
-    public static String getTaskAsString(Task task) {
+    public String getTaskAsString(Task task) {
         switch (task.getType()) {
         case "T":
             return task.getType() + SEPARATOR + task.getIsDoneAsOneOrZero()

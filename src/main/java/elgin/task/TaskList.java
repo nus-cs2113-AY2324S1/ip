@@ -5,24 +5,20 @@ import elgin.exception.DukeException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static elgin.ui.Ui.getEmptyDescErrorMsg;
-import static elgin.ui.Ui.getInvalidIdxErrorMsg;
-import static elgin.ui.Ui.formatPrint;
 import static elgin.parser.Parser.parseArguments;
-import static elgin.parser.Parser.parseTaskIndex;
-import static elgin.parser.Parser.isArguments;
-import static elgin.storage.Storage.getSavedTasks;
-import static elgin.storage.Storage.saveTasks;
 
 
 public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = getSavedTasks();
     }
 
-    public void listTasks() {
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public String[] listTasks() {
         int totalTasks = getTaskSize();
         String[] allTasksDescription = new String[totalTasks + 1];
         allTasksDescription[0] = "Here are the tasks in your list:";
@@ -30,58 +26,42 @@ public class TaskList {
         for (int i = 0; i < totalTasks; i++) {
             allTasksDescription[i + 1] = (i + 1) + "." + tasks.get(i);
         }
-        formatPrint(allTasksDescription);
+        return allTasksDescription;
     }
 
-    public void addTodo(String command, String arguments) throws DukeException {
-        if (!isArguments(arguments, getEmptyDescErrorMsg(command))) {
-            return;
-        }
-
+    public String[] addTodo(String arguments) throws DukeException {
         Todo task = new Todo(arguments);
-        addToTasks(task);
+        return addToTasks(task);
     }
 
-    public void addDeadline(String command, String arguments) throws DukeException {
-        if (!isArguments(arguments, getEmptyDescErrorMsg(command))) {
-            return;
-        }
-
+    public String[] addDeadline(String command, String arguments) throws DukeException {
         HashMap<String, String> parsedArgs = parseArguments(command, arguments);
         String description = parsedArgs.get("description");
         String by = parsedArgs.get("by");
         Deadline task = new Deadline(description, by);
-        addToTasks(task);
+        return addToTasks(task);
     }
 
-    public void addEvent(String command, String arguments) throws DukeException {
-        if (!isArguments(arguments, getEmptyDescErrorMsg(command))) {
-            return;
-        }
-
+    public String[] addEvent(String command, String arguments) throws DukeException {
         HashMap<String, String> parsedArgs = parseArguments(command, arguments);
         String description = parsedArgs.get("description");
         String from = parsedArgs.get("from");
         String to = parsedArgs.get("to");
         Event task = new Event(description, from, to);
-        addToTasks(task);
+        return addToTasks(task);
     }
 
-    public void setTaskIsDone(String arguments, boolean isDone) throws DukeException {
-        int idx = parseTaskIndex(arguments);
-        idx--;
-        if (!isValidTaskIndex(idx)) {
-            return;
-        }
-        tasks.get(idx).setIsDone(isDone);
+    public String[] setTaskIsDone(int index, boolean isDone) throws DukeException {
+        index--;
+        tasks.get(index).setIsDone(isDone);
         String doneMsg = isDone
                 ? "Nice! I've marked this task as done:"
                 : "OK, I've marked this task as not done yet:";
         String[] messages = new String[]{
                 doneMsg,
-                "\t" + tasks.get(idx)
+                "\t" + tasks.get(index)
         };
-        formatPrint(messages);
+        return messages;
     }
 
     public String getNumberOfTasks() {
@@ -90,47 +70,33 @@ public class TaskList {
         return "Now you have " + totalTasks + taskWord + " in the list.";
     }
 
-    public void addToTasks(Task t) {
+    public String[] addToTasks(Task t) {
         tasks.add(t);
         String[] messages = new String[]{
                 "Got it. I've added this task:",
                 "\t" + t,
                 getNumberOfTasks()
         };
-        formatPrint(messages);
+        return messages;
     }
 
     public int getTaskSize() {
         return tasks.size();
     }
 
-    public void deleteTask(String arguments) throws DukeException {
-        int idx = parseTaskIndex(arguments);
-        idx--;
-        if (!isValidTaskIndex(idx)) {
-            return;
-        }
-        Task t = tasks.get(idx);
-        tasks.remove(idx);
+    public String[] deleteTask(int index) {
+        index--;
+        Task t = tasks.get(index);
+        tasks.remove(index);
         String[] messages = new String[]{
                 "Noted. I've removed this task:",
                 "\t" + t,
                 getNumberOfTasks()
         };
-        formatPrint(messages);
-
+        return messages;
     }
 
-    public boolean isValidTaskIndex(int idx) throws DukeException {
-        int totalTasks = getTaskSize();
-        if (idx < 0 || idx > totalTasks - 1) {
-            throw new DukeException(getInvalidIdxErrorMsg());
-        }
-        return true;
+    public ArrayList<Task> getAllTasks() {
+        return tasks;
     }
-
-    public void saveToFile() {
-        saveTasks(tasks);
-    }
-
 }
