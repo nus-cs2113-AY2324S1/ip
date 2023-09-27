@@ -80,7 +80,7 @@ public class Task {
         } else {
             status = 0;
         }
-        return status + " / " + this.description;
+        return status + " | " + this.description;
     }
 
     /**
