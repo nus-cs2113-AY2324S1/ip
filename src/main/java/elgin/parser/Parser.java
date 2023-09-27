@@ -12,9 +12,16 @@ import java.util.HashMap;
 public class Parser {
 
     private static final int INVALID_INDEX = -1;
-
     public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
+    /**
+     * Parse user input and split into command and arguments.
+     * Returns the Command type based on command and arguments.
+     *
+     * @param command The command input by user
+     * @return Command to be executed.
+     * @throws DukeException If invalid command/arguments is supplied.
+     */
     public Command parseCommand(String command) throws DukeException {
         String[] commandArray = command.split(" ", 2);
         String userCommand = commandArray[0].toLowerCase();
@@ -49,6 +56,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse arguments of Deadline and Event and
+     * store them into hashmap.
+     *
+     * @param command Command type, either Deadline or Event.
+     * @param arguments Arguments to be parsed.
+     * @return Hashmap containing the parsed arguments.
+     * @throws DukeException If invalid arguments is supplied for the respective command.
+     */
     public static HashMap<String, String> parseArguments(String command, String arguments) throws DukeException {
         HashMap<String, String> parsedArgs = new HashMap<>();
         String[] splitArg;
@@ -80,6 +96,15 @@ public class Parser {
         return parsedArgs;
     }
 
+    /**
+     * Parse the task Index from argument if command
+     * is mark/unmark/delete, else return INVALID_INDEX.
+     *
+     * @param arguments Argument containing the index.
+     * @param command Command type.
+     * @return Index of the task to be executed on.
+     * @throws DukeException If index argument does not contain number only.
+     */
     public int parseTaskIndex(String arguments, String command) throws DukeException {
 
         if (!(command.equals("mark") || command.equals("unmark") || command.equals("delete"))) {
@@ -99,6 +124,13 @@ public class Parser {
         return idx;
     }
 
+    /**
+     * Checks if arguments string is empty.
+     *
+     * @param arguments Arguments string
+     * @return True if arguments is not empty, else False.
+     * @throws DukeException If arguments is empty.
+     */
     public static boolean isArguments(String arguments) throws DukeException {
         if (arguments.isEmpty()) {
             throw new DukeException("OOPS! Description/Task number cannot be empty.");
@@ -106,6 +138,13 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Returns LocalDateTime from string format of date time.
+     *
+     * @param input String representation of date time.
+     * @return LocalDateTime of date time.
+     * @throws DukeException If the date time does not specific format (dd/MM/yyyy HHmm).
+     */
     public static LocalDateTime parseDateTime(String input) throws DukeException {
         LocalDateTime parsedDateTime;
         try {
@@ -116,6 +155,14 @@ public class Parser {
         return parsedDateTime;
     }
 
+    /**
+     * Compares two if LocalDateTime and throws exception if
+     * end datetime is before start datetime.
+     *
+     * @param from Starting datetime.
+     * @param to Ending datetime.
+     * @throws DukeException If /to datetime is before /from datetime.
+     */
     public static void isValidFromToDateTime(LocalDateTime from, LocalDateTime to) throws DukeException {
         if (to.isBefore(from)) {
             throw new DukeException("/to datetime cannot be before /from datetime");

@@ -10,12 +10,19 @@ import elgin.ui.Ui;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Entry point of the Task handling bot
+ */
 public class Duke {
 
     private static TaskList tasks;
     private static Ui ui;
     private static Storage storage;
 
+    /**
+     * Constructor for Duke.
+     * Instantiate UI, Storage and TaskList.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
@@ -27,6 +34,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Continuously receive command from user and run it.
+     * Ends when user entered Bye.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         ui.sayGreeting();
@@ -48,6 +59,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the user supplied input arguments
+     */
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.run();
