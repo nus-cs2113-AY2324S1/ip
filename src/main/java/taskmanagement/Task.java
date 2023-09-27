@@ -3,7 +3,7 @@ package taskmanagement;
 public class Task {
     protected String description;
     protected String taskType;
-    protected boolean isDone;
+    public boolean isDone;
 
     // Default constructor so that the class can be used as a superclass
     public Task(){

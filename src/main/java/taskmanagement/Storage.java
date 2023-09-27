@@ -4,13 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TaskListData {
-    private static final String FOLDER_PATH = "../data";
-    private static final String FILE_PATH = "../data/zrantasks.txt";
+public class Storage {
+    private static final String FOLDER_PATH = "./data";
+    private static final String FILE_PATH = "./data/zrantasks.txt";
     public static void init() throws IOException {
         File folder = new File(FOLDER_PATH);
         File data = new File(FILE_PATH);
@@ -52,8 +51,8 @@ public class TaskListData {
             task = new Deadline(description, by, isDone);
             break;
         case "E":
-            String to = taskData[3].trim();
-            String from = taskData[4].trim();
+            String from = taskData[3].trim();
+            String to = taskData[4].trim();
             task = new Event(description, from, to, isDone);
             break;
         default:
@@ -64,11 +63,11 @@ public class TaskListData {
 
 
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, true);
+        FileWriter fw = new FileWriter(FILE_PATH);
         for (Task task : tasks) {
-            String line = task.toString(); // Define a toFileString method in your Task class
+            String line = toString(task);
             fw.write(line);
-            fw.write(System.lineSeparator()); // Use system-specific line separator
+            fw.write(System.lineSeparator());
         }
         fw.close();
 
@@ -78,13 +77,13 @@ public class TaskListData {
         String dataString= "";
         if (task instanceof ToDos){
             ToDos todo = (ToDos) task;
-            dataString = todo.getTaskType() + " | " + task.getStatus();
+            dataString = todo.getTaskType() + " | " + task.getStatus() + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            dataString = deadline.getTaskType() + " | " + deadline.getStatus() + " | " + deadline.getBy();
+            dataString = deadline.getTaskType() + " | " + deadline.getStatus() + " | " +  task.getDescription()+ " | " +deadline.getBy();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            dataString = event.getTaskType() + " | " + event.getStatus() + "|" + event.getFrom() + " | " + event.getTo();
+            dataString = event.getTaskType() + " | " + event.getStatus() + " | " +  task.getDescription()+ " | " + event.getFrom() + " | " + event.getTo();
         }
         return dataString;
     }
