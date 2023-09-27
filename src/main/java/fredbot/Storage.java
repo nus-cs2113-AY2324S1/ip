@@ -78,7 +78,7 @@ public class Storage {
         FileWriter fw = new FileWriter("./data/tasks.txt");
         StringBuilder tasksText = new StringBuilder();
         for (int i = 0; i < Task.getNumTask(); i++) {
-            tasksText.append(tasks.getTask(i).toString()).append(System.lineSeparator());
+            tasksText.append(tasks.getTask(i).toFile()).append(System.lineSeparator());
         }
         fw.write(String.valueOf(tasksText));
         fw.close();

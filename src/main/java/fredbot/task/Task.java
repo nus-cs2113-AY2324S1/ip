@@ -1,6 +1,6 @@
 package fredbot.task;
 
-public class Task {
+public abstract class Task {
     private String taskDesc;
     private boolean isDone;
 
@@ -45,4 +45,6 @@ public class Task {
         }
         return status + this.taskDesc;
     }
+
+    public abstract String toFile();
 }
