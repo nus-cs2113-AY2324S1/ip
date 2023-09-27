@@ -60,11 +60,22 @@
     ____________________________________________________________
 
     ____________________________________________________________
+     Noted. I've removed this task:
+       [E][X] project meeting (from: Mon 2pm to:4pm)
+     Now you have 3 tasks in the list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Error: Exceeded index!
+     Tips: The index 999 has exceeded the range of the list!
+     Try enter a valid index that is not bigger than the length of the list.
+    ____________________________________________________________
+
+    ____________________________________________________________
      Here are the tasks in your list:
      1.[T][ ] borrow book
      2.[D][X] return book (by: Sunday)
-     3.[E][X] project meeting (from: Mon 2pm to:4pm)
-     4.[T][ ] test yes!
+     3.[T][ ] test yes!
     ____________________________________________________________
 
     ____________________________________________________________
