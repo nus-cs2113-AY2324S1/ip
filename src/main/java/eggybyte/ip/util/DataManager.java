@@ -17,19 +17,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class DataManager {
     private static String absolutePath;
-    private static String home = System.getProperty("user.dir");
+    private static String home = System.getProperty("user.home");
 
-    public static void setRelativePath(String relativePath) {
-        String dataFolderPath = home + "/data";
+    public static void setRelativePath(String relativePath) throws IOException {
+        String dataFolderPath = home + "\\AppData\\LocalLow\\EggyByte\\iP\\";
         // Logger.customPrint(dataFolderPath);
-        File folder = new File(dataFolderPath);
-        folder.mkdirs();
+        Files.createDirectories(Paths.get(dataFolderPath));
 
-        DataManager.absolutePath = home + relativePath;
+        absolutePath = dataFolderPath + relativePath;
+        // Logger.customPrint(absolutePath);
     }
 
     public static String readData() throws IOException {
@@ -56,6 +58,7 @@ public class DataManager {
         FileWriter writer = new FileWriter(file);
         writer.write(content);
         writer.close();
+        Logger.showLog("[INFO]Your data has been saved at the path:\n  " + absolutePath, false);
     }
 
     public static <CustomType> CustomType convertFromJson(String json) {

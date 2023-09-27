@@ -33,16 +33,13 @@ public class Logger {
         if (showLine) {
             customPrint("____________________________________________________________");
         }
-
+        customPrint(
+                "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) +
+                        "][" + logLevel + "]");
         String[] lines = content.split("\n");
         for (String line : lines) {
             customPrint(" " + line);
         }
-
-        // customPrint(
-        // "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) +
-        // "][" + logLevel + "]\n"
-        // + content);
         if (showLine) {
             customPrint("____________________________________________________________\n");
         }

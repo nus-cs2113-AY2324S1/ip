@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=Level-7
-set MESSAGE="Save"
+set TAG_NAME=A-Jar
+set MESSAGE="Create a JAR File"
 
 rem create a branch
 git branch branch-%TAG_NAME%
