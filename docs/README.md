@@ -90,6 +90,8 @@ Adds a new `Event` task to the current task list.
       [E][] [TASK NAME] (from: [DAY, MMM dd, yyyy HH AM/PM] to: [DAY, MMM dd, yyyy HH AM/PM])
     Now you have [NUMBER OF TASKS] tasks in the list! UWU
 
+<br/>
+
 ### List Tasks
 Lists all tasks in the current task list.
 
@@ -109,6 +111,8 @@ Lists all tasks in the current task list.
 
     No tasks found! Time to add some OWO
 
+<br/>
+
 ### Mark Task
 Mark a task as done.
 
@@ -125,6 +129,8 @@ Mark a task as done.
 
     Roger that! I have marked the following task as done >w< !
         [T][X] [TASK NAME] OR [D][X] [TASK NAME] (by: [DAY, MMM dd yyyy HH:mm]) OR [E][X] [TASK NAME] (from: [DAY, MMM dd, yyyy HH AM/PM] to: [DAY, MMM dd, yyyy HH AM/PM])
+
+<br/>
 
 ### Unmark Task
 Mark a task as not done.
@@ -143,6 +149,8 @@ Mark a task as not done.
     Roger that! I have unmarked the following task as done >w< !
         [T][] [TASK NAME] OR [D][] [TASK NAME] (by: [DAY, MMM dd yyyy HH:mm]) OR [E][] [TASK NAME] (from: [DAY, MMM dd, yyyy HH AM/PM] to: [DAY, MMM dd, yyyy HH AM/PM])
 
+<br/>
+
 ### Delete Task
 Delete a task from the task list.
 
@@ -160,6 +168,8 @@ Delete a task from the task list.
     Roger that! I have deleted the following task >w< !
         [TASK DETAILS]
     Now you have [NUMBER OF REMAINING TASKS] tasks in the list! UWU
+
+<br/>
 
 ### Search Task
 Search for a task from the task list using either description or timing.
@@ -192,6 +202,8 @@ Search for a task from the task list using either description or timing.
     
     Here are tasks that matched your search:
     No results found :< Check your time format is in dd-MM-yyyy HH:mm?
+
+<br/>
 
 ### Exit Program
 Close the app.
