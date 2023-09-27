@@ -1,8 +1,11 @@
-package task;
+package parser;
 
 import command.*;
 import exceptions.DescriptionFormatException;
 import exceptions.InvalidCommandException;
+import task.Task;
+import task.TaskList;
+import task.TaskType;
 import ui.Ui;
 
 public class Parser {

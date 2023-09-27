@@ -1,5 +1,5 @@
 import command.Command;
-import task.Parser;
+import parser.Parser;
 import task.TaskList;
 import storage.Storage;
 import ui.Ui;

@@ -1,7 +1,7 @@
 package storage;
 
 // Inspired by TaskS
-import task.Parser;
+import parser.Parser;
 import task.TaskList;
 import ui.Ui;
 
