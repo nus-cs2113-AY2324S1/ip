@@ -2,16 +2,18 @@ package elgin.task;
 
 import elgin.exception.DukeException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static elgin.parser.Parser.parseArguments;
+import static elgin.parser.Parser.*;
 
 
 public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
+        this.tasks = new ArrayList<>();
     }
 
     public TaskList(ArrayList<Task> tasks) {
@@ -37,7 +39,7 @@ public class TaskList {
     public String[] addDeadline(String command, String arguments) throws DukeException {
         HashMap<String, String> parsedArgs = parseArguments(command, arguments);
         String description = parsedArgs.get("description");
-        String by = parsedArgs.get("by");
+        LocalDateTime by = parseDateTime(parsedArgs.get("by"));
         Deadline task = new Deadline(description, by);
         return addToTasks(task);
     }
@@ -45,8 +47,9 @@ public class TaskList {
     public String[] addEvent(String command, String arguments) throws DukeException {
         HashMap<String, String> parsedArgs = parseArguments(command, arguments);
         String description = parsedArgs.get("description");
-        String from = parsedArgs.get("from");
-        String to = parsedArgs.get("to");
+        LocalDateTime from = parseDateTime(parsedArgs.get("from"));
+        LocalDateTime to = parseDateTime(parsedArgs.get("to"));
+        isValidFromToDateTime(from, to);
         Event task = new Event(description, from, to);
         return addToTasks(task);
     }
