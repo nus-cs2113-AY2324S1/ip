@@ -152,6 +152,23 @@ public class TaskList {
     }
 
     /**
+     * Handler to find a task containing a specific keyword.
+     *
+     * @param keyword used to locate tasks containing keyword in list.
+     * @return formatted list of tasks containing the keyword.
+     */
+    public String handleFindTask(String keyword) {
+        String result = "";
+        for (int i = 0; i < taskItems.size(); i++) {
+            if (taskItems.get(i).getTask().contains(keyword)) {
+                result += String.format("%d. %s\n\t", i+1, taskItems.get(i).getTask()) ;
+            }
+        }
+
+        return result.trim();
+    }
+
+    /**
      * Handler to get list of tasks when list command is entered.
      *
      * @return String containing a formatted list of all tasks.

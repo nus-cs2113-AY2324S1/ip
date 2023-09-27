@@ -83,6 +83,9 @@ public class Duke {
             case "event":
                 result = tasks.handleCreateEvent(arguments);
                 break;
+            case "find":
+                result = tasks.handleFindTask(arguments);
+                break;
             case "delete":
                 result = tasks.handleDeleteTask(arguments);
                 break;
