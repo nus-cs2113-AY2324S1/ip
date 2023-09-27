@@ -2,9 +2,13 @@ package spaceman.parser;
 
 import static spaceman.ui.Messages.MESSAGE_EMPTY_TODO;
 import static spaceman.ui.Messages.MESSAGE_EMPTY_DEADLINE;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_BY;
 import static spaceman.ui.Messages.MESSAGE_EMPTY_EVENT;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_FROM;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_TO;
 import static spaceman.ui.Messages.MESSAGE_INVALID_DATE;
 import static spaceman.ui.Messages.MESSAGE_INVALID_INDEX;
+
 
 import static spaceman.commands.ListOfCommands.COMMAND_BYE;
 import static spaceman.commands.ListOfCommands.COMMAND_LIST;
@@ -149,6 +153,9 @@ public class Parser {
             throw new IncompleteDescriptionException(MESSAGE_EMPTY_DEADLINE);
         } else {
             String[] descriptions = arguments.split("/by");
+            if (descriptions.length < 2) {
+                throw new IncompleteDescriptionException(MESSAGE_EMPTY_BY);
+            }
             String description = descriptions[0].trim();
             String date = descriptions[1].trim();
             String format = dateTimePatternValidation(date);
@@ -171,7 +178,13 @@ public class Parser {
         } else {
             String[] descriptions = arguments.split("/from");
             String description = descriptions[0].trim();
+            if (descriptions.length < 2) {
+                throw new IncompleteDescriptionException(MESSAGE_EMPTY_FROM);
+            }
             String[] eventTime = descriptions[1].split("/to");
+            if (eventTime.length < 2) {
+                throw new IncompleteDescriptionException(MESSAGE_EMPTY_TO);
+            }
             String eventStart = eventTime[0].trim();
             String eventEnd = eventTime[1].trim();
             String format = dateTimePatternValidation(eventStart);
@@ -190,7 +203,7 @@ public class Parser {
      */
     public static int parseTaskIndex(String arguments) throws IndexOutOfBoundsException {
         int taskIndex = Integer.parseInt(arguments);
-        if (taskIndex > Task.getTaskCount()) {
+        if (taskIndex > Task.getTaskCount() || taskIndex <= 0) {
             throw new IndexOutOfBoundsException(MESSAGE_INVALID_INDEX);
         }
         return taskIndex;

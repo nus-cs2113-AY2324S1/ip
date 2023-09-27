@@ -2,10 +2,8 @@ package spaceman;
 
 import spaceman.commands.Command;
 import spaceman.commands.ExitCommand;
-import spaceman.data.exception.IncompleteDescriptionException;
-import spaceman.data.exception.InvalidActionException;
 import spaceman.data.TaskList;
-import spaceman.data.exception.InvalidDateFormatException;
+import spaceman.data.exception.SpacemanException;
 import spaceman.ui.Ui;
 import spaceman.storage.Storage;
 import spaceman.parser.Parser;
@@ -59,18 +57,14 @@ public class Spaceman {
                 command.execute(tasks);
                 isExit = ExitCommand.isExit(command);
                 storage.writeToFile(tasks);
-            } catch (InvalidActionException | IncompleteDescriptionException | InvalidDateFormatException e) {
-                Ui.showLine();
-                System.out.println(e.getMessage());
-                Ui.showLine();
+            } catch (SpacemanException e) {
+                ui.showException(e);
             } catch (IOException e) {
                 Ui.showLine();
                 System.out.println("Something went wrong: " + e.getMessage());
                 Ui.showLine();
             } catch (IndexOutOfBoundsException | ParseException e) {
-                Ui.showLine();
-                System.out.println(e.getMessage());
-                Ui.showLine();
+                ui.showException(e);
             }
         }
     }

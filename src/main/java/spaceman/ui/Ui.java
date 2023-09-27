@@ -53,6 +53,12 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public void showException(Exception e) {
+        System.out.println(LINE);
+        System.out.println(e.getMessage());
+        System.out.println(LINE);
+    }
+
     /**
      * Shows current number of tasks.
      */
@@ -74,7 +80,7 @@ public class Ui {
 
     /**
      * Shows message after a task is successfully removed.
-     * @param  task being removed
+     * @param task task being removed
      */
     public static void showTaskRemovedMessage(Task task) {
         System.out.println(LINE);
