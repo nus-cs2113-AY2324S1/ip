@@ -1,5 +1,6 @@
 package elgin.storage;
 
+import elgin.exception.DukeException;
 import elgin.task.Deadline;
 import elgin.task.Event;
 import elgin.task.Task;
@@ -9,9 +10,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
+
+import static elgin.parser.Parser.isValidFromToDateTime;
+import static elgin.parser.Parser.parseDateTime;
 
 public class Storage {
 
@@ -44,7 +49,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> getSavedTasks() throws IOException {
+    public ArrayList<Task> getSavedTasks() throws IOException, DukeException {
         checkAndCreateDirectory(TASK_FILE_DIRECTORY_PATH);
         checkAndCreateFile(TASK_FILE_PATH);
 
@@ -66,7 +71,7 @@ public class Storage {
         return savedTasks;
     }
 
-    public Task parseTask(String taskLine) {
+    public Task parseTask(String taskLine) throws DukeException {
         String[] taskInfo = taskLine.split(" \\| ");
         switch (taskInfo[0]) {
         case "T":
@@ -78,12 +83,15 @@ public class Storage {
             if (taskInfo.length != 4) {
                 return null;
             }
-            return new Deadline(taskInfo[2], taskInfo[3], taskInfo[1].equals(DONE_VALUE));
+            return new Deadline(taskInfo[2], parseDateTime(taskInfo[3]), taskInfo[1].equals(DONE_VALUE));
         case "E":
             if (taskInfo.length != 5) {
                 return null;
             }
-            return new Event(taskInfo[2], taskInfo[3], taskInfo[4], taskInfo[1].equals(DONE_VALUE));
+            LocalDateTime from = parseDateTime(taskInfo[3]);
+            LocalDateTime to = parseDateTime(taskInfo[4]);
+            isValidFromToDateTime(from, to);
+            return new Event(taskInfo[2], from, to, taskInfo[1].equals(DONE_VALUE));
         default:
             return null;
         }

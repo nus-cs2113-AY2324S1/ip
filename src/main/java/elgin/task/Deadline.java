@@ -1,15 +1,20 @@
 package elgin.task;
 
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String by) {
+import static elgin.parser.Parser.DATETIME_FORMATTER;
+
+public class Deadline extends Task {
+    protected LocalDateTime by;
+
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         type = "D";
         this.by = by;
     }
 
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, LocalDateTime by, boolean isDone) {
         super(description);
         type = "D";
         this.by = by;
@@ -17,11 +22,16 @@ public class Deadline extends Task {
     }
 
     public String getBy() {
-        return by;
+        return by.format(DATETIME_FORMATTER);
+    }
+
+    public String getByAs12HourClock() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh.mma");
+        return by.format(formatter);
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + getBy() + ")";
+        return super.toString() + " (by: " + getByAs12HourClock() + ")";
     }
 }

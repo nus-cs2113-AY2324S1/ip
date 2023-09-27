@@ -3,6 +3,9 @@ package elgin.parser;
 import elgin.command.*;
 import elgin.exception.DukeException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
 
@@ -10,10 +13,11 @@ public class Parser {
 
     private static final int INVALID_INDEX = -1;
 
+    public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
     public Command parseCommand(String command) throws DukeException {
         String[] commandArray = command.split(" ", 2);
-        commandArray[0] = commandArray[0].toLowerCase();
-        String userCommand = commandArray[0];
+        String userCommand = commandArray[0].toLowerCase();
         String arguments = "";
         int index = INVALID_INDEX;
         if (commandArray.length > 1) {
@@ -100,4 +104,19 @@ public class Parser {
         return true;
     }
 
+    public static LocalDateTime parseDateTime(String input) throws DukeException {
+        LocalDateTime parsedDateTime;
+        try {
+            parsedDateTime = LocalDateTime.parse(input, DATETIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Error parsing date time.");
+        }
+        return parsedDateTime;
+    }
+
+    public static void isValidFromToDateTime(LocalDateTime from, LocalDateTime to) throws DukeException {
+        if (to.isBefore(from)) {
+            throw new DukeException("/to datetime cannot be before /from datetime");
+        }
+    }
 }

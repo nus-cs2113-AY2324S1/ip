@@ -21,7 +21,7 @@ public class Duke {
         storage = new Storage();
         try {
             tasks = new TaskList(storage.getSavedTasks());
-        } catch (IOException e) {
+        } catch (IOException | DukeException e) {
             ui.formatPrint(e.getMessage());
             tasks = new TaskList();
         }
