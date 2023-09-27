@@ -44,7 +44,7 @@ public abstract class LoadTasks {
             inputFile.close();
         } catch (IOException e) {
             throw new RCException(MESSAGE_FILE_NOT_FOUND);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | RCException e) {
             throw new RCException(MESSAGE_LOAD_ERROR);
         }
 
