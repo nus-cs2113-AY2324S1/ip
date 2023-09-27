@@ -9,7 +9,6 @@ import static spaceman.ui.Messages.MESSAGE_EMPTY_TO;
 import static spaceman.ui.Messages.MESSAGE_INVALID_DATE;
 import static spaceman.ui.Messages.MESSAGE_INVALID_INDEX;
 
-
 import static spaceman.commands.ListOfCommands.COMMAND_BYE;
 import static spaceman.commands.ListOfCommands.COMMAND_LIST;
 import static spaceman.commands.ListOfCommands.COMMAND_MARK;
@@ -39,9 +38,12 @@ import spaceman.data.task.Task;
 import spaceman.data.task.Todo;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 
 /**
  * Parses user input.
@@ -187,11 +189,12 @@ public class Parser {
             }
             String eventStart = eventTime[0].trim();
             String eventEnd = eventTime[1].trim();
-            String format = dateTimePatternValidation(eventStart);
-            DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern(format);
-            LocalDateTime formattedStart = parseDate(eventStart, format, formatterStart);
-            DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
-            LocalTime formattedEnd = LocalTime.parse(eventEnd, formatterEnd);
+            String startFormat = dateTimePatternValidation(eventStart);
+            String endFormat = dateTimePatternValidation(eventEnd);
+            DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern(startFormat);
+            DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern(endFormat);
+            LocalDateTime formattedStart = parseDate(eventStart, startFormat, formatterStart);
+            LocalDateTime formattedEnd = parseDate(eventEnd, endFormat, formatterEnd);
             return new Event(description, formattedStart, formattedEnd);
         }
     }

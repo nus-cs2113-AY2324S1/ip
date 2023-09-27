@@ -62,7 +62,7 @@ public class Storage {
                 break;
             case 'E':
                 LocalDateTime formattedStart= LocalDateTime.parse(descriptions[3].trim());
-                LocalTime formattedEnd = LocalTime.parse(descriptions[4].trim());
+                LocalDateTime formattedEnd = LocalDateTime.parse(descriptions[4].trim());
                 tasks.add(new Event(descriptions[2].trim(), formattedStart, formattedEnd, isMarked));
                 break;
             default:
