@@ -6,10 +6,12 @@ import java.util.ArrayList;
 
 import static kenergeticbot.command.BooleanChecks.checkTextForMark;
 import static kenergeticbot.command.BooleanChecks.checkTextForUnmark;
+import static kenergeticbot.command.BooleanChecks.checkTextForDelete;
 import static kenergeticbot.command.CommandList.add;
 import static kenergeticbot.command.CommandList.list;
 import static kenergeticbot.command.CommandList.mark;
 import static kenergeticbot.command.CommandList.unmark;
+import static kenergeticbot.command.CommandList.delete;
 import static kenergeticbot.command.CommonMessages.printExitMessage;
 import static kenergeticbot.command.CommonMessages.printGreetingMessage;
 
