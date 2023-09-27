@@ -1,0 +1,7 @@
+T | 1 | unmark asd
+T | 0 | hi
+T | 1 | bye
+D | 0 | hi  | friday
+T | 0 | hi
+D | 0 | hi  | friday
+T | 0 | hi

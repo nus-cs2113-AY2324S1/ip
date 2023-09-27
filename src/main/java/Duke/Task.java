@@ -3,7 +3,6 @@ package Duke;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    public static int listCount = 0;
 
     public Task(String description) {
         this.description = description;
@@ -31,4 +30,5 @@ public abstract class Task {
         return("[" + getStatusIcon() + "] " + description);
     }
     abstract public String getEventTime();
+
 }
