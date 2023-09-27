@@ -4,6 +4,7 @@ import elgin.exception.DukeException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static elgin.parser.Parser.*;
@@ -29,6 +30,26 @@ public class TaskList {
             allTasksDescription[i + 1] = (i + 1) + "." + tasks.get(i);
         }
         return allTasksDescription;
+    }
+
+    public String[] findTasks(String keyword) {
+        int totalTasks = getTaskSize();
+        String[] allMatchingTasks = new String[totalTasks + 1];
+
+        int counter = 1;
+        for (int i = 0; i < totalTasks; i++) {
+            String taskDescription = tasks.get(i).getDescription().toLowerCase();
+            if (taskDescription.contains(keyword)) {
+                allMatchingTasks[counter] = (counter) + "." + tasks.get(i);
+                counter++;
+            }
+        }
+        if (counter != 1) {
+            allMatchingTasks[0] = "Here are the matching tasks in your list:";
+        } else {
+            allMatchingTasks[0] = "Sorry no match found.";
+        }
+        return Arrays.copyOf(allMatchingTasks, counter);
     }
 
     public String[] addTodo(String arguments) throws DukeException {

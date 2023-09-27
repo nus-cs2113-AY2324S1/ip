@@ -36,6 +36,8 @@ public class Parser {
             return new UnmarkCommand(index);
         case "delete":
             return new DeleteCommand(index);
+        case "find":
+            return new FindCommand(arguments);
         case "todo":
             // fallthrough
         case "deadline":
