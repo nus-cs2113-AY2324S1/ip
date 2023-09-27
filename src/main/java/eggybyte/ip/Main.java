@@ -22,10 +22,7 @@ public class Main {
 
     public static void main(String[] args) {
         initialize();
-        // runCommandLoopUntilByeCommand();
-
-        Logger.showLog(" Bye. Hope to see you again soon!", false);
-        Logger.showLog("____________________________________________________________", false);
+        runCommandLoopUntilByeCommand();
     }
 
     /**

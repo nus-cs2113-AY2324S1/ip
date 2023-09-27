@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=Level-0
-set MESSAGE="Rename, Greet, Exit"
+set TAG_NAME=Level-1
+set MESSAGE="Echo"
 
 rem create a branch
 git branch branch-%TAG_NAME%

@@ -24,6 +24,6 @@ public class RepeatCommand extends Command {
 
     @Override
     public CommandResult getCommandResult(String content) {
-        return new CommandResult(input);
+        return new CommandResult(" " +input);
     }
 }

@@ -23,6 +23,6 @@ public class ByeCommand extends Command {
 
     @Override
     public CommandResult getCommandResult(String content) {
-        return new CommandResult("Bye. Hope to see you again soon!");
+        return new CommandResult(" Bye. Hope to see you again soon!");
     }
 }
