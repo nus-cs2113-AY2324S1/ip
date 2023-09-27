@@ -40,6 +40,7 @@ public abstract class Storage {
         try {
             generateFile(list);
         } catch (IOException e) {
+            System.out.println("Error with reading data.txt file.");
             Ui.manualDeleteGuide();
             throw new Exception();
         }
@@ -61,28 +62,24 @@ public abstract class Storage {
             readFile(list, s);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NeoTimeException | NeoTaskException e) {
             Ui.dataErrorMessage();
-            generateNewFile(f);
+            generateNewFile(list);
         }
     }
 
-    private static void generateNewFile(File f) throws Exception {
+    private static void generateNewFile(ArrayList<Task> list) throws Exception {
         String input = Ui.readInput();
         while (!input.equalsIgnoreCase("N")) {
             if (input.trim().equalsIgnoreCase("Y")) {
-                if (f.delete()) {
-                    System.out.println("Deleting existing data.txt file...");
-                }
-                if (f.createNewFile()) {
-                    System.out.println("Creating new data.txt file...");
-                    break;
-                }
+                writeToFile(list);
+                System.out.println("Creating new data.txt file...");
+                break;
             } else {
                 System.out.println("OOPS!!! Unable to read line. Please type 'Y' for yes or 'N' for no.");
             }
             input = Ui.readInput();
         }
         if (input.trim().equalsIgnoreCase("N")) {
-            System.out.println("Please place an appropriate data.txt file and restart the program.");
+            Ui.manualDeleteGuide();
             throw new Exception();
         }
     }
@@ -149,7 +146,7 @@ public abstract class Storage {
         try {
             writeToFile(list);
         } catch (IOException e) {
-            System.out.println("Error with data.txt file.");
+            System.out.println("Error with updating data.txt file.");
         }
     }
     private static void writeToFile(ArrayList<Task> list) throws IOException {

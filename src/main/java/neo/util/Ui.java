@@ -37,7 +37,6 @@ public abstract class Ui {
      * Prints instructions to manually delete or replace data.txt file.
      */
     public static void manualDeleteGuide() {
-        System.out.println("Error in existing data.txt file.");
         System.out.println("Please delete or replace the existing data.txt file manually.");
         System.out.println("Navigate to the folder where ip.jar is located.");
         System.out.println("data.txt file can be found inside the data folder. ie. data/data.txt");
