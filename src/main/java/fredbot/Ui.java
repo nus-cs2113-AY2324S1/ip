@@ -16,6 +16,7 @@ public class Ui {
     public static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:\n";
     public static final String FAREWELL = "     Bye. Hope to see you again soon!";
     public static final String TASK_FOUND_MESSAGE = "Here are the matching tasks in your list:\n";
+    public static final String ADD_TASK_MESSAGE = "    You have successfully added the task:\n";
 
     private Scanner scanner;
 
@@ -45,8 +46,8 @@ public class Ui {
      * @param tasks an object of the tasklist class representing the current tasklist
      */
     public void printAddTask(TaskList tasks) {
-        printMessage(INDENT + INDENT + tasks.getTask(Task.getNumTask() - 1).toString() + System.lineSeparator() +
-                INDENT + "Now you have " + (Task.getNumTask()) + " tasks in the list\n");
+        printMessage(ADD_TASK_MESSAGE + INDENT + INDENT + tasks.getTask(Task.getNumTask() - 1).toString() +
+                System.lineSeparator() + INDENT + "Now you have " + (Task.getNumTask()) + " tasks in the list\n");
     }
 
     /**
