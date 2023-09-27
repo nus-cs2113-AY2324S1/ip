@@ -36,7 +36,7 @@ public class TaskList {
      * @return formatted message declaring that the task has been marked as complete.
      */
     public String markItem(String line) {
-        int markIdx = Integer.parseInt(line);
+        int markIdx = Integer.parseInt(line) - 1;
         taskItems.get(markIdx).setIsDone(true);
 
         return String.format("Nice! I've marked this task as done: \n"
@@ -51,7 +51,7 @@ public class TaskList {
      * @return formatted message declaring that the task has been marked as incomplete.
      */
     public String unmarkItem(String line) {
-        int markIdx = Integer.parseInt(line);
+        int markIdx = Integer.parseInt(line) - 1;
         taskItems.get(markIdx).setIsDone(false);
 
         return String.format("Nice! I've marked this task as undone: \n" +
@@ -143,7 +143,7 @@ public class TaskList {
      * @return message confirming task has been deleted.
      */
     public String handleDeleteTask(String line) {
-        int deleteIdx = Integer.parseInt(line);
+        int deleteIdx = Integer.parseInt(line) - 1;
 
         String deleteMessage = taskItems.get(deleteIdx).getTaskDeleted(taskItems.size()-1);
         taskItems.remove(deleteIdx);
