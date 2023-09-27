@@ -112,7 +112,8 @@ public class TaskList {
                     eventDetails = input.split("event")[1].strip().split("/");
                 } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
                     System.out.println("    Ohnus! You did not use give event a name!");
-                    System.out.println("    Pwease format your input as event [task name] /from [start time] /to [end time]!");
+                    System.out.println("    Pwease format your input as event [task name] /from [start time] " +
+                                            "/to [end time]!");
                     return;
                 }
                 try {
@@ -127,7 +128,8 @@ public class TaskList {
                     eventStartDateTime = LocalDateTime.parse(eventStartTiming, inputDateTimeFormatter);
                 } catch (IndexOutOfBoundsException incompleteCommand) {
                     System.out.println("    Ohnus! You did not use '/from' to signal start time!");
-                    System.out.println("    Pwease format your input as event [task name] /from [start time] /to [end time]!");
+                    System.out.println("    Pwease format your input as event [task name] /from [start time] " +
+                                            "/to [end time]!");
                     return;
                 } catch (DateTimeParseException incorrectTimeFormat){
                     System.out.println("    Ohnus! You did not use give a correct date time for start time!");
@@ -138,11 +140,13 @@ public class TaskList {
                     switch (exceptionMessage) {
                         case "Incomplete Event Description":
                             System.out.println("    Ohnus! You did not use give event a name!");
-                            System.out.println("    Pwease format your input as event [task name] /from [start time] /to [end time]!");
+                            System.out.println("    Pwease format your input as event [task name] " +
+                                                    "/from [start time] /to [end time]!");
                             return;
                         case "Incomplete Start Time":
                             System.out.println("    Ohnus! You did not use give event a start time!");
-                            System.out.println("    Pwease format your input as event [task name] /from [start time] /to [end time]!");
+                            System.out.println("    Pwease format your input as event [task name] " +
+                                                    "/from [start time] /to [end time]!");
                             return;
                         default:
                             return;
@@ -165,7 +169,8 @@ public class TaskList {
                     }
                 } catch (IndexOutOfBoundsException incompleteCommand) {
                     System.out.println("    Ohnus! You did not use '/to' to signal end time!");
-                    System.out.println("    Pwease format your input as event [task name] /from [start time] /to [end time]!");
+                    System.out.println("    Pwease format your input as event [task name] " +
+                                            "/from [start time] /to [end time]!");
                     return;
                 } catch (DateTimeParseException incorrectTimeFormat){
                     System.out.println("    Ohnus! You did not use give a correct date time for end time!");
@@ -179,7 +184,8 @@ public class TaskList {
                             return;
                         case "Incomplete Start Time":
                             System.out.println("    Ohnus! You did not use give event a start time!");
-                            System.out.println("    Pwease format your input as event [task name] /from [start time] /to [end time]!");
+                            System.out.println("    Pwease format your input as event [task name] " +
+                                                    "/from [start time] /to [end time]!");
                             return;
                         default:
                             return;
@@ -329,7 +335,8 @@ public class TaskList {
                     return allTasks.get(index-1).getTaskDescription();
                 case DEADLINE:
                 case EVENT:
-                    return allTasks.get(index-1).getTaskDescription() + " " + allTasks.get(index-1).getTaskTiming(false);
+                    return allTasks.get(index-1).getTaskDescription() + " " +
+                            allTasks.get(index-1).getTaskTiming(false);
                 default:
                     return "Task Not Found";
             }
@@ -399,7 +406,8 @@ public class TaskList {
             searchInfo = searchDetails[1].strip().split(" ");
         } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
             System.out.println("    Ohnus! You did not indicate if you are searching by description or time :<");
-            System.out.println("    Pwease format your input as find /description [description] or find /time [time]!");
+            System.out.println("    Pwease format your input as find /description [description] " +
+                                    "or find /time [time]!");
             return;
         }
         try{
@@ -417,7 +425,8 @@ public class TaskList {
             }
         } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
             System.out.println("    Ohnus! You did not indicate the keywords you are searching by :<");
-            System.out.println("    Pwease format your input as find /description [description] or find /time [time]!");
+            System.out.println("    Pwease format your input as find /description [description] " +
+                                    "or find /time [time]!");
         }
 
     }

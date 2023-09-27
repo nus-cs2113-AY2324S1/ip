@@ -61,25 +61,29 @@ public class Storage {
                     String taskDescription = taskSubStrings[2].strip();
 
                     switch (taskType) {
-                        case "T": tasks.addToTaskList("todo " + taskDescription, Task.TaskType.TODO, false);
+                        case "T": tasks.addToTaskList("todo " + taskDescription,
+                                Task.TaskType.TODO, false);
                             if (taskDoneStatus.equals("done")) {
                                 tasks.markTaskAsDone(taskIndex, false);
                             }
                             break;
                         case "D":
-                            String dueTime = taskSubStrings[3].replace("(by:", "").replace(")", "").strip();
-                            tasks.addToTaskList("deadline " + taskDescription + " /by " + dueTime, Task.TaskType.DEADLINE, false);
+                            String dueTime = taskSubStrings[3].replace("(by:", "")
+                                    .replace(")", "").strip();
+                            tasks.addToTaskList("deadline " + taskDescription + " /by " + dueTime,
+                                    Task.TaskType.DEADLINE, false);
                             if (taskDoneStatus.equals("done")) {
                                 tasks.markTaskAsDone(taskIndex, false);
                             }
 
                             break;
                         case "E":
-                            String[] taskTimings = taskSubStrings[3].strip().split("\\(from:")[1].split("to:");
+                            String[] taskTimings = taskSubStrings[3].strip().split("\\(from:")[1]
+                                    .split("to:");
                             String startTime = taskTimings[0];
                             String endTime = taskTimings[1].split("\\)")[0];
-                            tasks.addToTaskList("event " + taskDescription + " /from " + startTime + " /to "
-                                    + endTime, Task.TaskType.EVENT, false);
+                            tasks.addToTaskList("event " + taskDescription + " /from " + startTime
+                                    + " /to " + endTime, Task.TaskType.EVENT, false);
                             if (taskDoneStatus.equals("done")) {
                                 tasks.markTaskAsDone(taskIndex, false);
                             }
@@ -121,7 +125,8 @@ public class Storage {
      */
     public void updateData(TaskList tasks){
         try{
-            writeToFile(dataFile.getPath(), "Latest Tasks" + System.lineSeparator(), false); //flush all current records
+            //flush all current records
+            writeToFile(dataFile.getPath(), "Latest Tasks" + System.lineSeparator(), false);
             ArrayList<Task> allTasks = tasks.getAllTasks();
             for (Task task: allTasks) {
                 switch (task.getTaskType()) {
@@ -137,19 +142,23 @@ public class Storage {
                     case DEADLINE:
                         if (task.taskIsDone()) {
                             writeToFile(dataFile.getPath(), "D | done |  " + task.getTaskDescription()
-                                    + " | "  + task.getTaskTiming(true) + System.lineSeparator(), true);
+                                    + " | "  + task.getTaskTiming(true)
+                                    + System.lineSeparator(), true);
                         } else {
                             writeToFile(dataFile.getPath(), "D | undone |  " + task.getTaskDescription()
-                                    + " | "  + task.getTaskTiming(true) + System.lineSeparator(), true);
+                                    + " | "  + task.getTaskTiming(true)
+                                    + System.lineSeparator(), true);
                         }
                         break;
                     case EVENT:
                         if (task.taskIsDone()) {
                             writeToFile(dataFile.getPath(), "E | done |  " + task.getTaskDescription()
-                                    + " | "  + task.getTaskTiming(true) + System.lineSeparator(), true);
+                                    + " | "  + task.getTaskTiming(true)
+                                    + System.lineSeparator(), true);
                         } else {
                             writeToFile(dataFile.getPath(), "E | undone |  " + task.getTaskDescription()
-                                    + " | "  + task.getTaskTiming(true) + System.lineSeparator(), true);
+                                    + " | "  + task.getTaskTiming(true)
+                                    + System.lineSeparator(), true);
                         }
                         break;
                 }
