@@ -7,16 +7,9 @@ RC chatbot is a desktop app for **managing tasks, optimised for use via a Comman
 1. Ensure you have `Java 11` or above installed on your computer.
 2. Download the latest `RC.jar` from [here](https://github.com/ryan1604/ip/releases/download/v0.2/RC.jar).
 3. Copy the file to the folder you want to use as the home folder for your chatbot.
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar RC.jar` command to run the chatbot. A message similar to the one below should appear on your terminal if you are running the chatbot for the first time.
-
-```
-    Directory doesn't exist. Creating new directory...
-    File not found. Creating new file...
-    Hello! I'm RC
-    What can I do for you?
-```
-
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar RC.jar` command to run the chatbot.
 5. Refer to the Features below for details of each command.
+
 
 ## Features
 **Notes about the command format:**
