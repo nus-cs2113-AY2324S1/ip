@@ -19,6 +19,7 @@ On launch, you should see this interface:
     今日は! I am Rene Kokoro!
     Let me record your tasks!! *blushes*
 
+    Task-list created: tasklist.txt
     You currently have no saved tasks uWu
     ____________________________________________________________
 
