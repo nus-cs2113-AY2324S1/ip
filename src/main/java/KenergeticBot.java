@@ -1,21 +1,27 @@
 import kenergeticbot.task.Task;
 import kenergeticbot.exceptionhandler.KenergeticBotException;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import static kenergeticbot.command.BooleanChecks.*;
-import static kenergeticbot.command.CommandList.*;
-import static kenergeticbot.command.CommonMessages.*;
+import static kenergeticbot.command.BooleanChecks.checkTextForMark;
+import static kenergeticbot.command.BooleanChecks.checkTextForUnmark;
+import static kenergeticbot.command.CommandList.add;
+import static kenergeticbot.command.CommandList.list;
+import static kenergeticbot.command.CommandList.mark;
+import static kenergeticbot.command.CommandList.unmark;
+import static kenergeticbot.command.CommonMessages.printExitMessage;
+import static kenergeticbot.command.CommonMessages.printGreetingMessage;
 
 import kenergeticbot.fileaccess.Save;
 
 public class KenergeticBot extends Save {
 
+
     public static void main(String[] args) {
         printGreetingMessage();
         ArrayList<Task> taskList = new ArrayList<Task>();
+        loadPreviousList(taskList);
         botDialogue(taskList);
     }
 
@@ -43,10 +49,7 @@ public class KenergeticBot extends Save {
             }
             item = input.nextLine();
         }
-        Save.checkFileExist();
-        for (Task task : taskList) {
-                Save.writeToFile(task.printTaskToSave());
-        }
+        saveList(taskList);
         printExitMessage();
     }
 }

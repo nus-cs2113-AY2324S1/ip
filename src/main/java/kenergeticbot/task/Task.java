@@ -32,6 +32,6 @@ public class Task {
 
         public String printTaskToSave() {
             int mark = isDone ? 1 : 0;
-            return  " | " + mark + " | " + description;
+            return  " | " + mark + " | " + description + "\n";
         }
 }
