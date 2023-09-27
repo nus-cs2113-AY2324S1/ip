@@ -14,7 +14,7 @@ public class Find extends RCCommand {
     private static final String MESSAGE_EMPTY = "\tOOPS!!! Please ensure the search keyword isn't empty.";
 
     public Find(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.toLowerCase();
     }
 
     /**
@@ -34,7 +34,7 @@ public class Find extends RCCommand {
         ui.showMessage(MESSAGE_FIND_TASKS);
         for (Task task : taskList.tasks) {
             String taskDesc = task.toString();
-            if (taskDesc.contains(keyword)) {
+            if (taskDesc.toLowerCase().contains(keyword)) {
                 ui.showMessage("\t" + count + "." + taskDesc);
                 count++;
             }
