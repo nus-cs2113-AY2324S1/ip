@@ -1,14 +1,14 @@
-package elgin.utils;
+package elgin.ui;
 
 import elgin.exception.DukeException;
-import elgin.task.TaskManager;
+import elgin.task.TaskList;
 
-import static elgin.utils.ExceptionMessage.getUnknownCmdErrorMsg;
-import static elgin.utils.FormatPrinter.sayBye;
-import static elgin.utils.Parser.parseCommand;
+import static elgin.ui.Ui.getUnknownCmdErrorMsg;
+import static elgin.ui.Ui.sayBye;
+import static elgin.parser.Parser.parseCommand;
 
 public class CommandHandler {
-    public static boolean handleCommand(TaskManager tasks, String command) throws DukeException {
+    public static boolean handleCommand(TaskList tasks, String command) throws DukeException {
         String[] parsedCommand = parseCommand(command);
         String userCommand = parsedCommand[0];
         String arguments = "";

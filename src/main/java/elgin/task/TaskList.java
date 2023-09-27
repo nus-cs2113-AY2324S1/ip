@@ -5,20 +5,20 @@ import elgin.exception.DukeException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static elgin.utils.ExceptionMessage.getEmptyDescErrorMsg;
-import static elgin.utils.ExceptionMessage.getInvalidIdxErrorMsg;
-import static elgin.utils.FormatPrinter.formatPrint;
-import static elgin.utils.Parser.parseArguments;
-import static elgin.utils.Parser.parseTaskIndex;
-import static elgin.utils.Parser.isArguments;
-import static elgin.utils.Store.getSavedTasks;
-import static elgin.utils.Store.saveTasks;
+import static elgin.ui.Ui.getEmptyDescErrorMsg;
+import static elgin.ui.Ui.getInvalidIdxErrorMsg;
+import static elgin.ui.Ui.formatPrint;
+import static elgin.parser.Parser.parseArguments;
+import static elgin.parser.Parser.parseTaskIndex;
+import static elgin.parser.Parser.isArguments;
+import static elgin.storage.Storage.getSavedTasks;
+import static elgin.storage.Storage.saveTasks;
 
 
-public class TaskManager {
+public class TaskList {
     private ArrayList<Task> tasks;
 
-    public TaskManager() {
+    public TaskList() {
         this.tasks = getSavedTasks();
     }
 

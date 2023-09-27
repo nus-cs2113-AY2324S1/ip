@@ -1,4 +1,4 @@
-package elgin.utils;
+package elgin.storage;
 
 import elgin.task.Deadline;
 import elgin.task.Event;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 
-public class Store {
+public class Storage {
 
     private static final String DONE_VALUE = "1";
     private static final String NEW_LINE = System.getProperty("line.separator");

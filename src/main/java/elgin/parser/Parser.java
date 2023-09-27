@@ -1,10 +1,10 @@
-package elgin.utils;
+package elgin.parser;
 
 import elgin.exception.DukeException;
 
 import java.util.HashMap;
 
-import static elgin.utils.ExceptionMessage.*;
+import static elgin.ui.Ui.*;
 
 
 public class Parser {
