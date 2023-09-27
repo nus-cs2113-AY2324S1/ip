@@ -26,11 +26,20 @@ public class Storage {
     private final String TASK_FILE_DIRECTORY_PATH;
     private final String TASK_FILE_PATH;
 
+    /**
+     * Constructor for Storage.
+     * Initialise the saved tasks file directory and path.
+     */
     public Storage() {
         TASK_FILE_DIRECTORY_PATH = Path.of("data").toAbsolutePath().toString();
         TASK_FILE_PATH = Path.of("data/tasks.txt").toAbsolutePath().toString();
     }
 
+    /**
+     * Checks and create directory if not exist.
+     *
+     * @param dirPath Directory of the saved tasks file.
+     */
     public static void checkAndCreateDirectory(String dirPath) {
         File directory = new File(dirPath);
         if (!directory.exists()) {
@@ -38,6 +47,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Check and create saved tasks file if not exist.
+     *
+     * @param filePath Path of the saved tasks file.
+     * @throws IOException If the task file fails to create.
+     */
     public static void checkAndCreateFile(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -49,6 +64,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads saved tasks from file into arraylist.
+     *
+     * @return ArrayList of tasks
+     * @throws IOException If error reading the file.
+     * @throws DukeException If error parsing the task in the file.
+     */
     public ArrayList<Task> getSavedTasks() throws IOException, DukeException {
         checkAndCreateDirectory(TASK_FILE_DIRECTORY_PATH);
         checkAndCreateFile(TASK_FILE_PATH);
@@ -71,6 +93,13 @@ public class Storage {
         return savedTasks;
     }
 
+    /**
+     * Parse Task from line in saved file as Todo/Deadline/Event.
+     *
+     * @param taskLine Line containing string represenation of the task.
+     * @return Task if valid, else null.
+     * @throws DukeException If task cannot be parsed.
+     */
     public Task parseTask(String taskLine) throws DukeException {
         String[] taskInfo = taskLine.split(" \\| ");
         switch (taskInfo[0]) {
@@ -118,6 +147,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Save tasks as string representation to file
+     *
+     * @param tasks ArrayList of tasks to be saved.
+     */
     public void saveToFile(ArrayList<Task> tasks) {
         deleteFileContent(TASK_FILE_PATH);
         for (Task task : tasks) {
@@ -126,6 +160,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Gets task as string representation to be saved in file.
+     *
+     * @param task Task to be converted to string representation.
+     * @return String representation of Task if valid task, else return empty string.
+     */
     public String getTaskAsString(Task task) {
         switch (task.getType()) {
         case "T":

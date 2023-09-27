@@ -7,15 +7,31 @@ import elgin.ui.Ui;
 
 import static elgin.parser.Parser.isArguments;
 
+
 public class AddCommand extends Command {
     private String command;
     private String arguments;
 
+    /**
+     * Constructor for AddCommand.
+     *
+     * @param command Command type.
+     * @param arguments Arguments supplied by the user.
+     */
     public AddCommand(String command, String arguments) {
         this.command = command;
         this.arguments = arguments;
     }
 
+    /**
+     * Executes to add Todo/Deadline/Event task into TaskList based on command.
+     * Prints success message when task is added.
+     *
+     * @param tasks TaskList of tasks.
+     * @param ui Ui for standardised output of program.
+     * @param storage Storage that stores and loads tasks from disk.
+     * @throws DukeException If error adding task.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String[] msg;

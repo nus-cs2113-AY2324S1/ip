@@ -13,14 +13,28 @@ import static elgin.parser.Parser.*;
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructor for Tasklist.
+     * This will be called if saved tasks file failed to load.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructor for Tasklist.
+     *
+     * @param tasks Tasks loaded from saved file.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Lists all tasks in the arraylist.
+     *
+     * @return Messages containing the string representation of all tasks.
+     */
     public String[] listTasks() {
         int totalTasks = getTaskSize();
         String[] allTasksDescription = new String[totalTasks + 1];
@@ -32,6 +46,13 @@ public class TaskList {
         return allTasksDescription;
     }
 
+    /**
+     * Loops through all the tasks and find the tasks
+     * that contains the keyword specified by the user.
+     *
+     * @param keyword Keyword to be searched for.
+     * @return Messages containing the list of matched tasks.
+     */
     public String[] findTasks(String keyword) {
         int totalTasks = getTaskSize();
         String[] allMatchingTasks = new String[totalTasks + 1];
@@ -52,11 +73,26 @@ public class TaskList {
         return Arrays.copyOf(allMatchingTasks, counter);
     }
 
-    public String[] addTodo(String arguments) throws DukeException {
+    /**
+     * Adds the Todo task to the tasks arraylist.
+     *
+     * @param arguments Arguments supplied by the user containing description.
+     * @return Messages to be printed after adding Todo.
+     */
+    public String[] addTodo(String arguments) {
         Todo task = new Todo(arguments);
         return addToTasks(task);
     }
 
+    /**
+     * Adds the Deadline task to the tasks arraylist.
+     * Parses arguments as datetime.
+     *
+     * @param command Command supplied by the user.
+     * @param arguments Arguments supplied by the user containing description and /by.
+     * @return Messages to be printed after adding Deadline.
+     * @throws DukeException If arguments are invalid.
+     */
     public String[] addDeadline(String command, String arguments) throws DukeException {
         HashMap<String, String> parsedArgs = parseArguments(command, arguments);
         String description = parsedArgs.get("description");
@@ -65,6 +101,15 @@ public class TaskList {
         return addToTasks(task);
     }
 
+    /**
+     * Adds the Event task to the tasks arraylist.
+     * Parses arguments as datetime.
+     *
+     * @param command Command supplied by the user.
+     * @param arguments Arguments supplied by the user containing description, /from, /to.
+     * @return Messages to be printed after adding Event.
+     * @throws DukeException If arguments are invalid.
+     */
     public String[] addEvent(String command, String arguments) throws DukeException {
         HashMap<String, String> parsedArgs = parseArguments(command, arguments);
         String description = parsedArgs.get("description");
@@ -75,7 +120,14 @@ public class TaskList {
         return addToTasks(task);
     }
 
-    public String[] setTaskIsDone(int index, boolean isDone) throws DukeException {
+    /**
+     * Set a task isDone status.
+     *
+     * @param index Index of the task.
+     * @param isDone True if the task is completed, else False.
+     * @return Messages to be printed after setting the isDone status of Task.
+     */
+    public String[] setTaskIsDone(int index, boolean isDone) {
         index--;
         tasks.get(index).setIsDone(isDone);
         String doneMsg = isDone
@@ -88,12 +140,23 @@ public class TaskList {
         return messages;
     }
 
+    /**
+     * Returns message containing number of tasks
+     *
+     * @return Message
+     */
     public String getNumberOfTasks() {
         int totalTasks = getTaskSize();
         String taskWord = totalTasks > 1 ? " tasks" : " task";
         return "Now you have " + totalTasks + taskWord + " in the list.";
     }
 
+    /**
+     * Adds a task to the Task Arraylist.
+     *
+     * @param t Task to be added
+     * @return Messages to be printed after adding task.
+     */
     public String[] addToTasks(Task t) {
         tasks.add(t);
         String[] messages = new String[]{
@@ -104,10 +167,17 @@ public class TaskList {
         return messages;
     }
 
+
     public int getTaskSize() {
         return tasks.size();
     }
 
+    /**
+     * Delete a task based on the index supplied by user.
+     *
+     * @param index The index of the task to be deleted.
+     * @return Messages to be printed after deleted task.
+     */
     public String[] deleteTask(int index) {
         index--;
         Task t = tasks.get(index);
@@ -120,6 +190,11 @@ public class TaskList {
         return messages;
     }
 
+    /**
+     * Gets all tasks.
+     *
+     * @return ArrayList of all the tasks.
+     */
     public ArrayList<Task> getAllTasks() {
         return tasks;
     }
