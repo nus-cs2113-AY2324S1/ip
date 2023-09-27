@@ -32,4 +32,22 @@ public abstract class Ui {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
+
+    /**
+     * Prints instructions to manually delete or replace data.txt file.
+     */
+    public static void manualDeleteGuide() {
+        System.out.println("Error in existing data.txt file.");
+        System.out.println("Please delete or replace the existing data.txt file manually.");
+        System.out.println("Navigate to the folder where ip.jar is located.");
+        System.out.println("data.txt file can be found inside the data folder. ie. data/data.txt");
+    }
+
+    /**
+     * Prints message when existing data.txt file is unreadable.
+     */
+    public static void dataErrorMessage() {
+        System.out.println("OOPS!!! Data.txt file could not be read.");
+        System.out.println("Would you like to delete existing file and create a new data.txt file? (Y/N)");
+    }
 }

@@ -55,6 +55,54 @@ public abstract class ErrorCatcher {
             break;
         }
     }
+
+    /**
+     * Catches errors when a line in data.txt file does not match the required parameters
+     * for the task it is representing.
+     *
+     * @param type This is the type of task that the user intends to add.
+     * @param arraySize This is the number of parameters in the line from data.txt.
+     * @throws NeoTaskException if the number of parameters from the line in data.txt and the required
+     *                          parameters for its task type do not match.
+     */
+    public static void catchReadFormatError(CommandType type, int arraySize) throws NeoTaskException {
+        int todoArraySize = 3;
+        int deadlineArraySize = 4;
+        int eventArraySize = 5;
+
+        switch (type) {
+        case TODO:
+            if (arraySize != todoArraySize) {
+                throw new NeoTaskException();
+            }
+            break;
+        case DEADLINE:
+            if (arraySize != deadlineArraySize) {
+                throw new NeoTaskException();
+            }
+            break;
+        case EVENT:
+            if (arraySize != eventArraySize) {
+                throw new NeoTaskException();
+            }
+            break;
+        default:
+            System.out.println("Unable to catch format error.");
+            break;
+        }
+    }
+
+    /**
+     * Catches errors when the integer representing whether a task is marked is not 1 or 0.
+     *
+     * @param mark This is the integer representing if a task is marked.
+     * @throws NeoTaskException if mark is not 1 or 0.
+     */
+    public static void catchReadMarkError(int mark) throws NeoTaskException {
+        if (mark != 0 && mark != 1) {
+            throw new NeoTaskException();
+        }
+    }
     private static void catchDateAndTimeError(String line) throws NeoTimeException {
         String[] dateTime = line.split(" ");
         if (!line.matches("(.*)/(.*)/(.*)") || dateTime[1].length() != 4) {

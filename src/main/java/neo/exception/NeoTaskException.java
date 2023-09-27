@@ -10,7 +10,7 @@ public class NeoTaskException extends Exception {
     protected ErrorType type;
 
     /**
-     * Constructs exception with parameters to indicate the type of excpetion.
+     * Constructs exception with parameters to indicate the type of exception.
      *
      * @param description Describes which part of task caused the error
      * @param type The type of error that was caused
@@ -18,6 +18,11 @@ public class NeoTaskException extends Exception {
     public NeoTaskException(String description, ErrorType type) {
         this.description = description;
         this.type = type;
+    }
+
+    public NeoTaskException() {
+        this.description = null;
+        this.type = null;
     }
 
     /**

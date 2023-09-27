@@ -13,17 +13,22 @@ public class Neo {
     /**
      * Main method where data.txt file is loaded or generated, along with creating
      * the list for storing the tasks.
+     * If data.txt file remains unreadable, program will exit.
      *
      * @param args Unused.
      */
     public static void main(String[] args) {
-        Storage.findFile(TaskList.getList());
-        Ui.welcomeMessage();
+        try {
+            Storage.findFile(TaskList.getList());
+            Ui.welcomeMessage();
 
-        String input = Ui.readInput();
-        ArrayList<Task> list = TaskList.getList();
+            String input = Ui.readInput();
+            ArrayList<Task> list = TaskList.getList();
 
-        Parser.handleInput(input, list);
-        Ui.byeMessage();
+            Parser.handleInput(input, list);
+            Ui.byeMessage();
+        } catch (Exception e) {
+            Ui.byeMessage();
+        }
     }
 }

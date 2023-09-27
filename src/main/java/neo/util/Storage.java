@@ -1,9 +1,12 @@
 package neo.util;
 
+import neo.exception.NeoTaskException;
+import neo.exception.NeoTimeException;
 import neo.task.Deadline;
 import neo.task.Event;
 import neo.task.Task;
 import neo.task.Todo;
+import neo.type.CommandType;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,20 +27,25 @@ public abstract class Storage {
     /**
      * Finds and read data.txt file in data/data.txt path relative to working directory.
      * If data.txt and its parent folder does not exist, it will create those files.
+     * If data.txt file is unreadable, it will delete and create a new data.txt file
+     * depending on the user's input.
+     * If the user does not want to delete existing data.txt file, it will throw exception.
      * Content of data.txt are used to fill up the task list.
      *
      * @param list This is the list of tasks to be filled up according to the content
      *             of existing data.txt file.
+     * @throws Exception if data.txt file remains unreadable.
      */
-    public static void findFile(ArrayList<Task> list) {
+    public static void findFile(ArrayList<Task> list) throws Exception {
         try {
             generateFile(list);
         } catch (IOException e) {
-            System.out.println("Error with data.txt file");
+            Ui.manualDeleteGuide();
+            throw new Exception();
         }
     }
 
-    private static void generateFile(ArrayList<Task> list) throws IOException {
+    private static void generateFile(ArrayList<Task> list) throws Exception {
         File directory = new File(fileDirectory);
 
         if (directory.mkdir()) {
@@ -49,36 +57,85 @@ public abstract class Storage {
         }
 
         Scanner s = new Scanner(f);
-        readFile(list, s);
+        try {
+            readFile(list, s);
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NeoTimeException | NeoTaskException e) {
+            Ui.dataErrorMessage();
+            generateNewFile(f);
+        }
     }
 
-    private static void readFile(ArrayList<Task> list, Scanner s) {
+    private static void generateNewFile(File f) throws Exception {
+        String input = Ui.readInput();
+        while (!input.equalsIgnoreCase("N")) {
+            if (input.trim().equalsIgnoreCase("Y")) {
+                if (f.delete()) {
+                    System.out.println("Deleting existing data.txt file...");
+                }
+                if (f.createNewFile()) {
+                    System.out.println("Creating new data.txt file...");
+                    break;
+                }
+            } else {
+                System.out.println("OOPS!!! Unable to read line. Please type 'Y' for yes or 'N' for no.");
+            }
+            input = Ui.readInput();
+        }
+        if (input.trim().equalsIgnoreCase("N")) {
+            System.out.println("Please place an appropriate data.txt file and restart the program.");
+            throw new Exception();
+        }
+    }
+
+    private static void readFile(ArrayList<Task> list, Scanner s) throws ArrayIndexOutOfBoundsException, NumberFormatException, NeoTaskException, NeoTimeException {
         while (s.hasNext()) {
             String line = s.nextLine();
-            String[] task = line.split(" / ");
-            String taskType = task[0];
-            int mark = Integer.parseInt(task[1]);
+
+            String[] task = line.split("\\|");
+            int taskArraySize = task.length;
+            String taskType = task[0].trim();
+            int mark = Integer.parseInt(task[1].trim());
+
+            ErrorCatcher.catchReadMarkError(mark);
+
+            String description = task[2].trim();
             boolean isMarked = checkMarked(mark);
 
             switch (taskType) {
             case "T":
-                Todo todo = new Todo(task[2]);
+                ErrorCatcher.catchReadFormatError(CommandType.TODO, taskArraySize);
+                ErrorCatcher.catchEmptyDescription("description", description);
+
+                Todo todo = new Todo(description);
                 todo.setDone(isMarked);
                 list.add(todo);
                 break;
             case "D":
-                Deadline deadline = new Deadline(task[2], task[3]);
+                String by = task[3].trim();
+
+                ErrorCatcher.catchReadFormatError(CommandType.DEADLINE, taskArraySize);
+                ErrorCatcher.catchEmptyDescription("description", description);
+                ErrorCatcher.catchTimeFormatError(by);
+
+                Deadline deadline = new Deadline(description, by);
                 deadline.setDone(isMarked);
                 list.add(deadline);
                 break;
             case "E":
-                Event event = new Event(task[2], task[3], task[4]);
+                String from = task[3].trim();
+                String to = task[4].trim();
+
+                ErrorCatcher.catchReadFormatError(CommandType.EVENT, taskArraySize);
+                ErrorCatcher.catchEmptyDescription("description", description);
+                ErrorCatcher.catchTimeFormatError(from);
+                ErrorCatcher.catchTimeFormatError(to);
+
+                Event event = new Event(description, from, to);
                 event.setDone(isMarked);
                 list.add(event);
                 break;
             default:
-                System.out.println("Unable to add task from data.txt");
-                break;
+                throw new NeoTaskException();
             }
         }
     }
