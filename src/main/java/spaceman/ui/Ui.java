@@ -20,48 +20,48 @@ public class Ui {
         this.input = new Scanner(System.in);
     }
 
+    public String getUserCommand() {
+        return input.nextLine();
+    }
+
     public static void showLine() {
         System.out.println(LINE);
     }
 
-    public void printWelcomeMessage() {
+    public void showWelcomeMessage() {
         System.out.println("Hello from\n" + LOGO);
         System.out.println(LINE);
         System.out.println("Hello! I'm Spaceman");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
     }
-    public static void printGoodbyeMessage() {
+    public static void showGoodbyeMessage() {
         System.out.println(LINE);
         System.out.println(MESSAGE_BYE);
         System.out.println(LINE);
     }
 
-    public String getUserCommand() {
-        return input.nextLine();
-    }
-
-    public static void printTaskCount( ) {
+    public static void showTaskCount( ) {
         System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
     }
 
-    public static void printTaskAddedMessage(Task task) {
+    public static void showTaskAddedMessage(Task task) {
         System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.getDetails());
-        printTaskCount();
+        showTaskCount();
         System.out.println(LINE);
     }
 
-    public static void printTaskRemovedMessage(Task task) {
+    public static void showTaskRemovedMessage(Task task) {
         System.out.println(LINE);
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task.getDetails());
-        printTaskCount();
+        showTaskCount();
         System.out.println(LINE);
     }
 
-    public static void printList(TaskList taskList) {
+    public static void showTaskList(TaskList taskList) {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
         ArrayList<Task> tasks = taskList.getTasks();
@@ -72,7 +72,7 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public void printReadDataError() {
+    public void showReadDataError() {
         System.out.println(LINE);
         System.out.println("No previous data found /:");
         System.out.println(LINE);

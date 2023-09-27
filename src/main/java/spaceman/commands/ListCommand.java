@@ -6,6 +6,6 @@ import spaceman.ui.Ui;
 public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks) {
-        Ui.printList(tasks);
+        Ui.showTaskList(tasks);
     }
 }

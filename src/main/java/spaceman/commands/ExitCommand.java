@@ -5,7 +5,7 @@ import spaceman.ui.Ui;
 
 public class ExitCommand extends Command {
     public void execute(TaskList tasks) {
-        Ui.printGoodbyeMessage();
+        Ui.showGoodbyeMessage();
     }
 
     public static boolean isExit(Command command) {

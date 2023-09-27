@@ -31,7 +31,7 @@ public class Spaceman {
         try {
             tasks = new TaskList(storage.readDataFromFile());
         } catch (FileNotFoundException e) {
-            ui.printReadDataError();
+            ui.showReadDataError();
             tasks = new TaskList();
         }
     }
@@ -41,6 +41,7 @@ public class Spaceman {
      */
     public void run() {
         ui.printWelcomeMessage();
+        ui.showWelcomeMessage();
         runProgramUntilTermination();
     }
 
