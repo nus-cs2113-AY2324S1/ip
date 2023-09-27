@@ -22,16 +22,19 @@ public class ListCommand extends Command {
         if (runningState.tasks.size() == 0) {
             return "The list is empty!";
         }
-        String result = "1." + runningState.tasks.get(0).toString();
+        // String result = "1." + runningState.tasks.get(0).toString();
+        String result = "1." + runningState.tasks.get(0).getDescription();
         for (int i = 1; i < runningState.tasks.size(); i++) {
-            result += "\n" + (i + 1) + "." + runningState.tasks.get(i).toString();
+            // result += "\n" + (i + 1) + "." + runningState.tasks.get(i).toString();
+            result += "\n" + (i + 1) + "." + runningState.tasks.get(i).getDescription();
         }
         return result;
     }
 
     @Override
     public CommandResult getCommandResult(String content) {
-        return new CommandResult("Here are the runningState.tasks in your list:\n"
-                + content);
+        return new CommandResult(
+                // "Here are the runningState.tasks in your list:\n"+
+                content);
     }
 }

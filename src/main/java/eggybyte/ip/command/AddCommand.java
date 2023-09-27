@@ -19,8 +19,9 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult getCommandResult(String content) {
-        return new CommandResult("Got it. I've added this task:\n"
-                + content
-                + "\nNow you have " + runningState.tasks.size() + " tasks in the list.");
+        // return new CommandResult("Got it. I've added this task:\n"
+        // + content
+        // + "\nNow you have " + runningState.tasks.size() + " tasks in the list.");
+        return new CommandResult("added: " + content);
     }
 }
