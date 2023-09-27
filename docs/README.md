@@ -20,7 +20,7 @@ Duke provides a command-line tool for managing your tasks. It helps you track th
 
 ## Quick Start
 1. Ensure you have Java `11` or above installed in your computer. 
-2. Download the latest `ip.jar` from [here](#).
+2. Download the latest `ip.jar` from [here](https://github.com/lctxct/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the *home folder* for Duke. 
 4. Open a command terminal, locate the path to the folder you put the jar file in, and `cd` (change directory) into that folder. For example, if your file path is `C:\Users\potato\duke\ip.jar`, the full command will be 
     ```
@@ -55,11 +55,11 @@ Duke provides a command-line tool for managing your tasks. It helps you track th
     ```
     Restart the program with the same `java -jar ip.jar` command. Note that the error message should no be present. 
 6. Now that the application is running, here are some sample commands you can try: 
-    * [`todo water plants`](#): Creates a new todo "water plants". 
-    * [`list`](#): List all tasks. 
-    * [`mark 1`](#): Marks task at index 1 as complete. This task should be the first item in the `list`.  
-    * [`bye`](#): Exits the app.
-7. To find out more about each command, view [Features](#). To get an overview of all available commands, see the [Table of Contents](#) above or the [Command reference](#) below. 
+    * [`todo water plants`](#adding-todo-todo): Creates a new todo "water plants". 
+    * [`list`](#listing-items-list): List all tasks. 
+    * [`mark 1`](#marking-items-mark): Marks task at index 1 as complete. This task should be the first item in the `list`.  
+    * [`bye`](#exiting-the-program-bye): Exits the app.
+7. To find out more about each command, view [Features](#features). To get an overview of all available commands, see the [Table of Contents](#user-guide) above or the [Command reference](#command-reference) below. 
 
 <br />
 
@@ -121,7 +121,7 @@ Format: `delete <index>`
 Example: `delete 1`
 
 ### Exiting the program: `bye`
-Exits the program. If the save file `./data/duke.txt` exists, contents of the task list will be written into the save file. View [Saving the data](#) for more information on creating the save file. 
+Exits the program. If the save file `./data/duke.txt` exists, contents of the task list will be written into the save file. View [Saving the data](#saving-the-data) for more information on creating the save file. 
 
 ### Saving the data
 If the save file `.\data\duke.txt` exists, items remaining in the task list will be saved in the save file when the app exits, and will be reloaded the next time Duke is launched. 
