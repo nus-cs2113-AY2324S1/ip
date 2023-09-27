@@ -12,7 +12,7 @@ public class DeadlineCommand extends RCCommand {
     private String input;
     private static final String BY_COMMAND = "/by";
     private static final String MESSAGE_MISSING_COMMAND = "\tOOPS!!! Please include /by followed by the " +
-            "deadline. (eg. /by Monday)";
+            "deadline. (eg. /by 2023-12-12 1200)";
     private static final String MESSAGE_EMPTY = "\tOOPS!!! Please ensure description and deadline are filled.";
 
     public DeadlineCommand(String input) {
