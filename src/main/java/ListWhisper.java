@@ -1,26 +1,48 @@
-import common.Messages;
-import listWhisper.exceptions.DescriptionFormatException;
-
+import common.Command;
+import listWhisper.task.Parser;
+import listWhisper.task.TaskList;
+import storage.DataManager;
+import ui.Ui;
 import java.io.IOException;
 import java.lang.String;
-import java.lang.System;
-import java.util.ArrayList;
 
 public class ListWhisper {
-    public static void main(String[] args) throws DescriptionFormatException, IOException {
-        ListWhisper.startProgram();
+    private final Ui ui;
+    private final Parser parser;
+    TaskList taskList;
+
+    public static void main(String[] args) {
+        new ListWhisper().run();
     }
 
-    private static void startProgram() throws DescriptionFormatException, IOException {
-        Manager manager = new Manager();
-        greetUser();
-        manager.readInput();
+    public ListWhisper() {
+        this.ui = new Ui();
+        this.parser = new Parser();
+        DataManager dataManager = new DataManager(this.ui);
+
+        try {
+            this.taskList = dataManager.load(this.parser);
+        } catch (IOException e) {
+            Ui.showError(e);
+            taskList = new TaskList();
+        }
     }
 
-    private static void greetUser() {
-        Messages.printStraightLine();
-        System.out.println("Hello! I'm ListWhisper");
-        System.out.println("What can I do for you?");
-        Messages.printStraightLine();
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.getUserCommand();
+                ui.showLine();
+                Command c = this.parser.parse(fullCommand);
+                c.execute(taskList, ui);
+                isExit = c.isExit();
+            } catch (Exception e) {
+                Ui.showError(e);
+            } finally {
+                ui.showLine();
+            }
+        }
     }
 }
