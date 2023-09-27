@@ -19,4 +19,6 @@ public class Messages {
     public static final String MESSAGE_EMPTY_TODO = "☹ OOPS!!! The description of a todo cannot be empty.";
     public static final String MESSAGE_EMPTY_DEADLINE = "☹ OOPS!!! The description of a deadline cannot be empty.";
     public static final String MESSAGE_EMPTY_EVENT = "☹ OOPS!!! The description of an event cannot be empty.";
+    public static final String MESSAGE_INVALID_DATE = "☹ OOPS!!! The format of the date is invalid.";
+    public static final String MESSAGE_INVALID_INDEX = "☹ OOPS!!! This is an invalid task index.";
 }

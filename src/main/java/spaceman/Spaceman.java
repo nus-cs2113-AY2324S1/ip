@@ -5,12 +5,14 @@ import spaceman.commands.ExitCommand;
 import spaceman.data.exception.IncompleteDescriptionException;
 import spaceman.data.exception.InvalidActionException;
 import spaceman.data.TaskList;
+import spaceman.data.exception.InvalidDateFormatException;
 import spaceman.ui.Ui;
 import spaceman.storage.Storage;
 import spaceman.parser.Parser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * Entry point of the Spaceman application which serves as a personal assistance chat-bot.
@@ -57,17 +59,17 @@ public class Spaceman {
                 command.execute(tasks);
                 isExit = ExitCommand.isExit(command);
                 storage.writeToFile(tasks);
-            } catch (InvalidActionException e) {
-                Ui.showLine();
-                System.out.println(e.getMessage());
-                Ui.showLine();
-            } catch (IncompleteDescriptionException e) {
+            } catch (InvalidActionException | IncompleteDescriptionException | InvalidDateFormatException e) {
                 Ui.showLine();
                 System.out.println(e.getMessage());
                 Ui.showLine();
             } catch (IOException e) {
                 Ui.showLine();
                 System.out.println("Something went wrong: " + e.getMessage());
+                Ui.showLine();
+            } catch (IndexOutOfBoundsException | ParseException e) {
+                Ui.showLine();
+                System.out.println(e.getMessage());
                 Ui.showLine();
             }
         }
