@@ -114,7 +114,7 @@ public class Duke {
     /**
      * Creates and starts running a new instance of Duke.
      */
-    public static void main() {
+    public static void main(String[] args) {
         new Duke().run();
     }
 }
