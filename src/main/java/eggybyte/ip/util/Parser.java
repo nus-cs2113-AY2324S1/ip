@@ -30,20 +30,21 @@ public class Parser {
 
         try {
             switch (commandWord) {
-                case TodoCommand.COMMAND_WORD:
-                    return new TodoCommand(arguments);
-                case DeadlineCommand.COMMAND_WORD:
-                    return new DeadlineCommand(arguments);
-                case EventCommand.COMMAND_WORD:
-                    return new EventCommand(arguments);
-                case DeleteCommand.COMMAND_WORD:
-                    return new DeleteCommand(arguments);
-                case ListCommand.COMMAND_WORD:
-                    return new ListCommand(arguments);
+                // case TodoCommand.COMMAND_WORD:
+                // return new TodoCommand(arguments);
+                // case DeadlineCommand.COMMAND_WORD:
+                // return new DeadlineCommand(arguments);
+                // case EventCommand.COMMAND_WORD:
+                // return new EventCommand(arguments);
+                // case DeleteCommand.COMMAND_WORD:
+                // return new DeleteCommand(arguments);
+                // case ListCommand.COMMAND_WORD:
+                // return new ListCommand(arguments);
                 case ByeCommand.COMMAND_WORD:
                     return new ByeCommand(arguments);
                 default:
-                    throw new Exception("I'm sorry, but I don't know what that means :-(");
+                    return new RepeatCommand(commandWord, arguments);
+                // throw new Exception("I'm sorry, but I don't know what that means :-(");
             }
         } catch (Exception exception) {
             throw exception;

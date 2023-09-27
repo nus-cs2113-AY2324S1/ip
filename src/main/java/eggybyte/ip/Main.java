@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Main {
     private static RunningState runningState = new RunningState(new ArrayList<Task>());
-    public static Boolean debugMode = true;
+    public static Boolean debugMode = false;
 
     private static void initialize() {
         Command.setRunningState(runningState);
@@ -22,7 +22,10 @@ public class Main {
 
     public static void main(String[] args) {
         initialize();
-        runCommandLoopUntilByeCommand();
+        // runCommandLoopUntilByeCommand();
+
+        Logger.showLog(" Bye. Hope to see you again soon!", false);
+        Logger.showLog("____________________________________________________________", false);
     }
 
     /**

@@ -8,7 +8,7 @@ public class Logger {
     public static Boolean debugMode = true;
 
     public static void showGreeting() {
-        showLog("Hello! I'm EggyByte!\nWhat can I do for you?", true);
+        showLog(" Hello! I'm EggyByte!\n What can I do for you?", true);
     }
 
     public enum LogLevel {
@@ -34,10 +34,12 @@ public class Logger {
             System.out.println("____________________________________________________________");
         }
         System.out.println(
-                "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "][" + logLevel + "]\n"
-                        + content);
+                // "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) +
+                // "][" + logLevel + "]\n"
+                // +
+                content);
         if (showLine) {
-            System.out.println("____________________________________________________________\n");
+            System.out.println("____________________________________________________________");
         }
     }
 
