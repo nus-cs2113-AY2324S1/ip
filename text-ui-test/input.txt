@@ -8,5 +8,6 @@ mark 2
 mark 3
 todo test yes!
 unmark 1
+delete 3
 list
 bye

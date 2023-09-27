@@ -36,8 +36,8 @@ public class Parser {
                     return new DeadlineCommand(arguments);
                 case EventCommand.COMMAND_WORD:
                     return new EventCommand(arguments);
-                // case DeleteCommand.COMMAND_WORD:
-                // return new DeleteCommand(arguments);
+                case DeleteCommand.COMMAND_WORD:
+                    return new DeleteCommand(arguments);
                 case MarkCommand.COMMAND_WORD:
                     return new MarkCommand(arguments);
                 case UnmarkCommand.COMMAND_WORD:

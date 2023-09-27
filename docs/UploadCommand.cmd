@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=A-Packages
-set MESSAGE="Organize into Packages"
+set TAG_NAME=Level-6
+set MESSAGE="Delete"
 
 rem create a branch
 git branch branch-%TAG_NAME%

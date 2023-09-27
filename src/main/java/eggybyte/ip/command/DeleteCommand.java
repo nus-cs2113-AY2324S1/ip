@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult getCommandResult(String content) {
-        return new CommandResult("Noted. I've removed this task:\n"
+        return new CommandResult("Noted. I've removed this task:\n  "
                 + content
                 + "\nNow you have " + runningState.tasks.size() + " tasks in the list.");
     }
