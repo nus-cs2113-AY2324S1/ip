@@ -31,16 +31,25 @@ public class Logger {
 
     public static void showLog(String content, LogLevel logLevel, Boolean showLine) {
         if (showLine) {
-            System.out.println("____________________________________________________________");
+            customPrint("____________________________________________________________");
         }
-        System.out.println(
-                // "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) +
-                // "][" + logLevel + "]\n"
-                // +
-                content);
+
+        String[] lines = content.split("\n");
+        for (String line : lines) {
+            customPrint(" " + line);
+        }
+
+        // customPrint(
+        // "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) +
+        // "][" + logLevel + "]\n"
+        // + content);
         if (showLine) {
-            System.out.println("____________________________________________________________\n");
+            customPrint("____________________________________________________________\n");
         }
+    }
+
+    public static void customPrint(String content) {
+        System.out.println("    " + content);
     }
 
     public static <Type> void printArray(Type[] array) {
