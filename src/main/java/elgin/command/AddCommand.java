@@ -1,6 +1,5 @@
 package elgin.command;
 
-import elgin.Duke;
 import elgin.exception.DukeException;
 import elgin.storage.Storage;
 import elgin.task.TaskList;

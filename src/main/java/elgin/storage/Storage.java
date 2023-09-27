@@ -1,6 +1,5 @@
 package elgin.storage;
 
-import elgin.exception.DukeException;
 import elgin.task.Deadline;
 import elgin.task.Event;
 import elgin.task.Task;
