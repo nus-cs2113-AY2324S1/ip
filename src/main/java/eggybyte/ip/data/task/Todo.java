@@ -30,6 +30,7 @@ public class Todo extends Task {
         } else {
             status = " ";
         }
-        return "[" + type + "][" + status + "] " + description;
+        // return "[" + type + "][" + status + "] " + description;
+        return "[" + status + "] " + description;
     }
 }

@@ -38,13 +38,17 @@ public class Parser {
                 // return new EventCommand(arguments);
                 // case DeleteCommand.COMMAND_WORD:
                 // return new DeleteCommand(arguments);
+                case MarkCommand.COMMAND_WORD:
+                    return new MarkCommand(arguments);
+                case UnmarkCommand.COMMAND_WORD:
+                    return new UnmarkCommand(arguments);
                 case ListCommand.COMMAND_WORD:
                     return new ListCommand(arguments);
                 case ByeCommand.COMMAND_WORD:
                     return new ByeCommand(arguments);
                 default:
                     // return new RepeatCommand(commandWord, arguments);
-                    return new TaskCommand(userInput, arguments);
+                    return new TodoCommand(new String[] { userInput });
                 // throw new Exception("I'm sorry, but I don't know what that means :-(");
             }
         } catch (Exception exception) {

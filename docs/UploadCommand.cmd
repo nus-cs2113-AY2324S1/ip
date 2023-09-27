@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=Level-2
-set MESSAGE="Add, List"
+set TAG_NAME=Level-3
+set MESSAGE="Mark as Done"
 
 rem create a branch
 git branch branch-%TAG_NAME%
