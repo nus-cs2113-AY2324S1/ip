@@ -46,7 +46,7 @@ public class Duke {
                 ui.showLine();
             }
         }
-        ui.displayCLosingMessage();
+        ui.displayClosingMessage();
     }
 
     public static void main(String[] args) {

@@ -47,7 +47,7 @@ public class Ui {
     /**
      * Displays closing message on exiting the chatbot.
      */
-    public void displayCLosingMessage(){
+    public void displayClosingMessage(){
         dataStorage.updateData(tasks);
         System.out.println("    Aww you are leaving? *sniffs*");
         System.out.println("    Well... hope to see you again soon!");
