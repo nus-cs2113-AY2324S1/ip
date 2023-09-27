@@ -2,9 +2,6 @@ package eggybyte.ip.util;
 
 import eggybyte.ip.command.*;
 
-/**
- * Parses user input.
- */
 public class Parser {
     public static Boolean debugMode = false;
 

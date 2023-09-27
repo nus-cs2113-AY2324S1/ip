@@ -3,6 +3,7 @@ import eggybyte.ip.command.Command;
 import eggybyte.ip.command.CommandResult;
 import eggybyte.ip.data.RunningState;
 import eggybyte.ip.util.Parser;
+import eggybyte.ip.util.DataManager;
 import eggybyte.ip.util.Logger;
 
 import java.util.ArrayList;
@@ -10,16 +11,28 @@ import java.util.Scanner;
 
 public class Duke {
     private static RunningState runningState = new RunningState(new ArrayList<Task>());
-    public static Boolean debugMode = false;
+    private static Boolean debugMode = false;
+    private static String savePath = "/data/Tasks.txt";
 
     private static void initialize() {
-        Command.setRunningState(runningState);
-        Logger.debugMode = Parser.debugMode = debugMode;
-        Logger.showGreeting();
+        try {
+            Command.setRunningState(runningState);
+            Logger.debugMode = Parser.debugMode = debugMode;
+            DataManager.setRelativePath(savePath);
+            String dataJson = DataManager.readData();
+            ArrayList<Task> data = DataManager.convertFromJsonToTaskList(dataJson);
+            if (data != null) {
+                runningState.tasks = data;
+            }
+            Logger.showGreeting();
+        } catch (Exception exception) {
+            Logger.showLog(exception, true);
+        }
     }
 
     public static void main(String[] args) {
         initialize();
+
         runCommandLoopUntilByeCommand();
     }
 
@@ -49,6 +62,12 @@ public class Duke {
                 Logger.showLog(exception, true);
             }
         } while (runningState.isRunning());
+
+        try {
+            DataManager.saveData(DataManager.convertToJson(runningState.tasks));
+        } catch (Exception exception) {
+            Logger.showLog(exception, true);
+        }
         scanner.close();
     }
 }

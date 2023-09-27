@@ -1,13 +1,14 @@
 package eggybyte.ip.data.task;
 
 public class Task {
-    protected final String description;
+    public final String description;
 
     public Task(String description) {
         this.description = description;
     }
 
-    public String getDescription() {
+    @Override
+    public String toString() {
         return description;
     }
 }

@@ -27,9 +27,6 @@ public class Command {
         }
     }
 
-    /**
-     * Supplies the data the command will operate on.
-     */
     public static void setRunningState(RunningState runningState) {
         Command.runningState = runningState;
     }

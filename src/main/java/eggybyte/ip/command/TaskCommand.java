@@ -15,6 +15,6 @@ public class TaskCommand extends AddCommand {
     @Override
     public String customFunction() {
         runningState.tasks.add(task);
-        return task.getDescription();
+        return task.toString();
     }
 }

@@ -22,7 +22,7 @@ public class UnmarkCommand extends Command {
     public String customFunction() {
         Task task = runningState.tasks.get(index);
         if (task instanceof Todo) {
-            ((Todo) task).setDone(false);
+            ((Todo) task).isDone = false;
         }
         return task.toString();
     }

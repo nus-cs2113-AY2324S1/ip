@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
     public String customFunction() {
         Task task = runningState.tasks.get(index);
         if (task instanceof Todo) {
-            ((Todo) task).setDone(true);
+            ((Todo) task).isDone = true;
         }
         return task.toString();
     }
