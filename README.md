@@ -179,7 +179,7 @@ Search for a task from the task list using either description or timing.
 
     Here are tasks that matched your search:
     [TASK INDEX]: [TASK DETAILS]
-    [TASK DETAILS]: [TASK DETAILS]
+    [TASK INDEX]: [TASK DETAILS]
     ...
     
 ❗**If no matches are found, the following is printed:**
