@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=Level-4
-set MESSAGE="ToDos, Events, Deadlines"
+set TAG_NAME=A-TextUiTesting
+set MESSAGE="Automated Text UI Testing"
 
 rem create a branch
 git branch branch-%TAG_NAME%

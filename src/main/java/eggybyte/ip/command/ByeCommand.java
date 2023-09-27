@@ -1,7 +1,5 @@
 package eggybyte.ip.command;
 
-import eggybyte.ip.data.exception.TipsException;
-
 /**
  * Terminates the program.
  */

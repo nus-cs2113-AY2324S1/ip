@@ -1,6 +1,5 @@
 package eggybyte.ip.command;
 
-import eggybyte.ip.data.exception.TipsException;
 import eggybyte.ip.data.task.Task;
 
 public class AddCommand extends Command {

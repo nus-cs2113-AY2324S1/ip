@@ -1,7 +1,5 @@
 package eggybyte.ip.command;
 
-import eggybyte.ip.data.exception.TipsException;
-
 /**
  * Terminates the program.
  */
@@ -26,4 +24,4 @@ public class RepeatCommand extends Command {
     public CommandResult getCommandResult(String content) {
         return new CommandResult(" " +input);
     }
-}
+} 

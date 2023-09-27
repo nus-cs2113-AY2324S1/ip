@@ -1,7 +1,6 @@
 package eggybyte.ip.command;
 
 import eggybyte.ip.data.task.Task;
-import eggybyte.ip.data.task.Todo;
 
 /**
  * Lists all persons in the PersonBook to the user.
