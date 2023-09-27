@@ -11,10 +11,4 @@ public class TodoCommand extends AddCommand {
         checkArguments(arguments);
         task = new Todo(arguments[0]);
     }
-
-    @Override
-    public String customFunction() {
-        runningState.tasks.add(task);
-        return task.getDescription();
-    }
 }

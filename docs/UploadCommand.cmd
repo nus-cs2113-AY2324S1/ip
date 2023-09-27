@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=A-CodingStandard
-set MESSAGE="A-CodingStandard"
+set TAG_NAME=Level-4
+set MESSAGE="ToDos, Events, Deadlines"
 
 rem create a branch
 git branch branch-%TAG_NAME%

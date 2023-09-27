@@ -30,12 +30,12 @@ public class Parser {
 
         try {
             switch (commandWord) {
-                // case TodoCommand.COMMAND_WORD:
-                // return new TodoCommand(arguments);
-                // case DeadlineCommand.COMMAND_WORD:
-                // return new DeadlineCommand(arguments);
-                // case EventCommand.COMMAND_WORD:
-                // return new EventCommand(arguments);
+                case TodoCommand.COMMAND_WORD:
+                    return new TodoCommand(arguments);
+                case DeadlineCommand.COMMAND_WORD:
+                    return new DeadlineCommand(arguments);
+                case EventCommand.COMMAND_WORD:
+                    return new EventCommand(arguments);
                 // case DeleteCommand.COMMAND_WORD:
                 // return new DeleteCommand(arguments);
                 case MarkCommand.COMMAND_WORD:
@@ -48,8 +48,8 @@ public class Parser {
                     return new ByeCommand(arguments);
                 default:
                     // return new RepeatCommand(commandWord, arguments);
-                    return new TodoCommand(new String[] { userInput });
-                // throw new Exception("I'm sorry, but I don't know what that means :-(");
+                    // return new TodoCommand(new String[] { userInput });
+                    throw new Exception("I'm sorry, but I don't know what that means :-(");
             }
         } catch (Exception exception) {
             throw exception;
