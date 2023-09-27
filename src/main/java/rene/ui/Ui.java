@@ -24,11 +24,11 @@ public class Ui {
      * on the launch of chatbot.
      */
     public void displayOpeningMessage(){
-            String logo = "     ____        _        \n"
-                    + "    |  _ \\ _   _| | _____ \n"
-                    + "    | | | | | | | |/ / _ \\\n"
-                    + "    | |_| | |_| |   <  __/\n"
-                    + "    |____/ \\__,_|_|\\_\\___|\n";
+            String logo = "     _____ \n"
+                        + "    |  __  \\  ____  __   _   ____ \n"
+                        + "    | |__  | /  _  \\|  \\| |/  _  \\\n"
+                        + "    | |  \\ \\|   ___/| \\ | |   ___/\n"
+                        + "    |_|   \\_\\\\____| |_|\\__|\\____|\n";
             System.out.println("    Hello from\n" + logo);
             showLine();
             System.out.println("    今日は! I am Rene Kokoro!");
