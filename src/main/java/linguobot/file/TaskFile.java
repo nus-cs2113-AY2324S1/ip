@@ -11,7 +11,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * The <code>TaskFile</code> class is responsible for managing the storage and retrieval of tasks in a file.
+ * It provides methods to create, read, parse, and save tasks to a file, as well as print the tasks
+ * stored in the file.
+ */
 public class TaskFile{
     private static File tasks;
 
@@ -20,6 +24,9 @@ public class TaskFile{
         createFile();
     }
 
+    /**
+     * Creates taskFile to store tasks if it doesn't already exist.
+     */
     private void createFile() {
         try {
             if (!tasks.exists()) {
@@ -33,6 +40,10 @@ public class TaskFile{
         }
     }
 
+    /**
+     * Returns tasks that were stored in the taskFile.
+     * @return an arraylist of tasks read from taskFile.
+     */
     public ArrayList<String> readFile() {
         ArrayList<String> dataItems = new ArrayList<>();
 
@@ -46,6 +57,10 @@ public class TaskFile{
 
         return dataItems;
     }
+
+    /**
+     * Prints tasks that are stored in taskFile.
+     */
     public static void printFile() {
         try (Scanner scanner = new Scanner(tasks)) {
             if (!scanner.hasNextLine()) {
@@ -62,6 +77,10 @@ public class TaskFile{
         }
     }
 
+    /**
+     * Returns ArrayList of <code>Task</code> objects that are stored in taskFile.
+     * @return ArrayList of <code>Task</code> objects.
+     */
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> taskList = null;
         ArrayList<String> dataItems = readFile();
@@ -69,6 +88,11 @@ public class TaskFile{
         return taskList;
     }
 
+    /**
+     * Parses task data stored as strings into <code>Task</code> objects and returns them in an ArrayList.
+     * @param taskFile File containing data strings of stored tasks.
+     * @return ArrayList of <code>Task</code> objects.
+     */
     public static ArrayList<Task> parseTaskFromString(ArrayList<String> taskFile) {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -112,6 +136,10 @@ public class TaskFile{
         return tasks;
     }
 
+    /**
+     * Saves the current taskList to the taskFile, overwriting its contents.
+     * @param taskList ArrayList of tasks.
+     */
     public static void saveTaskListToFile(ArrayList<Task> taskList) {
         try{
             File dataDirectory = new File("./data");

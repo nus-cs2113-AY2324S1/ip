@@ -10,6 +10,11 @@ import java.util.ArrayList;
 
 import static linguobot.file.TaskFile.saveTaskListToFile;
 
+/**
+ * The `CommandResponse` class contains methods for handling user commands and providing responses.
+ * It includes methods for printing messages, displaying tasks, marking tasks as done/undone,
+ * deleting tasks, adding tasks, and finding tasks.
+ */
 public class CommandResponse {
     public static void printLine() {
         System.out.println("===================================================");
@@ -32,6 +37,11 @@ public class CommandResponse {
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
+
+    /**
+     * Returns list of tasks.
+     * @param taskList ArrayList of tasks.
+     */
     public static void printTaskList(ArrayList<Task> taskList) {
         printLine();
         System.out.println("Here are the tasks in your list:");
@@ -42,6 +52,11 @@ public class CommandResponse {
         printLine();
     }
 
+    /**
+     * Marks a task as done by changing its status icon to 'X'.
+     * @param taskList ArrayList of tasks.
+     * @param userInput user's command input.
+     */
     public static void markTaskAsDone(ArrayList<Task> taskList, String userInput) {
         try {
             int MARK_START_INDEX = 5;
@@ -66,6 +81,12 @@ public class CommandResponse {
             printLine();
         }
     }
+
+    /**
+     * Marks a task as undone by changing its status icon to ' ' .
+     * @param taskList ArrayList of tasks.
+     * @param userInput user's command input.
+     */
     public static void markTaskAsUndone(ArrayList<Task> taskList, String userInput) {
         try {
             int UNMARK_START_INDEX = 7;
@@ -91,6 +112,10 @@ public class CommandResponse {
         }
     }
 
+    /** Deletes a task from taskList.
+     * @param taskList ArrayList of tasks.
+     * @param userInput user's command input.
+     */
     public static void deleteTask(ArrayList<Task> taskList, String userInput) {
         try {
             int DELETE_START_INDEX = 7;
@@ -112,39 +137,44 @@ public class CommandResponse {
             printLine();
         }
     }
-    public static void addTask(String line, ArrayList<Task> taskList) {
+
+    /** Adds a task to taskList.
+     * @param taskList ArrayList of tasks.
+     * @param userInput user's command input.
+     */
+    public static void addTask(ArrayList<Task> taskList, String userInput) {
         try {
-            if (line.startsWith("todo")) {
-                if (line.substring(4).isEmpty()) {
+            if (userInput.startsWith("todo")) {
+                if (userInput.substring(4).isEmpty()) {
                     throw new LinguoBotException("Todo description cannot be empty.");
                 }
-                taskList.add(new Todo(line.substring(4)));
-            } else if (line.startsWith("deadline")) {
-                int indexBy = line.indexOf("by");
-                if (line.substring(8).isEmpty()) {
+                taskList.add(new Todo(userInput.substring(4)));
+            } else if (userInput.startsWith("deadline")) {
+                int indexBy = userInput.indexOf("by");
+                if (userInput.substring(8).isEmpty()) {
                     throw new LinguoBotException("Deadline description cannot be empty.");
                 }
                 if (indexBy == -1) {
                     throw new LinguoBotException("Invalid input. Please include 'by D/M/YYYY' for deadlines.");
                 }
-                String description = line.substring(8, indexBy).trim();
-                String date = line.substring(indexBy + 2).trim();
+                String description = userInput.substring(8, indexBy).trim();
+                String date = userInput.substring(indexBy + 2).trim();
                 if (!date.matches("\\d{1,2}/\\d{1,2}/\\d{4}") && !date.matches("\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{2} [APap][Mm]")) {
                     throw new LinguoBotException("Invalid date format. Please use the format 'D/M/YYYY H:MM AM/PM', e.g., '5/4/2023 6:00 PM'");
                 } else {
                     taskList.add(new Deadline(description, date));
                 }
-            } else if (line.startsWith("event")) {
-                int indexFrom = line.indexOf("from");
-                int indexTo = line.indexOf("to", indexFrom);
-                if (line.substring(5).isEmpty()) {
+            } else if (userInput.startsWith("event")) {
+                int indexFrom = userInput.indexOf("from");
+                int indexTo = userInput.indexOf("to", indexFrom);
+                if (userInput.substring(5).isEmpty()) {
                     throw new LinguoBotException("Event description cannot be empty.");
                 }
                 if (indexFrom == -1 || indexTo == -1) {
                     throw new LinguoBotException("Invalid input. Please include both 'from' and 'to' for events.");
                 }
-                taskList.add(new Event(line.substring(5, indexFrom - 1), line.substring(indexFrom + 4, indexTo),
-                        line.substring(indexTo + 2)));
+                taskList.add(new Event(userInput.substring(5, indexFrom - 1), userInput.substring(indexFrom + 4, indexTo),
+                        userInput.substring(indexTo + 2)));
             } else {
                 throw new LinguoBotException("☹ OOPS!!! I'm sorry, but I don't know what that means. " +
                         "\nIf you wish to input a new task: \n" +
@@ -164,6 +194,11 @@ public class CommandResponse {
             CommandResponse.printLine();
         }
     }
+
+    /** Finds tasks that match a given keyword and displays them.
+     * @param taskList ArrayList of tasks.
+     * @param userInput user's command input.
+     */
     public static void findTask(ArrayList<Task> taskList, String userInput) {
         try {
             int FIND_TASK_INDEX = 5;

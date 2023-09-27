@@ -1,4 +1,9 @@
 package linguobot.task;
+
+/**
+ * The <code>Task</code> class represents a generic task with a description and completion status.
+ * It serves as the base class for specific task types such as `Todo`, `Deadline`, and `Event`.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

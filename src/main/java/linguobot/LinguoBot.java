@@ -6,11 +6,22 @@ import linguobot.file.TaskFile;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+
+/**
+ * The <code>LinguoBot</code> class represents a simple command-line task management application.
+ * It allows users to interact with tasks, such as adding, listing, marking, unmarking,
+ * and deleting tasks. Tasks are stored in a task list and can be loaded from and saved
+ * to a file.
+ */
 public class LinguoBot {
     private TaskFile taskFile;
     private ArrayList<Task> taskList;
     private Scanner in;
 
+    /**
+     * Constructs a new <code>LinguoBot</code> instance. It initializes the task list based on tasks
+     * stored in the task file and sets up the input scanner.
+     */
     public LinguoBot() {
         taskFile = new TaskFile("./data/tasks.txt");
         taskList = taskFile.loadTasksFromFile();
@@ -22,6 +33,10 @@ public class LinguoBot {
         linguoBot.run();
     }
 
+    /**
+     * Runs the main loop of the <code>LinguoBot</code> application, allowing users to interact
+     * with tasks through various commands.
+     */
     public void run() {
         CommandResponse.displayWelcomeMessage();
         TaskFile.printFile();
@@ -41,7 +56,7 @@ public class LinguoBot {
                 CommandResponse.displayGoodbyeMessage();
                 break;
             } else {
-                CommandResponse.addTask(userInput, taskList);
+                CommandResponse.addTask(taskList, userInput);
             }
         }
     }
