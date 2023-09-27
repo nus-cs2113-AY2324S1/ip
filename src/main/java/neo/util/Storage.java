@@ -70,6 +70,8 @@ public abstract class Storage {
         String input = Ui.readInput();
         while (!input.equalsIgnoreCase("N")) {
             if (input.trim().equalsIgnoreCase("Y")) {
+                list.clear();
+                System.out.println("Deleting data.txt file...");
                 writeToFile(list);
                 System.out.println("Creating new data.txt file...");
                 break;
