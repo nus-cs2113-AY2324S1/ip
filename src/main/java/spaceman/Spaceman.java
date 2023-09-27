@@ -1,13 +1,13 @@
-import commands.Command;
-import commands.ExitCommand;
+package spaceman;
 
-import data.exception.IncompleteDescriptionException;
-import data.exception.InvalidActionException;
-import data.TaskList;
-
-import ui.Ui;
-import storage.Storage;
-import parser.Parser;
+import spaceman.commands.Command;
+import spaceman.commands.ExitCommand;
+import spaceman.data.exception.IncompleteDescriptionException;
+import spaceman.data.exception.InvalidActionException;
+import spaceman.data.TaskList;
+import spaceman.ui.Ui;
+import spaceman.storage.Storage;
+import spaceman.parser.Parser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class Spaceman {
         try {
             tasks = new TaskList(storage.readDataFromFile());
         } catch (FileNotFoundException e) {
-            ui.showReadDataError();
+            Ui.showReadDataError();
             tasks = new TaskList();
         }
     }
@@ -40,11 +40,14 @@ public class Spaceman {
      * Runs the program until termination.
      */
     public void run() {
-        ui.printWelcomeMessage();
-        ui.showWelcomeMessage();
+        Ui.showWelcomeMessage();
         runProgramUntilTermination();
     }
 
+    /**
+     * Reads the user command and executes it, until the user issues the "bye" command.
+     * This method continuously prompts the user for commands and executes them until the user enters "bye".
+     */
     private void runProgramUntilTermination() {
         boolean isExit = false;
         while (!isExit) {

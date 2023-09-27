@@ -4,12 +4,28 @@ import static spaceman.ui.Messages.MESSAGE_EMPTY_TODO;
 import static spaceman.ui.Messages.MESSAGE_EMPTY_DEADLINE;
 import static spaceman.ui.Messages.MESSAGE_EMPTY_EVENT;
 
-import spaceman.commands.*;
+import static spaceman.commands.ListOfCommands.COMMAND_BYE;
+import static spaceman.commands.ListOfCommands.COMMAND_LIST;
+import static spaceman.commands.ListOfCommands.COMMAND_MARK;
+import static spaceman.commands.ListOfCommands.COMMAND_UNMARK;
+import static spaceman.commands.ListOfCommands.COMMAND_TODO;
+import static spaceman.commands.ListOfCommands.COMMAND_DEADLINE;
+import static spaceman.commands.ListOfCommands.COMMAND_EVENT;
+import static spaceman.commands.ListOfCommands.COMMAND_DELETE;
+import static spaceman.commands.ListOfCommands.COMMAND_FIND;
 
+import spaceman.commands.Command;
+import spaceman.commands.AddCommand;
+import spaceman.commands.DeleteCommand;
+import spaceman.commands.ExitCommand;
+import spaceman.commands.FindCommand;
+import spaceman.commands.InvalidCommand;
+import spaceman.commands.ListCommand;
+import spaceman.commands.MarkCommand;
+import spaceman.commands.UnmarkCommand;
 import spaceman.data.TaskList;
 import spaceman.data.exception.IncompleteDescriptionException;
 import spaceman.data.exception.InvalidActionException;
-
 import spaceman.data.task.Deadline;
 import spaceman.data.task.Event;
 import spaceman.data.task.Todo;
@@ -23,10 +39,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class Parser {
     /**
-     * Returns the Command inputted by the user.
+     * Returns the {@link Command} inputted by the user.
      * @param text input text from user
      * @param tasks list of tasks
-     * @return a Command object to be executed
+     * @return a {@link Command} object to be executed
      * @throws InvalidActionException If user input is not a valid action.
      * @throws IncompleteDescriptionException If user input is incomplete.
      */
@@ -42,23 +58,23 @@ public class Parser {
         }
         try {
             switch (commandType){
-            case "bye":
+            case COMMAND_BYE:
                 return new ExitCommand();
-            case "list":
+            case COMMAND_LIST:
                 return new ListCommand();
-            case "mark":
+            case COMMAND_MARK:
                 return new MarkCommand(parseTaskIndex(arguments));
-            case "unmark":
+            case COMMAND_UNMARK:
                 return new UnmarkCommand(parseTaskIndex(arguments));
-            case "todo":
+            case COMMAND_TODO:
                 return new AddCommand(parseTodo(arguments));
-            case "deadline":
+            case COMMAND_DEADLINE:
                 return new AddCommand(parseDeadline(arguments));
-            case "event":
+            case COMMAND_EVENT:
                 return new AddCommand(parseEvent(arguments));
-            case "delete":
+            case COMMAND_DELETE:
                 return new DeleteCommand(parseTaskIndex(arguments));
-            case "find":
+            case COMMAND_FIND:
                 return new FindCommand(arguments);
             default:
                 return new InvalidCommand();
@@ -68,6 +84,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parsers arguments in the context of adding a todo.
+     * @param arguments full command argument string
+     * @return a {@link Todo} object
+     * @throws IncompleteDescriptionException If the description of the todo is empty.
+     */
     public static Todo parseTodo(String arguments) throws IncompleteDescriptionException {
         if (arguments == null) {
             throw new IncompleteDescriptionException(MESSAGE_EMPTY_TODO);
@@ -76,6 +98,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parsers arguments in the context of adding a deadline.
+     * @param arguments full command argument string
+     * @return a {@link Deadline} object
+     * @throws IncompleteDescriptionException If the description of the deadline is empty.
+     */
     public static Deadline parseDeadline(String arguments) throws IncompleteDescriptionException {
         if (arguments == null) {
             throw new IncompleteDescriptionException(MESSAGE_EMPTY_DEADLINE);
@@ -89,6 +117,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parsers arguments in the context of adding an event.
+     * @param arguments full command argument string
+     * @return an {@link Event} object
+     * @throws IncompleteDescriptionException If the description of the event is empty.
+     */
     public static Event parseEvent(String arguments) throws IncompleteDescriptionException {
         if (arguments == null) {
             throw new IncompleteDescriptionException(MESSAGE_EMPTY_EVENT);
@@ -106,6 +140,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse the task index specified by the user
+     * @param arguments full command argument string
+     * @return index of task
+     */
     public static int parseTaskIndex(String arguments) {
         return Integer.parseInt(arguments);
     }

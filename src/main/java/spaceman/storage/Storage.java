@@ -83,11 +83,16 @@ public class Storage {
             file.getParentFile().mkdirs();
             file.createNewFile();
         }
-        FileWriter fw = taskEncoder(taskList, file);
-        fw.close();
+        taskEncoder(taskList, file);
     }
 
-    private static FileWriter taskEncoder(TaskList taskList, File file) throws IOException {
+    /**
+     * Encode tasks into strings to be saved into the storage data file.
+     * @param taskList list of tasks
+     * @param file storage data file
+     * @throws IOException If errors occur when saving data to the storage file.
+     */
+    private static void taskEncoder(TaskList taskList, File file) throws IOException {
         FileWriter fw = new FileWriter(file);
         ArrayList<Task> tasks = taskList.getTasks();
         for (Task task : tasks) {
@@ -96,9 +101,15 @@ public class Storage {
             fw.write(output);
             fw.write("\n");
         }
-        return fw;
+        fw.close();
     }
 
+    /**
+     * Encode task status to integers to be stored in the storage data file.
+     * A task marked as done is stored as 1, while a task marked as not done is stored as 0.
+     * @param isMarked boolean to indicate if the task is marked as done
+     * @return integer indicator of the task status
+     */
     private static int encodeTaskStatus(boolean isMarked) {
         if (isMarked) {
             return 1;
@@ -107,6 +118,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts the task details to a String to be stored in the storage data file.
+     * @param task task being converted to String
+     * @param markedIndex integer indicator of the task status
+     * @return a String object to be stored in the storage data file
+     */
     private static String toString(Task task, int markedIndex) {
         if (task instanceof Todo) {
             return "T | " + markedIndex + " | " + task.getDescription();
@@ -115,7 +132,8 @@ public class Storage {
         } else if (task instanceof Event) {
             return "E | " + markedIndex + " | " + task.getDescription() + " | " + ((Event) task).getStart()
                     + " | " + ((Event) task).getEnd();
+        } else {
+            return null;
         }
-        return null;
     }
 }
