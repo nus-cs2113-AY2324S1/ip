@@ -5,7 +5,6 @@ import listWhisper.task.TaskType;
 public abstract class Task {
     private final String description;
     private boolean isDone;
-
     protected TaskType type;
 
     public Task(String description, TaskType type) {
