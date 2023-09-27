@@ -1,3 +1,4 @@
+theme: midnight
 # User Guide
 
 ## Features 
