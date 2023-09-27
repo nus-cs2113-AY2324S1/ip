@@ -39,7 +39,7 @@ public class TaskList {
         int markIdx = Integer.parseInt(line) - 1;
         taskItems.get(markIdx).setIsDone(true);
 
-        return String.format("Nice! I've marked this task as done: \n"
+        return String.format("Nice! I've marked this task as done: \n\t  "
                 + taskItems.get(markIdx).getTask());
     }
 
@@ -54,7 +54,7 @@ public class TaskList {
         int markIdx = Integer.parseInt(line) - 1;
         taskItems.get(markIdx).setIsDone(false);
 
-        return String.format("Nice! I've marked this task as undone: \n" +
+        return String.format("Nice! I've marked this task as undone: \n\t  " +
                 taskItems.get(markIdx).getTask());
     }
 
