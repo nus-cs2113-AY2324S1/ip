@@ -1,24 +1,34 @@
-# Duke project template
+# Spaceman Task Manager
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to Spaceman, your personal assistance chat-bot!
 
-## Setting up in Intellij
+## Prerequisites
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Make sure you have `Java 11` or above installed on your system.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+## Setup
+
+1. Download the latest JAR file (`ip.jar`).
+2. Copy the JAR file into an empty folder.
+3. Open a command prompt or terminal window in the folder that you placed the JAR file.
+4. Enter the following command to start the bot:
+
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   java -jar ip.jar
    ```
+
+5. You should see a welcome message as shown below:
+
+```
+Hello from
+  ____  _____   ___    _____ _____ __    __   ___   __   __
+/     /|  __ \ /   \  /   __|     |  \  /  | /   \ |  \ |  |
+\   __\| |__) |  _  \|   /  |   __|   \/   |/  _  \|   \|  |
+ \__   |  ___/  |_|  |  |   |   __|        |  |_|  |       |
+/      | |   |   _   |   \__|     |   __   |   _   |       |
+|____ /|_|   |__| |__|\_____|_____|__|  |__|__| |__|__|\___|
+
+------------------------------------------------------------------------
+What can I do for you?
+------------------------------------------------------------------------
+```
