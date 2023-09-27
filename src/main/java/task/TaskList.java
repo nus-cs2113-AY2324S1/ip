@@ -1,5 +1,5 @@
-package listWhisper.task;
-import listWhisper.exceptions.DescriptionFormatException;
+package task;
+import exceptions.DescriptionFormatException;
 
 import java.util.ArrayList;
 

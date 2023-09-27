@@ -1,6 +1,6 @@
-package common;
+package command;
 
-import listWhisper.task.TaskList;
+import task.TaskList;
 import ui.Ui;
 
 public class AddDeadlineCommand extends Command {
@@ -15,6 +15,6 @@ public class AddDeadlineCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui) {
         taskList.addDeadline(this.description, this.by);
-        Messages.printAddMessage(taskList);
+        Ui.printAddMessage(taskList);
     }
 }

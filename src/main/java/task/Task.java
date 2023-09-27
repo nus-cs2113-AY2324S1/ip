@@ -1,6 +1,4 @@
-package listWhisper.task;
-
-import listWhisper.task.TaskType;
+package task;
 
 public abstract class Task {
     private final String description;

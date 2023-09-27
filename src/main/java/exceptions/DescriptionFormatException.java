@@ -1,4 +1,4 @@
-package listWhisper.exceptions;
+package exceptions;
 
 public class DescriptionFormatException extends ListWhisperExceptions {
     public DescriptionFormatException(String errorMessage) {

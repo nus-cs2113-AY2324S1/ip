@@ -1,4 +1,4 @@
-package listWhisper.exceptions;
+package exceptions;
 
 public class InvalidCommandException extends ListWhisperExceptions {
     public InvalidCommandException(String errorMessage) {

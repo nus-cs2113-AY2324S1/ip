@@ -1,6 +1,6 @@
-package common;
+package command;
 
-import listWhisper.task.TaskList;
+import task.TaskList;
 import ui.Ui;
 
 public class DeleteCommand extends Command {
@@ -13,6 +13,6 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui) {
         taskList.delete(taskId);
-        Messages.printDeleteMessage(taskList, taskList.delete(taskId));
+        Ui.printDeleteMessage(taskList, taskList.delete(taskId));
     }
 }

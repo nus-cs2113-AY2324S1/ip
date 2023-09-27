@@ -1,8 +1,8 @@
-package listWhisper.task;
+package task;
 
-import common.*;
-import listWhisper.exceptions.DescriptionFormatException;
-import listWhisper.exceptions.InvalidCommandException;
+import command.*;
+import exceptions.DescriptionFormatException;
+import exceptions.InvalidCommandException;
 import ui.Ui;
 
 public class Parser {
@@ -15,7 +15,6 @@ public class Parser {
 
         if (commandType.equals("bye")) {
             command = new ExitCommand();
-            Messages.printByeMessage();
         } else if (commandType.equals("list")) {
             command = new ListCommand();
         } else if (commandType.equals("mark")) {

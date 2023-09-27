@@ -1,4 +1,4 @@
-package listWhisper.task;
+package task;
 
 class Todo extends Task {
     public Todo(String description) {

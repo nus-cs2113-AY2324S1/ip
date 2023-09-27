@@ -1,6 +1,6 @@
-package common;
+package command;
 
-import listWhisper.task.TaskList;
+import task.TaskList;
 import ui.Ui;
 
 public class AddEventCommand extends Command {
@@ -17,6 +17,6 @@ public class AddEventCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui) {
         taskList.addEvent(this.description, this.startTime, this.endTime);
-        Messages.printAddMessage(taskList);
+        Ui.printAddMessage(taskList);
     }
 }

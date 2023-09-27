@@ -1,6 +1,6 @@
-package common;
+package command;
 
-import listWhisper.task.TaskList;
+import task.TaskList;
 import ui.Ui;
 
 public class MarkCommand extends Command {
@@ -12,6 +12,6 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui) {
         taskList.mark(this.taskId);
-        Messages.printMarkMessage(taskList.getTask(taskId));
+        Ui.printMarkMessage(taskList.getTask(taskId));
     }
 }

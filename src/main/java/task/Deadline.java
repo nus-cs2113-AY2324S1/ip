@@ -1,4 +1,4 @@
-package listWhisper.task;
+package task;
 
 class Deadline extends Task {
     protected String by;

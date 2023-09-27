@@ -1,4 +1,4 @@
-package listWhisper.task;
+package task;
 
 class Event extends Task {
     protected String start;

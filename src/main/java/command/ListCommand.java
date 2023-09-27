@@ -1,6 +1,6 @@
-package common;
+package command;
 
-import listWhisper.task.TaskList;
+import task.TaskList;
 import ui.Ui;
 
 public class ListCommand extends Command {
@@ -8,6 +8,6 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui) {
-        Messages.printListMessage(taskList);
+        Ui.printListMessage(taskList);
     }
 }

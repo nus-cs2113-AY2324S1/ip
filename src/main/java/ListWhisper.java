@@ -1,6 +1,6 @@
-import common.Command;
-import listWhisper.task.Parser;
-import listWhisper.task.TaskList;
+import command.Command;
+import task.Parser;
+import task.TaskList;
 import storage.Storage;
 import ui.Ui;
 import java.io.IOException;
@@ -29,19 +29,19 @@ public class ListWhisper {
     }
 
     public void run() {
-        ui.showWelcome();
+        Ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.getUserCommand();
-                ui.showLine();
+                Ui.showLine();
                 Command c = this.parser.parse(fullCommand);
                 c.execute(taskList, ui);
                 isExit = c.isExit();
             } catch (Exception e) {
                 Ui.showError(e);
             } finally {
-                ui.showLine();
+                Ui.showLine();
             }
         }
     }

@@ -1,5 +1,5 @@
-package common;
-import listWhisper.task.TaskList;
+package command;
+import task.TaskList;
 import ui.Ui;
 
 public class AddTodoCommand extends Command {
@@ -12,6 +12,6 @@ public class AddTodoCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui) {
         taskList.addTodo(description);
-        Messages.printAddMessage(taskList);
+        Ui.printAddMessage(taskList);
     }
 }

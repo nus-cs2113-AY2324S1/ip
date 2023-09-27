@@ -1,8 +1,8 @@
 package storage;
 
 // Inspired by TaskS
-import listWhisper.task.Parser;
-import listWhisper.task.TaskList;
+import task.Parser;
+import task.TaskList;
 import ui.Ui;
 
 import java.io.*;
