@@ -1,5 +1,10 @@
-git branch branch-Level-0
-git switch branch-Level-0
+set TAG_NAME=Level-0
+set MESSAGE=125
+
+git branch branch-%TAG_NAME%
+git switch branch-%TAG_NAME%
 git add .
-git commit -m "Rename, Greet, Exit"
-git push origin branch-Level-0
+git commit -m "%MESSAGE%"
+git push origin branch-%TAG_NAME%
+git tag %TAG_NAME% branch-%TAG_NAME%
+git push origin %TAG_NAME%
