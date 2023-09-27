@@ -38,12 +38,8 @@ import spaceman.data.task.Task;
 import spaceman.data.task.Todo;
 
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAccessor;
 
 /**
  * Parses user input.
@@ -100,6 +96,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Validate the pattern of user inputted date.
+     * @param date user inputted date
+     * @return format of date
+     * @throws InvalidDateFormatException If the date provided by user does not fulfil any of the datetime format.
+     */
     private static String dateTimePatternValidation(String date) throws InvalidDateFormatException {
         if (date.matches(DATE_TIME_PATTERN1)) {
             return "d/M/yyyy HHmm";
@@ -114,6 +116,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Return the user input datetime as {@link LocalDateTime} object
+     * @param date user inputted date
+     * @param format format of date
+     * @param formatter formatter to format the datetime
+     * @return a datetime object corresponding to the user input
+     * @throws InvalidDateFormatException If the date provided by user does not fulfil any of the datetime format.
+     */
     private static LocalDateTime parseDate(String date, String format, DateTimeFormatter formatter)
             throws InvalidDateFormatException {
         String separator;
