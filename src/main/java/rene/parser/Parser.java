@@ -11,8 +11,16 @@ import rene.command.CommandDeadline;
 import rene.command.CommandEvent;
 import rene.command.CommandFind;
 import rene.exception.ReneExceptions;
-
+/**
+ * Represents a parser that converts user inputs into command objects.
+ */
 public class Parser {
+    /**
+     * Analyses and extracts relevant information from user input
+     * to create a new Command object of the right type.
+     *
+     * @param userInput The full user CLI input.
+     */
     public Command parseCommand(String userInput) {
         String commandTitle = userInput.split(" ")[0];
         String commandDetails;

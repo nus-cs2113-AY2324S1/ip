@@ -1,5 +1,4 @@
 package rene.storage;
-import rene.parser.Parser;
 import rene.task.Task;
 import rene.tasklist.TaskList;
 
@@ -8,19 +7,38 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Represents the hard disk storage where
+ * task data is stored, read and updated.
+ */
 public class Storage {
     private File dataFile;
-
+    /**
+     * Creates a new storage for storing task data.
+     *
+     * @param filePath The file location in hard disk where data is stored and read from.
+     */
     public Storage(String filePath) {
         dataFile = new File(filePath);
     }
-
+    /**
+     * Write in new data to storage.
+     *
+     * @param filePath The file location in hard disk where data is written to.
+     * @param textToAdd Data to be written.
+     * @param toAppend If true, new data is added to the back of existing data instead of overwriting them.
+     */
     private void writeToFile(String filePath, String textToAdd, boolean toAppend) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, toAppend);
         fileWriter.write(textToAdd);
         fileWriter.close();
     }
+    /**
+     * Build a new task list from data stored in hard disk.
+     * Used at program start to build the current task list.
+     *
+     * @param tasks The task list to be built.
+     */
     public void buildCurrentListFromFile(TaskList tasks){
         try {
             if (dataFile.createNewFile()) {
@@ -79,7 +97,12 @@ public class Storage {
             System.out.println("    " + invalidFilePath.getMessage());
         }
     }
-
+    /**
+     * Build a new task list from data stored in hard disk.
+     * Prints out the tasks in the list in CLI.
+     *
+     * @param tasks The task list that has been built.
+     */
     public void loadData(TaskList tasks) {
         buildCurrentListFromFile(tasks);
         if (tasks.getTaskListSize() > 0) {
@@ -89,7 +112,13 @@ public class Storage {
             System.out.println("    You currently have no saved tasks uWu");
         }
     }
-
+    /**
+     * Overwrites all existing data in storage with
+     * the current tasks in the task list.
+     * Used after every task change and on program termination.
+     *
+     * @param tasks The task list to overwrite current data with.
+     */
     public void updateData(TaskList tasks){
         try{
             writeToFile(dataFile.getPath(), "Latest Tasks" + System.lineSeparator(), false); //flush all current records

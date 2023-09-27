@@ -10,10 +10,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-
+/**
+ * Represents the list of tasks currently registered in the chatbot.
+ * This list is created on program start and disposed on program termination.
+ */
 public class TaskList {
     private ArrayList<Task> allTasks; //array of inputs
     DateTimeFormatter inputDateTimeFormatter = DateTimeFormatter.ofPattern( "dd-MM-yyyy HH:mm" );
+    /**
+     * Adds a user-requested task to the current task list.
+     * Depending on the type of task to add to the list,
+     * the program extracts the relevant information from
+     * the user input and builds a Task object to be added.
+     *
+     * @param input The full user input from CLI.
+     * @param taskType The type of task to be added (TODO, DEADLINE, EVENT).
+     * @param showMessage If true, program will print response message on CLI after task is added.
+     */
     public void addToTaskList(String input, Task.TaskType taskType, boolean showMessage){
         switch (taskType) {
             case TODO:
@@ -175,7 +188,13 @@ public class TaskList {
                 break;
         }
     }
-
+    /**
+     * Prints the details of a task in CLI.
+     *
+     * @param task The task which details are to be printed.
+     * @param asList If true, prints out the index of the task in the task list
+     *               in addition to the details of the task.
+     */
     public void printTask(Task task, boolean asList){
         int taskIndex = allTasks.indexOf(task);
         switch(task.getTaskType()) {
@@ -236,6 +255,9 @@ public class TaskList {
                 break;
         }
     }
+    /**
+     * Prints all the tasks in the current task list as an indexed list.
+     */
     public void printTaskList(){
         if(allTasks.isEmpty()){
             System.out.println("    No tasks found! Time to add some OWO");
@@ -246,6 +268,13 @@ public class TaskList {
             }
         }
     }
+    /**
+     * Mark a task in the current task list as done.
+     *
+     * @param index The list index of the task to be marked as done.
+     * @param showMessage If true, program will print response message on CLI
+     *                    after task is marked as done.
+     */
     public void markTaskAsDone(int index, boolean showMessage){
         try{
             allTasks.get(index-1).markAsDone();
@@ -258,6 +287,9 @@ public class TaskList {
             System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
         }
     }
+    /**
+     * Mark a task in the current task list as not done.
+     */
     public void markTaskAsNotDone(int index){
         try{
             allTasks.get(index-1).markAsNotDone();
@@ -268,7 +300,11 @@ public class TaskList {
             System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
         }
     }
-
+    /**
+     * Delete a task from the current task list.
+     *
+     * @param index The list index of the task to be deleted.
+     */
     public void deleteTaskByIndex(int index){
         try{
             Task task = allTasks.get(index-1);
@@ -280,7 +316,12 @@ public class TaskList {
             System.out.println("    Ohnuuu! Please enter valid task number *sobs*");
         }
     }
-
+    /**
+     * Returns the description and all other details of a task in one String object.
+     * Used to display task details in CLI.
+     *
+     * @param index The list index of the task to be viewed.
+     */
     public String viewTaskByIndex(int index){
         try{
             switch(allTasks.get(index-1).getTaskType()) {
@@ -297,7 +338,11 @@ public class TaskList {
             return "Task Not Found";
         }
     }
-
+    /**
+     * Search for tasks in the current task list using their description.
+     *
+     * @param keyword Description keyword(s) used to search for matches.
+     */
     public void searchListByDescription(String keyword){
         ArrayList<Task> matchedTasks = new ArrayList<>();
         if(allTasks.isEmpty()){
@@ -316,7 +361,11 @@ public class TaskList {
             }
         }
     }
-
+    /**
+     * Search for tasks in the current task list using their date and time.
+     *
+     * @param dateTime Date and time used to search for matches.
+     */
     public void searchListByTime(String dateTime){
         ArrayList<Task> matchedTasks = new ArrayList<>();
         if(allTasks.isEmpty()){
@@ -335,7 +384,13 @@ public class TaskList {
             }
         }
     }
-
+    /**
+     * Search for a task in the current task list.
+     * Depending on user command, this method will search by
+     * either description matches or time matches.
+     *
+     * @param input Full user command input.
+     */
     public void searchList(String input){
         String[] searchDetails;
         String[] searchInfo;
@@ -366,13 +421,21 @@ public class TaskList {
         }
 
     }
+    /**
+     * Returns the size of current task list.
+     */
     public int getTaskListSize(){
         return allTasks.size();
     }
+    /**
+     * Returns a list of all tasks in the current task list.
+     */
     public ArrayList<Task> getAllTasks(){
         return allTasks;
     }
-
+    /**
+     * Creates a new empty task list.
+     */
     public TaskList(){
         allTasks = new ArrayList<>();
     }
