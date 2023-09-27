@@ -1,5 +1,6 @@
 package kenergeticbot.fileaccess;
 
+import kenergeticbot.TaskList;
 import kenergeticbot.task.Deadline;
 import kenergeticbot.task.Event;
 import kenergeticbot.task.Task;
@@ -12,11 +13,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class Save  {
+public class Storage {
 
-    public static final String filePath = "data/KenergeticBot.txt";
+    protected String filePath;
     public static final String folderPath = "data";
-    public static void checkFileExist() {
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+        initializeStorage(filePath);
+    }
+
+    public void initializeStorage(String filePath) {
         File f = new File(filePath);
         checkFolderExist();
         try {
@@ -35,7 +42,7 @@ public abstract class Save  {
         System.out.println("is Directory?: " + f.isDirectory());
     }
 
-    public static void checkFolderExist() {
+    public void checkFolderExist() {
         File f = new File(folderPath);
         if (f.mkdir()) {
             System.out.println("Directory is created");
@@ -47,15 +54,16 @@ public abstract class Save  {
         System.out.println("is Directory?: " + f.isDirectory());
     }
 
-    public static void loadPreviousList (ArrayList<Task> taskList) {
+    public void loadPreviousList(TaskList taskList) {
         try {
+            System.out.println("Loading previous list");
             readFromFile(filePath, taskList);
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred." + e.getMessage());
         }
     }
 
-    public static void readFromFile (String filePath, ArrayList<Task> taskList) throws FileNotFoundException {
+    public void readFromFile(String filePath, TaskList taskList) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         if (f.length() == 0) {
             return;
@@ -73,36 +81,36 @@ public abstract class Save  {
             String taskMark = taskVariables[1];
             String taskDescription = taskVariables[2];
 
-
             switch (taskType) {
-            case "T" :
-                Task previousTodo = new Todo(taskDescription, "[T]");
-                taskList.add(previousTodo);
-                break;
-            case "D" :
-                String taskDeadline = taskVariables[3];
-                Task previousDeadline = new Deadline(taskDescription, "[D]", taskDeadline);
-                taskList.add(previousDeadline);
-                break;
-            case "E" :
-                String taskEventDateTime = taskVariables[3];
-                Task previousEvent = new Event(taskDescription, "[E]", taskEventDateTime);
-                taskList.add(previousEvent);
-                break;
-            default :
-                throw new IllegalStateException("Unexpected value: " + taskType);
+                case "T" :
+                    Task previousTodo = new Todo(taskDescription);
+                    taskList.add(previousTodo);
+                    System.out.println("adding:" + previousTodo);
+                    break;
+                case "D" :
+                    String taskDeadline = taskVariables[3];
+                    Task previousDeadline = new Deadline(taskDescription, taskDeadline);
+                    taskList.add(previousDeadline);
+                    System.out.println("adding:" + previousDeadline);
+                    break;
+                case "E" :
+                    String taskEventDateTime = taskVariables[3];
+                    Task previousEvent = new Event(taskDescription, taskEventDateTime);
+                    taskList.add(previousEvent);
+                    System.out.println("adding:" + previousEvent);
+                    break;
+                default :
+                    throw new IllegalStateException("Unexpected value: " + taskType);
             }
-            System.out.println(taskDescription + " added to list");
         }
         try {
             new FileWriter(filePath, false).close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
-    public static void writeToFile(String textToAdd) {
+    public void writeToFile(String textToAdd) {
         File f = new File(filePath);
         if (f.length() == 0) {
             try {
@@ -125,11 +133,10 @@ public abstract class Save  {
         }
     }
 
-    public static void saveList(ArrayList<Task> taskList) {
-        checkFileExist();
-        for (Task task : taskList) {
-            System.out.println(task);
-            Save.writeToFile(task.printTaskToSave());
+    public void saveList(TaskList taskList) {
+        for (int i = 0; i < taskList.getSize(); i++) {
+            System.out.println(taskList.getTask(i));
+            writeToFile(taskList.getTask(i).printTaskToSave());
         }
     }
 }

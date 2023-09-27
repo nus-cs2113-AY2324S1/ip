@@ -2,9 +2,10 @@ package kenergeticbot.task;
 
 public class Event extends Task {
     protected String dateTime;
-    public Event(String description, String taskType, String dateTime) {
-        super(description, taskType);
+    public Event(String description, String dateTime) {
+        super(description);
         this.dateTime = dateTime;
+        this.taskType = "[E]";
     }
 
     public String toString() {

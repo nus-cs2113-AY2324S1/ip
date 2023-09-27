@@ -1,60 +1,50 @@
-import kenergeticbot.task.Task;
-import kenergeticbot.exceptionhandler.KenergeticBotException;
+import kenergeticbot.TaskList;
+import kenergeticbot.command.Command;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
-import static kenergeticbot.command.BooleanChecks.checkTextForMark;
-import static kenergeticbot.command.BooleanChecks.checkTextForUnmark;
-import static kenergeticbot.command.BooleanChecks.checkTextForDelete;
-import static kenergeticbot.command.CommandList.add;
-import static kenergeticbot.command.CommandList.list;
-import static kenergeticbot.command.CommandList.mark;
-import static kenergeticbot.command.CommandList.unmark;
-import static kenergeticbot.command.CommandList.delete;
-import static kenergeticbot.command.CommonMessages.printExitMessage;
-import static kenergeticbot.command.CommonMessages.printGreetingMessage;
+import kenergeticbot.fileaccess.Storage;
+import kenergeticbot.ui.TextUi;
+import kenergeticbot.command.Parser;
+import kenergeticbot.command.ExitCommand;
 
-import kenergeticbot.fileaccess.Save;
 
-public class KenergeticBot extends Save {
-    
+public class KenergeticBot {
+    public static final String filePath = "data/KenergeticBot.txt";
+
+    private TextUi ui;
+    private Parser commandParser;
+    private Storage storage;
+    public TaskList taskList;
+
     public static void main(String[] args) {
-        printGreetingMessage();
-        ArrayList<Task> taskList = new ArrayList<Task>();
-        loadPreviousList(taskList);
-        botDialogue(taskList);
+        new KenergeticBot().run();
     }
 
-    //Main logic for the bot dialogue
-    public static void botDialogue(ArrayList<Task> taskList) {
+    private void start(String filePath, TaskList taskList) {
+        this.storage = new Storage(filePath);
+        storage.loadPreviousList(taskList);
+        TextUi.printGreetingMessage();
+    }
+
+    public void run() {
+        this.taskList = new TaskList();
+        start(filePath, taskList);
+        runCommandLoopUntilExitCommand();
+        exit();
+    }
+    public void runCommandLoopUntilExitCommand() {
         Scanner input = new Scanner(System.in);
-        String item = input.nextLine();
-        while(!item.equals("bye")) {
-            if (item.equals("list")) {
-                list(taskList);
-            } else if (checkTextForMark(item)) {
-                String[] splitItem = item.split(" ");
-                int listIndex = Integer.parseInt(splitItem[1]);
-                mark(taskList, listIndex);
-            } else if (checkTextForUnmark(item)) {
-                String[] splitItem = item.split(" ");
-                int listIndex = Integer.parseInt(splitItem[1]);
-                unmark(taskList, listIndex);
-            } else if (checkTextForDelete(item)) {
-                String[] splitItem = item.split(" ");
-                int listIndex = Integer.parseInt(splitItem[1]);
-                delete(taskList, listIndex);
-            } else {
-                try {
-                    add(taskList, item);
-                } catch (KenergeticBotException e) { //exception thrown when user inputs command outside the usual commands
-                    System.out.println(e.getMessage()); 
-                }
-            }
-            item = input.nextLine();
-        }
-        saveList(taskList);
-        printExitMessage();
+        do {
+            String item = input.nextLine();
+            Command c = Parser.parseCommand(taskList, item);
+            c.execute(taskList);
+        } while (!ExitCommand.isExit());
+        storage.saveList(taskList);
+    }
+
+    private static void exit() {
+        TextUi.printExitMessage();
+        System.exit(0);
     }
 }

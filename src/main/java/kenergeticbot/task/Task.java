@@ -4,10 +4,9 @@ public class Task {
         protected boolean isDone;
         protected String taskType;
 
-        public Task(String description, String taskType) {
+        public Task(String description) {
             this.description = description;
             this.isDone = false;
-            this.taskType = taskType;
         }
 
         public String getStatusIcon() {
