@@ -1,19 +1,18 @@
-package parser;
+package spaceman.parser;
 
-import static ui.Messages.MESSAGE_UNKNOWN;
-import static ui.Messages.MESSAGE_EMPTY_TODO;
-import static ui.Messages.MESSAGE_EMPTY_DEADLINE;
-import static ui.Messages.MESSAGE_EMPTY_EVENT;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_TODO;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_DEADLINE;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_EVENT;
 
-import commands.*;
+import spaceman.commands.*;
 
-import data.TaskList;
-import data.exception.IncompleteDescriptionException;
-import data.exception.InvalidActionException;
+import spaceman.data.TaskList;
+import spaceman.data.exception.IncompleteDescriptionException;
+import spaceman.data.exception.InvalidActionException;
 
-import data.task.Deadline;
-import data.task.Event;
-import data.task.Todo;
+import spaceman.data.task.Deadline;
+import spaceman.data.task.Event;
+import spaceman.data.task.Todo;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

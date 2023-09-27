@@ -1,7 +1,7 @@
-package commands;
+package spaceman.commands;
 
-import data.TaskList;
-import ui.Ui;
+import spaceman.data.TaskList;
+import spaceman.ui.Ui;
 
 public class ListCommand extends Command {
     @Override

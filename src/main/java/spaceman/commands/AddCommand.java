@@ -1,7 +1,7 @@
-package commands;
+package spaceman.commands;
 
-import data.TaskList;
-import data.task.Task;
+import spaceman.data.TaskList;
+import spaceman.data.task.Task;
 
 public class AddCommand extends Command {
     private Task task;

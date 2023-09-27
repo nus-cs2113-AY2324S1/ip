@@ -1,9 +1,7 @@
-package commands;
+package spaceman.commands;
 
-import data.TaskList;
-import data.task.Task;
-import data.task.Todo;
-import ui.Ui;
+import spaceman.data.TaskList;
+import spaceman.ui.Ui;
 
 public class ExitCommand extends Command {
     public void execute(TaskList tasks) {

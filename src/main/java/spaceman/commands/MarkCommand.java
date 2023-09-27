@@ -1,6 +1,6 @@
-package commands;
+package spaceman.commands;
 
-import data.TaskList;
+import spaceman.data.TaskList;
 
 public class MarkCommand extends Command {
     private int taskIndex;

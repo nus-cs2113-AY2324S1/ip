@@ -1,9 +1,9 @@
-package commands;
+package spaceman.commands;
 
-import static ui.Messages.MESSAGE_UNKNOWN;
+import static spaceman.ui.Messages.MESSAGE_UNKNOWN;
 
-import data.TaskList;
-import data.exception.InvalidActionException;
+import spaceman.data.TaskList;
+import spaceman.data.exception.InvalidActionException;
 
 public class InvalidCommand extends Command {
     @Override

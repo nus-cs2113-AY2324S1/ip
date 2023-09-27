@@ -1,6 +1,6 @@
-package commands;
+package spaceman.commands;
 
-import data.TaskList;
+import spaceman.data.TaskList;
 
 public class FindCommand extends Command {
     private String keyword;
