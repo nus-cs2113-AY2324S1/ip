@@ -15,6 +15,7 @@ public class Deadline extends Task {
         return taskType + super.toString() + deadline;
     }
     public String printTaskToSave() {
-        return  taskType + super.printTaskToSave() + " | " + deadline;
+        String task = taskType.replace("[", "").replace("]","");
+        return  task + super.printTaskToSave() + " | " + deadline + "\n";
     }
 }

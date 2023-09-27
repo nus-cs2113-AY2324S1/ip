@@ -18,8 +18,7 @@ import static kenergeticbot.command.CommonMessages.printGreetingMessage;
 import kenergeticbot.fileaccess.Save;
 
 public class KenergeticBot extends Save {
-
-
+    
     public static void main(String[] args) {
         printGreetingMessage();
         ArrayList<Task> taskList = new ArrayList<Task>();

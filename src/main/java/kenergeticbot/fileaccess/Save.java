@@ -73,23 +73,22 @@ public abstract class Save  {
             String taskMark = taskVariables[1];
             String taskDescription = taskVariables[2];
 
+
             switch (taskType) {
             case "T" :
                 Task previousTodo = new Todo(taskDescription, "[T]");
                 taskList.add(previousTodo);
                 break;
             case "D" :
-                String[] taskDeadline = taskDescription.split("\\(");
-                Task previousDeadline = new Deadline(taskDeadline[0], "[D]", "(" + taskDeadline[1]);
+                String taskDeadline = taskVariables[3];
+                Task previousDeadline = new Deadline(taskDescription, "[D]", taskDeadline);
                 taskList.add(previousDeadline);
                 break;
-
             case "E" :
-                String[] taskEvent = taskDescription.split("\\(");
-                Task previousEvent = new Event(taskEvent[0], "[E]", "(" + taskEvent[1]);
+                String taskEventDateTime = taskVariables[3];
+                Task previousEvent = new Event(taskDescription, "[E]", taskEventDateTime);
                 taskList.add(previousEvent);
                 break;
-
             default :
                 throw new IllegalStateException("Unexpected value: " + taskType);
             }

@@ -10,6 +10,6 @@ public class Todo extends Task {
     }
     public String printTaskToSave() {
         String task = taskType.replace("[", "").replace("]","");
-        return task + super.printTaskToSave();
+        return task + super.printTaskToSave() + "\n";
     }
 }
