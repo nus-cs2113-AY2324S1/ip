@@ -31,6 +31,10 @@ public class KenergeticBot {
                 String[] splitItem = item.split(" ");
                 int listIndex = Integer.parseInt(splitItem[1]);
                 unmark(taskList, listIndex);
+            } else if (checkTextForDelete(item)) {
+                String[] splitItem = item.split(" ");
+                int listIndex = Integer.parseInt(splitItem[1]);
+                delete(taskList, listIndex);
             } else {
                 try {
                     add(taskList, item);

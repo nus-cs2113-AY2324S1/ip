@@ -133,4 +133,13 @@ public class CommandList {
         }
         CommonMessages.printLine();
     }
+
+    public static void delete(ArrayList<Task> taskList, int listIndex) {
+        CommonMessages.printLine();
+        System.out.println("     Noted. I've removed this task:");
+        System.out.println("       " + taskList.get(listIndex - 1));
+        taskList.remove(listIndex - 1);
+        System.out.printf("     Now you have %d tasks in the list.\n", taskList.size());
+        CommonMessages.printLine();
+    }
 }
