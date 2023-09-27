@@ -14,4 +14,7 @@ public class Deadline extends Task {
     public String toString() {
         return taskType + super.toString() + deadline;
     }
+    public String printTaskToSave() {
+        return  taskType + super.printTaskToSave() + " | " + deadline;
+    }
 }

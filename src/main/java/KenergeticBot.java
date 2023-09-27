@@ -4,15 +4,24 @@ import kenergeticbot.exceptionhandler.KenergeticBotException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import static kenergeticbot.command.BooleanChecks.*;
-import static kenergeticbot.command.CommandList.*;
-import static kenergeticbot.command.CommonMessages.*;
+import static kenergeticbot.command.BooleanChecks.checkTextForMark;
+import static kenergeticbot.command.BooleanChecks.checkTextForUnmark;
+import static kenergeticbot.command.CommandList.add;
+import static kenergeticbot.command.CommandList.list;
+import static kenergeticbot.command.CommandList.mark;
+import static kenergeticbot.command.CommandList.unmark;
+import static kenergeticbot.command.CommonMessages.printExitMessage;
+import static kenergeticbot.command.CommonMessages.printGreetingMessage;
 
-public class KenergeticBot {
+import kenergeticbot.fileaccess.Save;
+
+public class KenergeticBot extends Save {
+
 
     public static void main(String[] args) {
         printGreetingMessage();
         ArrayList<Task> taskList = new ArrayList<Task>();
+        loadPreviousList(taskList);
         botDialogue(taskList);
     }
 
@@ -38,12 +47,13 @@ public class KenergeticBot {
             } else {
                 try {
                     add(taskList, item);
-                } catch (KenergeticBotException e) { //exception thrown when user inputs kenergeticbot.exceptionhandler.command outside the usual commands
+                } catch (KenergeticBotException e) { //exception thrown when user inputs command outside the usual commands
                     System.out.println(e.getMessage()); 
                 }
             }
             item = input.nextLine();
         }
+        saveList(taskList);
         printExitMessage();
     }
 }

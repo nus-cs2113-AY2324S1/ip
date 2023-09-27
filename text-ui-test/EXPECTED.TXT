@@ -48,7 +48,7 @@
      ? OOPS!!! The date of a deadline cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
-     �\_(?)_/� OOPS!!! There may be a typo in the command used. Please use the command /by
+     ¯\_(ツ)_/¯ OOPS!!! There may be a typo in the command used. Please use the command /by
     ____________________________________________________________
     ____________________________________________________________
      ? OOPS!!! The date of a deadline cannot be empty. Please use the command /by
@@ -63,7 +63,7 @@
      ? OOPS!!! The end time of a event cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
-     �\_(?)_/� OOPS!!! There may be a typo in the command used. Please use the command /to
+     ¯\_(ツ)_/¯ OOPS!!! There may be a typo in the command used. Please use the command /to
     ____________________________________________________________
     ____________________________________________________________
      ? OOPS!!! The end time of a event cannot be empty. Please use the command /to
@@ -72,13 +72,13 @@
      ? OOPS!!! The end time of a event cannot be empty. Please use the command /to
     ____________________________________________________________
     ____________________________________________________________
-     ?:?? OOPS!!! The start time of a event cannot be empty.
+     ⩇:⩇⩇ OOPS!!! The start time of a event cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
-     �\_(?)_/� OOPS!!! There may be a typo in the command used. Please use the command /from
+     ¯\_(ツ)_/¯ OOPS!!! There may be a typo in the command used. Please use the command /from
     ____________________________________________________________
     ____________________________________________________________
-     ?:?? OOPS!!! The start time of a event cannot be empty. Please use the command /from
+     ⩇:⩇⩇ OOPS!!! The start time of a event cannot be empty. Please use the command /from
     ____________________________________________________________
     ____________________________________________________________
      ??? OOPS!!! The description of a event cannot be empty.

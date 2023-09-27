@@ -8,4 +8,8 @@ public class Todo extends Task {
     public String toString() {
         return taskType + super.toString();
     }
+    public String printTaskToSave() {
+        String task = taskType.replace("[", "").replace("]","");
+        return task + super.printTaskToSave();
+    }
 }
