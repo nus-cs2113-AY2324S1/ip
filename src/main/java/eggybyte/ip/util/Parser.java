@@ -68,49 +68,4 @@ public class Parser {
         }
         return parts;
     }
-
-    // /**
-    // * Parses arguments in the context of the delete person command.
-    // *
-    // * @param args full command args string
-    // * @return the prepared command
-    // */
-    // private Command prepareDeleteCommand(String args) {
-    // try {
-    // final int targetIndex = parseArgsAsDisplayedIndex(args);
-    // return new DeleteCommand(targetIndex);
-    // } catch (ParseException pe) {
-    // return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-    // DeleteCommand.MESSAGE_USAGE));
-    // } catch (NumberFormatException nfe) {
-    // return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    // }
-    // }
-
-    // /**
-    // * Parses the given arguments string as a single index number.
-    // *
-    // * @param args arguments string to parse as index number
-    // * @return the parsed index number
-    // * @throws ParseException if no region of the args string could be found
-    // * for the index
-    // * @throws NumberFormatException the args string region is not a valid number
-    // */
-    // private int parseArgsAsDisplayedIndex(String args) throws ParseException,
-    // NumberFormatException {
-    // if (args.isEmpty()) {
-    // throw new ParseException("Could not find index number to parse");
-    // }
-    // return Integer.parseInt(args.split(" ")[0]);
-    // }
-
-    // /**
-    // * Signals that the user input could not be parsed.
-    // */
-    // public static class ParseException extends Exception {
-    // ParseException(String message) {
-    // super(message);
-    // }
-    // }
-
 }
