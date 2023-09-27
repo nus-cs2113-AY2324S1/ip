@@ -16,7 +16,7 @@ RC chatbot is a desktop app for **managing tasks, optimised for use via a Comman
     What can I do for you?
 ```
 
-5. Refer to the [Features](https://github.com/ryan1604/ip/tree/master/docs#features) below for details of each command.
+5. Refer to the Features below for details of each command.
 ## Features
 **Notes about the command format:**
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.
