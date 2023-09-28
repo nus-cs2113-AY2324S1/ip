@@ -37,7 +37,7 @@ public abstract class Command {
             case EXIT_COMMAND:
                 return new Exit();
             default:
-                return new Echo(input);
+                return new InvalidCommand();
         }
     };
 
