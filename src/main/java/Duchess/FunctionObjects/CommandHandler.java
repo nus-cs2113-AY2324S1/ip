@@ -1,6 +1,5 @@
 package Duchess.FunctionObjects;
 
-import Duchess.FunctionObjects.UI;
 import Duchess.TaskObjects.Deadline;
 import Duchess.TaskObjects.Event;
 import Duchess.TaskObjects.Task;
@@ -60,8 +59,8 @@ public class CommandHandler {
                 System.out.println(DefaultStrings.endString);
                 try{
                     taskList.saveTasks(Constants.taskFilePath);
-                } catch (Exception e){
-                    System.out.println(DefaultStrings.fileNotFoundError);
+                } catch (DuchessError e){
+                    ui.printError(e);
                 }
                 return true; // Exit program
 

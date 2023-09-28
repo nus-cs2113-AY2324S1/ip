@@ -1,6 +1,8 @@
 package Duchess.TaskObjects;
 
+import Duchess.FunctionObjects.DateParser;
 import java.util.Scanner;
+
 
 public class Event extends Task{
     private String Starttime, endTime;
@@ -11,8 +13,21 @@ public class Event extends Task{
 
     public Event(String name, String Starttime, String endTime) {
         super(name);
-        this.Starttime = Starttime;
-        this.endTime = endTime;
+
+        DateParser parsedStart = new DateParser(Starttime);
+        DateParser parsedEnd = new DateParser(endTime);
+        
+        if (parsedStart.getDate() == null) {
+            this.Starttime = Starttime;
+        } else {
+            this.Starttime = parsedStart.getDate();
+        }
+
+        if (parsedEnd.getDate() == null) {
+            this.endTime = endTime;
+        } else {
+            this.endTime = parsedEnd.getDate();
+        }
     }
 
     public void makeNewEvent(Scanner sc){
