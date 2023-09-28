@@ -5,6 +5,7 @@ import java.util.Scanner;
 import dawson.command.Command;
 import dawson.command.ExitCommand;
 import dawson.exception.DawsonException;
+import dawson.storage.Storage;
 
 public class Dawson {
     /**
