@@ -35,7 +35,7 @@ public class Duke {
         String command = inputParts[0].toLowerCase();
         String argument = inputParts.length > 1 ? inputParts[1] : "";
 
-        try{
+        try {
             switch (command) {
                 case "list":
                     handleListCommand(tasks);
@@ -45,17 +45,39 @@ public class Duke {
                     handleMarkCommand(tasks, argument);
                     break;
 
+                case "delete":
+                    handleDeleteCommand(tasks,argument);
+                    break;
+
                 default:
                     handleAddTaskMethod(userInput, tasks);
             }
         } catch (EmptyDescriptionException e) {
             System.out.println("En: ☹ OOPS!!! The description of a task cannot be empty.");
             printLines();
-        } catch (UnknownCommandException e){
+        } catch (UnknownCommandException e) {
             System.out.println(e.getMessage());
             printLines();
         }
     }
+
+    private static void handleDeleteCommand(List<Task> tasks, String argument) {
+        try {
+            int taskNumber = Integer.parseInt(argument);
+            if (taskNumber >= 1 && taskNumber <= tasks.size()) {
+                Task removedTask = tasks.remove(taskNumber - 1);
+                System.out.println("En: Noted. I've removed this task:");
+                System.out.println("  " + removedTask);
+                System.out.println("En: Now you have " + tasks.size() + " tasks in the list.");
+            } else {
+                System.out.println("En: Invalid task number. Please enter a valid task number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("En: Invalid task number format. Please enter a valid task number.");
+        }
+        printLines();
+    }
+
 
     private static void handleAddTaskMethod(String userInput, List<Task> tasks) throws EmptyDescriptionException, UnknownCommandException {
         Task task = createTask(userInput);
@@ -149,13 +171,14 @@ public class Duke {
     }
 }
 
-class EmptyDescriptionException extends Exception{
-    public EmptyDescriptionException(String message){
+class EmptyDescriptionException extends Exception {
+    public EmptyDescriptionException(String message) {
         super(message);
     }
 }
-class UnknownCommandException extends Exception{
-    public UnknownCommandException(String message){
+
+class UnknownCommandException extends Exception {
+    public UnknownCommandException(String message) {
         super(message);
     }
 }
