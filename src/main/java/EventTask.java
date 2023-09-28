@@ -8,6 +8,7 @@ class EventTask extends Task {
         this.to = extractToDate(description);
     }
 
+    // Extract the /from date
     private String extractFromDate(String description) {
         int fromIndex = description.indexOf("/from");
 
@@ -20,6 +21,7 @@ class EventTask extends Task {
         return "No Start Date";
     }
 
+    //Extract the /to date
     private String extractToDate(String description) {
         int toIndex = description.indexOf("/to");
 

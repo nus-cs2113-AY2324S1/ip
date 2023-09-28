@@ -14,7 +14,7 @@ public class Duke {
                 "                                            ");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-
+        
         Scanner input = new Scanner(System.in);
         Task[] tasks = new Task[100];
         int taskCount = 0;
