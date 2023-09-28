@@ -21,7 +21,6 @@ public class TextUi {
 
     public void tellGoodbye() {
         System.out.println("\tGoodbye! I am going to sleep now.");
-        showLine();
     }
 
     public void printNumOfTasks(int tasksCount) {

@@ -1,15 +1,13 @@
 package duke.tasklist;
 
 import duke.exception.DukeTaskException;
-import duke.parser.TaskParser;
+import duke.parser.Parser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-import duke.storage.Storage;
 import duke.ui.TextUi;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -23,12 +21,12 @@ public class TaskList {
 
     private TextUi ui;
     private ArrayList<Task> tasks;
-    private TaskParser parser;
+    private Parser parser;
     private int tasksCount = 0;
 
     public TaskList(ArrayList<Task> tasks)  {
         ui = new TextUi();
-        parser = new TaskParser();
+        parser = new Parser();
 
         this.tasks = tasks;
         tasksCount = tasks.size();
