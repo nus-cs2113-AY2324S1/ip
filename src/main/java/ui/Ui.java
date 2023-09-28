@@ -1,6 +1,7 @@
 package ui;
 
 public class Ui {
+    private static final String TAB_SPACE = "    ";
 
     /**
      * For printing the hello message
@@ -25,15 +26,15 @@ public class Ui {
         System.out.println("       *****   ");
     }
 
-    /**
-     *
-     */
     public static void printLineDivider() {
         System.out.println("\n____________________________________________________________\n");
     }
 
-    public static void printMessage(String message) {
-        System.out.println("    " + message);
-        printLineDivider();
+    public static void printOneTabMessage(String message) {
+        System.out.println(TAB_SPACE + message);
+    }
+
+    public static void printTwoTabMessage(String message) {
+        System.out.println(TAB_SPACE + TAB_SPACE + message);
     }
 }

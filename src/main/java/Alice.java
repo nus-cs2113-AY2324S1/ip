@@ -1,10 +1,8 @@
 import exceptions.InvalidCommandException;
 import exceptions.InvalidFormatException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import tasks.*;
 import storage.FileManager;
+import ui.Ui;
 
 import java.util.ArrayList;
 import java.io.*;
@@ -13,70 +11,9 @@ import java.util.Scanner;
 public class Alice {
     private static final String LINE = "\n____________________________________________________________\n";
     private static final String TAB_SPACE = "    ";
-    private static ArrayList<Task> tasks= new ArrayList<>();
-    private static FileManager file = new FileManager();
-    private static int numberOfTasks;
 
-    /**
-     * For printing the hello message
-     */
-    public static void printHelloMessage() {
-        System.out.println("    Hi there! I am");
-        String alice = "     / \\ / \\  / \\  / \\_/ \\\n    ( A )( L )( I )( C )( E )\n     \\_/ \\_/  \\_/  \\_/ \\_/\n";
-        System.out.println(alice);
-        System.out.println("    What can I do for you?\n");
-    }
-
-    /**
-     * For printing the bye message
-     */
-    public static void printByeMessage() {
-        System.out.println("    Bye for now... We will miss you:( See you again very soon!");
-        System.out.println("       *****   ");
-        System.out.println("     *       * ");
-        System.out.println("    *  O   O  *");
-        System.out.println("    *    ∆    *");
-        System.out.println("     *       * ");
-        System.out.println("       *****   ");
-    }
-
-    /**
-     * List all tasks that have been added by user.
-     */
-    public static void listTasks() {
-        int itemNumber;
-        for (int i = 0; i < tasks.size(); i++){
-            itemNumber = i + 1;
-            System.out.println(TAB_SPACE + itemNumber + ". " + tasks.get(i));
-        }
-        System.out.println(LINE);
-    }
-
-    /**
-     * Add a new task to tasks array
-     * @param newTask is a class
-     */
-    public static void addTask(Task newTask) {
-        tasks.add(newTask);
-        System.out.println("    Gotcha! I have added the following task:");
-        System.out.println(TAB_SPACE + TAB_SPACE + newTask.toString());
-        System.out.println("    Total no. of tasks: " + tasks.size() + " --- YOU'VE GOT THIS!\n" + LINE);
-    }
-
-    public static void deleteTask(String userInput) throws InvalidCommandException{
-        int taskId = Integer.parseInt(userInput.split(" ")[1]);
-        if (taskId > tasks.size() || taskId < 1) {
-            throw new InvalidCommandException();
-        }
-
-        int taskPosition = taskId - 1;
-
-        System.out.println("    Gotcha! I have removed the following task:");
-        System.out.println(TAB_SPACE + TAB_SPACE + tasks.get(taskPosition));
-
-        tasks.remove(taskPosition);
-        System.out.println("    Total no. of tasks: " + tasks.size() + " --- YOU'VE GOT THIS!\n" + LINE);
-    }
+    private static FileManager file;
+    private static TaskList tasks;
 
     /**
      * Create a new to-do task in the correct format,
@@ -91,7 +28,7 @@ public class Alice {
 
         String description = userInput.substring(LENGTH_OF_COMMAND);
         Task newTask = new Todo(description);
-        addTask(newTask);
+        tasks.addTask(newTask);
     }
 
     /**
@@ -111,7 +48,7 @@ public class Alice {
         String date = inputArray[1];
 
         Task newTask = new Deadline(description, date);
-        addTask(newTask);
+        tasks.addTask(newTask);
     }
 
     /**
@@ -132,7 +69,7 @@ public class Alice {
         String endDate = inputArray[2].strip();
 
         Task newTask = new Event(description, startDate, endDate);
-        addTask(newTask);
+        tasks.addTask(newTask);
     }
 
     /**
@@ -164,8 +101,10 @@ public class Alice {
      * User is able to mark and unmark tasks, and also list all the tasks.
      */
     public static void main(String[] args) throws InvalidCommandException, InvalidFormatException, FileNotFoundException {
-        printHelloMessage();
-        tasks = file.retrieve();
+        Ui.printHelloMessage();
+
+        file = new FileManager();
+        tasks = new TaskList(file.retrieve());
 
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
@@ -177,7 +116,7 @@ public class Alice {
             try{
                 switch (actionOfInput) {
                 case "list":
-                    listTasks();
+                    tasks.listTasks();
                     break;
                 case "mark":
                 case "unmark":
@@ -193,7 +132,7 @@ public class Alice {
                     addTodo(userInput);
                     break;
                 case "delete":
-                    deleteTask(userInput);
+                    tasks.deleteTask(userInput);
                     break;
                 default:
                     throw new InvalidCommandException();
@@ -208,6 +147,6 @@ public class Alice {
             userInput = in.nextLine();
         }
         file.save(tasks);
-        printByeMessage();
+        Ui.printByeMessage();
     }
 }
