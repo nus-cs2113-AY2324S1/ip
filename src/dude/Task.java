@@ -19,8 +19,8 @@ public class Task {
         return description;
     }
 
-    public void markAsDone() {
-        isDone = true;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String toFileFormat() {
@@ -31,7 +31,7 @@ public class Task {
         String[] parts = fileString.split("\\s\\|\\s");
         Task task = new Task(parts[2]);
         if (parts[1].equals("1")) {
-            task.markAsDone();
+            task.setDone(true);
         }
         return task;
     }

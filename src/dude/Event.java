@@ -20,7 +20,7 @@ public class Event extends Task {
         String[] parts = fileString.split("\\s\\|\\s");
         Event event = new Event(parts[2], parts[3], parts[4]);
         if (parts[1].equals("1")) {
-            event.markAsDone();
+            event.setDone(event.isDone);
         }
         return event;
     }

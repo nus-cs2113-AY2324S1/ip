@@ -18,7 +18,7 @@ public class Deadline extends Task {
         String[] parts = fileString.split("\\s\\|\\s");
         Deadline deadline = new Deadline(parts[2], parts[3]);
         if (parts[1].equals("1")) {
-            deadline.markAsDone();
+            deadline.setDone(deadline.isDone);
         }
         return deadline;
     }
