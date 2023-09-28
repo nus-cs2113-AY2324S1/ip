@@ -1,7 +1,7 @@
 package dawson.command;
 
 import dawson.TaskList;
-import dawson.DawsonException;
+import dawson.exception.DawsonException;
 
 public class MarkCommand extends Command {
 

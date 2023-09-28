@@ -1,7 +1,7 @@
 package dawson.command;
 
-import dawson.DawsonException;
 import dawson.TaskList;
+import dawson.exception.DawsonException;
 import dawson.task.Deadline;
 
 public class DeadlineCommand extends Command {

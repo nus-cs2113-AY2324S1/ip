@@ -1,5 +1,6 @@
 package dawson;
 
+import dawson.exception.DawsonException;
 import dawson.task.Task;
 
 import java.util.ArrayList;

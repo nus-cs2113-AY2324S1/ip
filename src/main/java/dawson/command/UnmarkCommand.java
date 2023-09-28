@@ -1,7 +1,7 @@
 package dawson.command;
 
-import dawson.DawsonException;
 import dawson.TaskList;
+import dawson.exception.DawsonException;
 
 public class UnmarkCommand extends Command {
 
