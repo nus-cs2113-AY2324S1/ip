@@ -27,17 +27,17 @@ public abstract class Command {
             case EVENT_COMMAND:
                 return new EventCommand(payload, taskList);
             case LIST_COMMAND:
-                return new List(taskList);
+                return new ListCommand(taskList);
             case DELETE_COMMAND:
-                return new Delete(payload, taskList);
+                return new DeleteCommand(payload, taskList);
             case MARK_COMMAND:
-                return new Mark(payload, taskList);
+                return new MarkCommand(payload, taskList);
             case UNMARK_COMMAND:
-                return new Unmark(payload, taskList);
+                return new UnmarkCommand(payload, taskList);
             case EXIT_COMMAND:
-                return new Exit();
+                return new ExitCommand();
             default:
-                return new Echo(input);
+                return new InvalidCommand();
         }
     };
 

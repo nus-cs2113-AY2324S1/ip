@@ -2,7 +2,7 @@ package dawson.command;
 
 import dawson.Dawson;
 
-public class Exit extends Command {
+public class ExitCommand extends Command {
 
     @Override
     public void execute() {

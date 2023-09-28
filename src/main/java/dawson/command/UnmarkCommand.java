@@ -3,12 +3,12 @@ package dawson.command;
 import dawson.DawsonException;
 import dawson.TaskList;
 
-public class Unmark extends Command {
+public class UnmarkCommand extends Command {
 
     private String payload;
     private TaskList taskList;
 
-    public Unmark(String payload, TaskList taskList) {
+    public UnmarkCommand(String payload, TaskList taskList) {
         this.payload = payload;
         this.taskList = taskList;
     }

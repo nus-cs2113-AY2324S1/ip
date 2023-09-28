@@ -3,8 +3,7 @@ package dawson;
 import java.util.Scanner;
 
 import dawson.command.Command;
-import dawson.command.Echo;
-import dawson.command.Exit;
+import dawson.command.ExitCommand;
 
 public class Dawson {
     /**
@@ -56,23 +55,19 @@ public class Dawson {
             taskList = new TaskList();
         }
 
-        Command newCommand = new Echo("");
+        Command newCommand;
         Scanner scanner = new Scanner(System.in);
-
-        while (!(newCommand instanceof Exit)) {
+        do {
             String nextLineString = scanner.nextLine().trim();
-            if (nextLineString.equals("")) {
-                continue; // Ignore empty string
-            }
-
             newCommand = Command.getCommand(nextLineString, taskList);
+
             try {
                 newCommand.execute();
                 storage.save(taskList);
             } catch (DawsonException e) {
                 printText(e.getMessage());
             }
-        }
+        } while (!(newCommand instanceof ExitCommand));
 
         scanner.close();
     }
