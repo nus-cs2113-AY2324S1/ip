@@ -1,0 +1,1 @@
+E | false | Barbara attend CS2113 lecture Friday 22 Sep 2023 /from 4 /to 6pm | 4 | 6pm
