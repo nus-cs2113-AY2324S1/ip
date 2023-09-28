@@ -29,6 +29,12 @@ public class Parser {
         case "list":
             command = new ListCommand();
             break;
+        case "mark":
+            command = new MarkCommand(data);
+            break;
+        case "unmark":
+            command = new UnmarkCommand(data);
+            break;
         case "todo":
             command = new AddTodoCommand(data);
             break;
