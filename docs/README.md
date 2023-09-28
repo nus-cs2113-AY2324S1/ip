@@ -5,9 +5,9 @@ interface**.
 
 * [Quick Start](#quick-start)
 * [Features](#features)
-    * [Adding a Todo: `todo`](#adding-a-todo-todo)
-    * [Adding a Task with Deadline: `deadline`](#adding-a-task-with-deadline-deadline)
-    * [Adding a Event: `event`](#adding-an-event-event)
+    * [Adding a todo: `todo`](#adding-a-todo-todo)
+    * [Adding a task with Deadline: `deadline`](#adding-a-task-with-deadline-deadline)
+    * [Adding a event: `event`](#adding-an-event-event)
     * [Marking task as done: `mark`](#marking-task-as-done-mark)
     * [Marking task as undone: `unmark`](#marking-task-as-undone-unmark)
     * [Deleting a task: `delete`](#deleting-a-task-delete)
@@ -20,7 +20,7 @@ interface**.
 
 1. Ensure that you have Java 11 installed on your Computer.
 
-2. Download the latest `Duke.jar` from [here](https://github.com/Jonoans/iP).
+2. Download the latest `Duke.jar` from [here](https://github.com/Jonoans/iP/releases).
 
 3. Copy the `Duke.jar` file to the folder you want to use as your home folder for DumpGPT.
 
@@ -205,7 +205,8 @@ ____________________________________________________________
 > Subsequent calls to `mark`, `unmark` and `delete` will use this output as reference for `TASK_IDX` until `list`
 > or `find` is executed again.
 > <br><br>
-> Thus, running `delete 1` in reference to the output above will cause the only task in the list to be deleted.<br><br>
+> Thus, running `delete 1` in reference to the output above will cause the only task in the list to be deleted.
+> <br><br>
 > Any other calls to `mark`, `unmark` or `delete` will fail even if there are still tasks remaining until `list`
 > or `find` is executed and return non-empty list of tasks.
 
