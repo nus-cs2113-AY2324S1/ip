@@ -21,6 +21,14 @@ public class Storage {
         TASKS_FILE = tasksFile;
     }
 
+    /**
+     * Reads a single task from file {@link Serializer} instance
+     *
+     * @param serializer {@link Serializer} instance to read task from
+     * @return A task that was read from {@code serializer}
+     * @throws DukeException when deserialization fails
+     * @throws IOException   when read to underlying stream for deserialization fails
+     */
     private Task readTask(Serializer serializer) throws DukeException, IOException {
         String type = serializer.getType();
         Task task = null;
@@ -43,6 +51,13 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Restores tasks from specified {@link #TASKS_FILE}
+     *
+     * @return List of tasks read from {@link #TASKS_FILE}
+     * @throws DukeException when deserialization fails
+     * @throws IOException   when read to underlying stream for deserialization fails
+     */
     public ArrayList<Task> restoreTasks() throws DukeException, IOException {
         File tasksFile = new File(TASKS_FILE);
         if (!tasksFile.exists()) {
@@ -74,6 +89,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks to file specified in {@link #TASKS_FILE}
+     *
+     * @param tasks List of tasks to be saved
+     * @throws DukeException when serialization fails
+     * @throws IOException   when write to underlying stream for serialization fails
+     */
     public void saveTasks(ArrayList<Task> tasks) throws DukeException, IOException {
         File tasksFile = new File(TASKS_FILE);
         tasksFile.getParentFile().mkdirs();

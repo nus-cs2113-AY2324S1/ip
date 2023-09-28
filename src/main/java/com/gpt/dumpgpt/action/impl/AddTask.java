@@ -56,8 +56,9 @@ public class AddTask extends Action {
             return new Event(command.getArguments(), command.getOptions("from"), command.getOptions("to"));
         case "todo":
             return new Todo(command.getArguments());
+        default:
+            return null;
         }
-        return null;
     }
 
     /**
