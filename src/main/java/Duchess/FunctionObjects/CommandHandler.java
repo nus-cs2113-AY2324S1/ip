@@ -1,6 +1,5 @@
 package Duchess.FunctionObjects;
 
-import Duchess.FunctionObjects.UI;
 import Duchess.TaskObjects.Deadline;
 import Duchess.TaskObjects.Event;
 import Duchess.TaskObjects.Task;
@@ -116,6 +115,12 @@ public class CommandHandler {
             case Constants.deleteCommand:
                 taskNumber = Integer.parseInt(commandArray[1]);
                 taskList.deleteTask(taskNumber);
+                break;
+
+            case Constants.findCommand:
+                String keyword = commandArray[1];
+                TaskSearcher searcher = new TaskSearcher(taskList, ui);
+                searcher.search(keyword);
                 break;
             
             default: // Unrecognisedcommand
