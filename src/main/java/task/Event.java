@@ -16,6 +16,8 @@ class Event extends Task {
         output.append("(").append(this.start).append(this.end).append(")");
         return output.toString();
     }
+
+    // format task to input format to be saved in storage
     @Override
     public String formatAsInput() {
         return super.formatAsInput() + "/" + this.start + "/" + this.end;

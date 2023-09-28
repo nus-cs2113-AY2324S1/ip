@@ -25,6 +25,7 @@ public class Ui {
         this.scanner = new Scanner(in);
     }
 
+    //print message when add todo, event or deadline is called
     public static void printAddMessage(TaskList taskList) {
         showLine();
         System.out.println(MESSAGE_ADDED_THIS_TASK);
@@ -33,6 +34,7 @@ public class Ui {
         showLine();
     }
 
+    //print message when delete is called
     public static void printDeleteMessage(TaskList taskList, Task task) {
         showLine();
         System.out.println(MESSAGE_REMOVE_THIS_TASK);
@@ -41,7 +43,7 @@ public class Ui {
         showLine();
     }
 
-
+    //print message when unmark is called
     public static void printUnmarkMessage(Task task) {
         showLine();
         System.out.println(MESSAGE_MARK_AS_NOT_DONE);
@@ -49,6 +51,7 @@ public class Ui {
         showLine();
     }
 
+    //print message when mark is called
     public static void printMarkMessage(Task task) {
         showLine();
         System.out.println(MESSAGE_MARKED_AS_DONE);
@@ -56,6 +59,7 @@ public class Ui {
         showLine();
     }
 
+    //print message when list command is called
     public static void printListMessage(TaskList taskList) {
         showLine();
         System.out.println(MESSAGE_TASKS_IN_YOUR_LIST);
@@ -63,16 +67,14 @@ public class Ui {
         showLine();
     }
 
+    //print goodbye message when exit is called
     public static void printByeMessage() {
         showLine();
         System.out.println(MESSAGE_BYE);
         showLine();
     }
 
-    public static void showLine() {
-        System.out.println("-----------------------------------------------------");
-    }
-
+    //print list of matching tasks when find is called
     public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
         System.out.println(MATCHING_TASKS);
         for (int i = 1; i <= matchingTasks.size(); i++) {
@@ -80,10 +82,7 @@ public class Ui {
         }
     }
 
-    public String getUserCommand() {
-        return scanner.nextLine();
-    }
-
+    //print hello message when the app starts
     public static void showWelcome() {
         showLine();
         System.out.println(HELLO_MESSAGE);
@@ -91,7 +90,18 @@ public class Ui {
         showLine();
     }
 
+    //show error message
     public static void showError(Exception e) {
         System.out.println(e);
+    }
+
+    //print a line-separator
+    public static void showLine() {
+        System.out.println("-----------------------------------------------------");
+    }
+
+    //read user command from command line input
+    public String getUserCommand() {
+        return scanner.nextLine();
     }
 }

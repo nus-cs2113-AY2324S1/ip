@@ -18,6 +18,7 @@ public class Storage {
         this.ui = ui;
     }
 
+    //write the data from tasklist to data.txt
     public static void saveList(TaskList taskList) {
         try {
             Files.delete(FILE_PATH);
@@ -27,6 +28,7 @@ public class Storage {
         }
     }
 
+    //write the data from data.txt to tasklist
     public TaskList load(Parser parser) throws IOException {
         TaskList taskList = new TaskList();
         ArrayList<String> data = this.readFile();
@@ -36,7 +38,8 @@ public class Storage {
         return taskList;
     }
 
-    public ArrayList<String> readFile() throws IOException {
+    // read the file and return all lines in arrayList<String>
+    private ArrayList<String> readFile() throws IOException {
         boolean directoryExists = java.nio.file.Files.exists(FILE_PATH);
 
         if (!directoryExists) {

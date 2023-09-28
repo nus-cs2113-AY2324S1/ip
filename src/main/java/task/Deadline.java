@@ -13,6 +13,7 @@ class Deadline extends Task {
         return super.toString() + " (by:" + by + ")";
     }
 
+    // format task to input format to be saved in storage
     @Override
     public String formatAsInput() {
         return super.formatAsInput() + "/by " + this.by;

@@ -11,21 +11,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    protected TaskType getType() {
-        return type;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDone(boolean isDone) {
         this.isDone = isDone;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.description.equals(obj);
     }
 
     @Override
@@ -41,6 +32,7 @@ public abstract class Task {
         return output.append(this.description).toString();
     }
 
+    // format task to input format to be saved in storage
     public String formatAsInput() {
         return this.type + " " + this.isDone + " " + this.description;
     }

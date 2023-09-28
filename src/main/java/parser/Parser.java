@@ -10,7 +10,8 @@ import ui.Ui;
 
 public class Parser {
 
-    public Parser() {}
+    // parse the full command and carry out and create different commands
+    //      according to the user input
     public Command parse(String fullCommand) throws Exception {
         String[] inputStrings = splitInput(fullCommand);
         String commandType = inputStrings[0];
@@ -48,27 +49,7 @@ public class Parser {
         return command;
     }
 
-    private String getKeyWord(String fullCommand) throws DescriptionFormatException {
-        String[] description = splitInput(fullCommand);
-        if (description.length == 1) {
-            throw new DescriptionFormatException(
-                    "Wrong find format. Follow this format to find: "
-                            + "find [keyword]");
-        }
-        return description[1];
-    }
-
-    private String getTaskDescription(String fullCommand) throws DescriptionFormatException{
-        String[] description = splitInput(fullCommand);
-        if (description.length == 1) {
-            throw new DescriptionFormatException(
-                    "Wrong todo format. Follow this format to add a todo: "
-                            + "todo [todo description]");
-        }
-        return description[1];
-    }
-
-
+    // parse the entire line from file and add them to taskList
     public void parseLoadingData(TaskList taskList, String fullCommand) {
         String[] inputStrings = splitInput(fullCommand);
         String command = inputStrings[0];
@@ -97,7 +78,8 @@ public class Parser {
         }
     }
 
-    public String[] splitInputIntoEventFormat(String fullCommand) {
+    // split input into event description, start time and end time
+    private String[] splitInputIntoEventFormat(String fullCommand) {
         int taskTypeLength = TaskType.event.toString().length();
         String description = fullCommand.substring(taskTypeLength);
         String[] descriptionAndStartEndTime = description.split("/");
@@ -112,8 +94,8 @@ public class Parser {
         return descriptionAndStartEndTime;
     }
 
-    //Split input into different formats
-    public String[] splitInputIntoDeadlineFormat(String fullCommand) {
+    // split input into deadline description and the date/time of the deadline
+    private String[] splitInputIntoDeadlineFormat(String fullCommand) {
         int taskTypeLength = TaskType.deadline.toString().length();
         String description = fullCommand.substring(taskTypeLength);
 
@@ -128,18 +110,41 @@ public class Parser {
         return descriptionAndBy;
     }
 
-    public int getTaskId(String input) {
+    // get task id from the full command for mark, unmark and delete
+    private int getTaskId(String input) {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 1) {
             Ui.showError( new DescriptionFormatException(
-                    "Wrong input format. Follow this format to mark/unmark a task: "
-                            + "mark/unmark [task id]"));
+                    "Wrong input format. Follow this format to mark/unmark/delete a task: "
+                            + "mark/unmark/delete [task id]"));
         }
         return Integer.parseInt(splitInput[1]) - 1;
     }
 
-    public static String[] splitInput(String line) {
-        return line.split(" ", 3);
+    //split the input and get the keyword for find
+    private String getKeyWord(String fullCommand) throws DescriptionFormatException {
+        String[] description = splitInput(fullCommand);
+        if (description.length == 1) {
+            throw new DescriptionFormatException(
+                    "Wrong find format. Follow this format to find: "
+                            + "find [keyword]");
+        }
+        return description[1];
     }
 
+    // get task description for todo
+    private String getTaskDescription(String fullCommand) throws DescriptionFormatException{
+        String[] description = splitInput(fullCommand);
+        if (description.length == 1) {
+            throw new DescriptionFormatException(
+                    "Wrong todo format. Follow this format to add a todo: "
+                            + "todo [todo description]");
+        }
+        return description[1];
+    }
+
+    //split input into action and full description
+    private static String[] splitInput(String line) {
+        return line.split(" ", 3);
+    }
 }

@@ -15,6 +15,7 @@ public class ListWhisper {
         new ListWhisper().run();
     }
 
+    //initialise ui and parser and load data into list
     public ListWhisper() {
         this.ui = new Ui();
         this.parser = new Parser();
@@ -28,7 +29,8 @@ public class ListWhisper {
         }
     }
 
-    public void run() {
+    //start the application and exit when receive bye command
+    private void run() {
         Ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {

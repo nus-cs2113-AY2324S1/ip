@@ -1,5 +1,4 @@
 package task;
-import exceptions.DescriptionFormatException;
 
 import java.util.ArrayList;
 
@@ -18,49 +17,47 @@ public class TaskList {
         return this.tasks.get(taskId);
     }
 
-    //Actions
+    //add a todo to the list
     public Todo addTodo(String description) {
         Todo todo = new Todo(description);
         this.tasks.add(todo);
         return todo;
     }
 
+    //add a deadline to the list
     public Deadline addDeadline(String description, String by) {
         Deadline deadline = new Deadline(description, by);
         this.tasks.add(deadline);
         return deadline;
     }
 
+    //add an event to the list
     public Event addEvent(String description, String startTime, String endTime) {
             Event event = new Event(description, startTime, endTime);
             this.tasks.add(event);
             return event;
     }
 
+    //mark a task as done
     public void mark(int taskId) {
         Task task = this.tasks.get(taskId);
         task.setDone(true);
     }
 
+    //mark a task as undone
     public void unmark(int taskId) {
         Task task = this.tasks.get(taskId);
         task.setDone(true);
     }
 
+    //delete a task
     public Task delete(int taskId) {
             Task task = this.tasks.get(taskId);
             this.tasks.remove(taskId - 1);
             return task;
     }
 
-    public String prepareSaveList() {
-        StringBuilder listOfFormattedTasks = new StringBuilder();
-        for (Task task : this.tasks) {
-            listOfFormattedTasks.append(task.formatAsInput()).append("\n");
-        }
-        return listOfFormattedTasks.toString();
-    }
-
+    //find tasks with matching keyword
     public ArrayList<Task> findTask(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<Task>();
         for (Task task : this.tasks) {
@@ -69,6 +66,16 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    // Gather all tasks formatted to input format and put them in a list
+    //     to be saved in file by storage
+    public String prepareSaveList() {
+        StringBuilder listOfFormattedTasks = new StringBuilder();
+        for (Task task : this.tasks) {
+            listOfFormattedTasks.append(task.formatAsInput()).append("\n");
+        }
+        return listOfFormattedTasks.toString();
     }
 
     @Override
