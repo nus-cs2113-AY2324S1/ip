@@ -26,7 +26,7 @@ Make sure you have Java `11` or above installed on your system.
     ____  _____   ___    _____ _____ __    __   ___   __   __
    /     /|  __ \ /   \  /   __|     |  \  /  | /   \ |  \ |  |
    \   __\| |__) |  _  \|   /  |   __|   \/   |/  _  \|   \|  |
-   \__   |  ___/  |_|  |  |   |   __|        |  |_|  |       |
+    \__   |  ___/  |_|  |  |   |   __|        |  |_|  |       |
    /      | |   |   _   |   \__|     |   __   |   _   |       |
    |____ /|_|   |__| |__|\_____|_____|__|  |__|__| |__|__|\___|
 
@@ -38,15 +38,12 @@ Make sure you have Java `11` or above installed on your system.
 6. Type the command in the command box and press Enter to execute it.
    Some example commands you can try:
 
-   - list : Lists all tasks.
-   - todo buy groceries: Adds a todo buy groceries to the list of tasks.
-     deadline
-     event
-   - delete 2 : Deletes the 2nd task shown in the current list.
-   - mark 2: Marks the 2nd task shown in the current list as done.
-   - unmark 2: Marks the 2nd task shown in the current list as not done.
-   - find book: Finds tasks that contains the keyword `book` and displays it.
-   - bye : Exits the app.
+   - `list` : Lists all tasks.
+   - `todo buy groceries` : Adds a todo buy groceries to the list of tasks.
+   - `delete 2` : Deletes the 2nd task shown in the current list.
+   - `mark 2` : Marks the 2nd task shown in the current list as done.
+   - `find book` : Finds tasks that contains the keyword `book` and displays it.
+   - `bye` : Exits the app.
 
 7. Refer to the Features below for details of each command.
 
