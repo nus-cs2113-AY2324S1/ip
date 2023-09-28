@@ -1,9 +1,12 @@
 package Duke.Task;
 
-public class Deadline extends Task {
-    protected String endDate;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String endDate) {
+public class Deadline extends Task {
+    protected LocalDate endDate;
+
+    public Deadline(String description, LocalDate endDate) {
         super(description);
         this.endDate = endDate;
         taskType = "Deadline";
@@ -13,12 +16,14 @@ public class Deadline extends Task {
     @Override
     public String convertToSaveFormat() {
         String doneMarker = isDone ? "1" : "0";
-        return symbol + " | " + doneMarker + " | " + description + "/by " + endDate;
+        String endDateString = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return symbol + " | " + doneMarker + " | " + description + "/by " + endDateString;
     }
 
     @Override
     public String toString() {
-        return "\t[D]" + super.toString() + " (by: " + this.endDate + ")";
+        String endDateString = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "\t[D]" + super.toString() + " (by: " + endDateString + ")";
     }
 
 }

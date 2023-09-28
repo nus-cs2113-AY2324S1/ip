@@ -1,12 +1,15 @@
 package Duke.Command;
 
-import Duke.Exception.NoDateTimeSpecifiedException;
+import Duke.Exception.InvalidDateTimeSpecifiedException;
 import Duke.Exception.NoTaskSpecifiedException;
 import Duke.Task.*;
 import Duke.Ui.Ui;
 
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Command {
 
@@ -20,23 +23,23 @@ public class Command {
 
 
     public static Task createDeadline(String removedInstructionString)
-            throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
+            throws NoTaskSpecifiedException, InvalidDateTimeSpecifiedException {
         //TODO need to catch lack of by here.
         String taskDescription;
-        String byDate;
+        String byDateString;
+        LocalDate byDate;
         try {
             String dateIndicator = "/by";
             String[] deadlineContents = removedInstructionString.split(dateIndicator, 2);
             taskDescription = deadlineContents[0].trim();
-            byDate = deadlineContents[1].trim();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new NoDateTimeSpecifiedException();
+            byDateString = deadlineContents[1].trim();
+            byDate = LocalDate.parse(byDateString);
+
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new InvalidDateTimeSpecifiedException();
         }
         if (taskDescription.isEmpty()) {
             throw new NoTaskSpecifiedException();
-        }
-        if (byDate.isEmpty()) {
-            throw new NoDateTimeSpecifiedException();
         }
 
         return new Deadline(taskDescription, byDate);
@@ -110,8 +113,8 @@ public class Command {
                     task = createDeadline(removedInstructionString);
                 } catch (NoTaskSpecifiedException e) {
                     System.out.println("Please indicate the task for deadline.");
-                } catch (NoDateTimeSpecifiedException e) {
-                    System.out.println("Please indicate the end date for this deadline");
+                } catch (InvalidDateTimeSpecifiedException e) {
+                    System.out.println("Please indicate the end date for this deadline in yyyy-mm-dd format");
                 }
                 break;
             case "event":
@@ -119,8 +122,8 @@ public class Command {
                     task = createEvent(removedInstructionString);
                 } catch (NoTaskSpecifiedException e) {
                     System.out.println("Please indicate the task for event.");
-                } catch (NoDateTimeSpecifiedException e) {
-                    System.out.println("Please indicate the start date and end date for this event.");
+                } catch (InvalidDateTimeSpecifiedException e) {
+                    System.out.println("Please indicate the start date and end date in yyyy-mm-dd format for this event.");
                 }
                 break;
             default:
@@ -172,27 +175,30 @@ public class Command {
         ui.printLine();
     }
 
-    public static Task createEvent(String removedInstructionString) throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
+    public static Task createEvent(String removedInstructionString) throws NoTaskSpecifiedException, InvalidDateTimeSpecifiedException {
         String taskDescription;
-        String fromDate;
-        String toDate;
+        String fromDateString;
+        String toDateString;
         String startDateIndicator = "/from";
         String endDateIndicator = "/to";
+        LocalDate fromDate;
+        LocalDate toDate;
         String eventSplitNotation = startDateIndicator + "|" + endDateIndicator;
         String[] eventContents = removedInstructionString.split(eventSplitNotation);
         try {
             taskDescription = eventContents[0].trim();
-            fromDate = eventContents[1].trim();
-            toDate = eventContents[2].trim();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new NoDateTimeSpecifiedException();
+            fromDateString = eventContents[1].trim();
+            toDateString = eventContents[2].trim();
+            fromDate = LocalDate.parse(fromDateString);
+            toDate = LocalDate.parse(toDateString);
+            
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new InvalidDateTimeSpecifiedException();
         }
         if (taskDescription.isEmpty()) {
             throw new NoTaskSpecifiedException();
         }
-        if (fromDate.isEmpty() | toDate.isEmpty()) {
-            throw new NoDateTimeSpecifiedException();
-        }
+     
         return new Event(taskDescription, fromDate, toDate);
     }
 
