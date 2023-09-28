@@ -14,7 +14,6 @@ Ahnge is a chatbot that utilises a <strong>Command Line Interface (CLI) to help 
     * **[Adding an event: `event`](#adding-event)**
     * **[Listing all tasks: `list`](#listing-all-tasks)**
     * **[Marking task as done: `mark`](#marking-a-task-as-done)**
-
     * **[Finding task: `find`](#finding-a-task)**
     * **[Deleting task: `delete`](#deleting-a-task)**
     * **[Exiting the program: `bye`](#exiting-the-program)**
@@ -44,7 +43,7 @@ Ahnge is a chatbot that utilises a <strong>Command Line Interface (CLI) to help 
 
 <h2 id="features"> Features</h2>
 
-### <h2 id="adding-todo"> Adding a todo: `todo` </h2>
+<h2 id="adding-todo"> Adding a todo: todo </h2>
 
 Adds a todo to Ahnge.<br>
 **Command**: `todo DESCRIPTION`<br>
@@ -60,7 +59,7 @@ Ahnge: Now you have 1 tasks in the list.
 ==============================
 ```
 
-### <h2 id="adding-deadline"> Adding a deadline: `deadline` </h2>
+<h2 id="adding-deadline"> Adding a deadline: deadline </h2>
 
 Add a deadline to Ahnge.<br>
 **Command**: `deadline DESCRIPTION /by DATE`<br>
@@ -76,7 +75,7 @@ Ahnge: Now you have 1 tasks in the list.
 ==============================
 ```
 
-### <h2 id="adding-event"> Adding an event: `event`</h2>
+<h2 id="adding-event"> Adding an event: event</h2>
 
 Adds an event to the Ahnge.<br>
 **Format**: `event DESCRIPTION /from START_DATE /to END_DATE`<br>
@@ -92,7 +91,7 @@ Ahnge: Now you have 1 tasks in the list.
 ==============================
 ```
 
-### <h2 id="listing-all-tasks"> Listing all tasks: `list` </h2>
+<h2 id="listing-all-tasks"> Listing all tasks: list </h2>
 
 Have Ahnge list all the tasks that you have given it.<br>
 **Format**: `list`<br>
@@ -108,7 +107,7 @@ Ahnge: Here are the tasks in your list:
 ```
 
 
-### <h2 id="marking-a-task-as-done"> Marking a task as done: `mark`</h2>
+<h2 id="marking-a-task-as-done"> Marking a task as done: mark</h2>
 
 Mark a task as done.<br>
 **Format**: `mark INDEX`<br>
@@ -139,7 +138,7 @@ Ahnge: Here are the tasks in your list:
 ==============================
 ```
 
-### <h2 id="finding-a-task"> Finding a task: `find`</h2>
+<h2 id="finding-a-task"> Finding a task: find</h2>
 
 Find all the tasks that contain the keyword.<br>
 **Format**: `find KEYWORD`<br>
@@ -154,7 +153,7 @@ Ahnge: Here are the matching tasks in your list:
 ==============================
 ```
 
-### <h2 id="deleting-a-task"> Deleting a task: `delete`</h2>
+<h2 id="deleting-a-task"> Deleting a task: delete</h2>
 
 Delete a task from the task manager by its index.
 
@@ -170,7 +169,7 @@ Ahnge: Noted. I've removed this task:
 Ahnge: Now you have 3 tasks in the list.
 ```
 
-### <h2 id="exiting-the-program"> Exiting the program: `bye`</h2>
+<h2 id="exiting-the-program"> Exiting the program: bye</h2>
 
 Exit the program.<br>
 **Format**: `bye`<br>
