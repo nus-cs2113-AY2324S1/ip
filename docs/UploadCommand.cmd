@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=A-Jar
-set MESSAGE="Create a JAR File"
+set TAG_NAME=A-Exceptions
+set MESSAGE="Use Exceptions to handle errors"
 
 rem create a branch
 git branch branch-%TAG_NAME%
