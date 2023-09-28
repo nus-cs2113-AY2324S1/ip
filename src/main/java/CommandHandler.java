@@ -1,9 +1,19 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.io.*;
+
+/**
+ * The CommandHandler class processes user commands for task management.
+ * It handles commands like adding, listing, marking, deleting, and finding tasks.
+ */
 public class CommandHandler {
-    public void handleCommand(String userInput,List<Task> tasks){
+
+    /**
+     * Handles the user's input command and processes it.
+     *
+     * @param userInput The user's input command as a string.
+     * @param tasks     The list of tasks to manage.
+     */
+    public void handleCommand(String userInput, List<Task> tasks) {
         String[] inputParts = userInput.split(" ", 2);
         String command = inputParts[0].toLowerCase();
         String argument = inputParts.length > 1 ? inputParts[1] : "";
@@ -34,6 +44,13 @@ public class CommandHandler {
             printLines();
         }
     }
+
+    /**
+     * Handles the "find" command to search for tasks containing a keyword.
+     *
+     * @param tasks   The list of tasks to search within.
+     * @param keyword The keyword to search for in task descriptions.
+     */
     private static void handleFindCommand(List<Task> tasks, String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -52,6 +69,12 @@ public class CommandHandler {
         printLines();
     }
 
+    /**
+     * Handles the "delete" command to remove a task from the list.
+     *
+     * @param tasks    The list of tasks to delete from.
+     * @param argument The task number or identifier to delete.
+     */
     private static void handleDeleteCommand(List<Task> tasks, String argument) {
         try {
             int taskNumber = Integer.parseInt(argument);
@@ -69,7 +92,13 @@ public class CommandHandler {
         printLines();
     }
 
-
+    /**
+     * Handles the addition of a task based on the user's input.
+     *
+     * @param userInput The user's input command as a string.
+     * @param tasks     The list of tasks to add to.
+     * @throws DukeException If the command is not understood or invalid.
+     */
     private static void handleAddTaskMethod(String userInput, List<Task> tasks) throws DukeException {
         Task task = createTask(userInput);
         if (task != null) {
@@ -83,6 +112,12 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Handles the "mark" command to mark a task as done.
+     *
+     * @param tasks    The list of tasks to mark.
+     * @param argument The task number or identifier to mark as done.
+     */
     private static void handleMarkCommand(List<Task> tasks, String argument) {
         try {
             int taskNumber = Integer.parseInt(argument);
@@ -100,6 +135,11 @@ public class CommandHandler {
         printLines();
     }
 
+    /**
+     * Handles the "list" command to display the list of tasks.
+     *
+     * @param tasks The list of tasks to display.
+     */
     private static void handleListCommand(List<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("En: There are no tasks in your list.");
@@ -111,6 +151,14 @@ public class CommandHandler {
         }
         printLines();
     }
+
+    /**
+     * Creates a task object based on the user's input command.
+     *
+     * @param userInput The user's input command as a string.
+     * @return A Task object created from the input command.
+     * @throws DukeException If the input command is invalid.
+     */
     private static Task createTask(String userInput) throws DukeException {
         if (userInput.startsWith("todo ")) {
             String description = userInput.substring(5).trim();
@@ -145,6 +193,10 @@ public class CommandHandler {
         }
         return null;
     }
+
+    /**
+     * Prints a line of equal signs to separate sections of output.
+     */
     public static void printLines() {
         for (int i = 0; i < 30; i++) {
             System.out.print('=');

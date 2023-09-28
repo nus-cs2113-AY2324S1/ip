@@ -2,12 +2,26 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class handles reading and writing tasks to/from a file.
+ */
 public class Storage {
     private static String filePath;
+
+    /**
+     * Creates a new Storage instance with the specified file path.
+     *
+     * @param filePath The path to the data file where tasks are stored.
+     */
     public Storage(String filePath) {
-        Storage.filePath =filePath;
+        Storage.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the data file.
+     *
+     * @return A list of tasks loaded from the data file.
+     */
     public static List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -24,7 +38,11 @@ public class Storage {
         return tasks;
     }
 
-
+    /**
+     * Saves tasks to the data file.
+     *
+     * @param tasks The list of tasks to be saved to the data file.
+     */
     public static void saveTasks(List<Task> tasks) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
@@ -38,6 +56,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a task object from a line of text in the data file.
+     *
+     * @param line A line of text representing a task in the data file.
+     * @return The Task object created from the input line, or null if the line format is incorrect.
+     */
     private static Task createTaskFromFile(String line) {
         String[] parts = line.split(" ");
 
