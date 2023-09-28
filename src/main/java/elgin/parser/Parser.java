@@ -23,7 +23,7 @@ public class Parser {
      * @throws DukeException If invalid command/arguments is supplied.
      */
     public Command parseCommand(String command) throws DukeException {
-        String[] commandArray = command.split(" ", 2);
+        String[] commandArray = command.trim().split(" ", 2);
         String userCommand = commandArray[0].toLowerCase();
         String arguments = "";
         int index = INVALID_INDEX;
@@ -74,21 +74,21 @@ public class Parser {
             if (splitArg.length < 2) {
                 throw new DukeException("Usage: deadline <task> /by <deadline>");
             }
-            parsedArgs.put("description", splitArg[0]);
-            parsedArgs.put("by", splitArg[1]);
+            parsedArgs.put("description", splitArg[0].trim());
+            parsedArgs.put("by", splitArg[1].trim());
             break;
         case "event":
             splitArg = arguments.split(" /from ");
             if (splitArg.length < 2) {
                 throw new DukeException("Usage: event <task> /from <time> /to <time>");
             }
-            parsedArgs.put("description", splitArg[0]);
+            parsedArgs.put("description", splitArg[0].trim());
             String[] fromTo = splitArg[1].split(" /to ");
             if (fromTo.length < 2) {
                 throw new DukeException("Usage: event <task> /from <time> /to <time>");
             }
-            parsedArgs.put("from", fromTo[0]);
-            parsedArgs.put("to", fromTo[1]);
+            parsedArgs.put("from", fromTo[0].trim());
+            parsedArgs.put("to", fromTo[1].trim());
             break;
         default:
             throw new DukeException("Sorry I do not understand your command");
@@ -117,7 +117,7 @@ public class Parser {
 
         int idx = INVALID_INDEX;
         try {
-            idx = Integer.parseInt(arguments);
+            idx = Integer.parseInt(arguments.trim());
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid task number.");
         }
