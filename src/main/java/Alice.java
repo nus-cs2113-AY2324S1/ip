@@ -153,7 +153,8 @@ public class Alice {
 
         if (actionOfInput.equals("mark")){
             tasks.get(taskId).markTask();
-        } else {
+        }
+        if (actionOfInput.equals("unmark")) {
             tasks.get(taskId).unmarkTask();
         }
     }
@@ -200,9 +201,9 @@ public class Alice {
             } catch (IndexOutOfBoundsException e){
                 System.out.println("    You have an extra input OR you are missing an input!\n CORRECT IT BEFORE THE KNAVE OF HEART COMES!" + LINE);
             } catch (InvalidCommandException e){
-
+                //Error message printed in InvalidCommandException class
             } catch (InvalidFormatException e) {
-
+                //Error message printed in InvalidFormatException class
             }
             userInput = in.nextLine();
         }
