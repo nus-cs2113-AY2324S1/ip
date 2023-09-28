@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 public class DukeDateTime implements Serializable {
     public static final String DATETIME_INPUT_FORMAT = "dd/MM/yyyy HH:mm";
@@ -57,7 +58,7 @@ public class DukeDateTime implements Serializable {
      * @return formatted date
      */
     public String format(DateTimeFormatter formatter) {
-        return localDateTime.format(formatter);
+        return Objects.requireNonNullElse(localDateTime, LocalDateTime.MIN).format(formatter);
     }
 
     public LocalDateTime getDateTime() {
