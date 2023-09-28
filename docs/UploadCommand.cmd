@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=A-Exceptions
-set MESSAGE="Use Exceptions to handle errors"
+set TAG_NAME=A-Collections
+set MESSAGE="Use Java Collections classes"
 
 rem create a branch
 git branch branch-%TAG_NAME%
