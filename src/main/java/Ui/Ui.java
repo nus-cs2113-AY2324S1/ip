@@ -74,9 +74,9 @@ public class Ui {
     }
 
     public static void reportFileMissingError() {
-        System.out.println("    _____________________________________"
+        System.out.println(LINE_DIVIDER
                 + "\n    Where's the file, yo? I couldn't find it!\n"
-                + "    _____________________________________");
+                + LINE_DIVIDER);
     }
 
     public static void bye() {

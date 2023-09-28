@@ -3,6 +3,7 @@ package Task;
 import java.util.ArrayList;
 import Storage.Storage;
 import Ui.Ui;
+import Parser.Parser;
 
 public class TaskList {
 
@@ -13,18 +14,6 @@ public class TaskList {
     }
 
     public static final String LINE_DIVIDER = "    _____________________________________";
-    public static String RemoveCommandWord(String in) throws EmptyDescriptionException {
-        int firstSpaceIndex = in.indexOf(" ") + 1;
-
-        String out = in.substring(firstSpaceIndex);
-
-        if(firstSpaceIndex == 0 || firstSpaceIndex >= in.length()){
-            // Throws exception when name of task is left empty
-            throw new EmptyDescriptionException();
-        }
-
-        return out;
-    }
 
     public int size() {
         return itemList.size();
@@ -36,9 +25,9 @@ public class TaskList {
 
     public void addTodo(String in) {
         try {
-            itemList.add(new ToDo(RemoveCommandWord(in)));
+            itemList.add(new ToDo(Parser.removeCommandWord(in)));
         } catch (EmptyDescriptionException e) {
-            e.printErrorMessage();
+            Ui.reportMissingTaskInfo();
             return;
         }
 
@@ -48,15 +37,15 @@ public class TaskList {
     public void addEvent(String in) {
         try {
             String[] vals = in.split(" /");
-            String name = RemoveCommandWord(vals[0]);
-            String from = RemoveCommandWord(vals[1]);
-            String to = RemoveCommandWord(vals[2]);
+            String name = Parser.removeCommandWord(vals[0]);
+            String from = Parser.removeCommandWord(vals[1]);
+            String to = Parser.removeCommandWord(vals[2]);
             itemList.add(new Event(name, from, to));
         } catch (IndexOutOfBoundsException e) {
             Ui.reportMissingTaskInfo();
             return;
         } catch (EmptyDescriptionException e) {
-            e.printErrorMessage();
+            Ui.reportMissingTaskInfo();
             return;
         }
 
@@ -66,15 +55,15 @@ public class TaskList {
     public void addDeadline(String in) {
         try {
             String[] vals = in.split(" /");
-            String name = RemoveCommandWord(vals[0]);
-            String by = RemoveCommandWord(vals[1]);
+            String name = Parser.removeCommandWord(vals[0]);
+            String by = Parser.removeCommandWord(vals[1]);
 
             itemList.add(new Deadline(name, by));
         } catch (IndexOutOfBoundsException e) {
             Ui.reportMissingTaskInfo();
             return;
         } catch (EmptyDescriptionException e) {
-            e.printErrorMessage();
+            Ui.reportMissingTaskInfo();
             return;
         }
 
