@@ -39,10 +39,23 @@ public class Parser {
         } else if (commandType.equals("delete")) {
             int taskId = this.getTaskId(fullCommand);
             command = new DeleteCommand(taskId);
+        } else if (commandType.equals("find")){
+            String keyword = getKeyWord(fullCommand);
+            command = new FindCommand(keyword);
         } else {
             throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return command;
+    }
+
+    private String getKeyWord(String fullCommand) throws DescriptionFormatException {
+        String[] description = splitInput(fullCommand);
+        if (description.length == 1) {
+            throw new DescriptionFormatException(
+                    "Wrong find format. Follow this format to find: "
+                            + "find [keyword]");
+        }
+        return description[1];
     }
 
     private String getTaskDescription(String fullCommand) throws DescriptionFormatException{

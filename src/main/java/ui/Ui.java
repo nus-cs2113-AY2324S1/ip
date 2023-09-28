@@ -3,11 +3,16 @@ package ui;
 import task.Task;
 import task.TaskList;
 
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 import static java.lang.System.in;
 
 public class Ui {
     private final Scanner scanner;
+    public static final String HELLO_MESSAGE = "Hello! I'm ListWhisper";
+    public static final String WHAT_CAN_I_DO_FOR_YOU = "What can I do for you?";
+    public static final String MATCHING_TASKS = "Here are the matching tasks in your list:";
     public static final String MESSAGE_SHOW_NUMBER_OF_TASKS = "Now you have %d tasks in the list.";
     public static final String MESSAGE_MARK_AS_NOT_DONE = "OK, I've marked this task as not done yet:";
     public static final String MESSAGE_MARKED_AS_DONE = "Nice! I've marked this task as done:";
@@ -67,15 +72,23 @@ public class Ui {
     public static void showLine() {
         System.out.println("-----------------------------------------------------");
     }
+
+    public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
+        System.out.println(MATCHING_TASKS);
+        for (int i = 1; i <= matchingTasks.size(); i++) {
+            System.out.println(i + "."  + matchingTasks.get(i - 1));
+        }
+    }
+
     public String getUserCommand() {
         return scanner.nextLine();
     }
 
     public static void showWelcome() {
-        Ui.showLine();
-        System.out.println("Hello! I'm ListWhisper");
-        System.out.println("What can I do for you?");
-        Ui.showLine();
+        showLine();
+        System.out.println(HELLO_MESSAGE);
+        System.out.println(WHAT_CAN_I_DO_FOR_YOU);
+        showLine();
     }
 
     public static void showError(Exception e) {

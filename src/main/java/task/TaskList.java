@@ -61,15 +61,14 @@ public class TaskList {
         return listOfFormattedTasks.toString();
     }
 
-    // Miscellaneous methods
-    private int getTaskId(String input) throws DescriptionFormatException {
-        String[] splitInput = input.split(" ", 2);
-        if (splitInput.length == 1) {
-            throw new DescriptionFormatException(
-                    "Wrong input format. Follow this format to mark/unmark a task: "
-                            + "mark/unmark [task id]");
+    public ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (Task task : this.tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
         }
-        return Integer.parseInt(splitInput[1]);
+        return matchingTasks;
     }
 
     @Override
