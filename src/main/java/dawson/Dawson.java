@@ -5,6 +5,7 @@ import java.util.Scanner;
 import dawson.command.Command;
 import dawson.command.ExitCommand;
 import dawson.exception.DawsonException;
+import dawson.parser.Parser;
 import dawson.storage.Storage;
 import dawson.task.TaskList;
 
@@ -60,9 +61,10 @@ public class Dawson {
 
         Command newCommand;
         Scanner scanner = new Scanner(System.in);
+        Parser parser = new Parser();
         do {
             String nextLineString = scanner.nextLine().trim();
-            newCommand = Command.getCommand(nextLineString, taskList);
+            newCommand = parser.parseCommand(nextLineString, taskList);
 
             try {
                 newCommand.execute();

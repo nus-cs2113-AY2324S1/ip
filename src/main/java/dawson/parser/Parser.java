@@ -1,9 +1,46 @@
 package dawson.parser;
 
+import dawson.command.Command;
+import dawson.command.DeadlineCommand;
+import dawson.command.DeleteCommand;
+import dawson.command.EventCommand;
+import dawson.command.ExitCommand;
+import dawson.command.InvalidCommand;
+import dawson.command.ListCommand;
+import dawson.command.MarkCommand;
+import dawson.command.TodoCommand;
+import dawson.command.UnmarkCommand;
 import dawson.exception.DawsonException;
 import dawson.task.*;
 
 public class Parser {
+
+    public Command parseCommand(String input, TaskList taskList) {
+        String[] split = input.split("\\s+", 2); // split the input into command and arguments
+        String commandString = split[0].toLowerCase(); // First word is command
+        String payload = split.length > 1 ? split[1] : ""; // Remaining input text
+
+        switch (commandString) {
+            case Command.TODO_COMMAND:
+                return new TodoCommand(payload, taskList);
+            case Command.DEADLINE_COMMAND:
+                return new DeadlineCommand(payload, taskList);
+            case Command.EVENT_COMMAND:
+                return new EventCommand(payload, taskList);
+            case Command.LIST_COMMAND:
+                return new ListCommand(taskList);
+            case Command.DELETE_COMMAND:
+                return new DeleteCommand(payload, taskList);
+            case Command.MARK_COMMAND:
+                return new MarkCommand(payload, taskList);
+            case Command.UNMARK_COMMAND:
+                return new UnmarkCommand(payload, taskList);
+            case Command.EXIT_COMMAND:
+                return new ExitCommand();
+            default:
+                return new InvalidCommand();
+        }
+    };
 
     public static Task parseTask(String encodedTaskString) throws DawsonException {
         final String DELIMITER = "\\|";
