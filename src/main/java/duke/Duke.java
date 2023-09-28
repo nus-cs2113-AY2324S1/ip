@@ -16,7 +16,7 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
         Scanner userInput = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>(); //array task list to store tasks
 
         // Load tasks from file
         try {
