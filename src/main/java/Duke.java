@@ -67,7 +67,7 @@ public class Duke {
             printLines();
 
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("Bye! Have a nice day.");
+                System.out.println("Ahnge: Bye! Have a nice day.");
                 printLines();
                 scanner.close();
                 return;

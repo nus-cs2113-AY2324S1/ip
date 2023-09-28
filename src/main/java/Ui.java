@@ -9,7 +9,7 @@ public class Ui {
      */
     public static void printWelcomeMessage() {
         printLines();
-        System.out.println("Hello! I'm En\nWhat can I do for you?");
+        System.out.println("Hello! I'm Ahnge\nWhat can I do for you?");
         printLines();
     }
 
