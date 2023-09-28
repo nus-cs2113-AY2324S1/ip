@@ -1,16 +1,29 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.*;
+
 
 public class Duke {
+    private static final String DATA_DIRECTORY = "./data/";
+    private static final String DATA_FILE_PATH = DATA_DIRECTORY + "duke.txt";
+
     public static void main(String[] args) {
         printWelcomeMessage();
 
+        File dataDirectory = new File(DATA_DIRECTORY);
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+
+        List<Task> tasks = loadTasks();
+
         Scanner scanner = new Scanner(System.in);
         String userInput;
-        List<Task> tasks = new ArrayList<>();
 
         startDuke(scanner, tasks);
+
+        saveTasks(tasks);
     }
 
     private static void startDuke(Scanner scanner, List<Task> tasks) {
@@ -30,12 +43,85 @@ public class Duke {
         }
     }
 
+    private static List<Task> loadTasks() {
+        List<Task> tasks = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = createTaskFromFile(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("En: Error reading tasks from the data file.");
+        }
+        return tasks;
+    }
+
+
+    private static void saveTasks(List<Task> tasks) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_PATH));
+            for (Task task : tasks) {
+                writer.write(task.toString());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("En: Error saving tasks to the file.");
+        }
+    }
+
+    private static Task createTaskFromFile(String line) {
+        String[] parts = line.split(" ");
+
+        if (parts.length < 3) {
+            System.out.println("En: Skipped a line due to incorrect format (not enough components): " + line);
+            return null;
+        }
+
+        String taskType = parts[0].substring(1, 2);
+        int isDone = parts[1].equals("[X]") ? 1 : 0;
+        String description = parts[2];
+
+        Task task;
+
+        switch (taskType) {
+            case "T":
+                task = new ToDo(description, isDone == 1);
+                break;
+            case "D":
+                if (parts.length < 4) {
+                    System.out.println("En: Skipped a line due to incorrect Deadline format: " + line);
+                    return null;
+                }
+                String deadline = parts[3].trim();
+                task = new Deadline(description, deadline, isDone == 1);
+                break;
+            case "E":
+                if (parts.length < 5) {
+                    System.out.println("En: Skipped a line due to incorrect Event format: " + line);
+                    return null;
+                }
+                String from = parts[3].trim();
+                String to = parts[4].trim();
+                task = new Event(description, from, to, isDone == 1);
+                break;
+            default:
+                System.out.println("En: Skipped a line due to unknown task type: " + line);
+                return null;
+        }
+        return task;
+    }
+
+
     private static void commands(String userInput, List<Task> tasks) {
         String[] inputParts = userInput.split(" ", 2);
         String command = inputParts[0].toLowerCase();
         String argument = inputParts.length > 1 ? inputParts[1] : "";
 
-        try{
+        try {
             switch (command) {
                 case "list":
                     handleListCommand(tasks);
@@ -51,7 +137,7 @@ public class Duke {
         } catch (EmptyDescriptionException e) {
             System.out.println("En: ☹ OOPS!!! The description of a task cannot be empty.");
             printLines();
-        } catch (UnknownCommandException e){
+        } catch (UnknownCommandException e) {
             System.out.println(e.getMessage());
             printLines();
         }
@@ -149,13 +235,14 @@ public class Duke {
     }
 }
 
-class EmptyDescriptionException extends Exception{
-    public EmptyDescriptionException(String message){
+class EmptyDescriptionException extends Exception {
+    public EmptyDescriptionException(String message) {
         super(message);
     }
 }
-class UnknownCommandException extends Exception{
-    public UnknownCommandException(String message){
+
+class UnknownCommandException extends Exception {
+    public UnknownCommandException(String message) {
         super(message);
     }
 }
