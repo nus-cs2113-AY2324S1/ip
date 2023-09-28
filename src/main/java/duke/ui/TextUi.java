@@ -77,7 +77,8 @@ public class TextUi {
         System.out.println(exception.getMessage());
     }
 
-    public String getInput(Scanner in) {
+    public String getInput() {
+        Scanner in = new Scanner(System.in);
         return in.nextLine().trim();
     }
 }

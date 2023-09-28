@@ -65,7 +65,7 @@ public class Duke {
 //        } catch (IndexOutOfBoundsException exception) {
 //            ui.handleIndexOutOfBoundsException(tasks.getTasksCount());
 //        } catch (NumberFormatException exception) {
-//            ui.handleNumberFormatException(input);
+//            sdasd
 //        } catch (DukeCommandException exception) {
 //            exception.handleDukeCommandException(command);
 //        } catch (DukeTaskException exception) {
@@ -84,12 +84,11 @@ public class Duke {
 
     private void run() {
         String input;
-        Scanner in = new Scanner(System.in);
         boolean isExit = false;
 
         ui.tellGreeting();
         while (!isExit) {
-            input = ui.getInput(in);
+            input = ui.getInput();
             try {
                 ui.showLine();
                 Command command = parser.parseCommand(input);

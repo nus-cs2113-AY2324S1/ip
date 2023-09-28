@@ -35,6 +35,9 @@ public class Parser {
         case "unmark":
             command = new UnmarkCommand(data);
             break;
+        case "delete":
+            command = new DeleteCommand(data);
+            break;
         case "todo":
             command = new AddTodoCommand(data);
             break;
