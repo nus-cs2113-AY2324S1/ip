@@ -19,8 +19,8 @@ public class AddCommand extends Command {
      * @param arguments Arguments supplied by the user.
      */
     public AddCommand(String command, String arguments) {
-        this.command = command;
-        this.arguments = arguments;
+        this.command = command.trim();
+        this.arguments = arguments.trim();
     }
 
     /**

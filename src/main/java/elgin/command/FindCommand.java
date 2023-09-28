@@ -16,7 +16,7 @@ public class FindCommand extends Command {
      * @param arguments Arguments containing the keyword to search for.
      */
     public FindCommand(String arguments) {
-        this.arguments = arguments.toLowerCase();
+        this.arguments = arguments.trim().toLowerCase();
     }
 
     /**
