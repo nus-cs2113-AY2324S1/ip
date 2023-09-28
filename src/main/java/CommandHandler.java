@@ -187,7 +187,7 @@ public class CommandHandler {
                     if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
                         throw new DukeException("Ahnge: ☹ OOPS!!! The description, start time, and end time cannot be empty.");
                     }
-                    return new Event(description, from, to, false);
+                    return new Event(description, from, to,false);
                 }
             }
         }

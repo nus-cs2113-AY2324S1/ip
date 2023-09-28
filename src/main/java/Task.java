@@ -2,7 +2,7 @@
  * The Task class represents a task with a description and completion status.
  */
 public class Task {
-    private final String description;
+    private String description;
     private boolean isDone;
 
     /**
@@ -34,17 +34,12 @@ public class Task {
      *
      * @return The marker representing the completion status.
      */
-    public String getMarker() {
+    public String getMarker(){
         return (isDone ? "X" : " ");
     }
 
-    /**
-     * Returns a string representation of the task, including its completion status marker and description.
-     *
-     * @return A string representation of the task.
-     */
     @Override
-    public String toString() {
+    public String toString(){
         return "[" + getMarker() + "] " + description;
     }
 }
