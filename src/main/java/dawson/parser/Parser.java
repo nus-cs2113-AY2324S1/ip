@@ -29,7 +29,7 @@ public class Parser {
                     String desc = todoSplit[DESC_INDEX].trim();
                     String isDone = todoSplit[ISDONE_INDEX].trim();
 
-                    Todo todo = new Todo(desc);
+                    TodoTask todo = new TodoTask(desc);
                     if (isDone.equals("1")) todo.markAsDone();
                     return todo;
                 }
@@ -42,7 +42,7 @@ public class Parser {
                     String isDone = deadlineSplit[ISDONE_INDEX].trim();
                     String by = deadlineSplit[BY_INDEX].trim();
 
-                    Deadline deadline = new Deadline(desc, by);
+                    DeadlineTask deadline = new DeadlineTask(desc, by);
                     if (isDone.equals("1")) deadline.markAsDone();
                     return deadline;
                 }
@@ -56,7 +56,7 @@ public class Parser {
                     String start = eventSplit[START_INDEX].trim();
                     String end = eventSplit[END_INDEX].trim();
 
-                    Event event = new Event(desc, start, end);
+                    EventTask event = new EventTask(desc, start, end);
                     if (isDone.equals("1")) event.markAsDone();
                     return event;
                 }

@@ -1,7 +1,7 @@
 package dawson.command;
 
-import dawson.TaskList;
 import dawson.exception.DawsonException;
+import dawson.task.TaskList;
 
 public class DeleteCommand extends Command {
 

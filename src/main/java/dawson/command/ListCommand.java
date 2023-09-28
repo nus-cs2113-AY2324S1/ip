@@ -1,7 +1,7 @@
 package dawson.command;
 
 import dawson.Dawson;
-import dawson.TaskList;
+import dawson.task.TaskList;
 
 public class ListCommand extends Command {
 

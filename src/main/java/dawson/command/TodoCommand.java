@@ -1,8 +1,8 @@
 package dawson.command;
 
-import dawson.TaskList;
 import dawson.exception.DawsonException;
-import dawson.task.Todo;
+import dawson.task.TaskList;
+import dawson.task.TodoTask;
 
 public class TodoCommand extends Command {
 
@@ -21,7 +21,7 @@ public class TodoCommand extends Command {
             throw new DawsonException(errorMsg);
         }
 
-        Todo newTask = new Todo(payload);
+        TodoTask newTask = new TodoTask(payload);
         list.add(newTask);
     }
 

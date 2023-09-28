@@ -1,8 +1,8 @@
 package dawson.command;
 
-import dawson.TaskList;
 import dawson.exception.DawsonException;
-import dawson.task.Deadline;
+import dawson.task.DeadlineTask;
+import dawson.task.TaskList;
 
 public class DeadlineCommand extends Command {
 
@@ -28,7 +28,7 @@ public class DeadlineCommand extends Command {
         String taskString = payload.substring(0, by_position).trim();
         String byString = payload.substring(by_position + BY_DELIMITER.length()).trim();
 
-        Deadline newTask = new Deadline(taskString, byString);
+        DeadlineTask newTask = new DeadlineTask(taskString, byString);
         list.add(newTask);
     }
 

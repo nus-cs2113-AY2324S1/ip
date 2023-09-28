@@ -1,8 +1,8 @@
 package dawson.command;
 
-import dawson.TaskList;
 import dawson.exception.DawsonException;
-import dawson.task.Event;
+import dawson.task.EventTask;
+import dawson.task.TaskList;
 
 public class EventCommand extends Command {
 
@@ -31,7 +31,7 @@ public class EventCommand extends Command {
         String fromString = payload.substring(from_position + FROM_DELIMITER.length(), to_position).trim();
         String toString = payload.substring(to_position + TO_DELIMITER.length()).trim();
 
-        Event newTask = new Event(taskString, fromString, toString);
+        EventTask newTask = new EventTask(taskString, fromString, toString);
         list.add(newTask);
     }
 

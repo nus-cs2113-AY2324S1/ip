@@ -1,7 +1,7 @@
-package dawson;
+package dawson.task;
 
+import dawson.Dawson;
 import dawson.exception.DawsonException;
-import dawson.task.Task;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 package dawson.command;
 
-import dawson.TaskList;
 import dawson.exception.DawsonException;
+import dawson.task.TaskList;
 
 public abstract class Command {
     private static final String TODO_COMMAND = "todo";

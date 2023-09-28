@@ -6,6 +6,7 @@ import dawson.command.Command;
 import dawson.command.ExitCommand;
 import dawson.exception.DawsonException;
 import dawson.storage.Storage;
+import dawson.task.TaskList;
 
 public class Dawson {
     /**
