@@ -12,11 +12,6 @@ public class Command {
 
     //TODO need to figure out how to eliminate the ui here
     private static final Ui ui = new Ui();
-//    public Command(){
-//        ui = new Ui();
-//    }
-
-
 
 
     public static Task createDeadline(String removedInstructionString)
@@ -94,7 +89,7 @@ public class Command {
     }
 
     public static void createNewTask(String instructionString, String removedInstructionString,
-                              TaskList records) {
+                                     TaskList records) {
         Task task = null;
         try {
             switch (instructionString) {
@@ -166,7 +161,7 @@ public class Command {
 
     public static void executeListCommand(TaskList records) {
         ui.printLine();
-        for(int i = 1; i < records.getNumTask() + 1 ; i++){
+        for (int i = 1; i < records.getNumTask() + 1; i++) {
             System.out.println(records.getTask(i));
         }
         ui.printLine();
@@ -206,5 +201,38 @@ public class Command {
 
     public static void addTaskToList(Task task, TaskList records) {
         records.addTask(task);
+    }
+
+    public static void findTasks(String keyword, TaskList records) {
+
+        TaskList tasksFound = new TaskList();
+        Task task;
+        String taskDescription;
+
+        for (int i = 1; i < records.getNumTask() + 1; i++) {
+            task = records.getTask(i);
+            taskDescription = task.getDescription();
+            if (!taskDescription.contains(keyword)) {
+                continue;
+            }
+            tasksFound.addTask(task);
+        }
+        printTasksFound(keyword, tasksFound);
+    }
+
+    public static void printTasksFound(String keyword, TaskList records) {
+        if (records.getNumTask() == 0) {
+            System.out.println("Sorry, we cannot find any task with the word \"" + keyword + "\"");
+            return;
+        }
+
+        ui.printLine();
+        System.out.println("Here are your results:\n");
+
+        for (int i = 1; i < records.getNumTask() + 1; i++) {
+            System.out.println(records.getTask(i));
+        }
+
+        ui.printLine();
     }
 }
