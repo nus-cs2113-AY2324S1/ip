@@ -5,6 +5,7 @@ import Task.ToDo;
 import Task.Event;
 import Task.Deadline;
 import Task.TaskList;
+import Ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -71,9 +72,7 @@ public class Storage {
 
             }
         } catch(NullPointerException e) {
-            System.out.println("    _____________________________________"
-                    + "\n    Where's the file, yo? I couldn't find it!\n"
-                    + "    _____________________________________");
+            Ui.reportFileMissingError();
         } catch(FileNotFoundException e) {
             return out;
         }

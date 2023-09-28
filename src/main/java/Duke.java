@@ -1,21 +1,18 @@
 import Task.Task;
 import Task.TaskList;
 import Storage.Storage;
+import Ui.Ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static final String LINE_DIVIDER = "    _____________________________________";
+    static TaskList itemList;
 
     public static void main(String[] args) {
-
-        TaskList itemList = new TaskList();
-
-        System.out.println("Hello! I'm Axel!\n"
-                + "What can I do for you?\n"
-                + LINE_DIVIDER);
+        itemList = new TaskList();
+        Ui.greet();
 
         Scanner in = new Scanner(System.in);
         String buf = in.nextLine();
@@ -54,27 +51,20 @@ public class Duke {
                     break;
 
                 default:
-                    System.out.println(LINE_DIVIDER +
-                        "\n    I couldn't find a command word, try again!\n"
-                        + LINE_DIVIDER);
+                    Ui.reportMissingCommandWord();
                     break;
             }
                 Storage.save(itemList);
             } catch (IOException e) {
-                System.out.println("    I couldn't save your file, try again?\n"
-                        + LINE_DIVIDER);
+                Ui.reportSaveError();
             } catch(ArrayIndexOutOfBoundsException e) {
-                System.out.println(LINE_DIVIDER + "\n"
-                        + "    Oops, looks like you left something out!\n"
-                        + LINE_DIVIDER);
+                Ui.reportMissingTaskInfo();
             }
 
             buf = in.nextLine();
         }
 
-        System.out.println(LINE_DIVIDER +
-                "\n    Bye. Hope to see you again soon!\n"
-                + LINE_DIVIDER);
+        Ui.bye();
     }
 }
 
