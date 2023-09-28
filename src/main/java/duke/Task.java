@@ -11,7 +11,7 @@ public class Task {
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = false; //set initial completion to false
     }
 
     public void markAsDone() {

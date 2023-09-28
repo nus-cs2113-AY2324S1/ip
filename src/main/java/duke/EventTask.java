@@ -10,6 +10,7 @@ public class EventTask extends Task {
         this.to = this.extractToDate(description);
     }
 
+    // Extract the /from date
     private String extractFromDate(String description) {
         int fromIndex = description.indexOf("/from");
         if (fromIndex != -1) {
@@ -22,6 +23,7 @@ public class EventTask extends Task {
         return "No Start Date";
     }
 
+    //Extract the /to date
     private String extractToDate(String description) {
         int toIndex = description.indexOf("/to");
         return toIndex != -1 ? description.substring(toIndex + 3).trim() : "No End Date";
