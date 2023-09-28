@@ -1,5 +1,6 @@
 import Task.Task;
-import Task.Tasks;
+import Task.TaskList;
+import Storage.Storage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        ArrayList<Task> itemList = IO.load();
+        TaskList itemList = new TaskList();
 
         System.out.println("Hello! I'm Axel!\n"
                 + "What can I do for you?\n"
@@ -19,45 +20,37 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String buf = in.nextLine();
 
-        int i = itemList.size(); // current index in itemList
-
 
         while(!buf.equalsIgnoreCase("bye")){
             try{
                 switch(buf.toLowerCase().split(" ")[0]) {
 
                 case "list":
-                    Tasks.listItems(itemList, i);
+                    itemList.listItems();
                     break;
 
                 case "mark":
-                    Tasks.markTask(itemList,
-                            Integer.parseInt(buf.split(" ")[1]));
+                    itemList.markTask(Integer.parseInt(buf.split(" ")[1]));
                     break;
 
                 case "unmark":
-                    Tasks.unmarkTask(itemList,
-                            Integer.parseInt(buf.split(" ")[1]));
+                    itemList.unmarkTask(Integer.parseInt(buf.split(" ")[1]));
                     break;
 
                 case "todo":
-                    Tasks.addTodo(buf, itemList, i);
-                    i += 1;
+                    itemList.addTodo(buf);
                     break;
 
                 case "deadline":
-                    Tasks.addDeadline(buf, itemList, i);
-                    i += 1;
+                    itemList.addDeadline(buf);
                     break;
 
                 case "event":
-                    Tasks.addEvent(buf, itemList, i);
-                    i += 1;
+                    itemList.addEvent(buf);
                     break;
 
                 case "delete":
-                    Tasks.delete(Integer.parseInt(buf.split(" ")[1]), itemList);
-                    i -= 1;
+                    itemList.delete(Integer.parseInt(buf.split(" ")[1]));
                     break;
 
                 default:
@@ -66,7 +59,7 @@ public class Duke {
                         + LINE_DIVIDER);
                     break;
             }
-                IO.save(itemList, i);
+                Storage.save(itemList);
             } catch (IOException e) {
                 System.out.println("    I couldn't save your file, try again?\n"
                         + LINE_DIVIDER);

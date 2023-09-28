@@ -1,8 +1,18 @@
 package Task;
 
 import java.util.ArrayList;
+import Storage.Storage;
 
-public class Tasks {
+public class TaskList {
+
+    protected ArrayList<Task> itemList;
+
+    protected int i;
+
+    public TaskList() {
+        itemList = Storage.load();
+        i = itemList.size();
+    }
 
     public static final String LINE_DIVIDER = "    _____________________________________";
     public static String RemoveCommandWord(String in) throws EmptyDescriptionException {
@@ -18,7 +28,15 @@ public class Tasks {
         return out;
     }
 
-    public static void addTodo(String in, ArrayList<Task> itemList, int i) {
+    public int size() {
+        return i;
+    }
+
+    public Task get(int j) {
+        return itemList.get(j);
+    }
+
+    public void addTodo(String in) {
         try {
             itemList.add(new ToDo(RemoveCommandWord(in)));
         } catch (EmptyDescriptionException e) {
@@ -30,9 +48,11 @@ public class Tasks {
                 + "Sure, I've added this task:\n"
                 + "    " + itemList.get(i).toString()
                 + "\n" + LINE_DIVIDER);
+
+        i += 1;
     }
 
-    public static void addEvent(String in, ArrayList<Task> itemList, int i) {
+    public void addEvent(String in) {
         try {
             String[] vals = in.split(" /");
             String name = RemoveCommandWord(vals[0]);
@@ -54,9 +74,11 @@ public class Tasks {
                 + "Sure, I've added this task:\n"
                 + "    " + itemList.get(i).toString()
                 + "\n" + LINE_DIVIDER);
+
+        i += 1;
     }
 
-    public static void addDeadline(String in, ArrayList<Task> itemList, int i) {
+    public void addDeadline(String in) {
         try {
             String[] vals = in.split(" /");
             String name = RemoveCommandWord(vals[0]);
@@ -78,11 +100,13 @@ public class Tasks {
                 + "Sure, I've added this task:\n"
                 + "    " + itemList.get(i).toString()
                 + "\n" + LINE_DIVIDER);
+
+        i += 1;
     }
 
-    public static void delete(int i, ArrayList<Task> itemList) {
+    public void delete(int j) {
         try {
-            Task temp = itemList.get(i - 1);
+            Task temp = itemList.get(j - 1);
 
             System.out.println(LINE_DIVIDER + "\n"
                     + "Alright, I've deleted this task:\n"
@@ -91,7 +115,7 @@ public class Tasks {
                     + ((itemList.size() == 1) ? "Congrats!" : "Get on it!") +"\n"
                     + LINE_DIVIDER);
 
-            itemList.remove(i - 1);
+            itemList.remove(j - 1);
         } catch(IndexOutOfBoundsException e) {
             if(itemList.isEmpty()) {
                 System.out.println(LINE_DIVIDER + "\n"
@@ -103,28 +127,30 @@ public class Tasks {
                         + LINE_DIVIDER);
             }
         }
+
+        this.i -= 1;
     }
 
-    public static void markTask(ArrayList<Task> itemList, int i) {
+    public void markTask(int j) {
 
-        itemList.get(i - 1).setDone(true);
+        itemList.get(j - 1).setDone(true);
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "    Nice, I've marked this task as done:\n"
-                + "    " + itemList.get(i - 1).toString() + "\n"
+                + "    " + itemList.get(j - 1).toString() + "\n"
                 + LINE_DIVIDER);
     }
 
-    public static void unmarkTask(ArrayList<Task> itemList, int i) {
-        itemList.get(i - 1).setDone(false);
+    public void unmarkTask(int j) {
+        itemList.get(j - 1).setDone(false);
 
         System.out.println(LINE_DIVIDER + "\n"
                 + "    Alright, I've unmarked this task as done:\n"
-                + "    " + itemList.get(i - 1).toString() + "\n"
+                + "    " + itemList.get(j - 1).toString() + "\n"
                 + LINE_DIVIDER);
     }
 
-    public static void listItems(ArrayList<Task> itemList, int i) {
+    public void listItems() {
         System.out.println(LINE_DIVIDER);
         for(int j = 0; j < i; j += 1) {
             System.out.println((j + 1)

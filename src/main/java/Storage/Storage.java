@@ -1,7 +1,10 @@
+package Storage;
+
 import Task.Task;
 import Task.ToDo;
 import Task.Event;
 import Task.Deadline;
+import Task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,9 +15,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class IO {
+public class Storage {
     protected static String FILE_NAME = "./src/main/java/data/duke.txt";
-    public static void save(ArrayList<Task> tasks, int n) throws IOException {
+    public static void save(TaskList tasks) throws IOException {
         Files.createDirectories(Paths.get("./src/main/java/data"));
         if(Files.exists(Paths.get(FILE_NAME))) {
             Files.delete(Paths.get(FILE_NAME));
@@ -23,7 +26,7 @@ public class IO {
 
         FileWriter writer = new FileWriter(FILE_NAME, false);
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             writer.write(tasks.get(i).toFileLine()
                     + System.lineSeparator());
         }
