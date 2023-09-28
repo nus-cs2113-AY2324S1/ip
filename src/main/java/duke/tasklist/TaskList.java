@@ -76,7 +76,7 @@ public class TaskList {
         return input.trim().isEmpty();
     }
 
-    public String addTodo(String input) throws DukeTaskException, IOException {
+    public String addTodo(String input) throws DukeTaskException {
         if (checkEmptyTodoInput(input)) {
             throw new DukeTaskException();
         }
@@ -87,7 +87,7 @@ public class TaskList {
         return TODO_DATA_TEMPLATE + input.trim();
     }
 
-    public String addDeadline(String input) throws DukeTaskException, IOException {
+    public String addDeadline(String input) throws DukeTaskException {
         String[] parsedInput = parser.parseTask(input, BY_KEYWORD);
 
         if (!(parsedInput.length == 2)) {

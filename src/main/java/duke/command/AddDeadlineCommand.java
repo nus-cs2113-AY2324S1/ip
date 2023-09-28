@@ -7,21 +7,22 @@ import duke.ui.TextUi;
 
 import java.io.IOException;
 
-public class AddTodoCommand extends AddCommand {
-    public AddTodoCommand(String data) {
+public class AddDeadlineCommand extends AddCommand {
+
+    public AddDeadlineCommand(String data) {
         super(data);
     }
 
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
         try {
-            String dataString = tasks.addTodo(dataToAdd);
+            String dataString = tasks.addDeadline(dataToAdd);
             storage.addNewData(dataString, tasks.getTasksCount());
             ui.printRecentTask(tasks);
         } catch (IOException exception) {
             ui.handleIOException(exception);
         } catch (DukeTaskException exception) {
-            exception.handleDukeTaskException("todo", dataToAdd);
+            exception.handleDukeTaskException("deadline", dataToAdd);
         }
     }
 }

@@ -1,9 +1,9 @@
 package duke.parser;
 
-import duke.command.AddTodoCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
+import duke.command.*;
 import duke.exception.DukeCommandException;
+
+import java.util.List;
 
 public class Parser {
 
@@ -26,8 +26,17 @@ public class Parser {
         Command command;
 
         switch (commandType) {
+        case "list":
+            command = new ListCommand();
+            break;
         case "todo":
             command = new AddTodoCommand(data);
+            break;
+        case "deadline":
+            command = new AddDeadlineCommand(data);
+            break;
+        case "event":
+            command = new AddEventCommand(data);
             break;
         case "bye":
             command = new ByeCommand();
