@@ -97,12 +97,16 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> restoreSavedData() throws FileNotFoundException {
-        File file = new File(DATA_PATH);
-        Scanner scan = new Scanner(file);
+    public ArrayList<Task> restoreSavedData() {
+        try {
+            File file = new File(DATA_PATH);
+            Scanner scan = new Scanner(file);
 
-        while (scan.hasNext()) {
-            createNewData(scan);
+            while (scan.hasNext()) {
+                createNewData(scan);
+            }
+        } catch (FileNotFoundException exception) {
+            handleFileNotFoundException();
         }
 
         return tasksListPlaceholder;

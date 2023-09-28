@@ -21,24 +21,16 @@ public class TaskList {
     private final String FROM_KEYWORD = " /from ";
     private final String TO_KEYWORD = " /to ";
 
-    private Storage storage;
     private TextUi ui;
     private ArrayList<Task> tasks;
     private TaskParser parser;
     private int tasksCount = 0;
 
-    public TaskList()  {
+    public TaskList(ArrayList<Task> tasks)  {
         ui = new TextUi();
-        storage = new Storage();
         parser = new TaskParser();
 
-        try {
-            tasks = storage.restoreSavedData();
-        } catch (FileNotFoundException exception) {
-            storage.handleFileNotFoundException();
-            System.exit(-1);
-        }
-
+        this.tasks = tasks;
         tasksCount = tasks.size();
     }
 
@@ -54,57 +46,50 @@ public class TaskList {
         return tasks.get(tasksCount - 1);
     }
 
-    public int setMarkAsDone(String input) throws IOException {
+    public int setMarkAsDone(String input) {
         int index = parser.parseIndex(input);
-
-        storage.updateTaskDatabase(index, true);
 
         tasks.get(index).markAsDone();
 
         return index;
     }
 
-    public int setUnmarkAsDone(String input) throws IOException {
+    public int setUnmarkAsDone(String input) {
         int index = parser.parseIndex(input);
-
-        storage.updateTaskDatabase(index, false);
 
         tasks.get(index).unmarkAsDone();
 
         return index;
     }
 
-    public void deleteTask(String input) throws IOException {
+    public int deleteTask(String input) throws IOException {
         int index = parser.parseIndex(input);
         Task removedTask = tasks.remove(index);
-
-        storage.deleteTaskData(index);
 
         ui.printDeletedTask(removedTask);
 
         tasksCount--;
 
         ui.printNumOfTasks(tasksCount);
+        return index;
     }
 
     public boolean checkEmptyTodoInput(String input) {
         return input.trim().isEmpty();
     }
 
-    public void addTodo(String input) throws DukeTaskException, IOException {
+    public String addTodo(String input) throws DukeTaskException, IOException {
         if (checkEmptyTodoInput(input)) {
             throw new DukeTaskException();
         }
 
         tasks.add(new Todo(input.trim()));
-
-        String dataString =  TODO_DATA_TEMPLATE + input.trim();
-        storage.addNewData(dataString, tasksCount);
-
         tasksCount++;
+
+        return TODO_DATA_TEMPLATE + input.trim();
     }
 
-    public void addDeadline(String input) throws DukeTaskException, IOException {
+    public String addDeadline(String input) throws DukeTaskException, IOException {
         String[] parsedInput = parser.parseTask(input, BY_KEYWORD);
 
         if (!(parsedInput.length == 2)) {
@@ -112,11 +97,9 @@ public class TaskList {
         }
 
         tasks.add(new Deadline(parsedInput[0].trim(), parsedInput[1].trim()));
-
-        String dataString = DEADLINE_DATA_TEMPLATE + parsedInput[0].trim() + " | "  + parsedInput[1].trim();
-        storage.addNewData(dataString, tasksCount);
-
         tasksCount++;
+
+        return DEADLINE_DATA_TEMPLATE + parsedInput[0].trim() + " | "  + parsedInput[1].trim();
     }
 
     public boolean checkNumOfEventKeywords(String input) {
@@ -130,7 +113,7 @@ public class TaskList {
         return input.indexOf(FROM_KEYWORD) < input.indexOf(TO_KEYWORD);
     }
 
-    public void addEvent(String input) throws DukeTaskException, IOException {
+    public String addEvent(String input) throws DukeTaskException, IOException {
         if (!checkNumOfEventKeywords(input) || !checkPosOfEventKeywords(input)) {
             throw new DukeTaskException();
         }
@@ -142,8 +125,8 @@ public class TaskList {
 
         String dataString = EVENT_DATA_TEMPLATE + parsedInput[0].trim() + " | "  + parsedInput[1].trim()
                 + " | " + parsedInput[2].trim();
-        storage.addNewData(dataString, tasksCount);
 
         tasksCount++;
+        return dataString;
     }
 }

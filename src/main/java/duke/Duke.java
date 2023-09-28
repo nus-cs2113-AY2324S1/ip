@@ -12,12 +12,14 @@ import java.util.Scanner;
 public class Duke {
 
     private static TextUi ui;
+    private static Storage storage;
     private static TaskList tasks;
 
     public static void executeCommand(String input) {
         String[] parsedInput = input.split(" ", 2);
         String command = parsedInput[0];
         int selectedIndex = 0;
+        String dataString;
         input = parsedInput.length == 1 ? " " : parsedInput[1].trim();
 
         try {
@@ -27,25 +29,31 @@ public class Duke {
                 break;
             case "mark":
                 selectedIndex = tasks.setMarkAsDone(input);
+                storage.updateTaskDatabase(selectedIndex, true);
                 ui.printModifiedTask(tasks.getTask(selectedIndex), true);
                 break;
             case "unmark":
                 selectedIndex = tasks.setUnmarkAsDone(input);
-                ui.printModifiedTask(tasks.getTask(selectedIndex), true);
+                storage.updateTaskDatabase(selectedIndex, false);
+                ui.printModifiedTask(tasks.getTask(selectedIndex), false);
                 break;
             case "delete":
-                tasks.deleteTask(input);
+                selectedIndex = tasks.deleteTask(input);
+                storage.deleteTaskData(selectedIndex);
                 break;
             case "todo":
-                tasks.addTodo(input);
+                dataString = tasks.addTodo(input);
+                storage.addNewData(dataString, tasks.getTasksCount());
                 ui.printRecentTask(tasks);
                 break;
             case "deadline":
-                tasks.addDeadline(input);
+                dataString = tasks.addDeadline(input);
+                storage.addNewData(dataString, tasks.getTasksCount());
                 ui.printRecentTask(tasks);
                 break;
             case "event":
-                tasks.addEvent(input);
+                dataString = tasks.addEvent(input);
+                storage.addNewData(dataString, tasks.getTasksCount());
                 ui.printRecentTask(tasks);
                 break;
             case "bye":
@@ -72,9 +80,9 @@ public class Duke {
         String input;
         Scanner in = new Scanner(System.in);
         ui = new TextUi();
-        tasks = new TaskList();
+        storage = new Storage();
+        tasks = new TaskList(storage.restoreSavedData());
 
-        ui = new TextUi();
         ui.tellGreeting();
         while (true) {
             input = ui.getInput(in);
