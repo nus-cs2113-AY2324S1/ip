@@ -14,16 +14,8 @@ public abstract class Task {
         this.isDone = isDone.equals("true");
     }
 
-    public boolean getStatus() {
-        return isDone;
-    }
-
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void markAsDone() {
