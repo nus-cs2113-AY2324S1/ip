@@ -1,4 +1,4 @@
-package dawson;
+package dawson.parser;
 
 import dawson.exception.DawsonException;
 import dawson.task.*;
