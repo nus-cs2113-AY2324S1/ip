@@ -3,11 +3,11 @@ package dawson.command;
 import dawson.Dawson;
 import dawson.TaskList;
 
-public class List extends Command {
+public class ListCommand extends Command {
 
     private TaskList list;
 
-    public List(TaskList list) {
+    public ListCommand(TaskList list) {
         this.list = list;
     }
 

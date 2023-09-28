@@ -1,14 +1,14 @@
 package dawson.command;
 
-import dawson.DawsonException;
 import dawson.TaskList;
+import dawson.DawsonException;
 
-public class Delete extends Command {
+public class MarkCommand extends Command {
 
     private String payload;
     private TaskList taskList;
 
-    public Delete(String payload, TaskList taskList) {
+    public MarkCommand(String payload, TaskList taskList) {
         this.payload = payload;
         this.taskList = taskList;
     }
@@ -25,7 +25,8 @@ public class Delete extends Command {
             throw new DawsonException(errorMsg);
         }
 
-        // Execute the delete command on index
-        taskList.deleteTask(index);
+        // Execute the mark as done
+        taskList.markAsDoneIndex(index);
     }
+
 }

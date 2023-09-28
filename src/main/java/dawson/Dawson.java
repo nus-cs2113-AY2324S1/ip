@@ -3,7 +3,7 @@ package dawson;
 import java.util.Scanner;
 
 import dawson.command.Command;
-import dawson.command.Exit;
+import dawson.command.ExitCommand;
 
 public class Dawson {
     /**
@@ -67,7 +67,7 @@ public class Dawson {
             } catch (DawsonException e) {
                 printText(e.getMessage());
             }
-        } while (!(newCommand instanceof Exit));
+        } while (!(newCommand instanceof ExitCommand));
 
         scanner.close();
     }
