@@ -1,22 +1,40 @@
 package notGPT;
 
 import notGPT.task.TaskList;
-import notGPT.commands.IntroMessage;
 import notGPT.commands.CommandResponse;  
-import notGPT.commands.UserInput;
+import notGPT.storage.Storage;
+import notGPT.parser.Parser;
+import notGPT.ui.Ui;
 
 public class NotChatGPT {
     public static boolean isRunning;
-    public static TaskList taskList = new TaskList();
+    public static Storage storage;
+    public static TaskList taskList;
+    public static Parser parser;
+    public static Ui ui = new Ui();
 
-    public static void main(String[] args) {
+    public NotChatGPT(String filePath) {
         isRunning = true;
-        IntroMessage.displayIntroMessage();
-        taskList.loadTasks();
+        storage = new Storage(filePath);
+        taskList = new TaskList(storage);
+        parser = new Parser();
+        ui = new Ui();
+    }
+
+    public void run () {
+        ui.displayIntroMessage();
         while (isRunning) {
-            String[] userInput = UserInput.getUserInput();
-            CommandResponse.respond(userInput);
+            String userInput  = ui.getUserInput();
+            String[] commandDetails = parser.parseCommand(userInput);
+            ui.showLine();
+            CommandResponse.respond(commandDetails);
+            ui.showLine();
         }
-        taskList.saveTasks();
+        storage.saveTasks(taskList);
+        System.exit(0);
+    }
+    public static void main(String[] args) {    
+        NotChatGPT notChatGPT = new NotChatGPT("data/tasks.txt");
+        notChatGPT.run();
     }
 }

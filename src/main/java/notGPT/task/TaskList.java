@@ -1,26 +1,28 @@
 package notGPT.task;
 
-import java.util.Scanner;   
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+// import java.util.Scanner;   
+// import java.io.File;
+// import java.io.FileWriter;
+// import java.io.IOException;
 import java.util.ArrayList;
+
+import notGPT.storage.Storage;
 
 
 public class TaskList {
     private ArrayList<Task> taskList;
     private int taskCount;
-    private String line = "____________________________________________________________";
+    // private String line = "____________________________________________________________";
 
-    public TaskList() {
-        this.taskList = new ArrayList<>();
-        this.taskCount = 0;
+    public TaskList(Storage storage) {
+        this.taskList = storage.getBuffer();
+        this.taskCount = taskList.size();
     }
 
     public void addTodo(String taskName) {
         Task newTask = new ToDo(taskName);
         taskList.add(newTask);
-        taskCount++;
+        taskCount++; 
     }
 
     public void addDeadline(String taskName, String deadline) {
@@ -91,88 +93,88 @@ public class TaskList {
         }
     }
 
-    public void loadTasks() {
-        try {
-            File dataDirectory = new File("./data");
-            if (!dataDirectory.exists()) {
-                dataDirectory.mkdir();
-            }
+    // public void loadTasks() {
+    //     try {
+    //         File dataDirectory = new File("./data");
+    //         if (!dataDirectory.exists()) {
+    //             dataDirectory.mkdir();
+    //         }
 
-            File taskListFile = new File(dataDirectory, "tasks.txt");
-            if (!taskListFile.exists()) {
-                taskListFile.createNewFile();
-            }
+    //         File taskListFile = new File(dataDirectory, "tasks.txt");
+    //         if (!taskListFile.exists()) {
+    //             taskListFile.createNewFile();
+    //         }
 
-            Scanner sc = new Scanner(taskListFile);
-            while (sc.hasNextLine()) {
-                String task = sc.nextLine();
-                String[] taskDetails = task.split("\\|");
-                switch (taskDetails[0]) {
-                    case "T":
-                        addTodoFromFile(taskDetails);
-                        break;
-                    case "D":
-                        addDeadlineFromFile(taskDetails);
-                        break;
-                    case "E":
-                        addEventFromFile(taskDetails);
-                        break;
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error: Unable to create or access data file/directory!\n"
-                    + e.getMessage() + "\n" + line + "\n");
-        }
-    }
+    //         Scanner sc = new Scanner(taskListFile);
+    //         while (sc.hasNextLine()) {
+    //             String task = sc.nextLine();
+    //             String[] taskDetails = task.split("\\|");
+    //             switch (taskDetails[0]) {
+    //                 case "T":
+    //                     addTodoFromFile(taskDetails);
+    //                     break;
+    //                 case "D":
+    //                     addDeadlineFromFile(taskDetails);
+    //                     break;
+    //                 case "E":
+    //                     addEventFromFile(taskDetails);
+    //                     break;
+    //             }
+    //         }
+    //     } catch (IOException e) {
+    //         System.out.println("Error: Unable to create or access data file/directory!\n"
+    //                 + e.getMessage() + "\n" + line + "\n");
+    //     }
+    // }
 
-    private void addTodoFromFile(String[] taskDetails) {
-        String taskName = taskDetails[2];
-        addTodo(taskName);
-        if (taskDetails[1].equals("1")) {
-            markTaskAsDone(taskCount);
-        }
-    }
+    // private void addTodoFromFile(String[] taskDetails) {
+    //     String taskName = taskDetails[2];
+    //     addTodo(taskName);
+    //     if (taskDetails[1].equals("1")) {
+    //         markTaskAsDone(taskCount);
+    //     }
+    // }
 
-    private void addDeadlineFromFile(String[] taskDetails) {
-        String taskName = taskDetails[2];
-        String deadline = taskDetails[3];
-        addDeadline(taskName, deadline);
-        if (taskDetails[1].equals("1")) {
-            markTaskAsDone(taskCount);
-        }
-    }
+    // private void addDeadlineFromFile(String[] taskDetails) {
+    //     String taskName = taskDetails[2];
+    //     String deadline = taskDetails[3];
+    //     addDeadline(taskName, deadline);
+    //     if (taskDetails[1].equals("1")) {
+    //         markTaskAsDone(taskCount);
+    //     }
+    // }
 
-    private void addEventFromFile(String[] taskDetails) {
-        String taskName = taskDetails[2];
-        String startTime = taskDetails[3];
-        String endTime = taskDetails[4];
-        addEvent(taskName, startTime, endTime);
-        if (taskDetails[1].equals("1")) {
-            markTaskAsDone(taskCount);
-        }
-    }
+    // private void addEventFromFile(String[] taskDetails) {
+    //     String taskName = taskDetails[2];
+    //     String startTime = taskDetails[3];
+    //     String endTime = taskDetails[4];
+    //     addEvent(taskName, startTime, endTime);
+    //     if (taskDetails[1].equals("1")) {
+    //         markTaskAsDone(taskCount);
+    //     }
+    // }
 
-    public void saveTasks() {
-        try {
-            File dataDirectory = new File("./data");
-            if (!dataDirectory.exists()) {
-                dataDirectory.mkdir();
-            }
+    // public void saveTasks() {
+    //     try {
+    //         File dataDirectory = new File("./data");
+    //         if (!dataDirectory.exists()) {
+    //             dataDirectory.mkdir();
+    //         }
 
-            File taskListFile = new File(dataDirectory, "tasks.txt");
-            if (!taskListFile.exists()) {
-                taskListFile.createNewFile();
-            }
+    //         File taskListFile = new File(dataDirectory, "tasks.txt");
+    //         if (!taskListFile.exists()) {
+    //             taskListFile.createNewFile();
+    //         }
 
-            FileWriter fw = new FileWriter(taskListFile);
-            for (int i = 0; i < taskCount; i++) {
-                fw.write(taskList.get(i).toFileString() + "\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Error: Unable to create or access data file/directory!\n"
-                    + e.getMessage() + "\n" + line + "\n");
-        }
-    }
+    //         FileWriter fw = new FileWriter(taskListFile);
+    //         for (int i = 0; i < taskCount; i++) {
+    //             fw.write(taskList.get(i).toFileString() + "\n");
+    //         }
+    //         fw.close();
+    //     } catch (IOException e) {
+    //         System.out.println("Error: Unable to create or access data file/directory!\n"
+    //                 + e.getMessage() + "\n" + line + "\n");
+    //     }
+    // }
 }
 

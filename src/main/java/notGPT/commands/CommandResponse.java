@@ -5,22 +5,25 @@ import notGPT.NotChatGPT;
 import notGPT.exception.NotChatGPTExceptions;
 
 public class CommandResponse {
-    private static final String line = "____________________________________________________________\n";
 
     public static void handleBye() {
-        System.out.println(line + "\nBye Broski! Thank you for choosing notChatGPT :)\n" + line);
+        System.out.println("Bye Broski! Thank you for choosing notChatGPT :)");
         NotChatGPT.isRunning = false;
     }
 
     public static void handleList() {
-        System.out.println(line + "\nHere are the tasks in your list:\n");
         String[] tasks = NotChatGPT.taskList.getTasks();
-        for (int i = 0; i < tasks.length; i++) {
-            if (tasks[i] != null) {
-                System.out.println((i + 1) + ". " + tasks[i]);
+        if (tasks.length == 0) {
+            System.out.println("You have no tasks in your list lel");
+        }
+        else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.length; i++) {
+                if (tasks[i] != null) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
             }
         }
-        System.out.println(line);
     }
 
     public static void handleMark(String[] userInput) {
@@ -36,12 +39,12 @@ public class CommandResponse {
                 throw new NotChatGPTExceptions("Task is already marked as done!!");
             }
             NotChatGPT.taskList.markTaskAsDone(taskNumber);
-            System.out.println(line + "\nNice! I've marked this task as done:");
-            System.out.println(NotChatGPT.taskList.getTasks()[taskNumber - 1] + "\n" + line);
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(NotChatGPT.taskList.getTasks()[taskNumber - 1]);
         } catch (NumberFormatException e) {
-            System.out.println(line + "\nError: Invalid task number. Please enter a valid number.\n" + line);
+            System.out.println("Error: Invalid task number. Please enter a valid number.");
         } catch (NotChatGPTExceptions e) {
-            System.out.println(line + "\nError: " + e.getMessage() + "\n" + line);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -58,12 +61,12 @@ public class CommandResponse {
                 throw new NotChatGPTExceptions("Task is already marked as not done!!");
             }
             NotChatGPT.taskList.unmarkTaskAsDone(taskNumber);
-            System.out.println(line + "\nAight! I've marked this task as not done yet.");
-            System.out.println(NotChatGPT.taskList.getTasks()[taskNumber - 1] + "\n" + line);
+            System.out.println("Aight! I've marked this task as not done yet.");
+            System.out.println(NotChatGPT.taskList.getTasks()[taskNumber - 1]);
         } catch (NumberFormatException e) {
-            System.out.println(line + "\nError: Invalid task number. Please enter a valid number.\n" + line);
+            System.out.println("Error: Invalid task number. Please enter a valid number.");
         } catch (NotChatGPTExceptions e) {
-            System.out.println(line + "\nError: " + e.getMessage() + "\n" + line);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -73,10 +76,10 @@ public class CommandResponse {
                 throw new NotChatGPTExceptions("Please specify the task description!! (cannot be empty lah)");
             }
             NotChatGPT.taskList.addTodo(String.join(" ", Arrays.copyOfRange(userInput, 1, userInput.length)));
-            System.out.println(line + "\nGot it. I've added this task:");
-            System.out.println(NotChatGPT.taskList.getTasks()[NotChatGPT.taskList.getTaskCount() - 1] + "\n" + line);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(NotChatGPT.taskList.getTasks()[NotChatGPT.taskList.getTaskCount() - 1]);
         } catch (NotChatGPTExceptions e) {
-            System.out.println(line + "\nError: " + e.getMessage() + "\n" + line);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -101,10 +104,10 @@ public class CommandResponse {
             String deadlineName = String.join(" ", Arrays.copyOfRange(userInput, 1, deadlineIndex));
             String deadlineTime = String.join(" ", Arrays.copyOfRange(userInput, deadlineIndex + 1, userInput.length));
             NotChatGPT.taskList.addDeadline(deadlineName, deadlineTime);
-            System.out.println(line + "\nGot it. I've added this task:");
-            System.out.println(NotChatGPT.taskList.getTasks()[NotChatGPT.taskList.getTaskCount() - 1] + "\n" + line);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(NotChatGPT.taskList.getTasks()[NotChatGPT.taskList.getTaskCount() - 1]);
         } catch (NotChatGPTExceptions e) {
-            System.out.println(line + "\nError: " + e.getMessage() + "\n" + line);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -135,30 +138,30 @@ public class CommandResponse {
             String eventStartTime = String.join(" ", Arrays.copyOfRange(userInput, eventStartTimeIndex + 1, eventEndTimeIndex));
             String eventEndTime = String.join(" ", Arrays.copyOfRange(userInput, eventEndTimeIndex + 1, userInput.length));
             NotChatGPT.taskList.addEvent(eventName, eventStartTime, eventEndTime);
-            System.out.println(line + "\nGot it. I've added this task:");
-            System.out.println(NotChatGPT.taskList.getTasks()[NotChatGPT.taskList.getTaskCount() - 1] + "\n"+ line);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(NotChatGPT.taskList.getTasks()[NotChatGPT.taskList.getTaskCount() - 1]);
         } catch (NotChatGPTExceptions e) {
-            System.out.println(line + "\nError: " + e.getMessage() + "\n" + line);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
     public static void handleDelete(String[] userInput) {
         try {
             if (userInput.length < 2) {
-                throw new NotChatGPTExceptions("Please specify the task number to delete!!");
+                throw new NotChatGPTExceptions("\nPlease specify the task number to delete!!");
             }
             int taskNumber = Integer.parseInt(userInput[1]);
             if (taskNumber < 1 || taskNumber > NotChatGPT.taskList.getTaskCount()) {
-                throw new NotChatGPTExceptions("Task number is out of range!! Please enter a valid number.");
+                throw new NotChatGPTExceptions("\nTask number is out of range!! Please enter a valid number.");
             }
-            System.out.println(line + "\nNoted. I've removed this task:");
+            System.out.println("Noted. I've removed this task:");
             System.out.println(NotChatGPT.taskList.getTasks()[taskNumber - 1]);
             NotChatGPT.taskList.deleteTask(taskNumber);
-            System.out.println("Now you have " + NotChatGPT.taskList.getTaskCount() + " tasks in your list.\n" + line);
+            System.out.println("Now you have " + NotChatGPT.taskList.getTaskCount() + " tasks in your list.");
         } catch (NumberFormatException e) {
-            System.out.println(line + "\nError: Invalid task number. Please enter a valid number.\n" + line);
+            System.out.println("Error: Invalid task number. Please enter a valid number.");
         } catch (NotChatGPTExceptions e) {
-            System.out.println(line + "\nError: " + e.getMessage() + "\n" + line);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -189,7 +192,7 @@ public class CommandResponse {
                 handleDelete(userInput);
                 break;
             default:
-                System.out.println(line + "\nI'm sorry, but I don't know what that means :-(\n" + line);
+                System.out.println("I'm sorry, but I don't know what that means :-(\n");
                 break;
         }
     }
