@@ -21,7 +21,7 @@ to a file.
 
 ## Usage
 
-### Adding todo task: `todo`
+### <span style="color: pink"> Adding todo task: `todo` </span>
 Adds a task [of type: _todo_] to the task list.
 
 Format: `todo DESCRIPTION`
@@ -36,7 +36,7 @@ Now you have 1 task(s) in the list.
 ===================================================
 ```
 
-### Adding deadline task: `deadline`
+### <span style="color: green"> Adding deadline task: `deadline` </span>
 Adds a task [of type: _deadline_] to the task list.
 
 Format: `deadline DESCRIPTION by DATE TIME(optional)`
@@ -62,7 +62,7 @@ Now you have 3 task(s) in the list.
 ===================================================
 ```
 
-### Adding event task: `event`
+### <span style="color: green"> Adding event task: `event` </span>
 Adds a task [of type: _event_] to the task list.
 
 Format: `event DESCRIPTION from TIME to TIME`
@@ -77,7 +77,7 @@ Now you have 4 task(s) in the list.
 ===================================================
 ```
 
-### Listing all tasks: `list`
+### <span style="color: green"> Listing all tasks: `list` </span>
 Shows a list of all tasks in the task list.
 
 Format: `list`
@@ -91,7 +91,7 @@ Here are the tasks in your list:
 4. [E][ ] go to school (from: 12 to: 6)
 ===================================================
 ```
-### Marking a task: `mark`
+### <span style="color: green"> Marking a task: `mark` </span>
 Marks a task as done.
 
 Format: `mark INDEX`
@@ -107,7 +107,7 @@ Nice! I've marked this task as done:
 [T][X] read book
 ===================================================
 ```
-### Unmarking a task: `unmark`
+### <span style="color: green"> Unmarking a task: `unmark` </span>
 Marks a task as undone.
 
 Format: `unmark INDEX`
@@ -123,7 +123,7 @@ OK, I've marked this task as not done yet:
 [T][ ] read book
 ===================================================
 ```
-### Deleting a task: `delete`
+### <span style="color: green"> Deleting a task: `delete` </span>
 Deletes the specified task from the task list.
 
 Format: `delete INDEX`
@@ -140,7 +140,7 @@ Noted. I've removed this task:
 Now you have 3 task(s) in the list.
 ===================================================
 ```
-### Locating tasks by name: `find`
+### <span style="color: green"> Locating tasks by name: `find` </span>
 Finds tasks whose description contain the provided keyword.
 
 Format: `find KEYWORD`
@@ -154,7 +154,7 @@ Here are the matching tasks in your list:
 ===================================================
 ```
 
-### Exiting the program: `bye`
+### <span style="color: green"> Exiting the program: `bye` </span>
 Exits the program.
 
 Format: `bye`
