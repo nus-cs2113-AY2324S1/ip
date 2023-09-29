@@ -1,3 +1,4 @@
+import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 public class Duke {
     private static Task[] tasks = new Task[100];
@@ -72,14 +73,14 @@ public class Duke {
     public static void main(String[] args) {
         // Greetings
         String intro = "~~~~~~~~~~~~~~~~~~~\n"
-                        + "Hello! I'm Wenny!\n"
-                        + "How may I help you?\n"
-                        + "~~~~~~~~~~~~~~~~~~~";
+                + "Hello! I'm Wenny!\n"
+                + "How may I help you?\n"
+                + "~~~~~~~~~~~~~~~~~~~";
         System.out.println(intro);
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
-            String[] substr = userInput.split("\\s+");
+            String[] substr = userInput.split("\\s+", 2);
             switch (substr[0]) {
             case "bye":
                 printByeMessage();
