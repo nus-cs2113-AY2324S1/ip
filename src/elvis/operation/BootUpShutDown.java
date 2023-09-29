@@ -1,6 +1,8 @@
 package elvis.operation;
 
-//Stores Logo, BootUp, ShutDown, Horizontal Lines
+/**
+ * This is class responsible for the boot up and shut down of Elvis
+ */
 public class BootUpShutDown {
 
     //Logo for ELVIS the Chatbot
