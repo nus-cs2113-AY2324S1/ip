@@ -1,12 +1,6 @@
 package userinputs;
 
-import commands.Commands;
-import commands.AddTaskCommand;
-import commands.MarkTaskCommand;
-import commands.UnmarkTaskCommand;
-import commands.DeleteTaskCommand;
-import commands.ListTaskCommand;
-import commands.HelpTaskCommand;
+import commands.*;
 
 public class Parser {
     public static Commands parse(String input) {
@@ -22,6 +16,8 @@ public class Parser {
             return new HelpTaskCommand(input);
         } else if (input.startsWith(Commands.EXIT_BOT_COMMAND)){
             return new Commands(input);
+        } else if (input.startsWith(Commands.USER_FIND_COMMAND)){
+            return new FindTaskCommand(input);
         } else {
             return new AddTaskCommand(input);
         }

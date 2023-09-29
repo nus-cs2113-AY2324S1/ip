@@ -21,6 +21,7 @@ public class Commands {
     public static final String EVENT_TASK_START = "/from ";
     public static final String EVENT_TASK_END = "/to ";
     public static final String USER_HELP_COMMAND = "help";
+    public static final String USER_FIND_COMMAND = "find";
 
     protected String input;
     public Commands(String input) {
