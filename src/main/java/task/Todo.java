@@ -19,6 +19,14 @@ public class Todo extends Task {
     }
 
     @Override
+    public String getDeleteMessage() {
+        numberOfTasks--;
+        return "Noted: I've removed this task:\n" +
+                "[T][ ] " + getName() + "\n" +
+                "Now you have " + numberOfTasks + " tasks in the list.";
+    }
+
+    @Override
     public String getSaveString() {
         return "T" + super.getSaveString();
     }

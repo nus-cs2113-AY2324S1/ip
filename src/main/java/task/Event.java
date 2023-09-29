@@ -24,6 +24,14 @@ public class Event extends Task {
     }
 
     @Override
+    public String getDeleteMessage() {
+        numberOfTasks--;
+        return "Noted: I've removed this task:\n" +
+                "[E][ ] " + getName() + " (from: " + from + " to: " + to + ")\n" +
+                "Now you have " + numberOfTasks + " tasks in the list.";
+    }
+
+    @Override
     public String getSaveString() {
         return "E" + super.getSaveString() + " | " + from + "-" + to;
     }

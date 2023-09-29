@@ -1,0 +1,3 @@
+T | 1 | Mark: Answer CS 2113 tutorial questions
+D | 0 | weekly CS2113 quiz | Monday 9pm
+E | 0 | CS 2113 lecture | Friday 4-6pm
