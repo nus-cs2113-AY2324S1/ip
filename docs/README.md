@@ -405,6 +405,6 @@ find | Format: `find` Example: `find book`
 delete | Format: `delete INDEX` Example: `delete 3`
 mark | Format: `mark INDEX` Example: `mark 2`
 unmark | Format: `unmark INDEX` Example: `unmark 2`
-bye | Format: `unmark INDEX`
+bye | Format: `bye`
 
 [back_to_top](https://woodenclock.github.io/ip/)
