@@ -1,3 +1,4 @@
+import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 public class Duke {
     private static Task[] tasks = new Task[100];
@@ -9,19 +10,29 @@ public class Duke {
             tasks[taskCount] = new ToDos(description);
             break;
         case DEADLINE:
-            String[] deadlineTokens = description.split("/by");
-            description = deadlineTokens[0].trim();
-            String by = deadlineTokens[1].trim();
-            tasks[taskCount] = new Deadlines(description, by);
-            break;
+            try {
+                String[] deadlineTokens = description.split("/by");
+                description = deadlineTokens[0].trim();
+                String by = deadlineTokens[1].trim();
+                tasks[taskCount] = new Deadlines(description, by);
+                break;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("\t/by could not be found");
+                return;
+            }
         case EVENT:
-            String[] eventTokens = description.split("/from");
-            description = eventTokens[0].trim();
-            eventTokens = eventTokens[1].split("/to");
-            String from = eventTokens[0].trim();
-            String to = eventTokens[1].trim();
-            tasks[taskCount] = new Events(description, from, to);
-            break;
+            try {
+                String[] eventTokens = description.split("/from");
+                description = eventTokens[0].trim();
+                eventTokens = eventTokens[1].split("/to");
+                String from = eventTokens[0].trim();
+                String to = eventTokens[1].trim();
+                tasks[taskCount] = new Events(description, from, to);
+                break;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("\tBoth /from and /to are required");
+                return;
+            }
         }
         taskCount++;
         System.out.println("\tGot it. I've added this task:");
@@ -41,27 +52,35 @@ public class Duke {
         }
     }
     public static void markAsDone(int number) {
-        tasks[number-1].setDone(true);
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t" + tasks[number-1]);
+        try {
+            tasks[number-1].setDone(true);
+            System.out.println("\tNice! I've marked this task as done:");
+            System.out.println("\t" + tasks[number-1]);
+        } catch (NullPointerException e) {
+            System.out.println("\tOops! task " + number + " does not exist");
+        }
     }
     public static void markAsUndone(int number) {
-        tasks[number-1].setDone(false);
-        System.out.println("\tNice! I've marked this task as not done yet:");
-        System.out.println("\t" + tasks[number-1]);
+        try {
+            tasks[number - 1].setDone(false);
+            System.out.println("\tNice! I've marked this task as not done yet:");
+            System.out.println("\t" + tasks[number - 1]);
+        } catch (NullPointerException e) {
+            System.out.println("\tOops! task " + number + " does not exist");
+        }
     }
 
     public static void main(String[] args) {
         // Greetings
         String intro = "~~~~~~~~~~~~~~~~~~~\n"
-                        + "Hello! I'm Wenny!\n"
-                        + "How may I help you?\n"
-                        + "~~~~~~~~~~~~~~~~~~~";
+                + "Hello! I'm Wenny!\n"
+                + "How may I help you?\n"
+                + "~~~~~~~~~~~~~~~~~~~";
         System.out.println(intro);
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
-            String[] substr = userInput.split("\\s+");
+            String[] substr = userInput.split("\\s+", 2);
             switch (substr[0]) {
             case "bye":
                 printByeMessage();
@@ -76,14 +95,29 @@ public class Duke {
                 markAsUndone(Integer.parseInt(substr[1]));
                 break;
             case "todo":
-                addToTasks(userInput.substring(5), Type.TODO);
-                break;
+                try {
+                    addToTasks(substr[1], Type.TODO);
+                    break;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\tDescription of a todo cannot be empty");
+                    break;
+                }
             case "deadline":
-                addToTasks(userInput.substring(9), Type.DEADLINE);
-                break;
+                try {
+                    addToTasks(substr[1], Type.DEADLINE);
+                    break;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\tDescription of a deadline cannot be empty");
+                    break;
+                }
             case "event":
-                addToTasks(userInput.substring(6), Type.EVENT);
-                break;
+                try {
+                    addToTasks(substr[1], Type.EVENT);
+                    break;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\tDescription of a event cannot be empty");
+                    break;
+                }
             default:
                 System.out.println("\tInvalid input, please try again");
             }
