@@ -1,5 +1,0 @@
-todo 0 borrow book
-deadline 0 return book/by28/06/2023 1300
-event 1 join sports club/from22/04/2021 0900/to27/05/2021 1600
-event 0 goto supermarket book/from28/06/2023 1300/to30/06/2023 1500
-event 0 individual project pitching/from05/02/2002 0500/to05/05/2002 2000
