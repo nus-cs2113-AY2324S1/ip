@@ -10,8 +10,10 @@ import notGPT.task.Event;
 import notGPT.task.Task;
 import notGPT.task.ToDo;
 import notGPT.task.TaskList;
-
+import notGPT.parser.Parser;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.DateTimeException;
 
 /**
  * The Storage class manages the loading and saving of tasks to a file.
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 public class Storage {
     private String filePath;
     private ArrayList<Task> buffer;
+    private Parser parser = new Parser();
 
     /**
      * Constructs a new Storage object with the specified file path and loads tasks from the file.
@@ -67,6 +70,8 @@ public class Storage {
                 System.out.println("Unable to find data file/directory! Created new storage file at ./data/tasks.txt");
             } catch (IOException ex) {
                 System.out.println("Error: Unable to create or access data file/directory!");
+            } catch (DateTimeException ex) {
+                System.out.println("Error: Invalid date/time format in data file!");
             }
         }
     }
@@ -82,7 +87,8 @@ public class Storage {
 
     private void addDeadlineFromFile(String[] taskDetails) {
         String taskName = taskDetails[2];
-        String deadline = taskDetails[3];
+        String deadlineString = taskDetails[3];
+        LocalDateTime deadline = parser.parseDateTime(deadlineString);
         Deadlines currDeadline = new Deadlines(taskName, deadline);
         if (taskDetails[1].equals("1")) {
             currDeadline.markAsDone();
@@ -92,8 +98,10 @@ public class Storage {
 
     private void addEventFromFile(String[] taskDetails) {
         String taskName = taskDetails[2];
-        String startTime = taskDetails[3];
-        String endTime = taskDetails[4];
+        String startTimeString = taskDetails[3];
+        String endTimeString = taskDetails[4];
+        LocalDateTime startTime = parser.parseDateTime(startTimeString);
+        LocalDateTime endTime = parser.parseDateTime(endTimeString);
         Event currEvent = new Event(taskName, startTime, endTime);
         if (taskDetails[1].equals("1")) {
             currEvent.markAsDone();
