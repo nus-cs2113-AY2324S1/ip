@@ -12,10 +12,14 @@ import java.io.IOException;
 
 import java.util.Scanner;
 
+/**
+ * Starts up the application.
+ */
 public class Duke {
 
     private final static String FILE_PATH = "data/duke.txt";
     private final static String DIR_PATH = "data";
+    private final static String PARAMETER_COUNT_ERROR_PROMPT = "Please ensure correct number of parameters are given.";
     private final Ui ui;
     private final Storage storage;
     private final Parser parser;
@@ -37,7 +41,7 @@ public class Duke {
             try {
                 parser.generateResponse(line, tasks1);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please ensure correct number of parameters are given.");
+                System.out.println(PARAMETER_COUNT_ERROR_PROMPT);
             }
             line = in.nextLine();
         }
