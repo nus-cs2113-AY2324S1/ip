@@ -1,6 +1,6 @@
 # User Guide
 
-Elvis is a chatbot for managing todo, deadline, event for use via a Command Line Interface (CLI) 
+Elvis is a chatbot for managing todo, deadline, event for use via a Command Line Interface (CLI).
 
 - [Quick start](https://woodenclock.github.io/ip/#quick-start)
 - [Features](https://woodenclock.github.io/ip/#features)
@@ -374,6 +374,16 @@ There is no need to save manually.
 --------------------------------------------------------------------------------------------------------------------------------------
 
 
+## FAQ
+
+Q: Why do I get the `Invalid Date/Time input` error?
+A: Ensure there is only 1 whitespace between date and time.
+
+[back_to_top](https://woodenclock.github.io/ip/)
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
 ## Command summary
 
 Action | Format, Examples
@@ -389,4 +399,4 @@ mark | Format: `mark INDEX` Example: `mark 2`
 unmark | Format: `unmark INDEX` Example: `unmark 2`
 bye | Format: `unmark INDEX`
 
-[:arrow_up:](https://woodenclock.github.io/ip/)
+[back_to_top](https://woodenclock.github.io/ip/)
