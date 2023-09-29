@@ -10,6 +10,11 @@ public class InputValidator {
     }
 
     public static void validateDeadline() throws MagpieException {
+
+        if (Parser.splitInputs.length <= 3) {
+            throw new MagpieException("Looks like you're missing an argument. Specify a description and /by deadline!");
+        }
+
         boolean hasBy = Parser.arguments.contains("/by");
 
         if (!hasBy) {
@@ -18,6 +23,11 @@ public class InputValidator {
     }
 
     public static void validateEvent() throws MagpieException {
+
+        if (Parser.splitInputs.length <= 5) {
+            throw new MagpieException("Looks like you're missing an argument. Specify a description, from and to!");
+        }
+
         boolean hasFrom = Parser.arguments.contains("/from");
         boolean hasTo = Parser.arguments.contains("/to");
 
@@ -34,9 +44,9 @@ public class InputValidator {
 
     }
 
-    public static void validateIndexIsPresent() throws MagpieException {
+    public static void validateTargetIsPresent() throws MagpieException {
         if (Parser.splitInputs.length != 2) {
-            throw new MagpieException("Please provide one index!");
+            throw new MagpieException("Please provide one target! e.g delete 2 or find book");
         }
     }
 

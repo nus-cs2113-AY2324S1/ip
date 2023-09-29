@@ -89,6 +89,33 @@ public class TaskList {
         }
 
     }
+
+    public static void findTask(String keyword) {
+
+        System.out.println("____________________________________________________________\n");
+        System.out.println("Finding tasks with keyword: " + keyword + ".....\n");
+        int count = 0;
+
+        for (int i = 0; i < taskCount; i++ ) {
+
+            Task t = tasks.get(i);
+            String taskDescription = t.description;
+
+            if (taskDescription.contains(keyword)) {
+                System.out.println((count+1) + ". " + t.toString());
+                count++;
+            }
+        }
+
+        if (count == 0){
+            System.out.println("No task(s) were found with keyword: " + keyword + "\n");
+        }
+        else{
+            System.out.println(count + " task(s) were found with keyword: " + keyword + "\n");
+        }
+        System.out.println("____________________________________________________________\n");
+
+    }
     public static void markTask(int index, boolean isDone) {
 
         try {

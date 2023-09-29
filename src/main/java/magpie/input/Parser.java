@@ -60,7 +60,7 @@ public class Parser {
     public void markOrUnmarkTask(TaskList taskManager, boolean isMark) throws MagpieException {
 
 
-        InputValidator.validateIndexIsPresent();
+        InputValidator.validateTargetIsPresent();
 
         int index = parseInt(splitInputs[1]);
         if (index >= 0) {
@@ -70,11 +70,18 @@ public class Parser {
     }
 
     public void deleteTask(TaskList taskManager) throws MagpieException {
-        InputValidator.validateIndexIsPresent();
+        InputValidator.validateTargetIsPresent();
         int index = parseInt(splitInputs[1]);
         if (index >= 0) {
             TaskList.deleteTask(index - 1);
         }
+    }
+
+    public void findTask(TaskList taskManager) throws MagpieException {
+        InputValidator.validateTargetIsPresent();
+        String keyword = splitInputs[1];
+        TaskList.findTask(keyword);
+
     }
 
     public void processCommand(TaskList taskManager) throws MagpieException {
@@ -100,6 +107,9 @@ public class Parser {
             break;
         case "delete":
             deleteTask(taskManager);
+            break;
+        case "find":
+            findTask(taskManager);
             break;
         default:
             System.out.println("Please enter a valid command!");
