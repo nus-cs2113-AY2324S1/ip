@@ -10,8 +10,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * This is the Ui class that is in-charge of interaction with the user
  * Represents the user interface of the application.
  * Provides methods to interact with the user and display messages.
+ * Prints out appropriate messages such as errors and tasks added
  */
 public class Ui {
     private static final int NUMBER_OF_UNDERSCORES = 60;
