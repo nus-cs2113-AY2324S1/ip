@@ -12,6 +12,7 @@ public class SetStatusCommand extends Command{
         this.index = i;
     }
 
+    @Override
     public void handleCommand() {
         if (this.status.equals("mark")) {
             taskList.markTask(index);
