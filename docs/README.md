@@ -77,7 +77,7 @@ Some example commands you can try:
 
 
 ## Features
-:information_source:**Notes about the command format:**
+**Notes about the command format:**
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `todo TASK_TO_DO`, `TASK_TO_DO` is a parameter which can be used as `todo read books`.
