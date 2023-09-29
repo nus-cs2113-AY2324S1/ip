@@ -1,6 +1,7 @@
 package duke.ui;
 
 import static duke.ui.MessageConstants.LINE;
+import static duke.ui.MessageConstants.LOGO;
 import static duke.ui.MessageConstants.MESSAGE_WELCOME;
 import static duke.ui.MessageConstants.MESSAGE_GOODBYE;
 
@@ -23,6 +24,7 @@ public class Ui {
     public void showWelcome() {
         printer.println(LINE);
         printer.println(MESSAGE_WELCOME);
+        printer.println(LOGO);
         printer.println(LINE);
     }
 
@@ -49,6 +51,8 @@ public class Ui {
      * Reads the next line of input.
      */
     public String readCommand() {
+        printer.println(LINE);
+        printer.println();
         printer.print("Enter command: ");
         return sc.nextLine();
     }

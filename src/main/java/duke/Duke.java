@@ -1,12 +1,13 @@
 package duke;
 
 import duke.exception.DukeException;
+import duke.ui.Ui;
+
 import duke.parser.Check;
 import duke.storage.FileRW;
 
 import duke.tasks.*;
 
-import java.util.Scanner;  // Import the Scanner class
 import java.util.ArrayList; // Import the ArrayList class
 
 public class Duke {
@@ -14,25 +15,20 @@ public class Duke {
     //Initialize create a list of tasks
     public static ArrayList<Task> tasks = new ArrayList<>();
 
+    //Initialize create a ui object
+    public static Ui ui = new Ui();
+
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
 
         FileRW.readFromFile(tasks);
 
         //Print out the logo
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        ui.showWelcome();
 
-        //Create a greeting message for the user
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-
-        //Get user input
-        Scanner userScan = new Scanner(System.in);  // Create scanner object
-        String userInput = userScan.nextLine();  // Get user input
+        String userInput = ui.readCommand();
 
         //Check the arguments provided unless it is "bye" which quits the program
         while( !(Check.isBye(userInput)) ){
@@ -46,7 +42,7 @@ public class Duke {
                         System.out.println((i + 1) + ". " + tasks.get(i));
                     }
                     //Get user input again
-                    userInput = userScan.nextLine();  
+                    userInput = ui.readCommand();
                 }
 
                 //Add delete keyword and function
@@ -72,7 +68,7 @@ public class Duke {
                     tasks.remove(taskNumber-1);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     //Get user input again
-                    userInput = userScan.nextLine();  
+                    userInput = ui.readCommand();
                 }
 
                 //If userInput is "unmark" get the task number and unmark the task as done
@@ -101,7 +97,7 @@ public class Duke {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(tasks.get(taskNumber-1));
                     //Get user input again
-                    userInput = userScan.nextLine();          
+                    userInput = ui.readCommand();      
                 }
 
                 //If userInput is "mark" get the task number and mark the task as done
@@ -130,7 +126,7 @@ public class Duke {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(tasks.get(taskNumber-1));
                     //Get user input again
-                    userInput = userScan.nextLine();              
+                    userInput = ui.readCommand();             
                 }
 
                 //If userInput is "todo" add a todo task to the list
@@ -148,7 +144,7 @@ public class Duke {
                     System.out.println(tasks.get(tasks.size()-1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     //Get user input again
-                    userInput = userScan.nextLine();  
+                    userInput = ui.readCommand();
                 }
 
                 //If userInput is "deadline" add a deadline task to the list
@@ -171,7 +167,7 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(tasks.get(tasks.size()-1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    userInput = userScan.nextLine();  
+                    userInput = ui.readCommand();
                 }
 
                 //If userInput is "event" add an event task to the list
@@ -195,7 +191,7 @@ public class Duke {
                     System.out.println(tasks.get(tasks.size()-1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     //Get user input again
-                    userInput = userScan.nextLine();  
+                    userInput = ui.readCommand();
                 }
 
                 //If userInput is not any of the commands throw an illegal argument exception
@@ -208,21 +204,20 @@ public class Duke {
             catch (IllegalArgumentException e){
                 System.out.println(e.getMessage());
                 //Get user input again
-                userInput = userScan.nextLine();  
+                userInput = ui.readCommand();
             }
             catch (StringIndexOutOfBoundsException e){
                System.out.println("Invalid date entered. Please try again and enter / before the date.");
                 //Get user input again
-                userInput = userScan.nextLine();
+                userInput = ui.readCommand();
             }
             
         }
 
         //Print out a goodbye message
-        System.out.println("Bye. Hope to see you again soon!");
+        ui.showGoodbye();
         
-        //Close the scanner
-        userScan.close();
+        
 
         //Write the tasks to the file
         FileRW.writeToFile(tasks);
