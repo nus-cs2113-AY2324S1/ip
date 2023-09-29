@@ -1,20 +1,21 @@
 import javax.sound.midi.SysexMessage;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
 
     public static void addToTasks(String description, Type type) {
         switch (type) {
         case TODO:
-            tasks[taskCount] = new ToDos(description);
+            tasks.add(new ToDos(description));
             break;
         case DEADLINE:
             try {
                 String[] deadlineTokens = description.split("/by");
                 description = deadlineTokens[0].trim();
                 String by = deadlineTokens[1].trim();
-                tasks[taskCount] = new Deadlines(description, by);
+                tasks.add(new Deadlines(description, by));
                 break;
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("\t/by could not be found");
@@ -27,7 +28,7 @@ public class Duke {
                 eventTokens = eventTokens[1].split("/to");
                 String from = eventTokens[0].trim();
                 String to = eventTokens[1].trim();
-                tasks[taskCount] = new Events(description, from, to);
+                tasks.add(new Events(description, from, to));
                 break;
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("\tBoth /from and /to are required");
@@ -36,7 +37,7 @@ public class Duke {
         }
         taskCount++;
         System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t" + tasks[taskCount-1]);
+        System.out.println("\t" + tasks.get(taskCount-1));
         System.out.println("\tNow you have " + taskCount + " task(s) in the list.");
     }
     public static void printTasks() {
@@ -48,24 +49,36 @@ public class Duke {
         for (int i=0; i<taskCount; i++) {
             System.out.print("\t");
             System.out.print(i+1 + ".");
-            System.out.println(tasks[i]);
+            System.out.println(tasks.get(i));
         }
     }
     public static void markAsDone(int number) {
         try {
-            tasks[number-1].setDone(true);
+            tasks.get(number-1).setDone(true);
             System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t" + tasks[number-1]);
-        } catch (NullPointerException e) {
+            System.out.println("\t" + tasks.get(number-1));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("\tOops! task " + number + " does not exist");
         }
     }
     public static void markAsUndone(int number) {
         try {
-            tasks[number - 1].setDone(false);
-            System.out.println("\tNice! I've marked this task as not done yet:");
-            System.out.println("\t" + tasks[number - 1]);
-        } catch (NullPointerException e) {
+            tasks.get(number-1).setDone(false);
+            System.out.println("\tNice! I've marked this task as undone:");
+            System.out.println("\t" + tasks.get(number-1));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            System.out.println("\tOops! task " + number + " does not exist");
+        }
+    }
+
+    public static void deleteTask(int number) {
+        try {
+            System.out.println("\tNoted. I've removed this task:");
+            System.out.println("\t" + tasks.get(number-1));
+            tasks.remove(number-1);
+            taskCount--;
+            System.out.println("\tNow you have " + taskCount + " task(s) in the list.");
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("\tOops! task " + number + " does not exist");
         }
     }
@@ -118,13 +131,16 @@ public class Duke {
                     System.out.println("\tDescription of a event cannot be empty");
                     break;
                 }
+            case "delete":
+                deleteTask(Integer.parseInt(substr[1]));
+                break;
             default:
                 System.out.println("\tInvalid input, please try again");
             }
         }
     }
     public static void printByeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("\tBye. Hope to see you again soon!");
         System.exit(0);
     }
 
