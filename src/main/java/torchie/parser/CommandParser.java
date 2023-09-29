@@ -1,5 +1,6 @@
 package torchie.parser;
 
+import torchie.command.ListCommand;
 import torchie.command.SetStatusCommand;
 import torchie.exception.InvalidFormatException;
 import torchie.exception.TorchieException;
@@ -47,7 +48,7 @@ public class CommandParser {
 
         switch (command) {
         case LIST:
-            taskList.showTasks();
+            return new ListCommand(taskList);
 
         case MARK:
         case UNMARK:
