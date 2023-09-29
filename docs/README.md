@@ -21,7 +21,7 @@ to a file.
 
 ## Usage
 
-### <span style="color: pink"> Adding todo task: `todo` </span>
+### <span style="color: green"> Adding todo task: `todo` </span>
 Adds a task [of type: _todo_] to the task list.
 
 Format: `todo DESCRIPTION`
