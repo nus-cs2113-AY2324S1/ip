@@ -1,6 +1,7 @@
 package Duke.Task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A specific type of Tasks that contains task description, start date and end date.
@@ -37,7 +38,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "\t[E]" + super.toString() + " (from:" + startDateTime
-                + " to:" + endDateTime + ")";
+        String endDateTimeString = endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String startDateTimeString = startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "\t[E]" + super.toString() + " (from:" + startDateTimeString
+                + " to:" + endDateTimeString + ")";
     }
 }

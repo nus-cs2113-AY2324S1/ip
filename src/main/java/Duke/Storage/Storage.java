@@ -62,6 +62,7 @@ public class Storage {
                 try {
                     task = Command.createDeadline(messageFragments[2]);
                 } catch (NoTaskSpecifiedException | InvalidDateTimeSpecifiedException e) {
+                    System.out.println(e);
                     System.out.println("Failed loading Deadline. Deadline will be deleted.");
                 }
                 break;
@@ -79,7 +80,7 @@ public class Storage {
                 Command.addTaskToTaskList(task, taskList);
             }
             if (messageFragments[1].trim().equals("1")) {
-                taskList.getTask(taskList.getNumTask() - 1).setDone();
+                taskList.getTask(taskList.getNumTask()).setDone();
             }
         }
     }

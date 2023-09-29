@@ -9,7 +9,7 @@ import Duke.Task.TaskList;
 public class Parser {
     private static final String LIST_INSTRUCTION = "list";
     private static final String MARK_INSTRUCTION = "mark";
-    private static final String UNMARK_INSTRUCTION = "umark";
+    private static final String UNMARK_INSTRUCTION = "unmark";
     private static final String CREATE_TODO_INSTRUCTION = "todo";
     private static final String CREATE_DEADLINE_INSTRUCTION = "deadline";
     private static final String CREATE_EVENT_INSTRUCTION = "event";

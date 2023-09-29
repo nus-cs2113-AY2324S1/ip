@@ -17,8 +17,8 @@ public class Task {
         symbol = "t";
     }
 
-    private String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+    protected String getStatusIcon() {
+        return (isDone ? "x" : " "); // mark done task with X
     }
 
     public String getDescription() {
@@ -46,7 +46,7 @@ public class Task {
      * @return Encoded Task data in String format.
      */
     public String convertToSaveFormat() {
-        String doneMarker = getStatusIcon();
+        String doneMarker = isDone ? "1" : "0";
         return getSymbol() + " | " + doneMarker + " | " + getDescription();
     }
 

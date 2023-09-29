@@ -48,6 +48,7 @@ public class Command {
             byDate = LocalDate.parse(byDateString);
 
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            System.out.println(e);
             throw new InvalidDateTimeSpecifiedException();
         }
         if (taskDescription.isEmpty()) {
@@ -251,6 +252,7 @@ public class Command {
             toDate = LocalDate.parse(toDateString);
 
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            System.out.println(e);
             throw new InvalidDateTimeSpecifiedException();
         }
         if (taskDescription.isEmpty()) {
