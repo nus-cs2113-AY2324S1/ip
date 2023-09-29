@@ -72,6 +72,7 @@ Some example commands you can try:
 
 [back_to_top](https://woodenclock.github.io/ip/)
 
+
 --------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -371,6 +372,7 @@ There is no need to save manually.
 
 [back_to_top](https://woodenclock.github.io/ip/)
 
+
 --------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -379,7 +381,11 @@ There is no need to save manually.
 Q: Why do I get the `Invalid Date/Time input` error?
 A: Ensure there is only 1 whitespace between date and time.
 
+Q: I found a bug! What do I do?
+A: Great! Please contact [Min](https://github.com/woodenclock), your help is greatly appreciated!
+
 [back_to_top](https://woodenclock.github.io/ip/)
+
 
 --------------------------------------------------------------------------------------------------------------------------------------
 
