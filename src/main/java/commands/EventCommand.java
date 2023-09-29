@@ -12,7 +12,7 @@ public class EventCommand extends Command {
         int indexFrom = getIndex(statement, "/from ");
         int indexTo = getIndex(statement, "/to ");
         String description = statement.substring(0, indexFrom);
-        String from = processDate(statement.substring(indexFrom + 6, indexTo));
+        String from = processDate(statement.substring(indexFrom + 6, indexTo - 1));
         String to = processDate(statement.substring(indexTo + 4));
         isValidTask(description);
         if (!from.isEmpty() && !to.isEmpty()) {

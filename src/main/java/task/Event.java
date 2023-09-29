@@ -15,20 +15,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description, false);
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        try {
-            LocalDate parsedDate = LocalDate.parse(from, inputFormatter);
-            this.from = parsedDate.format(outputFormatter);
-        } catch (DateTimeParseException e) {
-            this.from = from;
-        }
-        try {
-            LocalDate parsedDate = LocalDate.parse(to, inputFormatter);
-            this.to = parsedDate.format(outputFormatter);
-        } catch (DateTimeParseException e) {
-            this.to = to;
-        }
+        this.from = from;
+        this.to = to;
     }
     /**
      * Override the excess information output of the task

@@ -1,2 +1,2 @@
-T | 0 | use me | 
-D | 0 | homework  | Feb 01 1003
+E | 1 | exam  | Nov 01 2023 | Nov 30 2023
+D | 0 | return book  | Nov 01 2023
