@@ -4,7 +4,7 @@ blah blah black sheep
 list
 todo borrow book
 list
-deadline return book /by Sunday
+deadline return book /by 2023-07-07
 todo
 event /by tomorrow
 deadline /from
@@ -13,7 +13,7 @@ event /to
 deadline /by
 event  /from /to
 list
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2022-12-12 /to 2023-12-13
 mark 1
 unmark 1
 mark 3
@@ -23,4 +23,5 @@ deadline deadline /by
 event event /from 1 /to
 event event /from /to
 hello
+delete 1
 bye
