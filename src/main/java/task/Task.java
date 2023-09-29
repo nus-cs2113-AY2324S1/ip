@@ -29,7 +29,6 @@ public abstract class Task {
         isComplete = complete;
     }
 
-    public abstract String getAddMessage();
     public String getListText() {
         return "[" + (getIsComplete() ? "X" : " ") + "] " + getName();
     }
@@ -38,4 +37,6 @@ public abstract class Task {
         return " | " + (getIsComplete() ? "1" : "0") + " | " + getName();
     }
 
+    public abstract String getAddMessage();
+    public abstract String getDeleteMessage();
 }
