@@ -32,7 +32,7 @@ public class TaskList {
     }
 
     public void updateTaskStatus(int index, boolean status) throws DukeException {
-        if (index > tasks.size()) {
+        if (index > tasks.size() - 1) {
             throw new DukeException("Index provided is greater than size of list");
         }
         Task task = tasks.get(index);

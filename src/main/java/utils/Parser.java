@@ -6,10 +6,6 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 public class Parser {
 
     public String getTaskName(String command, String message) throws DukeException {
@@ -79,6 +75,9 @@ public class Parser {
             String taskName = getTaskName("delete", in);
             Task deletedTask = tasks.deleteTask(Integer.parseInt(taskName) - 1);
             ui.echo(deletedTask.getDeleteMessage());
+        } else if (in.startsWith("find")) {
+            String keyword = getTaskName("find", in);
+            ui.printListByKeyword(tasks.getTasks(), keyword);
         } else if (in.startsWith("due by")) {
             String date = getTaskName("due by", in);
             ui.printListByDate(tasks.getTasks(), date);
