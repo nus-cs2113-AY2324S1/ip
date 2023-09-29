@@ -1,4 +1,4 @@
-# User Guide
+# User Guide (**Elvis the chatbot**)
 
 Elvis is a chatbot for managing todo, deadline, event for use via a Command Line Interface (CLI).
 
@@ -77,7 +77,7 @@ Some example commands you can try:
 
 
 ## Features
-:information_source:**Notes about the command format:**
+**Notes about the command format:**
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `todo TASK_TO_DO`, `TASK_TO_DO` is a parameter which can be used as `todo read books`.
@@ -183,10 +183,10 @@ Adds a deadline to the Tasklist.
 
 Format: `deadline TASK_TO_DO /by DATE TIME`
 
-**Warning**:
+**Note**:
 - Ensure there is only 1 whitespace between date and time
-- Year, month, date must be divided by "/" or "-" (e.g. 2021/06/28 OR 2021-06-28)
-- Date can be one of following formats:
+- Year(y), month(m), date(d) must be separated by "/" or "-" (e.g. 2021/06/28 OR 2021-06-28)
+- It can be one of following formats:
   - yyyymmdd
   - yyyymmd
   - yyyymdd
@@ -196,6 +196,7 @@ Format: `deadline TASK_TO_DO /by DATE TIME`
   - ddmyyyy
   - dmyyyy
 - Time must be 24-Hr "HHmm" format (e.g. 1300 OR 13:00)
+  - Hour and minute may be separated by ":" or written together
 
 Example: `deadline return book /by 2023/06/28 1300`
 
@@ -217,10 +218,10 @@ Adds an event to the Tasklist.
 
 Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
 
-**Warning**:
+**Note**:
 - Ensure there is only 1 whitespace between date and time
-- Year, month, date must be divided by "/" or "-" (e.g. 2021/06/28 OR 2021-06-28)
-- Date can be one of following formats:
+- Year(y), month(m), date(d) must be separated by "/" or "-" (e.g. 2021/06/28 OR 2021-06-28)
+- It can be one of following formats:
   - yyyymmdd
   - yyyymmd
   - yyyymdd
@@ -230,6 +231,7 @@ Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
   - ddmyyyy
   - dmyyyy
 - Time must be 24-Hr "HHmm" format (e.g. 1300 OR 13:00)
+  - Hour and minute may be separated by ":" or written together
 
 Example: `event project meeting /from 2022-08-06 1300 /to 6-8-2022 1500`
 
@@ -251,7 +253,7 @@ Lists all tasks in the Tasklist.
 
 Format: `list`
 
-Legend:
+**Legend**
 - A todo shows up as `[T][ ]...`, where T stands for todo.
 - A deadline shows up as `[D][ ]...`, where D stands for deadline.
 - An event shows up as `[E][ ]...`, where E stands for event.
@@ -378,11 +380,11 @@ There is no need to save manually.
 
 ## FAQ
 
-Q: Why do I get the `Invalid Date/Time input` error?
-A: Ensure there is only 1 whitespace between date and time.
+**Q**: Why do I get the `Invalid Date/Time input` error?
+**A**: Ensure there is only 1 whitespace between date and time.
 
-Q: I found a bug! What do I do?
-A: Great! Please contact [Min](https://github.com/woodenclock), your help is greatly appreciated!
+**Q**: I found a bug! What do I do?
+**A**: Great! Please contact [Min](https://github.com/woodenclock), your help is greatly appreciated!
 
 [back_to_top](https://woodenclock.github.io/ip/)
 
