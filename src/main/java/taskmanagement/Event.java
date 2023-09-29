@@ -1,15 +1,19 @@
 package taskmanagement;
 
+import java.time.LocalDate;
+
 public class Event extends Task {
-    protected String from;
-    protected String to;
-    public Event(String description, String from, String to) {
+//    protected String from;
+//    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
         taskType = "E";
     }
-    public Event(String description, String from, String to, Boolean isDone) {
+    public Event(String description, LocalDate from, LocalDate to, Boolean isDone) {
         super(description);
         this.from = from;
         this.to = to;
@@ -18,8 +22,8 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return "[" + taskType + "]" + "[" + getStatusIcon() + "] " + description + " (from: " + from + " to: " + to + ")";
+        return "[" + taskType + "]" + "[" + getStatusIcon() + "] " + description + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
-    public String getTo(){ return to; }
-    public String getFrom(){ return from; }
+    public LocalDate getTo(){ return to; }
+    public LocalDate getFrom(){ return from; }
 }

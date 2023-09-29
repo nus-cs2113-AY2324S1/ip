@@ -1,9 +1,13 @@
 package taskmanagement;
 
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected String taskType;
     public boolean isDone;
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     // Default constructor so that the class can be used as a superclass
     public Task(){
