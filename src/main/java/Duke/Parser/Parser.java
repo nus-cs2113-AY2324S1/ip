@@ -48,7 +48,7 @@ public class Parser {
             Command.deleteTask(commandDetails[1], taskList);
             break;
         case("find"):
-            Command.findTasks(commandDetails[1], records);
+            Command.findTasks(commandDetails[1], taskList);
             break;
         default:
             System.out.println(INVALID_COMMAND_PROMPT);

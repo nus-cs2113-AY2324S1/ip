@@ -17,7 +17,7 @@ public class Ui {
     /**
      * Iterate and prints out all the tasks in taskList onto the console.
      *
-     * @param taskList
+     * @param taskList TaskList to be iterated.
      */
     public void printAllTasks(TaskList taskList) {
         for (int i = 1; i < taskList.getNumTask() + 1; i++) {
@@ -43,10 +43,10 @@ public class Ui {
     }
 
     /**
-     * Prints the
+     * Prints the ui for task added.
      *
-     * @param task
-     * @param taskList
+     * @param task Task to be added.
+     * @param taskList TaskList that is added to.
      */
     public void printTaskAdded(Task task, TaskList taskList) {
         printLine();
