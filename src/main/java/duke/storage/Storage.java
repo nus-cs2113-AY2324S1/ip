@@ -97,7 +97,9 @@ public class Storage {
             tasksListPlaceholder.add(new Deadline(parsedTask[2], parsedTask[1], by));
             break;
         case "E":
-            tasksListPlaceholder.add(new Event(parsedTask[2], parsedTask[1], parsedTask[3], parsedTask[4]));
+            LocalDateTime start = parser.parseDateTime(parsedTask[3].trim());
+            LocalDateTime end = parser.parseDateTime(parsedTask[4].trim());
+            tasksListPlaceholder.add(new Event(parsedTask[2], parsedTask[1], start, end));
             break;
         }
     }

@@ -1,23 +1,32 @@
 package duke.task;
 
-public class Event extends Task{
-    protected String start;
-    protected String end;
+import duke.parser.Parser;
 
-    public Event(String description, String start, String end) {
+import java.time.LocalDateTime;
+
+public class Event extends Task{
+    protected LocalDateTime start;
+    protected LocalDateTime end;
+    private Parser parser;
+
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
+        parser = new Parser();
     }
 
-    public Event(String description, String isDone, String start, String end) {
+    public Event(String description, String isDone, LocalDateTime start, LocalDateTime end) {
         super(description, isDone);
         this.start = start;
         this.end = end;
+        parser = new Parser();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        String startString  = parser.convertDateTimetoString(start);
+        String endString = parser.convertDateTimetoString(end);
+        return "[E]" + super.toString() + " (from: " + startString + " to: " + endString + ")";
     }
 }

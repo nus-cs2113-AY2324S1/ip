@@ -124,10 +124,16 @@ public class TaskList {
         String regex = FROM_KEYWORD + "|" + TO_KEYWORD;
         String[] parsedInput = parser.parseTask(input, regex);
 
-        tasks.add(new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim()));
+        LocalDateTime start = parser.parseDateTime(parsedInput[1].trim());
+        LocalDateTime end = parser.parseDateTime(parsedInput[2].trim());
+        String description = parsedInput[0].trim();
+        String startBeforeParse = parsedInput[1].trim();
+        String endBeforeParse = parsedInput[2].trim();
 
-        String dataString = EVENT_DATA_TEMPLATE + parsedInput[0].trim() + " | "  + parsedInput[1].trim()
-                + " | " + parsedInput[2].trim();
+        tasks.add(new Event(description, start, end));
+
+        String dataString = EVENT_DATA_TEMPLATE + description + " | "  + startBeforeParse
+                + " | " + endBeforeParse;
 
         tasksCount++;
         return dataString;
