@@ -2,6 +2,7 @@ package notGPT.task;
 
 import java.util.ArrayList;
 import notGPT.storage.Storage;
+import java.time.LocalDateTime;
 
 /**
  * The TaskList class represents a list of tasks.
@@ -38,7 +39,7 @@ public class TaskList {
      * @param taskName The description of the Deadline task.
      * @param deadline The deadline associated with the task.
      */
-    public void addDeadline(String taskName, String deadline) {
+    public void addDeadline(String taskName, LocalDateTime deadline) {
         Task newTask = new Deadlines(taskName, deadline);
         taskList.add(newTask);
         taskCount++;
@@ -51,7 +52,7 @@ public class TaskList {
      * @param startTime The start time of the event.
      * @param endTime   The end time of the event.
      */
-    public void addEvent(String taskName, String startTime, String endTime) {
+    public void addEvent(String taskName, LocalDateTime startTime, LocalDateTime endTime) {
         Task newTask = new Event(taskName, startTime, endTime);
         taskList.add(newTask);
         taskCount++;
@@ -120,6 +121,16 @@ public class TaskList {
         ArrayList<String> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
             if (task.getTaskName().contains(keyword)) {
+                matchingTasks.add(task.toString());
+            }
+        }
+        return matchingTasks.toArray(new String[0]);
+    }
+
+    public String[] findTasksByTiming(String datetime) {
+        ArrayList<String> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getTaskTiming().contains(datetime)) {
                 matchingTasks.add(task.toString());
             }
         }

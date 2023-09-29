@@ -50,6 +50,15 @@ public class Task {
     }
 
     /**
+     * Gets the task's timing.
+     *
+     * @return An array of Strings representing the task's timing.
+     */
+    public String getTaskTiming() {
+        return "";
+    }
+
+    /**
      * Converts the task to a formatted String representation.
      *
      * @return A String representing the task's status and name.
