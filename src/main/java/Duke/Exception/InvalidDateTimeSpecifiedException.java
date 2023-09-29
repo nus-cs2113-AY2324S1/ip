@@ -1,7 +1,6 @@
 package Duke.Exception;
-
 /**
  * An exception that would be thrown if there invalid date and entered for the creation of tasks.
  */
-public class NoDateTimeSpecifiedException extends Exception {
+public class InvalidDateTimeSpecifiedException extends Exception {
 }

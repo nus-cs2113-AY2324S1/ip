@@ -1,7 +1,7 @@
 package Duke.Storage;
 
 import Duke.Command.Command;
-import Duke.Exception.NoDateTimeSpecifiedException;
+import Duke.Exception.InvalidDateTimeSpecifiedException;
 import Duke.Exception.NoTaskSpecifiedException;
 import Duke.Task.Task;
 import Duke.Task.TaskList;
@@ -61,14 +61,14 @@ public class Storage {
             case ("D"):
                 try {
                     task = Command.createDeadline(messageFragments[2]);
-                } catch (NoTaskSpecifiedException | NoDateTimeSpecifiedException e) {
+                } catch (NoTaskSpecifiedException | InvalidDateTimeSpecifiedException e) {
                     System.out.println("Failed loading Deadline. Deadline will be deleted.");
                 }
                 break;
             case ("E"):
                 try {
                     task = Command.createEvent(messageFragments[2]);
-                } catch (NoTaskSpecifiedException | NoDateTimeSpecifiedException e) {
+                } catch (NoTaskSpecifiedException | InvalidDateTimeSpecifiedException e) {
                     System.out.println("Failed loading Event. Event will be deleted.");
                 }
                 break;

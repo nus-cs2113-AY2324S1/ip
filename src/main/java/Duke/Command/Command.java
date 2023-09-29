@@ -1,6 +1,6 @@
 package Duke.Command;
 
-import Duke.Exception.NoDateTimeSpecifiedException;
+import Duke.Exception.InvalidDateTimeSpecifiedException;
 import Duke.Exception.NoTaskSpecifiedException;
 import Duke.Task.*;
 import Duke.Ui.Ui;
@@ -8,10 +8,13 @@ import Duke.Ui.Ui;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * The Command class is a static class that implements functionalities
  * provided to the users for the application.
- *
+ * <p>
  * The functionalities include adding task, deleting task, creating task.
  */
 public class Command {
@@ -21,33 +24,34 @@ public class Command {
     private static final String TASK_CREATION_ERROR_PROMPT = "Please create a task to continue";
     private static final Ui ui = new Ui();
 
+
     /**
      * Create a new Deadline Task with specified tasks details.
      *
      * @param deadlineDetails which contains the task description,
      *                        and end date in a continuous string.
      * @return new Deadline Task
-     * @throws NoTaskSpecifiedException if no task description is found.
-     * @throws NoDateTimeSpecifiedException if invalid datetime is given.
+     * @throws NoTaskSpecifiedException          if no task description is found.
+     * @throws InvalidDateTimeSpecifiedException if invalid datetime is given.
      */
     public static Task createDeadline(String deadlineDetails)
-            throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
+            throws NoTaskSpecifiedException, InvalidDateTimeSpecifiedException {
 
         String taskDescription;
-        String byDate;
+        String byDateString;
+        LocalDate byDate;
         try {
             String dateIndicator = "/by";
             String[] deadlineContents = deadlineDetails.split(dateIndicator, 2);
             taskDescription = deadlineContents[0].trim();
-            byDate = deadlineContents[1].trim();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new NoDateTimeSpecifiedException();
+            byDateString = deadlineContents[1].trim();
+            byDate = LocalDate.parse(byDateString);
+
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new InvalidDateTimeSpecifiedException();
         }
         if (taskDescription.isEmpty()) {
             throw new NoTaskSpecifiedException();
-        }
-        if (byDate.isEmpty()) {
-            throw new NoDateTimeSpecifiedException();
         }
 
         return new Deadline(taskDescription, byDate);
@@ -73,7 +77,7 @@ public class Command {
      *
      * @param taskIndexString String value of task index of a task in the taskList
      *                        that is to be set as undone.
-     * @param taskList A TaskList object that contains Task objects.
+     * @param taskList        A TaskList object that contains Task objects.
      */
     public static void executeMarkCommand(String taskIndexString, TaskList taskList) {
         int taskIndex;
@@ -103,7 +107,7 @@ public class Command {
      *
      * @param taskIndexString String value of task index of a task in the taskList
      *                        that is to be set as undone.
-     * @param taskList A TaskList object that contains Task objects.
+     * @param taskList        A TaskList object that contains Task objects.
      */
     public static void executeUnmarkCommand(String taskIndexString, TaskList taskList) {
         int taskIndex;
@@ -126,15 +130,18 @@ public class Command {
         }
     }
 
+
     /**
      * Creates a new task based on the taskType and taskDetails and add it to the taskList.
      *
-     * @param taskType a string value that determines the type of task to be created.
+     * @param taskType    a string value that determines the type of task to be created.
      * @param taskDetails contains details to create the specific type of task.
-     * @param taskList A TaskList object that contains Task objects.
+     * @param taskList    A TaskList object that contains Task objects.
      */
+
     public static void createNewTask(String taskType, String taskDetails,
                                      TaskList taskList) {
+
         Task task = null;
         try {
             switch (taskType) {
@@ -142,10 +149,10 @@ public class Command {
                 task = createToDo(taskDetails);
                 break;
             case "deadline":
-                    task = createDeadline(taskDetails);
+                task = createDeadline(taskDetails);
                 break;
             case "event":
-                    task = createEvent(taskDetails);
+                task = createEvent(taskDetails);
                 break;
             default:
                 System.out.println("Command is invalid!");
@@ -157,9 +164,9 @@ public class Command {
             }
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Please ensure that " + taskType + " has the correct number of parameters.");
-        } catch (NoDateTimeSpecifiedException e){
+        } catch (InvalidDateTimeSpecifiedException e) {
             System.out.println("Please ensure that the date is given in the yyyy-mm-dd format");
-        } catch (NoTaskSpecifiedException e){
+        } catch (NoTaskSpecifiedException e) {
             System.out.println("Please ensure that the task description is provided.");
         }
     }
@@ -168,7 +175,7 @@ public class Command {
      * Removes task identified by taskIndex from taskList.
      *
      * @param taskIndexString A string version of task index for deletion.
-     * @param taskList A TaskList object that contains Task objects.
+     * @param taskList        A TaskList object that contains Task objects.
      */
     public static void deleteTask(String taskIndexString, TaskList taskList) {
         try {
@@ -218,42 +225,81 @@ public class Command {
 
     /**
      * Creates a new Event Tasks with the given eventDetails.
+     *
      * @param eventDetails a string that contains event description, start date, end date.
      * @return Event Task object
-     * @throws NoTaskSpecifiedException if no task description is found.
-     * @throws NoDateTimeSpecifiedException if invalid datetime is given.
+     * @throws NoTaskSpecifiedException     if no task description is found.
+     * @throws InvalidDateTimeSpecifiedException if invalid datetime is given.
      */
-    public static Task createEvent(String eventDetails) throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
+    public static Task createEvent(String eventDetails) throws
+            NoTaskSpecifiedException, InvalidDateTimeSpecifiedException {
+
         String taskDescription;
-        String fromDate;
-        String toDate;
+        String fromDateString;
+        String toDateString;
         String startDateIndicator = "/from";
         String endDateIndicator = "/to";
+        LocalDate fromDate;
+        LocalDate toDate;
         String eventSplitNotation = startDateIndicator + "|" + endDateIndicator;
         String[] eventContents = eventDetails.split(eventSplitNotation);
         try {
             taskDescription = eventContents[0].trim();
-            fromDate = eventContents[1].trim();
-            toDate = eventContents[2].trim();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new NoDateTimeSpecifiedException();
+            fromDateString = eventContents[1].trim();
+            toDateString = eventContents[2].trim();
+            fromDate = LocalDate.parse(fromDateString);
+            toDate = LocalDate.parse(toDateString);
+
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new InvalidDateTimeSpecifiedException();
         }
         if (taskDescription.isEmpty()) {
             throw new NoTaskSpecifiedException();
         }
-        if (fromDate.isEmpty() | toDate.isEmpty()) {
-            throw new NoDateTimeSpecifiedException();
-        }
+
         return new Event(taskDescription, fromDate, toDate);
     }
 
     /**
      * Add a task into the provided taskList.
      *
-     * @param task A Task object, which could be a Todo, Deadline or Event.
+     * @param task     A Task object, which could be a Todo, Deadline or Event.
      * @param taskList A TaskList object that contains Task objects.
      */
     public static void addTaskToTaskList(Task task, TaskList taskList) {
         taskList.addTask(task);
+    }
+
+    public static void findTasks(String keyword, TaskList records) {
+
+        TaskList tasksFound = new TaskList();
+        Task task;
+        String taskDescription;
+
+        for (int i = 1; i < records.getNumTask() + 1; i++) {
+            task = records.getTask(i);
+            taskDescription = task.getDescription();
+            if (!taskDescription.contains(keyword)) {
+                continue;
+            }
+            tasksFound.addTask(task);
+        }
+        printTasksFound(keyword, tasksFound);
+    }
+
+    public static void printTasksFound(String keyword, TaskList records) {
+        if (records.getNumTask() == 0) {
+            System.out.println("Sorry, we cannot find any task with the word \"" + keyword + "\"");
+            return;
+        }
+
+        ui.printLine();
+        System.out.println("Here are your results:\n");
+
+        for (int i = 1; i < records.getNumTask() + 1; i++) {
+            System.out.println(records.getTask(i));
+        }
+
+        ui.printLine();
     }
 }

@@ -25,7 +25,6 @@ public class Parser {
         String[] commandDetails = input.split(" ", 2);
         String instructionString = commandDetails[0].trim();
 
-
         switch (instructionString) {
         case (LIST_INSTRUCTION):
             Command.executeListCommand(taskList);
@@ -47,6 +46,9 @@ public class Parser {
             break;
         case (DELETE_INSTRUCTION):
             Command.deleteTask(commandDetails[1], taskList);
+            break;
+        case("find"):
+            Command.findTasks(commandDetails[1], records);
             break;
         default:
             System.out.println(INVALID_COMMAND_PROMPT);
