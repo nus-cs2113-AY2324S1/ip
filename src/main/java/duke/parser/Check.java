@@ -1,3 +1,4 @@
+package duke.parser;
 public class Check {
      //Function to check if an input has mark as the first word
      public static boolean isMark(String input){

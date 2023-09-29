@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.parser.Check;
+import duke.storage.FileRW;
+
+import duke.tasks.*;
+
 import java.util.Scanner;  // Import the Scanner class
 import java.util.ArrayList; // Import the ArrayList class
 
@@ -84,7 +92,7 @@ public class Duke {
                         throw new IllegalArgumentException("There is no task at the task number.");
                     }
                     //if the task is already not done throw an exception
-                    if(tasks.get(taskNumber-1).isDone==false){
+                    if(tasks.get(taskNumber-1).isDone()==false){
                         throw new IllegalArgumentException("The task is already not done.");
                     }
                     //mark the task as done
@@ -113,7 +121,7 @@ public class Duke {
                         throw new IllegalArgumentException("There is no task at the task number.");
                     }
                     //if the task is already done throw an exception
-                    if(tasks.get(taskNumber-1).isDone==true){
+                    if(tasks.get(taskNumber-1).isDone()==true){
                         throw new IllegalArgumentException("The task is already done.");
                     }
                     //mark the task as done

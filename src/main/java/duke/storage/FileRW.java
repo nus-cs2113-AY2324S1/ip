@@ -1,4 +1,11 @@
+package duke.storage;
 import java.util.Scanner;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -50,11 +57,11 @@ public class FileRW {
 
             for (Task task : tasks) {
                 if (task instanceof Todo) {
-                    bw.write("T | " + task.isDone + " | " + task.taskName);
+                    bw.write("T | " + task.isDone() + " | " + task.getTaskName());
                 } else if (task instanceof Deadline) {
-                    bw.write("D | " + task.isDone + " | " + task.taskName + " | " + ((Deadline) task).deadline);
+                    bw.write("D | " + task.isDone() + " | " + task.getTaskName() + " | " + ((Deadline) task).getDeadline());
                 } else if (task instanceof Event) {
-                    bw.write("E | " + task.isDone + " | " + task.taskName + " | " + ((Event) task).eventTime);
+                    bw.write("E | " + task.isDone() + " | " + task.getTaskName() + " | " + ((Event) task).getEventTime());
                 }
                 bw.newLine();
             }
