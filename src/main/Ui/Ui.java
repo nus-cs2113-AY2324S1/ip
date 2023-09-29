@@ -6,7 +6,7 @@ import Task.Task;
 import TaskList.TaskList;
 
 public class Ui {
-    private static final String BOT_NAME = "JS";
+    private static final String BOT_NAME = "JBot";
     private static final String LINE_DIVIDER = "----------------------------------------";
     private static final String TODO_USAGE_MSG = "Usage: todo <description>";
     private static final String EVENT_USAGE_MSG = "Usage: event <description> /from <dd/mm/yyyy> /to <dd/mm/yyyy>";

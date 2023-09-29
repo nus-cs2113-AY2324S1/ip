@@ -1,6 +1,6 @@
 # User Guide
 
-RanayBot is a **desktop app for managing tasks, optimized for use via a Command Line Interface** (CLI).
+JBot is a **desktop app for managing tasks, optimized for use via a Command Line Interface** (CLI).
 
 -  [Quick start](#quick-start)
 -  [Features](#features)
