@@ -9,12 +9,23 @@ import Duke.Task.TaskList;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Storage class deals with the saving TaskList to the file and
+ * retrieving the TaskList from the file.
+ */
 public class Storage {
 
     public Storage(){
 
     }
 
+    /**
+     * This function verifies if the file of a given filename exists
+     *
+     * @param directory directory that contains the file
+     * @param file file object of the filename.
+     * @return True or False depend on whether the file is present.
+     */
     public boolean verifyStorageFilePresent(File directory, File file) {
         boolean isDirectoryPresent = directory.exists() && directory.isDirectory();
         if (file.exists()) {
@@ -29,9 +40,14 @@ public class Storage {
         return false;
     }
 
-    public void loadTaskList(Scanner s, TaskList records) {
-        while (s.hasNext()) {
-            String storedMessage = s.nextLine();
+    /**
+     * Loads data from the file with a scanner pointer and place it in a TaskList
+     * @param scanner Pointer to the file data.
+     * @param taskList TaskList to load the tasks from file data into.
+     */
+    public void loadTaskList(Scanner scanner, TaskList taskList) {
+        while (scanner.hasNext()) {
+            String storedMessage = scanner.nextLine();
             String[] messageFragments = storedMessage.split("\\|");
             Task task = null;
             switch (messageFragments[0].trim()) {
@@ -60,15 +76,12 @@ public class Storage {
                 continue;
             }
             if (task != null) {
-                Command.addTaskToList(task, records);
+                Command.addTaskToTaskList(task, taskList);
             }
             if (messageFragments[1].trim().equals("1")) {
-                //mark the previous task as done.
-                records.getTask(records.getNumTask() - 1).setDone();
+                taskList.getTask(taskList.getNumTask() - 1).setDone();
             }
         }
     }
 
-
-    //will need a separate encoder and decoder for the tasks to be saved in storage files.
 }
