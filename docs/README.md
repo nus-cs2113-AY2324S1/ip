@@ -1,4 +1,4 @@
-# User Guide for (**Elvis the chatbot**)
+# User Guide (**Elvis the chatbot**)
 
 Elvis is a chatbot for managing todo, deadline, event for use via a Command Line Interface (CLI).
 
