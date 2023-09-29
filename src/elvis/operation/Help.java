@@ -79,7 +79,7 @@ public class Help {
                 "\n";
         String seriousHelp =
                 "\n" +
-                "No seriously, get some \"help\" 😭" +
+                "😭 No seriously, get some \"help\"" +
                 "\n";
 
         if (simpleHelperCounter == 0) {
