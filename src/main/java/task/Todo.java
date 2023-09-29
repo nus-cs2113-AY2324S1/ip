@@ -14,7 +14,7 @@ public class Todo extends Task {
     @Override
     public String getAddMessage() {
         return "Got it. I've added this task:\n" +
-                "[T][ ] " + getName() + "\n" +
+                "[T][" + (getIsComplete() ? "X" : " ") + "] " + getName() + "\n" +
                 "Now you have " + numberOfTasks + " tasks in the list.";
     }
 
@@ -22,7 +22,7 @@ public class Todo extends Task {
     public String getDeleteMessage() {
         numberOfTasks--;
         return "Noted: I've removed this task:\n" +
-                "[T][ ] " + getName() + "\n" +
+                "[T][" + (getIsComplete() ? "X" : " ") + "] " + getName() + "\n" +
                 "Now you have " + numberOfTasks + " tasks in the list.";
     }
 

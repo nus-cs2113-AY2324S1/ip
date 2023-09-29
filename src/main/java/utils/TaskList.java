@@ -28,14 +28,14 @@ public class TaskList {
     }
 
     public Task getTask(int index) {
-        return tasks.get(index + 1);
+        return tasks.get(index);
     }
 
     public void updateTaskStatus(int index, boolean status) throws DukeException {
         if (index > tasks.size()) {
             throw new DukeException("Index provided is greater than size of list");
         }
-        Task task = tasks.get(index - 1);
+        Task task = tasks.get(index);
         task.setIsComplete(status);
     }
 }

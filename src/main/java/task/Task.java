@@ -1,5 +1,9 @@
 package task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public abstract class Task {
 
     private boolean isComplete;
@@ -35,6 +39,14 @@ public abstract class Task {
 
     public String getSaveString() {
         return " | " + (getIsComplete() ? "1" : "0") + " | " + getName();
+    }
+
+    protected String parseDate(String time) {
+        try {
+            return LocalDate.parse(time).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (DateTimeParseException e) {
+            return time;
+        }
     }
 
     public abstract String getAddMessage();

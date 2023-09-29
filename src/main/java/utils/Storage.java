@@ -60,8 +60,8 @@ public class Storage {
                         break;
                     }
                     case "E": {
-                        String from = line[3].split("-")[0];
-                        String to = line[3].split("-")[1];
+                        String from = line[3].split("_")[0];
+                        String to = line[3].split("_")[1];
                         Task task = new Event(taskName, from, to);
                         task.setIsComplete(isMark);
                         tasks.add(task);

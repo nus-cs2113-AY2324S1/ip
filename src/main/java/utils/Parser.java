@@ -6,6 +6,10 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     public String getTaskName(String command, String message) throws DukeException {
@@ -43,12 +47,12 @@ public class Parser {
             ui.printList(tasks.getTasks());
         } else if (in.startsWith("mark")) {
             String taskName = getTaskName("mark", in);
-            int index = Integer.parseInt(taskName);
+            int index = Integer.parseInt(taskName) - 1;
             tasks.updateTaskStatus(index, true);
             ui.echo("Nice! I've marked this task as done:\n" + tasks.getTask(index).getListText());
         } else if (in.startsWith("unmark")) {
             String taskName = getTaskName("unmark", in);
-            int index = Integer.parseInt(taskName);
+            int index = Integer.parseInt(taskName) - 1;
             tasks.updateTaskStatus(index, false);
             ui.echo("OK, I've marked this task as not done yet:\n" + tasks.getTask(index).getListText());
         } else if (in.startsWith("todo")) {
@@ -75,6 +79,9 @@ public class Parser {
             String taskName = getTaskName("delete", in);
             Task deletedTask = tasks.deleteTask(Integer.parseInt(taskName) - 1);
             ui.echo(deletedTask.getDeleteMessage());
+        } else if (in.startsWith("due by")) {
+            String date = getTaskName("due by", in);
+            ui.printListByDate(tasks.getTasks(), date);
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
