@@ -51,14 +51,22 @@ public class Duke {
         }
     }
     public static void markAsDone(int number) {
-        tasks[number-1].setDone(true);
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t" + tasks[number-1]);
+        try {
+            tasks[number-1].setDone(true);
+            System.out.println("\tNice! I've marked this task as done:");
+            System.out.println("\t" + tasks[number-1]);
+        } catch (NullPointerException e) {
+            System.out.println("\tOops! task " + number + " does not exist");
+        }
     }
     public static void markAsUndone(int number) {
-        tasks[number-1].setDone(false);
-        System.out.println("\tNice! I've marked this task as not done yet:");
-        System.out.println("\t" + tasks[number-1]);
+        try {
+            tasks[number - 1].setDone(false);
+            System.out.println("\tNice! I've marked this task as not done yet:");
+            System.out.println("\t" + tasks[number - 1]);
+        } catch (NullPointerException e) {
+            System.out.println("\tOops! task " + number + " does not exist");
+        }
     }
 
     public static void main(String[] args) {
@@ -115,7 +123,7 @@ public class Duke {
         }
     }
     public static void printByeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("\tBye. Hope to see you again soon!");
         System.exit(0);
     }
 
