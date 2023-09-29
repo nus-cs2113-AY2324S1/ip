@@ -22,11 +22,10 @@ public class Task {
         isDone = done;
     }
 
+    private String getStatus() {
+        return isDone() ? "[X]" : "[ ]";
+    }
     public String toString() {
-        String temp = "[ ]";
-        if (isDone) {
-            temp = "[X]";
-        }
-        return temp + " " + description;
+        return getStatus() + " " + description;
     }
 }
