@@ -96,7 +96,7 @@ public class Parser {
         } finally {
             if (!validInput) {
                 Ui.printHorizontalLines();
-                Help.helper();
+                Help.simpleHelper();
             }
         }
     }

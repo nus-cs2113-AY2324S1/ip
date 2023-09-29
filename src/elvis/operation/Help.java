@@ -4,6 +4,11 @@ package elvis.operation;
  */
 public class Help {
     /**
+     * Counts how many times simpleHelper was called
+     */
+    private static int simpleHelperCounter = 0;
+
+    /**
      * Prints out help page
      */
     public static void helper() {
@@ -64,5 +69,24 @@ public class Help {
                 "\n" +
                 "-------------------------HELP PAGE END--------------------------\n";
         System.out.println(helpPage);
+        simpleHelperCounter = 0;
+    }
+
+    public static void simpleHelper() {
+        String simpleHelp =
+                "\n" +
+                "Please type \"help\" if you need help" +
+                "\n";
+        String seriousHelp =
+                "\n" +
+                "No seriously, get some \"help\" 😭" +
+                "\n";
+
+        if (simpleHelperCounter == 0) {
+            System.out.println(simpleHelp);
+        } else {
+            System.out.println(seriousHelp);
+        }
+        simpleHelperCounter++;
     }
 }
