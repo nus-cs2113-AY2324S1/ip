@@ -14,14 +14,24 @@ public class Event extends Task {
         symbol = "E";
     }
 
+    /**
+     * Encodes Event data for file saving.
+     * @return Encoded Event data in String format.
+     */
     @Override
     public String convertToSaveFormat() {
         String doneMarker = isDone ? "1" : "0";
-        return symbol + " | " + doneMarker + " | " + description + " /from " + startDateTime + " /to " + endDateTime;
+        return symbol + " | " + doneMarker + " | " + description + " /from " + startDateTime
+                + " /to " + endDateTime;
     }
 
+    /**
+     * Override the printing of Event.
+     * @return String format of Event for printing.
+     */
     @Override
     public String toString() {
-        return "\t[E]" + super.toString() + " (from:" + this.startDateTime + " to:" + this.endDateTime + ")";
+        return "\t[E]" + super.toString() + " (from:" + this.startDateTime
+                + " to:" + this.endDateTime + ")";
     }
 }

@@ -17,7 +17,7 @@ public class Task {
         symbol = "t";
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -37,14 +37,26 @@ public class Task {
         return taskType;
     }
 
-    public String convertToSaveFormat() {
-        String doneMarker = isDone ? "1" : "0";
-        return symbol + " | " + doneMarker + " | " + description;
+    public String getSymbol(){
+        return symbol;
     }
 
+    /**
+     * Encodes Task data for file saving.
+     * @return Encoded Task data in String format.
+     */
+    public String convertToSaveFormat() {
+        String doneMarker = getStatusIcon();
+        return getSymbol() + " | " + doneMarker + " | " + getDescription();
+    }
+
+    /**
+     * Override the printing of Task.
+     * @return String format of Task for printing.
+     */
     @Override
     public String toString() {
-        String marker = this.isDone ? "x" : " ";
-        return "[" + marker + "] " + this.description;
+        String marker = getStatusIcon();
+        return "[" + marker + "] " + getDescription();
     }
 }

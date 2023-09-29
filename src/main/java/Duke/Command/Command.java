@@ -27,8 +27,8 @@ public class Command {
      * @param deadlineDetails which contains the task description,
      *                        and end date in a continuous string.
      * @return new Deadline Task
-     * @throws NoTaskSpecifiedException
-     * @throws NoDateTimeSpecifiedException
+     * @throws NoTaskSpecifiedException if no task description is found.
+     * @throws NoDateTimeSpecifiedException if invalid datetime is given.
      */
     public static Task createDeadline(String deadlineDetails)
             throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
@@ -58,7 +58,7 @@ public class Command {
      *
      * @param taskDescription A String value that contains task description for todo task.
      * @return Todo Task
-     * @throws NoTaskSpecifiedException
+     * @throws NoTaskSpecifiedException if no task description is found.
      */
     public static Task createToDo(String taskDescription) throws NoTaskSpecifiedException {
         taskDescription = taskDescription.trim();
@@ -192,7 +192,7 @@ public class Command {
      *
      * @param filePath
      * @param taskList A TaskList object that contains Task objects.
-     * @throws IOException
+     * @throws IOException if the file is unable to be opened by this program.
      */
     public void saveTaskList(String filePath, TaskList taskList) throws IOException {
         String taskSaveFormat;
@@ -220,8 +220,8 @@ public class Command {
      * Creates a new Event Tasks with the given eventDetails.
      * @param eventDetails a string that contains event description, start date, end date.
      * @return Event Task object
-     * @throws NoTaskSpecifiedException
-     * @throws NoDateTimeSpecifiedException
+     * @throws NoTaskSpecifiedException if no task description is found.
+     * @throws NoDateTimeSpecifiedException if invalid datetime is given.
      */
     public static Task createEvent(String eventDetails) throws NoTaskSpecifiedException, NoDateTimeSpecifiedException {
         String taskDescription;

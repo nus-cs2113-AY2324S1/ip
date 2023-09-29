@@ -20,7 +20,7 @@ public class Parser {
 
     }
 
-    public void generateResponse(String input, TaskList records) {
+    public void generateResponse(String input, TaskList taskList) {
 
         String[] commandDetails = input.split(" ", 2);
         String instructionString = commandDetails[0].trim();
@@ -28,25 +28,25 @@ public class Parser {
 
         switch (instructionString) {
         case (LIST_INSTRUCTION):
-            Command.executeListCommand(records);
+            Command.executeListCommand(taskList);
             break;
         case (UNMARK_INSTRUCTION):
-            Command.executeUnmarkCommand(commandDetails[1], records);
+            Command.executeUnmarkCommand(commandDetails[1], taskList);
             break;
             case (MARK_INSTRUCTION):
-            Command.executeMarkCommand(commandDetails[1], records);
+            Command.executeMarkCommand(commandDetails[1], taskList);
             break;
         case (CREATE_TODO_INSTRUCTION):
-            Command.createNewTask("todo", commandDetails[1], records);
+            Command.createNewTask("todo", commandDetails[1], taskList);
             break;
         case (CREATE_DEADLINE_INSTRUCTION):
-            Command.createNewTask("deadline", commandDetails[1], records);
+            Command.createNewTask("deadline", commandDetails[1], taskList);
             break;
         case (CREATE_EVENT_INSTRUCTION):
-            Command.createNewTask("event", commandDetails[1], records);
+            Command.createNewTask("event", commandDetails[1], taskList);
             break;
         case (DELETE_INSTRUCTION):
-            Command.deleteTask(commandDetails[1], records);
+            Command.deleteTask(commandDetails[1], taskList);
             break;
         default:
             System.out.println(INVALID_COMMAND_PROMPT);
