@@ -1,5 +1,6 @@
 package torchie.parser;
 
+import torchie.command.ExitCommand;
 import torchie.command.ListCommand;
 import torchie.command.SetStatusCommand;
 import torchie.exception.InvalidFormatException;
@@ -65,7 +66,6 @@ public class CommandParser {
             } catch (NullPointerException e) {
                 System.out.println("Task number to mark cannot exceed: <" + taskList.getSize() + ">");
             }
-            break;
             /*case "mark":
                 try {
                     String itemNum_str = taskDetailsParser.getContent(input);
@@ -92,8 +92,7 @@ public class CommandParser {
                 }
                 break;*/
         case EXIT:
-            System.out.println("Awww bye :( Let's play again soon!");
-            break;
+            return new ExitCommand();
         case TODO:
             ToDo td;
             try {
@@ -178,6 +177,6 @@ public class CommandParser {
 
 
 
-        } while (!input.equals("bye"));
+        } while (!input.equals(EXIT));
     }
 }
