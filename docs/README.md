@@ -253,7 +253,7 @@ Lists all tasks in the Tasklist.
 
 Format: `list`
 
-Legend:
+**Legend**
 - A todo shows up as `[T][ ]...`, where T stands for todo.
 - A deadline shows up as `[D][ ]...`, where D stands for deadline.
 - An event shows up as `[E][ ]...`, where E stands for event.
