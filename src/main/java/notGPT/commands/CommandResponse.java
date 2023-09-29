@@ -148,11 +148,11 @@ public class CommandResponse {
     public static void handleDelete(String[] userInput) {
         try {
             if (userInput.length < 2) {
-                throw new NotChatGPTExceptions("\nPlease specify the task number to delete!!");
+                throw new NotChatGPTExceptions("Please specify the task number to delete!!");
             }
             int taskNumber = Integer.parseInt(userInput[1]);
             if (taskNumber < 1 || taskNumber > NotChatGPT.taskList.getTaskCount()) {
-                throw new NotChatGPTExceptions("\nTask number is out of range!! Please enter a valid number.");
+                throw new NotChatGPTExceptions("Task number is out of range!! Please enter a valid number.");
             }
             System.out.println("Noted. I've removed this task:");
             System.out.println(NotChatGPT.taskList.getTasks()[taskNumber - 1]);
@@ -160,6 +160,26 @@ public class CommandResponse {
             System.out.println("Now you have " + NotChatGPT.taskList.getTaskCount() + " tasks in your list.");
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid task number. Please enter a valid number.");
+        } catch (NotChatGPTExceptions e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void handleFind(String[] userInput) {
+        try {
+            if (userInput.length < 2) {
+                throw new NotChatGPTExceptions("Please specify the keyword to search for!!");
+            }
+            String keyword = String.join(" ", Arrays.copyOfRange(userInput, 1, userInput.length));
+            String[] matchingTasks = NotChatGPT.taskList.findTasks(keyword);
+            if (matchingTasks.length == 0) {
+                System.out.println("No matching tasks found.");
+            } else {
+                System.out.println("Here are the matching tasks in your list:");
+                for (int i = 0; i < matchingTasks.length; i++) {
+                    System.out.println((i + 1) + ". " + matchingTasks[i]);
+                }
+            }
         } catch (NotChatGPTExceptions e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -191,8 +211,11 @@ public class CommandResponse {
             case "delete":
                 handleDelete(userInput);
                 break;
+            case "find":
+                handleFind(userInput);
+                break;
             default:
-                System.out.println("I'm sorry, but I don't know what that means :-(\n");
+                System.out.println("I'm sorry, but I don't know what that means :-(");
                 break;
         }
     }
