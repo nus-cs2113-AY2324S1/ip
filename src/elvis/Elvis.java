@@ -3,7 +3,7 @@ package elvis;
 import elvis.operation.Storage;
 
 /**
- * Main class of Elvis the charbot
+ * Main class of Elvis the chatbot
  */
 public class Elvis {
 

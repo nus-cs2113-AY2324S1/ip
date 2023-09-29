@@ -6,6 +6,10 @@ import elvis.task.Task;
 
 import java.util.Scanner;
 
+/**
+ * This is the Ui class that is in-charge of interaction with the user
+ * Prints out appropriate messages such as errors and tasks added
+ */
 public class Ui {
     private static final int NUMBER_OF_UNDERSCORES = 60;
     private static Scanner in = new Scanner(System.in);  //Scanner for Input
