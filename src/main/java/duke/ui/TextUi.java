@@ -4,13 +4,13 @@ import duke.task.Task;
 import duke.tasklist.TaskList;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TextUi {
 
     private static final String NAME = "MudMud";
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
 
     public void tellGreeting() {
         showLine();
@@ -73,8 +73,13 @@ public class TextUi {
     }
 
     public void handleIOException(IOException exception) {
-        System.out.println("Something went wrong! Please try again!");
-        System.out.println(exception.getMessage());
+        System.out.println("\tSomething went wrong! Please try again!");
+        System.out.println("\t" + exception.getMessage());
+    }
+
+    public void handleDateTimeException(){
+        System.out.println("\tPlease insert your specified date with the format below:");
+        System.out.println("\t\t" + DATE_TIME_FORMAT);
     }
 
     public String getInput() {

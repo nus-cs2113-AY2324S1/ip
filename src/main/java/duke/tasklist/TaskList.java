@@ -9,6 +9,7 @@ import duke.task.Todo;
 import duke.ui.TextUi;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -22,7 +23,7 @@ public class TaskList {
     private TextUi ui;
     private ArrayList<Task> tasks;
     private Parser parser;
-    private int tasksCount = 0;
+    private int tasksCount;
 
     public TaskList(ArrayList<Task> tasks)  {
         ui = new TextUi();
@@ -94,10 +95,14 @@ public class TaskList {
             throw new DukeTaskException();
         }
 
-        tasks.add(new Deadline(parsedInput[0].trim(), parsedInput[1].trim()));
+        LocalDateTime by = parser.parseDateTime(parsedInput[1].trim());
+        String description = parsedInput[0].trim();
+        String byBeforeParse = parsedInput[1].trim();
+
+        tasks.add(new Deadline(description, by));
         tasksCount++;
 
-        return DEADLINE_DATA_TEMPLATE + parsedInput[0].trim() + " | "  + parsedInput[1].trim();
+        return DEADLINE_DATA_TEMPLATE + description + " | "  + byBeforeParse;
     }
 
     public boolean checkNumOfEventKeywords(String input) {

@@ -3,7 +3,8 @@ package duke.parser;
 import duke.command.*;
 import duke.exception.DukeCommandException;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
@@ -17,6 +18,15 @@ public class Parser {
 
     public String[] parseCommandType(String input) {
         return input.split(" ", 2);
+    }
+
+    public LocalDateTime parseDateTime(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return LocalDateTime.parse(input, formatter);
+    }
+
+    public String convertDateTimetoString(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
     }
 
     public Command parseCommand(String input) throws DukeCommandException {

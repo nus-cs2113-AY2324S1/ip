@@ -6,6 +6,7 @@ import duke.tasklist.TaskList;
 import duke.ui.TextUi;
 
 import java.io.IOException;
+import java.time.DateTimeException;
 
 public class AddDeadlineCommand extends AddCommand {
 
@@ -23,6 +24,8 @@ public class AddDeadlineCommand extends AddCommand {
             ui.handleIOException(exception);
         } catch (DukeTaskException exception) {
             exception.handleDukeTaskException("deadline", dataToAdd);
+        } catch (DateTimeException exception) {
+            ui.handleDateTimeException();
         }
     }
 }
