@@ -9,19 +9,29 @@ public class Duke {
             tasks[taskCount] = new ToDos(description);
             break;
         case DEADLINE:
-            String[] deadlineTokens = description.split("/by");
-            description = deadlineTokens[0].trim();
-            String by = deadlineTokens[1].trim();
-            tasks[taskCount] = new Deadlines(description, by);
-            break;
+            try {
+                String[] deadlineTokens = description.split("/by");
+                description = deadlineTokens[0].trim();
+                String by = deadlineTokens[1].trim();
+                tasks[taskCount] = new Deadlines(description, by);
+                break;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("\t/by could not be found");
+                return;
+            }
         case EVENT:
-            String[] eventTokens = description.split("/from");
-            description = eventTokens[0].trim();
-            eventTokens = eventTokens[1].split("/to");
-            String from = eventTokens[0].trim();
-            String to = eventTokens[1].trim();
-            tasks[taskCount] = new Events(description, from, to);
-            break;
+            try {
+                String[] eventTokens = description.split("/from");
+                description = eventTokens[0].trim();
+                eventTokens = eventTokens[1].split("/to");
+                String from = eventTokens[0].trim();
+                String to = eventTokens[1].trim();
+                tasks[taskCount] = new Events(description, from, to);
+                break;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("\tBoth /from and /to are required");
+                return;
+            }
         }
         taskCount++;
         System.out.println("\tGot it. I've added this task:");
