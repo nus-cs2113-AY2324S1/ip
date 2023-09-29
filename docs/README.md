@@ -22,7 +22,7 @@ JBot is a **desktop app for managing tasks, optimized for use via a Command Line
 
 2. Download the latest ip.jar from [here](https://github.com/sRanay/ip/releases).
 
-3. Copy the file to the folder you want to use as the home folder for RanayBot.
+3. Copy the file to the folder you want to use as the home folder for JBot.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use `java -jar ip.jar` command to run the application.
 
