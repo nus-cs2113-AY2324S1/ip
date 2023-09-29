@@ -9,6 +9,10 @@ import Duke.Task.TaskList;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Storage class deals with the saving taskList to the file and
+ * retrieving the taskList from the file.
+ */
 public class Storage {
 
     public Storage(){
@@ -60,7 +64,7 @@ public class Storage {
                 continue;
             }
             if (task != null) {
-                Command.addTaskToList(task, records);
+                Command.addTaskToTaskList(task, records);
             }
             if (messageFragments[1].trim().equals("1")) {
                 //mark the previous task as done.

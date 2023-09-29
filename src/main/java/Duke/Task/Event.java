@@ -1,5 +1,8 @@
 package Duke.Task;
 
+/**
+ * A specific type of Tasks that contains task description, start date and end date.
+ */
 public class Event extends Task {
     protected String startDateTime;
     protected String endDateTime;

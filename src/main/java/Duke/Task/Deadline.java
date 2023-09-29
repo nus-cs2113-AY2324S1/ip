@@ -1,5 +1,8 @@
 package Duke.Task;
 
+/**
+ * A Specific type of task that contains a task description and an end date.
+ */
 public class Deadline extends Task {
     protected String endDate;
 
