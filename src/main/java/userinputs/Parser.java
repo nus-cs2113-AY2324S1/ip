@@ -1,33 +1,30 @@
 package userinputs;
 
-import Commands.AddTaskCommand;
-import Commands.Commands;
-import Commands.MarkTaskCommand;
-import Commands.UnmarkTaskCommand;
-import Commands.DeleteTaskCommand;
-import Commands.ListTaskCommand;
-import Commands.HelpTaskCommand;
+import commands.Commands;
+import commands.AddTaskCommand;
+import commands.MarkTaskCommand;
+import commands.UnmarkTaskCommand;
+import commands.DeleteTaskCommand;
+import commands.ListTaskCommand;
+import commands.HelpTaskCommand;
 
 public class Parser {
     public static Commands parse(String input) {
-        if (input.startsWith(Ui.MARK_TASK_COMMAND)) {
+        if (input.startsWith(Commands.MARK_TASK_COMMAND)) {
             return new MarkTaskCommand(input);
-        } else if (input.startsWith(Ui.UNMARK_TASK_COMMAND)) {
+        } else if (input.startsWith(Commands.UNMARK_TASK_COMMAND)) {
             return new UnmarkTaskCommand(input);
-        } else if (input.startsWith(Ui.DELETE_TASK_COMMAND)){
+        } else if (input.startsWith(Commands.DELETE_TASK_COMMAND)){
             return new DeleteTaskCommand(input);
-        } else if(input.equals(Ui.LIST_TASK_COMMAND)) {
+        } else if(input.equals(Commands.LIST_TASK_COMMAND)) {
             return new ListTaskCommand(input);
-        } else if (input.startsWith(Ui.USER_HELP_COMMAND)){
+        } else if (input.startsWith(Commands.USER_HELP_COMMAND)){
             return new HelpTaskCommand(input);
+        } else if (input.startsWith(Commands.EXIT_BOT_COMMAND)){
+            return new Commands(input);
         } else {
-            //try{
-                return new AddTaskCommand(input);
-           // }
-//            catch(ZranExceptions e){
-//                System.out.println();
-//                System.out.printf((outputFormat) + "%n", e.getMessage());
-//            }
+            return new AddTaskCommand(input);
         }
     }
+
 }

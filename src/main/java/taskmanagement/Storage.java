@@ -9,33 +9,45 @@ import java.util.Scanner;
 
 public class Storage {
     private static final String FOLDER_PATH = "./data";
-    private static final String FILE_PATH = "./data/zrantasks.txt";
-    public static void init() throws IOException {
+    private String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void init() throws IOException {
         File folder = new File(FOLDER_PATH);
-        File data = new File(FILE_PATH);
-        if (!folder.exists()){
+        if (!folder.exists()) {
             folder.mkdirs();
         }
-        if(!data.exists()) {
-            data.createNewFile();
+
+        File data = new File(filePath);
+        if (!data.exists()) {
+            if (!data.createNewFile()) {
+                throw new IOException("Unable to create a new file.");
+            }
         }
     }
 
-    public static ArrayList<Task> loadTaskData() throws FileNotFoundException {
-        File dataFile = new File(FILE_PATH);
+    public ArrayList<Task> load() throws IOException {
+        init();
         ArrayList<Task> storedTasks = new ArrayList<>();
-        Scanner s = new Scanner(dataFile);
-        while (s.hasNext()) {
-            String data = s.nextLine();
-            Task task = parseData(data);
-            if(task!=null) {
-                storedTasks.add(task);
+        File dataFile = new File(filePath);
+        try (Scanner scanner = new Scanner(dataFile);) {
+            while (scanner.hasNext()) {
+                String data = scanner.nextLine();
+                Task task = parseData(data);
+                if (task != null) {
+                    storedTasks.add(task);
+                }
             }
+        } catch (FileNotFoundException e) {
+            throw new IOException("File not found: " + filePath, e);
         }
         return storedTasks;
     }
 
-    private static Task parseData(String data) {
+    private Task parseData(String data) {
         String[] taskData = data.split("\\|");
         String taskType = taskData[0].trim();
         String description = taskData[2].trim();
@@ -61,31 +73,28 @@ public class Storage {
         return task;
     }
 
-
-    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
-        for (Task task : tasks) {
-            String line = toString(task);
-            fw.write(line);
-            fw.write(System.lineSeparator());
+    public void saveTasks(TaskList tasks) throws IOException {
+        try (FileWriter fw = new FileWriter(filePath)) {
+            for (Task task : tasks.listItems) {
+                String line = toString(task);
+                fw.write(line + System.lineSeparator());
+            }
         }
-        fw.close();
-
     }
 
-    private static String toString(Task task){
-        String dataString= "";
-        if (task instanceof ToDos){
+    private String toString(Task task) {
+        if (task instanceof ToDos) {
             ToDos todo = (ToDos) task;
-            dataString = todo.getTaskType() + " | " + task.getStatus() + " | " + task.getDescription();
+            return todo.getTaskType() + " | " + task.getStatus() + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            dataString = deadline.getTaskType() + " | " + deadline.getStatus() + " | " +  task.getDescription()+ " | " +deadline.getBy();
+            return deadline.getTaskType() + " | " + deadline.getStatus() + " | " +
+                    task.getDescription() + " | " + deadline.getBy();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            dataString = event.getTaskType() + " | " + event.getStatus() + " | " +  task.getDescription()+ " | " + event.getFrom() + " | " + event.getTo();
+            return event.getTaskType() + " | " + event.getStatus() + " | " +
+                    task.getDescription() + " | " + event.getFrom() + " | " + event.getTo();
         }
-        return dataString;
+        return "";
     }
-
 }

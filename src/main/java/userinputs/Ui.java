@@ -1,55 +1,95 @@
 package userinputs;
 
+import commands.Commands;
+import taskmanagement.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    public static final String DELETE_TASK_COMMAND = "delete ";
-    public static final String MARK_TASK_COMMAND = "mark ";
-    public static final String UNMARK_TASK_COMMAND = "unmark ";
-    public static final String LIST_TASK_COMMAND = "list";
-    public static final String EXIT_BOT_COMMAND = "bye";
-    public static final String TODO_TASK_COMMAND = "todo ";
-    public static final String DEADLINE_TASK_COMMAND = "deadline ";
-    public static final String DEADLINE_DATE_COMMAND = "/by ";
-    public static final String EVENT_TASK_COMMAND = "event ";
-    public static final String EVENT_TASK_START = "/from ";
-    public static final String EVENT_TASK_END = "/to ";
-    public static final String USER_HELP_COMMAND = "help";
-
     private final Scanner scanner;
-    static String outputFormat = "    ____________________________________________________________\n" +
-            "    %s\n    ____________________________________________________________ ";
 
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
     public void showWelcome() {
-        System.out.printf((outputFormat) + "%n",
-                "hello! I'm Zran, your personal assistant:)! \n" +
-                        "    Type in your to dos for the day and press enter! \n " +
-                        "   Type 'help' to view to list of commands the bot accepts! ");
+        showLine();
+        System.out.println(UserMessages.WELCOME_MESSAGE.message);
+        showLine();
     }
 
     public String readCommand() {
-        System.out.print("Enter a command: ");
         return scanner.nextLine();
     }
 
     public void showError(String errorMessage) {
-        System.out.println("Error: " + errorMessage);
+        showLine();
+        System.out.println(errorMessage);
+        showLine();
     }
 
-    public void showLine() {
-        System.out.println("    ____________________________________________________________");
+    public static void showLine() {
+        System.out.println(UserMessages.LINE.message);
     }
 
     public void showGoodbye() {
-        System.out.println("Goodbye <3 have a great day ahead!");
+        System.out.println(UserMessages.GOODBYE_MESSAGE.message);
     }
 
-    public void closeScanner() {
-        scanner.close();
+    public void showLoadingError() {
+        System.out.println(UserMessages.LOADING_ERROR.message);
     }
+
+    public static void showHelp(){
+        showLine();
+        System.out.println(UserMessages.HELP_MESSAGE.message);
+        showLine();
+    }
+
+
+    public static void echo(ArrayList<Task> items, Task task, String input) {
+        String action = input.startsWith(Commands.DELETE_TASK_COMMAND) ? "deleted" : "added";
+        String statusMessage = input.startsWith(Commands.DELETE_TASK_COMMAND) ? "" : " [" + task.getStatusIcon() + "]";
+        String output = "Noted! Task " + action + ": " + task.getDescription() + statusMessage + "\n" +
+                "    Number of Tasks: " + items.size();
+
+        printAndEcho(output, items);
+    }
+
+    // to echo after a task's status is changed
+    public static void echo(Task task, boolean isDone) {
+        String action = isDone ? "marked as done" : "unmarked";
+        String output = isDone ? "Congrats! :D Task " + action + ": " + task.getDescription() + " [" + task.getStatusIcon() + "]"
+                : "Oopsies! Task " + action + ": " + task.getDescription() + " [" + task.getStatusIcon() + "]";
+
+        printAndEcho(output);
+    }
+
+    // to echo when LIST command is being used
+    public static void echo(ArrayList<Task> items) {
+        showLine();
+        System.out.println("    List of Tasks:");
+        int index = 0;
+        for (Task item : items) {
+            if (item != null) {
+                System.out.print("    " + ++index + ". ");
+                System.out.println(item.toString());
+            }
+        }
+        showLine();
+    }
+
+    private static void printAndEcho(String output) {
+        showLine();
+        System.out.println(output);
+        showLine();
+    }
+
+    private static void printAndEcho(String output, ArrayList<Task> items) {
+        printAndEcho(output);
+        echo(items);
+    }
+
 
 }
