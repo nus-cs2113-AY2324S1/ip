@@ -149,7 +149,7 @@ public class Ui {
      * Prints out appropriate message when help is requested
      */
     public static void noSuchTaskMessagePrinter() {
-        System.out.println("No such Task!");
+        System.out.println("😭 OOPS!!! No such Task!");
     }
 
     /**
