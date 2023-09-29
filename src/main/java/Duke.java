@@ -76,14 +76,29 @@ public class Duke {
                 markAsUndone(Integer.parseInt(substr[1]));
                 break;
             case "todo":
-                addToTasks(userInput.substring(5), Type.TODO);
-                break;
+                try {
+                    addToTasks(substr[1], Type.TODO);
+                    break;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\tDescription of a todo cannot be empty");
+                    break;
+                }
             case "deadline":
-                addToTasks(userInput.substring(9), Type.DEADLINE);
-                break;
+                try {
+                    addToTasks(substr[1], Type.DEADLINE);
+                    break;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\tDescription of a deadline cannot be empty");
+                    break;
+                }
             case "event":
-                addToTasks(userInput.substring(6), Type.EVENT);
-                break;
+                try {
+                    addToTasks(substr[1], Type.EVENT);
+                    break;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\tDescription of a event cannot be empty");
+                    break;
+                }
             default:
                 System.out.println("\tInvalid input, please try again");
             }
