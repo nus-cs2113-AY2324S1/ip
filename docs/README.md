@@ -183,10 +183,10 @@ Adds a deadline to the Tasklist.
 
 Format: `deadline TASK_TO_DO /by DATE TIME`
 
-**Warning**:
+**Note**:
 - Ensure there is only 1 whitespace between date and time
-- Year, month, date must be divided by "/" or "-" (e.g. 2021/06/28 OR 2021-06-28)
-- Date can be one of following formats:
+- Year(y), month(m), date(d) must be separated by "/" or "-" (e.g. 2021/06/28 OR 2021-06-28)
+- It can be one of following formats:
   - yyyymmdd
   - yyyymmd
   - yyyymdd
@@ -196,6 +196,7 @@ Format: `deadline TASK_TO_DO /by DATE TIME`
   - ddmyyyy
   - dmyyyy
 - Time must be 24-Hr "HHmm" format (e.g. 1300 OR 13:00)
+  - Hour and minute may be separated by ":" or written together
 
 Example: `deadline return book /by 2023/06/28 1300`
 
@@ -217,10 +218,10 @@ Adds an event to the Tasklist.
 
 Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
 
-**Warning**:
+**Note**:
 - Ensure there is only 1 whitespace between date and time
-- Year, month, date must be divided by "/" or "-" (e.g. 2021/06/28 OR 2021-06-28)
-- Date can be one of following formats:
+- Year(y), month(m), date(d) must be separated by "/" or "-" (e.g. 2021/06/28 OR 2021-06-28)
+- It can be one of following formats:
   - yyyymmdd
   - yyyymmd
   - yyyymdd
@@ -230,6 +231,7 @@ Format: `event TASK_TO_DO /from DATE TIME /to DATE TIME`
   - ddmyyyy
   - dmyyyy
 - Time must be 24-Hr "HHmm" format (e.g. 1300 OR 13:00)
+  - Hour and minute may be separated by ":" or written together
 
 Example: `event project meeting /from 2022-08-06 1300 /to 6-8-2022 1500`
 
