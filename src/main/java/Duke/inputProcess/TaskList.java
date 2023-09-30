@@ -5,6 +5,7 @@ import Duke.tasks.Deadline;
 import Duke.tasks.Todo;
 import Duke.tasks.Event;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -16,20 +17,14 @@ public class TaskList {
 
     public void addTodo(String userInput){
         list.add(new Todo(userInput));
-        System.out.println(list.get(list.size() - 1));
-        System.out.println("\tNow you have " + list.size() + " in the list");
-        System.out.print("\tGot it. I've added this task: \n\t\t");
     }
 
-    public void addEvent(String eventToAdd, String eventTime){
-        list.add(new Event(eventToAdd, eventTime));
-        System.out.println("\tGot it. I've added this task:\n\t\t" + list.get(list.size() - 1) + "\n\tNow you have "+ list.size() + " tasks in the list.");
+    public void addEvent(String eventToAdd, LocalDateTime startTime, LocalDateTime endTime){
+        list.add(new Event(eventToAdd, startTime, endTime));
     }
 
-    public void addDeadline(String deadlineToAdd, String deadlineTime){
+    public void addDeadline(String deadlineToAdd, LocalDateTime deadlineTime){
         list.add(new Deadline(deadlineToAdd, deadlineTime));
-        System.out.println("\tGot it. I've added this task:\n\t\t" + list.get(list.size() - 1) + "\n\tNow you have "+ list.size() + " tasks in the list.");
-
     }
 
     public Task get(int index){
