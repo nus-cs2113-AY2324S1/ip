@@ -2,28 +2,38 @@
 
 ## Features 
 
-### Feature-ABC
+### List All Tasks: ```list```
+Shows a list of all persons in the address book.
+Format: ```list```
 
-Description of the feature.
+### Adding Todo
+Adds a new todo task in your list.
+Format: ```todo TASK_DESCRIPTION```
 
-### Feature-XYZ
+### Adding Deadline
+Adds a new task with deadline in your list.
+Format: ```deadline TASK_DESCRIPTION /by DEADLINE```
 
-Description of the feature.
+### Adding Event
+Adds a new event in your list.
+Format: ```event EVENT_DESCRIPTION /from START_TIME /to END_TIME```
 
-## Usage
+### Marking Task
+Marks a task in your list as done.
+Format: ```mark TASK_INDEX```
 
-### `Keyword` - Describe action
+### Unmarking Task
+Unmarks a task in your list as done.
+Format: ```unamrk TASK_INDEX```
 
-Describe the action and its outcome.
+### Deleting Task
+Deletes a task from your list.
+Format: ```delete TASK_INDEX```
 
-Example of usage: 
+### Find Task
+Find tasks with matching keywords in your list.
+Format: ```find KEY_WORD```
 
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
+### Exiting
+Exit the application.
+Format: ```bye```
