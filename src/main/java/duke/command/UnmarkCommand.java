@@ -19,8 +19,8 @@ public class UnmarkCommand extends Command {
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
         try {
             int selectedIndex = tasks.setUnmarkAsDone(index);
-            storage.updateTaskDatabase(selectedIndex, true);
-            ui.printModifiedTask(tasks.getTask(selectedIndex), true);
+            storage.updateTaskDatabase(selectedIndex, false);
+            ui.printModifiedTask(tasks.getTask(selectedIndex), false);
         } catch (IOException exception) {
             ui.handleIOException(exception);
         } catch (IndexOutOfBoundsException exception) {

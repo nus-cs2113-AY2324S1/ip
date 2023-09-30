@@ -11,7 +11,6 @@ import duke.ui.TextUi;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -142,7 +141,7 @@ public class TaskList {
         return dataString;
     }
 
-    public ArrayList<Task> filterList(String keyword) {
+    public ArrayList<Task> filterTasks(String keyword) {
          ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
                  .filter((task) -> task.getDescription().contains(keyword))
                  .collect(toList());

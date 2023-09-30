@@ -87,19 +87,21 @@ public class Storage {
         String[] parsedTask = scan.nextLine().split(" \\| ");
 
         String taskType = parsedTask[0];
+        String description = parsedTask[2];
+        String isDone = parsedTask[1];
 
         switch (taskType) {
         case "T":
-            tasksListPlaceholder.add(new Todo(parsedTask[2] , parsedTask[1]));
+            tasksListPlaceholder.add(new Todo(description , isDone));
             break;
         case "D":
-            LocalDateTime by = parser.parseDateTime(parsedTask[3].trim());
-            tasksListPlaceholder.add(new Deadline(parsedTask[2], parsedTask[1], by));
+            LocalDateTime by = parser.parseDateTime(parsedTask[3]);
+            tasksListPlaceholder.add(new Deadline(description, isDone, by));
             break;
         case "E":
-            LocalDateTime start = parser.parseDateTime(parsedTask[3].trim());
-            LocalDateTime end = parser.parseDateTime(parsedTask[4].trim());
-            tasksListPlaceholder.add(new Event(parsedTask[2], parsedTask[1], start, end));
+            LocalDateTime start = parser.parseDateTime(parsedTask[3]);
+            LocalDateTime end = parser.parseDateTime(parsedTask[4]);
+            tasksListPlaceholder.add(new Event(description, isDone, start, end));
             break;
         }
     }

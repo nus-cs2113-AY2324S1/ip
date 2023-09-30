@@ -14,14 +14,14 @@ public class Duke {
     private TaskList tasks;
     private Parser parser;
 
-    private void setup() {
+    public void setup() {
         ui = new TextUi();
         storage = new Storage();
         tasks = new TaskList(storage.restoreSavedData());
         parser = new Parser();
     }
 
-    private void run() {
+    public void run() {
         String input;
         boolean isExit = false;
 
@@ -41,7 +41,7 @@ public class Duke {
         }
     }
 
-    private void start() {
+    public void start() {
         setup();
         run();
     }
