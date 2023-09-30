@@ -35,7 +35,8 @@ Find tasks with matching keywords in your list.
 Format: ```find KEY_WORD```
 
 Example:
-```find book
+```
+    find book
     -----------------------------------------------------------
     Here are the matching tasks in your list:
     1.[T][X] read book
