@@ -1,6 +1,13 @@
 package tasks;
 
 public class Parser {
+    /**
+    * Parses the user command into actionable instructions.
+    * 
+    * @param fullCommand The entire command entered by the user.
+    * @return A string representation of the action to be taken.
+    * @throws DukeException If the command is invalid or incomplete.
+    */
 
     public static String parse(String fullCommand) throws DukeException {
         String trimmedCommand = fullCommand.trim(); // Remove leading and trailing whitespaces

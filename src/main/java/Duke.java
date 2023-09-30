@@ -12,12 +12,22 @@ import tasks.TaskList;
 import ui.Ui;
 import tasks.Parser;
 
+
+/**
+ * Represents the main logic for the Duke application.
+ * Manages the initialization, execution, and storage of tasks.
+ */
 public class Duke {
     private static final String lineDivder = "____________________________________________________________";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+   /**
+    * Initializes a new Duke instance with the given file path for data storage.
+    * 
+    * @param filePath The path of the file to store task data.
+    */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -173,6 +183,11 @@ public class Duke {
         }
         ui.showGoodbye();
     }
+    /**
+     * The main entry point of the Duke application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }
