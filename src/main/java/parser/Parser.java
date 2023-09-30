@@ -15,36 +15,41 @@ public class Parser {
     public Command parse(String fullCommand) throws Exception {
         String[] inputStrings = splitInput(fullCommand);
         String commandType = inputStrings[0];
-        Command command;
+        Command command = null;
 
-        if (commandType.equals("bye")) {
-            command = new ExitCommand();
-        } else if (commandType.equals("list")) {
-            command = new ListCommand();
-        } else if (commandType.equals("mark")) {
-            int taskId = this.getTaskId(fullCommand);
-            command = new MarkCommand(taskId);
-        } else if (commandType.equals("unmark")) {
-            int taskId = this.getTaskId(fullCommand);
-            command = new UnmarkCommand(taskId);
-        } else if (commandType.equals("todo")) {
-            String description = this.getTaskDescription(fullCommand);
-            command = new AddTodoCommand(description);
-        } else if (commandType.equals("deadline")) {
-            String[] descriptionAndBy = this.splitInputIntoDeadlineFormat(fullCommand);
-            command = new AddDeadlineCommand(descriptionAndBy[0], descriptionAndBy[1]);
-        } else if (commandType.equals("event")) {
-            String[] descriptionAndStartEndTime = this.splitInputIntoEventFormat(fullCommand);
-            command = new AddEventCommand(descriptionAndStartEndTime[0],
-                    descriptionAndStartEndTime[1], descriptionAndStartEndTime[2]);
-        } else if (commandType.equals("delete")) {
-            int taskId = this.getTaskId(fullCommand);
-            command = new DeleteCommand(taskId);
-        } else if (commandType.equals("find")){
-            String keyword = getKeyWord(fullCommand);
-            command = new FindCommand(keyword);
-        } else {
-            throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        try {
+            if (commandType.equals("bye")) {
+                command = new ExitCommand();
+            } else if (commandType.equals("list")) {
+                command = new ListCommand();
+            } else if (commandType.equals("mark")) {
+                int taskId = this.getTaskId(fullCommand);
+                command = new MarkCommand(taskId);
+            } else if (commandType.equals("unmark")) {
+                int taskId = this.getTaskId(fullCommand);
+                command = new UnmarkCommand(taskId);
+            } else if (commandType.equals("todo")) {
+                String description = this.getTaskDescription(fullCommand);
+                command = new AddTodoCommand(description);
+            } else if (commandType.equals("deadline")) {
+                String[] descriptionAndBy = this.splitInputIntoDeadlineFormat(fullCommand);
+                command = new AddDeadlineCommand(descriptionAndBy[0], descriptionAndBy[1]);
+            } else if (commandType.equals("event")) {
+                String[] descriptionAndStartEndTime = this.splitInputIntoEventFormat(fullCommand);
+                command = new AddEventCommand(descriptionAndStartEndTime[0],
+                        descriptionAndStartEndTime[1], descriptionAndStartEndTime[2]);
+            } else if (commandType.equals("delete")) {
+                int taskId = this.getTaskId(fullCommand);
+                command = new DeleteCommand(taskId);
+            } else if (commandType.equals("find")) {
+                String keyword = getKeyWord(fullCommand);
+                command = new FindCommand(keyword);
+            } else {
+                throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (Exception e) {
+            Ui.showError(e);
+            command = new DefaultCommand();
         }
         return command;
     }
@@ -72,50 +77,50 @@ public class Parser {
             if (isDone.equals("true")) {
                 task.setDone(true);
             }
-        } catch (InvalidCommandException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            Ui.showError(e);
         }
     }
 
     // split input into event description, start time and end time
-    private String[] splitInputIntoEventFormat(String fullCommand) {
+    private String[] splitInputIntoEventFormat(String fullCommand) throws DescriptionFormatException {
         int taskTypeLength = TaskType.event.toString().length();
         String description = fullCommand.substring(taskTypeLength);
         String[] descriptionAndStartEndTime = description.split("/");
 
         if (descriptionAndStartEndTime.length != 3) {
-            Ui.showError( new DescriptionFormatException(
+            throw new DescriptionFormatException(
                     "Wrong input format. Follow this format to add an event: " +
                             "event [event description] " +
-                            "/from[start time and date] /to[end time and date]"));
+                            "/from[start time and date] /to[end time and date]");
         }
 
         return descriptionAndStartEndTime;
     }
 
     // split input into deadline description and the date/time of the deadline
-    private String[] splitInputIntoDeadlineFormat(String fullCommand) {
+    private String[] splitInputIntoDeadlineFormat(String fullCommand) throws DescriptionFormatException {
         int taskTypeLength = TaskType.deadline.toString().length();
         String description = fullCommand.substring(taskTypeLength);
 
         String[] descriptionAndBy = description.split("/by");
 
         if (descriptionAndBy.length < 2) {
-            Ui.showError(new DescriptionFormatException(
+            throw new DescriptionFormatException(
                     "Wrong input format. Follow this format to add a deadline: "
-                            + "deadline [deadline description] /by[time and date of the deadline]"));
+                            + "deadline [deadline description] /by[time and date of the deadline]");
         }
 
         return descriptionAndBy;
     }
 
     // get task id from the full command for mark, unmark and delete
-    private int getTaskId(String input) {
+    private int getTaskId(String input) throws DescriptionFormatException {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 1) {
-            Ui.showError( new DescriptionFormatException(
+            throw new DescriptionFormatException(
                     "Wrong input format. Follow this format to mark/unmark/delete a task: "
-                            + "mark/unmark/delete [task id]"));
+                            + "mark/unmark/delete [task id]");
         }
         return Integer.parseInt(splitInput[1]) - 1;
     }
