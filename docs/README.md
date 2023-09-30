@@ -2,7 +2,7 @@
 
 ## Features 
 
-### List All Tasks: ```list```
+### Listing All Tasks: ```list```
 Shows a list of all persons in the address book.
 Format: ```list```
 
@@ -33,6 +33,15 @@ Format: ```delete TASK_INDEX```
 ### Find Task
 Find tasks with matching keywords in your list.
 Format: ```find KEY_WORD```
+
+Example:
+```find book
+    -----------------------------------------------------------
+     Here are the matching tasks in your list:
+     1.[T][X] read book
+     2.[D][X] return book (by: June 6th)
+     -----------------------------------------------------------
+```
 
 ### Exiting
 Exit the application.
