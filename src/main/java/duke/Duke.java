@@ -30,7 +30,7 @@ public class Duke {
 
     public static final String FILE_PATH = "duke.txt";
 
-    private static final List<String> allValidInput = new ArrayList<>(List.of(new String[]{"todo", "deadline", "list", "bye", "event"}));
+    private static final List<String> allValidInput = new ArrayList<>(List.of(new String[]{"todo", "deadline", "list", "bye", "event", "find", "delete"}));
 
     private Storage storage;
     private TaskList tasks;
@@ -84,7 +84,7 @@ public class Duke {
                 try {
 
                     handleTheUserInput(taskList, line);
-                    if (!line.startsWith("delete")) {
+                    if (!line.startsWith("delete") && !line.startsWith("find")) {
                         feedbackOfTheExecution(taskList);
 
                     }
@@ -140,6 +140,9 @@ public class Duke {
                 break;
             case "todo":
                 Parser.handleTodo(taskList, words);
+                break;
+            case "find":
+                Parser.handleFind(taskList, words);
                 break;
             case "event":
                 Parser.handleEvent(taskList, line);

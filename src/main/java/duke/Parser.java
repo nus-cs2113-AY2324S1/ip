@@ -6,6 +6,7 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static duke.Duke.addToFile;
@@ -51,5 +52,44 @@ public class Parser {
         taskList.add(todo);
         addToFile(taskList);
 
+    }
+
+    public static void handleFind(List<Task> taskList, String[] words) {
+        String keyword = "";
+        for(int i = 1; i < words.length; i++) {
+            keyword += words[i] + " ";
+        }
+        keyword = keyword.trim();
+
+        List<Task> allWantedTask = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                allWantedTask.add(task);
+            }
+        }
+        if (allWantedTask.size() == 0) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Sorry, you haven't saved any tasks regarding the given keyword yet.");
+            System.out.println("____________________________________________________________");
+        } else {
+            System.out.println("____________________________________________________________");
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < allWantedTask.size(); i++) {
+                int index = i + 1;
+                System.out.println(index + ". " + allWantedTask.get(i));
+            }
+            System.out.println("____________________________________________________________");
+        }
+        addToFile(taskList);
+    }
+
+    public static void main(String[] args) {
+        List<Task> taskList = new ArrayList<>();
+        taskList.add(new Todo("read book"));
+        taskList.add(new Todo("a"));
+        taskList.add(new Todo("c"));
+        taskList.add(new Todo("return book"));
+        String s = "find asddsa";
+        handleFind(taskList, s.split(" "));
     }
 }
