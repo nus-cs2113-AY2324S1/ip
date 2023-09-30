@@ -136,6 +136,14 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Handles an error which occurs when
+     * loading tasks from the file fails and
+     * backing up the file fails.
+     * If user does not ignore the error, this throws RuntimeException.
+     *
+     * @param e exception
+     */
     public void handleTaskFileCopyError(TaskFileCopyException e) {
         printTaskFileCopyError(e, IGNORE_ERROR_COMMAND);
         if (!scanIgnore()) {
@@ -155,6 +163,13 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Handles an error which occurs when
+     * saving tasks to the file fails.
+     * If user enters non-empty input, this continues to quit.
+     *
+     * @param e exception
+     */
     public void handleTaskSaveError(TaskSaveException e) {
         printTaskSaveError(e.tasks);
         scanWhileEmpty();
