@@ -144,6 +144,14 @@ public class SkippyUi {
         printLine();
     }
 
+    public void printTaskFoundMessage(String keyword) {
+        System.out.println("These tasks contain the keyword " + keyword + ":");
+    }
+
+    public void printTaskWithNumber(int taskNo) {
+        System.out.println((taskNo + 1) + ". " + Skippy.taskList.tasks.get(taskNo).toString());
+    }
+
     public void printMissingKeyword(String keyword) {
         System.out.println(keyword + " keyword is missing");
         printLine();

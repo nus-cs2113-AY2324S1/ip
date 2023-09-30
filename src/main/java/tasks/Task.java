@@ -18,6 +18,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setDone(boolean done) {
         isDone = done;
     }

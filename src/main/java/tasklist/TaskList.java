@@ -258,4 +258,35 @@ public class TaskList {
             break;
         }
     }
+
+    /**
+     *Search the task list to find any task containing the given keyword
+     *
+     * @param input the find keyword
+     */
+    public void findTask(String input) {
+        if (input.isEmpty()) {
+            ui.printBlankArgumentError("Keyword");
+            return;
+        }
+        input.trim().split(" ");
+        int taskNum = 0;
+        boolean taskFound = false;
+        for (Task task : tasks) {
+            if (task.getName().contains(input)) {
+                if (!taskFound) {
+                    taskFound = true;
+                    ui.printTaskFoundMessage(input);
+                }
+                ui.printTaskWithNumber(taskNum);
+            }
+            taskNum++;
+        }
+        if (!taskFound) {
+            System.out.println("Sorry, there are no such tasks found.");
+            ui.printLine();
+            return;
+        }
+        ui.printLine();
+    }
 }
