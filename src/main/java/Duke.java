@@ -98,7 +98,7 @@ public class Duke {
                         break;
 
                     case "addTodo":
-                        if (parts[0].trim().isEmpty()) {
+                        if (parts[1].trim().isEmpty()) {
                             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n" + lineDivder);
                         }
                         Task newTodo = new Todo(parts[1]);
