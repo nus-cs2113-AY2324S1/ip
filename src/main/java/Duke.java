@@ -481,6 +481,7 @@ public class Duke {
 
                         case "delete":
                             deleteTask(tasks, parts);
+                            writeAllToFile(tasks, f);
                             break;
 
                         default:
