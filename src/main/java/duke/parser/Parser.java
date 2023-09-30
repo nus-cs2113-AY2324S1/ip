@@ -48,6 +48,9 @@ public class Parser {
         case "delete":
             command = new DeleteCommand(data);
             break;
+        case "find":
+            command = new FindCommand(data);
+            break;
         case "todo":
             command = new AddTodoCommand(data);
             break;

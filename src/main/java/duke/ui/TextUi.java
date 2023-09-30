@@ -59,6 +59,18 @@ public class TextUi {
 
         System.out.println("\t\t" + completedTask);
     }
+    
+    public void printFilteredTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("\tSorry, it seems I can not find the tasks with the keyword.");
+            return;
+        }
+
+        System.out.println("\tHere are the matching tasks in the list:");
+        for (int i = 1; i <= tasks.size(); i++) {
+            System.out.println("\t" + i + "." + tasks.get(i - 1));
+        }
+    }
 
     public void handleIndexOutOfBoundsException(int tasksCount) {
         System.out.println("\tUmm, you tried to access a task that does not exist.");
