@@ -78,6 +78,7 @@ public class TaskList {
         return listOfFormattedTasks.toString();
     }
 
+    // Print out task in a list
     @Override
     public String toString() {
         if (this.getSize() == 0) {
