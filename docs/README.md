@@ -50,6 +50,7 @@ Having a task that you need to do? Create a Todo Task so that you won't forget i
 ##### `todo` - creates a Todo task
 ##### Format: `todo <TASK DESCRIPTION>`
 Example of usage:
+
 You need to send out Christmas invitations. Record it down before you forget.
 ```
 todo Send out Christmas Invitations
@@ -78,6 +79,7 @@ What if there is a deadline for a task? No worries, you can add a deadline to yo
 ##### `deadline` - creates a task with a deadline
 ##### Format: `deadline <TASK DESCRIPTION> /by <End Date in yyyy-MM-dd format>`
 Example of usage:
+
 There is a deadline to marinate the turkey in time for Christmas!
 ```
 deadline Marinate the Turkey /by 2023-12-23
@@ -108,6 +110,7 @@ Creates a task with a start date and an end date.
 ##### `event` - creates a task with a start date and an end date
 ##### Format: `event <TASK DESCRIPTION> /from <START DATE> /to <END DATE>`
 Example of usage:
+
 Now you realise that there is a turkey sale within a period of time. 
 But it only starts after a certain date and ends at a particular date. 
 You can create an event task to keep track of it.
@@ -141,6 +144,7 @@ List down all the tasks that are created.
 ##### `list` - List all the tasks in the task list.
 ##### Format: `list`
 Example of usage:
+
 Created a few tasks? Now it's time to view all of them.
 ```
 list
@@ -168,6 +172,7 @@ Complete a task? You can mark it as complete.
 ##### `mark` - Mark a task as complete.
 ##### Format: `mark <TASK ID>`
 Example of usage:
+
 You have successfully sent out invitations for the Christmas Reunion. Time to mark the task as complete.
 The id of a task is indicated with the command `list`.
 ```
@@ -194,6 +199,7 @@ Accidentally mark a task as completed? You can mark it as not completed with the
 ##### `unmark` - creates a Todo task
 ##### Format: `unmark <TASK ID>`
 Example of usage:
+
 Realised that you have forgotten to invite one of your dear friends after marking it as done? Unmark it!
 ```
 unmark 1
@@ -218,6 +224,7 @@ If you have entered a task erroneously, or you do not want it to be in the task 
 ##### `delete` - deletes a task
 ##### Format: `delete <TASK ID>`
 Example of usage:
+
 After sending out all the Christmas invitations, you do not want the task to be in the task list anymore since 
 it is getting long.
 ```
@@ -246,6 +253,7 @@ Note: The case of the search term must be identical to the one in the task descr
 ##### `find` - find a task that contains a certain keyword.
 ##### Format: `find <SEARCH WORD>`
 Example of usage:
+
 You would like to check the deadline to marinate the turkey. Hence, instead of looking through all the tasks, 
 you can use the `find` command to locate task(s) with the word 'Marinate'.
 ```
@@ -271,6 +279,7 @@ The `bye` command  exits the application.
 ##### `bye` - find a task that contains a certain keyword.
 ##### Format: `bye`
 Example of usage:
+
 You are satisfied with the updating of the task list this time round, and you wish to exit the application 
 for the time being.
 ```
