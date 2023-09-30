@@ -264,6 +264,23 @@ public class CommandResponse {
     }
 
     /**
+     * Handles the 'help' command to display the list of all commands.
+     */
+    public static void handleHelp (){
+        System.out.println("Here are the list of commands you can use:");
+        System.out.println("1. bye - exits the application");
+        System.out.println("2. list - displays the list of tasks");
+        System.out.println("3. mark <task number> - marks a task as done");
+        System.out.println("4. unmark <task number> - unmarks a task as done");
+        System.out.println("5. todo <task description> - adds a new Todo task");
+        System.out.println("6. deadline <task description> /by <deadline> - adds a new Deadline task");
+        System.out.println("7. event <event description> /from <start time> /to <end time> - adds a new Event task");
+        System.out.println("8. delete <task number> - removes a task from the list");
+        System.out.println("9. find /description <keyword> - searches for tasks by description");
+        System.out.println("10. find /time <time> - searches for tasks by time");
+    }
+
+    /**
      * Responds to the user's command by calling the appropriate handler method.
      *
      * @param userInput An array of strings containing the user's input.
@@ -296,6 +313,9 @@ public class CommandResponse {
                 break;
             case "find":
                 handleFind(userInput);
+                break;
+            case "help":
+                handleHelp();
                 break;
             default:
                 System.out.println("I'm sorry, but I don't know what that means :-(");
