@@ -2,13 +2,24 @@ package tasks;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Initializes a new TaskList instance with an empty list of tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Initializes a new TaskList instance with the specified list of tasks.
+     * 
+     * @param tasks The list of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
