@@ -19,10 +19,30 @@ import java.time.format.DateTimeParseException;
  */
 public class Command {
 
-    //TODO need to figure out how to eliminate the ui here
-    private static final String INTEGER_PROMPT = "Please enter an integer.";
-    private static final String TASK_CREATION_ERROR_PROMPT = "Please create a task to continue";
+    private static final String INTEGER_PROMPT = "Please enter an integer.\n";
+    private static final String NO_TASK_ERROR_PROMPT = "Please create a task to continue\n";
+    public static final String NUM_TASK_MESSAGE = "There are %d task(s).\n";
     private static final Ui ui = new Ui();
+    public static final String INVALID_COMMAND_PROMPT = "Command is invalid!\n";
+    public static final String INVALID_DATE_ERROR_PROMPT = "Please ensure that the date is given in the yyyy-mm-dd format\n";
+    public static final String NO_TASK_DESCRIPTION_ERROR_PROMPT = "Please ensure that the task description is provided.\n";
+    public static final String INVALID_NUMBER_PROMPT = "Please enter a valid number.\n";
+    public static final String DELETE_TASK_NOTIFICATION = "\tNoted. I've removed this task:";
+    public static final String NUM_TASK_MESSAGE_AFTER_ACTION = "\tNow you have %d tasks in the list.\n";
+    public static final String MARK_ONE_TASK_REMINDER = "Please enter 'mark 1' to check the first task as completed\n";
+    public static final String MARK_MANY_TASKS_REMINDER = "Please enter a valid number from 1 to %d (inclusive).\n";
+    public static final String UNMARK_ONE_TASK_REMINDER = "Please enter 'unmark 1' to check the first task as completed\n";
+    public static final String UNMARK_MANY_TASKS_REMINDER = "Please enter a valid number from 1 to %d (inclusive).\n";
+    public static final String TASK_ID_OUT_OF_BOUND_ERROR_PROMPT = "There are only %d tasks.\n";
+    public static final String EVENT_START_DATE_INDICATOR = "/from";
+    public static final String EVENT_END_DATE_INDICATOR = "/to";
+    public static final String TASK_FOUND_MESSAGE = "Here are your results:\n\n";
+    public static final String TASK_NOT_FOUND_MESSAGE = "Sorry, we cannot find any task with the word \" %s \"";
+    public static final String DEADLINE_END_DATE_INDICATOR = "/by";
+    public static final String CREATE_TODO_INSTRUCTION = ToDo.taskType;
+    public static final String CREATE_DEADLINE_INSTRUCTION = Deadline.taskType;
+    public static final String CREATE_EVENT_INSTRUCTION = Event.taskType;
+    public static final String LIST_ALL_TASK_MESSAGE = "Here are all your tasks:\n\n";
 
 
     /**
@@ -41,14 +61,12 @@ public class Command {
         String byDateString;
         LocalDate byDate;
         try {
-            String dateIndicator = "/by";
-            String[] deadlineContents = deadlineDetails.split(dateIndicator, 2);
+            String[] deadlineContents = deadlineDetails.split(DEADLINE_END_DATE_INDICATOR, 2);
             taskDescription = deadlineContents[0].trim();
             byDateString = deadlineContents[1].trim();
             byDate = LocalDate.parse(byDateString);
 
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            System.out.println(e);
             throw new InvalidDateTimeSpecifiedException();
         }
         if (taskDescription.isEmpty()) {
@@ -66,11 +84,11 @@ public class Command {
      * @throws NoTaskSpecifiedException if no task description is found.
      */
     public static Task createToDo(String taskDescription) throws NoTaskSpecifiedException {
-        taskDescription = taskDescription.trim();
-        if (taskDescription.isEmpty()) {
+        String trimmedTaskDescription = taskDescription.trim();
+        if (trimmedTaskDescription.isEmpty()) {
             throw new NoTaskSpecifiedException();
         }
-        return new ToDo(taskDescription);
+        return new ToDo(trimmedTaskDescription);
     }
 
     /**
@@ -87,17 +105,19 @@ public class Command {
             taskList.getTask(taskIndex).setDone();
             executeListCommand(taskList);
         } catch (NumberFormatException e) {
+
             System.out.println(INTEGER_PROMPT);
 
         } catch (NullPointerException | IndexOutOfBoundsException e) {
+
             if (taskList.getNumTask() == 0) {
-                System.out.println(TASK_CREATION_ERROR_PROMPT);
+                System.out.println(NO_TASK_ERROR_PROMPT);
             } else if (taskList.getNumTask() == 1) {
-                System.out.println("There are " + taskList.getNumTask() + " task.");
-                System.out.println("Please enter 'mark 1' to check the first task as completed");
+                System.out.printf(NUM_TASK_MESSAGE, taskList.getNumTask());
+                System.out.println(MARK_ONE_TASK_REMINDER);
             } else {
-                System.out.println("There are " + taskList.getNumTask() + " tasks.");
-                System.out.println("Please enter a valid number from 1 to " + taskList.getNumTask() + "(inclusive).");
+                System.out.printf(NUM_TASK_MESSAGE, taskList.getNumTask());
+                System.out.printf(MARK_MANY_TASKS_REMINDER, taskList.getNumTask());
             }
         }
     }
@@ -120,13 +140,13 @@ public class Command {
             System.out.println(INTEGER_PROMPT);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             if (taskList.getNumTask() == 0) {
-                System.out.println(TASK_CREATION_ERROR_PROMPT);
+                System.out.println(NO_TASK_ERROR_PROMPT);
             } else if (taskList.getNumTask() == 1) {
-                System.out.println("There are " + taskList.getNumTask() + " task.");
-                System.out.println("Please enter 'mark 1' to check the first task as completed");
+                System.out.printf(NUM_TASK_MESSAGE, taskList.getNumTask());
+                System.out.println(UNMARK_ONE_TASK_REMINDER);
             } else {
-                System.out.println("There are " + taskList.getNumTask() + " tasks.");
-                System.out.println("Please enter a valid number from 1 to " + taskList.getNumTask() + "(inclusive).");
+                System.out.printf(NUM_TASK_MESSAGE, taskList.getNumTask());
+                System.out.printf(UNMARK_MANY_TASKS_REMINDER, taskList.getNumTask());
             }
         }
     }
@@ -146,17 +166,17 @@ public class Command {
         Task task = null;
         try {
             switch (taskType) {
-            case "todo":
+            case CREATE_TODO_INSTRUCTION:
                 task = createToDo(taskDetails);
                 break;
-            case "deadline":
+            case CREATE_DEADLINE_INSTRUCTION:
                 task = createDeadline(taskDetails);
                 break;
-            case "event":
+            case CREATE_EVENT_INSTRUCTION:
                 task = createEvent(taskDetails);
                 break;
             default:
-                System.out.println("Command is invalid!");
+                System.out.println(INVALID_COMMAND_PROMPT);
                 break;
             }
             if (task != null) {
@@ -166,9 +186,9 @@ public class Command {
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Please ensure that " + taskType + " has the correct number of parameters.");
         } catch (InvalidDateTimeSpecifiedException e) {
-            System.out.println("Please ensure that the date is given in the yyyy-mm-dd format");
+            System.out.println(INVALID_DATE_ERROR_PROMPT);
         } catch (NoTaskSpecifiedException e) {
-            System.out.println("Please ensure that the task description is provided.");
+            System.out.println(NO_TASK_DESCRIPTION_ERROR_PROMPT);
         }
     }
 
@@ -184,21 +204,21 @@ public class Command {
             Task task = taskList.getTask(taskIndex);
             taskList.deleteTask(taskIndex);
             ui.printLine();
-            System.out.println("\tNoted. I've removed this task:");
+            System.out.println(DELETE_TASK_NOTIFICATION);
             System.out.println(task);
-            System.out.println("\tNow you have " + taskList.getNumTask() + " tasks in the list.");
+            System.out.printf(NUM_TASK_MESSAGE_AFTER_ACTION, taskList.getNumTask());
             ui.printLine();
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a valid number.");
+            System.out.println(INVALID_NUMBER_PROMPT);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("There are only " + taskList.getNumTask() + " tasks.");
+            System.out.printf(TASK_ID_OUT_OF_BOUND_ERROR_PROMPT, taskList.getNumTask());
         }
     }
 
     /**
      * Saves all the tasks from the taskList to the given filePath.
      *
-     * @param filePath
+     * @param filePath Path to the file to store the task list.
      * @param taskList A TaskList object that contains Task objects.
      * @throws IOException if the file is unable to be opened by this program.
      */
@@ -219,9 +239,7 @@ public class Command {
      * @param taskList A TaskList object that contains Task objects.
      */
     public static void executeListCommand(TaskList taskList) {
-        ui.printLine();
-        ui.printAllTasks(taskList);
-        ui.printLine();
+        ui.printAllTasks(LIST_ALL_TASK_MESSAGE, taskList);
     }
 
     /**
@@ -229,7 +247,7 @@ public class Command {
      *
      * @param eventDetails a string that contains event description, start date, end date.
      * @return Event Task object
-     * @throws NoTaskSpecifiedException     if no task description is found.
+     * @throws NoTaskSpecifiedException          if no task description is found.
      * @throws InvalidDateTimeSpecifiedException if invalid datetime is given.
      */
     public static Task createEvent(String eventDetails) throws
@@ -238,11 +256,9 @@ public class Command {
         String taskDescription;
         String fromDateString;
         String toDateString;
-        String startDateIndicator = "/from";
-        String endDateIndicator = "/to";
         LocalDate fromDate;
         LocalDate toDate;
-        String eventSplitNotation = startDateIndicator + "|" + endDateIndicator;
+        String eventSplitNotation = EVENT_START_DATE_INDICATOR + "|" + EVENT_END_DATE_INDICATOR;
         String[] eventContents = eventDetails.split(eventSplitNotation);
         try {
             taskDescription = eventContents[0].trim();
@@ -252,7 +268,6 @@ public class Command {
             toDate = LocalDate.parse(toDateString);
 
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            System.out.println(e);
             throw new InvalidDateTimeSpecifiedException();
         }
         if (taskDescription.isEmpty()) {
@@ -291,17 +306,9 @@ public class Command {
 
     public static void printTasksFound(String keyword, TaskList records) {
         if (records.getNumTask() == 0) {
-            System.out.println("Sorry, we cannot find any task with the word \"" + keyword + "\"");
+            System.out.printf(TASK_NOT_FOUND_MESSAGE, keyword);
             return;
         }
-
-        ui.printLine();
-        System.out.println("Here are your results:\n");
-
-        for (int i = 1; i < records.getNumTask() + 1; i++) {
-            System.out.println(records.getTask(i));
-        }
-
-        ui.printLine();
+        ui.printAllTasks(TASK_FOUND_MESSAGE, records);
     }
 }

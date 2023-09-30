@@ -20,6 +20,7 @@ public class Duke {
     private final static String FILE_PATH = "data/duke.txt";
     private final static String DIR_PATH = "data";
     private final static String PARAMETER_COUNT_ERROR_PROMPT = "Please ensure correct number of parameters are given.";
+    private final static String IO_EXCEPTION_ERROR_PROMPT = "Please ensure that %s exists.";
     private final Ui ui;
     private final Storage storage;
     private final Parser parser;
@@ -75,7 +76,7 @@ public class Duke {
             command.saveTaskList(FILE_PATH, tasks1);
             ui.printByeMessage();
         } catch (IOException e) {
-            System.out.println("Please ensure that " + Duke.FILE_PATH + " exists.");
+            System.out.printf((IO_EXCEPTION_ERROR_PROMPT), FILE_PATH);
         }
     }
 }

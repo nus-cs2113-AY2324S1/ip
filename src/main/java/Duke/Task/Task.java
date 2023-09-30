@@ -6,15 +6,13 @@ package Duke.Task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    private static final String taskType = "Task";
+    private static final String symbol = "t";
 
-    String taskType;
-    String symbol;
 
     public Task(String description) {
         this.description = description;
         isDone = false;
-        taskType = "Task";
-        symbol = "t";
     }
 
     protected String getStatusIcon() {
@@ -37,12 +35,13 @@ public class Task {
         return taskType;
     }
 
-    public String getSymbol(){
+    public String getSymbol() {
         return symbol;
     }
 
     /**
      * Encodes Task data for file saving.
+     *
      * @return Encoded Task data in String format.
      */
     public String convertToSaveFormat() {
@@ -52,6 +51,7 @@ public class Task {
 
     /**
      * Override the printing of Task.
+     *
      * @return String format of Task for printing.
      */
     @Override

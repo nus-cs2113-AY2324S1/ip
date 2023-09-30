@@ -14,6 +14,7 @@ public class TaskList {
 
     /**
      * Returns the size of the TaskList
+     *
      * @return size of TaskList
      */
     public int getNumTask() {
@@ -22,6 +23,7 @@ public class TaskList {
 
     /**
      * Add a task to the TaskList
+     *
      * @param task Task object to be added to the TaskList
      */
     public void addTask(Task task) {
@@ -30,6 +32,7 @@ public class TaskList {
 
     /**
      * Returns the task details with a given index.
+     *
      * @param taskIndex Integer value of the index of the task
      * @return Task object
      */
@@ -39,6 +42,7 @@ public class TaskList {
 
     /**
      * Removes a task based on the taskIndex.
+     *
      * @param taskIndex taskIndex of a task to be deleted.
      */
     public void deleteTask(int taskIndex) {

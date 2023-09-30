@@ -8,6 +8,10 @@ import java.time.format.DateTimeFormatter;
  */
 
 public class Event extends Task {
+
+    public static final String taskType = "event";
+    public static final String symbol = "E";
+
     protected LocalDate startDateTime;
     protected LocalDate endDateTime;
 
@@ -15,8 +19,6 @@ public class Event extends Task {
         super(description);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        taskType = "Event";
-        symbol = "E";
     }
 
     /**
@@ -40,7 +42,7 @@ public class Event extends Task {
     public String toString() {
         String endDateTimeString = endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String startDateTimeString = startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return "\t[E]" + super.toString() + " (from:" + startDateTimeString
+        return "\t[" + symbol + "]" + super.toString() + " (from:" + startDateTimeString
                 + " to:" + endDateTimeString + ")";
     }
 }
