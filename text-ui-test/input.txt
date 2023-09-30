@@ -13,7 +13,7 @@ list
 todo join sports club
 list
 delete
-mark 3
+mark
 list
 todo borrow book
 list
