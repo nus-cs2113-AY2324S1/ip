@@ -34,18 +34,9 @@ public abstract class Task {
      * @param isDone The status of the task.
      */
     public void markAsDone(boolean isDone) {
-        this.isDone = true;
+        this.isDone = isDone;
     }
     
-    /*
-     * Marks the task as undone.
-     * 
-     * @param isDone The status of the task.
-     */
-    public void markAsUndone(boolean isDone) {
-        this.isDone = false;
-    }
-
     /*
      * Returns the string representation of the task.
      * 

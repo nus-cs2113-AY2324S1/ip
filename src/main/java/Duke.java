@@ -40,7 +40,7 @@ public class Duke {
     }
 
     public void run(){
-        ui.greet();
+        Ui.greet();
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -75,10 +75,10 @@ public class Duke {
                         ui.showLineDivider();
                         break;
                     
-                    case "unmark" :
+                    case "markAsNotDone" :
                         try{
                             int undoneIndex = Integer.parseInt(parts[1]) -1;
-                            tasks.markTaskAsUndone(undoneIndex);
+                            tasks.getTaskIndex(undoneIndex).markAsDone(false);
                             ui.showUnmarkedTask(tasks.getTaskIndex(undoneIndex));
                             storage.save(tasks.getTasks());
                         } catch (NumberFormatException e) {
@@ -93,18 +93,23 @@ public class Duke {
                         break;
 
                     case "delete":
-                        int deleteIndex = Integer.parseInt(parts[1]) - 1;
-                        if (deleteIndex < 0 || deleteIndex >= tasks.getTaskCount()) {
-                            throw new DukeException("☹ OOPS!!! Invalid task number.");
-                        }
-                        Task taskToDelete = tasks.getTaskIndex(deleteIndex);
-                        tasks.deleteTask(deleteIndex);
-                        try{
+                        try {
+                            int deleteIndex = Integer.parseInt(parts[1]) - 1;
+                            if (deleteIndex < 0 || deleteIndex >= tasks.getTaskCount()) {
+                                throw new DukeException("☹ OOPS!!! Invalid task number.");
+                            }
+                            Task taskToDelete = tasks.getTaskIndex(deleteIndex);
+                            tasks.deleteTask(deleteIndex);
                             storage.save(tasks.getTasks());
+                            ui.showDeletedTask(taskToDelete, tasks.getTaskCount());
                         } catch (IOException e) {
                             System.out.println("An error occurred while saving tasks to the file.");
+                        } catch (NumberFormatException e) {
+                            ui.showErrorMsg("Error: ☹ OOPS!!! Task number must be an integer.\n");
+                            ui.showErrorMsg("Please enter command in the format: delete <task number>");
+                        } catch (IndexOutOfBoundsException e) {
+                            ui.showErrorMsg("Error: ☹ OOPS!!! Invalid task number." + lineDivder);
                         }
-                        ui.showDeletedTask(taskToDelete, tasks.getTaskCount());
                         ui.showLineDivider();
                         break;
 

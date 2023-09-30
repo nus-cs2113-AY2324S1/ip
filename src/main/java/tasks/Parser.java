@@ -17,8 +17,10 @@ public class Parser {
             return "exit";
         } else if (commandLowerCase.equals("list")) {
             return "list";
-        } else if (commandLowerCase.startsWith("done ")) {
+        } else if (commandLowerCase.startsWith("mark ")) {
             return "markAsDone-" + trimmedCommand.substring(5);
+        } else if (commandLowerCase.startsWith("unmark ")) {
+            return "markAsNotDone-" + trimmedCommand.substring(7);
         } else if (commandLowerCase.startsWith("delete")) {
             if (commandLowerCase.length() <= 6 || commandLowerCase.substring(6).trim().isEmpty()) {
                 throw new DukeException("☹ OOPS!!! Please provide a task number to delete.");
@@ -43,4 +45,3 @@ public class Parser {
         }
     }
 }
-
