@@ -1,6 +1,11 @@
 package alan;
 
-import alan.task.*;
+import alan.data.exception.AlanExceptions;
+import alan.data.task.Deadline;
+import alan.data.task.Event;
+import alan.data.task.Task;
+import alan.data.task.TaskType;
+import alan.data.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,12 +15,12 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static alan.AlanExceptions.checkDeadlineInputFormat;
-import static alan.AlanExceptions.checkEmptyDescription;
-import static alan.AlanExceptions.checkEventInputFromFormat;
-import static alan.AlanExceptions.checkEventInputToFormat;
-import static alan.AlanExceptions.checkOutOfTaskListIndex;
-import static alan.AlanExceptions.invalidInputCommand;
+import static alan.data.exception.AlanExceptions.checkDeadlineInputFormat;
+import static alan.data.exception.AlanExceptions.checkEmptyDescription;
+import static alan.data.exception.AlanExceptions.checkEventInputFromFormat;
+import static alan.data.exception.AlanExceptions.checkEventInputToFormat;
+import static alan.data.exception.AlanExceptions.checkOutOfTaskListIndex;
+import static alan.data.exception.AlanExceptions.invalidInputCommand;
 
 public class Alan {
     public static void printGreetingMessage() {
@@ -193,13 +198,13 @@ public class Alan {
         //check if folder exists
         if (!Files.exists(dataFolderPath)) {
             folder.mkdir();
-            System.out.println("Data Folder was not found!\nIt's ok...new data folder has been created in" + userWorkingDirectory);
+            System.out.println("Data Folder was not found!\nIt's ok... new data folder has been created in " + userWorkingDirectory);
         }
 
         //check if file exists
         if (!Files.exists(tasksFilePath)) {
             textFile.createNewFile();
-            System.out.println("tasks.txt was not found!\nIt's ok...new tasks.txt has been created in " + dataFolderPath);
+            System.out.println("tasks.txt was not found!\nIt's ok... new tasks.txt has been created in " + dataFolderPath);
         }
 
         //input arraylist data into text file

@@ -1,4 +1,4 @@
-package alan.task;
+package alan.data.task;
 
 public class Deadline extends Task {
     protected String by;

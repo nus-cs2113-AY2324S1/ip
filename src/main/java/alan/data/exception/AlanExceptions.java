@@ -1,6 +1,6 @@
-package alan;
+package alan.data.exception;
 
-import alan.task.Task;
+import alan.data.task.Task;
 
 import java.util.ArrayList;
 
