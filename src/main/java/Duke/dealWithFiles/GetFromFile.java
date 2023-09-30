@@ -8,6 +8,7 @@ import Duke.tasks.Todo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import Duke.inputProcess.TaskList;
 import java.util.Scanner;
@@ -46,10 +47,12 @@ public class GetFromFile {
                     list.addTodo(taskFromFile);
                     break;
                 case "D":
-                    list.addDeadline(taskFromFile,timeFromFile);
+                    list.addDeadline(taskFromFile, LocalDateTime.parse(timeFromFile));
                     break;
                 case "E":
-                    list.addEvent(taskFromFile, timeFromFile);
+                    LocalDateTime start = LocalDateTime.parse(timeFromFile.split(" to ", 2)[0]);
+                    LocalDateTime end = LocalDateTime.parse(timeFromFile.split(" to ", 2)[1]);
+                    list.addEvent(taskFromFile, start, end);
                     break;
                 default:
                 }

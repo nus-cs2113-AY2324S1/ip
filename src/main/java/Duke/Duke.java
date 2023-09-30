@@ -3,17 +3,13 @@ package Duke;
 import Duke.dealWithFiles.GetFromFile;
 import Duke.dealWithFiles.SaveToFile;
 import Duke.inputProcess.TaskList;
-import Duke.tasks.Deadline;
-import Duke.tasks.Event;
-import Duke.tasks.Todo;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 
 public class Duke {
 
@@ -41,6 +37,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
         String eventTime = "";
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         while (!userInput.equals("bye")) {
             String command = "list";
             if (!userInput.equals("list")){
@@ -56,6 +53,7 @@ public class Duke {
             switch (command){
             case "list":
                 tasks.printList();
+                System.out.println("\tNow you have " + tasks.size() + " in the list");
                 break;
             case "unmark":
                 tasks.unmark((Integer.parseInt(userInput) - 1));
@@ -65,25 +63,44 @@ public class Duke {
                 break;
             case "deadline":
                 try {
-                    eventTime = userInput.split("/by ", 2)[1];              // split the userInput into two part
-                    userInput = userInput.split("/", 2)[0];
-                    tasks.addDeadline(userInput, eventTime);
+                    try {
+                        LocalDateTime taskDeadline = LocalDateTime.parse(userInput.split("/by ", 2)[1], df);
+                        userInput = userInput.split("/", 2)[0];
+                        tasks.addDeadline(userInput, taskDeadline);
+                        System.out.println("\tGot it. I've added this task:\n\t\t" + tasks.get(tasks.size() - 1) + "\n\tNow you have " + tasks.size() + " tasks in the list.");
+                    } catch (DateTimeParseException e){
+                        System.out.println("\tThe input format for deadline event need to be \"deadline deadlineEvent /by dd/MM/yyyy HHmm\"");
+                    }
                 } catch(IndexOutOfBoundsException e){
                     System.out.println("\tOOPS!!! The deadline need to separated by \"/by\"");
                 }
                 break;
             case "event":
+                LocalDateTime start;
+                LocalDateTime end;
                 try {
-                    eventTime = userInput.split("/from ", 2)[1];
-                    eventTime = eventTime.replace("/to", "to:");
+                    try {
+                        eventTime = userInput.split("/from ", 2)[1];
+                        start = LocalDateTime.parse(eventTime.split(" /to ", 2)[0], df);
+                        end = LocalDateTime.parse(eventTime.split(" /to ", 2)[1], df);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("\tThe input format for event need to be \"event eventName /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm\"");
+                        break;
+                    }
+                    if (end.isBefore(start)){
+                        System.out.println("\tStart time cannot be later than end time");
+                        break;
+                    }
                     userInput = userInput.split("/",2)[0];
-                    tasks.addDeadline(userInput, eventTime);
+                    tasks.addEvent(userInput, start, end);
+                    System.out.println("\tGot it. I've added this task:\n\t\t" + tasks.get(tasks.size() - 1) + "\n\tNow you have "+ tasks.size() + " tasks in the list.");
                 } catch(IndexOutOfBoundsException e){
-                    System.out.println("\tOOPS!!! The event timing need to separated by \"/from\"");
+                    System.out.println("\tOOPS!!! The event timing need to separated by \"/from\" and \"/to\"" );
                 }
                 break;
             case "todo":
                 tasks.addTodo(userInput);
+                System.out.println("\tGot it. I've added this task:\n\t\t" + tasks.get(tasks.size() - 1) + "\n\tNow you have "+ tasks.size() + " tasks in the list.");
                 break;
             case "delete":
                 try {
