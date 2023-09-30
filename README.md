@@ -91,9 +91,9 @@ Mark a task as done.
 
 **Expected Output**: 
 
-   Nice! I've marked this task as done: 
-   [T][X] [TASK NAME] OR 
-   [D][X] [TASK NAME] (by: [dd-MM-yyyy HH:mm]) OR 
+   Nice! I've marked this task as done: <br>
+   [T][X] [TASK NAME] OR <br>
+   [D][X] [TASK NAME] (by: [dd-MM-yyyy HH:mm]) OR <br>
    [E][X] [TASK NAME] (from: [dd-MM-yyyy HH:mm] to: [dd-MM-yyyy HH:mm]) 
         
 ### Unmark Task
@@ -107,9 +107,9 @@ Mark a task as not done.
 
 **Expected Output**: 
 
-   Aight! I've marked this task as not done yet.
-   [T][ ] [TASK NAME] OR 
-   [D][ ] [TASK NAME] (by: [dd-MM-yyyy HH:mm]) OR
+   Aight! I've marked this task as not done yet. <br>
+   [T][ ] [TASK NAME] OR <br>
+   [D][ ] [TASK NAME] (by: [dd-MM-yyyy HH:mm]) OR <br>
    [E][ ] [TASK NAME] (from: [dd-MM-yyyy HH:mm] to: [dd-MM-yyyy HH:mm])
         
 ### Delete Task
