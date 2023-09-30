@@ -90,6 +90,10 @@ Exits and closes the program.
 
 Format: `bye`
 
+## FAQ
+**Q**: Can I edit the file manually from the save.txt file?
+<br>**A**: It is not advised to do so, as formatting of the save.txt file incorrectly will cause the program to crash.
+
 ## Command Summary
 | **Command** | **Format, Examples**                                                                                 |
 |-------------|------------------------------------------------------------------------------------------------------|
