@@ -17,10 +17,10 @@ public class DeleteCommand extends Command {
 
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
-        int selectedIndex;
 
         try {
-            selectedIndex = tasks.deleteTask(index);
+            int selectedIndex = Integer.parseInt(index);
+            tasks.deleteTask(index);
             storage.deleteTaskData(selectedIndex);
         } catch (IOException exception) {
             ui.handleIOException(exception);

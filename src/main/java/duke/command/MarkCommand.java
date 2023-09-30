@@ -18,7 +18,8 @@ public class MarkCommand extends Command {
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
         try {
-            int selectedIndex = tasks.setMarkAsDone(index);
+            int selectedIndex = Integer.parseInt(index);
+            tasks.setMarkAsDone(index);
             storage.updateTaskDatabase(selectedIndex, true);
             ui.printModifiedTask(tasks.getTask(selectedIndex), true);
         } catch (IOException exception) {

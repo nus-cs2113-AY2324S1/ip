@@ -18,7 +18,8 @@ public class UnmarkCommand extends Command {
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
         try {
-            int selectedIndex = tasks.setUnmarkAsDone(index);
+            int selectedIndex = Integer.parseInt(index);
+            tasks.setUnmarkAsDone(index);
             storage.updateTaskDatabase(selectedIndex, false);
             ui.printModifiedTask(tasks.getTask(selectedIndex), false);
         } catch (IOException exception) {
