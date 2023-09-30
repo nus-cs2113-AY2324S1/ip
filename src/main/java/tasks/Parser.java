@@ -1,5 +1,9 @@
 package tasks;
 
+/**
+ * Represents a parser that parses user commands.
+ */
+
 public class Parser {
     /**
     * Parses the user command into actionable instructions.

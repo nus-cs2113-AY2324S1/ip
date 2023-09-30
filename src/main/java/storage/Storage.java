@@ -12,15 +12,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Represents the storage of tasks.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Initializes a new Storage instance with the given file path.
+     * 
+     * @param filePath The path of the file to store task data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the file.
+     * 
+     * @return The list of tasks.
+     * @throws DukeException If the file is not found or the data format is incorrect.
+     */
     public ArrayList<Task> load() throws DukeException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -68,6 +81,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the file.
+     * 
+     * @param tasks The list of tasks to be saved.
+     * @throws IOException If there is an error writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks) {

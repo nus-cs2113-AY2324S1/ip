@@ -2,6 +2,8 @@ package tasks;
 
 /**
  * Represents a 'Deadline' task in the Duke application.
+ * 
+ * @see Task
  */
 public class Deadline extends Task{
     protected String by;
