@@ -32,7 +32,7 @@ Adds a new `ToDo` task to the current task list.
 
 **Expected Output**: 
 
-   Got it. I've added this task:
+   Got it. I've added this task: <br>
    [T][ ] [TASK NAME]
 
 <br/>
@@ -48,7 +48,7 @@ Adds a new `Deadline` task to the current task list.
 
 **Expected Output**: 
 
-   Got it. I've added this task:
+   Got it. I've added this task: <br>
    [D][ ] [TASK NAME] (by: [dd-MM-yyyy HH:mm])
 
 <br/>
@@ -64,7 +64,7 @@ Adds a new `Event` task to the current task list.
 
 **Expected Output**: 
 
-   Got it. I've added this task:
+   Got it. I've added this task: <br>
    [E][ ] [TASK NAME] (from: [DAY, MMM dd, yyyy HH AM/PM] to: [DAY, MMM dd, yyyy HH AM/PM])
 
 ### List Tasks
@@ -74,11 +74,11 @@ Lists all tasks in the current task list.
 
 **Expected Output**: 
 
-    1. [D][ ] [TASK NAME] (by: [dd-MM-yyyy HH:mm])
-    2. [D][ ] [TASK NAME] (by: [dd-MM-yyyy HH:mm])
-    3. [E][ ] [TASK NAME] (from: [dd-MM-yyyy HH:mm] to: [dd-MM-yyyy HH:mm])
-    4. [T][ ] [TASK NAME]
-    ...
+   1. [D][ ] [TASK NAME] (by: [dd-MM-yyyy HH:mm])
+   2. [D][ ] [TASK NAME] (by: [dd-MM-yyyy HH:mm]) 
+   3. [E][ ] [TASK NAME] (from: [dd-MM-yyyy HH:mm] to: [dd-MM-yyyy HH:mm]) 
+   4. [T][ ] [TASK NAME]
+   ...
 
 ### Mark Task
 Mark a task as done.
@@ -91,10 +91,10 @@ Mark a task as done.
 
 **Expected Output**: 
 
-   Nice! I've marked this task as done:
-      [T][X] [TASK NAME] OR 
-      [D][X] [TASK NAME] (by: [dd-MM-yyyy HH:mm]) OR 
-      [E][X] [TASK NAME] (from: [dd-MM-yyyy HH:mm] to: [dd-MM-yyyy HH:mm])
+   Nice! I've marked this task as done: 
+   [T][X] [TASK NAME] OR 
+   [D][X] [TASK NAME] (by: [dd-MM-yyyy HH:mm]) OR 
+   [E][X] [TASK NAME] (from: [dd-MM-yyyy HH:mm] to: [dd-MM-yyyy HH:mm]) 
         
 ### Unmark Task
 Mark a task as not done.
@@ -108,9 +108,9 @@ Mark a task as not done.
 **Expected Output**: 
 
    Aight! I've marked this task as not done yet.
-      [T][ ] [TASK NAME] OR 
-      [D][ ] [TASK NAME] (by: [dd-MM-yyyy HH:mm]) OR 
-      [E][ ] [TASK NAME] (from: [dd-MM-yyyy HH:mm] to: [dd-MM-yyyy HH:mm])
+   [T][ ] [TASK NAME] OR 
+   [D][ ] [TASK NAME] (by: [dd-MM-yyyy HH:mm]) OR
+   [E][ ] [TASK NAME] (from: [dd-MM-yyyy HH:mm] to: [dd-MM-yyyy HH:mm])
         
 ### Delete Task
 Delete a task from the task list.
@@ -123,9 +123,9 @@ Delete a task from the task list.
 
 **Expected Output**: 
 
-   Noted. I've removed this task:
-   [TASK DETAILS]
-   Now you have [NUMBER OF REMAINING TASKS] tasks in your list.
+   Noted. I've removed this task: <br>
+   [TASK DETAILS] <br>
+   Now you have [NUMBER OF REMAINING TASKS] tasks in your list. 
         
 ### Find Task
 Find tasks from the task list using either description or timing.
@@ -141,10 +141,10 @@ Find tasks from the task list using either description or timing.
 
 **Expected Output**: 
 
-    Here are the matching tasks in your list:
-    [TASK INDEX]. [TASK DETAILS]
-    [TASK INDEX]. [TASK DETAILS]
-    ...
+   Here are the matching tasks in your list:
+   [TASK INDEX]. [TASK DETAILS]
+   [TASK INDEX]. [TASK DETAILS] 
+   ...
     
 ### Exit Program
 Exit from the application.
