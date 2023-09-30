@@ -16,6 +16,7 @@ public class Parser {
         String[] inputStrings = splitInput(fullCommand);
         String commandType = inputStrings[0];
         Command command = null;
+        String stringAfterCommandType = fullCommand.substring(commandType.length());
 
         try {
             if (commandType.equals("bye")) {
@@ -29,20 +30,22 @@ public class Parser {
                 int taskId = this.getTaskId(fullCommand);
                 command = new UnmarkCommand(taskId);
             } else if (commandType.equals("todo")) {
-                String description = this.getTaskDescription(fullCommand);
+                String description = this.getTaskDescription(stringAfterCommandType);
                 command = new AddTodoCommand(description);
             } else if (commandType.equals("deadline")) {
-                String[] descriptionAndBy = this.splitInputIntoDeadlineFormat(fullCommand);
+                String[] descriptionAndBy =
+                        this.splitInputIntoDeadlineFormat(stringAfterCommandType);
                 command = new AddDeadlineCommand(descriptionAndBy[0], descriptionAndBy[1]);
             } else if (commandType.equals("event")) {
-                String[] descriptionAndStartEndTime = this.splitInputIntoEventFormat(fullCommand);
+                String[] descriptionAndStartEndTime =
+                        this.splitInputIntoEventFormat(stringAfterCommandType);
                 command = new AddEventCommand(descriptionAndStartEndTime[0],
                         descriptionAndStartEndTime[1], descriptionAndStartEndTime[2]);
             } else if (commandType.equals("delete")) {
                 int taskId = this.getTaskId(fullCommand);
                 command = new DeleteCommand(taskId);
             } else if (commandType.equals("find")) {
-                String keyword = getKeyWord(fullCommand);
+                String keyword = getKeyWord(stringAfterCommandType);
                 command = new FindCommand(keyword);
             } else {
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -65,10 +68,10 @@ public class Parser {
             if (command.equals("todo")) {
                 task = taskList.addTodo(description);
             } else if (command.equals("deadline")) {
-                String[] descriptionAndBy = this.splitInputIntoDeadlineFormat(fullCommand);
+                String[] descriptionAndBy = this.splitInputIntoDeadlineFormat(description);
                 task = taskList.addDeadline(descriptionAndBy[0], descriptionAndBy[1]);
             } else if (command.equals("event")) {
-                String[] descriptionAndStartEndTime = this.splitInputIntoEventFormat(fullCommand);
+                String[] descriptionAndStartEndTime = this.splitInputIntoEventFormat(description);
                 task = taskList.addEvent(descriptionAndStartEndTime[0],
                         descriptionAndStartEndTime[1], descriptionAndStartEndTime[2]);
             } else {
@@ -83,10 +86,8 @@ public class Parser {
     }
 
     // split input into event description, start time and end time
-    private String[] splitInputIntoEventFormat(String fullCommand) throws DescriptionFormatException {
-        int taskTypeLength = TaskType.event.toString().length();
-        String description = fullCommand.substring(taskTypeLength);
-        String[] descriptionAndStartEndTime = description.split("/");
+    private String[] splitInputIntoEventFormat(String descriptions) throws DescriptionFormatException {
+        String[] descriptionAndStartEndTime = descriptions.split("/");
 
         if (descriptionAndStartEndTime.length != 3) {
             throw new DescriptionFormatException(
@@ -99,11 +100,8 @@ public class Parser {
     }
 
     // split input into deadline description and the date/time of the deadline
-    private String[] splitInputIntoDeadlineFormat(String fullCommand) throws DescriptionFormatException {
-        int taskTypeLength = TaskType.deadline.toString().length();
-        String description = fullCommand.substring(taskTypeLength);
-
-        String[] descriptionAndBy = description.split("/by");
+    private String[] splitInputIntoDeadlineFormat(String descriptions) throws DescriptionFormatException {
+        String[] descriptionAndBy = descriptions.split("/by");
 
         if (descriptionAndBy.length < 2) {
             throw new DescriptionFormatException(
@@ -126,25 +124,23 @@ public class Parser {
     }
 
     //split the input and get the keyword for find
-    private String getKeyWord(String fullCommand) throws DescriptionFormatException {
-        String[] description = splitInput(fullCommand);
-        if (description.length == 1) {
+    private String getKeyWord(String description) throws DescriptionFormatException {
+        if (description.isEmpty()) {
             throw new DescriptionFormatException(
                     "Wrong find format. Follow this format to find: "
                             + "find [keyword]");
         }
-        return description[1];
+        return description;
     }
 
     // get task description for todo
-    private String getTaskDescription(String fullCommand) throws DescriptionFormatException{
-        String[] description = splitInput(fullCommand);
-        if (description.length == 1) {
+    private String getTaskDescription(String descriptions) throws DescriptionFormatException{
+        if (descriptions.isEmpty()) {
             throw new DescriptionFormatException(
                     "Wrong todo format. Follow this format to add a todo: "
                             + "todo [todo description]");
         }
-        return description[1];
+        return descriptions;
     }
 
     //split input into action and full description
