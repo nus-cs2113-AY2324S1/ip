@@ -1,29 +1,59 @@
 # User Guide
+Nuke is a desktop app for managing tasks using CLI (Command Line Interface).
 
 ## Features 
 
-### Feature-ABC
+### Exiting: `bye`
 
-Description of the feature.
+Exits program while saving the tasks on the file system.
 
-### Feature-XYZ
+Format: `bye`
 
-Description of the feature.
+### Adding a task: `todo`
 
-## Usage
+Adds a task to the list.
 
-### `Keyword` - Describe action
+Format: `todo <NAME>`
 
-Describe the action and its outcome.
+### Adding a task with a deadline: `deadline`
 
-Example of usage: 
+Adds a task with a deadline to the list.
 
-`keyword (optional arguments)`
+Format: `deadline <NAME> /by <DEADLINE>`
 
-Expected outcome:
+### Adding an event: `event`
 
-Description of the outcome.
+Adds an event to the list.
 
-```
-expected output
-```
+Format: `event <NAME> /from <START> /to <END>`
+
+### Viewing all tasks: `list`
+
+Shows a list of tasks in the list.
+
+Format: `list`
+
+### Marking a task as done: `mark`
+
+Marks a task as done.
+
+Format: `mark <INDEX>`
+
+### Marking a task as not done: `unmark`
+
+Marks a task as not done.
+
+Format: `unmark <INDEX>`
+
+### Deleting a task: `delete`
+
+Deletes a task in the list.
+
+Format: `delete <INDEX>`
+
+### Finding a task by keyword: `find`
+
+Finds a task in the list by a keyword.
+
+Format: `find <KEYWORD>`
+
