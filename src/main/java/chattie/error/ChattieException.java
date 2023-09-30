@@ -26,6 +26,9 @@ public class ChattieException extends Exception{
         case OUT_OF_BOUNDS:
             System.out.println("\tOh no! This task doesn't exist");
             break;
+        case FILE_LOAD_FAIL:
+            System.out.println("\tOh no! Unable to load file");
+            break;
         }
 
     }
