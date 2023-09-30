@@ -1,10 +1,9 @@
 package tasklist;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import duke.DukeUi;
+import skippy.SkippyUi;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -13,13 +12,19 @@ import tasks.ToDo;
 
 /**
  *
- * The manager of the task list - adding, marking or unmarking tasks.
+ * The manager of the task list - adding, marking or unmarking tasks,
+ * deleting a task or finding a keyword in the task list.
  */
 public class TaskList {
 
-    private List<Task> tasks = new ArrayList<>();
+    private final String DELIMITER = " \\| ";
+    private final String DEADLINE_DELIMITER = "/by";
+    private final String EVENT_START = "/from";
+    private final String EVENT_END = "/to";
+    private final boolean WITHOUT_SCANNER = false;
+    public ArrayList<Task> tasks;
 
-    static DukeUi ui = new DukeUi();
+    SkippyUi ui = new SkippyUi(WITHOUT_SCANNER);
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -29,7 +34,7 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public List<Task> getTasks() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
@@ -51,14 +56,36 @@ public class TaskList {
         return index >= 1 && index <= tasks.size();
     }
 
+    private boolean hasBlankArgument(String input, String type) {
+        if (input.isEmpty()) {
+            ui.printBlankArgumentError(type);
+            return true;
+        }
+        return false;
+    }
+
     /**
+     * Returns true or false if there is any missing input.
+     * Calls print function to print missing message.
      *
+     * @param index index of the missing keyword
+     * @param type  type of missing keyword
+     * @return true or false
+     */
+    private boolean hasMissingInput(int index, String type) {
+        if (index == -1) {
+            ui.printMissingKeyword(type);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Method for when user inputs todo.
      *
-     * @param input The input string from user
-     * @param inputWords The description of todo task
+     * @param input The string of input that the user typed in
      */
-    public void addToDoTask(String input, String[] inputWords) {
+    public void addToDoTask(String input) {
         try {
             String todoDescription = input.substring(5);
             ToDo todo = new ToDo(todoDescription);
@@ -70,53 +97,68 @@ public class TaskList {
     }
 
     /**
-     *
      * Method for when user inputs deadline.
      *
-     * @param input The input string from user
-     * @param inputWords The description of deadline task
+     * @param input The string of input that the user typed in
      */
-    public void addDeadline(String input, String[] inputWords) {
-        if (inputWords.length > 2 && input.contains("/by")) {
-            int byIndex = input.indexOf("/by");
-            String deadlineDescription = input.substring(9, byIndex).trim();
-            String by = input.substring(byIndex + 3).trim();
-            Deadline deadline = new Deadline(deadlineDescription, by);
-            addTask(deadline);
-            ui.printAddedTask(deadline, this);
-        } else {
-            ui.printDeadlineException();
+    public void addDeadline(String input) {
+        int byIndex = input.indexOf(DEADLINE_DELIMITER);
+        if (hasMissingInput(byIndex, DEADLINE_DELIMITER)) {
+            return;
         }
+
+        String deadlineDescription = input.substring(9, byIndex).trim();
+        if (hasBlankArgument(deadlineDescription, "Deadline Name")) {
+            return;
+        }
+
+        String by = input.substring(byIndex + 3).trim();
+        if (hasBlankArgument(by, DEADLINE_DELIMITER)) {
+            return;
+        }
+
+        Deadline deadline = new Deadline(deadlineDescription, by);
+        addTask(deadline);
+        ui.printAddedTask(deadline, this);
     }
 
     /**
-     *
      * Method for when user inputs event.
      *
-     * @param input The input string from user
-     * @param inputWords The description of event task
+     * @param input The string of input that the user typed in
      */
-    public void addEvent(String input, String[] inputWords) {
-        if (inputWords.length > 3 && input.contains("/from")
-                && input.contains("/to")) {
-            int fromIndex = input.indexOf("/from");
-            int toIndex = input.indexOf("/to");
-            String eventDescription = input.substring(6, fromIndex).trim();
-            String from = input.substring(fromIndex + 6, toIndex).trim();
-            String to = input.substring(toIndex + 3).trim();
-            Event event = new Event(eventDescription, from, to);
-            addTask(event);
-            ui.printAddedTask(event, this);
-        } else {
-            ui.printEventException();
+    public void addEvent(String input) {
+        int fromIndex = input.indexOf(EVENT_START);
+        int toIndex = input.indexOf(EVENT_END);
+        if (hasMissingInput(fromIndex, EVENT_START)
+                || hasMissingInput(toIndex, EVENT_END)) {
+            return;
         }
+
+        String eventDescription = input.substring(6, fromIndex).trim();
+        if (hasBlankArgument(eventDescription, "Event Name")) {
+            return;
+        }
+
+        String from = input.substring(fromIndex + 6, toIndex).trim();
+        if (hasBlankArgument(from, EVENT_START)) {
+            return;
+        }
+
+        String to = input.substring(toIndex + 3).trim();
+        if (hasBlankArgument(to, EVENT_END)) {
+            return;
+        }
+
+        Event event = new Event(eventDescription, from, to);
+        addTask(event);
+        ui.printAddedTask(event, this);
     }
 
     /**
-     *
      * Method to mark a specified task as done
      *
-     * @param inputWords String input by user
+     * @param inputWords The array of split input by user
      */
     public void markAsDone(String[] inputWords) {
         try {
@@ -133,10 +175,9 @@ public class TaskList {
     }
 
     /**
-     *
      * Method to unmark a specified task as done.
      *
-     * @param inputWords String input by user
+     * @param inputWords The array of split input by user
      */
     public void unmark(String[] inputWords) {
         try {
@@ -153,14 +194,13 @@ public class TaskList {
     }
 
     /**
-     *
      * Method to delete a task.
      *
-     * @param inputWords String input by user
+     * @param inputWords The array of split input by user
      */
     public void deleteTask(String[] inputWords) {
-        int taskIndex = Integer.parseInt(inputWords[1]);
         try {
+            int taskIndex = Integer.parseInt(inputWords[1]);
             if (isValidIndex(taskIndex)) {
                 Task removedTask = tasks.remove(taskIndex - 1);
                 ui.printRemovedTask(removedTask, this);
@@ -168,9 +208,7 @@ public class TaskList {
                 System.out.println("Invalid task index.");
             }
         } catch (NumberFormatException e) {
-            ui.printLine();
-            System.out.println("Invalid input. Please use 'delete <number>'.");
-            ui.printLine();
+            ui.printDeleteTaskException();
         }
     }
 
@@ -196,14 +234,15 @@ public class TaskList {
      * @param s scanner containing the lines in the savefile.
      */
     public TaskList(Scanner s) {
+        this.tasks = new ArrayList<>();
         while (s.hasNextLine()) {
             String line = s.nextLine();
-            String[] args = line.split("\\|");
+            String[] args = line.split(DELIMITER);
             parseTasks(args);
         }
     }
 
-    public void parseTasks(String[] args) {
+    private void parseTasks(String[] args) {
         switch (args[0]) {
         case "T":
             tasks.add(new ToDo(args[2]));

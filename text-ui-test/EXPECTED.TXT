@@ -1,5 +1,5 @@
 Directory created: data
-File created: duke.txt
+File created: skippy.txt
 ____________________________________________________________
 File Contents:
 ____________________________________________________________

@@ -1,32 +1,78 @@
-package duke;
+package skippy;
 
 import java.util.List;
+import java.util.Scanner;
 
 import tasklist.TaskList;
 import tasks.Task;
-import static duke.Duke.taskList;
 
 
 /**
  *
  * This class fully manages printing Ui output.
  */
-public class DukeUi {
+public class SkippyUi {
 
     private final String LINE = "____________________________________________________________";
+
+    private final String SKIPPY = " _____________  __.____________________________.___.\n"
+            + "/   _____/    |/ _|   |______   |______   |__  |   |\n"
+            + "\\_____  \\|      < |   ||     ___/|     ___/|   |   |\n"
+            + "/        \\    |  \\|   ||    |    |    |    |____   |\n"
+            + "_______  /____|__ |___||____|    |____|    |_______|\n";
+
+    private Scanner scanner;
+
+    public SkippyUi(boolean withScanner) {
+        if (withScanner) {
+            this.scanner = new Scanner(System.in);
+        }
+    }
+
+    /**
+     * Returns the next line from user input in the terminal.
+     *
+     * @return line entered in terminal.
+     */
+
+    public String getNextLine() {
+        return scanner.nextLine();
+    }
+
+    /**
+     * Closes the scanner to prevent errors.
+     */
+
+    public void closeScanner() {
+        this.scanner.close();
+    }
 
     public void printLine() {
         System.out.println(LINE);
     }
 
     public void printWelcomeMessage() {
-        printLine();
-        System.out.println("Hi! I'm Juke");
+        System.out.println(SKIPPY);
+        System.out.println("Hi! I am Skippy the BunBun");
         System.out.println("What can I do for you?");
         printLine();
     }
 
-    public void printTaskList() {
+    public void printExitMessage() {
+        printLine();
+        System.out.println("Saving tasks...");
+        System.out.println("Goodbye!!");
+        printLine();
+    }
+
+    public void printInvalidInputMessage() {
+        printLine();
+        System.out.println("☹ OOPS!!! I'm sorry, " +
+                "but I don't know what that means :-(");
+        printLine();
+    }
+
+    public void printTaskList(TaskList taskList) {
         printLine();
         System.out.println("Here are the tasks in your list:");
         List<Task> tasks = taskList.getTasks();
@@ -87,17 +133,19 @@ public class DukeUi {
         printLine();
     }
 
-    public void printDeadlineException() {
-        printLine();
-        System.out.println("☹ OOPS!!! " +
-                "The description of a deadline cannot be empty.");
+    public void printBlankArgumentError(String arg) {
+        System.out.println("☹ OOPS!!! " + arg + " cannot be blank.");
         printLine();
     }
 
-    public void printEventException() {
+    public void printDeleteTaskException() {
         printLine();
-        System.out.println("☹ OOPS!!! " +
-                "The description of a event cannot be empty.");
+        System.out.println("Invalid input. Please use 'delete <number>'.");
+        printLine();
+    }
+
+    public void printMissingKeyword(String keyword) {
+        System.out.println(keyword + " keyword is missing");
         printLine();
     }
 }
