@@ -1,13 +1,21 @@
 # User Guide
 
-##### *_Chatty_* is a command-line application that keeps track of your tasks so that you would not need to worry about forgetting them.
+##### _*Chatty*_ is a command-line application that keeps track of your tasks so that you would not need to worry about forgetting them.
 
 
-- [Setting up]()
-- [Features]()
-    - [Add a Todo task : `todo`]()
-- [Frequently Asked Questions (FAQ)]()
-- [Command Summary]()
+- [Setting up](#setting-up)
+- [Features](#features)
+    - [Add a Todo task](#create-a-todo-task)
+    - [Add a Deadline task](#create-a-deadline-task)
+    - [Add an Event task](#create-an-event-task)
+    - [List all tasks](#list-all-tasks)
+    - [Mark a task as completed](#mark-a-task-as-complete)
+    - [Mark a task as not completed](#unmark-a-task)
+    - [Delete a task](#delete-a-task)
+    - [Find a task](#find-a-task)
+    - [Exit Chatty](#exit-the-application)
+- [Command Summary](#command-summary)
+- [Frequently Asked Questions (FAQ)](#frequently-asked-questions)
 
 
 ## Setting Up
@@ -87,7 +95,7 @@ The symbol `[D]` indicates that it is a task with deadline.
 
 The symbol `[ ]` indicates that it has not yet been completed.
 
-### Create a Event Task
+### Create an Event Task
 
 Creates a task with a start date and an end date.
 
@@ -119,7 +127,7 @@ The symbol `[E]` indicates that it is a task to be completed in a specific timef
 The symbol `[ ]` indicates that it has not yet been completed.
 
 
-### List all tasks.
+### List all tasks
 
 List down all the tasks that are created.
 
@@ -196,7 +204,7 @@ This indicates that the task is not completed.
 
 ### Delete a task
 
-If you have entered a task erroneously or you do not want it to be in the task list anymore, you can delete the task.
+If you have entered a task erroneously, or you do not want it to be in the task list anymore, you can delete the task.
 
 #### Usage
 
@@ -222,7 +230,7 @@ It shows you the task that is removed from the task list.
 
 ### Find a task
 
-Remeber some words in the tasks and not sure if it is in the task list? Use the `find` command to locate your task.
+Remember some words in the tasks and not sure if it is in the task list? Use the `find` command to locate your task.
 
 Note: The case of the search term must be identical to the one in the task description
 #### Usage
@@ -244,12 +252,14 @@ Here are your results:
 ____________________________________________________________
 ```
 The task that contains the search term 'Marinate' is being displayed.
+  
 
 ### Exit the application
 
 The `bye` command  exits the application.
+
 #### Usage
-You are satisfied with the updating of the task list this time round and you wish to exit the application 
+You are satisfied with the updating of the task list this time round, and you wish to exit the application 
 for the time being.
 ##### `bye` - find a task that contains a certain keyword.
 ##### Format: `bye`
@@ -267,7 +277,7 @@ Chatty terminates.
 
 
 
-## Command Summary
+
 
 ## Command Summary
 
