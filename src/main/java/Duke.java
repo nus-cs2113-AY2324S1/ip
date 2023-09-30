@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 import storage.Storage;
 
@@ -149,7 +150,20 @@ public class Duke {
                         }
                         ui.showLineDivider();
                         break;
-                    
+
+                    case "find":
+                        String keyword = parts[1].trim();
+                        if (keyword.isEmpty()) {
+                            throw new DukeException("☹ OOPS!!! The keyword for find cannot be empty.\n" + lineDivder);
+                        }
+
+                        ArrayList<Task> foundTasks = tasks.findTasks(keyword);
+                        if (foundTasks.isEmpty()) {
+                            throw new DukeException("☹ OOPS!!! No matching tasks found with the given keyword.\n" + lineDivder);
+                        }
+                        ui.showFoundTasks(tasks.findTasks(keyword));
+                        ui.showLineDivider();
+                        break;
                     default:
                         throw new DukeException("Unknown action");
                 }
