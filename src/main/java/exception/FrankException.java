@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 public class FrankException extends Exception {
     public FrankException(String message) {

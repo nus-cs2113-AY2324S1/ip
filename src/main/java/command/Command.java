@@ -1,7 +1,7 @@
-package Command;
-import Task.TaskList;
+package command;
+import task.TaskList;
 import java.util.Scanner;
-import Exception.FrankException;
+import exception.FrankException;
 
 public abstract class Command {
     protected String[] commands = null;

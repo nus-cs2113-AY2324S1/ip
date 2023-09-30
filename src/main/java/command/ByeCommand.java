@@ -1,5 +1,5 @@
-package Command;
-import Task.TaskList;
+package command;
+import task.TaskList;
 public class ByeCommand extends Command {
     final String SOLIDLINE = "\n------------------------------------------------------------------------------------------------------------------------------\n";
     @Override

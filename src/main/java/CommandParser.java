@@ -1,15 +1,14 @@
-import Command.Command;
-import Command.TodoCommand;
-import Command.ListCommand;
-import Command.DeadlineCommand;
-import Command.EventCommand;
-import Command.MarkCommand;
-import Command.UnmarkCommand;
-import Command.ByeCommand;
+import command.Command;
+import command.TodoCommand;
+import command.ListCommand;
+import command.DeadlineCommand;
+import command.EventCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
+import command.ByeCommand;
 
-import Exception.*;
-import Exception.FrankException;
-import Exception.FrankUnknownException;
+import exception.FrankException;
+import exception.FrankUnknownException;
 
 import java.util.Scanner;
 public class CommandParser {

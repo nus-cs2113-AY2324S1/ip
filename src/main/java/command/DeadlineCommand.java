@@ -1,8 +1,8 @@
-package Command;
+package command;
 
-import Task.Deadline;
-import Task.TaskList;
-import Exception.FrankException;
+import task.Deadline;
+import task.TaskList;
+import exception.FrankException;
 
 public class DeadlineCommand extends Command {
 

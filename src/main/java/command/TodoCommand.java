@@ -1,9 +1,9 @@
-package Command;
+package command;
 
-import Task.TaskList;
+import task.TaskList;
 import java.util.Scanner;
-import Exception.FrankException;
-import Task.Todo;
+import exception.FrankException;
+import task.Todo;
 
 public class TodoCommand extends Command {
     @Override
