@@ -49,7 +49,6 @@ public class Parser {
         return command;
     }
 
-    // parse the entire line from file and add them to taskList
     public void parseLoadingData(TaskList taskList, String fullCommand) {
         String[] inputStrings = splitInput(fullCommand);
         String command = inputStrings[0];
