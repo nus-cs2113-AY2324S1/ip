@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.parser.Parser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,11 +20,13 @@ public class Storage {
     private final String DATA_DIRECTORY = "data";
 
     private TextUi ui;
+    private Parser parser;
     private ArrayList<Task> tasksListPlaceholder;
 
     public Storage() {
         tasksListPlaceholder = new ArrayList<>();
         ui = new TextUi();
+        parser = new Parser();
     }
     public void addNewData(String dataString, int tasksCount) throws IOException {
         FileWriter writer = new FileWriter(DATA_PATH, true);
@@ -89,10 +93,13 @@ public class Storage {
             tasksListPlaceholder.add(new Todo(parsedTask[2] , parsedTask[1]));
             break;
         case "D":
-            tasksListPlaceholder.add(new Deadline(parsedTask[2], parsedTask[1], parsedTask[3]));
+            LocalDateTime by = parser.parseDateTime(parsedTask[3].trim());
+            tasksListPlaceholder.add(new Deadline(parsedTask[2], parsedTask[1], by));
             break;
         case "E":
-            tasksListPlaceholder.add(new Event(parsedTask[2], parsedTask[1], parsedTask[3], parsedTask[4]));
+            LocalDateTime start = parser.parseDateTime(parsedTask[3].trim());
+            LocalDateTime end = parser.parseDateTime(parsedTask[4].trim());
+            tasksListPlaceholder.add(new Event(parsedTask[2], parsedTask[1], start, end));
             break;
         }
     }

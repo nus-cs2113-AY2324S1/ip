@@ -9,6 +9,7 @@ import duke.task.Todo;
 import duke.ui.TextUi;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -22,7 +23,7 @@ public class TaskList {
     private TextUi ui;
     private ArrayList<Task> tasks;
     private Parser parser;
-    private int tasksCount = 0;
+    private int tasksCount;
 
     public TaskList(ArrayList<Task> tasks)  {
         ui = new TextUi();
@@ -94,10 +95,14 @@ public class TaskList {
             throw new DukeTaskException();
         }
 
-        tasks.add(new Deadline(parsedInput[0].trim(), parsedInput[1].trim()));
+        LocalDateTime by = parser.parseDateTime(parsedInput[1].trim());
+        String description = parsedInput[0].trim();
+        String byBeforeParse = parsedInput[1].trim();
+
+        tasks.add(new Deadline(description, by));
         tasksCount++;
 
-        return DEADLINE_DATA_TEMPLATE + parsedInput[0].trim() + " | "  + parsedInput[1].trim();
+        return DEADLINE_DATA_TEMPLATE + description + " | "  + byBeforeParse;
     }
 
     public boolean checkNumOfEventKeywords(String input) {
@@ -119,10 +124,16 @@ public class TaskList {
         String regex = FROM_KEYWORD + "|" + TO_KEYWORD;
         String[] parsedInput = parser.parseTask(input, regex);
 
-        tasks.add(new Event(parsedInput[0].trim(), parsedInput[1].trim(), parsedInput[2].trim()));
+        LocalDateTime start = parser.parseDateTime(parsedInput[1].trim());
+        LocalDateTime end = parser.parseDateTime(parsedInput[2].trim());
+        String description = parsedInput[0].trim();
+        String startBeforeParse = parsedInput[1].trim();
+        String endBeforeParse = parsedInput[2].trim();
 
-        String dataString = EVENT_DATA_TEMPLATE + parsedInput[0].trim() + " | "  + parsedInput[1].trim()
-                + " | " + parsedInput[2].trim();
+        tasks.add(new Event(description, start, end));
+
+        String dataString = EVENT_DATA_TEMPLATE + description + " | "  + startBeforeParse
+                + " | " + endBeforeParse;
 
         tasksCount++;
         return dataString;
