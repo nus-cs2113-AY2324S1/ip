@@ -72,6 +72,7 @@ The symbol `[ ]` indicates that it has not yet been completed.
 What if there is a deadline for a task? No worries, you can add a deadline to your task list for record.
 
 #### Usage
+There is a deadline to marinate the turkey in time for Christmas!
 
 ##### `deadline` - creates a task with a deadline
 ##### Format: `deadline <TASK DESCRIPTION> /by <End Date in yyyy-MM-dd format>`
@@ -207,12 +208,11 @@ This indicates that the task is not completed.
 If you have entered a task erroneously, or you do not want it to be in the task list anymore, you can delete the task.
 
 #### Usage
-
+After sending out all the Christmas invitations, you do not want the task to be in the task list anymore since 
+it is getting long.
 ##### `delete` - deletes a task
 ##### Format: `delete <TASK ID>`
 Example of usage:
-After sending out all the Christmas invitations, you do not want the task to be in the task list anymore since 
-it is getting long.
 ```
 delete 1
 ```
