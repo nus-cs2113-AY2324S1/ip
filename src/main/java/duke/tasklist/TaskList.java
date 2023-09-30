@@ -10,6 +10,9 @@ import duke.ui.TextUi;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class TaskList {
     private final String TODO_DATA_TEMPLATE = "T | false | " ;
@@ -22,7 +25,7 @@ public class TaskList {
     private TextUi ui;
     private ArrayList<Task> tasks;
     private Parser parser;
-    private int tasksCount = 0;
+    private int tasksCount;
 
     public TaskList(ArrayList<Task> tasks)  {
         ui = new TextUi();
@@ -126,5 +129,13 @@ public class TaskList {
 
         tasksCount++;
         return dataString;
+    }
+
+    public ArrayList<Task> filterList(String keyword) {
+         ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
+                 .filter((task) -> task.getDescription().contains(keyword))
+                 .collect(toList());
+
+         return filteredList;
     }
 }
