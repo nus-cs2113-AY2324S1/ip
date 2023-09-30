@@ -184,5 +184,6 @@ public class Storage {
 
         System.out.println("\tPlease try to run the app again.");
         ui.showLine();
+        System.exit(-1);
     }
 }
