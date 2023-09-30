@@ -141,9 +141,9 @@ Find tasks from the task list using either description or timing.
 
 **Expected Output**: 
 
-   Here are the matching tasks in your list:
-   [TASK INDEX]. [TASK DETAILS]
-   [TASK INDEX]. [TASK DETAILS] 
+   Here are the matching tasks in your list: <br>
+   [TASK INDEX]. [TASK DETAILS] <br>
+   [TASK INDEX]. [TASK DETAILS] <br>
    ...
     
 ### Exit Program
