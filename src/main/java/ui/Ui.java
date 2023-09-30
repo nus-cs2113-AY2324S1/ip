@@ -111,5 +111,11 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-
+    public void showFoundTasks(ArrayList<Task> foundTasks) {
+        System.out.println(lineDivider);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            System.out.println((i + 1) + "." + foundTasks.get(i));
+        }
+    }
 }

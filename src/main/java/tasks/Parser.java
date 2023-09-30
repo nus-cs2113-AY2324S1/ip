@@ -28,6 +28,9 @@ public class Parser {
         } else if (commandLowerCase.startsWith("event ")) {
             // Additional parsing for event command
             return "addEvent-" + trimmedCommand.substring(6);
+        } else if (commandLowerCase.startsWith("find ")) {
+            // Additional parsing for find command
+            return "find-" + trimmedCommand.substring(5);
         } else {
             throw new DukeException("Unknown command");
         }
