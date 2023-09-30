@@ -1,30 +1,48 @@
 package chattie;
 
-import chattie.tasks.Task;
-import chattie.tasks.TaskFile;
+import chattie.commands.Command;
+import chattie.error.ChattieException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class Chattie {
-    public static void main(String[] args) {
-        ArrayList<Task> list = new ArrayList<>();
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Chattie(String folderPath, String filePath) {
+        ui = new Ui();
+        storage = new Storage(folderPath, filePath);
         try {
-            TaskFile.loadFile();
-            list.addAll(TaskFile.readFromFile());
-        } catch (FileNotFoundException e) {
-            System.out.println("\tUnable to find chattie.txt");
-        } catch (IOException e) {
-            System.out.println("\tUnable to create chattie.txt");
+            tasks = new TaskList(storage.load());
+        } catch (ChattieException e) {
+            tasks = new TaskList();
         }
-        int count;
-        if (list.size() < 1) {
-            count = 0;
-        } else {
-            count = list.size();
+    }
+
+    public void run() {
+        ui.greetUser();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.printLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui);
+                storage.updateFile(tasks);
+                isExit = c.isExit();
+            } catch (ChattieException e) {
+                ui.showError();
+            } catch (IOException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.printLine();
+            }
         }
-        Chat.startChat(list, count);
+    }
+
+    public static void main(String[] args) {
+        new Chattie("./data", "./data/chattie.txt").run();
     }
 }
