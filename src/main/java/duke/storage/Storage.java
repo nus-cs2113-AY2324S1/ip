@@ -31,7 +31,7 @@ public class Storage {
     public void addNewData(String dataString, int tasksCount) throws IOException {
         FileWriter writer = new FileWriter(DATA_PATH, true);
 
-        if (tasksCount != 0) {
+        if (tasksCount != 1) {
             writer.write(System.lineSeparator());
         }
 
