@@ -43,7 +43,6 @@ public class CommandParser {
     public Command parseCommand(String input) throws InvalidFormatException, InvalidCommandException {
 
         String command = input.split(" ")[0];
-        Command commandObject = null;
 
         switch (command) {
         case LIST:
@@ -92,15 +91,14 @@ public class CommandParser {
         case EXIT:
             return new ExitCommand();
         case TODO:
-            ToDo td;
             try {
                 String taskDescription = taskDetailsParser.getContent(input);
-                td = new ToDo(taskDescription);
-
-                taskList.addTask(td);
+                ToDo td = new ToDo(taskDescription);
+                return new AddCommand(td, taskList);
+                /*taskList.addTask(td);
                 td.announceTaskAdd();
-                taskList.announceListSize();
-                dataManager.save(taskList);
+                taskList.announceListSize();*/
+//                dataManager.save(taskList);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Missing <task name>: Example: todo <read>");
             }
@@ -110,11 +108,11 @@ public class CommandParser {
                 String taskDescription = taskDetailsParser.getContent(input);
                 String taskDeadline = taskDetailsParser.getDeadlineDate(input);
                 Deadline d = new Deadline(taskDescription, taskDeadline);
-
-                taskList.addTask(d);
+                return new AddCommand(d, taskList);
+                /*taskList.addTask(d);
                 d.announceTaskAdd();
-                taskList.announceListSize();
-                dataManager.save(taskList);
+                taskList.announceListSize();*/
+//                dataManager.save(taskList);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
             } catch (TorchieException e) {
@@ -127,11 +125,11 @@ public class CommandParser {
                 String taskEventStart = taskDetailsParser.getEventStart(input);
                 String taskEventEnd = taskDetailsParser.getEventEnd(input);
                 Event e = new Event(taskDescription, taskEventStart, taskEventEnd);
-
-                taskList.addTask(e);
+                return new AddCommand(e, taskList);
+                /*taskList.addTask(e);
                 e.announceTaskAdd();
-                taskList.announceListSize();
-                dataManager.save(taskList);
+                taskList.announceListSize();*/
+//                dataManager.save(taskList);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
             } catch (TorchieException e) {
