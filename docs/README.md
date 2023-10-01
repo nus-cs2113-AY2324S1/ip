@@ -38,6 +38,7 @@ Make sure you have Java `11` or above installed on your system.
 6. Type the command in the command box and press Enter to execute it.
    Some example commands you can try:
 
+   - `help` : Displays the help page.
    - `list` : Lists all tasks.
    - `todo buy groceries` : Adds a todo buy groceries to the list of tasks.
    - `delete 2` : Deletes the 2nd task shown in the current list.
@@ -48,6 +49,11 @@ Make sure you have Java `11` or above installed on your system.
 7. Refer to the Features below for details of each command.
 
 ## Features
+
+### Viewing help: `help`
+
+Displays the help page.
+Format: `help`
 
 ### Adding a todo : `todo`
 
