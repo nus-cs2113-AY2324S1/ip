@@ -16,7 +16,7 @@ public class CommandParser {
         Scanner input = new Scanner(System.in);
         System.out.println("Available Commands: " + System.lineSeparator() +
                 "todo, deadline, event, " + System.lineSeparator() +
-                "mark <index>, unmark <index>, delete <index>, " + System.lineSeparator() +
+                "mark <index>, unmark <index>, delete <index>, search <terms>, " + System.lineSeparator() +
                 "list, clear, bye");
         String command = input.nextLine();
         String[] commands = command.split(" "); // if mark or unmark will be followed by an int
@@ -35,6 +35,8 @@ public class CommandParser {
             return new UnmarkCommand(command);
         case "delete":
             return new DeleteCommand(command);
+        case "search":
+            return new SearchCommand(command);
         case "clear":
             return new ClearCommand();
         case "bye":
