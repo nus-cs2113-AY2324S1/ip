@@ -153,6 +153,7 @@ public class Duke {
             default: {
                 throw new UndefinedTaskException(UNDEFINED_TASKS);
             }
+
             }
 
             try {
