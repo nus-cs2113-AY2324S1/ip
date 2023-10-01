@@ -37,6 +37,7 @@ public class DukeException {
             }
             break;
         case "todo":
+        case "find":
             if (this.userInput.length <= 1) {
                 emptyDescription();
                 this.exception = true;
