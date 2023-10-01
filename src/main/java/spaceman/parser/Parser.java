@@ -210,7 +210,11 @@ public class Parser {
      * @param arguments full command argument string
      * @return index of task
      */
-    public static int parseTaskIndex(String arguments) throws IndexOutOfBoundsException {
+    public static int parseTaskIndex(String arguments) throws IndexOutOfBoundsException,
+            IncompleteDescriptionException {
+        if (arguments == null) {
+            throw new IncompleteDescriptionException(MESSAGE_EMPTY_INDEX);
+        }
         int taskIndex = Integer.parseInt(arguments);
         if (taskIndex > Task.getTaskCount() || taskIndex <= 0) {
             throw new IndexOutOfBoundsException(MESSAGE_INVALID_INDEX);
