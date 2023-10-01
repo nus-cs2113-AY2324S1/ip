@@ -1,8 +1,7 @@
 package torchie.parser;
 
-import torchie.command.ExitCommand;
-import torchie.command.ListCommand;
-import torchie.command.SetStatusCommand;
+import torchie.command.*;
+import torchie.exception.InvalidCommandException;
 import torchie.exception.InvalidFormatException;
 import torchie.exception.TorchieException;
 import torchie.storage.DataManager;
@@ -10,7 +9,6 @@ import torchie.task.Deadline;
 import torchie.task.Event;
 import torchie.task.TaskList;
 import torchie.task.ToDo;
-import torchie.command.Command;
 
 import java.util.Scanner;
 
@@ -42,7 +40,7 @@ public class CommandParser {
         return new SetStatusCommand(c, taskList, itemNum);
     }
 */
-    public Command parseCommand(String input) throws InvalidFormatException {
+    public Command parseCommand(String input) throws InvalidFormatException, InvalidCommandException {
 
         String command = input.split(" ")[0];
         Command commandObject = null;
@@ -57,8 +55,8 @@ public class CommandParser {
 //                commandObject = createSetStatusCommand(command);
                 String itemNum_str = taskDetailsParser.getContent(input);
                 int itemNum = Integer.parseInt(itemNum_str) - 1;
-                dataManager.save(taskList);
                 return new SetStatusCommand(command, taskList, itemNum);
+//                dataManager.save(taskList);
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Invalid Format! Correct format: \"mark <index>\", where index is an integer ");
                 // throw invalid format exception
@@ -145,9 +143,9 @@ public class CommandParser {
             try {
                 String itemNum_str = taskDetailsParser.getContent(input);
                 int itemNum = Integer.parseInt(itemNum_str) - 1;
-                taskList.deleteTask(itemNum);
-                taskList.announceListSize();
-                dataManager.save(taskList);
+                return new DeleteCommand(taskList, itemNum);
+                /*taskList.deleteTask(itemNum);
+                taskList.announceListSize();*/
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Invalid Format! Correct format: \"delete <index>\" where" +
                         " index is an integer ");
@@ -156,10 +154,9 @@ public class CommandParser {
             }
             break;
         default:
-            System.out.println("Invalid Command!");
+            throw new InvalidCommandException();
         }
 
-        return commandObject;
     }
 
     public void getUserCommand() {
@@ -171,8 +168,11 @@ public class CommandParser {
             try {
                 Command command = parseCommand(input);
                 command.handleCommand();
+                dataManager.save(taskList);
             } catch (InvalidFormatException e) {
                 System.out.println(e);
+            } catch (InvalidCommandException e) {
+                e.showExceptionMessage();
             }
 
 
