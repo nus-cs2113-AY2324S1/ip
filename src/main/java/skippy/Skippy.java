@@ -16,7 +16,7 @@ public class Skippy {
     public boolean enteredBye;
     public SkippyUi ui;
     private final boolean WITH_SCANNER = true;
-    public static TaskList taskList;
+    public TaskList taskList;
     public FileManager fileManager;
     public SkippyParser parser;
 

@@ -278,7 +278,7 @@ public class TaskList {
                     taskFound = true;
                     ui.printTaskFoundMessage(input);
                 }
-                ui.printTaskWithNumber(taskNum);
+                ui.printTaskWithNumber(taskNum, task);
             }
             taskNum++;
         }
