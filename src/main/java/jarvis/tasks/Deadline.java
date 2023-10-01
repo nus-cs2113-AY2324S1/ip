@@ -2,24 +2,19 @@ package jarvis.tasks;
 
 public class Deadline extends Task {
 
-    protected String time;
+    protected String dueTime;
 
-    public Deadline(String description, String time) {
-        super(description);
-        this.time = time;
+    public Deadline(String description, String dueTime) {
+        super(description, TaskType.DEADLINE);
+        this.dueTime = dueTime;
     }
 
     public String getTime() {
-        return this.time;
+        return this.dueTime;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + time + ")";
-    }
-
-    @Override
-    public String getTaskType() {
-        return "D";
+        return "[D]" + super.toString() + " (by: " + dueTime + ")";
     }
 }

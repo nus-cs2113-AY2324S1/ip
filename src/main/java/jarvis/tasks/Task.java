@@ -1,16 +1,19 @@
 package jarvis.tasks;
 
 public class Task {
+    public enum TaskType {TODO, EVENT, DEADLINE, DEFAULT};
     protected String description;
     protected boolean isDone;
+    protected TaskType taskType;
 
-    public Task(String description) {
+    public Task(String description, TaskType taskType) {
         this.description = description;
         this.isDone = false;
+        this.taskType = taskType;
     }
 
-    public String getTaskType() {
-        return "TASK";
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     public String getDescription(){

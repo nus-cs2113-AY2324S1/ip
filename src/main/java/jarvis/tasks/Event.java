@@ -6,7 +6,7 @@ public class Event extends Task{
     protected String endTime;
 
     public Event(String description, String time) {
-        super(description);
+        super(description, TaskType.EVENT);
         this.time = time;
         String[] timeParts = time.split(" to ", 2);
         this.startTime = timeParts[0];
@@ -20,10 +20,5 @@ public class Event extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + time + ")";
-    }
-
-    @Override
-    public String getTaskType() {
-        return "E";
     }
 }

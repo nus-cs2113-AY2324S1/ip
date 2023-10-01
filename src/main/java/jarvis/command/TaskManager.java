@@ -1,5 +1,6 @@
 package jarvis.command;
 
+import jarvis.exception.JarvisException;
 import jarvis.tasks.Task;
 import jarvis.tasks.Todo;
 import jarvis.tasks.Deadline;
@@ -31,7 +32,7 @@ public class TaskManager {
         }
     }
 
-    public void markTaskAsDone(int index) throws JarvisException{
+    public void markTaskAsDone(int index) throws JarvisException {
         try {
             if (isValidIndex(index)) {
                 System.out.println("Nice! I've marked this task as done:");
@@ -248,19 +249,19 @@ public class TaskManager {
     public String toFileFormat(Task task) {
         String formattedString;
         switch(task.getTaskType()) {
-        case "T": // Todo task
+        case TODO: // Todo task
             formattedString = String.format("T|%s|%s",
                     task.getStatusIcon().equals("X") ? "1" : "0",
                     task.getDescription());
             break;
-        case "D": // Deadline task
+        case DEADLINE: // Deadline task
             Deadline deadline = (Deadline) task;
             formattedString = String.format("D|%s|%s|%s",
                     task.getStatusIcon().equals("X") ? "1" : "0",
                     task.getDescription(),
                     deadline.getTime());
             break;
-        case "E": // Event task
+        case EVENT: // Event task
             Event event = (Event) task;
             formattedString = String.format("E|%s|%s|%s",
                     task.getStatusIcon().equals("X") ? "1" : "0",
