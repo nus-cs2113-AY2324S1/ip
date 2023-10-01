@@ -1,5 +1,7 @@
 package command;
 import task.TaskList;
+
+import java.io.IOException;
 import java.util.Scanner;
 import exception.FrankException;
 
@@ -11,5 +13,5 @@ public abstract class Command {
         this.commands = command.split(" ");
     }
 
-    public abstract void execute(TaskList tasks) throws FrankException;
+    public abstract void execute(TaskList tasks) throws FrankException, IOException;
 }
