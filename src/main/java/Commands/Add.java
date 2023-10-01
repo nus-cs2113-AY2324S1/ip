@@ -27,7 +27,7 @@ public class Add extends Command{
     @Override
     public void execute(TaskList list, Ui ui) {
         list.add(task);
-        String[] text = {"Added: " + task.getDescription(), "Now you have " + list.size() + " tasks in the list."};
+        String[] text = {"Added: " + task.toString(), "Now you have " + list.size() + " tasks in the list."};
         ui.printMultipleText(text);
     }
 }

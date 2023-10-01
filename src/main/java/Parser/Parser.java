@@ -45,7 +45,7 @@ public class Parser {
                 Task deadline = getDeadline(input);
                 return new Add(deadline);
             case ADD_EVENT_COMMAND:
-                Task event = getTask(input);
+                Task event = getEvent(input);
                 return new Add(event);
             case DELETE_COMMAND:
                 return getDelete(input);
@@ -93,7 +93,7 @@ public class Parser {
         return new Deadline(deadlineDescription, byDate);
     }
 
-    private static Task getTask(String input) throws CSGPTParsingException {
+    private static Task getEvent(String input) throws CSGPTParsingException {
         if (input.equals(ADD_EVENT_COMMAND)) {
             throw new CSGPTParsingException("The description of a event cannot be empty.");
         }
@@ -116,6 +116,10 @@ public class Parser {
         String to = eventDetailsArray2[1];
         LocalDate fromDate = DateParser.parse(from);
         LocalDate toDate = DateParser.parse(to);
+
+        if (fromDate.isAfter(toDate)) {
+            throw new CSGPTParsingException("Start date cannot be after end date.");
+        }
 
         return new Event(eventDescription, fromDate, toDate);
     }
