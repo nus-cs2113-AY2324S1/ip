@@ -46,4 +46,16 @@ public class TaskList {
     public ArrayList<Task> getTaskData() {
         return this.Tasks;
     }
+
+    public ArrayList<Integer> searchTasks(String searchWord) {
+        ArrayList<Integer> index = new ArrayList<Integer>();
+        for(int i = 0; i < Tasks.size(); i++) {
+            Task task = Tasks.get(i);
+            String description = task.getDescription().toLowerCase();
+            if(description.contains(searchWord.toLowerCase())) {
+                index.add(i);
+            }
+        }
+        return index;
+    }
 }
