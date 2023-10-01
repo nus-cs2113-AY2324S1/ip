@@ -20,7 +20,7 @@ public class UnmarkCommand extends Command{
             if(!tasks.getTask(index).getIsDone()) {
                 throw new FrankException("Brough it is already unmarked!");
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             throw new FrankException("Brough there is no task to unmark!" );
         } catch (NumberFormatException e) {
             throw new FrankException("Brough please put the number index in the second word. ");

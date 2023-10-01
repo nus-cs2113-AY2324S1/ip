@@ -21,7 +21,7 @@ public class MarkCommand extends Command {
             if(tasks.getTask(index).getIsDone()) {
                 throw new FrankException("Brough it is already marked!");
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             throw new FrankException("Brough there is no task to mark!" );
         } catch (NumberFormatException e) {
             throw new FrankException("Brough please put the number index in the second word. ");

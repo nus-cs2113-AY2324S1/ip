@@ -4,6 +4,7 @@ import exception.FrankException;
 import task.TaskList;
 import java.io.IOException;
 import java.util.Scanner;
+import static utility.Constants.SOLIDLINE;
 
 /**
  * Clears everything from the task list
@@ -18,6 +19,7 @@ public class ClearCommand extends Command {
         String input = scanner.nextLine();
         if(input.equalsIgnoreCase("y")){
             tasks.clearTasks();
+            System.out.println(SOLIDLINE + "Clearing tasks..." + SOLIDLINE);
         }
         // else nothing
     }

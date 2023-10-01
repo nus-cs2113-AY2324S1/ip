@@ -35,7 +35,7 @@ public class Frank {
                 command.execute(tasks);
                 storage.setTaskData(tasks.getTaskData());
             } catch(FrankException | IOException e) {
-                System.out.println(e.getMessage());
+                System.out.println(SOLIDLINE + e.getMessage() + SOLIDLINE);
             }
         }
     }

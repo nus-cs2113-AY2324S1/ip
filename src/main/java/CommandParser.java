@@ -1,10 +1,15 @@
 import command.*;
-
 import exception.FrankException;
 import exception.FrankUnknownException;
-
 import java.util.Scanner;
+
 public class CommandParser {
+    /**
+     * Method to gather user command and feed it into the right command
+     *
+     * @return Command with an Execute method that the main method will perform
+     * @throws FrankException with an appropriate error message
+     */
     public static Command getCommand() throws FrankException {
         Scanner input = new Scanner(System.in);
         System.out.println("Available Commands: " +
