@@ -1,16 +1,10 @@
-package Command;
-
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
+package jarvis.command;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
-import static Command.TaskManager.parseEventDescription;
 
 public class UserInputHandler {
 
@@ -102,7 +96,7 @@ public class UserInputHandler {
         try {
             taskManager.loadTasksFromFile();
         } catch (IOException | JarvisException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
+            System.out.println("Error loading jarvis.tasks from file: " + e.getMessage());
         }
     }
 

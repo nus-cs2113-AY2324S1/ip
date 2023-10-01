@@ -1,4 +1,4 @@
-package Command;
+package jarvis.command;
 
 public class MessageDisplayer {
 

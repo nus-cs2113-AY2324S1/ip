@@ -1,4 +1,4 @@
-package Tasks;
+package jarvis.tasks;
 
 public class Deadline extends Task {
 

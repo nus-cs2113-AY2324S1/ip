@@ -1,9 +1,9 @@
-package Command;
+package jarvis.command;
 
-import Tasks.Task;
-import Tasks.Todo;
-import Tasks.Deadline;
-import Tasks.Event;
+import jarvis.tasks.Task;
+import jarvis.tasks.Todo;
+import jarvis.tasks.Deadline;
+import jarvis.tasks.Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class TaskManager {
     private final ArrayList<Task> taskList = new ArrayList<>();
 
     public void listTasks() {
-        System.out.println("Here's your tasks!");
+        System.out.println("Here's your jarvis.tasks!");
         for (int i = 0; i < taskList.size(); i++) {
             int indexNum = i + 1;
             System.out.println(indexNum + "." + taskList.get(i));
@@ -36,7 +36,7 @@ public class TaskManager {
             if (isValidIndex(index)) {
                 System.out.println("Nice! I've marked this task as done:");
                 taskList.get(index).markAsDone();
-                saveTasksToFile(); // Save tasks to file after a new task is added
+                saveTasksToFile(); // Save jarvis.tasks to file after a new task is added
                 System.out.println("    " + taskList.get(index));
             }
             else {
@@ -52,7 +52,7 @@ public class TaskManager {
             if (isValidIndex(index)) {
                 System.out.println("I've unmarked this task:");
                 taskList.get(index).markAsUndone();
-                saveTasksToFile(); // Save tasks to file after a new task is added
+                saveTasksToFile(); // Save jarvis.tasks to file after a new task is added
                 System.out.println("    " + taskList.get(index));
             }
             else {
@@ -274,7 +274,7 @@ public class TaskManager {
     }
 
     private void displayTaskCount() {
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " jarvis.tasks in the list.");
     }
 
     private boolean isValidIndex(int index) {

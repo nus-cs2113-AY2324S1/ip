@@ -1,4 +1,4 @@
-package Tasks;
+package jarvis.tasks;
 
 public class Event extends Task{
     protected String time;

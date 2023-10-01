@@ -1,4 +1,4 @@
-package Command;
+package jarvis.command;
 
 public class JarvisException extends Exception {
 
@@ -19,7 +19,7 @@ public class JarvisException extends Exception {
     }
 
     public static JarvisException invalidCommand(){
-        return new JarvisException("Unknown command. Please try again.");
+        return new JarvisException("Unknown jarvis.command. Please try again.");
     }
 
     private JarvisException(String message) {
