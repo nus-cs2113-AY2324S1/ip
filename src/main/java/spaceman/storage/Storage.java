@@ -79,20 +79,6 @@ public class Storage {
      */
     public void writeToFile(TaskList taskList) throws IOException {
         File file = new File(filePath);
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-        }
-        taskEncoder(taskList, file);
-    }
-
-    /**
-     * Encode tasks into strings to be saved into the storage data file.
-     * @param taskList list of tasks
-     * @param file storage data file
-     * @throws IOException If errors occur when saving data to the storage file.
-     */
-    private static void taskEncoder(TaskList taskList, File file) throws IOException {
         FileWriter fw = new FileWriter(file);
         ArrayList<Task> tasks = taskList.getTasks();
         for (Task task : tasks) {

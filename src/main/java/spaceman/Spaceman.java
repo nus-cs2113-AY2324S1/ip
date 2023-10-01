@@ -8,6 +8,7 @@ import spaceman.ui.Ui;
 import spaceman.storage.Storage;
 import spaceman.parser.Parser;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -25,14 +26,17 @@ public class Spaceman {
      * Sets up the required objects and loads up the data from the storage file.
      * @param filePath path of the file used to store data
      */
-    public Spaceman (String filePath) {
+    public Spaceman (String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.readDataFromFile());
         } catch (FileNotFoundException e) {
             Ui.showReadDataError();
-            tasks = new TaskList();
+            File file = new File(filePath);
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            tasks = new TaskList(storage.readDataFromFile());
         }
     }
 
@@ -69,7 +73,7 @@ public class Spaceman {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Spaceman("./data/spaceman.txt").run();
     }
 }
