@@ -14,6 +14,13 @@ public class Frank {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Constructor checks if storage exists
+     * If so, copies the TaskList from there
+     * Else, creates a new TaskList
+     * @param filePath The filepath where the storage file should be found
+     */
     public Frank(String filePath) {
         ui = new Ui();
         ui.showWelcome();
@@ -32,6 +39,10 @@ public class Frank {
         }
     }
 
+    /**
+     * Repeatedly runs commands, executes them then saves
+     * Will stop once "bye" is run as it runs System.close()
+     */
     public void run() {
         // Take commands
         Command command;
@@ -45,6 +56,11 @@ public class Frank {
             }
         }
     }
+
+    /**
+     * Starts the program
+     * @param args Compiler-side
+     */
     public static void main(String[] args) {
         new Frank(FILEPATH).run();
     }

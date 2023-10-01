@@ -8,6 +8,15 @@ public class DeleteCommand extends Command{
     public DeleteCommand(String command) {
         super(command);
     }
+
+    /**
+     * Deletes a task from the TaskList.
+     * Index is fed from the same line i.e. Delete 1 (1 indexed)
+     *
+     * @param tasks TaskList of current Tasks
+     * @param ui Current User Interface
+     * @throws FrankException Unique Exceptions
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws FrankException {
         int index;

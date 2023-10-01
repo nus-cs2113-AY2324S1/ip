@@ -8,6 +8,15 @@ public class UnmarkCommand extends Command{
     public UnmarkCommand(String command) {
         super(command);
     }
+
+     /**
+     * Unmarks a task of a certain index.
+     * Index is fed from same line i.e. unmark 1 (1 indexed)
+     *
+     * @param tasks TaskList of current Tasks
+     * @param ui Current User Interface
+     * @throws FrankException Unique Exceptions
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws FrankException {
         int index;

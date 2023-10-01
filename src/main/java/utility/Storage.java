@@ -13,6 +13,16 @@ public class Storage {
     protected File fileObj;
     protected ArrayList<Task> taskData;
 
+    /**
+     * Constructor to check if file already exists
+     * If not, creates a new file in the desired filepath
+     * Finally, reads from the file and parses the data
+     * then copies the data into the taskData
+     *
+     * @param filePath where the file will be created/found
+     * @throws IOException
+     * @throws FrankException
+     */
     public Storage(String filePath) throws IOException, FrankException {
         this.filePath = filePath;
         File dataFile = new File(filePath);
@@ -37,10 +47,19 @@ public class Storage {
         this.taskData = parseFile(currentData);
     }
 
+    /**
+     * Gets taskData (contents of the file)
+     * @return taskData
+     */
     public ArrayList<Task> getTaskData() {
         return this.taskData;
     }
 
+    /**
+     * Sets taskData (contents of the file)
+     * @param taskData The data to be copied to the file
+     * @throws IOException Input Exception
+     */
     public void setTaskData(ArrayList<Task> taskData) throws IOException {
         this.taskData = taskData;
         updateFile();
@@ -53,7 +72,7 @@ public class Storage {
      * @param filePath the area to create the file
      * @param dataFile The actual file to save
      * @return A boolean indicating successful or unsuccessful file creation
-     * @throws IOException
+     * @throws IOException Input Exception
      */
     public boolean createFile (String filePath, File dataFile) throws IOException {
         String[] pathArray;
@@ -81,7 +100,7 @@ public class Storage {
      * Reads whatever is in the current Tasklist and updates
      * the txt file
      *
-     * @throws IOException
+     * @throws IOException Input Exception
      */
     private void updateFile() throws IOException {
         FileWriter writer = new FileWriter(this.fileObj);

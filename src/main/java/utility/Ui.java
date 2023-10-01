@@ -19,6 +19,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Ui {
+    /**
+     * Print out tasks in order i.e. 1. [T][X] Get Milk
+     * @param tasks an ArrayList of Tasks, can get from TaskList.getTasks() method
+     */
     public void showTasks(ArrayList<Task> tasks) {
         System.out.print(SOLIDLINE);
         for(int i = 0; i < tasks.size(); i++) {
@@ -26,6 +30,14 @@ public class Ui {
         }
         System.out.print(SOLIDLINE);
     }
+
+    /**
+     * Shows only a few tasks from an arraylist of integers. Retains original numbers
+     * i.e. even if it's the only thing in the index then it will show 3. [T] etc.
+     *
+     * @param tasks an ArrayList of Tasks, can get from TaskList.getTasks() method
+     * @param index an ArrayList of integers, from SearchCommand
+     */
     public void showSelectedTasks(ArrayList<Task> tasks, ArrayList<Integer> index) {
         System.out.print(SOLIDLINE);
         if(index.isEmpty()) {
@@ -38,21 +50,46 @@ public class Ui {
         }
         System.out.print(SOLIDLINE);
     }
+
+    /**
+     * Show that a task has been marked "X" or " "
+     *
+     * @param task Task object
+     */
     public void showMarked(Task task) {
         System.out.println(SOLIDLINE + "Tres Bien! I have marked this as " +
                 (task.getIsDone() ? "done: " : "not done yet: "));
         System.out.println("[" + task.getStatusIcon() + "] " +
                 task.getDescription() + SOLIDLINE);
     }
+
+    /**
+     * Shows that a task has been deleted
+     * @param task Task object
+     */
     public void showDeleted(Task task) {
         System.out.println(SOLIDLINE + "Deleted: " + task + SOLIDLINE);
     }
+
+    /**
+     * Shows that a task has been added
+     * @param task Task object
+     */
     public void showAdded(Task task) {
         System.out.println(SOLIDLINE + "Added: " + task + SOLIDLINE);
     }
+
+    /**
+     * Displays when the user inputs "bye"
+     */
     public void showGoodbye() {
         System.out.println(SOLIDLINE + "\nGoodbye User, zai jian yong ze, sampai jumpa lagi user \n" + SOLIDLINE);
     }
+
+    /**
+     * Used in ClearCommand to ensure that users want to clear all Tasks permanently
+     * @return Boolean to indicate the user's confirmation response
+     */
     public boolean confirmExecute() {
         System.out.println("This will remove all tasks! Are you sure? + " +
                 "Type Y to confirm, another key to cancel. ");
@@ -65,6 +102,12 @@ public class Ui {
         System.out.println(SOLIDLINE + "Cancelling..." + SOLIDLINE);
         return false;
     }
+
+    /**
+     * Get the description of a Todo from the user
+     * @return String description of the Todo
+     * @throws FrankException
+     */
     public String getTodo() throws FrankException {
         Scanner input = new Scanner(System.in);
         System.out.println("What is your todo?" );
@@ -74,6 +117,14 @@ public class Ui {
         }
         return description;
     }
+
+    /**
+     * Get the description and due date of a user
+     * Due date must be in proper 25/12/23 format
+     *
+     * @return String array of {description, dueDate}
+     * @throws FrankException
+     */
     public String[] getDeadline() throws FrankException {
         String[] descDueDate = new String[2];
         Scanner input = new Scanner(System.in);
@@ -94,6 +145,13 @@ public class Ui {
         descDueDate[1] = descDueDate[1] + ", " + daysBetween + " days from now!";
         return descDueDate;
     }
+
+    /**
+     * Get the description, start date and end date for the event
+     * start date and end date must be in proper 11PM/03/12/23 format
+     * @return descStartDate a String array of {description, startDate, endDate}
+     * @throws FrankException
+     */
     public String[] getEvent() throws FrankException {
         String[] descStartEnd = new String[3];
         Scanner input = new Scanner(System.in);
@@ -122,14 +180,30 @@ public class Ui {
 
         return descStartEnd;
     }
+
+    /**
+     * Welcome screen with Logo and welcome message
+     */
     public void showWelcome() {
         System.out.println(SOLIDLINE + LOGO + SOLIDLINE);
         System.out.println("Hello user, I'm FRANK! Nice to meet you!\n" + SOLIDLINE);
     }
+
+    /**
+     * Display miscellaneous caught errors
+     * @param error the Exception's description, from e.getMessage method
+     */
     public void showError(String error) {
         System.out.println(SOLIDLINE + error + SOLIDLINE);
     }
 
+    /**
+     * Utility function for getDeadline and getEvent functions
+     * Takes user input and returns it in the desired format
+     *
+     * @param format The desired format i.e. "ha E MM yy"
+     * @return formattedDate (LocalDateTime object)
+     */
     public LocalDateTime parseUserDate(String format) {
         Scanner input = new Scanner(System.in);
         LocalDateTime formattedDate = null;

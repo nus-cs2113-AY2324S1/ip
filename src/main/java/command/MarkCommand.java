@@ -9,6 +9,15 @@ public class MarkCommand extends Command {
     public MarkCommand(String command) {
         super(command);
     }
+
+    /**
+     * Marks a task of a certain index.
+     * Index is fed from same line i.e. mark 1 (1 indexed)
+     *
+     * @param tasks TaskList of current Tasks
+     * @param ui Current User Interface
+     * @throws FrankException Unique Exceptions
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws FrankException {
         int index;
