@@ -74,6 +74,27 @@ public class Ui {
         System.out.println(tasks.getTasks().get(index - 1));
     }
 
+    public void findKeyword(TaskList tasks, String keyword){
+        if(keyword==null || keyword.isEmpty()){
+            printList(tasks);
+            return;
+        }
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (Task task : tasks.getTasks()){
+            if (task.getDescription().contains(keyword)){
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.size() == 0){
+            System.out.println("There are no matching tasks in your list!");
+        } else{
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i+1) + "." + matchingTasks.get(i));
+            }
+        }
+    }
+
     public void printInvalidDeadlineMessage(){
         System.out.println("Oops, I don't understand that! Please provide a valid deadline in the format: " +
                 "deadline <description> /by <due date>");
