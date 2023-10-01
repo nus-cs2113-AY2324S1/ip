@@ -1,4 +1,7 @@
 package jarvis.command;
+/**
+ * Command to add a todo to list
+ */
 
 import jarvis.storage.Storage;
 import jarvis.tasks.Task;

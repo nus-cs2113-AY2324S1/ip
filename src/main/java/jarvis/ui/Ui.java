@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Ui {
     private final Scanner input = new Scanner(System.in);
-    private Storage dataStorage;
+//    private Storage dataStorage;
     private TaskList tasks;
 
     private static final String LOGO = "\n" +
@@ -19,8 +19,8 @@ public class Ui {
             "                 \\/       \\/                       \\/ \n";
     private static final String LINE_BREAK = "____________________________________________________________";
 
-    public Ui(Storage dataStorage, TaskList tasks){
-        this.dataStorage = dataStorage;
+    public Ui(TaskList tasks){
+//        this.dataStorage = dataStorage;
         this.tasks = tasks;
     }
 

@@ -8,25 +8,24 @@ import jarvis.tasks.Event;
 
 import java.util.ArrayList;
 
-/*
-TODO: migrate taskmanager here, some parts of userInputHandler but that'll go to parser
- returns a tasklist so that storage can store the same arraylist
- */
-
 /**
  * Stores the list of tasks registered on the ChatBot
  * list of tasks is temporary and will be disposed upon program termination
  */
 
 public class TaskList {
-    private ArrayList<Task> taskList; // stores all inputs
+    private ArrayList<Task> taskList; 
 
     public ArrayList<Task> getTaskList(){
         return taskList;
     }
 
+    public int getTaskListSize(){
+        return taskList.size();
+    }
+
     private void displayTaskCount() {
-        System.out.println("Now you have " + taskList.size() + " jarvis.tasks in the list.");
+        System.out.println("Now you have " + getTaskListSize() + " jarvis.tasks in the list.");
     }
 
     public void printTaskList() {
@@ -48,6 +47,7 @@ public class TaskList {
         case TODO:
             try{
                 String description = TaskManager.parseToDoDescription(userInput);
+                System.out.println(description);
                 taskList.add(new Todo(description));
                 if(displayMessage){
                     TaskManager.showTodo(description);

@@ -22,7 +22,7 @@ public class JarvisException extends Exception {
         return new JarvisException("Unknown jarvis.command. Please try again.");
     }
 
-    private JarvisException(String message) {
+    public JarvisException(String message) {
         super(message);
     }
 }
