@@ -1,20 +1,20 @@
 package jarvis.command;
+
 import jarvis.storage.Storage;
 import jarvis.tasks.Task;
 import jarvis.tasklist.TaskList;
 import jarvis.ui.Ui;
-
-public class CommandDeadline extends Command {
+public class CommandToDo extends Command {
     private String userInput;
-
-    public CommandDeadline(String userInput){
-        super(CommandType.DEADLINE);
+    public CommandToDo(String userInput){
+        super(CommandType.TODO);
         this.userInput = userInput;
     }
 
     @Override
     public void executeCommand(Ui ui, Storage dataStorage, TaskList tasks){
-        tasks.addToTaskList(userInput, Task.TaskType.DEADLINE, true);
-        // TODO: add to storage
+        tasks.addToTaskList(userInput, Task.TaskType.TODO, true);
+        //TODO: add to storage
     }
+
 }

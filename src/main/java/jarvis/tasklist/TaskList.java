@@ -14,11 +14,21 @@ TODO: migrate taskmanager here, some parts of userInputHandler but that'll go to
  */
 
 /**
- * Stores the list of tasks registered on the chatbot
+ * Stores the list of tasks registered on the ChatBot
  * list of tasks is temporary and will be disposed upon program termination
  */
 
 public class TaskList {
     private ArrayList<Task> taskList; // stores all inputs
 
+    public void addToTaskList(String input, Task.TaskType taskType, boolean displayMessage){
+        switch(taskType){
+        case TODO:
+            return;
+        case DEADLINE:
+            return;
+        case EVENT:
+            return;
+        }
+    }
 }

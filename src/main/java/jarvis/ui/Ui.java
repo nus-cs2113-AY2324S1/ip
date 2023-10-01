@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Ui {
     private final Scanner input = new Scanner(System.in);
     private Storage dataStorage;
-    private Tasklist tasks;
+    private TaskList tasks;
 
     private static final String LOGO = "\n" +
             "     ____.  _____ ______________   ____.___  _________\n" +
