@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FileManager {
 
@@ -25,20 +26,21 @@ public class FileManager {
 
             while ((line = bufferedReader.readLine()) != null) {
                 String[] parts = line.split("\\|");
+                System.out.println(Arrays.toString(parts));
                 String keyword = parts[0].trim();
                 switch (keyword){
                 case "T":
-                    Task todo = new ToDo(parts[2].trim());
+                    Task todo = new ToDo(parts, true);
                     todo.isDone = Boolean.parseBoolean(parts[1].trim());
                     taskList.add(todo);
                     break;
                 case "D":
-                    Deadline deadline = new Deadline(parts[2].trim(), parts[3].trim());
+                    Deadline deadline = new Deadline(parts, true);
                     deadline.isDone = Boolean.parseBoolean(parts[1].trim());
                     taskList.add(deadline);
                     break;
                 case "E":
-                    Task event = new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+                    Task event = new Event(parts, true);
                     event.isDone = Boolean.parseBoolean(parts[1].trim());
                     taskList.add(event);
                     break;
