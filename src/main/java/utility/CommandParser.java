@@ -12,8 +12,10 @@ public class CommandParser {
      */
     public static Command getCommand() throws FrankException {
         Scanner input = new Scanner(System.in);
-        System.out.println("Available Commands: " +
-                "todo, list, deadline, event, mark <index>, unmark <index>, delete <index>, clear, bye");
+        System.out.println("Available Commands: " + System.lineSeparator() +
+                "todo, deadline, event, " + System.lineSeparator() +
+                "mark <index>, unmark <index>, delete <index>, " + System.lineSeparator() +
+                "list, clear, bye");
         String command = input.nextLine();
         String[] commands = command.split(" "); // if mark or unmark will be followed by an int
         switch (commands[0]) {
