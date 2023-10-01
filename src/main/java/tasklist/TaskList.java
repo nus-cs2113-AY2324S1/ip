@@ -17,7 +17,7 @@ import tasks.ToDo;
  */
 public class TaskList {
 
-    private final String DELIMITER = " \\| ";
+    private final String DELIMITER = "\\|";
     private final String DEADLINE_DELIMITER = "/by";
     private final String EVENT_START = "/from";
     private final String EVENT_END = "/to";

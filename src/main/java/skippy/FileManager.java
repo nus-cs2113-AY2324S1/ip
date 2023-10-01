@@ -93,8 +93,10 @@ public class FileManager {
      * @throws IOException if I/O errors occur while reading the file
      */
     public TaskList parseSaveFile() throws IOException {
-        Scanner s = new Scanner(FILE_PATH);
+        File f = new File(FILE_PATH);
+        Scanner s = new Scanner(f);
         TaskList taskList = new TaskList(s);
+        System.out.println(taskList);
         s.close();
         return taskList;
     }
