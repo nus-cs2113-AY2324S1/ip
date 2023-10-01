@@ -1,11 +1,15 @@
 package duke;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    private String startDate;
-    private String endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("MMM-dd-yyyy HH:mm");
 
-    public Event(String description, String startDate, String endDate){
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate){
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -13,11 +17,11 @@ public class Event extends Task {
 
     @Override
     public String toString(){
-        return "[E]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
+        return "[E]" + super.toString() + " (from: " + startDate.format(DTF) + " to: " + endDate.format(DTF) + ")";
     }
 
     @Override
     public String toFileString(){
-        return ("E | " + super.toFileString() + " | " + startDate + " | " + endDate);
+        return ("E | " + super.toFileString() + " | " + startDate.format(DTF) + " | " + endDate.format(DTF));
     }
 }

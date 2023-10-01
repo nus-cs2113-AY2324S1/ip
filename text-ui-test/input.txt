@@ -1,8 +1,8 @@
 todo read book
 list
-deadline return book /by June 6th
+deadline return book /by 2019-06-13
 list
-event project meeting /from Aug 6th 2pm /to 4pm
+event project meeting /from 2022-08-06 13:00 /to 2022-08-06 12:00
 list
 mark 1
 unmark 0
