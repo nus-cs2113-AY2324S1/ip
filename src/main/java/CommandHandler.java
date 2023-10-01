@@ -40,7 +40,7 @@ public class CommandHandler {
                     handleAddTaskMethod(userInput, tasks);
             }
         } catch (DukeException e) {
-            System.out.println("Ahnge: ☹ OOPS!!! The command is not found.");
+            System.out.println("Ahnge: OOPS!!! The command is not found.");
             printLines();
         }
     }
@@ -163,7 +163,7 @@ public class CommandHandler {
         if (userInput.startsWith("todo ")) {
             String description = userInput.substring(5).trim();
             if (description.isEmpty()) {
-                throw new DukeException("Ahnge: ☹ OOPS!!! The description of a task cannot be empty.");
+                throw new DukeException("Ahnge: OOPS!!! The description of a task cannot be empty.");
             }
             return new ToDo(description, false);
         } else if (userInput.startsWith("deadline ")) {
@@ -172,7 +172,7 @@ public class CommandHandler {
                 String description = parts[0].trim();
                 String by = parts[1].trim();
                 if (description.isEmpty() || by.isEmpty()) {
-                    throw new DukeException("Ahnge: ☹ OOPS!!! The description and deadline cannot be empty.");
+                    throw new DukeException("Ahnge: OOPS!!! The description and deadline cannot be empty.");
                 }
                 return new Deadline(description, by, false);
             }
@@ -185,7 +185,7 @@ public class CommandHandler {
                     String from = eventDetails[0].trim();
                     String to = eventDetails[1].trim();
                     if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                        throw new DukeException("Ahnge: ☹ OOPS!!! The description, start time, and end time cannot be empty.");
+                        throw new DukeException("Ahnge: OOPS!!! The description, start time, and end time cannot be empty.");
                     }
                     return new Event(description, from, to,false);
                 }
