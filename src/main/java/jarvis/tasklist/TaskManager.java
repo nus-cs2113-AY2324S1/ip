@@ -1,4 +1,4 @@
-package jarvis.command;
+package jarvis.tasklist;
 
 import jarvis.exception.JarvisException;
 import jarvis.tasks.Task;
@@ -82,6 +82,12 @@ public class TaskManager {
         saveTasksToFile();
     }
 
+    public static void showTodo(String description){
+        Todo todo = new Todo(description);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + todo);
+    }
+
     public void loadTodo(String description) {
         Todo todo = new Todo(description);
         taskList.add(todo);
@@ -91,7 +97,8 @@ public class TaskManager {
         if (userInput.length() <= TODO_COMMAND_LENGTH) {
             throw JarvisException.invalidTodoFormat();
         }
-        String description = userInput.substring(TODO_COMMAND_LENGTH).trim();
+//        String description = userInput.substring(TODO_COMMAND_LENGTH).trim();
+        String description = userInput.split("todo")[1].strip();
         if(description.isEmpty()) {
             throw JarvisException.invalidTodoFormat();
         }

@@ -24,6 +24,10 @@ public class Ui {
         this.tasks = tasks;
     }
 
+    /**
+     * Read the user's CLI input
+     * @return return it as a string --> to be used by task
+     */
     public String readCommand(){
         return input.nextLine();
     }
@@ -35,12 +39,12 @@ public class Ui {
     public void displayWelcomeMessage() {
         System.out.println("Hello from\n" + LOGO);
         System.out.println(LINE_BREAK + "\n Hi Sir! I'm JARVIS \n" + " What can I do for you today?\n" + LINE_BREAK);
-        dataStorage.loadData(tasks);
+//        dataStorage.loadData(tasks);
         displayLine();
     }
 
     public void displayGoodbyeMessage() {
-        dataStorage.updateData(tasks);
+//        dataStorage.updateData(tasks);
         System.out.println(LINE_BREAK + "\n" +
                 "Good bye sir! Have a good day" + "\n" + LINE_BREAK);
     }
