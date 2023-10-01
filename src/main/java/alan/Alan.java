@@ -1,12 +1,12 @@
 package alan;
 
+import alan.data.TaskList;
 import alan.data.exception.AlanException;
 import alan.data.task.Deadline;
 import alan.data.task.Event;
 import alan.data.task.Task;
 import alan.data.task.TaskType;
 import alan.data.task.Todo;
-import alan.storage.Storage;
 import alan.ui.Ui;
 
 import java.io.File;
@@ -17,7 +17,6 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static alan.common.Messages.*;
 import static alan.data.exception.AlanException.checkDeadlineInputFormat;
 import static alan.data.exception.AlanException.checkEmptyDescription;
 import static alan.data.exception.AlanException.checkEventInputFromFormat;
@@ -26,7 +25,7 @@ import static alan.data.exception.AlanException.checkOutOfTaskListIndex;
 import static alan.data.exception.AlanException.invalidInputCommand;
 
 public class Alan {
-    public static void processCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanException {
+    public static void processCommandHandler(String userInput) throws AlanException {
         String[] userInputWords = userInput.split(" ");
         String command = userInputWords[0];
 
@@ -36,68 +35,68 @@ public class Alan {
             break;
         case "list":
             //print the tasks in the lists
-            listCommandHandler(taskList);
+            listCommandHandler();
             break;
         case "mark":
             //mark tasks as done
-            markingCommandHandler(userInput, taskList, true);
+            markingCommandHandler(userInput, true);
             break;
         case "unmark":
             //unmark tasks as undone
-            markingCommandHandler(userInput, taskList, false);
+            markingCommandHandler(userInput, false);
             break;
         case "todo":
             //add to-do task to the list
             checkEmptyDescription(userInput);
-            todoCommandHandler(userInput, taskList);
+            todoCommandHandler(userInput);
             break;
         case "deadline":
             //add deadline task to the list
             checkEmptyDescription(userInput);
-            deadlineCommandHandler(userInput, taskList);
+            deadlineCommandHandler(userInput);
             break;
         case "event":
             //add event task to the list
             checkEmptyDescription(userInput);
-            eventCommandHandler(userInput, taskList);
+            eventCommandHandler(userInput);
             break;
         case "delete":
             //delete task from the list
-            deleteCommandHandler(userInput, taskList);
+            deleteCommandHandler(userInput);
             break;
         default:
             invalidInputCommand();
         }
     }
 
-    public static void listCommandHandler(ArrayList<Task> taskList) {
-        ui.showListMessage(taskList);
+    public static void listCommandHandler() {
+        ui.showListMessage(tasks.getTaskList());
     }
 
-    public static void markingCommandHandler(String userInput, ArrayList<Task> taskList, boolean isMark) throws AlanException {
+    public static void markingCommandHandler(String userInput, boolean isMark) throws AlanException {
         String[] words = userInput.split(" ");
         int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
 
-        checkOutOfTaskListIndex(selectedTaskIndex, taskList);
-        Task targetTask = taskList.get(selectedTaskIndex);
+        checkOutOfTaskListIndex(selectedTaskIndex, tasks.getTaskList());
+        Task targetTask = tasks.getSelectedTask(selectedTaskIndex);
 
         if (isMark) {
-            taskList.get(selectedTaskIndex).setDone(true);
+            tasks.markTask(selectedTaskIndex, true);
             ui.showMarkTaskMessage(targetTask);
         } else {
-            taskList.get(selectedTaskIndex).setDone(false);
+            tasks.markTask(selectedTaskIndex, false);
             ui.showUnmarkTaskMessage(targetTask);
         }
     }
 
-    public static void todoCommandHandler(String userInput, ArrayList<Task> taskList) {
+    public static void todoCommandHandler(String userInput) {
         String description = userInput.replace("todo ", "");
-        taskList.add(new Todo(description));
+        tasks.addToDo(description);
 
-        ui.showTaskAddedMessage(taskList);
+        ui.showTaskAddedMessage(tasks.getTaskList());
     }
 
-    public static void deadlineCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanException {
+    public static void deadlineCommandHandler(String userInput) throws AlanException {
         String filteredUserInput = userInput.replace("deadline ", "");
         String[] words = filteredUserInput.split(" /by ");
 
@@ -106,12 +105,12 @@ public class Alan {
         String description = words[0];
         String by = words[1];
 
-        taskList.add(new Deadline(description, by));
+        tasks.addDeadline(description, by);
 
-        ui.showTaskAddedMessage(taskList);
+        ui.showTaskAddedMessage(tasks.getTaskList());
     }
 
-    public static void eventCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanException {
+    public static void eventCommandHandler(String userInput) throws AlanException {
         String filteredUserInput = userInput.replace("event ", "");
         String[] splitDescriptionAndDate = filteredUserInput.split(" /from ");
 
@@ -125,24 +124,24 @@ public class Alan {
         String from = splitFromAndTo[0];
         String to = splitFromAndTo[1];
 
-        taskList.add(new Event(description, from, to));
+        tasks.addEvent(description, from, to);
 
-        ui.showTaskAddedMessage(taskList);
+        ui.showTaskAddedMessage(tasks.getTaskList());
     }
 
-    public static void deleteCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanException {
+    public static void deleteCommandHandler(String userInput) throws AlanException {
         String[] words = userInput.split(" ");
         int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
-        checkOutOfTaskListIndex(selectedTaskIndex, taskList);
+        checkOutOfTaskListIndex(selectedTaskIndex, tasks.getTaskList());
 
-        Task targetTask = taskList.get(selectedTaskIndex);
+        Task targetTask = tasks.getSelectedTask(selectedTaskIndex);
         ui.showDeleteTaskMessage(targetTask);
-        taskList.remove(selectedTaskIndex);
+        tasks.removeTask(selectedTaskIndex);
 
-        int numberOfTasks = taskList.size();
+        int numberOfTasks = tasks.getTaskListSize();
         ui.showNumberOfTasksMessage(numberOfTasks);
     }
-    public static void saveFileHandler(ArrayList<Task> taskList) throws Exception {
+    public static void saveFileHandler() throws Exception {
         String userWorkingDirectory = System.getProperty("user.dir");
         java.nio.file.Path tasksFilePath = java.nio.file.Paths.get(userWorkingDirectory, "data", "tasks.txt");
         java.nio.file.Path dataFolderPath = java.nio.file.Paths.get(userWorkingDirectory, "data");
@@ -162,8 +161,8 @@ public class Alan {
         }
 
         //input arraylist data into text file
-        for (int i = 0; i < taskList.size(); i++) {
-            String taskDataRow = getStringOfTaskInformation(taskList, i);
+        for (int i = 0; i < tasks.getTaskListSize(); i++) {
+            String taskDataRow = getStringOfTaskInformation(i);
 
             if (i == 0) {
                 writeToFile(tasksFilePath.toString(), taskDataRow);
@@ -173,8 +172,8 @@ public class Alan {
         }
     }
 
-    private static String getStringOfTaskInformation(ArrayList<Task> taskList, int i) {
-        Task task = taskList.get(i);
+    private static String getStringOfTaskInformation(int i) {
+        Task task = tasks.getSelectedTask(i);
         String taskDataRow = task.getTaskType() + " | " + task.getStatusValue() + " | " + task.getDescription();
 
         if (task.getTaskType() == TaskType.D) {
@@ -202,7 +201,7 @@ public class Alan {
         fw.close();
     }
 
-    private static void readFileHandler(ArrayList<Task> taskList) throws FileNotFoundException {
+    private static void readFileHandler() throws FileNotFoundException {
         String userWorkingDirectory = System.getProperty("user.dir");
         java.nio.file.Path tasksFilePath = java.nio.file.Paths.get(userWorkingDirectory, "data", "tasks.txt");
         File textFile = new File(String.valueOf(tasksFilePath));
@@ -216,12 +215,12 @@ public class Alan {
             }
             s.close();
 
-            extractAndStoreDataInTaskList(taskList, list);
+            extractAndStoreDataInTaskList(list);
 
         }
     }
 
-    private static void extractAndStoreDataInTaskList(ArrayList<Task> taskList, ArrayList<String> list) {
+    private static void extractAndStoreDataInTaskList(ArrayList<String> list) {
         //todo: after this line should check if the data is in correct format
         for (String task : list) {
             String[] splitTaskString = task.split(" \\| ");
@@ -230,61 +229,28 @@ public class Alan {
             String description = splitTaskString[2];
             boolean isDone = isDoneStringToBoolean(isDoneString);
 
-            addTaskToTaskList(taskList, taskType, description, splitTaskString);
+            tasks.addTaskToTaskList(taskType, description, splitTaskString);
 
-            int lastTaskIndex = taskList.size() - 1;
-            taskList.get(lastTaskIndex).setDone(isDone);
-        }
-    }
-
-    private static void addTaskToTaskList(ArrayList<Task> taskList, String taskType, String description, String[] splitTaskString) {
-        switch (taskType) {
-        case "T":
-            taskList.add(new Todo(description));
-            break;
-        case "D":
-            String by = splitTaskString[3];
-            taskList.add(new Deadline(description, by));
-            break;
-        case "E":
-            String date = splitTaskString[3];
-            String[] splitDate = date.split("-");
-            String from = splitDate[0];
-            String to = splitDate[1];
-
-            taskList.add(new Event(description, from, to));
-            break;
-        default:
-            //todo handle invalid task type
-            break;
+            int lastTaskIndex = tasks.getLastTaskIndex();
+            tasks.getSelectedTask(lastTaskIndex).setDone(isDone);
         }
     }
 
     private static boolean isDoneStringToBoolean (String string) {
-        boolean isDone = false;
-
-        if (string.equals("1")) {
-            isDone = true;
-        }
-
-        if (string.equals("0")) {
-            isDone = false;
-        }
-
-        //todo check if isDone is correct value, error handling
-
-        return isDone;
+        // todo check if isDone is correct value, error handling
+        return string.equals("1");
     }
 
     /** MORE OOP Increment **/
     private static Ui ui;
+    private static TaskList tasks;
 
     public static void runAlan() {
         ui = new Ui();
-        ArrayList<Task> taskList = new ArrayList<>();
+        tasks = new TaskList();
 
         try {
-            readFileHandler(taskList);
+            readFileHandler();
         } catch (Exception exception) {
             ui.showToUser(exception.getMessage());
         }
@@ -296,7 +262,7 @@ public class Alan {
         do {
             try {
                 userInput = ui.getUserCommand();
-                processCommandHandler(userInput, taskList);
+                processCommandHandler(userInput);
             } catch (AlanException e) {
                 ui.showToUser(e.getMessage());
             } finally {
@@ -306,7 +272,7 @@ public class Alan {
 
         //Store TaskList in Text file tasks.txt
         try {
-            saveFileHandler(taskList);
+            saveFileHandler();
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
