@@ -1,42 +1,42 @@
 import command.Command;
 import task.TaskList;
 import exception.FrankException;
+import java.io.IOException;
+import java.util.Objects;
+import utility.Storage;
+import static utility.Constants.*;
 
 public class Frank {
     public static void main(String[] args) {
 
-        final String SOLIDLINE = "\n------------------------------------------------------------------------------------------------------------------------------\n";
-        final String LOGO =
-                "FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRR                  AAA               NNNNNNNN        NNNNNNNNKKKKKKKKK    KKKKKKK" + System.lineSeparator() +
-                "F::::::::::::::::::::FR::::::::::::::::R                A:::A              N:::::::N       N::::::NK:::::::K    K:::::K" + System.lineSeparator() +
-                "F::::::::::::::::::::FR::::::RRRRRR:::::R              A:::::A             N::::::::N      N::::::NK:::::::K    K:::::K" + System.lineSeparator() +
-                "FF::::::FFFFFFFFF::::FRR:::::R     R:::::R            A:::::::A            N:::::::::N     N::::::NK:::::::K   K::::::K" + System.lineSeparator() +
-                "F:::::F       FFFFFF  R::::R     R:::::R           A:::::::::A           N::::::::::N    N::::::NKK::::::K  K:::::KKK" + System.lineSeparator() +
-                "F:::::F               R::::R     R:::::R          A:::::A:::::A          N:::::::::::N   N::::::N  K:::::K K:::::K" + System.lineSeparator() +
-                "F::::::FFFFFFFFFF     R::::RRRRRR:::::R          A:::::A A:::::A         N:::::::N::::N  N::::::N  K::::::K:::::K" + System.lineSeparator() +
-                "F:::::::::::::::F     R:::::::::::::RR          A:::::A   A:::::A        N::::::N N::::N N::::::N  K:::::::::::K" + System.lineSeparator() +
-                "F:::::::::::::::F     R::::RRRRRR:::::R        A:::::A     A:::::A       N::::::N  N::::N:::::::N  K:::::::::::K" + System.lineSeparator() +
-                "F::::::FFFFFFFFFF     R::::R     R:::::R      A:::::AAAAAAAAA:::::A      N::::::N   N:::::::::::N  K::::::K:::::K" + System.lineSeparator() +
-                "F:::::F               R::::R     R:::::R     A:::::::::::::::::::::A     N::::::N    N::::::::::N  K:::::K K:::::K" + System.lineSeparator() +
-                "F:::::F               R::::R     R:::::R    A:::::AAAAAAAAAAAAA:::::A    N::::::N     N:::::::::NKK::::::K  K:::::KKK" + System.lineSeparator() +
-                "FF:::::::FF           RR:::::R     R:::::R   A:::::A             A:::::A   N::::::N      N::::::::NK:::::::K   K::::::K" + System.lineSeparator() +
-                "F::::::::FF           R::::::R     R:::::R  A:::::A               A:::::A  N::::::N       N:::::::NK:::::::K    K:::::K" + System.lineSeparator() +
-                "F::::::::FF           R::::::R     R:::::R A:::::A                 A:::::A N::::::N        N::::::NK:::::::K    K:::::K" + System.lineSeparator() +
-                "FFFFFFFFFFF           RRRRRRRR     RRRRRRRAAAAAAA                   AAAAAAANNNNNNNN         NNNNNNNKKKKKKKKK    KKKKKKK ";
-
+        // Welcome Message
         System.out.println(SOLIDLINE + LOGO + SOLIDLINE);
         System.out.println("Hello user, I'm FRANK! Nice to meet you!\n" + SOLIDLINE);
 
+        // Recover from storage or create new TaskList
+        Storage storage = null;
+        TaskList tasks = null;
+        try {
+            storage = new Storage(FILEPATH);
+        } catch (IOException | FrankException | NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
+        if(Objects.requireNonNull(storage).getTaskData() == null) {
+            tasks = new TaskList();
+        } else {
+            tasks = new TaskList(storage.getTaskData());
+        }
+
+        // Take commands
         Command command;
-        TaskList tasks = new TaskList();
         while(true){
             try {
                 command = CommandParser.getCommand();
                 command.execute(tasks);
-            } catch(FrankException e) {
+                storage.setTaskData(tasks.getTaskData());
+            } catch(FrankException | IOException e) {
                 System.out.println(e.getMessage());
             }
         }
-
     }
 }

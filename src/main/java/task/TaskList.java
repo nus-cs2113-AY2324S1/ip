@@ -1,39 +1,43 @@
 package task;
-
 import java.util.ArrayList;
-import java.util.List;
+
+import static utility.Constants.SOLIDLINE;
 
 public class TaskList {
-    // private final Task[] Tasks = new Task[100];
-    private final List<Task> Tasks = new ArrayList<Task>();
-    // private int totalTasks = 0;
-    private final String solidLine = "\n------------------------------------------------------------------------------------------------------------------------------\n";
+    private ArrayList<Task> Tasks = new ArrayList<Task>();
+    public TaskList() {
+        super();
+    }
+    public TaskList(ArrayList<Task> Tasks) {
+        this.Tasks = Tasks;
+    }
 
     public void printTasks() {
-        System.out.print(solidLine);
+        System.out.print(SOLIDLINE);
         for(int i = 0; i < Tasks.size(); i++) {
             System.out.println((i+1) + ". " + Tasks.get(i).toString() );
         }
-        System.out.print(solidLine);
+        System.out.print(SOLIDLINE);
     }
 
     public void markTask(int index, boolean IsDone) {
         Tasks.get(index).setIsDone(IsDone);
-        System.out.println(solidLine + "Tres Bien! I have marked this as " +
+        System.out.println(SOLIDLINE + "Tres Bien! I have marked this as " +
                 (IsDone ? "done: " : "not done yet: "));
         System.out.println("[" + Tasks.get(index).getStatusIcon() + "] " +
-                Tasks.get(index).getDescription() + solidLine);
+                Tasks.get(index).getDescription() + SOLIDLINE);
     }
 
     public void addTask(Task newTask) {
-        // Tasks[totalTasks] = newTask;
         Tasks.add(newTask);
-        // totalTasks++;
-        System.out.println(solidLine + "added: " + newTask + solidLine);
+        System.out.println(SOLIDLINE + "added: " + newTask + SOLIDLINE);
+    }
+
+    public void clearTasks() {
+        Tasks.clear();
     }
 
     public int getTotalTasks() {
-        // return this.totalTasks;
         return Tasks.size();
     }
 
@@ -42,7 +46,10 @@ public class TaskList {
     }
 
     public void deleteTask(int index) {
-        System.out.println(solidLine + "deleted: " + Tasks.get(index) + solidLine);
+        System.out.println(SOLIDLINE + "deleted: " + Tasks.get(index) + SOLIDLINE);
         this.Tasks.remove(index);
+    }
+    public ArrayList<Task> getTaskData() {
+        return this.Tasks;
     }
 }
