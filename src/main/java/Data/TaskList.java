@@ -47,4 +47,20 @@ public class TaskList {
         }
         ui.printMultipleText(text);
     }
+
+    public void getTasks(Ui ui, String keyword) {
+        if (list.isEmpty()) {
+            ui.printText("You have no tasks at hand, mortal.");
+            return;
+        }
+        ArrayList<String> text = new ArrayList<String>();
+        text.add("These are the matching chores you have at hand, mortal:");
+        for (int i = 0; i < list.size(); i++) {
+            Task task = list.get(i);
+            if (task.getDescription().contains(keyword)) {
+                text.add((i + 1) + ". " + task.toString());
+            }
+        }
+        ui.printMultipleText(text);
+    }
 }

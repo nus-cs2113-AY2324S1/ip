@@ -1,5 +1,7 @@
 package Ui;
 
+import java.util.ArrayList;
+
 public class Ui {
     private static final String[] greetingLines = {
             "Ah, another day for our delightful rendezvous, don't you agree?",
@@ -20,6 +22,14 @@ public class Ui {
     }
 
     public void printMultipleText(String[] texts) {
+        printHorizontalLine();
+        for (String text : texts) {
+            System.out.println("\t" + text);
+        }
+        printHorizontalLine();
+    }
+
+    public void printMultipleText(ArrayList<String> texts) {
         printHorizontalLine();
         for (String text : texts) {
             System.out.println("\t" + text);
