@@ -7,12 +7,12 @@ public class DukeException {
 
     protected String command;
     protected String[] userInput;
-    public boolean exception;
+    public boolean exception = false;
+    private Ui ui = new Ui();
 
     public DukeException(String[] userInput){
         this.userInput = userInput;
         this.command = userInput[0];
-        this.exception = false;
     }
 
     public void checkInput(int size){
@@ -70,35 +70,32 @@ public class DukeException {
         }
     }
 
-    private static void printLine() {
-        System.out.println("    ____________________________________________________________");
-    }
 
     public void customError(String message){
-        printLine();
-        System.out.println("    ☹ OOPS!!! " + message + " :-(");
-        printLine();
+        ui.printLine();
+        ui.echo("    ☹ OOPS!!! " + message + " :-(\n");
+        ui.printLine();
         exception = true;
     }
 
     public void unknownCommand(){
-        printLine();
-        System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        printLine();
+        ui.printLine();
+        ui.echo("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+        ui.printLine();
         exception = true;
     }
 
     private void emptyDescription(){
-        printLine();
-        System.out.println("    ☹ OOPS!!! The description of a " + this.command + " cannot be empty.");
-        printLine();
+        ui.printLine();
+        ui.echo("    ☹ OOPS!!! The description of a " + this.command + " cannot be empty.\n");
+        ui.printLine();
         exception = true;
     }
 
     public void missingKeyword(){
-        printLine();
-        System.out.println("    ☹ OOPS!!! You are missing an important keyword");
-        printLine();
+        ui.printLine();
+        ui.echo("    ☹ OOPS!!! You are missing an important keyword\n");
+        ui.printLine();
         exception = true;
     }
 }
