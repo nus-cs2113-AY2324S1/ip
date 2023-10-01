@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Superclass of all the potential classes for the command "todo", "event", "deadline"
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,7 +12,11 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    /**
+     * To display the corresponding Icon for the current status
+     * @return A String represents its current status
+     */
+    private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -17,18 +24,15 @@ public class Task {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
     public void setDone(boolean done) {
         isDone = done;
     }
 
+    /**
+     * Override the toString() method of the superclass Object,
+     * so it can return its own description
+     * @return the description of task object
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();

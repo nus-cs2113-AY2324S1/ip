@@ -9,7 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This is the major class for our program(ChatBot),
+ * in other words, we call methods or use other classes inside this class
+ * to ensure that our program can be executed and perform the task we want
+ */
 public class Duke {
     public static final String NULL_INPUT_EXCEPTION = "____________________________________________________________"
         + "At least say something! :D"
@@ -185,6 +189,11 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * This method is used to update our file whenever we add or delete our tasks.
+     * @param taskList the list that stores all our current tasks
+     *                 we have to add or delete the corresponding tasks in it
+     */
 
     public static void addToFile(List<Task> taskList) {
         try {
@@ -212,6 +221,11 @@ public class Duke {
         }
     }
 
+    /**
+     * This method is used to show all the tasks that have been added by the users for now
+     * @param taskList this list contains all the tasks the users have for now and should be displayed
+     */
+
     public static void showList(List taskList) {
         System.out.println("____________________________________________________________");
         if (taskList.size() == 0) {
@@ -225,6 +239,13 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * This method is used to execute the command "mark" of the user,
+     * so we have to search for the corresponding task in our taskList based on the index derived for the String line
+     * and then set the Status of this task to "Done"
+     * @param line the user input where we can get the index information of the task we are going to handle
+     * @param taskList the list contains all our tasks, and we have to add or delete a particular task inside it
+     */
     public static void markTheTask(String line, List<Task> taskList) {
         System.out.println("____________________________________________________________");
         String[] words = line.split(" ");

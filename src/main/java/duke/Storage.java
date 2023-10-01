@@ -9,6 +9,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to store the tasks that our user has added before
+ */
 public class Storage {
     private String filePath;
 
@@ -16,6 +19,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * This method is designed to scan the text saved by our program
+     * and add them back to the list when our user reopens it,
+     * so that the tasks the user saved before will not be lost
+     * @return the list of Tasks that the user saved before
+     */
     public List<Task> load() {
         List<Task> lines = new ArrayList<>();
         File file = new File(filePath);
@@ -50,6 +59,11 @@ public class Storage {
         return lines;
     }
 
+    /**
+     * This method is used to analyze every line in our file and create the corresponding task based on it
+     * @param lineInTheFile the line in our File
+     * @return the task we create based on the line in the file
+     */
     public Task getTheTask(String lineInTheFile) {
         if (lineInTheFile.contains("[T]")) {
             String[] words = lineInTheFile.split(" ");
@@ -99,10 +113,6 @@ public class Storage {
             deadline.setDone(false);
         }
         return deadline;
-    }
-
-    public static void main(String[] args) {
-
     }
 
     private static Event getEvent(String lineInTheFile) {
