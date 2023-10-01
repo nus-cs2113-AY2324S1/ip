@@ -3,18 +3,12 @@ package command;
 import task.Deadline;
 import task.TaskList;
 import exception.FrankException;
+import utility.Ui;
 
 public class DeadlineCommand extends Command {
-
     @Override
-    public void execute(TaskList tasks) throws FrankException {
-        System.out.println("Bisa! What is the task?");
-        String description = input.nextLine();
-        System.out.println("Ke Yi! When is it due?");
-        String dueDate = input.nextLine();
-        if(description.isEmpty() || dueDate.isEmpty()) {
-            throw new FrankException("Brough you forgot to fill in something!");
-        }
-        tasks.addTask(new Deadline(description, dueDate));
+    public void execute(TaskList tasks, Ui ui) throws FrankException {
+        String[] descDueDate = ui.getDeadline();
+        tasks.addTask(new Deadline(descDueDate[0], descDueDate[1]));
     }
 }

@@ -3,6 +3,7 @@ import task.TaskList;
 import java.io.IOException;
 import java.util.Scanner;
 import exception.FrankException;
+import utility.Ui;
 
 public abstract class Command {
     protected String[] commands = null;
@@ -12,5 +13,5 @@ public abstract class Command {
         this.commands = command.split(" ");
     }
 
-    public abstract void execute(TaskList tasks) throws FrankException, IOException;
+    public abstract void execute(TaskList tasks, Ui ui) throws FrankException, IOException;
 }

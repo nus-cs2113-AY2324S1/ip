@@ -1,10 +1,11 @@
 package task;
 import java.util.ArrayList;
-
 import static utility.Constants.SOLIDLINE;
+import utility.Ui;
 
 public class TaskList {
     private ArrayList<Task> Tasks = new ArrayList<Task>();
+    private Ui ui = new Ui();
     public TaskList() {
         super();
     }
@@ -13,24 +14,17 @@ public class TaskList {
     }
 
     public void printTasks() {
-        System.out.print(SOLIDLINE);
-        for(int i = 0; i < Tasks.size(); i++) {
-            System.out.println((i+1) + ". " + Tasks.get(i).toString() );
-        }
-        System.out.print(SOLIDLINE);
+        ui.showTasks(Tasks);
     }
 
     public void markTask(int index, boolean IsDone) {
         Tasks.get(index).setIsDone(IsDone);
-        System.out.println(SOLIDLINE + "Tres Bien! I have marked this as " +
-                (IsDone ? "done: " : "not done yet: "));
-        System.out.println("[" + Tasks.get(index).getStatusIcon() + "] " +
-                Tasks.get(index).getDescription() + SOLIDLINE);
+        ui.showMarked(Tasks.get(index));
     }
 
     public void addTask(Task newTask) {
         Tasks.add(newTask);
-        System.out.println(SOLIDLINE + "added: " + newTask + SOLIDLINE);
+        ui.showAdded(newTask);
     }
 
     public void clearTasks() {
@@ -46,7 +40,7 @@ public class TaskList {
     }
 
     public void deleteTask(int index) {
-        System.out.println(SOLIDLINE + "deleted: " + Tasks.get(index) + SOLIDLINE);
+        ui.showDeleted(Tasks.get(index));
         this.Tasks.remove(index);
     }
     public ArrayList<Task> getTaskData() {

@@ -3,19 +3,12 @@ package command;
 import task.Event;
 import task.TaskList;
 import exception.FrankException;
+import utility.Ui;
 
 public class EventCommand extends Command {
     @Override
-    public void execute(TaskList tasks) throws FrankException {
-        System.out.println("Boleh! What is the event?");
-        String description = input.nextLine();
-        System.out.println("When does it start?");
-        String startDate = input.nextLine();
-        System.out.println("When does it end?");
-        String endDate = input.nextLine();
-        if(description.isEmpty() || startDate.isEmpty() || endDate.isEmpty()){
-            throw new FrankException("Brough you forgot to fill in something!");
-        }
-        tasks.addTask(new Event(description, startDate, endDate));
+    public void execute(TaskList tasks, Ui ui) throws FrankException {
+        String[] descStartEnd = ui.getEvent();
+        tasks.addTask(new Event(descStartEnd[0], descStartEnd[1], descStartEnd[2]));
     }
 }

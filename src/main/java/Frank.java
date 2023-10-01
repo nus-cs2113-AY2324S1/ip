@@ -1,42 +1,51 @@
 import command.Command;
-import task.TaskList;
 import exception.FrankException;
+import task.TaskList;
+import utility.CommandParser;
+import utility.Storage;
+import utility.Ui;
+
 import java.io.IOException;
 import java.util.Objects;
-import utility.Storage;
-import static utility.Constants.*;
+
+import static utility.Constants.FILEPATH;
 
 public class Frank {
-    public static void main(String[] args) {
-
-        // Welcome Message
-        System.out.println(SOLIDLINE + LOGO + SOLIDLINE);
-        System.out.println("Hello user, I'm FRANK! Nice to meet you!\n" + SOLIDLINE);
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    public Frank(String filePath) {
+        ui = new Ui();
+        ui.showWelcome();
 
         // Recover from storage or create new TaskList
-        Storage storage = null;
-        TaskList tasks = null;
         try {
-            storage = new Storage(FILEPATH);
+            storage = new Storage(filePath);
         } catch (IOException | FrankException | NullPointerException e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
+            ui.showError(e.getMessage());
         }
         if(Objects.requireNonNull(storage).getTaskData() == null) {
             tasks = new TaskList();
         } else {
             tasks = new TaskList(storage.getTaskData());
         }
+    }
 
+    public void run() {
         // Take commands
         Command command;
         while(true){
             try {
                 command = CommandParser.getCommand();
-                command.execute(tasks);
+                command.execute(tasks, ui);
                 storage.setTaskData(tasks.getTaskData());
             } catch(FrankException | IOException e) {
-                System.out.println(SOLIDLINE + e.getMessage() + SOLIDLINE);
+                ui.showError(e.getMessage());
             }
         }
+    }
+    public static void main(String[] args) {
+        new Frank(FILEPATH).run();
     }
 }

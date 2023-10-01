@@ -1,1 +1,4 @@
 [T][ ] list
+[T][ ] gay
+[D][ ] gay (by: tomorrow)
+[E][ ] gay (from: tomorrow to: wednesday)

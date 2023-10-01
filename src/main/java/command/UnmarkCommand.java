@@ -2,13 +2,14 @@ package command;
 
 import task.TaskList;
 import exception.FrankException;
+import utility.Ui;
 
 public class UnmarkCommand extends Command{
     public UnmarkCommand(String command) {
         super(command);
     }
     @Override
-    public void execute(TaskList tasks) throws FrankException {
+    public void execute(TaskList tasks, Ui ui) throws FrankException {
         int index;
         try {
             index = Integer.parseInt(commands[1]);

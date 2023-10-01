@@ -2,6 +2,8 @@ package command;
 
 import exception.FrankException;
 import task.TaskList;
+import utility.Ui;
+
 import java.io.IOException;
 import java.util.Scanner;
 import static utility.Constants.SOLIDLINE;
@@ -12,16 +14,11 @@ import static utility.Constants.SOLIDLINE;
  */
 public class ClearCommand extends Command {
     @Override
-    public void execute(TaskList tasks) throws FrankException, IOException {
-        System.out.println("This will remove all tasks! Are you sure? + " +
-                "Type Y to confirm, another key to cancel. ");
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        if(input.equalsIgnoreCase("y")){
+    public void execute(TaskList tasks, Ui ui) throws FrankException, IOException {
+        boolean isConfirmed = ui.confirmExecute();
+        if(isConfirmed) {
             tasks.clearTasks();
-            System.out.println(SOLIDLINE + "Clearing tasks..." + SOLIDLINE);
         }
-        // else nothing
     }
 
 }
