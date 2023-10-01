@@ -2,12 +2,15 @@ package Storage;
 
 import Data.*;
 import Exceptions.CSGPTFileCorruptedError;
+import Exceptions.CSGPTParsingException;
 import Exceptions.CSGPTReadFileException;
 import Exceptions.CSGPTWriteFileException;
+import Parser.DateParser;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -45,7 +48,7 @@ public class Storage {
      * @throws CSGPTReadFileException If there is an error reading from the file
      * @throws CSGPTFileCorruptedError If the file is corrupted
      */
-    public void readFromFile(TaskList taskList) throws CSGPTReadFileException, CSGPTFileCorruptedError {
+    public void readFromFile(TaskList taskList) throws CSGPTReadFileException, CSGPTFileCorruptedError, CSGPTParsingException {
         File file = new File(filePath);
         // Create file and directories if file does not exist
         if (!file.exists()) {
@@ -67,7 +70,7 @@ public class Storage {
      * @throws CSGPTReadFileException If there is an error reading from the file
      * @throws CSGPTFileCorruptedError If the file is corrupted
      */
-    private void loadFileData(File file, TaskList taskList) throws CSGPTReadFileException, CSGPTFileCorruptedError {
+    public void loadFileData(File file, TaskList taskList) throws CSGPTReadFileException, CSGPTFileCorruptedError, CSGPTParsingException {
         try {
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
@@ -82,7 +85,7 @@ public class Storage {
                 }
                 String description = taskArray[TASK_DESCRIPTION_INDEX];
                 boolean isDone = parseBoolean(taskArray[TASK_DONE_INDEX]);
-                String date;
+                String dateString;
                 switch (taskType) {
                 case TODO_INDICATOR:
                     addTodo(
@@ -92,28 +95,32 @@ public class Storage {
                     );
                     break;
                 case DEADLINE_INDICATOR:
-                    if (taskArray.length != TASK_DATE_INDEX+1) {
+                    if (taskArray.length != TASK_DATE_INDEX + 1) {
                         throw new CSGPTFileCorruptedError("Deadline date missing.");
                     }
-                    date = taskArray[TASK_DATE_INDEX];
+                    dateString = taskArray[TASK_DATE_INDEX];
+
+                    LocalDate date = DateParser.parse(dateString);
                     addDeadline(
-                        description,
-                        isDone,
-                        date,
-                        taskList
+                            description,
+                            isDone,
+                            date,
+                            taskList
                     );
                     break;
                 case EVENT_INDICATOR:
-                    if (taskArray.length != TASK_DATE_INDEX+1) {
+                    if (taskArray.length != TASK_DATE_INDEX + 1) {
                         throw new CSGPTFileCorruptedError("Event date missing.");
                     }
-                    date = taskArray[TASK_DATE_INDEX];
-                    String[] dateArray = date.split(DATE_SEPARATOR);
+                    dateString = taskArray[TASK_DATE_INDEX];
+                    String[] dateArray = dateString.split(DATE_SEPARATOR);
                     if (dateArray.length != 2) {
                         throw new CSGPTFileCorruptedError("Event date format incorrect.");
                     }
-                    String from = dateArray[0];
-                    String to = dateArray[1];
+                    String fromString = dateArray[0];
+                    String toString = dateArray[1];
+                    LocalDate from = DateParser.parse(fromString);
+                    LocalDate to = DateParser.parse(toString);
                     addEvent(
                             description,
                             isDone,
@@ -136,12 +143,12 @@ public class Storage {
         todo.setDone(isDone);
         taskList.add(todo);
     }
-    private void addDeadline(String description, boolean isDone, String by, TaskList taskList) {
+    public void addDeadline(String description, boolean isDone, LocalDate by, TaskList taskList) {
         Task deadline = new Deadline(description, by);
         deadline.setDone(isDone);
         taskList.add(deadline);
     }
-    private void addEvent(String description, boolean isDone, String from, String to, TaskList taskList) {
+    public void addEvent(String description, boolean isDone, LocalDate from, LocalDate to, TaskList taskList) {
         Task event = new Event(description, from, to);
         event.setDone(isDone);
         taskList.add(event);
@@ -187,12 +194,13 @@ public class Storage {
         fw.write(TODO_INDICATOR + DEFAULT_SEPARATOR + todo.getStatusIcon() + DEFAULT_SEPARATOR + todo.getDescription() + System.lineSeparator());
     }
 
-    private void writeDeadline(FileWriter fw, Deadline deadline) throws IOException {
-        fw.write(DEADLINE_INDICATOR + DEFAULT_SEPARATOR + deadline.getStatusIcon() + DEFAULT_SEPARATOR + deadline.getDescription() + DEFAULT_SEPARATOR + deadline.getBy() + System.lineSeparator());
+
+    public void writeDeadline(FileWriter fw, Deadline deadline) throws IOException {
+        fw.write(DEADLINE_INDICATOR + DEFAULT_SEPARATOR + deadline.getStatusIcon() + DEFAULT_SEPARATOR + deadline.getDescription() + DEFAULT_SEPARATOR + deadline.getByStringToSave() + System.lineSeparator());
     }
 
-    private void writeEvent(FileWriter fw, Event event) throws IOException {
-        fw.write(EVENT_INDICATOR + DEFAULT_SEPARATOR + event.getStatusIcon() + DEFAULT_SEPARATOR + event.getDescription() + DEFAULT_SEPARATOR + event.getFrom() + DATE_SEPARATOR + event.getTo() + System.lineSeparator());
+    public void writeEvent(FileWriter fw, Event event) throws IOException {
+        fw.write(EVENT_INDICATOR + DEFAULT_SEPARATOR + event.getStatusIcon() + DEFAULT_SEPARATOR + event.getDescription() + DEFAULT_SEPARATOR + event.getFromStringToSave() + DATE_SEPARATOR + event.getToStringToSave() + System.lineSeparator());
     }
 
 }

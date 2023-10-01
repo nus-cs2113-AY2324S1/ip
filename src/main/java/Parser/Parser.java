@@ -7,6 +7,9 @@ import Data.Task;
 import Data.Todo;
 import Exceptions.CSGPTParsingException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Class to parse the user input
  */
@@ -18,6 +21,7 @@ public class Parser {
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String FIND_COMMAND = "find";
     private static final String FAREWELL_COMMAND = "bye";
 
     /**
@@ -51,6 +55,8 @@ public class Parser {
                 return getMark(input, true);
             case UNMARK_COMMAND:
                 return getMark(input, false);
+            case FIND_COMMAND:
+                return getFind(input);
             case FAREWELL_COMMAND:
                 return new Farewell();
             default:
@@ -63,7 +69,7 @@ public class Parser {
             throw new CSGPTParsingException("The description of a todo cannot be empty.");
         }
 
-        String todoDescription = input.substring(ADD_TODO_COMMAND.length() + 1);
+        String todoDescription = input.substring(ADD_TODO_COMMAND.length()).trim();
 
         return new Todo(todoDescription);
     }
@@ -73,18 +79,18 @@ public class Parser {
             throw new CSGPTParsingException("The description of a deadline cannot be empty.");
         }
 
-        String deadlineDetails = input.substring(ADD_DEADLINE_COMMAND.length() + 1);
+        String deadlineDetails = input.substring(ADD_DEADLINE_COMMAND.length());
         if (!deadlineDetails.contains(" /by ")) {
             throw new CSGPTParsingException("Please enter a valid /by.");
         }
         String[] deadlineDetailsArray = deadlineDetails.split(" /by ", 2);
-        String deadlineDescription = deadlineDetailsArray[0];
+        String deadlineDescription = deadlineDetailsArray[0].trim();
         if (deadlineDescription.isEmpty()) {
             throw new CSGPTParsingException("The description of a deadline cannot be empty.");
         }
         String by = deadlineDetailsArray[1];
-
-        return new Deadline(deadlineDescription, by);
+        LocalDate byDate = DateParser.parse(by);
+        return new Deadline(deadlineDescription, byDate);
     }
 
     private static Task getTask(String input) throws CSGPTParsingException {
@@ -92,12 +98,12 @@ public class Parser {
             throw new CSGPTParsingException("The description of a event cannot be empty.");
         }
 
-        String eventDetails = input.substring(ADD_EVENT_COMMAND.length() + 1);
+        String eventDetails = input.substring(ADD_EVENT_COMMAND.length());
         if (!eventDetails.contains(" /from ")) {
             throw new CSGPTParsingException("Please enter a /from.");
         }
         String[] eventDetailsArray = input.substring(ADD_EVENT_COMMAND.length()).split(" /from ", 2);
-        String eventDescription = eventDetailsArray[0];
+        String eventDescription = eventDetailsArray[0].trim();
         if (eventDescription.isEmpty()) {
             throw new CSGPTParsingException("The description of an event cannot be empty.");
         }
@@ -108,11 +114,16 @@ public class Parser {
 
         String from = eventDetailsArray2[0];
         String to = eventDetailsArray2[1];
+        LocalDate fromDate = DateParser.parse(from);
+        LocalDate toDate = DateParser.parse(to);
 
-        return new Event(eventDescription, from, to);
+        return new Event(eventDescription, fromDate, toDate);
     }
 
     private static Delete getDelete(String input) throws CSGPTParsingException {
+        if (input.equals(DELETE_COMMAND)) {
+            throw new CSGPTParsingException("Please enter a valid number mortal.");
+        }
         String remainder = input.split(" ")[1];
         int taskNumber;
         try {
@@ -124,6 +135,9 @@ public class Parser {
     }
 
     private static Mark getMark(String input, boolean isDone) throws CSGPTParsingException {
+        if (input.equals(MARK_COMMAND) || input.equals(UNMARK_COMMAND)) {
+            throw new CSGPTParsingException("Please enter a valid number mortal.");
+        }
         String remainder = input.split(" ")[1];
         int taskNumber;
         try {
@@ -132,5 +146,16 @@ public class Parser {
             throw new CSGPTParsingException("Please enter a valid number mortal.");
         }
         return new Mark(taskNumber, isDone);
+    }
+
+    private static Find getFind(String input) throws CSGPTParsingException {
+        if (input.equals(FIND_COMMAND)) {
+            throw new CSGPTParsingException("Please enter a keyword mortal.");
+        }
+        String remainder = input.substring(FIND_COMMAND.length()).trim();
+        if (remainder.isEmpty()) {
+            throw new CSGPTParsingException("Please enter a keyword mortal.");
+        }
+        return new Find(remainder);
     }
 }

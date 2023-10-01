@@ -1,11 +1,14 @@
 package Data;
 
+
+import java.time.LocalDate;
+
 /**
  * Class to represent an event task
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
     /**
      * Constructor for Event task
@@ -13,7 +16,7 @@ public class Event extends Task {
      * @param from Start date of the event
      * @param to End date of the event
      */
-    public Event (String description, String from, String to) {
+    public Event (String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -23,16 +26,24 @@ public class Event extends Task {
      * Returns the string representation of the start date
      * @return String representation of the start date
      */
-    public String getFrom() {
-        return this.from;
+    public String getFromString() {
+        return this.from.format(Task.DATE_FORMAT);
+    }
+
+    public String getFromStringToSave() {
+        return this.from.toString();
     }
 
     /**
      * Returns the string representation of the end date
      * @return String representation of the end date
      */
-    public String getTo() {
-        return this.to;
+    public String getToString() {
+        return this.to.format(Task.DATE_FORMAT);
+    }
+
+    public String getToStringToSave() {
+        return this.to.toString();
     }
 
     /**
@@ -41,6 +52,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.getFromString() + " to: " + this.getToString() + ")";
     }
 }

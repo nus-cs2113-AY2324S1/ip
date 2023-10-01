@@ -1,5 +1,7 @@
 package Ui;
 
+import java.util.ArrayList;
+
 /**
  * Class that handles the user interface
  */
@@ -39,6 +41,15 @@ public class Ui {
         printHorizontalLine();
     }
 
+
+    public void printMultipleText(ArrayList<String> texts) {
+        printHorizontalLine();
+        for (String text : texts) {
+            System.out.println("\t" + text);
+        }
+        printHorizontalLine();
+    }
+  
     /**
      * Prints a random greeting message from a list of possible greeting messages
      */
