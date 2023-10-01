@@ -3,10 +3,7 @@ package command;
 import exception.FrankException;
 import task.TaskList;
 import utility.Ui;
-
 import java.io.IOException;
-import java.util.Scanner;
-import static utility.Constants.SOLIDLINE;
 
 /**
  * Clears everything from the task list

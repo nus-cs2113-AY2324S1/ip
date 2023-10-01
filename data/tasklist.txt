@@ -2,3 +2,5 @@
 [T][ ] gay
 [D][X] gay (by: tomorrow)
 [E][ ] gay (from: tomorrow to: wednesday)
+[D][ ] Meet YT (by: Tue, 3 Oct 23, 2 days from now!)
+[E][ ] meet yt (from: 3PM Tue, 3 Oct 23 to: 6PM Tue, 3 Oct 23, 3 hours long.)
