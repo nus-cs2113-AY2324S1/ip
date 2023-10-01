@@ -1,5 +1,7 @@
 package duke;
 
+import duke.exceptions.InvalidCommandException;
+
 /**
  * Main class of the Duke program.
  * Duke is a chatbot that helps the user to keep track of tasks.

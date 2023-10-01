@@ -1,5 +1,7 @@
 package duke;
 
+import duke.exceptions.CorruptedFileException;
+
 /**
  * Represents a task consisting of a description and the marking label.
  */

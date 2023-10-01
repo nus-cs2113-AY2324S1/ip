@@ -1,4 +1,4 @@
-package duke;
+package duke.exceptions;
 
 /**
  * Represents an exception when the input is not a valid command.

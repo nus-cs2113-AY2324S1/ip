@@ -1,8 +1,12 @@
 package duke;
 
+import duke.exceptions.CorruptedFileException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +17,8 @@ public class Storage {
 
     private String path;
     private ArrayList<Task> tasks;
+
+    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("MMM-dd-yyyy'T'HH:mm");
 
     /**
      * Default Constructor for Storage with path set to "data/duke.txt".
@@ -66,10 +72,11 @@ public class Storage {
                 task = new Todo(parts[2]);
                 break;
             case "D":
-                task = new Deadline(parts[2], parts[3]);
+                task = new Deadline(parts[2], LocalDateTime.parse(parts[3].replace(" ", "T"), DTF));
                 break;
             case "E":
-                task = new Event(parts[2], parts[3], parts[4]);
+                task = new Event(parts[2], LocalDateTime.parse(parts[3].replace(" ", "T"), DTF),
+                        LocalDateTime.parse(parts[4].replace(" ", "T"), DTF));
                 break;
             default:
                 throw new CorruptedFileException();

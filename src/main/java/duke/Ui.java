@@ -114,6 +114,27 @@ public class Ui {
         System.out.println(tasks.getTasks().get(index - 1));
     }
 
+    public void findKeyword(TaskList tasks, String keyword){
+        if(keyword==null || keyword.isEmpty()){
+            printList(tasks);
+            return;
+        }
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (Task task : tasks.getTasks()){
+            if (task.getDescription().contains(keyword)){
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.size() == 0){
+            System.out.println("There are no matching tasks in your list!");
+        } else{
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i+1) + "." + matchingTasks.get(i));
+            }
+        }
+    }
+
     /**
      * Notifies user about deadline formatting issue and provides the expected input format.
      * @see Deadline
@@ -162,5 +183,11 @@ public class Ui {
      */
     public void printEmptyTodoMessage(){
         System.out.println("I am sorry, the todo cannot be empty!");
+    }
+
+    public void printInvalidDateTimeMessage(){
+        System.out.println("Oops, I don't understand that! Please provide valid date and time in a readable format " +
+                "like: " +
+                "YYYY-MM-DD HH:MM");
     }
 }

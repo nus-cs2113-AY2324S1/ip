@@ -1,5 +1,11 @@
 package duke;
 
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidTimeSpanException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 /**
  * Executes the commands provided by the user.
  */
@@ -25,10 +31,13 @@ public class Command {
      * @return TaskList object containing the list of tasks with the applied modifications.
      * @throws InvalidCommandException If the command is not included in the program or if there is a typo.
      * */
-    public TaskList executeCommand(TaskList tasks, Ui ui) throws InvalidCommandException{
+    public TaskList executeCommand(TaskList tasks, Ui ui) throws InvalidCommandException {
         switch (command) {
         case "list":
             ui.printList(tasks);
+            break;
+        case "find":
+            ui.findKeyword(tasks, argument);
             break;
         case "mark":
             tasks = editTask(argument, true, tasks, ui);
@@ -106,7 +115,7 @@ public class Command {
      * */
     public TaskList addDeadline(String argument, TaskList tasks, Ui ui){
         try {
-            String dueDate = argument.split(" /by ")[1];
+            LocalDateTime dueDate = LocalDateTime.parse(argument.split(" /by ")[1].replace(" ", "T"));
             String description = argument.split(" /by ")[0];
             Task deadline = new Deadline(description, dueDate);
             tasks.add(deadline);
@@ -115,6 +124,8 @@ public class Command {
             ui.printInvalidDeadlineMessage();
         } catch (NullPointerException e){
             ui.printEmptyDeadlineMessage();
+        } catch (DateTimeParseException e){
+            ui.printInvalidDateTimeMessage();
         }
         return tasks;
     }
@@ -131,8 +142,11 @@ public class Command {
     public TaskList addEvent(String argument, TaskList tasks, Ui ui){
         try {
             String description = argument.split(" /from ")[0];
-            String startDate = argument.split(" /from ")[1].split(" /to ")[0];
-            String endDate = argument.split(" /from ")[1].split(" /to ")[1];
+            LocalDateTime startDate = LocalDateTime.parse(argument.split(" /from ")[1].split(" /to ")[0].replace(" ", "T"));
+            LocalDateTime endDate = LocalDateTime.parse(argument.split(" /from ")[1].split(" /to ")[1].replace(" ", "T"));
+            if(startDate.isAfter(endDate)){
+                throw new InvalidTimeSpanException();
+            }
             Task event = new Event(description, startDate, endDate);
             tasks.add(event);
             ui.printTaskAddedMessage(event, tasks.getTasks());
@@ -140,6 +154,10 @@ public class Command {
             ui.printInvalidEventMessage();
         } catch (NullPointerException e) {
             ui.printEmptyEventMessage();
+        } catch (DateTimeParseException e){
+            ui.printInvalidDateTimeMessage();
+        } catch(InvalidTimeSpanException e){
+            e.printErrorMessage();
         }
         return tasks;
     }

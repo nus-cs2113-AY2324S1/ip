@@ -1,12 +1,16 @@
 package duke;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an event task which is a task with a start date and an end date.
  */
 public class Event extends Task {
 
-    private String startDate;
-    private String endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("MMM-dd-yyyy HH:mm");
 
     /**
      * Constructor for Event class.
@@ -14,7 +18,7 @@ public class Event extends Task {
      * @param startDate Start date of the event.
      * @param endDate End date of the event.
      */
-    public Event(String description, String startDate, String endDate){
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate){
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -26,7 +30,7 @@ public class Event extends Task {
      * @return string representation of the event.
      */
     public String toString(){
-        return "[E]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
+        return "[E]" + super.toString() + " (from: " + startDate.format(DTF) + " to: " + endDate.format(DTF) + ")";
     }
 
     @Override
@@ -35,6 +39,6 @@ public class Event extends Task {
      * @return string representation of the event.
      */
     public String toFileString(){
-        return ("E | " + super.toFileString() + " | " + startDate + " | " + endDate);
+        return ("E | " + super.toFileString() + " | " + startDate.format(DTF) + " | " + endDate.format(DTF));
     }
 }
