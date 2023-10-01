@@ -22,7 +22,7 @@ public class TaskList {
     private final String EVENT_START = "/from";
     private final String EVENT_END = "/to";
     private final boolean WITHOUT_SCANNER = false;
-    public ArrayList<Task> tasks;
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     SkippyUi ui = new SkippyUi(WITHOUT_SCANNER);
 
@@ -234,7 +234,6 @@ public class TaskList {
      * @param s scanner containing the lines in the savefile.
      */
     public TaskList(Scanner s) {
-        this.tasks = new ArrayList<>();
         while (s.hasNextLine()) {
             String line = s.nextLine();
             String[] args = line.split(DELIMITER);

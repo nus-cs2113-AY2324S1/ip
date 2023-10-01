@@ -1,7 +1,6 @@
 package skippy;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import tasklist.TaskList;
 import parser.SkippyParser;
