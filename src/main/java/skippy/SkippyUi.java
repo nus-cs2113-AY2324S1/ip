@@ -34,7 +34,6 @@ public class SkippyUi {
      *
      * @return line entered in terminal.
      */
-
     public String getNextLine() {
         return scanner.nextLine();
     }

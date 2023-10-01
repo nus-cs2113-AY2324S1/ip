@@ -24,6 +24,11 @@ public class FileManager {
         this.ui = new SkippyUi(WITHOUT_SCANNER);
     }
 
+    /**
+     * Creates a new directory if the directory doesn't exist.
+     *
+     * @throws IOException I/O occurs while creating the directory
+     */
     public void createNewFileDirectory() throws IOException{
         File f = new File(FILE_DIRECTORY);
         ui.printLine();
@@ -34,6 +39,12 @@ public class FileManager {
         }
     }
 
+    /**
+     * Creates a new file in the directory created
+     * if the file doesn't exist in the same directory.
+     *
+     * @throws IOException I/O occurs while creating the directory
+     */
     public void createNewSaveFile() throws IOException{
         File f = new File(FILE_PATH);
         if (f.createNewFile()) {
