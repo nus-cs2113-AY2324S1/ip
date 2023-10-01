@@ -101,4 +101,10 @@ public class Ui {
     public void printEmptyTodoMessage(){
         System.out.println("I am sorry, the todo cannot be empty!");
     }
+
+    public void printInvalidDateTimeMessage(){
+        System.out.println("Oops, I don't understand that! Please provide valid date and time in a readable format " +
+                "like: " +
+                "YYYY-MM-DD HH:MM");
+    }
 }

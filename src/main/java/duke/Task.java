@@ -1,5 +1,7 @@
 package duke;
 
+import duke.exceptions.CorruptedFileException;
+
 public class Task {
     private String description;
     private boolean isDone;

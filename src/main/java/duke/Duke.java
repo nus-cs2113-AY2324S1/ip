@@ -1,5 +1,7 @@
 package duke;
 
+import duke.exceptions.InvalidCommandException;
+
 public class Duke {
 
     private TaskList tasks;
