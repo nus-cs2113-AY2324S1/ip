@@ -1,15 +1,30 @@
 package duke;
 
+/**
+ * Executes the commands provided by the user.
+ */
 public class Command {
 
     private String command;
     private String argument;
 
+    /**
+     * Constructor of Command.
+     * @parm command Command to be executed.
+     * @parm argument Arguments required for the specific command.
+     * */
     public Command(String command, String argument) {
         this.command = command;
         this.argument = argument;
     }
 
+    /**
+     * Executes the given command.
+     * @parm tasks TaskList object containing the list of tasks.
+     * @parm ui Ui object to interact with the user.
+     * @return TaskList object containing the list of tasks with the applied modifications.
+     * @throws InvalidCommandException If the command is not included in the program or if there is a typo.
+     * */
     public TaskList executeCommand(TaskList tasks, Ui ui) throws InvalidCommandException{
         switch (command) {
         case "list":
@@ -41,19 +56,37 @@ public class Command {
         return tasks;
     }
 
+    /**
+     * Marks or unmarks a given task.
+     * If the index is out of bounds or if the argument is not a number, it will print an error message.
+     * @parm argument Index of the task to be edited.
+     * @parm done New status of the task.
+     * @parm tasks TaskList object containing the list of tasks.
+     * @parm ui Ui object to interact with the user.
+     * @return TaskList object containing the list of tasks with the applied mark modifications.
+     * */
     public TaskList editTask(String argument, boolean done, TaskList tasks, Ui ui){
         try {
-            int index = Integer.parseInt(argument);
-            tasks.getTasks().get(index - 1).setDone(done);
-            ui.printMark(done, tasks, index);
+            int taskIndex = Integer.parseInt(argument);
+            tasks.getTasks().get(taskIndex - 1).setDone(done);
+            ui.printMark(done, tasks, taskIndex);
         } catch (IndexOutOfBoundsException | NumberFormatException e){
             ui.printInvalidTaskIdMessage();
         }
         return tasks;
     }
 
+    /**
+     * Adds a new Todo task with the description specified in argument.
+     * If the description is empty, it will print an error message.
+     * @parm argument Description of the task.
+     * @parm tasks TaskList object containing the list of tasks.
+     * @parm ui Ui object to interact with the user.
+     * @return TaskList object containing the list of tasks with the new Todo.
+     * @see Todo
+     * */
     public TaskList addToDo(String argument, TaskList tasks, Ui ui){
-        if(argument==null || argument.isEmpty()){
+        if (argument==null || argument.isEmpty()) {
             ui.printEmptyTodoMessage();
         }
         Task todo = new Todo(argument);
@@ -62,6 +95,15 @@ public class Command {
         return tasks;
     }
 
+    /**
+     * Adds a new Deadline task with the description and due date specified in argument.
+     * If the description or due date is empty, it will print an error message.
+     * @parm argument Description and due date of the task.
+     * @parm tasks TaskList object containing the list of tasks.
+     * @parm ui Ui object to interact with the user.
+     * @return TaskList object containing the list of tasks with the newly added deadline.
+     * @see Deadline
+     * */
     public TaskList addDeadline(String argument, TaskList tasks, Ui ui){
         try {
             String dueDate = argument.split(" /by ")[1];
@@ -77,6 +119,15 @@ public class Command {
         return tasks;
     }
 
+    /**
+     * Adds a new Event task with the description, start date and end date specified in argument.
+     * If the description, start date or end date is empty, it will print an error message.
+     * @parm argument Description, start date and end date of the task.
+     * @parm tasks TaskList object containing the list of tasks.
+     * @parm ui Ui object to interact with the user.
+     * @return TaskList object containing the list of tasks with the newly added Event.
+     * @see Event
+     * */
     public TaskList addEvent(String argument, TaskList tasks, Ui ui){
         try {
             String description = argument.split(" /from ")[0];
@@ -85,24 +136,31 @@ public class Command {
             Task event = new Event(description, startDate, endDate);
             tasks.add(event);
             ui.printTaskAddedMessage(event, tasks.getTasks());
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.printInvalidEventMessage();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             ui.printEmptyEventMessage();
         }
         return tasks;
     }
 
+    /**
+     * Deletes a task from the list of tasks based on the specified position within the list starting at index 1.
+     * If the index is out of bounds or if the argument is not a number, it will print an error message.
+     * @parm argument Index of the task to be deleted (>= 1).
+     * @parm tasks TaskList object containing the list of tasks.
+     * @parm ui Ui object to interact with the user.
+     * @return TaskList object containing the updated list of tasks.
+     * */
     public TaskList deleteTask(String argument, TaskList tasks, Ui ui) {
         try {
             int index = Integer.parseInt(argument);
             Task task = tasks.getTasks().get(index - 1);
             tasks.remove(index - 1);
             ui.printTaskRemovedMessage(task, tasks);
-        } catch (IndexOutOfBoundsException | NumberFormatException e){
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             ui.printInvalidTaskIdMessage();
         }
         return tasks;
     }
-
 }

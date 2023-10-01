@@ -6,18 +6,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of data from and to the data file.
+ */
 public class Storage {
 
     private String path;
     private ArrayList<Task> tasks;
+
+    /**
+     * Default Constructor for Storage with path set to "data/duke.txt".
+     */
     public Storage() {
         this.path = "data/duke.txt";
     }
 
+    /**
+     * Constructor for Storage with path set to the given path.
+     * @param path Path to the file which the Storage will read from and write to.
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Loads data from the file specified by the path into a task list.
+     * If the file does not exist, an empty task list will be returned.
+     * @return ArrayList of Tasks read from the file.
+     */
     public ArrayList<Task> loadData(){
         try {
             tasks = new ArrayList<Task>();
@@ -33,6 +49,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Reads one line of data from the file and adds the corresponding task to the task list.
+     * If the input formatting of the line is incorrect, the line will be skipped and the user will be notified about
+     * the
+     * file corruption.
+     * @param input Line of data from the file.
+     */
     public void readDataLine(String input) {
         String[] parts = input.split(" \\| ");
         try {
@@ -60,6 +83,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Store the given task list to the file specified by the path.
+     * If the file does not exist, a new file will be created.
+     * @param tasks Task list to be saved.
+     */
     public void saveData(ArrayList<Task> tasks) {
         try {
             this.tasks = tasks;
