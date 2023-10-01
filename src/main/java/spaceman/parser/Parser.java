@@ -1,14 +1,5 @@
 package spaceman.parser;
 
-import static spaceman.ui.Messages.MESSAGE_EMPTY_TODO;
-import static spaceman.ui.Messages.MESSAGE_EMPTY_DEADLINE;
-import static spaceman.ui.Messages.MESSAGE_EMPTY_BY;
-import static spaceman.ui.Messages.MESSAGE_EMPTY_EVENT;
-import static spaceman.ui.Messages.MESSAGE_EMPTY_FROM;
-import static spaceman.ui.Messages.MESSAGE_EMPTY_TO;
-import static spaceman.ui.Messages.MESSAGE_INVALID_DATE;
-import static spaceman.ui.Messages.MESSAGE_INVALID_INDEX;
-
 import static spaceman.commands.ListOfCommands.COMMAND_BYE;
 import static spaceman.commands.ListOfCommands.COMMAND_LIST;
 import static spaceman.commands.ListOfCommands.COMMAND_MARK;
@@ -19,6 +10,7 @@ import static spaceman.commands.ListOfCommands.COMMAND_EVENT;
 import static spaceman.commands.ListOfCommands.COMMAND_DELETE;
 import static spaceman.commands.ListOfCommands.COMMAND_FIND;
 import static spaceman.commands.ListOfCommands.COMMAND_HELP;
+import static spaceman.ui.Messages.*;
 
 import spaceman.commands.Command;
 import spaceman.commands.AddCommand;
@@ -89,7 +81,7 @@ public class Parser {
             case COMMAND_DELETE:
                 return new DeleteCommand(parseTaskIndex(arguments));
             case COMMAND_FIND:
-                return new FindCommand(arguments);
+                return new FindCommand(parseFind(arguments));
             case COMMAND_HELP:
                 return new HelpCommand();
             default:
@@ -224,5 +216,13 @@ public class Parser {
             throw new IndexOutOfBoundsException(MESSAGE_INVALID_INDEX);
         }
         return taskIndex;
+    }
+
+    public static String parseFind(String arguments) throws IncompleteDescriptionException {
+        if (arguments == null) {
+            throw new IncompleteDescriptionException(MESSAGE_EMPTY_KEYWORD);
+        } else {
+            return arguments;
+        }
     }
 }

@@ -25,4 +25,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_DATE = "☹ OOPS!!! The format of the date is invalid.";
     public static final String MESSAGE_INVALID_INDEX = "☹ OOPS!!! This is an invalid task index.";
     public static final String MESSAGE_EMPTY_LIST = "Yay! You currently have no tasks!";
+    public static final String MESSAGE_EMPTY_KEYWORD = "☹ OOPS!!! The keyword of a find command cannot be empty.";
 }
