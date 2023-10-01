@@ -96,7 +96,6 @@ public class FileManager {
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
         TaskList taskList = new TaskList(s);
-        System.out.println(taskList);
         s.close();
         return taskList;
     }
