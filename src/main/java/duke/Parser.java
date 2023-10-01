@@ -11,14 +11,31 @@ import java.util.List;
 
 import static duke.Duke.addToFile;
 
+/**
+ * This class is designed to deal with making sense of the user command
+ * e.g. analyze user input for different command like "todo", "event", "find" etc.
+ */
 public class Parser {
-
+    /**
+     * This is used to create an event object based on the user input,
+     * and add this event into the taskList
+     * @param taskList the list containing all the tasks for now where we should add our new event object into
+     * @param line the user input
+     * @throws NullValidInputException
+     */
     public static void handleEvent(List<Task> taskList, String line) throws NullValidInputException {
         String[] userfulInfo = handleInputForEvent(line);
         Event event = new Event(userfulInfo[0], userfulInfo[1]);
         taskList.add(event);
         addToFile(taskList);
     }
+
+    /**
+     *  This is used to create a String array based on which we can create the event object
+     * @param userInput the user input
+     * @return
+     * @throws NullValidInputException
+     */
     public static String[] handleInputForEvent(String userInput) throws NullValidInputException {
         String usefulInput = userInput.replace("event", "").trim();
         String[] taskAndTimePeriod = usefulInput.split("/");
@@ -35,6 +52,12 @@ public class Parser {
         return new String[] {description, timePeriod};
     }
 
+    /**
+     * This is used to create a deadline object based on the user input,
+     * and add this event into the taskList
+     * @param taskList the list containing all the tasks for now where we should add our new deadline object into
+     * @param line the user input
+     */
     public static void handleDeadline(List<Task> taskList, String line) {
         String by = line.split("/")[1];
         String description = line.split("/")[0].replace("deadline", "").trim();
@@ -43,6 +66,12 @@ public class Parser {
         addToFile(taskList);
     }
 
+    /**
+     * This is used to create a todo object based on the user input,
+     * and add this event into the taskList
+     * @param taskList the list containing all the tasks for now where we should add our new todo object into
+     * @param words the String array derived by splitting the user input
+     */
     public static void handleTodo(List<Task> taskList, String[] words) {
         String task = "";
         for (int i = 1; i < words.length; i++) {
@@ -54,6 +83,12 @@ public class Parser {
 
     }
 
+    /**
+     * This method is designed to handle the find command
+     * we try to find if we have any tasks in our taskList whose description contains the keyword for this command
+     * @param taskList the list containing all the tasks for now where we should scan based on the keyword
+     * @param words the user input from which we can get the keyword for find command
+     */
     public static void handleFind(List<Task> taskList, String[] words) {
         String keyword = "";
         for(int i = 1; i < words.length; i++) {
