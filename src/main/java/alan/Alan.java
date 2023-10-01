@@ -1,11 +1,13 @@
 package alan;
 
-import alan.data.exception.AlanExceptions;
+import alan.data.exception.AlanException;
 import alan.data.task.Deadline;
 import alan.data.task.Event;
 import alan.data.task.Task;
 import alan.data.task.TaskType;
 import alan.data.task.Todo;
+import alan.storage.Storage;
+import alan.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,62 +17,22 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static alan.data.exception.AlanExceptions.checkDeadlineInputFormat;
-import static alan.data.exception.AlanExceptions.checkEmptyDescription;
-import static alan.data.exception.AlanExceptions.checkEventInputFromFormat;
-import static alan.data.exception.AlanExceptions.checkEventInputToFormat;
-import static alan.data.exception.AlanExceptions.checkOutOfTaskListIndex;
-import static alan.data.exception.AlanExceptions.invalidInputCommand;
+import static alan.common.Messages.*;
+import static alan.data.exception.AlanException.checkDeadlineInputFormat;
+import static alan.data.exception.AlanException.checkEmptyDescription;
+import static alan.data.exception.AlanException.checkEventInputFromFormat;
+import static alan.data.exception.AlanException.checkEventInputToFormat;
+import static alan.data.exception.AlanException.checkOutOfTaskListIndex;
+import static alan.data.exception.AlanException.invalidInputCommand;
 
 public class Alan {
-    public static void printGreetingMessage() {
-        String manDrawing = " @/\n" +
-                "/| \n" +
-                "/ \\";
-        String alanText = " ______     __         ______     __   __    \n" +
-                "/\\  __ \\   /\\ \\       /\\  __ \\   /\\ \"-.\\ \\   \n" +
-                "\\ \\  __ \\  \\ \\ \\____  \\ \\  __ \\  \\ \\ \\-.  \\  \n" +
-                " \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_\\\\\"\\_\\ \n" +
-                "  \\/_/\\/_/   \\/_____/   \\/_/\\/_/   \\/_/ \\/_/ ";
-
-        String greetMessage = "Sup dude! I'm \n" + alanText + "\n" + manDrawing + "\n" + "What can I do for you, my man?";
-
-        printHorizontalLine();
-        System.out.println(greetMessage);
-        printHorizontalLine();
-    }
-
-    public static void printExitMessage() {
-        System.out.println("Later, dude! Can't wait to catch up again real soon!");
-    }
-
-    public static void printHorizontalLine() {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    }
-
-    public static void printNumberOfTasksMessage(int numberOfTasks) {
-        if (numberOfTasks == 1) {
-            System.out.println("Dude! You've got a solid " + numberOfTasks + " task lined up on your list now!");
-        } else {
-            System.out.println("Dude! You've got a solid " + numberOfTasks + " tasks lined up on your list now!");
-        }
-    }
-
-    public static void printTaskAddedMessage(ArrayList<Task> taskList) {
-        int numberOfTasks = taskList.size();
-        int lastTaskIndex = taskList.size() - 1;
-
-        System.out.println("added: " + taskList.get(lastTaskIndex));
-        printNumberOfTasksMessage(numberOfTasks);
-    }
-
-    public static void processCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanExceptions {
+    public static void processCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanException {
         String[] userInputWords = userInput.split(" ");
         String command = userInputWords[0];
 
         switch (command) {
         case "bye":
-            printExitMessage();
+            ui.showExitMessage();
             break;
         case "list":
             //print the tasks in the lists
@@ -109,39 +71,33 @@ public class Alan {
     }
 
     public static void listCommandHandler(ArrayList<Task> taskList) {
-        System.out.println("Dude, check out these tasks on your list:");
-
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.print((i + 1) + ". ");
-            System.out.println(taskList.get(i));
-        }
+        ui.showListMessage(taskList);
     }
 
-    public static void markingCommandHandler(String userInput, ArrayList<Task> taskList, boolean isMark) throws AlanExceptions {
+    public static void markingCommandHandler(String userInput, ArrayList<Task> taskList, boolean isMark) throws AlanException {
         String[] words = userInput.split(" ");
         int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
 
         checkOutOfTaskListIndex(selectedTaskIndex, taskList);
+        Task targetTask = taskList.get(selectedTaskIndex);
 
         if (isMark) {
             taskList.get(selectedTaskIndex).setDone(true);
-            System.out.println("Alright bro! This task is officially checked off:");
+            ui.showMarkTaskMessage(targetTask);
         } else {
             taskList.get(selectedTaskIndex).setDone(false);
-            System.out.println("Ok dude, I've marked this task as ain't done yet amigo:");
+            ui.showUnmarkTaskMessage(targetTask);
         }
-
-        System.out.println(taskList.get(selectedTaskIndex));
     }
 
     public static void todoCommandHandler(String userInput, ArrayList<Task> taskList) {
         String description = userInput.replace("todo ", "");
         taskList.add(new Todo(description));
 
-        printTaskAddedMessage(taskList);
+        ui.showTaskAddedMessage(taskList);
     }
 
-    public static void deadlineCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanExceptions {
+    public static void deadlineCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanException {
         String filteredUserInput = userInput.replace("deadline ", "");
         String[] words = filteredUserInput.split(" /by ");
 
@@ -152,10 +108,10 @@ public class Alan {
 
         taskList.add(new Deadline(description, by));
 
-        printTaskAddedMessage(taskList);
+        ui.showTaskAddedMessage(taskList);
     }
 
-    public static void eventCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanExceptions {
+    public static void eventCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanException {
         String filteredUserInput = userInput.replace("event ", "");
         String[] splitDescriptionAndDate = filteredUserInput.split(" /from ");
 
@@ -171,22 +127,20 @@ public class Alan {
 
         taskList.add(new Event(description, from, to));
 
-        printTaskAddedMessage(taskList);
+        ui.showTaskAddedMessage(taskList);
     }
 
-    public static void deleteCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanExceptions {
+    public static void deleteCommandHandler(String userInput, ArrayList<Task> taskList) throws AlanException {
         String[] words = userInput.split(" ");
         int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
-
         checkOutOfTaskListIndex(selectedTaskIndex, taskList);
 
-        System.out.println("Got it, dude. This task is outta here:");
-        System.out.println(taskList.get(selectedTaskIndex));
-
+        Task targetTask = taskList.get(selectedTaskIndex);
+        ui.showDeleteTaskMessage(targetTask);
         taskList.remove(selectedTaskIndex);
 
         int numberOfTasks = taskList.size();
-        printNumberOfTasksMessage(numberOfTasks);
+        ui.showNumberOfTasksMessage(numberOfTasks);
     }
     public static void saveFileHandler(ArrayList<Task> taskList) throws Exception {
         String userWorkingDirectory = System.getProperty("user.dir");
@@ -198,13 +152,13 @@ public class Alan {
         //check if folder exists
         if (!Files.exists(dataFolderPath)) {
             folder.mkdir();
-            System.out.println("Data Folder was not found!\nIt's ok... new data folder has been created in " + userWorkingDirectory);
+            ui.showFolderNotFoundMessage(userWorkingDirectory);
         }
 
         //check if file exists
         if (!Files.exists(tasksFilePath)) {
             textFile.createNewFile();
-            System.out.println("tasks.txt was not found!\nIt's ok... new tasks.txt has been created in " + dataFolderPath);
+            ui.showFileNotFoundMessage(dataFolderPath);
         }
 
         //input arraylist data into text file
@@ -322,34 +276,31 @@ public class Alan {
         return isDone;
     }
 
-    public static void main(String[] args) {
+    /** MORE OOP Increment **/
+    private static Ui ui;
+
+    public static void runAlan() {
+        ui = new Ui();
         ArrayList<Task> taskList = new ArrayList<>();
 
         try {
             readFileHandler(taskList);
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            ui.showToUser(exception.getMessage());
         }
 
-        printGreetingMessage();
+        ui.showWelcomeMessage();
 
         String userInput = null;
-        Scanner scanner = new Scanner(System.in);
 
         do {
             try {
-                //Read user input
-                System.out.print("Input: ");
-                userInput = scanner.nextLine();
-
-                printHorizontalLine();
-
+                userInput = ui.getUserCommand();
                 processCommandHandler(userInput, taskList);
-
-            } catch (AlanExceptions alanExceptions) {
-                System.out.println(alanExceptions.getMessage());
+            } catch (AlanException e) {
+                ui.showToUser(e.getMessage());
             } finally {
-                printHorizontalLine();
+                ui.printHorizontalLine();
             }
         } while (!userInput.equals("bye"));
 
@@ -359,6 +310,9 @@ public class Alan {
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
+    }
 
+    public static void main(String[] args) {
+        Alan.runAlan();
     }
 }

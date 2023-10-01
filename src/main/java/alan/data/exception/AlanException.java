@@ -4,14 +4,15 @@ import alan.data.task.Task;
 
 import java.util.ArrayList;
 
+import static alan.common.Messages.EMPTY_DESCRIPTION_MESSAGE;
+import static alan.common.Messages.INVALID_DEADLINE_FORMAT_MESSAGE;
+import static alan.common.Messages.INVALID_EVENT_FROM_FORMAT_MESSAGE;
+import static alan.common.Messages.INVALID_EVENT_TO_FORMAT_MESSAGE;
+import static alan.common.Messages.INVALID_INPUT_COMMAND_MESSAGE;
+import static alan.common.Messages.INVALID_TASK_NUMBER_MESSAGE;
+
 public class AlanException extends Exception {
-    public static final String INVALID_INPUT_COMMAND_MESSAGE = "Oof, I have no idea what are you saying duuude";
-    public static final String EMPTY_DESCRIPTION_MESSAGE = "Oof Dude, you can't leave the description empty";
-    public static final String INVALID_DEADLINE_FORMAT_MESSAGE = "Oof the deadline command isn't quite right you gotta fix the format, bro...\n[Remember it's: <description> /by <date>]";
-    public static final String INVALID_EVENT_FROM_FORMAT_MESSAGE = "Oof duude, your /from formatting is whack\n[Remember it's: <description> /from <date> /to <date>]";
-    public static final String INVALID_EVENT_TO_FORMAT_MESSAGE = "Oof my man, you need to work on that /to formatting\n[Remember it's: <description> /from <date> /to <date>]";
-    public static final String INVALID_TASK_NUMBER_MESSAGE = "Oof maaaan there's no such task";
-    public AlanException(String errorMessage) {
+        public AlanException(String errorMessage) {
         super(errorMessage);
     }
 
