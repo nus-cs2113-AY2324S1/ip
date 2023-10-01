@@ -18,6 +18,7 @@ import static spaceman.commands.ListOfCommands.COMMAND_DEADLINE;
 import static spaceman.commands.ListOfCommands.COMMAND_EVENT;
 import static spaceman.commands.ListOfCommands.COMMAND_DELETE;
 import static spaceman.commands.ListOfCommands.COMMAND_FIND;
+import static spaceman.commands.ListOfCommands.COMMAND_HELP;
 
 import spaceman.commands.Command;
 import spaceman.commands.AddCommand;
@@ -28,6 +29,7 @@ import spaceman.commands.InvalidCommand;
 import spaceman.commands.ListCommand;
 import spaceman.commands.MarkCommand;
 import spaceman.commands.UnmarkCommand;
+import spaceman.commands.HelpCommand;
 import spaceman.data.TaskList;
 import spaceman.data.exception.IncompleteDescriptionException;
 import spaceman.data.exception.InvalidActionException;
@@ -88,6 +90,8 @@ public class Parser {
                 return new DeleteCommand(parseTaskIndex(arguments));
             case COMMAND_FIND:
                 return new FindCommand(arguments);
+            case COMMAND_HELP:
+                return new HelpCommand();
             default:
                 return new InvalidCommand();
             }

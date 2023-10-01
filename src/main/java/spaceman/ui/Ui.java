@@ -120,4 +120,21 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public static void showHelpMenu() {
+        System.out.println(LINE);
+        System.out.println("- `list` : Shows a list of all tasks.\n"
+                + "- `todo DESCRIPTION` : Adds a todo to the current list of tasks.\n"
+                + "- `deadline DESCRIPTION /by DATETIME` : Adds a deadline to the current list of\n"
+                + "   tasks.\n"
+                + "- `event DESCRIPTION /from START_DATETIME /to END_DATETIME` : "
+                + "Adds an event to \n"
+                + "   the current list of tasks.\n"
+                + "- `find KEYWORD` : Finds tasks whose description contain the given keyword.\n"
+                + "- `delete INDEX` : Deletes the specified task from the list of tasks.\n"
+                + "- `mark INDEX` : Marks the specified task from the list of tasks as done.\n"
+                + "- `unmark INDEX` : Marks the specified task from the list of tasks as not done.\n"
+                + "- `bye` : Exits the program.");
+        System.out.println(LINE);
+    }
+
 }

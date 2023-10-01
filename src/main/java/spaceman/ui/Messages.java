@@ -5,7 +5,7 @@ package spaceman.ui;
  * These messages are used to provide feedback and information to the user.
  */
 public class Messages {
-    public static final String LINE = "------------------------------------------------------------------------";
+    public static final String LINE = "-------------------------------------------------------------------------------";
     public static final String LOGO = "  ____  _____   ___    _____ _____ __    __   ___   __   __\n"
             + "/     /|  __ \\ /   \\  /   __|     |  \\  /  | /   \\ |  \\ |  |\n"
             + "\\   __\\| |__) |  _  \\|   /  |   __|   \\/   |/  _  \\|   \\|  |\n"
