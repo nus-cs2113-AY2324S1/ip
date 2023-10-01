@@ -24,4 +24,5 @@ public class Messages {
     public static final String MESSAGE_EMPTY_TO = "☹ OOPS!!! The /to parameter of an event cannot be empty.";
     public static final String MESSAGE_INVALID_DATE = "☹ OOPS!!! The format of the date is invalid.";
     public static final String MESSAGE_INVALID_INDEX = "☹ OOPS!!! This is an invalid task index.";
+    public static final String MESSAGE_EMPTY_LIST = "Yay! You currently have no tasks!";
 }

@@ -3,6 +3,7 @@ package spaceman.ui;
 import static spaceman.ui.Messages.LINE;
 import static spaceman.ui.Messages.LOGO;
 import static spaceman.ui.Messages.MESSAGE_BYE;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_LIST;
 
 import spaceman.data.TaskList;
 import spaceman.data.task.Task;
@@ -96,6 +97,11 @@ public class Ui {
      */
     public static void showTaskList(TaskList taskList) {
         System.out.println(LINE);
+        if (taskList.getTasks().isEmpty()) {
+            System.out.println(MESSAGE_EMPTY_LIST);
+            System.out.println(LINE);
+            return;
+        }
         System.out.println("Here are the tasks in your list:");
         ArrayList<Task> tasks = taskList.getTasks();
         for (Task task : tasks) {
