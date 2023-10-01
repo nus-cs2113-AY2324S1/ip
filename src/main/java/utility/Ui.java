@@ -26,6 +26,18 @@ public class Ui {
         }
         System.out.print(SOLIDLINE);
     }
+    public void showSelectedTasks(ArrayList<Task> tasks, ArrayList<Integer> index) {
+        System.out.print(SOLIDLINE);
+        if(index.isEmpty()) {
+            System.out.println("There was nothing matching the search terms");
+        } else {
+            System.out.println("Here are the selected tasks: ");
+            for (Integer i : index) {
+                System.out.println((i + 1) + ". " + tasks.get(i).toString());
+            }
+        }
+        System.out.print(SOLIDLINE);
+    }
     public void showMarked(Task task) {
         System.out.println(SOLIDLINE + "Tres Bien! I have marked this as " +
                 (task.getIsDone() ? "done: " : "not done yet: "));
