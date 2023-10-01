@@ -21,6 +21,9 @@ public class Command {
         case "list":
             ui.printList(tasks);
             break;
+        case "find":
+            ui.findKeyword(tasks, argument);
+            break;
         case "mark":
             tasks = editTask(argument, true, tasks, ui);
             break;
