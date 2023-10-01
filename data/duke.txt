@@ -1,2 +1,3 @@
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th 2pm | 4pm
+T | 0 | read book
+D | 1 | return book | Jun-13-2019 11:10
+E | 0 | project meeting | Aug-06-2022 11:00 | Aug-06-2022 12:00

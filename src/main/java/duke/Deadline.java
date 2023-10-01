@@ -1,10 +1,14 @@
 package duke;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task{
 
-    private String dueDate;
+    private LocalDateTime dueDate;
+    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("MMM-dd-yyyy HH:mm");
 
-    public Deadline(String description, String dueDate){
+    public Deadline(String description, LocalDateTime dueDate){
         super(description);
         this.dueDate = dueDate;
 
@@ -12,11 +16,11 @@ public class Deadline extends Task{
 
     @Override
     public String toString(){
-        return "[D]" + super.toString() + " (by: " + dueDate + ")";
+        return "[D]" + super.toString() + " (by: " + dueDate.format(DTF) + ")";
     }
 
     @Override
     public String toFileString() {
-        return ("D | " + super.toFileString() + " | " + dueDate);
+        return ("D | " + super.toFileString() + " | " + dueDate.format(DTF));
     }
 }
