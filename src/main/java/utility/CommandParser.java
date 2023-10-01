@@ -35,6 +35,7 @@ public class CommandParser {
             return new UnmarkCommand(command);
         case "delete":
             return new DeleteCommand(command);
+        case "find":
         case "search":
             return new SearchCommand(command);
         case "clear":
