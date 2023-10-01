@@ -1,8 +1,11 @@
 package Commands;
 
 import Data.TaskList;
-
 import Ui.Ui;
+
+/**
+ * Command to bid farewell
+ */
 public class Farewell extends Command {
     private static final String[] farewellLines = {
             "Farewell, dear pawns. Until our paths cross again in the tapestry of time.",
@@ -16,6 +19,12 @@ public class Farewell extends Command {
             "Like whispers on the wind, I vanish into the shadows. Until next we cross paths...",
             "And so, the threads of our interaction fray, yet the tapestry remains forever changed."
     };
+
+    /**
+     * Executes the command to bid farewell to the user from a list of farewell lines
+     * @param list Tasklist due to inheritance
+     * @param ui Ui to print messages
+     */
     public void execute(TaskList list, Ui ui) {
         String randomFarewellLine = farewellLines[(int) (Math.random() * farewellLines.length)];
         ui.printText(randomFarewellLine);

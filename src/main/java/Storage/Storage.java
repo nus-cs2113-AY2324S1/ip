@@ -14,6 +14,9 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/**
+ * Handles the reading and writing of data to the file
+ */
 public class Storage {
     private static final String FILE_PATH = "data/CSGPT.txt";
     private static final String TODO_INDICATOR = "T";
@@ -32,10 +35,19 @@ public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructor for Storage
+     */
     public Storage() {
         this.filePath = FILE_PATH;
     }
 
+    /**
+     * Reads the data from the file into the program's task list, creating the file and directory if it does not exist
+     * @param taskList Task list to load the data into
+     * @throws CSGPTReadFileException If there is an error reading from the file
+     * @throws CSGPTFileCorruptedError If the file is corrupted
+     */
     public void readFromFile(TaskList taskList) throws CSGPTReadFileException, CSGPTFileCorruptedError, CSGPTParsingException {
         File file = new File(filePath);
         // Create file and directories if file does not exist
@@ -51,6 +63,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the data from the file into the program's task list
+     * @param file File to read from
+     * @param taskList Task list to load the data into
+     * @throws CSGPTReadFileException If there is an error reading from the file
+     * @throws CSGPTFileCorruptedError If the file is corrupted
+     */
     public void loadFileData(File file, TaskList taskList) throws CSGPTReadFileException, CSGPTFileCorruptedError, CSGPTParsingException {
         try {
             Scanner sc = new Scanner(file);
@@ -119,7 +138,7 @@ public class Storage {
         }
     }
 
-    public void addTodo(String description, boolean isDone, TaskList taskList) {
+    private void addTodo(String description, boolean isDone, TaskList taskList) {
         Task todo = new Todo(description);
         todo.setDone(isDone);
         taskList.add(todo);
@@ -134,7 +153,7 @@ public class Storage {
         event.setDone(isDone);
         taskList.add(event);
     }
-    public boolean parseBoolean(String input) throws CSGPTFileCorruptedError {
+    private boolean parseBoolean(String input) throws CSGPTFileCorruptedError {
         if (input.equals(DONE_INDICATOR)) {
             return true;
         } else if (input.equals(NOT_DONE_INDICATOR)) {
@@ -143,6 +162,12 @@ public class Storage {
             throw new CSGPTFileCorruptedError("Task done status not recognised.");
         }
     }
+
+    /**
+     * Writes the data from the task list to the file
+     * @param taskList Task list to write to the file
+     * @throws CSGPTWriteFileException If there is an error writing to the file
+     */
     public void writeToFile(TaskList taskList) throws CSGPTWriteFileException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
@@ -165,9 +190,10 @@ public class Storage {
         }
     }
 
-    public void writeTodo(FileWriter fw, Todo todo) throws IOException {
+    private void writeTodo(FileWriter fw, Todo todo) throws IOException {
         fw.write(TODO_INDICATOR + DEFAULT_SEPARATOR + todo.getStatusIcon() + DEFAULT_SEPARATOR + todo.getDescription() + System.lineSeparator());
     }
+
 
     public void writeDeadline(FileWriter fw, Deadline deadline) throws IOException {
         fw.write(DEADLINE_INDICATOR + DEFAULT_SEPARATOR + deadline.getStatusIcon() + DEFAULT_SEPARATOR + deadline.getDescription() + DEFAULT_SEPARATOR + deadline.getByStringToSave() + System.lineSeparator());

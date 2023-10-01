@@ -10,6 +10,9 @@ import Exceptions.CSGPTParsingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class to parse the user input
+ */
 public class Parser {
     private static final String ADD_TODO_COMMAND = "todo";
     private static final String ADD_DEADLINE_COMMAND = "deadline";
@@ -21,6 +24,12 @@ public class Parser {
     private static final String FIND_COMMAND = "find";
     private static final String FAREWELL_COMMAND = "bye";
 
+    /**
+     * Parses the user input and returns the corresponding command
+     * @param input User input
+     * @return Command corresponding to the user input
+     * @throws CSGPTParsingException Exception thrown when there is an error in parsing
+     */
     public static Command getCommand(String input) throws CSGPTParsingException {
         String initialInput;
         if (input.contains(" ")) {
