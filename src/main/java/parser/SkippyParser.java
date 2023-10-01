@@ -2,14 +2,25 @@ package parser;
 
 import skippy.Skippy;
 
+
 public class SkippyParser {
 
     public Skippy skippy;
 
+    /**
+     * Creates an instance of SkippyPaser
+     *
+     * @param skippy current instance of Skippy.
+     */
     public SkippyParser(Skippy skippy) {
         this.skippy = skippy;
     }
 
+    /**
+     * Parsers the user input and calls the corresponding command methods.
+     *
+     * @param input unformatted user input from the terminal
+     */
     public void parseUserInput(String input) {
         String[] inputWords = input.trim().split(" ");
         String command = inputWords[0].toLowerCase();

@@ -11,7 +11,7 @@ import tasklist.TaskList;
 
 /**
  * Provides the methods for managing the savefile. Creates the directory and savefile, and saves
- * the file when needed.
+ * the file when user exits.
  */
 public class FileManager {
 
