@@ -7,6 +7,9 @@ import Data.Task;
 import Data.Todo;
 import Exceptions.CSGPTParsingException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     private static final String ADD_TODO_COMMAND = "todo";
     private static final String ADD_DEADLINE_COMMAND = "deadline";
@@ -54,7 +57,7 @@ public class Parser {
             throw new CSGPTParsingException("The description of a todo cannot be empty.");
         }
 
-        String todoDescription = input.substring(ADD_TODO_COMMAND.length() + 1);
+        String todoDescription = input.substring(ADD_TODO_COMMAND.length()).trim();
 
         return new Todo(todoDescription);
     }
@@ -64,18 +67,18 @@ public class Parser {
             throw new CSGPTParsingException("The description of a deadline cannot be empty.");
         }
 
-        String deadlineDetails = input.substring(ADD_DEADLINE_COMMAND.length() + 1);
+        String deadlineDetails = input.substring(ADD_DEADLINE_COMMAND.length());
         if (!deadlineDetails.contains(" /by ")) {
             throw new CSGPTParsingException("Please enter a valid /by.");
         }
         String[] deadlineDetailsArray = deadlineDetails.split(" /by ", 2);
-        String deadlineDescription = deadlineDetailsArray[0];
+        String deadlineDescription = deadlineDetailsArray[0].trim();
         if (deadlineDescription.isEmpty()) {
             throw new CSGPTParsingException("The description of a deadline cannot be empty.");
         }
         String by = deadlineDetailsArray[1];
-
-        return new Deadline(deadlineDescription, by);
+        LocalDate byDate = DateParser.parse(by);
+        return new Deadline(deadlineDescription, byDate);
     }
 
     private static Task getTask(String input) throws CSGPTParsingException {
@@ -83,12 +86,12 @@ public class Parser {
             throw new CSGPTParsingException("The description of a event cannot be empty.");
         }
 
-        String eventDetails = input.substring(ADD_EVENT_COMMAND.length() + 1);
+        String eventDetails = input.substring(ADD_EVENT_COMMAND.length());
         if (!eventDetails.contains(" /from ")) {
             throw new CSGPTParsingException("Please enter a /from.");
         }
         String[] eventDetailsArray = input.substring(ADD_EVENT_COMMAND.length()).split(" /from ", 2);
-        String eventDescription = eventDetailsArray[0];
+        String eventDescription = eventDetailsArray[0].trim();
         if (eventDescription.isEmpty()) {
             throw new CSGPTParsingException("The description of an event cannot be empty.");
         }
@@ -99,8 +102,10 @@ public class Parser {
 
         String from = eventDetailsArray2[0];
         String to = eventDetailsArray2[1];
+        LocalDate fromDate = DateParser.parse(from);
+        LocalDate toDate = DateParser.parse(to);
 
-        return new Event(eventDescription, from, to);
+        return new Event(eventDescription, fromDate, toDate);
     }
 
     private static Delete getDelete(String input) throws CSGPTParsingException {

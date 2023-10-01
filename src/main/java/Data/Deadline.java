@@ -1,19 +1,25 @@
 package Data;
 
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDate;
 
-    public Deadline (String description, String by) {
+public class Deadline extends Task {
+    protected LocalDate by;
+
+    public Deadline (String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
-    public String getBy() {
-        return this.by;
+    public String getByString() {
+        return this.by.format(Task.DATE_FORMAT);
+    }
+
+    public String getByStringToSave() {
+        return this.by.toString();
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.getByString() + ")";
     }
 }
