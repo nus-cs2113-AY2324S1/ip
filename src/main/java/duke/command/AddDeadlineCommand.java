@@ -8,12 +8,23 @@ import duke.ui.TextUi;
 import java.io.IOException;
 import java.time.DateTimeException;
 
+/**
+ * Represents an add deadline command.
+ */
 public class AddDeadlineCommand extends AddCommand {
 
+    /**
+     * Creates an add deadline command.
+     *
+     * @param data The inputted data.
+     */
     public AddDeadlineCommand(String data) {
         super(data);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
         try {

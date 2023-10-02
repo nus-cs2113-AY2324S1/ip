@@ -8,12 +8,23 @@ import duke.ui.TextUi;
 import java.io.IOException;
 import java.time.DateTimeException;
 
+/**
+ * Represents an add event command.
+ */
 public class AddEventCommand extends AddCommand {
 
+    /**
+     * Creates an add event command.
+     *
+     * @param data The inputted data.
+     */
     public AddEventCommand(String data) {
         super(data);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
         try {

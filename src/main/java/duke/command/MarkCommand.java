@@ -6,15 +6,26 @@ import duke.ui.TextUi;
 
 import java.io.IOException;
 
+/**
+ * Represents a mark command.
+ */
 public class MarkCommand extends Command {
 
     private String index;
 
+    /**
+     * Creates a mark command.
+     *
+     * @param index The selected index.
+     */
     public MarkCommand(String index) {
         super(false);
         this.index = index;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
         try {

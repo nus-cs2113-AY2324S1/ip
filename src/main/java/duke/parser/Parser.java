@@ -65,7 +65,7 @@ public class Parser {
 
     /**
      * Creates a command class based on the user's input.
-     * 
+     *
      * @param input The user's input
      * @return A command class
      * @throws DukeCommandException If it is an invalid command.
