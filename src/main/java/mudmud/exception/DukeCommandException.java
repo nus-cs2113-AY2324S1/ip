@@ -1,4 +1,4 @@
-package duke.exception;
+package mudmud.exception;
 
 /**
  * Indicates an error caused by invalid command being inputted.

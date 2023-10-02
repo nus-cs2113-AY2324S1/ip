@@ -1,6 +1,6 @@
-package duke.task;
+package mudmud.task;
 
-import duke.parser.Parser;
+import mudmud.parser.Parser;
 
 import java.time.LocalDateTime;
 

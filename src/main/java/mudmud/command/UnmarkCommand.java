@@ -1,24 +1,24 @@
-package duke.command;
+package mudmud.command;
 
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
-import duke.ui.TextUi;
+import mudmud.storage.Storage;
+import mudmud.tasklist.TaskList;
+import mudmud.ui.TextUi;
 
 import java.io.IOException;
 
 /**
- * Represents a mark command.
+ * Represents an unmark command.
  */
-public class MarkCommand extends Command {
+public class UnmarkCommand extends Command {
 
     private String index;
 
     /**
-     * Creates a mark command.
+     * Creates an unmark command.
      *
      * @param index The selected index.
      */
-    public MarkCommand(String index) {
+    public UnmarkCommand(String index) {
         super(false);
         this.index = index;
     }
@@ -30,9 +30,9 @@ public class MarkCommand extends Command {
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
         try {
             int selectedIndex = Integer.parseInt(index);
-            tasks.setMarkAsDone(index);
-            storage.updateTaskDatabase(selectedIndex, true);
-            ui.printModifiedTask(tasks.getTask(selectedIndex), true);
+            tasks.setUnmarkAsDone(index);
+            storage.updateTaskDatabase(selectedIndex, false);
+            ui.printModifiedTask(tasks.getTask(selectedIndex), false);
         } catch (IOException exception) {
             ui.handleIOException(exception);
         } catch (IndexOutOfBoundsException exception) {

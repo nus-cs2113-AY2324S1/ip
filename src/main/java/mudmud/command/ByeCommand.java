@@ -1,8 +1,8 @@
-package duke.command;
+package mudmud.command;
 
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
-import duke.ui.TextUi;
+import mudmud.storage.Storage;
+import mudmud.tasklist.TaskList;
+import mudmud.ui.TextUi;
 
 /**
  * Represents a bye command.

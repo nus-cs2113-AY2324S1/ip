@@ -1,7 +1,7 @@
-package duke.ui;
+package mudmud.ui;
 
-import duke.task.Task;
-import duke.tasklist.TaskList;
+import mudmud.task.Task;
+import mudmud.tasklist.TaskList;
 
 import java.io.IOException;
 import java.util.ArrayList;

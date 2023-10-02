@@ -1,17 +1,17 @@
-package duke;
+package mudmud;
 
-import duke.command.Command;
-import duke.exception.DukeCommandException;
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
-import duke.ui.TextUi;
-import duke.parser.Parser;
+import mudmud.command.Command;
+import mudmud.exception.DukeCommandException;
+import mudmud.storage.Storage;
+import mudmud.tasklist.TaskList;
+import mudmud.ui.TextUi;
+import mudmud.parser.Parser;
 
 /**
  * The entry point for Duke application.
  * Initializes and starts the application.
  */
-public class Duke {
+public class MudMud {
 
     private TextUi ui;
     private Storage storage;
@@ -54,6 +54,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke().start();
+        new MudMud().start();
     }
 }

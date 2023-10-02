@@ -1,4 +1,4 @@
-package duke.task;
+package mudmud.task;
 
 /**
  * Represents a todo in the list.

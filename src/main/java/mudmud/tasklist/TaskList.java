@@ -1,12 +1,12 @@
-package duke.tasklist;
+package mudmud.tasklist;
 
-import duke.exception.DukeTaskException;
-import duke.parser.Parser;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.ui.TextUi;
+import mudmud.exception.DukeTaskException;
+import mudmud.parser.Parser;
+import mudmud.task.Deadline;
+import mudmud.task.Event;
+import mudmud.task.Task;
+import mudmud.task.Todo;
+import mudmud.ui.TextUi;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

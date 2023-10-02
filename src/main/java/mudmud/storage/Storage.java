@@ -1,11 +1,11 @@
-package duke.storage;
+package mudmud.storage;
 
-import duke.parser.Parser;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.ui.TextUi;
+import mudmud.parser.Parser;
+import mudmud.task.Deadline;
+import mudmud.task.Event;
+import mudmud.task.Task;
+import mudmud.task.Todo;
+import mudmud.ui.TextUi;
 
 import java.io.File;
 import java.io.FileNotFoundException;

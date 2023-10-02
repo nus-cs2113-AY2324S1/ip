@@ -1,7 +1,7 @@
-package duke.parser;
+package mudmud.parser;
 
-import duke.command.*;
-import duke.exception.DukeCommandException;
+import mudmud.command.*;
+import mudmud.exception.DukeCommandException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

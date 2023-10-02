@@ -1,9 +1,9 @@
-package duke.command;
+package mudmud.command;
 
-import duke.exception.DukeTaskException;
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
-import duke.ui.TextUi;
+import mudmud.exception.DukeTaskException;
+import mudmud.storage.Storage;
+import mudmud.tasklist.TaskList;
+import mudmud.ui.TextUi;
 
 import java.io.IOException;
 

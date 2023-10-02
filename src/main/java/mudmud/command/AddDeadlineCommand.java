@@ -1,24 +1,24 @@
-package duke.command;
+package mudmud.command;
 
-import duke.exception.DukeTaskException;
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
-import duke.ui.TextUi;
+import mudmud.exception.DukeTaskException;
+import mudmud.storage.Storage;
+import mudmud.tasklist.TaskList;
+import mudmud.ui.TextUi;
 
 import java.io.IOException;
 import java.time.DateTimeException;
 
 /**
- * Represents an add event command.
+ * Represents an add deadline command.
  */
-public class AddEventCommand extends AddCommand {
+public class AddDeadlineCommand extends AddCommand {
 
     /**
-     * Creates an add event command.
+     * Creates an add deadline command.
      *
      * @param data The inputted data.
      */
-    public AddEventCommand(String data) {
+    public AddDeadlineCommand(String data) {
         super(data);
     }
 
@@ -28,13 +28,13 @@ public class AddEventCommand extends AddCommand {
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
         try {
-            String dataString = tasks.addEvent(dataToAdd);
+            String dataString = tasks.addDeadline(dataToAdd);
             storage.addNewData(dataString, tasks.getTasksCount());
             ui.printRecentTask(tasks);
         } catch (IOException exception) {
             ui.handleIOException(exception);
         } catch (DukeTaskException exception) {
-            exception.handleDukeTaskException("event", dataToAdd);
+            exception.handleDukeTaskException("deadline", dataToAdd);
         } catch (DateTimeException exception) {
             ui.handleDateTimeException();
         }

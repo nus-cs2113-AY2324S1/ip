@@ -1,24 +1,24 @@
-package duke.command;
+package mudmud.command;
 
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
-import duke.ui.TextUi;
+import mudmud.storage.Storage;
+import mudmud.tasklist.TaskList;
+import mudmud.ui.TextUi;
 
 import java.io.IOException;
 
 /**
- * Represents a delete command.
+ * Represents a mark command.
  */
-public class DeleteCommand extends Command {
+public class MarkCommand extends Command {
 
     private String index;
 
     /**
-     * Creates a delete command.
+     * Creates a mark command.
      *
-     * @param index The selected task's index.
+     * @param index The selected index.
      */
-    public DeleteCommand(String index) {
+    public MarkCommand(String index) {
         super(false);
         this.index = index;
     }
@@ -28,11 +28,11 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
-
         try {
             int selectedIndex = Integer.parseInt(index);
-            tasks.deleteTask(index);
-            storage.deleteTaskData(selectedIndex);
+            tasks.setMarkAsDone(index);
+            storage.updateTaskDatabase(selectedIndex, true);
+            ui.printModifiedTask(tasks.getTask(selectedIndex), true);
         } catch (IOException exception) {
             ui.handleIOException(exception);
         } catch (IndexOutOfBoundsException exception) {

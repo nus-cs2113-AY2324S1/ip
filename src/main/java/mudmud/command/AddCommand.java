@@ -1,4 +1,4 @@
-package duke.command;
+package mudmud.command;
 
 /**
  * Represents an add task command.

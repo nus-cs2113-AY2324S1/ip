@@ -1,9 +1,9 @@
-package duke.command;
+package mudmud.command;
 
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.tasklist.TaskList;
-import duke.ui.TextUi;
+import mudmud.storage.Storage;
+import mudmud.task.Task;
+import mudmud.tasklist.TaskList;
+import mudmud.ui.TextUi;
 
 import java.util.ArrayList;
 
