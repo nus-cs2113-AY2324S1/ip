@@ -1,11 +1,6 @@
 import exception.DukeException;
-import task.*;
 
 import utils.*;
-
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
     private final String FILE_PATH = "./data/list.txt";
@@ -21,6 +16,9 @@ public class Duke {
         tasks = new TaskList(storage.loadSave());
     }
 
+    /*
+     * Runs the CLI Interface
+     */
     private void run() {
         boolean isExit = false;
 

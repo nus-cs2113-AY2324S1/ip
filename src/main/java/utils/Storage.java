@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
+/*
+ * A storage class handles the saving and loading of data.
+ */
 public class Storage {
 
     private File storageFile;
@@ -21,6 +24,12 @@ public class Storage {
         storageFile = new File(file_path);
     }
 
+    /*
+     * Saves the current list of tasks in storageFile if it exists.
+     * Otherwise, create the file and store the data there.
+     *
+     * @param tasks is the list of tasks
+     */
     public void save(List<Task> tasks) {
         try {
             storageFile.getParentFile().mkdirs();
@@ -37,6 +46,10 @@ public class Storage {
         }
     }
 
+    /*
+     * @return the list of tasks in our save file. If save file does not exists,
+     * returns an empty list.
+     */
     public List<Task> loadSave() {
         List<Task> tasks = new ArrayList<>();
         try {

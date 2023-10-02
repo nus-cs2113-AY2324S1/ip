@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/*
+ * A general class for all tasks that Duke accepts.
+ */
 public abstract class Task {
 
     private boolean isComplete;

@@ -8,6 +8,12 @@ import task.Todo;
 
 public class Parser {
 
+    /*
+     * @param command the name of the command being inputted
+     * @param message the full input of the user
+     * @return the message with the command removed
+     * @throws DukeException if the message is empty
+     */
     public String getTaskName(String command, String message) throws DukeException {
         if (command.length() == message.trim().length()) {
             throw new DukeException("The description of " + command + " cannot be empty.");
@@ -16,6 +22,15 @@ public class Parser {
                 message.contains("/") ? message.indexOf("/") : message.length()).trim();
     }
 
+    /*
+     * @param message the message inputted by the user
+     * @param command the command that is followed by the time we want to get
+     * @return the time
+     * @throws DukeException if:
+     *      message does not contain the command
+     *      command == /from but does not contain /to
+     *      time is empty
+     */
     public String getTime(String message, String command) throws DukeException {
         if (!message.contains(command)) {
             throw new DukeException("Command " + command + " must be included in description.");
@@ -30,10 +45,23 @@ public class Parser {
         return time;
     }
 
+    /*
+     * @param in is the user input
+     * @return true if in is "bye"
+     */
     public boolean isExit(String in) {
         return in.equals("bye".trim());
     }
 
+    /*
+     * Parses the user input and executes the command if possible.
+     *
+     * @param in the user input
+     * @param tasks the tasklist
+     * @param ui the ui class
+     * @param storage the storage
+     * @throws DukeException if the command is not recognized
+     */
     public void parseAndExecute(String in, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (in.equals("bye")) {
             storage.save(tasks.getTasks());
