@@ -58,7 +58,7 @@ Format: `help`
 ### Adding a todo : `todo`
 
 Adds a todo to the current list of tasks.
-Format: `todo DESCRIPTION​`
+Format: `todo DESCRIPTION​`  
 Examples:
 
 - `todo buy coffee`
@@ -66,7 +66,7 @@ Examples:
 ### Adding a deadline : `deadline`
 
 Adds a deadline to the current list of tasks.
-Format: `deadline DESCRIPTION /by DATETIME`
+Format: `deadline DESCRIPTION /by DATETIME`  
 Examples:
 
 - `deadline return books /by 16/10/2023 1200`
@@ -75,7 +75,7 @@ Examples:
 ### Adding an event : `event`
 
 Adds an event to the current list of tasks.
-Format: `event DESCRIPTION /from START_DATETIME /to END_DATETIME​`
+Format: `event DESCRIPTION /from START_DATETIME /to END_DATETIME​`  
 Examples:
 
 - `event Orientation Camp /from 10/09/2023 0800 /to 13/09/2023 1800`
