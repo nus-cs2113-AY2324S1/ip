@@ -2,20 +2,37 @@ package duke.tasks;
 
 //Create an event class that inherits from the task class
 public class Event extends Task {
-    protected String eventTime;
-    public Event(String taskName, String eventTime){
+    private String fromTime;
+    private String toTime;
+
+    public Event(String taskName, String fromTime, String toTime){
         super(taskName);
-        this.eventTime = eventTime;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
     }
+
+    public String getFromTime(){
+        return this.fromTime;
+    }
+
+    public void setFromTime(String fromTime){
+        this.fromTime = fromTime;
+    }
+
+    public String getToTime(){
+        return this.toTime;
+    }
+
+    public void setToTime(String toTime){
+        this.toTime = toTime;
+    }
+
     //toString method to print the status of the task followed by the task name
     public String toString(){
-        if(this.isDone()){
-            return "[E][X] " + this.taskName + " (" + this.eventTime + ")";
+        if(this.getIsDone()){
+            return "[E][X] " + this.getTaskName() + " (" + this.fromTime + " to " + this.toTime + ")";
         }else{
-            return "[E][ ] " + this.taskName + " (" + this.eventTime + ")";
+            return "[E][ ] " + this.getTaskName() + " (" + this.fromTime + " to " + this.toTime + ")";
         }
-    }
-    public String getEventTime(){
-        return this.eventTime;
     }
 }

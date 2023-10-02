@@ -9,31 +9,26 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Ui {
-    private final Scanner sc;
-    private final PrintStream printer;
-
-    public Ui() {
-        this.sc = new Scanner(System.in);
-        this.printer = System.out;
-    }
+    private static Scanner sc = new Scanner(System.in);
+    private static PrintStream printer = System.out;
 
     /**
      * Prints the welcome message.
      */
 
-    public void showWelcome() {
+    public static void showWelcome() {
         printer.println(LINE);
         printer.println(MESSAGE_WELCOME);
         printer.println(LOGO);
-        printer.println(LINE);
     }
 
     /**
      * Prints the goodbye message.
      */
 
-    public void showGoodbye() {
+    public static void showGoodbye() {
         printer.println(LINE);
+        printer.println();
         printer.println(MESSAGE_GOODBYE);
         printer.println(LINE);
     }
@@ -41,16 +36,17 @@ public class Ui {
     /**
      * Prints the given message.
      */
-    public void showMessage(String message) {
+    public static void showMessage(String message) {
         printer.println(LINE);
+        printer.println();
         printer.println(message);
-        printer.println(LINE);
+        printer.println();
     }
  
     /**
      * Reads the next line of input.
      */
-    public String readCommand() {
+    public static String readCommand() {
         printer.println(LINE);
         printer.println();
         printer.print("Enter command: ");

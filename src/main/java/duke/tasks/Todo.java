@@ -7,10 +7,10 @@ public class Todo extends Task {
     }
     //toString method to print the status of the task followed by the task name
     public String toString(){
-        if(this.isDone()){
-            return "[T][X] " + this.taskName;
+        if(this.getIsDone()){
+            return "[T][X] " + this.getTaskName();
         }else{
-            return "[T][ ] " + this.taskName;
+            return "[T][ ] " + this.getTaskName();
         }
     }
 }
