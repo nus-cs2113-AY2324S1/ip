@@ -15,6 +15,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A handler that modifies and gets data from a file.
+ */
 public class Storage {
     private final String DATA_PATH = "data/tasks.txt";
     private final String DATA_DIRECTORY = "data";
@@ -23,11 +26,22 @@ public class Storage {
     private Parser parser;
     private ArrayList<Task> tasksListPlaceholder;
 
+    /**
+     * Creates a handler to modify and access data in the file.
+     */
     public Storage() {
         tasksListPlaceholder = new ArrayList<>();
         ui = new TextUi();
         parser = new Parser();
     }
+
+    /**
+     * Inserts new data into the file.
+     *
+     * @param dataString A line that will be inserted into the file.
+     * @param tasksCount The number of tasks in the list.
+     * @throws IOException If there is an error related to access/modifying the file.
+     */
     public void addNewData(String dataString, int tasksCount) throws IOException {
         FileWriter writer = new FileWriter(DATA_PATH, true);
 
@@ -39,6 +53,15 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Changes the status of a task with the specified index in the file.
+     *
+     * @param index The index/row with the modified task.
+     * @param currentIndex Current index/row.
+     * @param scanner The scanner that refers to the file.
+     * @param change The changed status of a task whether it is mark or unmark.
+     * @param buffer A string builder that will be replacing the contents into the file.
+     */
     private void modifyTaskData(int index, int currentIndex, Scanner scanner, String change,
                                        StringBuilder buffer) {
         if (currentIndex == index) {
@@ -66,11 +89,18 @@ public class Storage {
         }
     }
 
-    public void updateTaskDatabase(int index, boolean taskStatus) throws IOException {
+    /**
+     * Updates a line from the file that refers to a modified task.
+     *
+     * @param index The index/row with the modified task.
+     * @param isDone Specifies if the task is marked or unmarked.
+     * @throws IOException If there is an error related to access/modifying the file.
+     */
+    public void updateTaskDatabase(int index, boolean isDone) throws IOException {
         Scanner scanner = new Scanner(new File(DATA_PATH));
 
         StringBuilder buffer = new StringBuilder();
-        String change = taskStatus ? "true" : "false";
+        String change = isDone ? "true" : "false";
         int currentIndex = 0;
 
         while (scanner.hasNext()) {
@@ -83,6 +113,11 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Creates a new task based on a line from the file.
+     *
+     * @param scan The scanner that refers to the file.
+     */
     private void createNewData(Scanner scan) {
         String[] parsedTask = scan.nextLine().split(" \\| ");
 
@@ -106,6 +141,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Restores data of the previous session from the file.
+     *
+     * @return A list of tasks that is going to be included in task list.
+     */
     public ArrayList<Task> restoreSavedData() {
         try {
             File file = new File(DATA_PATH);
@@ -121,6 +161,11 @@ public class Storage {
         return tasksListPlaceholder;
     }
 
+    /**
+     * Creates a directory to store the file.
+     *
+     * @param newDirectory The directory that is going to be created.
+     */
     private void createDukeDirectory(File newDirectory) {
         if (!newDirectory.isDirectory() && newDirectory.mkdir()) {
             System.out.println("\tDirectory successfully created!");
@@ -129,6 +174,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a file to store data.
+     *
+     * @param newDatabase The file that is going to be created.
+     * @throws IOException If there is an error in creating the file.
+     */
     private void createDukeFile(File newDatabase) throws IOException {
         if (!newDatabase.isFile() && newDatabase.createNewFile()) {
             System.out.println("\tData text file successfully created!");
@@ -137,6 +188,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends all lines except the line with the deleted task.
+     *
+     * @param index The index/row with the deleted task.
+     * @param currentIndex Current index/row.
+     * @param scanner The scanner that refers to the file.
+     * @param buffer A string builder that will be replacing the contents into the file.
+     */
     private void excludeDeletedData(int index, int currentIndex, Scanner scanner, StringBuilder buffer) {
         if (currentIndex == index) {
             scanner.nextLine();
@@ -149,6 +208,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a line of the deleted task in the file.
+     *
+     * @param index The index/row with the deleted task.
+     * @throws IOException If there is an error related to access/modifying the file.
+     */
     //Solution below adapted by https://www.tutorialspoint.com/how-to-overwrite-a-line-in-a-txt-file-using-java
     public void deleteTaskData(int index) throws IOException {
         Scanner scanner = new Scanner(new File(DATA_PATH));
@@ -168,6 +233,9 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Creates the missing directory and file for storing data.
+     */
     public void handleFileNotFoundException() {
         ui.showLine();
         System.out.println("\tLooks like I can't find the file. Let me make it for you.");

@@ -7,6 +7,10 @@ import duke.tasklist.TaskList;
 import duke.ui.TextUi;
 import duke.parser.Parser;
 
+/**
+ * The entry point for Duke application.
+ * Initializes and starts the application.
+ */
 public class Duke {
 
     private TextUi ui;
@@ -14,6 +18,7 @@ public class Duke {
     private TaskList tasks;
     private Parser parser;
 
+    /** Initializes all class members in Duke. */
     public void setup() {
         ui = new TextUi();
         storage = new Storage();
@@ -21,6 +26,7 @@ public class Duke {
         parser = new Parser();
     }
 
+    /** Runs the application until termination. */
     public void run() {
         String input;
         boolean isExit = false;
@@ -41,6 +47,7 @@ public class Duke {
         }
     }
 
+    /** Starts up the application. */
     public void start() {
         setup();
         run();

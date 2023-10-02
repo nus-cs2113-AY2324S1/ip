@@ -7,11 +7,23 @@ import duke.ui.TextUi;
 
 import java.io.IOException;
 
+/**
+ * Represents an add todo command.
+ */
 public class AddTodoCommand extends AddCommand {
+
+    /**
+     * Creates an add todo command.
+     *
+     * @param data The inputted data.
+     */
     public AddTodoCommand(String data) {
         super(data);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
         try {
