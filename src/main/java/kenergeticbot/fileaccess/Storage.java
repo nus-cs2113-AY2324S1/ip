@@ -99,19 +99,19 @@ public class Storage {
 
             switch (taskType) {
                 case "T" :
-                    Task previousTodo = new Todo(taskDescription);
+                    Task previousTodo = new Todo(taskDescription, checkMark(taskMark));
                     taskList.add(previousTodo);
                     System.out.println("adding:" + previousTodo);
                     break;
                 case "D" :
                     String taskDeadline = taskVariables[3];
-                    Task previousDeadline = new Deadline(taskDescription, taskDeadline);
+                    Task previousDeadline = new Deadline(taskDescription, taskDeadline, checkMark(taskMark));
                     taskList.add(previousDeadline);
                     System.out.println("adding:" + previousDeadline);
                     break;
                 case "E" :
                     String taskEventDateTime = taskVariables[3];
-                    Task previousEvent = new Event(taskDescription, taskEventDateTime);
+                    Task previousEvent = new Event(taskDescription, taskEventDateTime, checkMark(taskMark));
                     taskList.add(previousEvent);
                     System.out.println("adding:" + previousEvent);
                     break;
@@ -160,5 +160,9 @@ public class Storage {
             System.out.println(taskList.getTask(i));
             writeToFile(taskList.getTask(i).printTaskToSave());
         }
+    }
+
+    public boolean checkMark(String item) {
+        return item.equals("1");
     }
 }

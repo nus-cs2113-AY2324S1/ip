@@ -13,4 +13,5 @@ public class Messages {
     public static String UNMARK_TASK_MESSAGE = "     OK, I've marked this task as not done yet:";
     public static String TASK_IN_LIST_MESSAGE_PART_1 = "     Now you have ";
     public static String TASK_IN_LIST_MESSAGE_PART_2 = " tasks in the list.";
+    public static String FIND_TASK_MESSAGE = "     Here are the matching tasks in your list:";
 }

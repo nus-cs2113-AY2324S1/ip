@@ -33,7 +33,6 @@ public class KenergeticBot {
         exit(ui);
     }
     public void runCommandLoopUntilExitCommand() {
-
         do {
             String item = ui.getUserCommand();
             Command c = Parser.parseCommand(taskList, item);

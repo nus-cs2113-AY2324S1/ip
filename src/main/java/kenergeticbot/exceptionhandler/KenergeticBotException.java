@@ -14,6 +14,7 @@ public class KenergeticBotException extends Exception {
   public static final String OUT_OF_RANGE = "     OOPS!!! Looks like you tried on an item not in the list";
   public static final String COMMAND_TYPO = "     ¯\\_(ツ)_/¯ OOPS!!! There may be a typo in the command used.";
   public static final String COMMAND_TYPO_NO_NUMBER = COMMAND_TYPO + " Please use the command with an integer number";
+  public static final String COMMAND_TYPO_NO_KEYWORD = COMMAND_TYPO + " Please use the command with a keyword";
   public static final String COMMAND_TYPO_DEADLINE_BY = COMMAND_TYPO + " Please use the command /by";
   public static final String COMMAND_TYPO_EVENT_FROM = COMMAND_TYPO + " Please use the command /from";
   public static final String COMMAND_TYPO_EVENT_TO = COMMAND_TYPO + " Please use the command /to";

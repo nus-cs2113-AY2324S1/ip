@@ -28,6 +28,8 @@ public class Parser{
             return prepareDelete(taskList,userInput);
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(taskList, userInput);
         default:
             try{
                 return new AddCommand(userInput);
@@ -95,6 +97,25 @@ public class Parser{
     }
 
     /**
+     * Parses arguments in the context of the mark task command.
+     *
+     * @param userInput full command args string
+     * @return the prepared command
+     */
+    private static Command prepareFind(TaskList taskList, String userInput) {
+        try {
+            final String listKeyword = parseArgsAsDisplayedKeyword(taskList, userInput, "find");
+            return new FindCommand(listKeyword);
+        } catch (KenergeticBotException e) {
+            return new IncorrectCommand(e.getMessage());
+        } catch (ParseException e) {
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT + MarkCommand.MESSAGE_USAGE);
+        } catch (NumberFormatException nfe) {
+            return new IncorrectCommand(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+    }
+
+    /**
      * Parses the given arguments string to identify task index number.
      *
      * @param userInput arguments string to parse as index number
@@ -111,5 +132,21 @@ public class Parser{
             throw new KenergeticBotException(OUT_OF_RANGE);
         }
         return listIndex;
+    }
+
+    /**
+     * Parses the given arguments string to identify task keyword.
+     *
+     * @param userInput arguments string to parse as keyword
+     * @return the parsed keyword
+     * @throws ParseException if no region of the args string could be found for the index
+     * @throws NumberFormatException the args string region is not a valid number
+     */
+    private static String parseArgsAsDisplayedKeyword(TaskList taskList, String userInput, String command) throws ParseException, NumberFormatException, KenergeticBotException {
+        String keywordString = userInput.replace(command, "").trim();
+        if (keywordString.isEmpty()) {
+            throw new KenergeticBotException(COMMAND_TYPO_NO_KEYWORD);
+        }
+        return keywordString;
     }
 }
