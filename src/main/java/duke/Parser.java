@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 
 public class Parser extends DukeException{
@@ -36,6 +37,8 @@ public class Parser extends DukeException{
             case "delete":
                 taskList.deleteTask(Integer.parseInt(userInput[1]) - 1);
                 break;
+            case "find":
+                taskList.findTask(String.join(" ", Arrays.copyOfRange(userInput, 1, userInput.length)));
             default:
                 taskList.addTasks(userInput);
                 break;

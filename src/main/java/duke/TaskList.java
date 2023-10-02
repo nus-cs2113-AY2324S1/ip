@@ -86,4 +86,21 @@ public class TaskList {
     public int getSize(){
         return taskList.size();
     }
+
+    public void findTask(String word){
+        boolean foundItem = false;
+        ui.printLine();
+        for (int i = 0; i < taskList.size(); i++){
+            if (taskList.get(i).description.contains(word)) {
+                ui.echo("    " + (i+1) + ".");
+                taskList.get(i).printTask();
+                foundItem = true;
+            }
+        }
+
+        if (!foundItem){
+            ui.echo("    No task on the tasklist matches your keyword :-(\n");
+        }
+        ui.printLine();
+    }
 }
