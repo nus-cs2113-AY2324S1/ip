@@ -1,9 +1,15 @@
 package duke.exception;
-//Implement a class DukeException that extends the Exception class. 
-//This class should be able to handle the different exceptions that may occur in your program.
 
+/**
+ * Represents an exception specific to Duke.
+ */
 public class DukeException extends Exception {
 
+    /**
+     * Constructs a new DukeException object with the given error message.
+     *
+     * @param message The error message associated with the exception.
+     */
     public DukeException(String message){
        super(message);
     }

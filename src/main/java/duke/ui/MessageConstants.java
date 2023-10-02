@@ -32,6 +32,4 @@ public class MessageConstants {
     public static final String MESSAGE_ERROR_FILE_READING = "☹ OOPS!!! Error reading from file.";
     public static final String MESSAGE_ERROR_FILE_WRITING = "☹ OOPS!!! Error writing to file.";
 
-
-    
 }
