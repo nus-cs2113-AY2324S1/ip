@@ -16,11 +16,12 @@ public class Messages {
     public static final String MESSAGE_MARK_TASK = "Alright bro! This task is officially checked off:";
     public static final String MESSAGE_UNMARK_TASK = "Ok dude, I've marked this task as ain't done yet amigo:";
     public static final String MESSAGE_DELETE_TASK = "Got it, dude. This task is outta here:";
-    public static final String INVALID_INPUT_COMMAND_MESSAGE = "Oof, I have no idea what are you saying duuude";
-    public static final String EMPTY_DESCRIPTION_MESSAGE = "Oof Dude, you can't leave the description empty";
-    public static final String INVALID_DEADLINE_FORMAT_MESSAGE = "Oof the deadline command isn't quite right you gotta fix the format, bro...\n[Remember it's: <description> /by <date>]";
-    public static final String INVALID_EVENT_FROM_FORMAT_MESSAGE = "Oof duude, your /from formatting is whack\n[Remember it's: <description> /from <date> /to <date>]";
-    public static final String INVALID_EVENT_TO_FORMAT_MESSAGE = "Oof my man, you need to work on that /to formatting\n[Remember it's: <description> /from <date> /to <date>]";
-    public static final String INVALID_TASK_NUMBER_MESSAGE = "Oof maaaan there's no such task";
-    public static final String INVALID_TASK_TYPE_FOUND = "Yo I found a task type that doesn't make sense";
+    public static final String MESSAGE_INVALID_INPUT_COMMAND = "Oof, I have no idea what are you saying duuude";
+    public static final String MESSAGE_EMPTY_DESCRIPTION = "Oof Dude, you can't leave the description empty";
+    public static final String MESSAGE_INVALID_DEADLINE_FORMAT = "Oof the deadline command isn't quite right you gotta fix the format, bro...\n[Remember it's: <description> /by <date>]";
+    public static final String MESSAGE_INVALID_EVENT_FROM_FORMAT = "Oof duude, your /from formatting is whack\n[Remember it's: <description> /from <date> /to <date>]";
+    public static final String MESSAGE_INVALID_EVENT_TO_FORMAT = "Oof my man, you need to work on that /to formatting\n[Remember it's: <description> /from <date> /to <date>]";
+    public static final String MESSAGE_INVALID_TASK_NUMBER = "Oof maaaan there's no such task";
+    public static final String MESSAGE_INVALID_TASK_TYPE_FOUND = "Yo I found a task type that doesn't make sense";
+    public static final String MESSAGE_FIND_TASK = "Dude check it out, here are the matching tasks in your list:";
 }

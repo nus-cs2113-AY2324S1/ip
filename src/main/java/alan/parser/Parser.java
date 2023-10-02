@@ -5,6 +5,8 @@ import alan.data.exception.AlanException;
 import alan.data.task.Task;
 import alan.ui.Ui;
 
+import static alan.common.Messages.MESSAGE_FIND_TASK;
+import static alan.common.Messages.MESSAGE_LIST_COMMAND;
 import static alan.data.exception.AlanException.checkEmptyDescription;
 import static alan.data.exception.AlanException.checkEventInputFromFormat;
 import static alan.data.exception.AlanException.checkEventInputToFormat;
@@ -28,35 +30,31 @@ public class Parser {
             ui.showExitMessage();
             break;
         case "list":
-            //print the tasks in the lists
             listCommandHandler();
             break;
         case "mark":
-            //mark tasks as done
             markingCommandHandler(userInput, true);
             break;
         case "unmark":
-            //unmark tasks as undone
             markingCommandHandler(userInput, false);
             break;
         case "todo":
-            //add to-do task to the list
             checkEmptyDescription(userInput);
             todoCommandHandler(userInput);
             break;
         case "deadline":
-            //add deadline task to the list
             checkEmptyDescription(userInput);
             deadlineCommandHandler(userInput);
             break;
         case "event":
-            //add event task to the list
             checkEmptyDescription(userInput);
             eventCommandHandler(userInput);
             break;
         case "delete":
-            //delete task from the list
             deleteCommandHandler(userInput);
+            break;
+        case "find":
+            findCommandHandler(userInput);
             break;
         default:
             invalidInputCommand();
@@ -64,7 +62,8 @@ public class Parser {
     }
 
     public void listCommandHandler() {
-        ui.showListMessage(tasks.getTaskList());
+        ui.showToUser(MESSAGE_LIST_COMMAND);
+        ui.printTasks(tasks.getTaskList());
     }
 
     public void markingCommandHandler(String userInput, boolean isMark) throws AlanException {
@@ -132,5 +131,21 @@ public class Parser {
 
         int numberOfTasks = tasks.getTaskListSize();
         ui.showNumberOfTasksMessage(numberOfTasks);
+    }
+
+    public void findCommandHandler(String userInput) {
+        String findText = userInput.replace("find ", "");
+        TaskList findResultTasks = new TaskList();
+
+        for (Task task: tasks.getTaskList()) {
+            String taskDescription = task.getDescription();
+
+            if (taskDescription.matches("(.*)" + findText + "(.*)")) {
+                findResultTasks.getTaskList().add(task);
+            }
+        }
+
+        ui.showToUser(MESSAGE_FIND_TASK);
+        ui.printTasks(findResultTasks.getTaskList());
     }
 }
