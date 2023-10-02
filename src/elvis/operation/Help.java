@@ -28,43 +28,41 @@ public class Help {
                 "    ____________________________________________________________\n" +
                 "     Here are the tasks in your list:\n" +
                 "     1.[T][X] read book\n" +
-                "     2.[D][ ] return book (by: June 6th)\n" +
-                "     3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)\n" +
-                "     4.[T][X] join sports club\n" +
-                "     5.[T][ ] borrow book\n" +
+                "     2.[T][X] join sports club\n" +
+                "     3.[T][ ] borrow book\n" +
                 "    ____________________________________________________________\n" +
                 "\n" +
                 "3. To add a deadline, type \"deadline + {description} + /by + {date time}\"\n" +
-                "     Example: deadline return book /by Sunday\n" +
+                "     Example: deadline return book /by 2023/09/23 1800\n" +
                 "    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
                 "       [D][ ] return book (by: 2023-09-23 18:00)\n" +
-                "     Now you have 6 tasks in the list.\n" +
+                "     Now you have 4 tasks in the list.\n" +
                 "    ____________________________________________________________\n" +
                 "\n" +
                 "4. To add an event, type \"deadline + {description} + /from + {date time} + /to {date time}\"\n" +
-                "     Example: event project meeting /from Mon 2pm /to 4pm\n" +
+                "     Example: event project meeting /from 2023-09-23 1800 /to 2023-09-23 1900\n" +
                 "    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
                 "       [E][ ] project meeting (from: 2023-09-23 18:00 to: 2023-09-23 19:00)\n" +
-                "     Now you have 7 tasks in the list.\n" +
+                "     Now you have 5 tasks in the list.\n" +
                 "    ____________________________________________________________\n" +
                 "\n" +
                 "5. {date time} should be written in this format:\n" +
                 "    ____________________________________________________________\n" +
                 "     Date: dd/mm/yyyy OR yyyy-mm-dd\n" +
-                "     Example: 09/11/2023 OR 2023-11-09\n" +
-                "     NOTE: There should be a spacing between the date and time\n" +
+                "     Example: 09/11/2023 OR 2023-11-09\n\n" +
                 "     Time: HHmm OR HH:mm in 24-Hr format\n" +
-                "     Example: 1800 OR 18:00\n" +
+                "     Example: 1800 OR 18:00\n\n" +
+                "     NOTE: There should be a spacing between the date and time\n" +
                 "    ____________________________________________________________\n" +
                 "\n" +
                 "6. To delete a task, type \"delete + {task number}\"\n" +
-                "     Example: delete 1\n" +
+                "     Example: delete 5\n" +
                 "    ____________________________________________________________\n" +
                 "     Noted. I've removed this task:\n" +
-                "       [E][ ] project meeting (from: Mon 2pm to: 4pm)\n" +
-                "     Now you have 6 tasks in the list.\n" +
+                "       [E][ ] project meeting (from: 2023-09-23 18:00 to: 2023-09-23 19:00)\n" +
+                "     Now you have 4 tasks in the list.\n" +
                 "    ____________________________________________________________\n" +
                 "\n" +
                 "-------------------------HELP PAGE END--------------------------\n";
