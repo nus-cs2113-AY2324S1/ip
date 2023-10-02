@@ -14,12 +14,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+/**
+ * A utility class responsible for reading and writing tasks to a file to save the list of tasks.
+ */
 public class Storage {
     private static final String FILE_PATH = "data/kenbot.txt";
     private static final char TODO = 'T';
     private static final char DEADLINE = 'D';
     private static final char EVENT = 'E';
 
+
+    /**
+     * Reads tasks from file, populates the task list and create the file/ directory if it does not exist.
+     *
+     * @param list The task list to populate with tasks from the file.
+     * @throws KenReadFromFileException If there is an issue reading data from the file.
+     * @throws KenFileCorruptedException If the file's content is corrupt or does not match the expected format.
+     */
     public static void readFromFile(TaskList list) throws KenReadFromFileException, KenFileCorruptedException {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
@@ -84,6 +96,13 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Writes tasks from TaskList to the file.
+     *
+     * @param list The TaskList to write the tasks from.
+     * @throws KenWriteToFileException If there is an issue with writing data to the file.
+     */
     public static void writeToFile(TaskList list) throws KenWriteToFileException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
@@ -98,7 +117,12 @@ public class Storage {
         }
     }
 
-    public static Task getDeadline(String input) throws KenFileCorruptedException {
+    private static Task getTodo(String input) {
+        String todoDescription = input.trim();
+        return new Todo(todoDescription);
+    }
+
+    private static Task getDeadline(String input) throws KenFileCorruptedException {
         String[] deadlineInformation = input.split("[(]by:", 2);
         String deadlineDescription;
         String deadlineByString;
@@ -115,12 +139,7 @@ public class Storage {
         return new Deadline(deadlineDescription, deadlineBy);
     }
 
-    public static Task getTodo(String input) {
-        String todoDescription = input.trim();
-        return new Todo(todoDescription);
-    }
-
-    public static Task getEvent(String input) throws KenFileCorruptedException {
+    private static Task getEvent(String input) throws KenFileCorruptedException {
         String[] eventInformation = input.split("[(]from:|to:", 3);
         String eventDescription;
         String eventFromString;

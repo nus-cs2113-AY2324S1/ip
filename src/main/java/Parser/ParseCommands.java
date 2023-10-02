@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A utility class responsible for parsing user commands and input in the Barbie-themed task manager.
+ */
 public class ParseCommands {
     private static final String TODO = "todo";
     private static final String DEADLINE = "deadline";
@@ -23,6 +26,15 @@ public class ParseCommands {
     private static final String BYE = "bye";
     private static final String DELETE = "delete";
     private static final String FIND = "find";
+
+
+    /**
+     * Parses the user input and returns the corresponding Commands object.
+     *
+     * @param input The user's input command as a string.
+     * @return A Commands object representing the parsed user command.
+     * @throws KenException If there is an issue parsing the input or creating the Commands object.
+     */
     public Command parse(String input) throws KenException {
         String command = input.contains(" ") ? input.split(" ")[0] : input;
         switch (command) {
@@ -120,7 +132,7 @@ public class ParseCommands {
         }
     }
 
-    public static Update getStatus(String input, boolean isDone) throws KenParsingException {
+    private static Update getStatus(String input, boolean isDone) throws KenParsingException {
         String trimmedInput = input.trim();
         if (trimmedInput.equals(MARK) || trimmedInput.equals(UNMARK)) {
             throw new KenParsingException("Pick a task to mark/unmark and let the Barbie magic flow!");
@@ -135,7 +147,7 @@ public class ParseCommands {
         return new Update(taskNumber, isDone);
     }
 
-    public static Delete getDelete(String input) throws KenParsingException {
+    private static Delete getDelete(String input) throws KenParsingException {
         String trimmedInput = input.trim();
         if (trimmedInput.equals(DELETE)) {
             throw new KenParsingException("Pick a task to delete and let the Barbie magic flow!");
