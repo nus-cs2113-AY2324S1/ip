@@ -1,5 +1,6 @@
 package alan.storage;
 
+import alan.data.exception.AlanException;
 import alan.data.task.Deadline;
 import alan.data.task.Event;
 import alan.data.task.Task;
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static alan.common.Messages.INVALID_TASK_TYPE_FOUND;
 
 public class Storage {
     private String filePath;
@@ -61,8 +64,11 @@ public class Storage {
             String isDoneString = splitTaskString[1];
             String description = splitTaskString[2];
             boolean isDone = isDoneStringToBoolean(isDoneString);
-
-            addTaskToTaskList(taskType, description, splitTaskString);
+            try {
+                addTaskToTaskList(taskType, description, splitTaskString);
+            } catch (AlanException e) {
+                ui.showToUser(e.getMessage());
+            }
 
             int lastTaskIndex = taskArrayList.size() - 1;
             taskArrayList.get(lastTaskIndex).setDone(isDone);
@@ -71,7 +77,7 @@ public class Storage {
         return taskArrayList;
     }
 
-    public void addTaskToTaskList(String taskType, String description, String[] splitTaskString) {
+    public void addTaskToTaskList(String taskType, String description, String[] splitTaskString) throws AlanException {
         switch (taskType) {
         case "T":
             taskArrayList.add(new Todo(description));
@@ -89,14 +95,16 @@ public class Storage {
             taskArrayList.add(new Event(description, from, to));
             break;
         default:
-            //todo handle invalid task type
+            new AlanException(INVALID_TASK_TYPE_FOUND);
             break;
         }
     }
 
     private boolean isDoneStringToBoolean (String string) {
-        // todo check if isDone is correct value, error handling
-        return string.equals("1");
+        if (string.equals("1")) {
+            return true;
+        }
+        return false;
     }
 
     // Save to text file
