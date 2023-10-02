@@ -10,7 +10,7 @@ import exceptions.UnknownCommandException;
 import tasks.Tasklist;
 
 /**
- * Represents the main class of the ZenBot application
+ * main class of the ZenBot application
  */
 public class ZenBot { 
     public static void main(String[] args) throws UnknownCommandException, TaskEmptyDescriptionException, IOException {
