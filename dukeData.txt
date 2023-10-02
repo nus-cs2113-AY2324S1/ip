@@ -1,2 +1,3 @@
-D | true | ee2026 exam /by 8 nov | 8 nov
-T | false | finish code
+T | false | borrow book
+D | true | buy book /by 8 november | 8 november
+E | false | meet caleb /from fgbd /to 7iksudf | fgbd | 7iksudf

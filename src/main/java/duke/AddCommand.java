@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 public class AddCommand implements Command {
     private final String input;
 
@@ -8,7 +10,7 @@ public class AddCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws DukeException {
         TaskList.addTaskToList(input, tasks);
     }
 

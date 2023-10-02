@@ -1,10 +1,12 @@
 package duke;
 
+import java.util.ArrayList;
+
 public class ListCommand implements Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
         // You can include any logic related to the "list" command here
-        TaskList.printList(tasks.getTasks());
+        TaskList.printList(tasks);
     }
 
     @Override
