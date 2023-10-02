@@ -5,10 +5,10 @@ import jarvis.storage.Storage;
 import jarvis.ui.Ui;
 
 public class Jarvis {
-    private Ui ui;
-    private TaskList taskList;
-    private Storage dataStorage;
-    private Parser parser;
+    private final Ui ui;
+    private final TaskList taskList;
+    private final Storage dataStorage;
+    private final Parser parser;
 
     static String filePath = "tasklist.txt";
     public Jarvis(String filePath){

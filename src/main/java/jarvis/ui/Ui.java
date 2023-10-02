@@ -40,7 +40,6 @@ public class Ui {
         System.out.println("Hello from\n" + LOGO);
         System.out.println(LINE_BREAK + "\n Hi Sir! I'm JARVIS \n" + " What can I do for you today?\n" + LINE_BREAK);
 //        dataStorage.loadData(tasks);
-        displayLine();
     }
 
     public void displayGoodbyeMessage() {

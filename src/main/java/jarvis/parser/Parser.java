@@ -1,8 +1,6 @@
 package jarvis.parser;
 
-import jarvis.command.Command;
-import jarvis.command.CommandToDo;
-import jarvis.command.CommandExit;
+import jarvis.command.*;
 import jarvis.exception.JarvisException;
 /**
  * Represents a parser that converts user inputs into command objects.
@@ -14,6 +12,12 @@ public class Parser {
             switch(commandTitle){
             case "bye":
                 return new CommandExit();
+            case "list":
+                return new CommandList();
+            case "deadline":
+                return new CommandDeadline(userInput);
+            case "event":
+                return new CommandEvent(userInput);
             case "todo":
                 return new CommandToDo(userInput);
             default:

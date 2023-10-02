@@ -20,7 +20,6 @@ public class UserInputHandler {
 
     private static final Map<String, Command> commands = new HashMap<>();
     static {
-        commands.put("list", userInput -> taskManager.listTasks());
 
         commands.put("mark", userInput -> {
             try {

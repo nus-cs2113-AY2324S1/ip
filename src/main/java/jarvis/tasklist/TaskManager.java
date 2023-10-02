@@ -24,14 +24,6 @@ public class TaskManager {
     private static final int BY_KEYWORD_LENGTH = 4;
     private final ArrayList<Task> taskList = new ArrayList<>();
 
-    public void listTasks() {
-        System.out.println("Here's your jarvis.tasks!");
-        for (int i = 0; i < taskList.size(); i++) {
-            int indexNum = i + 1;
-            System.out.println(indexNum + "." + taskList.get(i));
-        }
-    }
-
     public void markTaskAsDone(int index) throws JarvisException {
         try {
             if (isValidIndex(index)) {
@@ -113,6 +105,12 @@ public class TaskManager {
         displayTaskCount();
         saveTasksToFile();
     }
+
+    public static void showDeadline(String description, String time){
+        Deadline deadline = new Deadline(description, time);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + deadline);
+    }
     public void loadDeadline(String description, String time) {
         Deadline deadline = new Deadline(description, time);
         taskList.add(deadline);
@@ -151,6 +149,12 @@ public class TaskManager {
         saveTasksToFile();
     }
 
+    public static void showEvent(String description, String time){
+        Event event = new Event(description, time);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + event);
+    }
+
     public void loadEvent(String description, String startTime, String endTime) {
         String timeRange = startTime + " to " + endTime;
         Event event = new Event(description, timeRange);
@@ -169,15 +173,15 @@ public class TaskManager {
         String startTime = parts[1].trim();
         String endTime = parts[2].trim();
 
-        List<String> descriptionAndTime = new ArrayList<>();
-        descriptionAndTime.add(description);
-        descriptionAndTime.add(startTime);
-        descriptionAndTime.add(endTime);
-        System.out.println((descriptionAndTime));
-
         if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
             throw JarvisException.invalidEventFormat();
         }
+
+        List<String> descriptionAndTime = new ArrayList<>();
+        descriptionAndTime.add(description);
+        String timeRange = startTime + " to " + endTime;
+        descriptionAndTime.add(timeRange);
+
         return descriptionAndTime;
     }
 
@@ -232,7 +236,7 @@ public class TaskManager {
                 }
             }
             System.out.println("File loaded");
-            listTasks();
+//            listTasks();
             reader.close();
         }
         else{

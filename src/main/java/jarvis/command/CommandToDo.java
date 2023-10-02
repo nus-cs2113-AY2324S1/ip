@@ -6,7 +6,7 @@ import jarvis.tasklist.TaskList;
 import jarvis.ui.Ui;
 
 public class CommandToDo extends Command {
-    private String userInput;
+    private final String userInput;
     public CommandToDo(String userInput){
         super(CommandType.TODO);
         this.userInput = userInput;
