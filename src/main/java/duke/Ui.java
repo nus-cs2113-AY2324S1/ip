@@ -116,6 +116,11 @@ public class Ui {
         System.out.println(tasks.getTasks().get(index - 1));
     }
 
+    /**
+     * Prints the list of tasks that match the provided keyword.
+     * If no tasks match, user will be notified as well.
+     * @param matchingTasks
+     */
     public void printKeywordSearchResult(ArrayList<Task> matchingTasks) {
         if (matchingTasks.size() == 0) {
             System.out.println("There are no matching tasks in your list!");
@@ -177,6 +182,9 @@ public class Ui {
         System.out.println("I am sorry, the todo cannot be empty!");
     }
 
+    /**
+     * Notifies user about invalid data and time input and provides the correct input formatting.
+     */
     public void printInvalidDateTimeMessage() {
         System.out.println("Oops, I don't understand that! Please provide valid date and time in a readable format " +
                 "like: YYYY-MM-DD HH:MM");

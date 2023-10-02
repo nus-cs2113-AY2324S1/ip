@@ -66,6 +66,13 @@ public class Command {
         return tasks;
     }
 
+    /**
+     * Finds all the tasks containing the specified keyword in the description.
+     * If keyword is empty, it will print the entire list of tasks.
+     * @parm tasks TaskList object containing the list of tasks.
+     * @parm keyword Keyword to be searched for.
+     * @parm ui Ui object to interact with the user.
+     * */
     public void findKeyword(TaskList tasks, String keyword, Ui ui) {
         if (keyword == null || keyword.isEmpty()){
             ui.printList(tasks);
