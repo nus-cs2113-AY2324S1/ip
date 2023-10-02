@@ -16,6 +16,8 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_COMMAND = " Invalid command! Please enter a valid command";
 
+    public static final String MESSAGE_PARSE_TASK_ERROR = "Error parsing tasks from storage!";
+
     public static String[] getAddSuccessMessage(String taskName, int taskListSize) {
         return new String[] {
             "Got it. I've added this task:",
