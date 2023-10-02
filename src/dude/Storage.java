@@ -6,14 +6,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The `Storage` class manages file input and output operations, responsible for
+ * saving tasks to a file and loading tasks from a file.
+ */
 public class Storage {
 
     private final String filePath;
 
+    /**
+     * Constructs a `Storage` instance with the specified file path.
+     *
+     * @param filePath The path to the file used for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Checks if the directory and file specified by the file path exist. If they
+     * don't exist, this method creates the necessary directory and file.
+     */
     public void setupFile() {
         // Check if the directory exists, if not, create it
         File file = new File(filePath);
@@ -31,6 +44,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file specified by the file path and returns them as an
+     * ArrayList of tasks.
+     *
+     * @return An ArrayList containing the tasks loaded from the file.
+     */
     public ArrayList<Task> loadFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -60,6 +79,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the provided ArrayList of tasks to the file specified by the file
+     * path. Each task is written to a separate line in the file.
+     *
+     * @param tasks The ArrayList of tasks to be saved to the file.
+     */
     public void saveToFile(ArrayList<Task> tasks) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);

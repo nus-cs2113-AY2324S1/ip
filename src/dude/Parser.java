@@ -1,7 +1,20 @@
 package dude;
 
+/**
+ * The `Parser` class is responsible for parsing user input commands and executing the
+ * corresponding actions on the task list.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input command and performs the corresponding action on the task list.
+     *
+     * @param input   The user input command to parse and execute.
+     * @param tasks   The TaskList instance containing the list of tasks.
+     * @param ui      The Ui instance for user interactions and output.
+     * @param storage The Storage instance for saving and loading tasks.
+     * @throws DudeException If there's an error during command parsing or execution.
+     */
     public static void parse(String input, TaskList tasks, Ui ui, Storage storage) throws DudeException {
         String[] commandWords = input.split(" ");
         String commandType = commandWords[0];
