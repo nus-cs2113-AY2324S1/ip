@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a deadline task which has a description and a due date.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     private LocalDateTime dueDate;
     private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("MMM-dd-yyyy HH:mm");
@@ -27,7 +27,7 @@ public class Deadline extends Task{
      * Returns the single line representation of the deadline which is used by the UI.
      * @return string representation of the deadline.
      */
-    public String toString(){
+    public String toString() {
         return "[D]" + super.toString() + " (by: " + dueDate.format(DTF) + ")";
     }
 

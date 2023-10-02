@@ -14,6 +14,7 @@ public class Parser {
         String[] parts = input.split(" ", 2);
         String command = parts[0].toLowerCase();
         String argument = null;
+
         if (parts.length > 1) {
             argument = parts[1];
         }

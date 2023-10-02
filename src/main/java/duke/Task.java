@@ -23,14 +23,6 @@ public class Task {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
     public void setDone(boolean done) {
         isDone = done;
     }
@@ -58,11 +50,11 @@ public class Task {
      * @return string representation of the task.
      */
     public String toString() {
-        String ex = " ";
-        if(isDone) {
-            ex = "x";
+        String marking = " ";
+        if (isDone) {
+            marking = "x";
         }
-        return ("["+ex+"] "+description);
+        return ("[" + marking + "] " + description);
     }
 
     /**
@@ -70,11 +62,11 @@ public class Task {
      * @return string representation of the task.
      */
     public String toFileString() {
-        int binaryIsDone = 0;
+        int isDoneBinary = 0;
         if (isDone) {
-            binaryIsDone = 1;
+            isDoneBinary = 1;
         }
-        return (binaryIsDone + " | " + this.description);
+        return (isDoneBinary + " | " + this.description);
     }
 
 }

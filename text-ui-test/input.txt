@@ -1,24 +1,15 @@
 todo read book
-list
 deadline return book /by 2019-06-13
-list
 event project meeting /from 2022-08-06 13:00 /to 2022-08-06 12:00
-list
+event project meeting /from 2022-08-06 13:00 /to 2022-08-06 14:00
 mark 1
 unmark 0
 blah
 list
 delete 1
-list
-todo join sports club
-list
+todo join book club
 delete
 mark
-list
 todo borrow book
-list
-deadline return book /by Sunday
-list
-event project meeting /from Mon 2pm /to 4pm
-list
+find book
 bye

@@ -11,7 +11,7 @@ public class Todo extends Task {
      * Generates new Todo object.
      * @param description Description of the todo.
      */
-    public Todo(String description){
+    public Todo(String description) {
         super(description);
     }
 
@@ -20,7 +20,7 @@ public class Todo extends Task {
      * Returns the single line representation of the todo which is used by the UI.
      * @return string representation of the todo.
      */
-    public String toString(){
+    public String toString() {
         return "[T]" + super.toString();
     }
 
@@ -29,7 +29,7 @@ public class Todo extends Task {
      * Returns the single line representation of the todo which is used for the file.
      * @return string representation of the todo.
      */
-    public String toFileString(){
+    public String toFileString() {
         return ("T | " + super.toFileString());
     }
 }

@@ -5,6 +5,7 @@ import duke.exceptions.InvalidTimeSpanException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Executes the commands provided by the user.
@@ -37,7 +38,7 @@ public class Command {
             ui.printList(tasks);
             break;
         case "find":
-            ui.findKeyword(tasks, argument);
+            findKeyword(tasks, argument, ui);
             break;
         case "mark":
             tasks = editTask(argument, true, tasks, ui);
@@ -65,6 +66,22 @@ public class Command {
         return tasks;
     }
 
+    public void findKeyword(TaskList tasks, String keyword, Ui ui) {
+        if (keyword == null || keyword.isEmpty()){
+            ui.printList(tasks);
+            return;
+        }
+
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (Task task : tasks.getTasks()) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        ui.printKeywordSearchResult(matchingTasks);
+    }
+
     /**
      * Marks or unmarks a given task.
      * If the index is out of bounds or if the argument is not a number, it will print an error message.
@@ -74,7 +91,7 @@ public class Command {
      * @parm ui Ui object to interact with the user.
      * @return TaskList object containing the list of tasks with the applied mark modifications.
      * */
-    public TaskList editTask(String argument, boolean done, TaskList tasks, Ui ui){
+    public TaskList editTask(String argument, boolean done, TaskList tasks, Ui ui) {
         try {
             int taskIndex = Integer.parseInt(argument);
             tasks.getTasks().get(taskIndex - 1).setDone(done);
@@ -94,8 +111,8 @@ public class Command {
      * @return TaskList object containing the list of tasks with the new Todo.
      * @see Todo
      * */
-    public TaskList addToDo(String argument, TaskList tasks, Ui ui){
-        if (argument==null || argument.isEmpty()) {
+    public TaskList addToDo(String argument, TaskList tasks, Ui ui) {
+        if (argument == null || argument.isEmpty()) {
             ui.printEmptyTodoMessage();
         }
         Task todo = new Todo(argument);
@@ -113,18 +130,21 @@ public class Command {
      * @return TaskList object containing the list of tasks with the newly added deadline.
      * @see Deadline
      * */
-    public TaskList addDeadline(String argument, TaskList tasks, Ui ui){
+    public TaskList addDeadline(String argument, TaskList tasks, Ui ui) {
         try {
-            LocalDateTime dueDate = LocalDateTime.parse(argument.split(" /by ")[1].replace(" ", "T"));
+            String dueDateStr = argument.split(" /by ")[1];
             String description = argument.split(" /by ")[0];
+            LocalDateTime dueDate = LocalDateTime.parse(dueDateStr.replace(" ", "T"));
+
             Task deadline = new Deadline(description, dueDate);
             tasks.add(deadline);
             ui.printTaskAddedMessage(deadline, tasks.getTasks());
-        } catch (ArrayIndexOutOfBoundsException e){
+
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.printInvalidDeadlineMessage();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             ui.printEmptyDeadlineMessage();
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             ui.printInvalidDateTimeMessage();
         }
         return tasks;
@@ -139,24 +159,29 @@ public class Command {
      * @return TaskList object containing the list of tasks with the newly added Event.
      * @see Event
      * */
-    public TaskList addEvent(String argument, TaskList tasks, Ui ui){
+    public TaskList addEvent(String argument, TaskList tasks, Ui ui) {
         try {
             String description = argument.split(" /from ")[0];
-            LocalDateTime startDate = LocalDateTime.parse(argument.split(" /from ")[1].split(" /to ")[0].replace(" ", "T"));
-            LocalDateTime endDate = LocalDateTime.parse(argument.split(" /from ")[1].split(" /to ")[1].replace(" ", "T"));
-            if(startDate.isAfter(endDate)){
+            String startDateStr = argument.split(" /from ")[1].split(" /to ")[0];
+            String endDateStr = argument.split(" /from ")[1].split(" /to ")[1];
+            LocalDateTime startDate = LocalDateTime.parse(startDateStr.replace(" ", "T"));
+            LocalDateTime endDate = LocalDateTime.parse(endDateStr.replace(" ", "T"));
+
+            if (startDate.isAfter(endDate)) {
                 throw new InvalidTimeSpanException();
             }
+
             Task event = new Event(description, startDate, endDate);
             tasks.add(event);
             ui.printTaskAddedMessage(event, tasks.getTasks());
+
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.printInvalidEventMessage();
         } catch (NullPointerException e) {
             ui.printEmptyEventMessage();
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             ui.printInvalidDateTimeMessage();
-        } catch(InvalidTimeSpanException e){
+        } catch(InvalidTimeSpanException e) {
             e.printErrorMessage();
         }
         return tasks;

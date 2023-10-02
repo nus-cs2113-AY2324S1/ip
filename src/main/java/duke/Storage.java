@@ -15,17 +15,10 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private String path;
+    private final String path;
     private ArrayList<Task> tasks;
 
     private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("MMM-dd-yyyy'T'HH:mm");
-
-    /**
-     * Default Constructor for Storage with path set to "data/duke.txt".
-     */
-    public Storage() {
-        this.path = "data/duke.txt";
-    }
 
     /**
      * Constructor for Storage with path set to the given path.
@@ -40,11 +33,12 @@ public class Storage {
      * If the file does not exist, an empty task list will be returned.
      * @return ArrayList of Tasks read from the file.
      */
-    public ArrayList<Task> loadData(){
+    public ArrayList<Task> loadData() {
         try {
             tasks = new ArrayList<Task>();
             File f = new File(path);
             Scanner s = new Scanner(f);
+
             while (s.hasNext()) {
                 String input = s.nextLine();
                 readDataLine(input);
@@ -66,17 +60,18 @@ public class Storage {
         String[] parts = input.split(" \\| ");
         try {
             Task task;
-
             switch(parts[0]) {
             case "T":
                 task = new Todo(parts[2]);
                 break;
             case "D":
-                task = new Deadline(parts[2], LocalDateTime.parse(parts[3].replace(" ", "T"), DTF));
+                LocalDateTime dueDate = LocalDateTime.parse(parts[3].replace(" ", "T"), DTF);
+                task = new Deadline(parts[2], dueDate);
                 break;
             case "E":
-                task = new Event(parts[2], LocalDateTime.parse(parts[3].replace(" ", "T"), DTF),
-                        LocalDateTime.parse(parts[4].replace(" ", "T"), DTF));
+                LocalDateTime startDate = LocalDateTime.parse(parts[3].replace(" ", "T"), DTF);
+                LocalDateTime endDate = LocalDateTime.parse(parts[4].replace(" ", "T"), DTF);
+                task = new Event(parts[2], startDate, endDate);
                 break;
             default:
                 throw new CorruptedFileException();
@@ -110,5 +105,4 @@ public class Storage {
             System.out.println("An error occurred when accessing the file.");
         }
     }
-
 }

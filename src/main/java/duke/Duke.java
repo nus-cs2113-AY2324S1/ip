@@ -55,12 +55,14 @@ public class Duke {
         do {
             input = this.ui.readCommand();
             Command c = Parser.extractCommand(input);
+
             try {
                 c.executeCommand(tasks, ui);
                 storage.saveData(tasks.getTasks());
             } catch (InvalidCommandException e) {
                 e.printErrorMessage();
             }
+
             ui.printHorizontalLine();
         } while (!input.equalsIgnoreCase("bye"));
     }

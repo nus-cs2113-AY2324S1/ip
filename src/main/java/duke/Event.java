@@ -18,7 +18,7 @@ public class Event extends Task {
      * @param startDate Start date of the event.
      * @param endDate End date of the event.
      */
-    public Event(String description, LocalDateTime startDate, LocalDateTime endDate){
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -29,8 +29,9 @@ public class Event extends Task {
      * Returns the single line representation of the event which is used by the UI.
      * @return string representation of the event.
      */
-    public String toString(){
-        return "[E]" + super.toString() + " (from: " + startDate.format(DTF) + " to: " + endDate.format(DTF) + ")";
+    public String toString() {
+        String startEndDescription = " (from: " + startDate.format(DTF) + " to: " + endDate.format(DTF) + ")";
+        return ("[E]" + super.toString() + startEndDescription);
     }
 
     @Override
@@ -38,7 +39,8 @@ public class Event extends Task {
      * Returns the single line representation of the event which is used for the file.
      * @return string representation of the event.
      */
-    public String toFileString(){
-        return ("E | " + super.toFileString() + " | " + startDate.format(DTF) + " | " + endDate.format(DTF));
+    public String toFileString() {
+        String startEndDescription = " | " + startDate.format(DTF) + " | " + endDate.format(DTF);
+        return ("E | " + super.toFileString() + startEndDescription);
     }
 }

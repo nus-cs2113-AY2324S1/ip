@@ -6,112 +6,51 @@
 
 --------------------------------------------
 Hello! I'm Lexi
+Currently, you have no tasks in your list.
 How can I help you buddy?
---------------------------------------------
 --------------------------------------------
 Ok, I have added the following task:
    [T][ ] read book
 Now you have 1 tasks in the list.
 --------------------------------------------
+Oops, I don't understand that! Please provide valid date and time in a readable format like: YYYY-MM-DD HH:MM
 --------------------------------------------
-Here are the tasks in your list:
-1.[T][ ] read book
---------------------------------------------
+The start time of an event cannot be after the end time!
 --------------------------------------------
 Ok, I have added the following task:
-   [D][ ] return book (by: June 6th)
+   [E][ ] project meeting (from: Aug-06-2022 13:00 to: Aug-06-2022 14:00)
 Now you have 2 tasks in the list.
---------------------------------------------
---------------------------------------------
-Here are the tasks in your list:
-1.[T][ ] read book
-2.[D][ ] return book (by: June 6th)
---------------------------------------------
---------------------------------------------
-Ok, I have added the following task:
-   [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-Now you have 3 tasks in the list.
---------------------------------------------
---------------------------------------------
-Here are the tasks in your list:
-1.[T][ ] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
---------------------------------------------
 --------------------------------------------
 Great! I have marked this task as done:
 [T][x] read book
 --------------------------------------------
+This task id does not exist, please provide a valid task number!
+--------------------------------------------
+Oops, seems like I don't know this command. Please provide a valid command!
 --------------------------------------------
 Here are the tasks in your list:
 1.[T][x] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2.[E][ ] project meeting (from: Aug-06-2022 13:00 to: Aug-06-2022 14:00)
 --------------------------------------------
+Alright, I have removed the following task:
+   [T][x] read book
+Now you have 1 tasks in the list.
 --------------------------------------------
 Ok, I have added the following task:
-   [T][ ] join sports club
-Now you have 4 tasks in the list.
+   [T][ ] join book club
+Now you have 2 tasks in the list.
 --------------------------------------------
+This task id does not exist, please provide a valid task number!
 --------------------------------------------
-Here are the tasks in your list:
-1.[T][x] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][ ] join sports club
---------------------------------------------
---------------------------------------------
-Great! I have marked this task as done:
-[T][x] join sports club
---------------------------------------------
---------------------------------------------
-Here are the tasks in your list:
-1.[T][x] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][x] join sports club
---------------------------------------------
+This task id does not exist, please provide a valid task number!
 --------------------------------------------
 Ok, I have added the following task:
    [T][ ] borrow book
-Now you have 5 tasks in the list.
+Now you have 3 tasks in the list.
 --------------------------------------------
---------------------------------------------
-Here are the tasks in your list:
-1.[T][x] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][x] join sports club
-5.[T][ ] borrow book
---------------------------------------------
---------------------------------------------
-Ok, I have added the following task:
-   [D][ ] return book (by: Sunday)
-Now you have 6 tasks in the list.
---------------------------------------------
---------------------------------------------
-Here are the tasks in your list:
-1.[T][x] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][x] join sports club
-5.[T][ ] borrow book
-6.[D][ ] return book (by: Sunday)
---------------------------------------------
---------------------------------------------
-Ok, I have added the following task:
-   [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 7 tasks in the list.
---------------------------------------------
---------------------------------------------
-Here are the tasks in your list:
-1.[T][x] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][x] join sports club
-5.[T][ ] borrow book
-6.[D][ ] return book (by: Sunday)
-7.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Here are the matching tasks in your list:
+1.[T][ ] join book club
+2.[T][ ] borrow book
 --------------------------------------------
 --------------------------------------------
 Have a wonderful day! Hope to see you again soon!
