@@ -1,7 +1,12 @@
 package kenergeticbot.command;
 
 import kenergeticbot.TaskList;
+import kenergeticbot.ui.TextUi;
+import static kenergeticbot.common.Messages.SEPARATING_LINE;
 
+/**
+ * Represents an incorrect command. Upon execution, produces some feedback to the user.
+ */
 public class IncorrectCommand extends Command{
     public final String feedbackToUser;
 
@@ -9,8 +14,8 @@ public class IncorrectCommand extends Command{
         this.feedbackToUser = feedbackToUser;
     }
 
-
-    public void execute(TaskList taskList) {
-        System.out.println(feedbackToUser);
+    @Override
+    public void execute(TaskList taskList, TextUi ui) {
+        ui.showToUser(SEPARATING_LINE, feedbackToUser, SEPARATING_LINE);
     }
 }

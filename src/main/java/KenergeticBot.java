@@ -1,11 +1,9 @@
 import kenergeticbot.TaskList;
 import kenergeticbot.command.Command;
 
-import java.util.Scanner;
-
 import kenergeticbot.fileaccess.Storage;
 import kenergeticbot.ui.TextUi;
-import kenergeticbot.command.Parser;
+import kenergeticbot.Parser;
 import kenergeticbot.command.ExitCommand;
 
 
@@ -21,30 +19,31 @@ public class KenergeticBot {
         new KenergeticBot().run();
     }
 
-    private void start(String filePath, TaskList taskList) {
+    private void start(String filePath, TaskList taskList, TextUi ui) {
         this.storage = new Storage(filePath);
         storage.loadPreviousList(taskList);
-        TextUi.printGreetingMessage();
+        ui.printGreetingMessage();
     }
 
     public void run() {
         this.taskList = new TaskList();
-        start(filePath, taskList);
+        this.ui = new TextUi();
+        start(filePath, taskList, ui);
         runCommandLoopUntilExitCommand();
-        exit();
+        exit(ui);
     }
     public void runCommandLoopUntilExitCommand() {
-        Scanner input = new Scanner(System.in);
+
         do {
-            String item = input.nextLine();
+            String item = ui.getUserCommand();
             Command c = Parser.parseCommand(taskList, item);
-            c.execute(taskList);
+            c.execute(taskList, ui);
         } while (!ExitCommand.isExit());
         storage.saveList(taskList);
     }
 
-    private static void exit() {
-        TextUi.printExitMessage();
+    private static void exit(TextUi ui) {
+        ui.printExitMessage();
         System.exit(0);
     }
 }

@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
 
     protected String filePath;
@@ -20,10 +23,13 @@ public class Storage {
 
     public Storage(String filePath) {
         this.filePath = filePath;
-        initializeStorage(filePath);
+        initializeStorage();
     }
 
-    public void initializeStorage(String filePath) {
+    /**
+     * Checks if the storage file exists, creates the file if not
+     */
+    public void initializeStorage() {
         File f = new File(filePath);
         checkFolderExist();
         try {
@@ -42,6 +48,9 @@ public class Storage {
         System.out.println("is Directory?: " + f.isDirectory());
     }
 
+    /**
+     * Checks if the storage folder to store the storage file exists, creates the folder if not
+     */
     public void checkFolderExist() {
         File f = new File(folderPath);
         if (f.mkdir()) {
@@ -54,6 +63,10 @@ public class Storage {
         System.out.println("is Directory?: " + f.isDirectory());
     }
 
+    /**
+     * Loads the storage data file into a TaskList object.
+     * @throws FileNotFoundException if unable to locate storage file
+     */
     public void loadPreviousList(TaskList taskList) {
         try {
             System.out.println("Loading previous list");
@@ -63,6 +76,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Access the storage data file to create the appropriate Task object
+     */
     public void readFromFile(String filePath, TaskList taskList) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         if (f.length() == 0) {
@@ -110,6 +126,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a String into a data file for storage.
+     */
     public void writeToFile(String textToAdd) {
         File f = new File(filePath);
         if (f.length() == 0) {
@@ -133,6 +152,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the TaskList object into a data file for storage.
+     */
     public void saveList(TaskList taskList) {
         for (int i = 0; i < taskList.getSize(); i++) {
             System.out.println(taskList.getTask(i));

@@ -1,9 +1,11 @@
 package kenergeticbot;
 
 import kenergeticbot.task.Task;
-
 import java.util.ArrayList;
 
+/**
+ * Contains the task list e.g., it has operations to add/delete tasks in the list
+ */
 public class TaskList {
     protected static ArrayList<Task> taskList;
     public TaskList() {
@@ -17,9 +19,6 @@ public class TaskList {
     }
     public void remove(int taskID) {
         taskList.remove(taskID);
-    }
-    public String toString() {
-        return "A";
     }
 
     public void add(Task task) {

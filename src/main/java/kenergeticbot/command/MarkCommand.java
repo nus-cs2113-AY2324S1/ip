@@ -1,11 +1,11 @@
 package kenergeticbot.command;
 
 import kenergeticbot.TaskList;
-import kenergeticbot.exceptionhandler.KenergeticBotException;
 import kenergeticbot.ui.TextUi;
 
-import static kenergeticbot.exceptionhandler.KenergeticBotException.*;
-
+/**
+ * Marks a task identified using it's last displayed index from the task list.
+ */
 public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";
@@ -17,17 +17,9 @@ public class MarkCommand extends Command {
     public  MarkCommand(int listIndex) {
         this.listIndex = listIndex;
     }
-    public static void checkValid(String item) throws KenergeticBotException {
-        String formattedString = item.replace("mark", "").trim();
-        if (formattedString.isEmpty()) {
-            throw new KenergeticBotException(COMMAND_TYPO_NO_NUMBER);
-        }
-    }
-    public void execute(TaskList taskList){
-        TextUi.printLine();
-        System.out.println("     Nice! I've marked this task as done:");
+    @Override
+    public void execute(TaskList taskList, TextUi ui){
         taskList.getTask(listIndex - 1).mark();
-        System.out.printf("       %s\n", taskList.getTask(listIndex - 1));
-        TextUi.printLine();
+        ui.printMarkTaskMessage(taskList, listIndex);
     }
 }

@@ -1,14 +1,11 @@
 package kenergeticbot.command;
 
 import kenergeticbot.TaskList;
-import kenergeticbot.exceptionhandler.KenergeticBotException;
-import kenergeticbot.task.Task;
 import kenergeticbot.ui.TextUi;
 
-import java.util.ArrayList;
-
-import static kenergeticbot.exceptionhandler.KenergeticBotException.*;
-
+/**
+ * Deletes a task identified using it's last displayed index from the task list.
+ */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -19,19 +16,11 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int listIndex) {
         this.listIndex = listIndex;
     }
-    public static void checkValid (String item) throws KenergeticBotException {
-        String formattedString = item.replace("delete", "").trim();
-        if (formattedString.isEmpty()) {
-            throw new KenergeticBotException(COMMAND_TYPO_NO_NUMBER);
-        }
-    }
-    public void execute(TaskList taskList) {
-        TextUi.printLine();
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + taskList.getTask(listIndex - 1));
+
+    @Override
+    public void execute(TaskList taskList, TextUi ui) {
+        ui.printDeleteTaskMessage(taskList, listIndex);
         taskList.remove(listIndex - 1);
-        System.out.printf("     Now you have %d tasks in the list.\n", taskList.getSize());
-        TextUi.printLine();
     }
 
 }

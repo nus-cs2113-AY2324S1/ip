@@ -20,4 +20,5 @@ event project meeting /from
 event project meeting /fr
 event project meeting
 event
+delete 2
 bye

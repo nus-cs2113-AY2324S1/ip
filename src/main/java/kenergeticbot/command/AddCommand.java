@@ -7,14 +7,21 @@ import kenergeticbot.task.Event;
 import kenergeticbot.task.Task;
 import kenergeticbot.task.Todo;
 import kenergeticbot.ui.TextUi;
+import static kenergeticbot.common.Messages.SEPARATING_LINE;
 
 import static kenergeticbot.exceptionhandler.KenergeticBotException.*;
 
 public class AddCommand extends Command {
     private static String item = null;
-    private String taskType;
+    private final String taskType;
+
+    /**
+     * Convenience constructor using input string.
+     *
+     * @throws KenergeticBotException if input does not match any known command
+     */
     public AddCommand(String item) throws KenergeticBotException {
-        this.item = item;
+        AddCommand.item = item;
         if (BooleanChecks.checkTextForTodo(item)) {
             this.taskType = "T";
         } else if (BooleanChecks.checkTextForDeadline(item)) {
@@ -22,51 +29,50 @@ public class AddCommand extends Command {
         } else if (BooleanChecks.checkTextForEvent(item)) {
             this.taskType = "E";
         }else {
-            throw new KenergeticBotException(INVALID_COMMAND); //throws exception when input does not match any known command
+            throw new KenergeticBotException(INVALID_COMMAND);
         }
     }
 
-    public void execute(TaskList taskList){
-        TextUi.printLine();
+    @Override
+    public void execute(TaskList taskList, TextUi ui){
         switch (taskType) {
         case "T":
             try {
-                addTodo(taskList, item);
+                addTodo(taskList, item, ui);
             } catch (KenergeticBotException e) { //throws exception when the todo command encounters a problem, the error message is tagged to the thrown exception
-                System.out.println(e.getMessage());
+                ui.showToUser(SEPARATING_LINE, e.getMessage(), SEPARATING_LINE);
             }
             break;
         case "D":
             try {
-                addDeadline(taskList, item);
+                addDeadline(taskList, item, ui);
             } catch (KenergeticBotException e) { //throws exception when the deadline command encounters a problem, the error message is tagged to the thrown exception
-                System.out.println(e.getMessage());
+                ui.showToUser(SEPARATING_LINE, e.getMessage(), SEPARATING_LINE);
             }
             break;
         case "E":
             try {
-                addEvent(taskList, item);;
+                addEvent(taskList, item, ui);
             } catch (KenergeticBotException e) { //throws exception when the event command encounters a problem, the error message is tagged to the thrown exception
-                System.out.println(e.getMessage());
+                ui.showToUser(SEPARATING_LINE, e.getMessage(), SEPARATING_LINE);
             }
             break;
         }
-        TextUi.printLine();
     }
 
     //Creates a "Todo" object and adds to the taskList
-    public static void addTodo(TaskList taskList ,String item) throws KenergeticBotException {
+    public static void addTodo(TaskList taskList ,String item, TextUi ui) throws KenergeticBotException {
         String formattedString = item.replace("todo", "").trim();
         if (formattedString.isEmpty()) {
             throw new KenergeticBotException(TODO_MISSING_DESCRIPTION);
         }
         Task newTask = new Todo(formattedString);
         taskList.add(newTask);
-        TextUi.printAddedTaskMessage(taskList, newTask);
+        ui.printAddedTaskMessage(taskList, newTask);
     }
 
     //Creates a "Deadline" object and adds to the taskList
-    public static void addDeadline(TaskList taskList, String item) throws KenergeticBotException {
+    public static void addDeadline(TaskList taskList, String item, TextUi ui) throws KenergeticBotException {
         String[] formattedString = item.replace("deadline", "").trim().split("/");
         switch (formattedString.length) { //no default case needed since finding exceptions
             case 1: //no break; is needed since throwing exception
@@ -85,11 +91,11 @@ public class AddCommand extends Command {
         String deadlineDate = "(" + formattedString[1].replace("by", "by:") + ")";
         Task newTask = new Deadline(formattedString[0], deadlineDate);
         taskList.add(newTask);
-        TextUi.printAddedTaskMessage(taskList, newTask);
+        ui.printAddedTaskMessage(taskList, newTask);
     }
 
     //Creates a "Event" object and adds to the taskList
-    public static void addEvent(TaskList taskList, String item) throws KenergeticBotException {
+    public static void addEvent(TaskList taskList, String item, TextUi ui) throws KenergeticBotException {
         String[] formattedString = item.replace("event", "").trim().split("/");
         switch(formattedString.length) { //no default case needed since finding exceptions
             case 1: //no break; is needed since throwing exception
@@ -118,6 +124,6 @@ public class AddCommand extends Command {
         String dateTime = "(" + eventFrom + eventTo + ")";
         Task newTask = new Event(formattedString[0], dateTime);
         taskList.add(newTask);
-        TextUi.printAddedTaskMessage(taskList, newTask);
+        ui.printAddedTaskMessage(taskList, newTask);
     }
 }
