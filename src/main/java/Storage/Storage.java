@@ -1,5 +1,6 @@
 package Storage;
 
+import Exceptions.KenDateException;
 import Exceptions.KenFileCorruptedException;
 import Exceptions.KenReadFromFileException;
 import Exceptions.KenWriteToFileException;
@@ -9,6 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 public class Storage {
     private static final String FILE_PATH = "data/kenbot.txt";
@@ -97,12 +101,16 @@ public class Storage {
     public static Task getDeadline(String input) throws KenFileCorruptedException {
         String[] deadlineInformation = input.split("[(]by:", 2);
         String deadlineDescription;
-        String deadlineBy;
+        String deadlineByString;
+        LocalDateTime deadlineBy;
         try {
             deadlineDescription = deadlineInformation[0].trim();
-            deadlineBy = deadlineInformation[1].replace(")", "").trim();
+            deadlineByString = deadlineInformation[1].replace(")", "").trim();
+            deadlineBy = LocalDateTime.parse(deadlineByString, DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
         } catch (IndexOutOfBoundsException e) {
             throw new KenFileCorruptedException("The deadline is like, totally missing its fabulous moment!");
+        } catch (DateTimeParseException e) {
+            throw new KenFileCorruptedException("The deadline date seems to be corrupted!");
         }
         return new Deadline(deadlineDescription, deadlineBy);
     }
@@ -115,12 +123,16 @@ public class Storage {
     public static Task getEvent(String input) throws KenFileCorruptedException {
         String[] eventInformation = input.split("[(]from:|to:", 3);
         String eventDescription;
-        String eventFrom;
-        String eventTo;
+        String eventFromString;
+        String eventToString;
+        LocalDateTime eventFrom;
+        LocalDateTime eventTo;
         try {
             eventDescription = eventInformation[0].trim();
-            eventFrom = eventInformation[1].trim();
-            eventTo = eventInformation[2].replace(")", "").trim();
+            eventFromString = eventInformation[1].trim();
+            eventFrom = LocalDateTime.parse(eventFromString, DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
+            eventToString = eventInformation[2].replace(")", "").trim();
+            eventTo = LocalDateTime.parse(eventToString, DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
         } catch (IndexOutOfBoundsException e) {
             throw new KenFileCorruptedException("The event period is like, totally missing from the spotlight!");
         }

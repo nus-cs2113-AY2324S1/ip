@@ -1,12 +1,17 @@
 package Parser;
 
 import Commands.*;
+import Exceptions.KenDateException;
 import Exceptions.KenException;
 import Exceptions.KenParsingException;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class ParseCommands {
     private static final String TODO = "todo";
@@ -53,40 +58,51 @@ public class ParseCommands {
         return new Todo(todoName);
     }
 
-    private static Task getDeadline(String input) throws KenParsingException {
+    private static Task getDeadline(String input) throws KenParsingException, KenDateException {
         if (!input.contains("/by")) {
             throw new KenParsingException("Please enter a proper deadline using '/by'.");
         }
         String[] deadlineInfo = input.substring(DEADLINE.length() + 1).split("/by", 2);
         String deadlineName = deadlineInfo[0].trim();
-        String by = deadlineInfo[1].trim();
+        String byString = deadlineInfo[1].trim();
         if (deadlineName.isEmpty()) {
             throw new KenParsingException("Oopsie! A deadline without a description is like a party without glitter, so not fabulous!");
         }
-        if (by.isEmpty()) {
+        if (byString.isEmpty()) {
             throw new KenParsingException("Oopsie! Did you forget to include the deadline?");
         }
-        return new Deadline(deadlineName, by);
+        try {
+            LocalDateTime by = LocalDateTime.parse(byString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            return new Deadline(deadlineName, by);
+        } catch (DateTimeParseException e) {
+            throw new KenDateException();
+        }
     }
 
-    private static Task getEvent(String input) throws KenParsingException {
+    private static Task getEvent(String input) throws KenParsingException, KenDateException {
         if (!input.contains("/from") || !input.contains("/to")) {
             throw new KenParsingException("Please enter a proper event using '/from' and ' /to'.");
         }
         String[] eventInfo = input.substring(EVENT.length() + 1).split("/from |/to", 3);
         String eventName = eventInfo[0].trim();
-        String from = eventInfo[1].trim();
-        String to = eventInfo[2].trim();
+        String fromString = eventInfo[1].trim();
+        String toString = eventInfo[2].trim();
         if (eventName.isEmpty()) {
             throw new KenParsingException("Oopsie! An event without a description is like a party without glitter, so not fabulous!");
         }
-        if (from.isEmpty()) {
+        if (fromString.isEmpty()) {
             throw new KenParsingException("Oopsie! Did you forget to include the start date of the event?");
         }
-        if (to.isEmpty()) {
+        if (toString.isEmpty()) {
             throw new KenParsingException("Oopsie! Did you forget to include the end date of the event?");
         }
-        return new Event(eventName, from, to);
+        try {
+            LocalDateTime from = LocalDateTime.parse(fromString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            LocalDateTime to = LocalDateTime.parse(toString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            return new Event(eventName, from, to);
+        } catch (DateTimeParseException e) {
+            throw new KenDateException();
+        }
     }
 
     public static Update getStatus(String input, boolean isDone) throws KenParsingException {
