@@ -1,4 +1,4 @@
-# User Guide
+# MudMud
 
 MudMud is a chatbot application for creating and managing tasks with the use of a Command Line Interface (CLI).
 
