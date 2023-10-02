@@ -1,8 +1,9 @@
 package dawson.command;
 
-import dawson.DawsonException;
-import dawson.TaskList;
-import dawson.task.Event;
+import dawson.exception.DawsonException;
+import dawson.task.EventTask;
+import dawson.task.TaskList;
+import dawson.ui.Messages;
 
 public class EventCommand extends Command {
 
@@ -10,15 +11,13 @@ public class EventCommand extends Command {
     private static final String TO_DELIMITER = "/to";
 
     private String payload;
-    private TaskList list;
 
-    public EventCommand(String payload, TaskList list) {
+    public EventCommand(String payload) {
         this.payload = payload;
-        this.list = list;
     }
 
     @Override
-    public void execute() throws DawsonException {
+    public CommandResult execute(TaskList list) throws DawsonException {
         int from_position = payload.indexOf(FROM_DELIMITER);
         int to_position = payload.indexOf(TO_DELIMITER);
 
@@ -31,8 +30,11 @@ public class EventCommand extends Command {
         String fromString = payload.substring(from_position + FROM_DELIMITER.length(), to_position).trim();
         String toString = payload.substring(to_position + TO_DELIMITER.length()).trim();
 
-        Event newTask = new Event(taskString, fromString, toString);
+        EventTask newTask = new EventTask(taskString, fromString, toString);
         list.add(newTask);
+
+        String[] msg = Messages.getAddSuccessMessage(newTask.toString(), list.getSize());
+        return new CommandResult(msg);
     }
 
 }

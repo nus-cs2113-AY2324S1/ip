@@ -1,13 +1,14 @@
 package dawson.command;
 
-import dawson.Dawson;
+import dawson.task.TaskList;
+import dawson.ui.Messages;
 
 public class ExitCommand extends Command {
 
     @Override
-    public void execute() {
-        String exitString = " Bye. Hope to see you again soon!";
-        Dawson.printText(exitString);
+    public CommandResult execute(TaskList list) {
+        String msg = Messages.MESSAGE_BYE;
+        return new CommandResult(msg);
     }
     
 }

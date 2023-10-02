@@ -1,4 +1,4 @@
-package dawson;
+package dawson.exception;
 
 public class DawsonException extends Exception {
     

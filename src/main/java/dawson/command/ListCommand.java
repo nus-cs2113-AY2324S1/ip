@@ -1,20 +1,13 @@
 package dawson.command;
 
-import dawson.Dawson;
-import dawson.TaskList;
+import dawson.task.TaskList;
 
 public class ListCommand extends Command {
-
-    private TaskList list;
-
-    public ListCommand(TaskList list) {
-        this.list = list;
-    }
-
+    
     @Override
-    public void execute() {
+    public CommandResult execute(TaskList list) {
         String[] listString = list.getTaskStrings();
-        Dawson.printText(listString);
+        return new CommandResult(listString);
     }
     
 }

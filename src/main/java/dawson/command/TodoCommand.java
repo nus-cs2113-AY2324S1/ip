@@ -1,28 +1,30 @@
 package dawson.command;
 
-import dawson.DawsonException;
-import dawson.TaskList;
-import dawson.task.Todo;
+import dawson.exception.DawsonException;
+import dawson.task.TaskList;
+import dawson.task.TodoTask;
+import dawson.ui.Messages;
 
 public class TodoCommand extends Command {
 
     private String payload;
-    private TaskList list;
 
-    public TodoCommand(String payload, TaskList list) {
+    public TodoCommand(String payload) {
         this.payload = payload;
-        this.list = list;
     }
 
     @Override
-    public void execute() throws DawsonException {
+    public CommandResult execute(TaskList list) throws DawsonException {
         if (payload.equals("")) {
             String errorMsg = "The description of a todo cannot be empty!";
             throw new DawsonException(errorMsg);
         }
 
-        Todo newTask = new Todo(payload);
+        TodoTask newTask = new TodoTask(payload);
         list.add(newTask);
+
+        String[] msg = Messages.getAddSuccessMessage(newTask.toString(), list.getSize());
+        return new CommandResult(msg);
     }
 
 }

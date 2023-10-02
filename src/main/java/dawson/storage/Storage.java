@@ -1,4 +1,4 @@
-package dawson;
+package dawson.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import dawson.exception.DawsonException;
+import dawson.parser.Parser;
 import dawson.task.Task;
+import dawson.task.TaskList;
 
 public class Storage {
 

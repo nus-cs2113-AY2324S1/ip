@@ -1,74 +1,62 @@
 package dawson;
 
-import java.util.Scanner;
-
 import dawson.command.Command;
+import dawson.command.CommandResult;
 import dawson.command.ExitCommand;
+import dawson.exception.DawsonException;
+import dawson.parser.Parser;
+import dawson.storage.Storage;
+import dawson.task.TaskList;
+import dawson.ui.TextUI;
 
 public class Dawson {
+
+    private Command newCommand;
+    private TextUI ui;
+    private TaskList taskList;
+    private Storage storage;
+
     /**
-     * Print given input text together with a line as separator
-     * 
-     * @param text
+     * Dawson constructor: Mandatory initialisation of ui and storage objects 
+     * before calling setup or run methods
      */
-    public static void printText(String text) {
-        String line = "\t_______________________________________________________" + System.lineSeparator();
+    private Dawson() {
+        ui = new TextUI();
+        storage = new Storage("data/dawson.txt");
 
-        System.out.println(line);
-        System.out.println("\t " + text);
-        System.out.println(line);
-    }
-
-    public static void printText(String[] texts) {
-        String line = "\t_______________________________________________________" + System.lineSeparator();
-
-        System.out.println(line);
-        for (String text : texts) {
-            System.out.println("\t " + text);
-        }
-        System.out.println(line);
-    }
-
-    public static void main(String[] args) {
-
-        String introText = "Hello! My name is: ";
-        String welcomeText = "What can I do for you?";
-        String[] dawsonText = {
-                introText,
-                " _____     ______     __     __     ______     ______     __   __    ",
-                "/\\  __-.  /\\  __ \\   /\\ \\  _ \\ \\   /\\  ___\\   /\\  __ \\   /\\ \"-.\\ \\   ",
-                "\\ \\ \\/\\ \\ \\ \\  __ \\  \\ \\ \\/ \".\\ \\  \\ \\___  \\  \\ \\ \\/\\ \\  \\ \\ \\-.  \\  ",
-                " \\ \\____-  \\ \\_\\ \\_\\  \\ \\__/\".~\\_\\  \\/\\_____\\  \\ \\_____\\  \\ \\_\\\\\"\\_\\ ",
-                "  \\/____/   \\/_/\\/_/   \\/_/   \\/_/   \\/_____/   \\/_____/   \\/_/ \\/_/ ",
-                "",
-                welcomeText
-        };
-        printText(dawsonText);
-
-        Storage storage = new Storage("data/test.txt");
-        
-        TaskList taskList;
         try {
             taskList = new TaskList(storage.load());
         } catch (DawsonException e) {
-            printText(e.getMessage());
+            ui.printText(e.getMessage());
             taskList = new TaskList();
         }
+    }
 
-        Command newCommand;
-        Scanner scanner = new Scanner(System.in);
+    private void setup() {
+        ui.printWelcomeText();
+    }
+
+    private void run() {
         do {
-            String nextLineString = scanner.nextLine().trim();
-            newCommand = Command.getCommand(nextLineString, taskList);
+            String nextLineString = ui.getUserCommand();
+            newCommand = Parser.parseCommand(nextLineString);
 
             try {
-                newCommand.execute();
+                CommandResult result = newCommand.execute(taskList);
+                ui.printCommandResult(result);
                 storage.save(taskList);
+
             } catch (DawsonException e) {
-                printText(e.getMessage());
+                ui.printText(e.getMessage());
             }
         } while (!(newCommand instanceof ExitCommand));
 
-        scanner.close();
+        System.exit(0);
+    }
+
+    public static void main(String[] args) {
+        Dawson dawson = new Dawson();
+        dawson.setup();
+        dawson.run();
     }
 }
