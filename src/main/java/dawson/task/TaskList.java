@@ -76,21 +76,15 @@ public class TaskList {
         return result;
     }
 
-    public String[] getTaskStrings() {
-        if (taskList.size() == 0) {
-            return new String[] { "Empty list!" };
-        }
-
+    public ArrayList<String> getTaskList() {
         ArrayList<String> result = new ArrayList<String>();
-        result.add("Here are the tasks in your list: ");
 
         for (int i = 0; i < taskList.size(); i++) {
             String line = String.format("%d. %s", i + 1, taskList.get(i));
             result.add(line);
         }
 
-        String[] resultStrings = new String[result.size()];
-        return result.toArray(resultStrings);
+        return result;
     }
 
     public String encodeTaskList() {
