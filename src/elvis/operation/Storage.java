@@ -18,7 +18,6 @@ import java.io.IOException;
  */
 public class Storage {
     private static final String FILE_PATH = "./tasks.txt";
-    private static final String FILE_NAME = "tasks.txt";
     private static final DateTimeFormatter STD_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static File openedFile;
 
