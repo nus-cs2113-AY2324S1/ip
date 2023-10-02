@@ -111,6 +111,9 @@ public class ParseCommands {
         try {
             LocalDateTime from = LocalDateTime.parse(fromString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
             LocalDateTime to = LocalDateTime.parse(toString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            if (from.isAfter(to)) {
+                throw new KenParsingException("Honey, we need to keep things in order: the start date can't strut in after the end date.");
+            }
             return new Event(eventName, from, to);
         } catch (DateTimeParseException e) {
             throw new KenDateException();
