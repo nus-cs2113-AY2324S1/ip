@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Task Superclass.
+ */
 public class Task {
 
     public String description;
@@ -14,6 +17,9 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * @return Checkmark based on whether the task is completed or not as a string.
+     */
     public String getStatusIcon(){
         if (this.isDone){
             return "[X]";
@@ -21,6 +27,9 @@ public class Task {
         return "[ ]";
     }
 
+    /**
+     * @return Task type icon as a string.
+     */
     public String getTaskTypeIcon(){
         switch (this.taskType){
         case "todo":
@@ -34,6 +43,10 @@ public class Task {
         }
     }
 
+    /**
+     * Print the task in a presentable format with the task type icon,
+     * status icon and description.
+     */
     public void printTask(){
         switch (taskType) {
         case "todo":
@@ -50,6 +63,10 @@ public class Task {
         }
     }
 
+    /**
+     * @return String of all the task's features as a string so it can be written
+     *         to a text file
+     */
     public String taskFormatted(){
         switch (taskType) {
         case "todo":
