@@ -48,6 +48,25 @@ public class TaskList {
         Ui.printTexts(texts);
     }
 
+    public void getTasks(String keyword) {
+        ArrayList<String> foundList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            Task currentTask = list.get(i);
+            String taskDescription = currentTask.getDescription();
+            if (taskDescription.contains(keyword)) {
+                foundList.add("\t" + (foundList.size() + 1) + "." + currentTask.toString());
+            }
+        }
+
+        String openingLine;
+        if (foundList.isEmpty()) {
+            openingLine = "Oh, sugarplum! You have no matching tasks with '" + keyword + "'";
+        } else {
+            openingLine = "These are the tasks that match the keyword, hun!";
+        }
+        Ui.printTexts(openingLine, foundList);
+    }
+
     public void deleteTask(int taskNumber) throws KenMissingTaskException{
         try {
             list.remove(taskNumber);

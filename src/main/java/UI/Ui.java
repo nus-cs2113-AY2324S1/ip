@@ -1,5 +1,7 @@
 package UI;
 
+import java.util.ArrayList;
+
 public class Ui {
     public static void printLine() {
         System.out.println("_____________________________________________________________");
@@ -8,6 +10,15 @@ public class Ui {
     public static void printTexts(String[] texts) {
         printLine();
         for (String text : texts) {
+            System.out.println("\t" + text);
+        }
+        printLine();
+    }
+
+    public static void printTexts(String startLine, ArrayList<String> taskTexts) {
+        printLine();
+        System.out.println("\t" + startLine);
+        for (String text : taskTexts) {
             System.out.println("\t" + text);
         }
         printLine();
