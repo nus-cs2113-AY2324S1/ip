@@ -3,6 +3,9 @@ package duke;
 import java.io.IOException;
 
 
+/**
+ * Subclass that takes in input from the user and parses them.
+ */
 public class Parser extends DukeException{
 
     private final TaskList taskList;
@@ -14,6 +17,9 @@ public class Parser extends DukeException{
         this.writer = writer;
     }
 
+    /**
+     * @throws IOException if an I/O error occurs during parsing.
+     */
     public void parseInput() throws IOException {
         super.checkInput(taskList.getSize());
         if (!super.exception){
