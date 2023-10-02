@@ -35,10 +35,18 @@ import static duke.parser.TaskConstants.FROM_DELIMITER;
 import static duke.parser.TaskConstants.TO_DELIMITER;
 import static duke.parser.TaskConstants.BY_DELIMITER;
 
-
-
+/**
+ * Represents a parser for Duke commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the given input and returns the corresponding Command object.
+     *
+     * @param input The input string to parse.
+     * @return The corresponding Command object.
+     * @throws DukeException If there is an error parsing the input.
+     */
     public static Command parse(String input) throws DukeException {
         String[] args = input.trim().split(" ", 2);
         String command = args[0];
@@ -67,6 +75,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the given input and returns the corresponding AddTodoCommand object.
+     *
+     * @param commandRawInput The raw input string to parse.
+     * @return The corresponding AddTodoCommand object.
+     * @throws DukeException If there is an error parsing the input.
+     */
     public static AddTodoCommand parseTodoCommand(String commandRawInput) throws DukeException {
         String description = commandRawInput.trim();
         if (description.isEmpty()) {
@@ -75,6 +90,13 @@ public class Parser {
         return new AddTodoCommand(description);
     }
 
+    /**
+     * Parses the given input and returns the corresponding AddDeadlineCommand object.
+     *
+     * @param commandRawInput The raw input string to parse.
+     * @return The corresponding AddDeadlineCommand object.
+     * @throws DukeException If there is an error parsing the input.
+     */
     public static AddDeadlineCommand parseDeadlineCommand(String commandRawInput) throws DukeException {
         int byPos = commandRawInput.indexOf(BY_DELIMITER);
         if (byPos == -1) {
@@ -95,6 +117,13 @@ public class Parser {
         return new AddDeadlineCommand(description, by);
     }
 
+    /**
+     * Parses the given input and returns the corresponding AddEventCommand object.
+     *
+     * @param commandRawInput The raw input string to parse.
+     * @return The corresponding AddEventCommand object.
+     * @throws DukeException If there is an error parsing the input.
+     */
     public static AddEventCommand parseEventCommand(String commandRawInput) throws DukeException {
         int fromPos = commandRawInput.indexOf(FROM_DELIMITER);
         int toPos = commandRawInput.indexOf(TO_DELIMITER);
@@ -132,6 +161,13 @@ public class Parser {
         return new AddEventCommand(description,fromTime,toTime);
     }
 
+    /**
+     * Parses the given input and returns the corresponding MarkCommand object.
+     *
+     * @param commandRawInput The raw input string to parse.
+     * @return The corresponding MarkCommand object.
+     * @throws DukeException If there is an error parsing the input.
+     */
     public static MarkCommand parseMarkCommand(String commandRawInput) throws DukeException {
         try {
             int index = Integer.parseInt(commandRawInput.trim()) - 1;
@@ -141,6 +177,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the given input and returns the corresponding UnmarkCommand object.
+     *
+     * @param commandRawInput The raw input string to parse.
+     * @return The corresponding UnmarkCommand object.
+     * @throws DukeException If there is an error parsing the input.
+     */
     public static UnmarkCommand parseUnmarkCommand(String commandRawInput) throws DukeException {
         try {
             int index = Integer.parseInt(commandRawInput.trim()) - 1;
@@ -151,6 +194,13 @@ public class Parser {
         
     }
 
+    /**
+     * Parses the given input and returns the corresponding DeleteCommand object.
+     *
+     * @param commandRawInput The raw input string to parse.
+     * @return The corresponding DeleteCommand object.
+     * @throws DukeException If there is an error parsing the input.
+     */
     public static DeleteCommand parseDeleteCommand(String commandRawInput) throws DukeException {
         try {
             int index = Integer.parseInt(commandRawInput.trim()) - 1;

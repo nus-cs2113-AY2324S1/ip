@@ -8,6 +8,9 @@ import static duke.ui.MessageConstants.MESSAGE_GOODBYE;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Handles the user interface of Duke.
+ */
 public class Ui {
     private static Scanner sc = new Scanner(System.in);
     private static PrintStream printer = System.out;
@@ -15,7 +18,6 @@ public class Ui {
     /**
      * Prints the welcome message.
      */
-
     public static void showWelcome() {
         printer.println(LINE);
         printer.println(MESSAGE_WELCOME);
@@ -25,7 +27,6 @@ public class Ui {
     /**
      * Prints the goodbye message.
      */
-
     public static void showGoodbye() {
         printer.println(LINE);
         printer.println();
@@ -35,6 +36,8 @@ public class Ui {
 
     /**
      * Prints the given message.
+     *
+     * @param message The message to be printed.
      */
     public static void showMessage(String message) {
         printer.println(LINE);
@@ -42,9 +45,11 @@ public class Ui {
         printer.println(message);
         printer.println();
     }
- 
+
     /**
      * Reads the next line of input.
+     *
+     * @return The next line of input.
      */
     public static String readCommand() {
         printer.println(LINE);
@@ -52,5 +57,4 @@ public class Ui {
         printer.print("Enter command: ");
         return sc.nextLine();
     }
-    
 }

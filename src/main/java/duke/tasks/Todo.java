@@ -1,11 +1,24 @@
 package duke.tasks;
 
-//Create a todo class that inherits from the task class
+/**
+ * Represents a todo task.
+ */
 public class Todo extends Task {
+
+    /**
+     * Constructs a Todo object with the given task name and sets its status to not done.
+     *
+     * @param taskName The name of the task.
+     */
     public Todo(String taskName){
         super(taskName);
     }
-    //toString method to print the status of the task followed by the task name
+
+    /**
+     * Returns a string representation of the Todo object.
+     *
+     * @return A string representation of the Todo object.
+     */
     public String toString(){
         if(this.getIsDone()){
             return "[T][X] " + this.getTaskName();

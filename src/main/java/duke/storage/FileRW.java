@@ -22,8 +22,17 @@ import static duke.ui.MessageConstants.MESSAGE_ERROR_FILE_WRITING;
 import static duke.storage.StorageSettings.FILE_PATH;
 
 
+/**
+ * Represents a class for reading and writing tasks to a file.
+ */
 public class FileRW {
 
+    /**
+     * Reads tasks from the file and adds them to the given Tasklist.
+     *
+     * @param tasks The Tasklist to add the tasks to.
+     * @throws DukeException If there is an error reading the file.
+     */
     public static void readFromFile(Tasklist tasks) throws DukeException {
         
         if (!new File(FILE_PATH).exists()) {
@@ -65,6 +74,12 @@ public class FileRW {
         }
     }
 
+    /**
+     * Writes tasks from the given Tasklist to the file.
+     *
+     * @param tasks The Tasklist to write the tasks from.
+     * @throws DukeException If there is an error writing to the file.
+     */
     public static void writeToFile(Tasklist tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);

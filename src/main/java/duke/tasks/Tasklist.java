@@ -2,9 +2,16 @@ package duke.tasks;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class Tasklist extends ArrayList<Task>{
 
-
+    /**
+     * Returns a string representation of the tasks in the Tasklist object.
+     *
+     * @return A string representation of the tasks in the Tasklist object.
+     */
     public String tasksToString() {
         StringBuilder sb = new StringBuilder();
         if (isEmpty()) {
