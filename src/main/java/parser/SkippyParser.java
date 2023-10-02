@@ -33,6 +33,9 @@ public class SkippyParser {
         case "list":
             skippy.ui.printTaskList(skippy.taskList);
             break;
+        case "help":
+            skippy.ui.printHelp();
+            break;
         case "todo":
             skippy.taskList.addToDoTask(input);
             break;

@@ -13,6 +13,8 @@ import tasks.Task;
  */
 public class SkippyUi {
 
+    private static final String INDENT = "    ";
+
     private final String LINE = "____________________________________________________________";
 
     private final String SKIPPY = " _____________  __.____________________________.___.\n"
@@ -52,7 +54,7 @@ public class SkippyUi {
 
     public void printWelcomeMessage() {
         System.out.println(SKIPPY);
-        System.out.println("Hi! I am Skippy the BunBun");
+        System.out.println("Hi! I am Skippy the BunBun!");
         System.out.println("What can I do for you?");
         printLine();
     }
@@ -60,7 +62,25 @@ public class SkippyUi {
     public void printExitMessage() {
         printLine();
         System.out.println("Saving tasks...");
-        System.out.println("Goodbye!!");
+        System.out.println("Goodbye! Hope to see you again soon!");
+        printLine();
+    }
+
+    public void printHelp() {
+        printLine();
+        System.out.println("Hello, I am Skippy the bunny and I'm your personal assistant.\n"
+                + INDENT + "1. list: Lists all tasks\n"
+                + INDENT + "2. todo <name>: Adds a ToDo task.\n"
+                + INDENT + "3. deadline <name> /by <by when>: Adds a deadline task"
+                + " with specified deadline.\n"
+                + INDENT + "4. event <name> /from <from when> /to <to when>:"
+                + " Adds an event with specified time period.\n"
+                + INDENT + "5. mark <task number>: Marks the specified task as done.\n"
+                + INDENT + "6. unmark <task number>: Marks the specified task as not done.\n"
+                + INDENT + "7. delete <task number>: Deletes the specified task from the list.\n"
+                + INDENT + "8. find <keyword>: Finds and lists the tasks that contains the keyword"
+                + " in its name.\n"
+                + INDENT + "9. bye: Exits the program.");
         printLine();
     }
 
@@ -117,7 +137,7 @@ public class SkippyUi {
         List<Task> tasks = taskList.getTasks();
         if (taskIndex >= 1 && taskIndex <= tasks.size()) {
             Task task = tasks.get(taskIndex - 1);
-            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("Ok, I've marked this task as not done yet:");
             System.out.println(" " + task.toString());
         } else {
             System.out.println("Invalid task index.");
