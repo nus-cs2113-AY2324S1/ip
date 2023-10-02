@@ -101,6 +101,14 @@ public class Ui {
         System.out.println("tasks.txt was not found!\nIt's ok... new tasks.txt has been created in " + dataFolderPath);
     }
 
+    public void showLoadingError() {
+        System.out.println("Yo dude something ain't loading right :/");
+    }
+
+    public void showSavingError() {
+        System.out.println("Sorry man I can't seem to save to the text file D:");
+    }
+
     public void showToUser(String... message) {
         for (String m : message) {
             System.out.println(m);

@@ -14,6 +14,10 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public ArrayList<Task> getTaskList() {
         return tasks;
     }
@@ -48,29 +52,6 @@ public class TaskList {
 
     public void removeTask(int selectedTaskIndex) {
         tasks.remove(selectedTaskIndex);
-    }
-
-    public void addTaskToTaskList(String taskType, String description, String[] splitTaskString) {
-        switch (taskType) {
-        case "T":
-            tasks.add(new Todo(description));
-            break;
-        case "D":
-            String by = splitTaskString[3];
-            tasks.add(new Deadline(description, by));
-            break;
-        case "E":
-            String date = splitTaskString[3];
-            String[] splitDate = date.split("-");
-            String from = splitDate[0];
-            String to = splitDate[1];
-
-            tasks.add(new Event(description, from, to));
-            break;
-        default:
-            //todo handle invalid task type
-            break;
-        }
     }
 
 
