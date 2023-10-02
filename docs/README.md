@@ -4,7 +4,7 @@
 
 1. Ensure that you have Java 11 or above installed on your computer.
 
-2. Download the latest version of Skippy from [here](https://github.com/tyuyang/ip/releases/latest). Note that you do not need to download the zip files for the application.
+2. Download the latest version of Skippy from [here](https://github.com/J0shuaLeong/ip/releases/latest). Note that you do not need to download the zip files for the application.
 
 3. You should find the jar file in your default downloads folder. Please place the jar file into a separate folder that will be used as your `home folder`.
 
