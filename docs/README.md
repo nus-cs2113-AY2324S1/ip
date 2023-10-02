@@ -29,7 +29,7 @@ Elvis is a chatbot for managing todo, deadline, event for use via a Command Line
 
 1. Copy the file to the folder you want to use as the home folder for your Elvis.
 
-1. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Elvis.jar command to run the application.
+1. Open a command terminal, cd into the folder you put the jar file in, and run the following command `java -jar Elvis.jar` to run the chatbot.
   
 ```
              _____                      _____            _____                      _____                      _____          
