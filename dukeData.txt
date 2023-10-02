@@ -1,0 +1,2 @@
+D | true | ee2026 exam /by 8 nov | 8 nov
+T | false | finish code

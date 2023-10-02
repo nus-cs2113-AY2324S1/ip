@@ -56,10 +56,13 @@ public class TasksHandler {
                 }
 
                 if (task != null) {
-                    if (lineArray[1].trim().equals("1")) {
+                    // Parse the "done" status as a boolean
+                    boolean isDone = lineArray[1].trim().equals("true");
+                    if (isDone) {
                         task.markAsDone();
                     }
                     tasks.add(task);
+                    System.out.println(lineArray[1].trim());
                 } else {
                     // Handle the case where there was an issue creating the task
                     System.err.println("Error: Unable to create a task from input line: " + line);
@@ -71,6 +74,7 @@ public class TasksHandler {
             System.err.println("Error: Unable to create or access the file.");
         }
     }
+
 
 }
 
