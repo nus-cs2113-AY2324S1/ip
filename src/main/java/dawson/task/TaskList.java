@@ -61,6 +61,21 @@ public class TaskList {
         }
     }
 
+    public ArrayList<String> findTasks(String query) {
+        ArrayList<String> result = new ArrayList<>();
+
+        int counter = 1;
+        for (Task task : taskList) {
+            if (task.toString().contains(query)) {
+                String line = String.format("%d. %s", counter, task);
+                result.add(line);
+                counter++;
+            }
+        }
+
+        return result;
+    }
+
     public String[] getTaskStrings() {
         if (taskList.size() == 0) {
             return new String[] { "Empty list!" };
