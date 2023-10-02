@@ -3,6 +3,7 @@ package dawson.command;
 import dawson.exception.DawsonException;
 import dawson.task.EventTask;
 import dawson.task.TaskList;
+import dawson.ui.Messages;
 
 public class EventCommand extends Command {
 
@@ -18,7 +19,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute() throws DawsonException {
+    public CommandResult execute() throws DawsonException {
         int from_position = payload.indexOf(FROM_DELIMITER);
         int to_position = payload.indexOf(TO_DELIMITER);
 
@@ -33,6 +34,9 @@ public class EventCommand extends Command {
 
         EventTask newTask = new EventTask(taskString, fromString, toString);
         list.add(newTask);
+
+        String[] msg = Messages.getAddSuccessMessage(newTask.toString(), list.getSize());
+        return new CommandResult(msg);
     }
 
 }

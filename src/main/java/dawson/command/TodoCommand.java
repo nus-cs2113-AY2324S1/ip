@@ -3,6 +3,7 @@ package dawson.command;
 import dawson.exception.DawsonException;
 import dawson.task.TaskList;
 import dawson.task.TodoTask;
+import dawson.ui.Messages;
 
 public class TodoCommand extends Command {
 
@@ -15,7 +16,7 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute() throws DawsonException {
+    public CommandResult execute() throws DawsonException {
         if (payload.equals("")) {
             String errorMsg = "The description of a todo cannot be empty!";
             throw new DawsonException(errorMsg);
@@ -23,6 +24,9 @@ public class TodoCommand extends Command {
 
         TodoTask newTask = new TodoTask(payload);
         list.add(newTask);
+
+        String[] msg = Messages.getAddSuccessMessage(newTask.toString(), list.getSize());
+        return new CommandResult(msg);
     }
 
 }

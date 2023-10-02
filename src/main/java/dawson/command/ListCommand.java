@@ -1,6 +1,5 @@
 package dawson.command;
 
-import dawson.Dawson;
 import dawson.task.TaskList;
 
 public class ListCommand extends Command {
@@ -12,9 +11,9 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public CommandResult execute() {
         String[] listString = list.getTaskStrings();
-        Dawson.printText(listString);
+        return new CommandResult(listString);
     }
     
 }

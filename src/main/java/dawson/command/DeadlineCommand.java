@@ -3,6 +3,7 @@ package dawson.command;
 import dawson.exception.DawsonException;
 import dawson.task.DeadlineTask;
 import dawson.task.TaskList;
+import dawson.ui.Messages;
 
 public class DeadlineCommand extends Command {
 
@@ -17,7 +18,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute() throws DawsonException {
+    public CommandResult execute() throws DawsonException {
         int by_position = payload.indexOf(BY_DELIMITER);
 
         if (by_position == -1) {
@@ -30,6 +31,9 @@ public class DeadlineCommand extends Command {
 
         DeadlineTask newTask = new DeadlineTask(taskString, byString);
         list.add(newTask);
+
+        String[] msg = Messages.getAddSuccessMessage(newTask.toString(), list.getSize());
+        return new CommandResult(msg);
     }
 
 }

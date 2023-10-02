@@ -1,12 +1,13 @@
 package dawson.command;
 
-import dawson.Dawson;
+import dawson.ui.Messages;
 
 public class InvalidCommand extends Command {
 
     @Override
-    public void execute() {
-        Dawson.printText("Invalid command! Please enter a valid command");
+    public CommandResult execute() {
+        String errorMessage = Messages.MESSAGE_INVALID_COMMAND;
+        return new CommandResult(errorMessage);
     }
     
 }

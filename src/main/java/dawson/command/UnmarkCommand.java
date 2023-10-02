@@ -1,6 +1,7 @@
 package dawson.command;
 
 import dawson.exception.DawsonException;
+import dawson.task.Task;
 import dawson.task.TaskList;
 
 public class UnmarkCommand extends Command {
@@ -14,7 +15,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute() throws DawsonException {
+    public CommandResult execute() throws DawsonException {
         // Convert index into integer, ensure it is valid integer
         int index;
         try {
@@ -25,8 +26,14 @@ public class UnmarkCommand extends Command {
             throw new DawsonException(errorMsg);
         }
 
-        // Execute the mark as done
-        taskList.unmarkIndex(index);
+        // Mark task as NOT done
+        Task unmarkedTask = taskList.unmarkIndex(index);
+        
+        String[] unmarkIndexTexts = {
+            "Ok, I've marked this task as not done yet: ",
+            "  " + unmarkedTask.toString()
+        };
+        return new CommandResult(unmarkIndexTexts);
     }
 
 }

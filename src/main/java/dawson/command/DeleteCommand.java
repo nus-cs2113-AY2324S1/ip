@@ -1,6 +1,7 @@
 package dawson.command;
 
 import dawson.exception.DawsonException;
+import dawson.task.Task;
 import dawson.task.TaskList;
 
 public class DeleteCommand extends Command {
@@ -14,7 +15,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute() throws DawsonException {
+    public CommandResult execute() throws DawsonException {
         // Convert index into integer, ensure it is valid integer
         int index;
         try {
@@ -26,6 +27,13 @@ public class DeleteCommand extends Command {
         }
 
         // Execute the delete command on index
-        taskList.deleteTask(index);
+        Task removedTask = taskList.deleteTask(index);
+
+        String[] deleteText = {
+                "Noted. I've removed this task:",
+                "  " + removedTask.toString(),
+                String.format("Now you have %d tasks in the list.", taskList.getSize())
+        };
+        return new CommandResult(deleteText);
     }
 }
