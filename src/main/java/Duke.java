@@ -3,6 +3,9 @@ import java.util.Scanner;
 
 import duke.*;
 
+/**
+ * Duke Class that is the entrypoint for the chatbot and intialises the Scanner.
+ */
 public class Duke {
 
     private final TaskList taskList = new TaskList();
