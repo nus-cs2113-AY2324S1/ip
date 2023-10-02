@@ -2,21 +2,11 @@ package alan;
 
 import alan.data.TaskList;
 import alan.data.exception.AlanException;
-import alan.data.task.Deadline;
-import alan.data.task.Event;
-import alan.data.task.Task;
-import alan.data.task.TaskType;
 import alan.parser.Parser;
 import alan.storage.Storage;
 import alan.ui.Ui;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Alan {
     private static Ui ui;

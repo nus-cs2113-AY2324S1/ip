@@ -1,7 +1,5 @@
 package alan.common;
 
-import java.security.PublicKey;
-
 public class Messages {
     public static final String manDrawing = " @/\n" +
             "/| \n" +
@@ -24,4 +22,5 @@ public class Messages {
     public static final String INVALID_EVENT_FROM_FORMAT_MESSAGE = "Oof duude, your /from formatting is whack\n[Remember it's: <description> /from <date> /to <date>]";
     public static final String INVALID_EVENT_TO_FORMAT_MESSAGE = "Oof my man, you need to work on that /to formatting\n[Remember it's: <description> /from <date> /to <date>]";
     public static final String INVALID_TASK_NUMBER_MESSAGE = "Oof maaaan there's no such task";
+    public static final String INVALID_TASK_TYPE_FOUND = "Yo I found a task type that doesn't make sense";
 }
