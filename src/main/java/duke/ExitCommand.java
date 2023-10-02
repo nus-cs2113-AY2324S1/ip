@@ -1,9 +1,11 @@
 package duke;
 
+import java.util.ArrayList;
+
 // ExitCommand class for handling the "bye" command
 public class ExitCommand implements Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
         ui.printByeMessage();
     }
 

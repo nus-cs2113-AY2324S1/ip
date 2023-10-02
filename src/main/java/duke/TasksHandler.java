@@ -62,7 +62,6 @@ public class TasksHandler {
                         task.markAsDone();
                     }
                     tasks.add(task);
-                    System.out.println(lineArray[1].trim());
                 } else {
                     // Handle the case where there was an issue creating the task
                     System.err.println("Error: Unable to create a task from input line: " + line);

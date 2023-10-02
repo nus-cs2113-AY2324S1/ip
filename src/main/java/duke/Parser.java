@@ -17,6 +17,8 @@ public class Parser {
             return new UnmarkCommand(input); // Create an UnmarkCommand with the input as a parameter
         case "delete":
             return new DeleteCommand(input); // Create a DeleteCommand with the input as a parameter
+        case "find":
+            return new FindCommand(input); // Create a FindCommand with the input as a parameter
         case "todo":
         case "event":
         case "deadline":

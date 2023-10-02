@@ -29,7 +29,6 @@
 
         public void printByeMessage() {
             System.out.println("Bye! Hope to see you again soon!");
-            System.out.println("____________________________________________________________");
         }
 
         public void showLoadingError() throws DukeException {
@@ -42,7 +41,7 @@
         }
 
         public void showError(String errorMessage) {
-            System.out.println("☹ OOPS!!! " + errorMessage);
+            System.out.println( errorMessage);
         }
 
 
