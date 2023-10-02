@@ -1,6 +1,6 @@
-# MudMud
+# User Guide
 
-MudMud is a chatbot application for creating and managing tasks with the use of a Command Line Interface (CLI).
+MudMud is a chatbot application for creating and managing tasks with the use of a Command Line Interface (CLI). Tasks, like todo, deadline, and event, are supported in this app. This app will store its data via a textfile in a seperate folder.
 
 ## How to Setup
 
@@ -13,29 +13,13 @@ MudMud is a chatbot application for creating and managing tasks with the use of 
 7. Run the app again and the app is ready to use!
    
 ## Features 
+* Veiwing your current tasks: `list`
+* Adding a todo task: `todo`
+* Adding a deadline task: `deadline`
+* Adding an event task: `event`
+* Marking a task: `mark`
+* Unmarking a task: `unmark`
+* Delete a task: `delete`
+* Searching for tasks: `find`
+* Exiting the application: `bye`
 
-### Feature-ABC
-
-Description of the feature.
-
-### Feature-XYZ
-
-Description of the feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
