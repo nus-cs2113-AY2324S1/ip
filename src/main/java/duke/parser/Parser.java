@@ -210,6 +210,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input for the "find" command into a FindCommand object.
+     *
+     * @param commandRawInput The user input for the "find" command.
+     * @return The FindCommand object corresponding to the user input.
+     * @throws DukeException If there is an error parsing the user input.
+     */
     public static FindCommand parseFindCommand(String commandRawInput) throws DukeException {
         String searchString = commandRawInput.trim();
         if(searchString.isEmpty()){
@@ -217,7 +224,4 @@ public class Parser {
         }
         return new FindCommand(searchString);
     }
-
-
-    
 }
