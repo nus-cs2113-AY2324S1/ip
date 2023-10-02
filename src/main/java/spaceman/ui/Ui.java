@@ -120,6 +120,9 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays the help menu.
+     */
     public static void showHelpMenu() {
         System.out.println(LINE);
         System.out.println("- `list` :\n    Shows a list of all tasks.\n"
@@ -134,5 +137,4 @@ public class Ui {
                 + "- `bye` :\n    Exits the program.");
         System.out.println(LINE);
     }
-
 }

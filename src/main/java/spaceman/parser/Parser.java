@@ -222,6 +222,12 @@ public class Parser {
         return taskIndex;
     }
 
+    /**
+     * Parse the find keyword specified by the user.
+     * @param arguments full command argument string
+     * @return the keyword
+     * @throws IncompleteDescriptionException If the keyword is null.
+     */
     public static String parseFind(String arguments) throws IncompleteDescriptionException {
         if (arguments == null) {
             throw new IncompleteDescriptionException(MESSAGE_EMPTY_KEYWORD);
