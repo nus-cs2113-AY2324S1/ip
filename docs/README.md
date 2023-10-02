@@ -33,7 +33,7 @@ Add a new todo task into the list with the format below:
 **Example:**
 `todo buy book`
 
-## * Adding a deadline task - `deadline`
+## Adding a deadline task - `deadline`
 Add a new deadline task into the list with the format below:
 `deadline 'task' /by 'specified deadline'`
 
