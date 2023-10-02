@@ -1,5 +1,6 @@
 package mudmud.command;
 
+import mudmud.parser.Parser;
 import mudmud.storage.Storage;
 import mudmud.tasklist.TaskList;
 import mudmud.ui.TextUi;
@@ -28,9 +29,11 @@ public class MarkCommand extends Command {
      */
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
+        Parser parser = new Parser();
+
         try {
-            int selectedIndex = Integer.parseInt(index);
-            tasks.setMarkAsDone(index);
+            int selectedIndex = parser.parseIndex(index);
+            tasks.setMarkAsDone(selectedIndex);
             storage.updateTaskDatabase(selectedIndex, true);
             ui.printModifiedTask(tasks.getTask(selectedIndex), true);
         } catch (IOException exception) {

@@ -1,5 +1,6 @@
 package mudmud.command;
 
+import mudmud.parser.Parser;
 import mudmud.storage.Storage;
 import mudmud.tasklist.TaskList;
 import mudmud.ui.TextUi;
@@ -28,9 +29,11 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
+        Parser parser = new Parser();
+
         try {
-            int selectedIndex = Integer.parseInt(index);
-            tasks.setUnmarkAsDone(index);
+            int selectedIndex = parser.parseIndex(index);
+            tasks.setUnmarkAsDone(selectedIndex);
             storage.updateTaskDatabase(selectedIndex, false);
             ui.printModifiedTask(tasks.getTask(selectedIndex), false);
         } catch (IOException exception) {

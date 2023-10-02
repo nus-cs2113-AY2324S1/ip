@@ -1,5 +1,6 @@
 package mudmud.command;
 
+import mudmud.parser.Parser;
 import mudmud.storage.Storage;
 import mudmud.tasklist.TaskList;
 import mudmud.ui.TextUi;
@@ -28,10 +29,11 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void executeCommand(TaskList tasks, TextUi ui, Storage storage) {
+        Parser parser = new Parser();
 
         try {
-            int selectedIndex = Integer.parseInt(index);
-            tasks.deleteTask(index);
+            int selectedIndex = parser.parseIndex(index);
+            tasks.deleteTask(selectedIndex);
             storage.deleteTaskData(selectedIndex);
         } catch (IOException exception) {
             ui.handleIOException(exception);

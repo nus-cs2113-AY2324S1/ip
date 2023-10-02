@@ -68,22 +68,18 @@ public class TaskList {
     /**
      * Marks a task with the specified index.
      *
-     * @param input The selected index.
+     * @param index The selected index.
      */
-    public void setMarkAsDone(String input) {
-        int index = parser.parseIndex(input);
-
+    public void setMarkAsDone(int index) {
         tasks.get(index).markAsDone();
     }
 
     /**
      * Unmarks a task with the specified index.
      *
-     * @param input The selected index.
+     * @param index The selected index.
      */
-    public void setUnmarkAsDone(String input) {
-        int index = parser.parseIndex(input);
-
+    public void setUnmarkAsDone(int index) {
         tasks.get(index).unmarkAsDone();
     }
 
@@ -92,8 +88,7 @@ public class TaskList {
      *
      * @param input The selected index.
      */
-    public void deleteTask(String input) {
-        int index = parser.parseIndex(input);
+    public void deleteTask(int index) {
         Task removedTask = tasks.remove(index);
 
         ui.printDeletedTask(removedTask);
