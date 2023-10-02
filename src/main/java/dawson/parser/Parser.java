@@ -15,7 +15,7 @@ import dawson.task.*;
 
 public class Parser {
 
-    public Command parseCommand(String input, TaskList taskList) {
+    public static Command parseCommand(String input, TaskList taskList) {
         String[] split = input.split("\\s+", 2); // split the input into command and arguments
         String commandString = split[0].toLowerCase(); // First word is command
         String payload = split.length > 1 ? split[1] : ""; // Remaining input text
