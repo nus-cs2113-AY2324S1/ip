@@ -11,4 +11,16 @@ public class Messages {
         "",
         "What can I do for you?"
     };
+
+    public static final String MESSAGE_BYE = " Bye. Hope to see you again soon!";
+
+    public static final String MESSAGE_INVALID_COMMAND = " Invalid command! Please enter a valid command";
+
+    public static String[] getAddSuccessMessage(String taskName, int taskListSize) {
+        return new String[] {
+            "Got it. I've added this task:",
+            "  " + taskName,
+            String.format("Now you have %d tasks in the list.", taskListSize)
+        };
+    }
 }

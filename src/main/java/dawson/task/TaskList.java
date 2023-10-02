@@ -1,6 +1,5 @@
 package dawson.task;
 
-import dawson.Dawson;
 import dawson.exception.DawsonException;
 
 import java.util.ArrayList;
@@ -16,27 +15,19 @@ public class TaskList {
         this.taskList = taskList;
     }
 
-    public void add(Task task) {
-        taskList.add(task);
-
-        String[] addText = {
-                "Got it. I've added this task:",
-                "  " + task.toString(),
-                String.format("Now you have %d tasks in the list.", taskList.size())
-        };
-        Dawson.printText(addText);
+    public int getSize() {
+        return taskList.size();
     }
 
-    public void markAsDoneIndex(int index) throws DawsonException {
+    public void add(Task task) {
+        taskList.add(task);
+    }
+
+    public Task markAsDoneIndex(int index) throws DawsonException {
         try {
             Task task = taskList.get(index);
             task.markAsDone();
-
-            String[] markAsDoneTexts = {
-                    "Nice! I've marked this task as done: ",
-                    "  " + task.toString()
-            };
-            Dawson.printText(markAsDoneTexts);
+            return task;
 
         } catch (IndexOutOfBoundsException e) {
             // Convert to 1-base indexing to show error
@@ -45,16 +36,11 @@ public class TaskList {
         }
     }
 
-    public void unmarkIndex(int index) throws DawsonException {
+    public Task unmarkIndex(int index) throws DawsonException {
         try {
             Task task = taskList.get(index);
             task.unmark();
-
-            String[] unmarkIndexTexts = {
-                    "Ok, I've marked this task as not done yet: ",
-                    "  " + task.toString()
-            };
-            Dawson.printText(unmarkIndexTexts);
+            return task;
 
         } catch (IndexOutOfBoundsException e) {
             // Convert to 1-base indexing to show error
@@ -63,16 +49,10 @@ public class TaskList {
         }
     }
 
-    public void deleteTask(int index) throws DawsonException {
+    public Task deleteTask(int index) throws DawsonException {
         try {
             Task removedTask = taskList.remove(index);
-            
-            String[] deleteText = {
-                    "Noted. I've removed this task:",
-                    "  " + removedTask.toString(),
-                    String.format("Now you have %d tasks in the list.", taskList.size())
-            };
-            Dawson.printText(deleteText);
+            return removedTask;
 
         } catch (IndexOutOfBoundsException e) {
             // Convert to 1-base indexing to show error

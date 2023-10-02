@@ -1,6 +1,7 @@
 package dawson;
 
 import dawson.command.Command;
+import dawson.command.CommandResult;
 import dawson.command.ExitCommand;
 import dawson.exception.DawsonException;
 import dawson.parser.Parser;
@@ -26,7 +27,7 @@ public class Dawson {
         try {
             taskList = new TaskList(storage.load());
         } catch (DawsonException e) {
-            printText(e.getMessage());
+            ui.printText(e.getMessage());
             taskList = new TaskList();
         }
     }
@@ -41,37 +42,16 @@ public class Dawson {
             newCommand = Parser.parseCommand(nextLineString, taskList);
 
             try {
-                newCommand.execute();
+                CommandResult result = newCommand.execute();
+                ui.printCommandResult(result);
                 storage.save(taskList);
+                
             } catch (DawsonException e) {
-                printText(e.getMessage());
+                ui.printText(e.getMessage());
             }
         } while (!(newCommand instanceof ExitCommand));
 
         System.exit(0);
-    }
-
-    /**
-     * Print given input text together with a line as separator
-     * 
-     * @param text
-     */
-    public static void printText(String text) {
-        String line = "\t_______________________________________________________" + System.lineSeparator();
-
-        System.out.println(line);
-        System.out.println("\t " + text);
-        System.out.println(line);
-    }
-
-    public static void printText(String[] texts) {
-        String line = "\t_______________________________________________________" + System.lineSeparator();
-
-        System.out.println(line);
-        for (String text : texts) {
-            System.out.println("\t " + text);
-        }
-        System.out.println(line);
     }
 
     public static void main(String[] args) {

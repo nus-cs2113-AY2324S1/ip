@@ -2,7 +2,13 @@ package dawson.ui;
 
 import java.util.Scanner;
 
+import dawson.command.CommandResult;
+
 public class TextUI {
+
+    private static final String LS = System.lineSeparator();
+    private static final String DIVIDER = "\t_______________________________________________________" + LS;
+
     Scanner scanner;
 
     public TextUI() {
@@ -40,17 +46,19 @@ public class TextUI {
         return rawInputLine.trim().isEmpty() || isCommentLine;
     }
 
+    public void printCommandResult(CommandResult result) {
+        printText(result.getMessageStrings());
+    }
+
     /**
      * Print given input text together with a line as separator
      * 
      * @param text 
      */
-    public static void printText(String text) {
-        String line = "\t_______________________________________________________" + System.lineSeparator();
-
-        System.out.println(line);
+    public void printText(String text) {
+        System.out.println(DIVIDER);
         System.out.println("\t " + text);
-        System.out.println(line);
+        System.out.println(DIVIDER);
     }
 
     /**
@@ -58,14 +66,14 @@ public class TextUI {
      * 
      * @param texts multi line text
      */
-    public static void printText(String[] texts) {
-        String line = "\t_______________________________________________________" + System.lineSeparator();
+    public void printText(String[] texts) {
+        System.out.println(DIVIDER);
 
-        System.out.println(line);
         for (String text : texts) {
             System.out.println("\t " + text);
         }
-        System.out.println(line);
+        
+        System.out.println(DIVIDER);
     }
 
     public void printWelcomeText() {
