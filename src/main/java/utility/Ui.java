@@ -119,8 +119,32 @@ public class Ui {
     }
 
     /**
+     * Utility function for getDeadline and getEvent functions
+     * Takes user input and returns it in the desired format
+     *
+     * @param format The desired format i.e. "ha E MM yy"
+     * @return formattedDate (LocalDateTime object)
+     */
+    private LocalDateTime parseUserDate(String format) {
+        Scanner input = new Scanner(System.in);
+        LocalDateTime formattedDate = null;
+        boolean valid = true;
+        do{
+            try {
+                String unformattedDate = input.nextLine().toUpperCase();
+                formattedDate = LocalDateTime.parse(unformattedDate, DateTimeFormatter.ofPattern(format));
+                valid = true;
+            } catch(DateTimeParseException e) {
+                System.out.println("Frank says: you need to enter in the right format.");
+                valid = false;
+            }
+        } while (!valid);
+        return formattedDate;
+    }
+
+    /**
      * Get the description and due date of a user
-     * Due date must be in proper 25/12/23 format
+     * Due date must be in proper 11PM/25/12/23 format
      *
      * @return String array of {description, dueDate}
      * @throws FrankException
@@ -132,11 +156,11 @@ public class Ui {
         descDueDate[0] = input.nextLine();
 
         // Get the date
-        System.out.println("Ke Yi! When is it due? (In DD-MM-YY format)");
-        LocalDateTime formattedDate = parseUserDate("d/MM/yy"); // 02/10/23 for example
+        System.out.println("Ke Yi! When is it due? (In 11PM/DD/MM/YY format)");
+        LocalDateTime formattedDate = parseUserDate("ha/d/MM/yy"); // 02/10/23 for example
         LocalDateTime now = LocalDateTime.now();
         long daysBetween = ChronoUnit.DAYS.between(now, formattedDate);
-        descDueDate[1] = formattedDate.format(DateTimeFormatter.ofPattern("E, d MMM yy")); // Thu, 5 Mar 23
+        descDueDate[1] = formattedDate.format(DateTimeFormatter.ofPattern("ha E, d MMM yy")); // Thu, 5 Mar 23
 
         // Check for invalid input
         if(descDueDate[0].isEmpty() || descDueDate[1].isEmpty()) {
@@ -149,8 +173,9 @@ public class Ui {
     /**
      * Get the description, start date and end date for the event
      * start date and end date must be in proper 11PM/03/12/23 format
+     *
      * @return descStartDate a String array of {description, startDate, endDate}
-     * @throws FrankException
+     * @throws FrankException Unique Exceptions
      */
     public String[] getEvent() throws FrankException {
         String[] descStartEnd = new String[3];
@@ -160,14 +185,17 @@ public class Ui {
 
         // Start Date
         System.out.println("When does it start? (In 11PM/DD/MM/YY Format)");
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println("Now the time is " + now.format(DateTimeFormatter.ofPattern("ha E, d MMM yy")));
         LocalDateTime formattedStartDate = parseUserDate("ha/d/MM/yy"); // 02/10/23 for example
         descStartEnd[1] = formattedStartDate.format(DateTimeFormatter.ofPattern("ha E, d MMM yy")); // 11PM Thu, 08 Mar 23
 
         // End Date
         System.out.println("When does it end?");
         LocalDateTime formattedEndDate = parseUserDate("ha/d/MM/yy"); // 02/10/23 for example
+
+        if(formattedEndDate.isBefore(formattedStartDate)) {
+            throw new FrankException("Brough you cannot have an end date earlier than the start date!");
+        }
+
         descStartEnd[2] = formattedEndDate.format(DateTimeFormatter.ofPattern("ha E, d MMM yy"));  // 11PM Thu, 08 Mar 23
 
         if(descStartEnd[0].isEmpty() || descStartEnd[1].isEmpty() || descStartEnd[2].isEmpty()) {
@@ -197,27 +225,4 @@ public class Ui {
         System.out.println(SOLIDLINE + error + SOLIDLINE);
     }
 
-    /**
-     * Utility function for getDeadline and getEvent functions
-     * Takes user input and returns it in the desired format
-     *
-     * @param format The desired format i.e. "ha E MM yy"
-     * @return formattedDate (LocalDateTime object)
-     */
-    public LocalDateTime parseUserDate(String format) {
-        Scanner input = new Scanner(System.in);
-        LocalDateTime formattedDate = null;
-        boolean valid = true;
-        do{
-            try {
-                String unformattedDate = input.nextLine().toUpperCase();
-                formattedDate = LocalDateTime.parse(unformattedDate, DateTimeFormatter.ofPattern(format));
-                valid = true;
-            } catch(DateTimeParseException e) {
-                System.out.println("Frank says: you need to enter in the right format.");
-                valid = false;
-            }
-        } while (!valid);
-        return formattedDate;
-    }
 }

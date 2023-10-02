@@ -4,3 +4,5 @@
 [E][ ] gay (from: tomorrow to: wednesday)
 [D][ ] Meet YT (by: Tue, 3 Oct 23, 2 days from now!)
 [E][ ] meet yt (from: 3PM Tue, 3 Oct 23 to: 6PM Tue, 3 Oct 23, 3 hours long.)
+[D][ ] Run 6km (by: Sun, 8 Oct 23, 6 days from now!)
+[E][ ] EE2026 Exam (from: 6PM Sat, 7 Oct 23 to: 4PM Sat, 7 Oct 23, -2 hours long.)
