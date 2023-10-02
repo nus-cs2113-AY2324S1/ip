@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 
 public class TaskList {
-    private ArrayList<Task> taskList; 
+    private final ArrayList<Task> taskList = new ArrayList<>();
 
     public ArrayList<Task> getTaskList(){
         return taskList;
@@ -47,7 +47,7 @@ public class TaskList {
         case TODO:
             try{
                 String description = TaskManager.parseToDoDescription(userInput);
-                System.out.println(description);
+//                System.out.println(description); // debug
                 taskList.add(new Todo(description));
                 if(displayMessage){
                     TaskManager.showTodo(description);

@@ -2,7 +2,6 @@ import jarvis.command.Command;
 import jarvis.parser.Parser;
 import jarvis.tasklist.TaskList;
 import jarvis.storage.Storage;
-import jarvis.tasks.Task;
 import jarvis.ui.Ui;
 
 public class Jarvis {

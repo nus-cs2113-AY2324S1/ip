@@ -1,12 +1,10 @@
 package jarvis.command;
-/**
- * Command to add a todo to list
- */
 
 import jarvis.storage.Storage;
 import jarvis.tasks.Task;
 import jarvis.tasklist.TaskList;
 import jarvis.ui.Ui;
+
 public class CommandToDo extends Command {
     private String userInput;
     public CommandToDo(String userInput){
