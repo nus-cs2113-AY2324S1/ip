@@ -62,22 +62,22 @@ public class Parser {
         }
     }
 
-    public static AddTodoCommand parseTodoCommand(String rawDescription) throws DukeException {
-        String description = rawDescription.trim();
+    public static AddTodoCommand parseTodoCommand(String commandRawInput) throws DukeException {
+        String description = commandRawInput.trim();
         if (description.isEmpty()) {
             throw new DukeException(MESSAGE_ERROR_EMPTY_DESCRIPTION);
         }
         return new AddTodoCommand(description);
     }
 
-    public static AddDeadlineCommand parseDeadlineCommand(String rawDescription) throws DukeException {
-        int byPos = rawDescription.indexOf(BY_DELIMITER);
+    public static AddDeadlineCommand parseDeadlineCommand(String commandRawInput) throws DukeException {
+        int byPos = commandRawInput.indexOf(BY_DELIMITER);
         if (byPos == -1) {
             throw new DukeException(MESSAGE_ERROR_DEADLINE_BY);
         }
 
-        String description = rawDescription.substring(0, byPos).trim();
-        String by = rawDescription.substring(byPos + 3).trim();
+        String description = commandRawInput.substring(0, byPos).trim();
+        String by = commandRawInput.substring(byPos + 3).trim();
 
         if (description.isEmpty()) {
             throw new DukeException(MESSAGE_ERROR_EMPTY_DESCRIPTION);
@@ -90,9 +90,9 @@ public class Parser {
         return new AddDeadlineCommand(description, by);
     }
 
-    public static AddEventCommand parseEventCommand(String rawDescription) throws DukeException {
-        int fromPos = rawDescription.indexOf(FROM_DELIMITER);
-        int toPos = rawDescription.indexOf(TO_DELIMITER);
+    public static AddEventCommand parseEventCommand(String commandRawInput) throws DukeException {
+        int fromPos = commandRawInput.indexOf(FROM_DELIMITER);
+        int toPos = commandRawInput.indexOf(TO_DELIMITER);
 
         if (fromPos == -1) {
             throw new DukeException(MESSAGE_ERROR_FROM_TIME_MISSING);
@@ -103,11 +103,11 @@ public class Parser {
         }
 
         //get the task name
-        String description = rawDescription.substring(0,fromPos).trim();
+        String description = commandRawInput.substring(0,fromPos).trim();
 
         //get the event time 
-        String fromTime = rawDescription.substring(fromPos+5,toPos).trim();
-        String toTime = rawDescription.substring(toPos+3).trim();
+        String fromTime = commandRawInput.substring(fromPos+5,toPos).trim();
+        String toTime = commandRawInput.substring(toPos+3).trim();
 
         //if the taskname is empty throw an exception
         if(description.isEmpty()){
@@ -127,18 +127,18 @@ public class Parser {
         return new AddEventCommand(description,fromTime,toTime);
     }
 
-    public static MarkCommand parseMarkCommand(String rawDescription) throws DukeException {
+    public static MarkCommand parseMarkCommand(String commandRawInput) throws DukeException {
         try {
-            int index = Integer.parseInt(rawDescription.trim()) - 1;
+            int index = Integer.parseInt(commandRawInput.trim()) - 1;
             return new MarkCommand(index);
         } catch (NumberFormatException e) {
             throw new DukeException(MESSAGE_ERROR_INVALID_TASK_NUMBER);
         }
     }
 
-    public static UnmarkCommand parseUnmarkCommand(String rawDescription) throws DukeException {
+    public static UnmarkCommand parseUnmarkCommand(String commandRawInput) throws DukeException {
         try {
-            int index = Integer.parseInt(rawDescription.trim()) - 1;
+            int index = Integer.parseInt(commandRawInput.trim()) - 1;
             return new UnmarkCommand(index);
         } catch (NumberFormatException e) {
             throw new DukeException(MESSAGE_ERROR_INVALID_TASK_NUMBER);
@@ -146,9 +146,9 @@ public class Parser {
         
     }
 
-    public static DeleteCommand parseDeleteCommand(String rawDescription) throws DukeException {
+    public static DeleteCommand parseDeleteCommand(String commandRawInput) throws DukeException {
         try {
-            int index = Integer.parseInt(rawDescription.trim()) - 1;
+            int index = Integer.parseInt(commandRawInput.trim()) - 1;
             return new DeleteCommand(index);
         } catch (NumberFormatException e) {
             throw new DukeException(MESSAGE_ERROR_INVALID_TASK_NUMBER);
