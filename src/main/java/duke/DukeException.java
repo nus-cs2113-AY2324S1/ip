@@ -3,6 +3,10 @@ import java.util.Arrays;
 import java.util.Collections;
 
 
+/**
+ * Class to check the user input and check for format violations or
+ * unrecognised commands and/or operations.
+ */
 public class DukeException {
 
     protected String command;
@@ -15,6 +19,9 @@ public class DukeException {
         this.command = userInput[0];
     }
 
+    /**
+     * @param size size of the taskList to check for out of bounds value.
+     */
     public void checkInput(int size){
         // Repeated commands, empty entries
         switch (this.command) {
@@ -71,6 +78,9 @@ public class DukeException {
     }
 
 
+    /**
+     * @param message Message to be output.
+     */
     public void customError(String message){
         ui.printLine();
         ui.echo("    ☹ OOPS!!! " + message + " :-(\n");
@@ -78,6 +88,9 @@ public class DukeException {
         exception = true;
     }
 
+    /**
+     * Method to print general message when the command is not recognised.
+     */
     public void unknownCommand(){
         ui.printLine();
         ui.echo("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
@@ -85,6 +98,9 @@ public class DukeException {
         exception = true;
     }
 
+    /**
+     * Method to print general message when the description of a task is empty.
+     */
     private void emptyDescription(){
         ui.printLine();
         ui.echo("    ☹ OOPS!!! The description of a " + this.command + " cannot be empty.\n");
@@ -92,6 +108,9 @@ public class DukeException {
         exception = true;
     }
 
+    /**
+     * Method to print general message when the keyword is missing.
+     */
     public void missingKeyword(){
         ui.printLine();
         ui.echo("    ☹ OOPS!!! You are missing an important keyword\n");
