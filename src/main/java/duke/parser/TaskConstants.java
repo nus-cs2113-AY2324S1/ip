@@ -8,6 +8,7 @@ public class TaskConstants {
     public static final String TODO = "todo";
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
+    public static final String FIND = "find";
 
     public static final String FROM_DELIMITER = "/from";
     public static final String TO_DELIMITER = "/to";

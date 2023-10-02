@@ -17,5 +17,17 @@ public class Tasklist extends ArrayList<Task>{
         return sb.toString();
     } 
 
+    public String findTasksToString(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < size(); i++) {
+            if (get(i).getTaskName().contains(keyword)) {
+                sb.append(i + 1).append(". ").append(get(i)).append("\n");
+            }
+        }
+        if (sb.length() == 0){
+            sb.append("There are no matching tasks in your list.\n");
+        } 
+        return sb.toString();
+    }
     
 }
