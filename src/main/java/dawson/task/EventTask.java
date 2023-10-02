@@ -1,5 +1,7 @@
 package dawson.task;
 
+import java.time.LocalDateTime;
+
 import dawson.exception.DawsonException;
 import dawson.parser.Parser;
 import dawson.ui.Messages;
@@ -9,15 +11,23 @@ public class EventTask extends Task {
     protected String start;
     protected String end;
 
+    protected LocalDateTime startDateTime;
+    protected LocalDateTime endDateTime;
+
 	public EventTask(String description, String start, String end) {
 		super(description);
         this.start = start;
         this.end = end;
+
+        this.startDateTime = parseDateTime(start, true);
+        this.endDateTime = parseDateTime(end, false);
 	}
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s, to: %s)", super.toString(), start, end);
+        String startString = startDateTime == null ? start : showDateTimeFormat.format(startDateTime);
+        String endString = endDateTime == null ? end : showDateTimeFormat.format(endDateTime);
+        return String.format("[E]%s (from: %s, to: %s)", super.toString(), startString, endString);
     }
 
     @Override

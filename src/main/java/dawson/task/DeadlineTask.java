@@ -1,5 +1,7 @@
 package dawson.task;
 
+import java.time.LocalDateTime;
+
 import dawson.exception.DawsonException;
 import dawson.parser.Parser;
 import dawson.ui.Messages;
@@ -7,15 +9,19 @@ import dawson.ui.Messages;
 public class DeadlineTask extends Task {
 
     protected String by;
+    protected LocalDateTime byDateTime;
 
 	public DeadlineTask(String description, String by) {
 		super(description);
         this.by = by;
+
+       byDateTime = parseDateTime(by, false);
 	}
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), by);
+        String byString = byDateTime == null ? by : showDateTimeFormat.format(byDateTime);
+        return String.format("[D]%s (by: %s)", super.toString(), byString);
     }
 
     @Override
