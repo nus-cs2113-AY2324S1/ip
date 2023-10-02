@@ -9,6 +9,7 @@ import duke.commands.DeleteCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.UnmarkCommand;
+import duke.commands.FindCommand;
 
 import duke.exception.DukeException;
 
@@ -18,6 +19,7 @@ import static duke.ui.MessageConstants.MESSAGE_ERROR_FROM_TIME_MISSING;
 import static duke.ui.MessageConstants.MESSAGE_ERROR_TO_TIME_MISSING;
 import static duke.ui.MessageConstants.MESSAGE_ERROR_DEADLINE_BY;
 import static duke.ui.MessageConstants.MESSAGE_ERROR_COMMAND;
+import static duke.ui.MessageConstants.MESSAGE_ERROR_FIND_MISSING;
 
 import static duke.parser.TaskConstants.DEADLINE;
 import static duke.parser.TaskConstants.EVENT;
@@ -27,6 +29,7 @@ import static duke.parser.TaskConstants.LIST;
 import static duke.parser.TaskConstants.MARK;
 import static duke.parser.TaskConstants.UNMARK;
 import static duke.parser.TaskConstants.DELETE;
+import static duke.parser.TaskConstants.FIND;
 
 import static duke.parser.TaskConstants.FROM_DELIMITER;
 import static duke.parser.TaskConstants.TO_DELIMITER;
@@ -57,6 +60,8 @@ public class Parser {
             return parseUnmarkCommand(commandInput);
         case DELETE:
             return parseDeleteCommand(commandInput);
+        case FIND:
+            return parseFindCommand(commandInput);
         default:
             throw new DukeException(MESSAGE_ERROR_COMMAND);
         }
@@ -153,6 +158,14 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new DukeException(MESSAGE_ERROR_INVALID_TASK_NUMBER);
         }
+    }
+
+    public static FindCommand parseFindCommand(String commandRawInput) throws DukeException {
+        String searchString = commandRawInput.trim();
+        if(searchString.isEmpty()){
+            throw new DukeException(MESSAGE_ERROR_FIND_MISSING);
+        }
+        return new FindCommand(searchString);
     }
 
 
