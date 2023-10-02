@@ -39,13 +39,13 @@ public class Dawson {
     private void run() {
         do {
             String nextLineString = ui.getUserCommand();
-            newCommand = Parser.parseCommand(nextLineString, taskList);
+            newCommand = Parser.parseCommand(nextLineString);
 
             try {
-                CommandResult result = newCommand.execute();
+                CommandResult result = newCommand.execute(taskList);
                 ui.printCommandResult(result);
                 storage.save(taskList);
-                
+
             } catch (DawsonException e) {
                 ui.printText(e.getMessage());
             }

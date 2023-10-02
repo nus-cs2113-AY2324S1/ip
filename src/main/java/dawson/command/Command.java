@@ -1,6 +1,7 @@
 package dawson.command;
 
 import dawson.exception.DawsonException;
+import dawson.task.TaskList;
 
 public abstract class Command {
     public static final String TODO_COMMAND = "todo";
@@ -14,5 +15,5 @@ public abstract class Command {
     public static final String DELETE_COMMAND = "delete";
     public static final String EXIT_COMMAND = "bye";
 
-    public abstract CommandResult execute() throws DawsonException;
+    public abstract CommandResult execute(TaskList list) throws DawsonException;
 }

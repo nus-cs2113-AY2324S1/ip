@@ -7,15 +7,13 @@ import dawson.task.TaskList;
 public class MarkCommand extends Command {
 
     private String payload;
-    private TaskList taskList;
 
-    public MarkCommand(String payload, TaskList taskList) {
+    public MarkCommand(String payload) {
         this.payload = payload;
-        this.taskList = taskList;
     }
 
     @Override
-    public CommandResult execute() throws DawsonException {
+    public CommandResult execute(TaskList list) throws DawsonException {
         // Convert index into integer, ensure it is valid integer
         int index;
         try {
@@ -27,7 +25,7 @@ public class MarkCommand extends Command {
         }
 
         // Mark task as done
-        Task markedTask = taskList.markAsDoneIndex(index);
+        Task markedTask = list.markAsDoneIndex(index);
 
         String[] markAsDoneTexts = {
             "Nice! I've marked this task as done: ",

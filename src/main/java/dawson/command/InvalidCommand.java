@@ -1,11 +1,12 @@
 package dawson.command;
 
+import dawson.task.TaskList;
 import dawson.ui.Messages;
 
 public class InvalidCommand extends Command {
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(TaskList list) {
         String errorMessage = Messages.MESSAGE_INVALID_COMMAND;
         return new CommandResult(errorMessage);
     }

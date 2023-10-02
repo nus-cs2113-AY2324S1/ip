@@ -8,15 +8,13 @@ import dawson.ui.Messages;
 public class TodoCommand extends Command {
 
     private String payload;
-    private TaskList list;
 
-    public TodoCommand(String payload, TaskList list) {
+    public TodoCommand(String payload) {
         this.payload = payload;
-        this.list = list;
     }
 
     @Override
-    public CommandResult execute() throws DawsonException {
+    public CommandResult execute(TaskList list) throws DawsonException {
         if (payload.equals("")) {
             String errorMsg = "The description of a todo cannot be empty!";
             throw new DawsonException(errorMsg);

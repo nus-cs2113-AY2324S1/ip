@@ -15,26 +15,26 @@ import dawson.task.*;
 
 public class Parser {
 
-    public static Command parseCommand(String input, TaskList taskList) {
+    public static Command parseCommand(String input) {
         String[] split = input.split("\\s+", 2); // split the input into command and arguments
         String commandString = split[0].toLowerCase(); // First word is command
         String payload = split.length > 1 ? split[1] : ""; // Remaining input text
 
         switch (commandString) {
             case Command.TODO_COMMAND:
-                return new TodoCommand(payload, taskList);
+                return new TodoCommand(payload);
             case Command.DEADLINE_COMMAND:
-                return new DeadlineCommand(payload, taskList);
+                return new DeadlineCommand(payload);
             case Command.EVENT_COMMAND:
-                return new EventCommand(payload, taskList);
+                return new EventCommand(payload);
             case Command.LIST_COMMAND:
-                return new ListCommand(taskList);
+                return new ListCommand();
             case Command.DELETE_COMMAND:
-                return new DeleteCommand(payload, taskList);
+                return new DeleteCommand(payload);
             case Command.MARK_COMMAND:
-                return new MarkCommand(payload, taskList);
+                return new MarkCommand(payload);
             case Command.UNMARK_COMMAND:
-                return new UnmarkCommand(payload, taskList);
+                return new UnmarkCommand(payload);
             case Command.EXIT_COMMAND:
                 return new ExitCommand();
             default:

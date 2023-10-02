@@ -10,15 +10,13 @@ public class DeadlineCommand extends Command {
     private static final String BY_DELIMITER = "/by";
 
     private String payload;
-    private TaskList list;
 
-    public DeadlineCommand(String payload, TaskList list) {
+    public DeadlineCommand(String payload) {
         this.payload = payload;
-        this.list = list;
     }
 
     @Override
-    public CommandResult execute() throws DawsonException {
+    public CommandResult execute(TaskList list) throws DawsonException {
         int by_position = payload.indexOf(BY_DELIMITER);
 
         if (by_position == -1) {

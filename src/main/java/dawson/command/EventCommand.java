@@ -11,15 +11,13 @@ public class EventCommand extends Command {
     private static final String TO_DELIMITER = "/to";
 
     private String payload;
-    private TaskList list;
 
-    public EventCommand(String payload, TaskList list) {
+    public EventCommand(String payload) {
         this.payload = payload;
-        this.list = list;
     }
 
     @Override
-    public CommandResult execute() throws DawsonException {
+    public CommandResult execute(TaskList list) throws DawsonException {
         int from_position = payload.indexOf(FROM_DELIMITER);
         int to_position = payload.indexOf(TO_DELIMITER);
 
