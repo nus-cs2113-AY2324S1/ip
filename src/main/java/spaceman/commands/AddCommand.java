@@ -13,6 +13,7 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
+    @Override
     public void execute(TaskList tasks) {
         tasks.addTask(task);
     }

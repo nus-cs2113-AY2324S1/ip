@@ -10,7 +10,16 @@ import static spaceman.commands.ListOfCommands.COMMAND_EVENT;
 import static spaceman.commands.ListOfCommands.COMMAND_DELETE;
 import static spaceman.commands.ListOfCommands.COMMAND_FIND;
 import static spaceman.commands.ListOfCommands.COMMAND_HELP;
-import static spaceman.ui.Messages.*;
+import static spaceman.ui.Messages.MESSAGE_INVALID_DATE;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_TODO;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_DEADLINE;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_BY;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_EVENT;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_FROM;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_TO;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_INDEX;
+import static spaceman.ui.Messages.MESSAGE_INVALID_INDEX;
+import static spaceman.ui.Messages.MESSAGE_EMPTY_KEYWORD;
 
 import spaceman.commands.Command;
 import spaceman.commands.AddCommand;

@@ -1,7 +1,5 @@
 package spaceman.data.exception;
 
-import java.util.SortedMap;
-
 /**
  * Represents the exception that needs to be displayed to the user.
  */

@@ -3,7 +3,6 @@ package spaceman.data;
 import static spaceman.ui.Messages.LINE;
 import static spaceman.ui.Messages.MESSAGE_MARK;
 import static spaceman.ui.Messages.MESSAGE_UNMARK;
-import static spaceman.ui.Messages.MESSAGE_EMPTY_KEYWORD;
 
 import spaceman.data.task.Task;
 import spaceman.ui.Ui;
