@@ -9,62 +9,61 @@ import java.util.Scanner;
 
 public class BotBuddy {
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
+
+    public BotBuddy(String filePath, String directoryName) {
+        ui = new Ui();
+        parser = new Parser();
+
+        // check if storage file exists, if not try to create it
+        try {
+            storage = new Storage(filePath, directoryName, ui);
+        } catch (IOException e) {
+            ui.printCreateTaskFileErrorMsg();
+            System.exit(1);
+        }
+
+        // try to read from storage file
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (FileNotFoundException e) {
+            ui.printCreateTaskFileErrorMsg();
+            System.exit(1);
+        } catch (BotBuddyException e) {
+            ui.printToUser(e.getMessage());
+            System.exit(1);
+        }
+
+    }
 
     public static void main(String[] args) {
-        printUnderscores();
-        System.out.println("Starting up...");
-        printUnderscores();
+        new BotBuddy("data/taskfile.txt", "data").run();
+    }
 
-        String filePath = "data/taskfile.txt";
-        String directoryName = "data";
-
-        File directory = new File(directoryName);
-        File taskFile = new File(filePath);
-
-        if (!taskFile.exists()) {
-            printUnderscores();
-            System.out.println("Task file not found! Creating one...");
-            printUnderscores();
-
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
-            try {
-                taskFile.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error creating task file... Exiting!");
-                return;
-            }
-        }
-
-        try {
-            readTaskFile(filePath);
-        } catch (FileNotFoundException e) {
-            System.out.println("Error creating task file... Exiting!");
-            return;
-        }
-
-        printUnderscores();
-        System.out.println("Hello from BotBuddy!");
-        System.out.println("What can I do for you?");
-        printUnderscores();
-
-        String input;
-        String[] inputArr;
+    public void run() {
+        ui.printWelcomeMsg();
         String command = "";
         String parameters = "";
-        Scanner in = new Scanner(System.in);
-
         do {
-            input = in.nextLine().trim();
-            inputArr = input.split(" ", 2);
+            String userInput = ui.getUserInput();
+            String[] inputArr = parser.parseInput(userInput);
             command = inputArr[0];
             if (inputArr.length == 2) {
                 parameters = inputArr[1];
             } else {
                 parameters = "";
             }
+
+            try {
+                parser.validateInput(command, parameters);
+            } catch (BotBuddyException e) {
+                ui.printToUser(e.getMessage());
+                continue;
+            }
+
 
             switch (command) {
             case "todo":
@@ -98,352 +97,84 @@ public class BotBuddy {
             case "bye":
                 exitProgram();
                 return;
-
-            default:
-                invalidCommand();
-                break;
             }
 
             // write to file here
             try {
-                writeTaskFile(filePath);
+                storage.store(tasks.getTaskArrayList());
             } catch (IOException e) {
-                System.out.println("Error writing to file!");
+                ui.printTaskFileWriteErrorMsg();
             }
 
         } while (!command.equals("bye"));
     }
 
-    private static void readTaskFile(String filePath) throws FileNotFoundException {
-        File taskFile = new File(filePath);
-        Scanner taskScanner = new Scanner(taskFile);
-
-        while (taskScanner.hasNext()) {
-            String currentTask = taskScanner.nextLine();
-            if (currentTask.startsWith("[T]")) {
-                currentTask = currentTask.substring(3);
-                boolean isDone = false;
-                if (currentTask.startsWith("[X]")) {
-                    isDone = true;
-                }
-                currentTask = currentTask.substring(3);
-                addTodoFromFile(currentTask);
-                if (isDone) {
-                    int noOfTasks = Task.getNoOfTasks();
-                    markTaskFromFile(Integer.toString(noOfTasks));
-                }
-            } else if (currentTask.startsWith("[E]")) {
-                currentTask = currentTask.substring(3);
-                boolean isDone = false;
-                if (currentTask.startsWith("[X]")) {
-                    isDone = true;
-                }
-                currentTask = currentTask.substring(3);
-                addEventFromFile(currentTask);
-                if (isDone) {
-                    int noOfTasks = Task.getNoOfTasks();
-                    markTaskFromFile(Integer.toString(noOfTasks));
-                }
-            } else if (currentTask.startsWith("[D]")) {
-                currentTask = currentTask.substring(3);
-                boolean isDone = false;
-                if (currentTask.startsWith("[X]")) {
-                    isDone = true;
-                }
-                currentTask = currentTask.substring(3);
-                addDeadlineFromFile(currentTask);
-                if (isDone) {
-                    int noOfTasks = Task.getNoOfTasks();
-                    markTaskFromFile(Integer.toString(noOfTasks));
-                }
-            } else {
-                // this should not run
-                System.out.println("Corrupted data file!");
-                return;
-            }
-        }
-    }
-
-    private static void writeTaskFile(String filePath) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath);
-        StringBuilder taskData = new StringBuilder();
+    public void addTodo(String parameters) {
         int noOfTasks = Task.getNoOfTasks();
-        for (int i = 0; i < noOfTasks; i++) {
-
-            if (tasks.get(i).getClass() == Todo.class) {
-                Todo currentTodo = (Todo) tasks.get(i);
-                taskData.append("[T]").append(currentTodo.getStatusIcon());
-                taskData.append(currentTodo.getDescription());
-                taskData.append(System.lineSeparator());
-            } else if (tasks.get(i).getClass() == Event.class) {
-                Event currentEvent = (Event) tasks.get(i);
-                taskData.append("[E]").append(currentEvent.getStatusIcon());
-                taskData.append(currentEvent.getDescription());
-                taskData.append(" /from ").append(currentEvent.getFrom());
-                taskData.append(" /to ").append(currentEvent.getTo());
-                taskData.append(System.lineSeparator());
-            } else if (tasks.get(i).getClass() == Deadline.class) {
-                Deadline currentDeadline = (Deadline) tasks.get(i);
-                taskData.append("[D]").append(currentDeadline.getStatusIcon());
-                taskData.append(currentDeadline.getDescription());
-                taskData.append(" /by ").append(currentDeadline.getBy());
-                taskData.append(System.lineSeparator());
-            } else {
-                // This should not run
-                System.out.println("Fatal error!");
-            }
-//            taskData.append(tasks.get(i));
-//            taskData.append(System.lineSeparator());
-        }
-        fileWriter.write(taskData.toString());
-        fileWriter.close();
+        tasks.addTodoToTaskList(parameters);
+        ui.printToUser("Got it, I've added this task:"
+                + System.lineSeparator()
+                + tasks.getTaskArrayList().get(noOfTasks));
     }
 
-
-    public static void printUnderscores() {
-        System.out.println("____________________________________________________________");
-    }
-
-    public static void addTodo(String parameters) {
-        try {
-            validateInput("todo", parameters);
-        } catch (BotBuddyException e) {
-            printUnderscores();
-            System.out.println(e.getMessage());
-            printUnderscores();
-            return;
-        }
-        // add todo
+    public void addEvent(String parameters) {
         int noOfTasks = Task.getNoOfTasks();
-        tasks.add(new Todo(parameters));
-        printUnderscores();
-        System.out.println("Got it, I've added this task:");
-        System.out.println(tasks.get(noOfTasks));
-        printUnderscores();
+        String[] eventDetails = parser.parseEventDetails(parameters);
+        tasks.addEventToTaskList(eventDetails);
+        ui.printToUser("Got it, I've added this task:"
+                + System.lineSeparator()
+                + tasks.getTaskArrayList().get(noOfTasks));
     }
 
-    public static void addEvent(String parameters) {
-        try {
-            validateInput("event", parameters);
-        } catch (BotBuddyException e) {
-            printUnderscores();
-            System.out.println(e.getMessage());
-            printUnderscores();
-            return;
-        }
-        // add event
+    public void addDeadline(String parameters) {
         int noOfTasks = Task.getNoOfTasks();
-        String[] eventDetails = parameters.split("/from");
-        String eventName = eventDetails[0].trim();
-        eventDetails = eventDetails[1].split("/to");
-        String eventFrom = eventDetails[0].trim();
-        String eventTo = eventDetails[1].trim();
-        tasks.add(new Event(eventName, eventFrom, eventTo));
-        printUnderscores();
-        System.out.println("Got it, I've added this task:");
-        System.out.println(tasks.get(noOfTasks));
-        printUnderscores();
+        String[] deadlineDetails = parser.parseDeadlineDetails(parameters);
+        tasks.addDeadlineToTaskList(deadlineDetails);
+        ui.printToUser("Got it, I've added this task:"
+                + System.lineSeparator()
+                + tasks.getTaskArrayList().get(noOfTasks));
     }
 
-    public static void addDeadline(String parameters) {
-        try {
-            validateInput("deadline", parameters);
-        } catch (BotBuddyException e) {
-            printUnderscores();
-            System.out.println(e.getMessage());
-            printUnderscores();
-            return;
-        }
-        // add deadline
-        int noOfTasks = Task.getNoOfTasks();
-        String[] deadlineDetails = parameters.split("/by");
-        String deadlineName = deadlineDetails[0].trim();
-        String deadlineBy = deadlineDetails[1].trim();
-        tasks.add(new Deadline(deadlineName, deadlineBy));
-        printUnderscores();
-        System.out.println("Got it, I've added this task:");
-        System.out.println(tasks.get(noOfTasks));
-        printUnderscores();
-    }
-
-    public static void listTasks() {
+    public void listTasks() {
         int noOfTasks = Task.getNoOfTasks();
         if (noOfTasks == 0) {
-            printUnderscores();
-            System.out.println("There are currently no tasks!");
-            printUnderscores();
+            ui.printToUser("There are currently no tasks!");
             return;
         }
-        // print out tasks
-        printUnderscores();
-        for (int i = 0; i < noOfTasks; i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i));
-        }
-        printUnderscores();
+        ui.printUnderscores();
+        tasks.listTasksInTaskList(noOfTasks);
+        ui.printUnderscores();
     }
 
-    public static void markTask(String parameters) {
-        try {
-            validateInput("mark", parameters);
-        } catch (BotBuddyException e) {
-            printUnderscores();
-            System.out.println(e.getMessage());
-            printUnderscores();
-            return;
-        }
+    public void markTask(String parameters) {
         int taskToMark = Integer.parseInt(parameters) - 1;
-        tasks.get(taskToMark).markAsDone();
-        printUnderscores();
-        System.out.println("I've marked this task as done:");
-        System.out.println(tasks.get(taskToMark));
-        printUnderscores();
+        tasks.markTaskInTaskList(taskToMark);
+        ui.printToUser("I've marked this task as done:"
+                + System.lineSeparator()
+                + tasks.getTaskArrayList().get(taskToMark));
     }
 
-    public static void unmarkTask(String parameters) {
-        try {
-            validateInput("unmark", parameters);
-        } catch (BotBuddyException e) {
-            printUnderscores();
-            System.out.println(e.getMessage());
-            printUnderscores();
-            return;
-        }
+    public void unmarkTask(String parameters) {
         int taskToUnmark = Integer.parseInt(parameters) - 1;
-        tasks.get(taskToUnmark).markAsUndone();
-        printUnderscores();
-        System.out.println("I've unmarked this task:");
-        System.out.println(tasks.get(taskToUnmark));
-        printUnderscores();
+        tasks.unmarkTaskInTaskList(taskToUnmark);
+        ui.printToUser("I've unmarked this task:"
+                + System.lineSeparator()
+                + tasks.getTaskArrayList().get(taskToUnmark));
     }
 
-    public static void deleteTask(String parameters) {
-        try {
-            validateInput("delete", parameters);
-        } catch (BotBuddyException e) {
-            printUnderscores();
-            System.out.println(e.getMessage());
-            printUnderscores();
-            return;
-        }
+    public void deleteTask(String parameters) {
         int taskToDelete = Integer.parseInt(parameters) - 1;
-        String tempMessage = String.valueOf(tasks.get(taskToDelete));
+        String tempMessage = String.valueOf(tasks.getTaskArrayList().get(taskToDelete));
         int noOfTasks = Task.getNoOfTasks();
-        tasks.remove(taskToDelete);
+        tasks.removeTaskFromTaskList(taskToDelete);
         Task.setNoOfTasks(noOfTasks - 1);
-        printUnderscores();
-        System.out.println("I've deleted this task:");
-        System.out.println(tempMessage);
-        printUnderscores();
+        ui.printToUser("I've deleted this task:"
+                + System.lineSeparator()
+                + tempMessage);
     }
 
-    public static void exitProgram() {
-        printUnderscores();
-        System.out.println("Goodbye, hope to see you again soon!");
-        printUnderscores();
+    public void exitProgram() {
+        ui.printExitMsg();
     }
 
-    public static void invalidCommand() {
-        printUnderscores();
-        System.out.println("Invalid command! Supported commands are: " +
-                "todo, event, deadline, list, mark, unmark, bye");
-        printUnderscores();
-    }
-
-    public static void validateInput(String command, String parameters) throws BotBuddyException {
-        switch (command) {
-        case "todo":
-            if (parameters.isEmpty()) {
-                throw new BotBuddyException("The description of a todo cannot be empty!");
-            }
-            break;
-
-        case "event":
-            String[] eventDetails = parameters.split("/from");
-            if (eventDetails.length < 2) {
-                throw new BotBuddyException("Please enter in the following format:\n" +
-                        "event 'Event Name' /from 'Start Time' /to 'End Time'");
-            }
-            String eventName = eventDetails[0].trim();
-            eventDetails = eventDetails[1].split("/to");
-            if (eventDetails.length < 2) {
-                throw new BotBuddyException("Please enter in the following format:\n" +
-                        "event 'Event Name' /from 'Start Time' /to 'End Time'");
-            }
-            String eventFrom = eventDetails[0].trim();
-            String eventTo = eventDetails[1].trim();
-            if (eventName.isEmpty() || eventTo.isEmpty() || eventFrom.isEmpty()) {
-                throw new BotBuddyException("Please enter in the following format:\n" +
-                        "event 'Event Name' /from 'Start Time' /to 'End Time'");
-            }
-            break;
-
-        case "deadline":
-            String[] deadlineDetails = parameters.split("/by");
-            if (deadlineDetails.length < 2) {
-                throw new BotBuddyException("Please enter in the following format:\n" +
-                        "deadline 'Deadline Name' /by 'Due Date'");
-            }
-            String deadlineName = deadlineDetails[0].trim();
-            String deadlineBy = deadlineDetails[1].trim();
-            if (deadlineName.isEmpty() || deadlineBy.isEmpty()) {
-                throw new BotBuddyException("Please enter in the following format:\n" +
-                        "deadline 'Deadline Name' /by 'Due Date'");
-            }
-            break;
-
-        case "list":
-            break;
-
-        case "mark":
-            // Fallthrough
-
-        case "unmark":
-            // Fallthrough
-
-        case "delete":
-            if (parameters.isEmpty()) {
-                throw new BotBuddyException("You did not specify which task!");
-            }
-            int taskToModify;
-            try {
-                taskToModify = Integer.parseInt(parameters);
-            } catch (NumberFormatException e) {
-                throw new BotBuddyException("The task specified should be a number!");
-            }
-            if (taskToModify > Task.getNoOfTasks() || taskToModify < 1) {
-                throw new BotBuddyException("There is no such task!");
-            }
-            break;
-
-        default:
-            // this should never run
-            throw new BotBuddyException("Error in validateInput function!");
-        }
-    }
-
-
-    public static void addTodoFromFile(String parameters) {
-        tasks.add(new Todo(parameters));
-    }
-
-    public static void addEventFromFile(String parameters) {
-        String[] eventDetails = parameters.split("/from");
-        String eventName = eventDetails[0].trim();
-        eventDetails = eventDetails[1].split("/to");
-        String eventFrom = eventDetails[0].trim();
-        String eventTo = eventDetails[1].trim();
-        tasks.add(new Event(eventName, eventFrom, eventTo));
-    }
-
-    public static void addDeadlineFromFile(String parameters) {
-        String[] deadlineDetails = parameters.split("/by");
-        String deadlineName = deadlineDetails[0].trim();
-        String deadlineBy = deadlineDetails[1].trim();
-        tasks.add(new Deadline(deadlineName, deadlineBy));
-    }
-
-    public static void markTaskFromFile(String parameters) {
-        int taskToMark = Integer.parseInt(parameters) - 1;
-        tasks.get(taskToMark).markAsDone();
-    }
 }
