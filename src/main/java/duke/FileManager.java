@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Class to manage the read and writing of data between the tasklist and a text file.
+ */
 public class FileManager {
 
     public FileWriter writer;
@@ -18,6 +21,9 @@ public class FileManager {
         this.file = new File("./test.txt");
     }
 
+    /**
+     * @return taskList that is populated with data from the task objects as written in the text file
+     */
     public ArrayList<Task> read(){
         try {
             FileReader fileReader = new FileReader("./test.txt");
@@ -51,6 +57,9 @@ public class FileManager {
         return taskList;
     }
 
+    /**
+     * @param text text to write to the text file
+     */
     public void write(String text){
         try {
             this.writer.write(text);
@@ -61,6 +70,9 @@ public class FileManager {
         }
     }
 
+    /**
+     * @param taskList the populated task list to be written to the file.
+     */
     public void save(ArrayList<duke.Task> taskList){
         try {
             if (this.writer != null){
@@ -75,6 +87,9 @@ public class FileManager {
         }
     }
 
+    /**
+     * @throws IOException if there is an IO error when closing the FileWriter object.
+     */
     public void closeFile() throws IOException {
         writer.close();
     }
