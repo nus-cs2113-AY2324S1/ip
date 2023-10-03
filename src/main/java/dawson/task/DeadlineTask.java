@@ -15,7 +15,7 @@ public class DeadlineTask extends Task {
 		super(description);
         this.by = by;
 
-       byDateTime = parseDateTime(by, false);
+       byDateTime = Parser.parseDateTime(by, false);
 	}
 
     @Override

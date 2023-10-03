@@ -1,5 +1,10 @@
 package dawson.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+
 import dawson.command.Command;
 import dawson.command.DeadlineCommand;
 import dawson.command.DeleteCommand;
@@ -8,6 +13,7 @@ import dawson.command.ExitCommand;
 import dawson.command.InvalidCommand;
 import dawson.command.ListCommand;
 import dawson.command.MarkCommand;
+import dawson.command.TimeCommand;
 import dawson.command.TodoCommand;
 import dawson.command.UnmarkCommand;
 import dawson.exception.DawsonException;
@@ -33,6 +39,8 @@ public class Parser {
                 return new EventCommand(payload);
             case Command.LIST_COMMAND:
                 return new ListCommand();
+            case Command.TIME_COMMAND:
+                return new TimeCommand(payload);
             case Command.DELETE_COMMAND:
                 return new DeleteCommand(payload);
             case Command.MARK_COMMAND:
@@ -61,6 +69,23 @@ public class Parser {
                 return EventTask.decodeEvent(encodedTaskString);
         }
         throw new DawsonException(Messages.MESSAGE_PARSE_TASK_ERROR);
+    }
+
+    public static LocalDateTime parseDateTime(String dateTimeString, boolean isStart) {
+        DateTimeFormatter parseFormat = new DateTimeFormatterBuilder()
+            .appendPattern("d/M/yyyy")
+            .optionalStart()
+            .appendPattern(" HHmm")
+            .optionalEnd()
+            .parseDefaulting(ChronoField.HOUR_OF_DAY, isStart ? 0 : 23)
+            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, isStart ? 0 : 59)
+            .toFormatter();
+        
+        try {
+            return LocalDateTime.parse(dateTimeString, parseFormat);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

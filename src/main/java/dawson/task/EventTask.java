@@ -19,8 +19,8 @@ public class EventTask extends Task {
         this.start = start;
         this.end = end;
 
-        this.startDateTime = parseDateTime(start, true);
-        this.endDateTime = parseDateTime(end, false);
+        this.startDateTime = Parser.parseDateTime(start, true);
+        this.endDateTime = Parser.parseDateTime(end, false);
 	}
 
     @Override
