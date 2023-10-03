@@ -8,6 +8,9 @@ import chattie.tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Deals with find command
+ */
 public class FindCommand extends Command {
 
     private static String command;
@@ -17,10 +20,16 @@ public class FindCommand extends Command {
         this.command = command;
     }
 
+    /**
+     * Filters the tasklist to match the query
+     * @param tasks List of tasks
+     * @param ui User interface
+     * @throws ChattieException If no matching results
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ChattieException {
-        String item = command.substring(FIND_LENGTH);
-        ArrayList<Task> filteredList = tasks.find(item);
+        String query = command.substring(FIND_LENGTH);
+        ArrayList<Task> filteredList = tasks.find(query);
 
         if (filteredList.isEmpty()) {
             throw new ChattieException(ErrorType.EMPTY_LIST);

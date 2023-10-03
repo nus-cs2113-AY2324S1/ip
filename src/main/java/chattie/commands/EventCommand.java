@@ -8,6 +8,9 @@ import chattie.tasks.Deadline;
 import chattie.tasks.Event;
 import chattie.Storage;
 
+/**
+ * Deals with event related commands
+ */
 public class EventCommand extends Command {
 
     private static final int EVENT_LENGTH = 6;
@@ -18,6 +21,14 @@ public class EventCommand extends Command {
     public EventCommand(String command) {
         this.command = command;
     }
+
+    /**
+     * Adds a new event to list of tasks
+     *
+     * @param tasks List of tasks
+     * @param ui User interface
+     * @throws ChattieException If command is empty or not formatted properly
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ChattieException {
         if (command.trim().length() < EVENT_LENGTH) {
@@ -39,7 +50,7 @@ public class EventCommand extends Command {
 
         Event event = new Event(task, from, to);
         tasks.add(event);
-        ui.printAddMessage(event, tasks);
+        ui.printAddMessage(tasks, event);
     }
 
     @Override

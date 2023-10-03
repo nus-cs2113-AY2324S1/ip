@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * Deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
 
     private static String folderPath;
@@ -26,11 +30,22 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads chattie.txt
+     *
+     * @return List of tasks from chattie.txt
+     * @throws ChattieException If file cannot be loaded
+     */
     public static ArrayList<Task> load() throws ChattieException{
         createFile();
         return readFromFile();
     }
 
+    /**
+     * Checks if chattie.txt exists and creates a new file if it doesn't exist
+     *
+     * @throws ChattieException If file cannot be created
+     */
     public static void createFile() throws ChattieException {
         File folder = new File(folderPath);
         File file = new File(filePath);
@@ -46,7 +61,7 @@ public class Storage {
         }
     }
 
-    public static ArrayList<Task> readFromFile() throws ChattieException{
+    private static ArrayList<Task> readFromFile() throws ChattieException{
         ArrayList<Task> list = new ArrayList<>();
         File file = new File(filePath);
         try {
@@ -83,8 +98,13 @@ public class Storage {
         return taskString;
     }
 
-    public static void updateFile(TaskList tasks) throws IOException {
-        ArrayList<Task> list = tasks.getList();
+    /**
+     * Rewrites chattie.txt with updated array list of tasks
+     *
+     * @param list Updated list of tasks
+     * @throws IOException If an exception occurred in writeToFile()
+     */
+    public static void updateFile(ArrayList<Task> list) throws IOException {
         FileWriter clearFile = new FileWriter(filePath);
         clearFile.write("");
         clearFile.close();

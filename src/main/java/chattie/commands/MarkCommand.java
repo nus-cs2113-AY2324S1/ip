@@ -5,6 +5,9 @@ import chattie.Ui;
 import chattie.error.ChattieException;
 import chattie.Storage;
 
+/**
+ * Deals with mark command
+ */
 public class MarkCommand extends Command {
 
     private static final int TASK_INDEX = 1;
@@ -14,6 +17,12 @@ public class MarkCommand extends Command {
         this.command = command;
     }
 
+    /**
+     * Marks the specified task as done
+     *
+     * @param tasks List of tasks
+     * @param ui User interface
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ChattieException {
         String[] commandArray = command.split(" ");
