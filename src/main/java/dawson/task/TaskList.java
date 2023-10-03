@@ -2,6 +2,7 @@ package dawson.task;
 
 import dawson.exception.DawsonException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -61,21 +62,59 @@ public class TaskList {
         }
     }
 
-    public String[] getTaskStrings() {
-        if (taskList.size() == 0) {
-            return new String[] { "Empty list!" };
+    public ArrayList<String> findTasks(String query) {
+        ArrayList<String> result = new ArrayList<>();
+
+        int counter = 1;
+        for (Task task : taskList) {
+            if (task.toString().contains(query)) {
+                String line = String.format("%d. %s", counter, task);
+                result.add(line);
+                counter++;
+            }
         }
 
+        return result;
+    }
+
+    public ArrayList<String> getTaskList() {
         ArrayList<String> result = new ArrayList<String>();
-        result.add("Here are the tasks in your list: ");
 
         for (int i = 0; i < taskList.size(); i++) {
             String line = String.format("%d. %s", i + 1, taskList.get(i));
             result.add(line);
         }
 
-        String[] resultStrings = new String[result.size()];
-        return result.toArray(resultStrings);
+        return result;
+    }
+
+    public ArrayList<String> findTasksWithDate(LocalDate queryDate) {
+        ArrayList<String> result = new ArrayList<String>();
+        if (queryDate == null) {
+            return result;
+        }
+
+        int counter = 1;
+        for (Task task : taskList) {
+            if (task instanceof DeadlineTask) {
+                DeadlineTask deadlineTask = (DeadlineTask) task;
+                if (deadlineTask.containsQueryDate(queryDate)) {
+                    String line = String.format("%d. %s", counter, task);
+                    result.add(line);
+                    counter++;
+                }
+
+            } else if (task instanceof EventTask) {
+                EventTask eventTask = (EventTask) task;
+                if (eventTask.containsQueryDate(queryDate)) {
+                    String line = String.format("%d. %s", counter, task);
+                    result.add(line);
+                    counter++;
+                }
+            }
+        }
+
+        return result;
     }
 
     public String encodeTaskList() {
