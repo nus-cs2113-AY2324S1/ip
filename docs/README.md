@@ -53,6 +53,9 @@ Delete a task from the tasklist base on index
 
 Format: `delete INDEX`
 
+- The index refers to the index number shown in the tasklist
+- the index **must be a positive integer** 1,2,3...
+
 Example of usage: 
 
 ```
@@ -61,16 +64,27 @@ delete 5
 
 ### 5. List Task - `List` 
 
-Delete a task from the tasklist base on index
+Shows a list of all tasks in the list
 
-Format: `delete INDEX`
-
-- The index refers to the index number shown in the tasklist
-- the index **must be a positive integer** 1,2,3...
+Format: `list`
 
 Example of usage: 
 
 ```
-delete 5
+list
+```
+
+### 6. Find Task - `Find` 
+
+Find tasks that contains any of the keywords
+
+Format: `find KEYWORD`
+
+- The search is case-insensitive, e.g `Book` will match `book`
+
+Example of usage: 
+
+```
+find book
 ```
 
