@@ -1,0 +1,28 @@
+mark 1
+unmark -1
+delete 3
+blah blah black sheep
+list
+todo borrow book
+list
+deadline return book /by 2023-07-07
+todo
+event /by tomorrow
+deadline /from
+event /from
+event /to
+deadline /by
+event  /from /to
+list
+event project meeting /from 2022-12-12 /to 2023-12-13
+mark 1
+unmark 1
+mark 3
+unmark 34398
+todo
+deadline deadline /by
+event event /from 1 /to
+event event /from /to
+hello
+delete 1
+bye

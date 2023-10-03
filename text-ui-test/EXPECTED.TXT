@@ -1,7 +1,98 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+Hello! I'm Chatty
+What can I do for you?
+____________________________________________________________
+Please create a task to continue
 
+Please create a task to continue
+
+There are only 0 tasks.Please enter a valid value or create a new task.
+Command is Invalid! Please read the user guide for valid commands!
+____________________________________________________________
+Here are all your tasks:
+
+
+____________________________________________________________
+____________________________________________________________
+	Got it. I've added this task:
+		[T][ ] borrow book
+	Now you have 1 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+Here are all your tasks:
+
+1.	[T][ ] borrow book
+
+____________________________________________________________
+____________________________________________________________
+	Got it. I've added this task:
+		[D][ ] return book (by: Jul 7 2023)
+	Now you have 2 task(s) in the list.
+____________________________________________________________
+Please ensure correct number of parameters are given.
+Please ensure that the date is given in the yyyy-mm-dd format
+
+Please ensure that the date is given in the yyyy-mm-dd format
+
+Please ensure that the date is given in the yyyy-mm-dd format
+
+Please ensure that the date is given in the yyyy-mm-dd format
+
+Please ensure that the date is given in the yyyy-mm-dd format
+
+Please ensure that the date is given in the yyyy-mm-dd format
+
+____________________________________________________________
+Here are all your tasks:
+
+1.	[T][ ] borrow book
+2.	[D][ ] return book (by: Jul 7 2023)
+
+____________________________________________________________
+____________________________________________________________
+	Got it. I've added this task:
+		[E][ ] project meeting (from:Dec 12 2022 to:Dec 13 2023)
+	Now you have 3 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+Here are all your tasks:
+
+1.	[T][x] borrow book
+2.	[D][ ] return book (by: Jul 7 2023)
+3.	[E][ ] project meeting (from:Dec 12 2022 to:Dec 13 2023)
+
+____________________________________________________________
+____________________________________________________________
+Here are all your tasks:
+
+1.	[T][ ] borrow book
+2.	[D][ ] return book (by: Jul 7 2023)
+3.	[E][ ] project meeting (from:Dec 12 2022 to:Dec 13 2023)
+
+____________________________________________________________
+____________________________________________________________
+Here are all your tasks:
+
+1.	[T][ ] borrow book
+2.	[D][ ] return book (by: Jul 7 2023)
+3.	[E][x] project meeting (from:Dec 12 2022 to:Dec 13 2023)
+
+____________________________________________________________
+There are 3 task(s).
+Please enter a valid number from 1 to 3 (inclusive).
+Please ensure correct number of parameters are given.
+Please ensure that the date is given in the yyyy-mm-dd format
+
+Please ensure that the date is given in the yyyy-mm-dd format
+
+Please ensure that the date is given in the yyyy-mm-dd format
+
+Command is Invalid! Please read the user guide for valid commands!
+____________________________________________________________
+	Noted. I've removed this task:
+	[T][ ] borrow book
+	Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
