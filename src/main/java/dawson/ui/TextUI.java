@@ -4,10 +4,16 @@ import java.util.Scanner;
 
 import dawson.command.CommandResult;
 
+/**
+ * Text UI of the application.
+ */
 public class TextUI {
 
+    /** A platform independent line separator. */
     private static final String LS = System.lineSeparator();
     private static final String DIVIDER = "\t_______________________________________________________" + LS;
+    /** Format of a comment input line. Comment lines are silently consumed when reading user input. */
+    private static final String COMMENT_LINE_FORMAT_REGEX = "#.*";
 
     Scanner scanner;
 
@@ -40,12 +46,15 @@ public class TextUI {
      * @return true if the entire user input line should be ignored.
      */
     private boolean shouldIgnore(String rawInputLine) {
-        final String COMMENT_LINE_FORMAT_REGEX = "#.*";
         boolean isCommentLine = rawInputLine.trim().matches(COMMENT_LINE_FORMAT_REGEX);
-
         return rawInputLine.trim().isEmpty() || isCommentLine;
     }
 
+    /**
+     * Prints the message strings from a CommandResult to the user.
+     *
+     * @param result The CommandResult object containing message strings to be printed.
+     */
     public void printCommandResult(CommandResult result) {
         printText(result.getMessageStrings());
     }

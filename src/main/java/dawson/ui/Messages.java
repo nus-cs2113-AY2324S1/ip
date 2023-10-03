@@ -1,5 +1,8 @@
 package dawson.ui;
 
+/**
+ * Container for user visible messages.
+ */
 public class Messages {
     public static final String[] MESSAGE_WELCOME = {
         "Hello! My name is: ",

@@ -12,6 +12,9 @@ import dawson.parser.Parser;
 import dawson.task.Task;
 import dawson.task.TaskList;
 
+/**
+ * Handles saved tasks information via I/O with storage text file
+ */
 public class Storage {
 
     private String filePathString;

@@ -23,6 +23,9 @@ import dawson.exception.DawsonException;
 import dawson.task.*;
 import dawson.ui.Messages;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
 
     public static final DateTimeFormatter userDateFormat = 
