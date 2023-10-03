@@ -1,17 +1,18 @@
 import kenergeticbot.TaskList;
 import kenergeticbot.command.Command;
-
 import kenergeticbot.fileaccess.Storage;
 import kenergeticbot.ui.TextUi;
 import kenergeticbot.Parser;
 import kenergeticbot.command.ExitCommand;
 
-
+/**
+ * Entry point of the KenergeticBot chatbot.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class KenergeticBot {
     public static final String filePath = "data/KenergeticBot.txt";
 
     private TextUi ui;
-    private Parser commandParser;
     private Storage storage;
     public TaskList taskList;
 
@@ -19,12 +20,16 @@ public class KenergeticBot {
         new KenergeticBot().run();
     }
 
+    /**
+     * Sets up the required objects, loads up the data from the storage file, and prints the welcome message.
+     */
     private void start(String filePath, TaskList taskList, TextUi ui) {
         this.storage = new Storage(filePath);
         storage.loadPreviousList(taskList);
         ui.printGreetingMessage();
     }
 
+    /** Runs the program until termination.  */
     public void run() {
         this.taskList = new TaskList();
         this.ui = new TextUi();
@@ -32,6 +37,8 @@ public class KenergeticBot {
         runCommandLoopUntilExitCommand();
         exit(ui);
     }
+
+    /** Reads the user command and executes it, until the user issues the exit command.  */
     public void runCommandLoopUntilExitCommand() {
 
         do {
@@ -42,6 +49,7 @@ public class KenergeticBot {
         storage.saveList(taskList);
     }
 
+    /** Prints the Goodbye message and exits. */
     private static void exit(TextUi ui) {
         ui.printExitMessage();
         System.exit(0);

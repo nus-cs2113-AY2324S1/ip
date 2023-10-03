@@ -1,5 +1,9 @@
 package kenergeticbot.task;
 
+/**
+ * Represents a Deadline Task
+ * Contains Task Deadline, Task Description and Task Type = [T]
+ */
 public class Deadline extends Task {
     protected String deadline;
     public Deadline(String description, String deadline) {

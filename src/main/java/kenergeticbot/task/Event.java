@@ -1,5 +1,9 @@
 package kenergeticbot.task;
 
+/**
+ * Represents an Event Task
+ * Contains Task DateTime, Task Description and Task Type = [T]
+ */
 public class Event extends Task {
     protected String dateTime;
     public Event(String description, String dateTime) {
