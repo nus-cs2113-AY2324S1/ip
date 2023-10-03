@@ -1,17 +1,17 @@
 package commands;
 
+import UI.Ui;
 import task.*;
-import static UI.Printer.*;
 import java.util.ArrayList;
 import static data.DataMethods.*;
 import static data.SimonFilePath.simontxtFilePath;
 import exception.SimonException;
 
 public class TaskCommands {
-    public static void markTask(String taskNumber, ArrayList<Task> tasks) {
+    public static void markTask(String taskNumber, ArrayList<Task> tasks, Ui ui) {
         //Convert task number to element in tasks array
         int target = Integer.parseInt(taskNumber) - 1;
-        System.out.println("\t" + line);
+        ui.printLine();
         try {
             tasks.get(target).markAsDone();
             System.out.println("\tNice! I've marked this task as done:");
@@ -24,13 +24,13 @@ public class TaskCommands {
             System.out.println("\tSorry! The task number inputted is out of bounds");
             System.out.println("\tPlease key in a number from 1-" + Task.getNumberOfTask());
         }
-        System.out.println("\t" + line);
+        ui.printLine();
     }
 
-    public static void unmarkTask(String taskNumber, ArrayList<Task> tasks) {
+    public static void unmarkTask(String taskNumber, ArrayList<Task> tasks, Ui ui) {
         //Convert task number to element in tasks array
         int target = Integer.parseInt(taskNumber) - 1;
-        System.out.println("\t" + line);
+        ui.printLine();
         try {
             tasks.get(target).unmarkAsDone();
             System.out.println("\tOkay, I've marked this task as not done yet:");
@@ -43,19 +43,19 @@ public class TaskCommands {
             System.out.println("\tSorry! The task number inputted is out of bounds");
             System.out.println("\tPlease key in a number from 1-" + Task.getNumberOfTask());
         }
-        System.out.println("\t" + line);
+        ui.printLine();
     }
 
-    public static void deleteTask(String taskNumber, ArrayList<Task> tasks){
+    public static void deleteTask(String taskNumber, ArrayList<Task> tasks, Ui ui){
         int target = Integer.parseInt(taskNumber) - 1;
-        System.out.println("\t" + line);
+        ui.printLine();
         try {
             String task = tasks.get(target).toString();
             tasks.remove(target);
             Task.deleteOneTask();
             System.out.println("\tNoted. I've removed this task: ");
             System.out.println("\t  " + task);
-            printNumberOfTasks(tasks);
+            ui.printNumberOfTasks(tasks);
 
             for (int i = target; i < Task.getNumberOfTask(); i++) {
                 String newText = tasks.get(i).toText();
@@ -69,10 +69,10 @@ public class TaskCommands {
             System.out.println("\tSorry! The task number inputted is out of bounds");
             System.out.println("\tPlease key in a number from 1-" + Task.getNumberOfTask());
         }
-        System.out.println("\t" + line);
+        ui.printLine();
     }
 
-    public static void addTodo(String description, ArrayList<Task> tasks) throws SimonException {
+    public static void addTodo(String description, ArrayList<Task> tasks, Ui ui) throws SimonException {
 
         String[] splitDescriptions = description.split(" ");
         if (splitDescriptions.length == 0 || splitDescriptions[0].isEmpty()) {
@@ -83,13 +83,13 @@ public class TaskCommands {
 
         addTextToFile(simontxtFilePath, tasks.get(Task.getNumberOfTask() - 1).toText());
 
-        System.out.println("\t" + line);
-        printAddTaskMessage(tasks);
-        printNumberOfTasks(tasks);
-        System.out.println("\t" + line);
+        ui.printLine();
+        ui.printAddTaskMessage(tasks);
+        ui.printNumberOfTasks(tasks);
+        ui.printLine();
     }
 
-    public static void addEvent(String event, ArrayList<Task> tasks) throws SimonException {
+    public static void addEvent(String event, ArrayList<Task> tasks, Ui ui) throws SimonException {
         try {
             //Split between 'description' and '/from and /to'
             String[] splitElements = event.split(" /from ", 2);
@@ -106,20 +106,20 @@ public class TaskCommands {
             String to = time[1];
             tasks.add(new Event(description, from, to));
             addTextToFile(simontxtFilePath, tasks.get(Task.getNumberOfTask() - 1).toText());
-            System.out.println("\t" + line);
-            printAddTaskMessage(tasks);
-            printNumberOfTasks(tasks);
-            System.out.println("\t" + line);
+            ui.printLine();
+            ui.printAddTaskMessage(tasks);
+            ui.printNumberOfTasks(tasks);
+            ui.printLine();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\t" + line);
+            ui.printLine();
             System.out.println("\tPlease include when the time of your event in the following format:");
             System.out.println("\tevent [description] /from [start time] /to [end time]");
-            System.out.println("\t" + line);
+            ui.printLine();
         }
     }
 
-    public static void addDeadline(String deadline, ArrayList<Task> tasks) throws SimonException {
-        System.out.println("\t" + line);
+    public static void addDeadline(String deadline, ArrayList<Task> tasks, Ui ui) throws SimonException {
+        ui.printLine();
         try {
             //Split between 'description' and '/by'
             String[] splitElements = deadline.split(" /by ", 2);
@@ -134,12 +134,12 @@ public class TaskCommands {
             tasks.add(new Deadline(description, by));
             addTextToFile(simontxtFilePath, tasks.get(Task.getNumberOfTask() - 1).toText());
 
-            printAddTaskMessage(tasks);
-            printNumberOfTasks(tasks);
+            ui.printAddTaskMessage(tasks);
+            ui.printNumberOfTasks(tasks);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\tPlease include when the deadline of your task is in the following format:");
             System.out.println("\tdeadline [description] /by [deadline]");
         }
-        System.out.println("\t" + line);
+        ui.printLine();
     }
 }

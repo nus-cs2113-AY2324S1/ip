@@ -5,8 +5,6 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static UI.Printer.line;
-
 
 public class DataMethods {
     public static void createSimonTxt(String userDirectory) {

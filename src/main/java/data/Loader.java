@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Parser {
+public class Loader {
     public static ArrayList<Task> readToList (String filePath) {
         ArrayList<Task> newList = new ArrayList<>();
 
