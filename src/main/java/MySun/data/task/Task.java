@@ -1,4 +1,4 @@
-package sun.task;
+package MySun.data.task;
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -6,6 +6,19 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task (String description, int setMark) {
+        this.description = description;
+        if (setMark == 1) {
+            isDone = true;
+        } else if (setMark == 0) {
+            isDone = false;
+        }
+    }
+
+    public String getOnlyDescription() {
+        return description;
     }
 
     public String getDescription() {
