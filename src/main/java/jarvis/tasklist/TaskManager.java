@@ -1,11 +1,11 @@
 package jarvis.tasklist;
 
 import jarvis.exception.JarvisException;
-import jarvis.tasks.Task;
 import jarvis.tasks.Todo;
 import jarvis.tasks.Deadline;
 import jarvis.tasks.Event;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class TaskManager {
         return description;
     }
 
-    public static void showDeadline(String description, String time){
+    public static void showDeadline(String description, LocalDateTime time){
         Deadline deadline = new Deadline(description, time);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + deadline);
@@ -61,8 +61,8 @@ public class TaskManager {
         return descriptionAndTime;
     }
 
-    public static void showEvent(String description, String time){
-        Event event = new Event(description, time);
+    public static void showEvent(String description, LocalDateTime startDateTime, LocalDateTime endDateTime){
+        Event event = new Event(description, startDateTime, endDateTime);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + event);
     }

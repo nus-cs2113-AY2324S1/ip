@@ -37,10 +37,7 @@ public class StorageManager {
     }
 
     static void handleEventTask(TaskList tasks, int taskIndex, String taskDoneStatus, String taskDescription, String timeString) throws JarvisException {
-        String[] taskTimings = timeString.strip().split("\\(from:")[1].split("to:");
-        String startTime = taskTimings[0];
-        String endTime = taskTimings[1].split("\\)")[0];
-        tasks.addToTaskList("event " + taskDescription + " /from " + startTime + " /to " + endTime, Task.TaskType.EVENT, false);
+        tasks.addToTaskList("event " + taskDescription + timeString, Task.TaskType.EVENT, false);
         if ("done".equals(taskDoneStatus)) {
             tasks.markTaskAsDone(taskIndex, false);
         }
