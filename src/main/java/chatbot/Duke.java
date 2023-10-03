@@ -50,6 +50,8 @@ public class Duke {
                 System.out.println("File creation failed");
             }
         }
+
+        
     }
 
     public static void main(String[] args) throws InputException{
