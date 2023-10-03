@@ -31,5 +31,5 @@ public class Messages {
     public static final String MESSAGE_DATA_FILE_NOT_FOUND = "tasks.txt was not found!\nIt's ok... new tasks.txt has been created in ";
     public static final String MESSAGE_LOAD_FILE_ERROR = "Yo dude something ain't loading right :/";
     public static final String MESSAGE_SAVE_FILE_ERROR = "Sorry man I can't seem to save to the text file D:";
-
+    public static final String MESSAGE_EMPTY_LIST = "...errr I don't see any tasks here ¯\\_(ツ)_/¯";
 }

@@ -63,6 +63,11 @@ public class Ui {
      * @param taskList tasks in the list
      */
     public void printTasks(ArrayList<Task> taskList) {
+        if (taskList.isEmpty()) {
+            showToUser(MESSAGE_EMPTY_LIST);
+            return;
+        }
+
         for (int i = 0; i < taskList.size(); i++) {
             System.out.print((i + DISPLAYED_INDEX_OFFSET) + ". ");
             System.out.println(taskList.get(i));
