@@ -5,20 +5,18 @@ import chattie.error.ErrorType;
 import chattie.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
     private static ArrayList<Task> list;
-    private static int size;
 
     public TaskList() {
         this.list = new ArrayList<Task>();
-        size = 0;
     }
 
     public TaskList(ArrayList<Task> list) {
         this.list = list;
-        size = list.size();
     }
 
     public static int getSize() {
@@ -58,5 +56,11 @@ public class TaskList {
         }
 
         list.get(taskNum).setDone(false);
+    }
+
+    public static ArrayList<Task> find (String item) {
+        return (ArrayList<Task>) list.stream()
+                .filter(task -> task.getTask().contains(item))
+                .collect(Collectors.toList());
     }
 }
