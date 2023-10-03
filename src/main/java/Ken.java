@@ -1,37 +1,36 @@
 import java.util.Scanner;
 
 public class Ken {
-    // Initialize arrays to store tasks, their statuses, and their types
     private static String[] taskDescriptions = new String[100];
-    private static boolean[] taskDoneStatus = new boolean[100]; // true for done, false for not done
-    private static String[] taskTypes = new String[100]; // "T" for ToDo, "D" for Deadline, "E" for Event
-    private static String[] taskDates = new String[100]; // Store date/time information
+    private static boolean[] taskDoneStatus = new boolean[100];
+    private static String[] taskTypes = new String[100];
+    private static String[] taskDates = new String[100];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Print the initial message
         printWelcomeMessage();
 
-        // Read and process user commands
         while (true) {
             String userInput = scanner.nextLine();
 
-            // Echo and process the user's command
             System.out.println(" ____________________________________________________________");
             if (userInput.equalsIgnoreCase("bye")) {
                 printGoodbyeMessage();
-                break; // Exit the loop
+                break;
             } else if (userInput.equalsIgnoreCase("list")) {
                 listTasks();
             } else {
-                processUserCommand(userInput);
+                try {
+                    processUserCommand(userInput);
+                } catch (KenException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
             }
             System.out.println("____________________________________________________________");
         }
 
-        // Close the scanner when done
         scanner.close();
     }
 
@@ -55,20 +54,29 @@ public class Ken {
         }
     }
 
-    private static void processUserCommand(String userInput) {
+    private static void processUserCommand(String userInput) throws KenException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length != 2) {
-            System.out.println(" Invalid input format. Please provide a valid task description.");
+            // Handle cases when user input is not in the expected format
+            if (parts.length == 1 && (parts[0].equalsIgnoreCase("todo") || parts[0].equalsIgnoreCase("deadline") || parts[0].equalsIgnoreCase("event"))) {
+                // Handle the case where the taskType is provided without a space
+                throw new KenException("Hey!! Description cannot be empty for a " + parts[0] + " task.");
+            } else {
+                throw new KenException("Hmm, what's that? Please use 'todo,' 'deadline,' 'event,' or 'mark [number].'");
+            }
         } else {
             String taskType = parts[0].trim();
             String taskDescription = parts[1].trim();
             if (taskType.equalsIgnoreCase("todo") || taskType.equalsIgnoreCase("deadline") || taskType.equalsIgnoreCase("event")) {
+                if (taskDescription.isEmpty()) {
+                    throw new KenException("Hey!! Description cannot be empty for a " + taskType + " task.");
+                }
                 taskTypes[taskCount] = taskType.substring(0, 1).toUpperCase();
-                String[] dateInfo = extractDateInfo(taskDescription); // Extract date/time information
-                taskDescription = dateInfo[0]; // Remove date/time information from task description
-                taskDates[taskCount] = dateInfo[1]; // Store date/time information separately
+                String[] dateInfo = extractDateInfo(taskDescription);
+                taskDescription = dateInfo[0];
+                taskDates[taskCount] = dateInfo[1];
                 taskDescriptions[taskCount] = taskDescription.trim();
-                taskDoneStatus[taskCount] = false; // Initialize as not done
+                taskDoneStatus[taskCount] = false;
                 taskCount++;
                 System.out.println(" Got it. I've added this task:");
                 String dateInfoText = taskDates[taskCount - 1] != null ? " " + taskDates[taskCount - 1] : "";
@@ -79,24 +87,22 @@ public class Ken {
                     int taskIndex = Integer.parseInt(taskDescription.trim()) - 1;
                     if (taskIndex >= 0 && taskIndex < taskCount) {
                         taskDoneStatus[taskIndex] = true;
-                        System.out.println(" Nice! I've marked this task as done:");
+                        System.out.println("Nice! I've marked this task as done:");
                         System.out.println("   [X] " + taskDescriptions[taskIndex] + (taskDates[taskIndex] != null ? taskDates[taskIndex] : ""));
                     } else {
-                        System.out.println(" Task not found. Please provide a valid task number.");
+                        throw new KenException("I can't find this task. Please provide a valid task number.");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println(" Invalid input. Please provide a valid task number.");
+                    throw new KenException("Wrong format!! Please provide the number of the task.");
                 }
             } else {
-                System.out.println(" Invalid task type. Please use 'todo,' 'deadline,' 'event,' or 'mark [number].'");
+                throw new KenException("Hmm, what's that? Please use 'todo,' 'deadline,' 'event,' or 'mark [number].'");
             }
         }
     }
 
     private static String[] extractDateInfo(String description) {
-        // Check if the description contains "/from" or "/by" and "/to" to determine task type
         if (description.contains("/from") && description.contains("/to")) {
-            // Event task with both start and end dates
             String[] parts = description.split(" /from | /to ");
             if (parts.length > 1) {
                 String startDate = parts[1];
@@ -105,7 +111,6 @@ public class Ken {
                 return new String[]{parts[0], dateInfo};
             }
         } else if (description.contains("/by")) {
-            // Deadline task with a single date
             String[] parts = description.split(" /by ");
             if (parts.length > 1) {
                 String deadlineDate = parts[1];
@@ -113,9 +118,12 @@ public class Ken {
                 return new String[]{parts[0], dateInfo};
             }
         }
-
-        // If no date/time information found, return the description as is
         return new String[]{description, null};
     }
 }
 
+class KenException extends Exception {
+    public KenException(String message) {
+        super(message);
+    }
+}
