@@ -28,14 +28,14 @@ public class TaskManager {
         try {
             if (isValidIndex(index)) {
                 System.out.println("Nice! I've marked this task as done:");
-                taskList.get(index).markAsDone();
-                saveTasksToFile(); // Save jarvis.tasks to file after a new task is added
-                System.out.println("    " + taskList.get(index));
+                TaskList myTaskList = new TaskList();
+                myTaskList.getTaskList().get(index).markAsDone();  // Should work if methods are defined correctly.
+                System.out.println("    " + myTaskList.getTaskList().get(index));
             }
             else {
                 throw JarvisException.invalidTaskNumber(index);
             }
-        } catch (JarvisException | IOException e) {
+        } catch (JarvisException e) {
             System.out.println(e.getMessage());
         }
     }

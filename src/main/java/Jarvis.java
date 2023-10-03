@@ -1,4 +1,5 @@
 import jarvis.command.Command;
+import jarvis.exception.JarvisException;
 import jarvis.parser.Parser;
 import jarvis.tasklist.TaskList;
 import jarvis.storage.Storage;
@@ -18,7 +19,7 @@ public class Jarvis {
         parser = new Parser();
     }
 
-    public void runJarvis(){
+    public void runJarvis() throws JarvisException {
         ui.displayWelcomeMessage();
         boolean toExit = false;
         while(!toExit){
@@ -26,11 +27,12 @@ public class Jarvis {
             Command command = parser.parseCommand(userCommand);
             toExit = command.toExit();
             command.executeCommand(ui, dataStorage, taskList);
+            ui.displayLine();
         }
         ui.displayGoodbyeMessage();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws JarvisException {
         new Jarvis(filePath).runJarvis();
     }
 }

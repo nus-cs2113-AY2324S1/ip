@@ -1,5 +1,6 @@
 package jarvis.command;
 
+import jarvis.exception.JarvisException;
 import jarvis.storage.Storage;
 import jarvis.tasklist.TaskList;
 import jarvis.ui.Ui;
@@ -16,7 +17,7 @@ public class Command {
         this.commandType = commandType;
     }
 
-    public void executeCommand(Ui ui, Storage dataStorage, TaskList tasks){}
+    public void executeCommand(Ui ui, Storage dataStorage, TaskList tasks) throws JarvisException {}
 
     public boolean toExit(){
         return commandType == CommandType.EXIT;

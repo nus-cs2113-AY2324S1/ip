@@ -39,6 +39,15 @@ public class TaskList {
         System.out.println("~~ End of list ~~ ");
     }
 
+    public static int extractIndex(String userInput, int startIndex) {
+        if (startIndex < userInput.length()) {
+            return Integer.parseInt(userInput.substring(startIndex).trim()) - 1; // Convert to 0-indexed
+        }
+        else {
+            return -1;
+        }
+    }
+
     /**
      * TODO: review the need for displayMessage
      * @param userInput - takes in user input
@@ -93,5 +102,23 @@ public class TaskList {
         default:
             break;
         }
+    }
+
+    public void markTaskAsDone(int index) throws JarvisException {
+        try {
+            if (isValidIndex(index)) {
+                System.out.println("Nice! I've marked this task as done:");
+                taskList.get(index).markAsDone();
+                System.out.println("    " + taskList.get(index));
+            }
+            else {
+                throw JarvisException.invalidTaskNumber(index);
+            }
+        } catch (JarvisException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    private boolean isValidIndex(int index) {
+        return index >= 0 && index < taskList.size();
     }
 }
