@@ -9,6 +9,9 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    // String[] in the format:
+    // details[0] = description
+    // details[1] = due date
     public Deadline(String[] details) {
         super(details[0]);
         this.dueDate = details[1];

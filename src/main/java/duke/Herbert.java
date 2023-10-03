@@ -188,6 +188,10 @@ public class Herbert {
         }
     }
 
+    public void addTask(Task t) {
+        this.tasks.add(t);
+    }
+
     private int checkInputAddTask(String line) {
         String[] words = line.split(" ");
         if (words.length < 2) {
@@ -238,7 +242,7 @@ public class Herbert {
                     (i + 1),
                     tasks.get(i).getCode(),
                     tasks.get(i).getStatusIcon(),
-                    tasks.get(i).getDescription()
+                    tasks.get(i)
             );
         }
 

@@ -11,6 +11,10 @@ public class Event extends Task {
         this.to = to;
     }
 
+    // String[] in the format:
+    // details[0] = description
+    // details[1] = from
+    // details[2] = to
     public Event(String[] details) {
         super(details[0]);
         this.from = details[1];
