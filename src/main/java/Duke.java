@@ -74,13 +74,14 @@ public class Duke {
             }
             // if not unique command, taken as adding a new Task
             else {
+                userInput.split(" ");
                 tasks[tasksIndex] = new Task(userInput); // Store user input into array
                 tasksIndex++; // Increase String array index
             }
 
             partition();
 
-            // prompt user for input and store it in userInput
+            // prompt user for input and store it
             System.out.print("What do you want to do next? :o\n" + ">>");
             userInput = scanner.nextLine();
         }
