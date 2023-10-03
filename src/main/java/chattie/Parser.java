@@ -9,6 +9,9 @@ import chattie.tasks.Todo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deals with making sense of data or the user command
+ */
 public class Parser {
     //deals with making sense of the user command
 
@@ -19,6 +22,13 @@ public class Parser {
     private static int DETAILS_INDEX = 3;
     private static int FROM_INDEX = 0;
     private static int TO_INDEX = 1;
+
+    /**
+     * Takes in user input and creates a new command object that corresponds to input
+     *
+     * @param command String that user has entered
+     * @return The type of command
+     */
     public static Command parse(String command) {
         String[] commandArray = command.split(" ");
         String commandType = commandArray[COMMAND_TYPE_INDEX];
@@ -47,6 +57,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts string to a task object
+     *
+     * @param line Line in chattie.txt
+     * @return Task object that corresponds to line in chattie.txt
+     */
     public static Task parseTask(String line) {
         Task task;
         String[] taskArray = line.split(" \\| ");
@@ -68,6 +84,12 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Converts yyyy/mm/dd to MMM d yyyy
+     *
+     * @param by Date of deadline
+     * @return Formatted date string
+     */
     public static String parseDate(String by) {
         by = by.replace("/", "-");
         try {

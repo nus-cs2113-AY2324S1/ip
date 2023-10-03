@@ -8,6 +8,9 @@ import chattie.error.ErrorType;
 import chattie.tasks.Deadline;
 import chattie.Storage;
 
+/**
+ * Deals with deadline related commands
+ */
 public class DeadlineCommand extends Command {
 
     private static final int DEADLINE_LENGTH = 9;
@@ -18,6 +21,13 @@ public class DeadlineCommand extends Command {
         this.command = command;
     }
 
+    /**
+     * Adds a new deadline to list of tasks
+     *
+     * @param tasks List of tasks
+     * @param ui User interface
+     * @throws ChattieException If command is empty or not formatted properly
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ChattieException {
         if (command.trim().length() < DEADLINE_LENGTH) { //check if deadline is empty
@@ -38,7 +48,7 @@ public class DeadlineCommand extends Command {
 
         Deadline deadline = new Deadline(task, by);
         tasks.add(deadline);
-        ui.printAddMessage(deadline, tasks);
+        ui.printAddMessage(tasks, deadline);
     }
 
     @Override

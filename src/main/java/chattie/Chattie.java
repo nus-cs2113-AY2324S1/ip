@@ -11,6 +11,11 @@ public class Chattie {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor that initializes a new Ui, Storage and TaskList object
+     *
+     * @throws ChattieException If there are any exceptions thrown while loading chattie.tx
+     */
     public Chattie(String folderPath, String filePath) {
         ui = new Ui();
         storage = new Storage(folderPath, filePath);
@@ -21,6 +26,13 @@ public class Chattie {
         }
     }
 
+    /**
+     * Runs the main function of the chatbot like reading commands and exiting the
+     * chatbot when user types "bye"
+     *
+     * @throws ChattieException If there are any exceptions related to user command
+     * @throws IOException If chattie.txt cannot be updated
+     */
     public void run() {
         ui.greetUser();
         boolean isExit = false;
@@ -30,7 +42,7 @@ public class Chattie {
                 ui.printLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui);
-                storage.updateFile(tasks);
+                storage.updateFile(tasks.getList());
                 isExit = c.isExit();
             } catch (ChattieException e) {
                 ui.showError();
