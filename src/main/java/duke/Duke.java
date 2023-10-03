@@ -1,26 +1,23 @@
 package duke;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.IOException;
+import java.util.ArrayList;
 
-
-import duke.DeadlineTask;
-import duke.EventTask;
-import duke.DukeException;
-import duke.TasksHandler;
-import duke.TodoTask;
-import duke.Ui;
-import duke.TaskList;
-import duke.Storage;
-//import the rest
-
+/**
+ * Duke is a task management program that allows users to manage their tasks.
+ * It provides functionality for adding, deleting, and listing tasks.
+ */
 public class Duke {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
 
-
+    /**
+     * Constructs a Duke instance with the specified file path.
+     *
+     * @param filePath The path to the file used for task storage.
+     * @throws DukeException If there is an issue initializing Duke.
+     */
     public Duke(String filePath) throws DukeException {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -32,6 +29,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke program, handling user input and executing commands.
+     */
     public void run() {
         ui.printWelcomeMessage();
         boolean isExit = false;
@@ -52,9 +52,14 @@ public class Duke {
         }
     }
 
+    /**
+     * The main entry point for running the Duke program.
+     *
+     * @param args The command-line arguments (not used in this program).
+     * @throws IOException   If an I/O error occurs.
+     * @throws DukeException If there is an issue with Duke initialization.
+     */
     public static void main(String[] args) throws IOException, DukeException {
         new Duke("data/tasks.txt").run();
     }
-
-
 }

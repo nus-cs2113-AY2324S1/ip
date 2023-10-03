@@ -6,9 +6,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The TasksHandler class is responsible for reading and writing tasks to a file.
+ */
 public class TasksHandler {
 
     private static final String FILE_PATH = "dukeData.txt";
+
+    /**
+     * Writes tasks to a file.
+     *
+     * @param tasks The list of tasks to be written to the file.
+     * @throws IOException If an I/O error occurs during file writing.
+     */
     public static void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(FILE_PATH);
         for (Task task : tasks) {
@@ -28,6 +38,12 @@ public class TasksHandler {
         fileWriter.close();
     }
 
+    /**
+     * Reads tasks from a file and populates the tasks list.
+     *
+     * @param tasks The list of tasks to be populated with tasks from the file.
+     * @throws IOException If an I/O error occurs during file reading.
+     */
     public static void readFromFile(ArrayList<Task> tasks) throws IOException {
         File file = new File(FILE_PATH);
         boolean fileCreated = false;
@@ -73,8 +89,4 @@ public class TasksHandler {
             System.err.println("Error: Unable to create or access the file.");
         }
     }
-
-
 }
-
-

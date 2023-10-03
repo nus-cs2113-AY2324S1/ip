@@ -1,3 +1,6 @@
-T | false | borrow book
-D | true | buy book /by 8 november | 8 november
-E | false | meet caleb /from fgbd /to 7iksudf | fgbd | 7iksudf
+T | false | mark 1
+T | false | buy book
+E | false | meet caleb /from 4 to /9 | No Start Date | No End Date
+E | false | meet caleb /from 8 nov /to 9 | 8 nov | 9
+D | false | ksfgb /by kjsdbf | kjsdbf
+E | false | skjfbg /from kfjgb /to | kfjgb | 
