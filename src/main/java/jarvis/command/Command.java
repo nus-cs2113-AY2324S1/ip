@@ -11,7 +11,7 @@ import jarvis.ui.Ui;
  */
 
 public class Command {
-    public enum CommandType {TODO, DEADLINE, EVENT, DELETE, LIST, MARK, UNMARK, EXIT};
+    public enum CommandType {TODO, DEADLINE, EVENT, DELETE, LIST, MARK, UNMARK, FIND, EXIT};
     private CommandType commandType = null;
     public Command(CommandType commandType){
         this.commandType = commandType;

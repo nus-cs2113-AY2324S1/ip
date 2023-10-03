@@ -3,6 +3,7 @@ package jarvis.parser;
 import jarvis.command.Command;
 import jarvis.command.CommandList;
 import jarvis.command.CommandDelete;
+import jarvis.command.CommandFind;
 import jarvis.command.CommandMark;
 import jarvis.command.CommandUnmark;
 import jarvis.command.CommandToDo;
@@ -42,6 +43,8 @@ public class Parser {
                 commandDescription = userInput.split(" ")[1];
                 taskIndex = Integer.parseInt(commandDescription.strip());
                 return new CommandDelete(taskIndex);
+            case "find":
+                return new CommandFind(userInput);
             default:
                 throw JarvisException.invalidCommand();
             }
