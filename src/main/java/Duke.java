@@ -22,6 +22,8 @@ public class Duke {
 
         // string to monitor current user input
         String userInput = scanner.nextLine();
+        String[] userWords = userInput.split(" ");
+        String userCommand = userWords[0];
 
         // Task array for storing all user inputted tasks, and integer indexer to monitor size of array,
         // assume number of tasks do not exceed 100
@@ -29,46 +31,43 @@ public class Duke {
         int tasksIndex = 0;
 
         // if 'bye' command is given exit program, else keep prompting for user input
-        while(!userInput.equalsIgnoreCase("bye")) {
-
+        while (!userCommand.equals("bye")) {
             // if 'list' command is given, list out all tasks
-            if (userInput.equalsIgnoreCase("list")) {
+            if (userCommand.equals("list")) {
                 // if list is empty, print 'no item' message instead of tasks
-                if(tasksIndex == 0) {
+                if (tasksIndex == 0) {
                     System.out.println("No item stored in your list! :o");
-                }
-                else {
-                    // custom message
+                } else {
                     System.out.println("Here are the item(s) in your list. :)");
                     // print out tasks and number each task
-                    for(int i = 0;i < tasksIndex;i++) {
-                        System.out.println(i+1 + ". " + tasks[i]);
+                    for (int i = 0; i < tasksIndex; i++) {
+                        System.out.println(i + 1 + ". " + tasks[i]);
                     }
                 }
             }
-            // if 'mark' or 'unmark' command is given strictly with an integer, if integer is valid
-            // mark or unmark the corresponding task in tasks
-            else if(userInput.toLowerCase().matches("(mark|unmark) \\d+")) {
+            // if 'mark' command is given, mark the corresponding task in tasks
+            else if (userCommand.equals("mark")) {
                 // split userInput into command and integer
-                String[] tokenizedUserInput = userInput.split(" ");
-                int selectedItem = Integer.parseInt(tokenizedUserInput[1]);
-                // check if integer given is in range of number of tasks
-                if(selectedItem > 0 & selectedItem <= tasksIndex) {
-                    // 'mark' case
-                    if(tokenizedUserInput[0].equalsIgnoreCase("mark")) {
-                        tasks[selectedItem-1].setMarked(true); // mark task
-                        System.out.println("Task " + selectedItem + " marked!\n" +
-                                tasks[selectedItem-1]);
-                    }
-                    // 'unmark' case
-                    else {
-                        tasks[selectedItem-1].setMarked(false); // unmark task
-                        System.out.println("Task " + selectedItem + " unmarked!\n" +
-                                tasks[selectedItem-1]);
-                    }
+                try {
+                    int selectedItem = Integer.parseInt(userWords[1]);
+                    // check if integer given is in range of number of tasks
+                    tasks[selectedItem - 1].setMarked(true);
+                    System.out.println("Task " + selectedItem + " marked!\n" +
+                            tasks[selectedItem - 1]);
+                }catch (Exception e) {
+                    System.out.println("Invalid integer input! :(");
                 }
-                // not in range of number of tasks
-                else {
+            }
+            // if 'unmark' command is given, unmark the corresponding task in tasks
+            else if (userCommand.equals("unmark")) {
+                // split userInput into command and integer
+                try {
+                    int selectedItem = Integer.parseInt(userWords[1]);
+                    // check if integer given is in range of number of tasks
+                    tasks[selectedItem - 1].setMarked(false); // unmark task
+                    System.out.println("Task " + selectedItem + " unmarked!\n" +
+                            tasks[selectedItem - 1]);
+                }catch (Exception e) {
                     System.out.println("Invalid integer input! :(");
                 }
             }
@@ -84,6 +83,8 @@ public class Duke {
             // prompt user for input and store it
             System.out.print("What do you want to do next? :o\n" + ">>");
             userInput = scanner.nextLine();
+            userWords = userInput.split(" ");
+            userCommand = userWords[0];
         }
 
         // program exit statement
