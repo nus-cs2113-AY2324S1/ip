@@ -152,6 +152,6 @@ public class Ui {
      * @param command User command
      */
     public void printEchoMessage(String command) {
-        System.out.println(command);
+        System.out.println("\t" + command);
     }
 }
