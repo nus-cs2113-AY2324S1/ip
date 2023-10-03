@@ -1,16 +1,11 @@
 package dawson.task;
 
-import java.time.format.DateTimeFormatter;
-
 public abstract class Task {
 
     protected String description;
     protected boolean isDone;
 
     public abstract String encode();
-
-    protected final DateTimeFormatter showDateTimeFormat = DateTimeFormatter
-        .ofPattern("dd MMM yyyy, HH:mm");
 
     public Task(String description) {
         this.description = description;
