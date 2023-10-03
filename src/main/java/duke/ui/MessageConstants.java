@@ -27,6 +27,7 @@ public class MessageConstants {
     public static final String MESSAGE_ERROR_EMPTY_DESCRIPTION = "☹ OOPS!!! The description of a task cannot be empty.";
     public static final String MESSAGE_ERROR_FROM_TIME_MISSING = "☹ OOPS!!! The /from time of an event cannot be empty.";
     public static final String MESSAGE_ERROR_TO_TIME_MISSING = "☹ OOPS!!! The /to time of an event cannot be empty.";
+    public static final String MESSAGE_ERROR_TO_BEFORE_FROM = "☹ OOPS!!! The /from time of an event must be typed before the /to time.";
     public static final String MESSAGE_ERROR_DEADLINE_BY = "☹ OOPS!!! The /by time of a deadline cannot be empty.";
     public static final String MESSAGE_ERROR_FIND_MISSING = "☹ OOPS!!! The word you are searching for cannot be empty.";
     public static final String MESSAGE_ERROR_FILE_CREATION = "☹ OOPS!!! Error creating file.";

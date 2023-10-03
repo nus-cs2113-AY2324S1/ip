@@ -17,9 +17,11 @@ import static duke.ui.MessageConstants.MESSAGE_ERROR_INVALID_TASK_NUMBER;
 import static duke.ui.MessageConstants.MESSAGE_ERROR_EMPTY_DESCRIPTION;
 import static duke.ui.MessageConstants.MESSAGE_ERROR_FROM_TIME_MISSING;
 import static duke.ui.MessageConstants.MESSAGE_ERROR_TO_TIME_MISSING;
+import static duke.ui.MessageConstants.MESSAGE_ERROR_TO_BEFORE_FROM;
 import static duke.ui.MessageConstants.MESSAGE_ERROR_DEADLINE_BY;
 import static duke.ui.MessageConstants.MESSAGE_ERROR_COMMAND;
 import static duke.ui.MessageConstants.MESSAGE_ERROR_FIND_MISSING;
+
 
 import static duke.parser.TaskConstants.DEADLINE;
 import static duke.parser.TaskConstants.EVENT;
@@ -134,6 +136,10 @@ public class Parser {
 
         if (toPos == -1) {
             throw new DukeException(MESSAGE_ERROR_TO_TIME_MISSING);
+        }
+
+        if (toPos < fromPos) {
+            throw new DukeException(MESSAGE_ERROR_TO_BEFORE_FROM);
         }
 
         //get the task name
