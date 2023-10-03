@@ -1,13 +1,5 @@
 # Dude Chatbot User Guide
 
-Hello from
-
-###            #        
-#  #           #     
-#  #  #  #   ###   ##   
-#  #  #  #  #  #  # ##  
-#  #  #  #  #  #  ##    
-###    ###   ###   ##
 Welcome to Dude, your trusty task management chatbot. Dude helps you stay organized by keeping track of your tasks, whether they're to-dos, deadlines, or events. This user guide will provide you with the essential information to make the most of Dude's features.
 
 
