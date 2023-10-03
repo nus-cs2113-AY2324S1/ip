@@ -21,10 +21,11 @@
 ## Setting Up
 1. Ensure that your device is equipped with Java 11. Not installed? [Install Java now](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html).
 2. Download the jar file from the developer
-3. Extract the jar file
-4. Open up command prompt in windows or bash/terminal in macOS/Linux
-5. In the terminal, run the command `java -jar ip.jar`.
-6. If you have done the above steps correctly, you will see the following message in your console.
+3. Extract the jar file into your favourite file path.
+4. Open up command prompt in windows or bash/terminal in macOS/Linux.
+5. Change directory to where you store the 'jar' file.
+6. In the terminal, run the command `java -jar ip.jar`.
+7. If you have done the above steps correctly, you will see the following message in your console.
 ```
 ____________________________________________________________
 Hello! I'm Chatty
