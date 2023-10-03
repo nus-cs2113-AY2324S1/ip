@@ -1,6 +1,10 @@
 package chat0pt.tasks;
 
 public class Todo extends Task {
+    /**
+     * Constructor for Todo
+     * @param addtask Name of task to add
+     */
     public Todo(String addtask) {
         super(addtask);
     }

@@ -3,8 +3,14 @@ package chat0pt.tasks;
 public class Deadline extends Task {
     private String by;
 
-    public Deadline(String tasks, String By) {
-        super(tasks);
+    /**
+     * Constructor for deadline
+     * @param task Name of the task
+     * @param By Deadline of the task
+     */
+
+    public Deadline(String task, String By) {
+        super(task);
         this.by = By;
     }
 

@@ -18,6 +18,10 @@ public class Storage {
         this.ui = ui;
     }
 
+    /**
+     * Reads file if it already exists, otherwise creates a new file.
+     * @return Tasks ArrayList after parsing the file, if not return an empty ArrayList
+     */
     public ArrayList<Task> onStart() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -33,6 +37,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Reads the file and adds tasks.
+     * @return Returns the tasklist after parsing the file
+     * @throws IOException
+     */
     private static ArrayList<Task> readFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(FILEPATH));
@@ -77,6 +86,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes file after every action
+     * @param tasks Current tasklist
+     */
     public void writeFile(ArrayList<Task> tasks) {
         try {
             FileWriter fileWriter = new FileWriter(FILEPATH);

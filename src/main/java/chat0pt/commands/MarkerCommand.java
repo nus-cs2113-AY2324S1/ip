@@ -15,8 +15,14 @@ public class MarkerCommand extends Command {
         this.marker = marker;
     }
 
+    /**
+     * Used for marking/unmarking a task
+     * @param ui Used for printing
+     * @param tasks Current tasklist
+     * @throws DukeException When a bot-specific error is encountered.
+     */
     @Override
-    public void runCommand(Ui ui, Storage storage, TaskList tasks) throws DukeException {
+    public void runCommand(Ui ui, TaskList tasks) throws DukeException {
         int taskNumber = Parser.validNumberInput(commandString);
         if (taskNumber >= 0) {
             tasks.marker(taskNumber, marker);
