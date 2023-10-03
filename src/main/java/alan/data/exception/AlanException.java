@@ -97,6 +97,50 @@ public class AlanException extends Exception {
         }
     }
 
+    public static void checkIndexInput(String[] inputString) throws AlanException {
+        if (inputString.length == 1) { //checks for task index after the command
+            throw new AlanException(MESSAGE_INVALID_INPUT_COMMAND);
+        }
+
+        if (inputString[1].isBlank()) { //checks for whitespace characters after command
+            throw new AlanException(MESSAGE_INVALID_INPUT_COMMAND);
+        }
+
+        if (!isInteger(inputString[1])) { //checks if the text after the command is an integer
+            throw new AlanException(MESSAGE_INVALID_INPUT_COMMAND);
+        }
+    }
+
+    /**
+     * Checks if the string is integer. <br>
+     * Code taken from Jonas K from: <a href="https://stackoverflow.com/questions/237159/whats-the-best-way-to-check-if-a-string-represents-an-integer-in-java">here</a>
+     *
+     * @param str text string
+     */
+    public static boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return false;
+        }
+        int i = 0;
+        if (str.charAt(0) == '-') {
+            if (length == 1) {
+                return false;
+            }
+            i = 1;
+        }
+        for (; i < length; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         return super.getMessage();

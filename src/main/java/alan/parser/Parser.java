@@ -13,6 +13,7 @@ import static alan.data.exception.AlanException.checkEmptyDescription;
 import static alan.data.exception.AlanException.checkEmptyInput;
 import static alan.data.exception.AlanException.checkEventInputFromFormat;
 import static alan.data.exception.AlanException.checkEventInputToFormat;
+import static alan.data.exception.AlanException.checkIndexInput;
 import static alan.data.exception.AlanException.checkOutOfTaskListIndex;
 import static alan.data.exception.AlanException.invalidInputCommand;
 
@@ -103,6 +104,7 @@ public class Parser {
      */
     public void markingCommandHandler(String userInput, boolean isMark) throws AlanException {
         String[] words = userInput.split(" ");
+        checkIndexInput(words);
         int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
 
         checkOutOfTaskListIndex(selectedTaskIndex, tasks.getTaskList());
@@ -190,6 +192,7 @@ public class Parser {
      */
     public void deleteCommandHandler(String userInput) throws AlanException {
         String[] words = userInput.split(" ");
+        checkIndexInput(words);
         int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
         checkOutOfTaskListIndex(selectedTaskIndex, tasks.getTaskList());
 
