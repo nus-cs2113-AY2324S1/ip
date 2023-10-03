@@ -132,10 +132,13 @@ public class TaskList {
      * @param j Index of task. Index starts from 1.
      */
     public void markTask(int j) {
+        try {
+            itemList.get(j - 1).setDone(true);
 
-        itemList.get(j - 1).setDone(true);
-
-        Ui.reportTaskMarked(itemList, j);
+            Ui.reportTaskMarked(itemList, j);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.reportOutOfBounds();
+        }
     }
 
     /**
@@ -144,9 +147,13 @@ public class TaskList {
      * @param j Index of task. Index starts from 1.
      */
     public void unmarkTask(int j) {
+        try{
         itemList.get(j - 1).setDone(false);
 
         Ui.reportTaskUnmarked(itemList, j);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.reportOutOfBounds();
+        }
     }
 
     /**
