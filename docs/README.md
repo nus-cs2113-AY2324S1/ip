@@ -1,5 +1,5 @@
 # User Guide of Cara
-This is Cara: a fun and friendly task management bot that helps you to organise your task efficiently and easily :)
+Cara: a fun and friendly task management bot that helps you to organise your task efficiently and easily :)
 
 ### Task Management
 - **Add Tasks**: Easily add different task types to your to-do list, such as Todo, Deadline, and Event.
