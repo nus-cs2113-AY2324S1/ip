@@ -1,5 +1,6 @@
 mark 1
 unmark -1
+delete 3
 blah blah black sheep
 list
 todo borrow book
