@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class TasksHandler {
 
-    private static final String FILE_PATH = "dukeData.txt";
+    private static final String FILE_PATH = "caraData.txt";
 
     /**
      * Writes tasks to a file.
