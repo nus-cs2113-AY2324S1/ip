@@ -7,6 +7,12 @@ public class Deadline extends Task {
         this.deadline = deadline;
         this.taskType = "[D]";
     }
+    public Deadline(String description, String deadline, boolean isDone) {
+        super(description);
+        this.deadline = deadline;
+        this.taskType = "[D]";
+        this.isDone = isDone;
+    }
 
     public String getDeadline() {
         return deadline;

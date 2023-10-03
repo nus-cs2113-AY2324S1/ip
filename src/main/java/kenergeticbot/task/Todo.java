@@ -5,6 +5,11 @@ public class Todo extends Task {
         super(description);
         this.taskType = "[T]";
     }
+    public Todo(String description, boolean isDone) {
+        super(description);
+        this.taskType = "[T]";
+        this.isDone = isDone;
+    }
 
     public String toString() {
         return taskType + super.toString();

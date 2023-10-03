@@ -7,6 +7,12 @@ public class Event extends Task {
         this.dateTime = dateTime;
         this.taskType = "[E]";
     }
+    public Event(String description, String dateTime, boolean isDone) {
+        super(description);
+        this.dateTime = dateTime;
+        this.taskType = "[E]";
+        this.isDone = isDone;
+    }
 
     public String toString() {
         return taskType + super.toString() + dateTime;
