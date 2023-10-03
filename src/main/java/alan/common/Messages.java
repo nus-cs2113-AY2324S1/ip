@@ -12,6 +12,7 @@ public class Messages {
             " \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_\\\\\"\\_\\ \n" +
             "  \\/_/\\/_/   \\/_____/   \\/_/\\/_/   \\/_/ \\/_/ ";
 
+    public static final String horizontalDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     public static final String MESSAGE_GREET = "Sup dude! I'm \n" + alanText + "\n" + manDrawing + "\n" + "What can I do for you, my man?";
     public static final String MESSAGE_GOODBYE = "Later, dude! Can't wait to catch up again real soon!";
     public static final String MESSAGE_LIST_COMMAND = "Dude, check out these tasks on your list:";
@@ -26,4 +27,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_TASK_NUMBER = "Oof maaaan there's no such task";
     public static final String MESSAGE_INVALID_TASK_TYPE_FOUND = "Yo I found a task type that doesn't make sense";
     public static final String MESSAGE_FIND_TASK = "Dude check it out, here are the matching tasks in your list:";
+    public static final String MESSAGE_ASK_INPUT = "Input: ";
+    public static final String MESSAGE_DATA_FOLDER_NOT_FOUND = "Data Folder was not found!\nIt's ok... new data folder has been created in ";
+    public static final String MESSAGE_DATA_FILE_NOT_FOUND = "tasks.txt was not found!\nIt's ok... new tasks.txt has been created in ";
+    public static final String MESSAGE_LOAD_FILE_ERROR = "Yo dude something ain't loading right :/";
+    public static final String MESSAGE_SAVE_FILE_ERROR = "Sorry man I can't seem to save to the text file D:";
+
 }

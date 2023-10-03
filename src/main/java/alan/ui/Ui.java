@@ -8,19 +8,13 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static alan.common.Messages.MESSAGE_DELETE_TASK;
-import static alan.common.Messages.MESSAGE_GOODBYE;
-import static alan.common.Messages.MESSAGE_GREET;
-import static alan.common.Messages.MESSAGE_MARK_TASK;
-import static alan.common.Messages.MESSAGE_UNMARK_TASK;
-import static alan.common.Messages.MESSAGE_LIST_COMMAND;
+import static alan.common.Messages.*;
 
 /**
  * Represents the text UI of the application
  */
 public class Ui {
     public static final int DISPLAYED_INDEX_OFFSET = 1;
-    private static final String horizontalDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     private final Scanner in;
     private final PrintStream out;
 
@@ -39,7 +33,7 @@ public class Ui {
      * @return string of the user's input text
      */
     public String getUserCommand() {
-        System.out.print("Input: ");
+        showToUser(MESSAGE_ASK_INPUT);
 
         String userInput = in.nextLine();
 
@@ -69,7 +63,6 @@ public class Ui {
      * @param taskList tasks in the list
      */
     public void printTasks(ArrayList<Task> taskList) {
-        showToUser(MESSAGE_LIST_COMMAND);
         for (int i = 0; i < taskList.size(); i++) {
             System.out.print((i + DISPLAYED_INDEX_OFFSET) + ". ");
             System.out.println(taskList.get(i));
@@ -113,19 +106,19 @@ public class Ui {
     }
 
     public void showFolderNotFoundMessage(String userWorkingDirectory) {
-        System.out.println("Data Folder was not found!\nIt's ok... new data folder has been created in " + userWorkingDirectory);
+        showToUser(MESSAGE_DATA_FOLDER_NOT_FOUND + userWorkingDirectory);
     }
 
     public void showFileNotFoundMessage(java.nio.file.Path dataFolderPath) {
-        System.out.println("tasks.txt was not found!\nIt's ok... new tasks.txt has been created in " + dataFolderPath);
+        showToUser(MESSAGE_DATA_FILE_NOT_FOUND + dataFolderPath);
     }
 
     public void showLoadingError() {
-        System.out.println("Yo dude something ain't loading right :/");
+        System.out.println(MESSAGE_LOAD_FILE_ERROR);
     }
 
     public void showSavingError() {
-        System.out.println("Sorry man I can't seem to save to the text file D:");
+        System.out.println(MESSAGE_SAVE_FILE_ERROR);
     }
 
     public void showToUser(String... message) {
