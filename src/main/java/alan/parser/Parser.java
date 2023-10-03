@@ -18,7 +18,11 @@ import static alan.data.exception.AlanException.checkEventInputFromFormat;
 import static alan.data.exception.AlanException.checkEventInputToFormat;
 import static alan.data.exception.AlanException.checkOutOfTaskListIndex;
 import static alan.data.exception.AlanException.invalidInputCommand;
+import static alan.data.exception.AlanException.checkDeadlineInputFormat;
 
+/**
+ * Represents a parser that parses the user input.
+ */
 public class Parser {
     public static final String DATE_PARSE_PATTERN = "dd MMM yyyy";
     private TaskList tasks;
@@ -28,6 +32,12 @@ public class Parser {
         this.tasks = tasks;
         this.ui = ui;
     }
+    /**
+     * Handles extracting the command from the user input and executes the respective command.
+     *
+     * @param userInput text of the user input.
+     * @throws AlanException If an error is detected from any of the command handlers.
+     */
     public void processCommandHandler(String userInput) throws AlanException {
         String[] userInputWords = userInput.split(" ");
         String command = userInputWords[0];
@@ -68,11 +78,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles displaying all the tasks within the TaskList.
+     */
     public void listCommandHandler() {
         ui.showToUser(MESSAGE_LIST_COMMAND);
         ui.printTasks(tasks.getTaskList());
     }
 
+    /**
+     * Checks for any text found after /from parameter.
+     *
+     * @param userInput text of the user input.
+     * @param isMark mark or unmark the selected task.
+     * @throws AlanException If there is only 1 String element found in array.
+     */
     public void markingCommandHandler(String userInput, boolean isMark) throws AlanException {
         String[] words = userInput.split(" ");
         int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
@@ -89,6 +109,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles extracting description text.
+     * Adds <code>Todo</code> object to the TaskList.
+     *
+     * @param userInput text of the user input.
+     */
     public void todoCommandHandler(String userInput) {
         String description = userInput.replace("todo ", "");
         tasks.addToDo(description);
@@ -96,9 +122,18 @@ public class Parser {
         ui.showTaskAddedMessage(tasks.getTaskList());
     }
 
-    public void deadlineCommandHandler(String userInput) {
+    /**
+     * Handles extracting description and 'by' time period text.
+     * Adds <code>Deadline</code> object to the TaskList.
+     *
+     * @param userInput text of the user input.
+     * @throws AlanException If input format of /by is not correct.
+     */
+    public void deadlineCommandHandler(String userInput) throws AlanException {
         String filteredUserInput = userInput.replace("deadline ", "");
         String[] data = filteredUserInput.split(" /by ");
+
+        checkDeadlineInputFormat(data);
 
         String description = data[0];
         String by = data[1];
@@ -109,8 +144,13 @@ public class Parser {
         ui.showTaskAddedMessage(tasks.getTaskList());
     }
 
-
-
+    /**
+     * Handles extracting description, 'from' time period and 'to' time period text.
+     * Adds <code>Event</code> object to the TaskList.
+     *
+     * @param userInput text of the user input.
+     * @throws AlanException If input format of /from or /to is not correct.
+     */
     public void eventCommandHandler(String userInput) throws AlanException {
         String filteredUserInput = userInput.replace("event ", "");
         String[] splitDescriptionAndDate = filteredUserInput.split(" /from ");
@@ -133,6 +173,13 @@ public class Parser {
         ui.showTaskAddedMessage(tasks.getTaskList());
     }
 
+    /**
+     * Handles extracting the user's selected task index.
+     * Deletes selected task from TaskList.
+     *
+     * @param userInput text of the user input.
+     * @throws AlanException If the task index is not found in TaskList.
+     */
     public void deleteCommandHandler(String userInput) throws AlanException {
         String[] words = userInput.split(" ");
         int selectedTaskIndex = Integer.parseInt(words[1]) - 1;
@@ -168,6 +215,7 @@ public class Parser {
         }
         return inputDate;
     }
+
     public boolean isValidDate(String inDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         dateFormat.setLenient(false);

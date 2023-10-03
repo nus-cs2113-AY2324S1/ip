@@ -1,5 +1,8 @@
 package alan.data.task;
-
+/**
+ * Represents a event task. A <code>Event</code> object corresponds to
+ * a task consisting of description, from time period, to time period and E task type
+ */
 public class Event extends Task {
     protected String from;
     protected String to;

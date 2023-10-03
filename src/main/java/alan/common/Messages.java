@@ -1,5 +1,7 @@
 package alan.common;
-
+/**
+ * Represents a class that stores all the messages sent to the user.
+ */
 public class Messages {
     public static final String manDrawing = " @/\n" +
             "/| \n" +
