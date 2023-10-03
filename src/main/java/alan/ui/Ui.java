@@ -33,7 +33,7 @@ public class Ui {
      * @return string of the user's input text
      */
     public String getUserCommand() {
-        showToUser(MESSAGE_ASK_INPUT);
+        System.out.print("Input: ");
 
         String userInput = in.nextLine();
 

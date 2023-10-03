@@ -91,6 +91,12 @@ public class AlanException extends Exception {
         }
     }
 
+    public static void checkEmptyInput(String inputString) throws AlanException {
+        if (inputString.isBlank()) {
+            throw new AlanException(MESSAGE_INVALID_INPUT_COMMAND);
+        }
+    }
+
     @Override
     public String toString() {
         return super.getMessage();

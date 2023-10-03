@@ -42,17 +42,18 @@ public class Alan {
         ui.showWelcomeMessage();
 
         String userInput = null;
+        String command = "";
 
         do {
             try {
                 userInput = ui.getUserCommand();
-                parser.processCommandHandler(userInput);
+                command = parser.processCommandHandler(userInput);
             } catch (AlanException e) {
                 ui.showToUser(e.getMessage());
             } finally {
                 ui.printHorizontalLine();
             }
-        } while (!userInput.equals("bye"));
+        } while (!command.equals("bye"));
 
         try {
             storage.save();

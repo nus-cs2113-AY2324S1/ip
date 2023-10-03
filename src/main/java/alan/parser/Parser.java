@@ -8,17 +8,18 @@ import alan.ui.Ui;
 import static alan.common.Messages.MESSAGE_FIND_TASK;
 import static alan.common.Messages.MESSAGE_LIST_COMMAND;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
+import static alan.data.exception.AlanException.checkDeadlineInputFormat;
 import static alan.data.exception.AlanException.checkEmptyDescription;
+import static alan.data.exception.AlanException.checkEmptyInput;
 import static alan.data.exception.AlanException.checkEventInputFromFormat;
 import static alan.data.exception.AlanException.checkEventInputToFormat;
 import static alan.data.exception.AlanException.checkOutOfTaskListIndex;
 import static alan.data.exception.AlanException.invalidInputCommand;
-import static alan.data.exception.AlanException.checkDeadlineInputFormat;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a parser that parses the user input.
@@ -38,9 +39,8 @@ public class Parser {
      * @param userInput text of the user input.
      * @throws AlanException If an error is detected from any of the command handlers.
      */
-    public void processCommandHandler(String userInput) throws AlanException {
-        String[] userInputWords = userInput.split(" ");
-        String command = userInputWords[0];
+    public String processCommandHandler(String userInput) throws AlanException {
+        String command = extractCommand(userInput);
 
         switch (command) {
         case "bye":
@@ -76,6 +76,14 @@ public class Parser {
         default:
             invalidInputCommand();
         }
+
+        return command;
+    }
+
+    public String extractCommand(String userInput) throws AlanException {
+        checkEmptyInput(userInput);
+        String[] userInputWords = userInput.split(" ");
+        return userInputWords[0];
     }
 
     /**
