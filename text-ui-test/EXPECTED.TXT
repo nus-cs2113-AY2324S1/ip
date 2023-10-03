@@ -1,4 +1,3 @@
-Doli:
 Hello, my name is
  ____       _
 |  _  \    | | [_]
@@ -20,72 +19,67 @@ Simply use one of the below listed commands to proceed:
 	• bye: exits the program
 How can I help you?
 ________________________________
-User:
-Doli:
 Got it! I've added the following task to your agenda:
 	[T] [ ] daniel pappalardo: answer cs2113 tutorial questions
 Now you have a total of 1 tasks in your agenda.
 ________________________________
-User:
-Doli:
-Got it! I've added the following task to your agenda:
-	[D] [ ] weekly cs2113 quiz  (by: monday 9pm)
-Now you have a total of 2 tasks in your agenda.
 ________________________________
-User:
-Doli:
+[D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
+________________________________
+________________________________
 Here is an overview of your agenda:
    1. [T] [ ] daniel pappalardo: answer cs2113 tutorial questions
-   2. [D] [ ] weekly cs2113 quiz  (by: monday 9pm)
+   2. [D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
 
 ________________________________
-User:
-Doli:
-Got it! I've added the following task to your agenda:
-	[E] [ ] cs2113 lecture  (from: friday 4 , to: 6 pm)
-Now you have a total of 3 tasks in your agenda.
 ________________________________
-User:
-Doli:
+[E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
+________________________________
+________________________________
 I've successfully marked task 1 as done.
 Would you like to mark/unmark something else?
 ________________________________
-User:
-Doli:
+________________________________
 Here is an overview of your agenda:
    1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
-   2. [D] [ ] weekly cs2113 quiz  (by: monday 9pm)
-   3. [E] [ ] cs2113 lecture  (from: friday 4 , to: 6 pm)
+   2. [D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
+   3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
 
 ________________________________
-User:
-Could not add the todo task.
-User:
-Could not add the deadline.
-User:
-Could not add the event.
-User:
-Doli:
+________________________________
+Got it! I've added the following task to your agenda:
+	[T] [ ]
+Now you have a total of 4 tasks in your agenda.
+________________________________
+________________________________
+Time or description missing for deadline
+________________________________
+________________________________
+Starttime, endtime or desciption missing for event
+________________________________
+________________________________
 Here is an overview of your agenda:
    1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
-   2. [D] [ ] weekly cs2113 quiz  (by: monday 9pm)
-   3. [E] [ ] cs2113 lecture  (from: friday 4 , to: 6 pm)
+   2. [D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
+   3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
+   4. [T] [ ]
 
 ________________________________
-User:
-Sure, I've removed this task:
-	[D] [ ] weekly cs2113 quiz  (by: monday 9pm)Now you have a total of 2 tasks in your agenda
-User:
-Doli:
+________________________________
+Got it! I've deleted task 2
+________________________________
+________________________________
 Here is an overview of your agenda:
    1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
-   2. [E] [ ] cs2113 lecture  (from: friday 4 , to: 6 pm)
+   2. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
+   3. [T] [ ]
 
 ________________________________
-User:
-User:
-Doli:
+________________________________
+Got it! I've deleted all tasks. Your agenda is now empty.
+________________________________
+________________________________
 Here is an overview of your agenda:
 
 ________________________________
-User:
+________________________________
