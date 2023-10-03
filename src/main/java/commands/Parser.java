@@ -1,10 +1,12 @@
 package commands;
 
+import java.util.Objects;
+
 public class Parser {
 
     private static Ui ui;
 
-    public static boolean parse(String methodName, String[] words, int numberOfItems){
+    public static boolean validateInput(String methodName, String[] words, int numberOfItems){
         ui = new Ui();
         switch (methodName) {
         case "mark": {
@@ -37,19 +39,20 @@ public class Parser {
         }
         //im busy student... no time do, please give chance XD
         case "todo": {
-            System.out.println("to do to be done");
+            if(words.length == 1){
+                ui.showError("task missing");
+                return false;
+            }
             break;
         }
         case "find": {
-            System.out.println("find to be done");
-            break;
-        }
-        case "deadline": {
-            System.out.println("deadline to be done");
-            break;
-        }
-        case "event": {
-            System.out.println("event to be done");
+            if(words.length == 1){
+                ui.showError("keyword missing for find function");
+                return false;
+            }else if(words.length > 2){
+                ui.showError("find function only works for a single keyword, not phrases");
+                return false;
+            }
             break;
         }
         case "delete": {
@@ -61,6 +64,29 @@ public class Parser {
             break;
         }
         }
+        return true;
+    }
+
+    public static boolean validateTimedTasks(String methodName, String[] wordArray) {
+        switch (methodName) {
+        case "event":
+            if (wordArray.length != 3) {
+                ui.showError("Invalid input for event function");
+                return false;
+            }
+            break;
+        case "deadline":
+            if (wordArray.length != 2) {
+                ui.showError("Invalid input for deadline function");
+                return false;
+            }
+            break;
+        default:
+            // Handle other cases or show an error if methodName is unknown
+            ui.showError("Unknown method: " + methodName);
+            return false;
+        }
+
         return true;
     }
 
