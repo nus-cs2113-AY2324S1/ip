@@ -4,30 +4,27 @@ Duke is a command line interface (CLI) application that helps you keep track of 
 
 ---
 
-## Table of Contents
+## Directory
 
-- [DUKE User Guide](#duke-user-guide)
-  - [Table of Contents](#table-of-contents)
-  - [Quick Start](#quick-start)
-  - [Features](#features)
-  - [Usage](#usage)
-    - [1. `Todo` -  Add a todo task](#1-todo----add-a-todo-task)
-    - [2. `Deadline` -  Add a deadline task](#2-deadline----add-a-deadline-task)
-    - [3. `Event` -  Add an event task](#3-event----add-an-event-task)
-    - [4. `Find` -  Find tasks by keyword](#4-find----find-tasks-by-keyword)
-    - [5. `Delete` -  Delete task by index](#5-delete----delete-task-by-index)
-    - [6. `Mark` -  Mark task by index](#6-mark----mark-task-by-index)
-    - [7. `Unmark` -  Unmark task by index](#7-unmark----unmark-task-by-index)
-    - [8. `List` -  List all tasks](#8-list----list-all-tasks)
-    - [9. `Bye` -  Exits the program](#9-bye----exits-the-program)
-    - [Autosave and load](#autosave-and-load)
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [Usage](#usage)
+  - [1. `Todo` -  Add a todo task](#1-todo----add-a-todo-task)
+  - [2. `Deadline` -  Add a deadline task](#2-deadline----add-a-deadline-task)
+  - [3. `Event` -  Add an event task](#3-event----add-an-event-task)
+  - [4. `Find` -  Find tasks by keyword](#4-find----find-tasks-by-keyword)
+  - [5. `Delete` -  Delete task by index](#5-delete----delete-task-by-index)
+  - [6. `Mark` -  Mark task by index](#6-mark----mark-task-by-index)
+  - [7. `Unmark` -  Unmark task by index](#7-unmark----unmark-task-by-index)
+  - [8. `List` -  List all tasks](#8-list----list-all-tasks)
+  - [9. `Bye` -  Exits the program](#9-bye----exits-the-program)
+  - [Autosave and load](#autosave-and-load)
 - [Command summary](#command-summary)
   
----
 
 ## Quick Start
 
-1. Ensure you have Java 11 or above installed. If not you can download it [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+1. Ensure you have Java 11 or above installed in your Computer. 
 
 2. Download the latest `duke.jar` from [here]
 
@@ -250,7 +247,7 @@ Bye. Hope to see you again soon!
 The program will create a file /data/duke.txt to store the tasks on the disk. The tasks will be loaded from the file when the program starts and will be saved to the file when the program exits.
 
 
-# Command summary
+## Command summary
 
 Command | Format | Description
 --- | --- | ---
