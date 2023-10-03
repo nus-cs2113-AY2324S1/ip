@@ -38,14 +38,18 @@ public class TaskList {
     }
 
     public void printTaskList() {
-        System.out.println("Here's your tasks sir!");
-        for (int i = 0; i < taskList.size(); i++) {
-            int indexNum = i + 1;
-            System.out.println(indexNum + "." + taskList.get(i));
+        if(taskList.isEmpty()){
+            System.out.println("Task list is empty! Please add a task sir.");
         }
-        System.out.println("~~ End of Task list ~~ ");
+        else{
+            System.out.println("Here's your tasks sir!");
+            for (int i = 0; i < taskList.size(); i++) {
+                int indexNum = i + 1;
+                System.out.println(indexNum + "." + taskList.get(i));
+            }
+            System.out.println("~~ End of Task list ~~ ");
+        }
     }
-
     /**
      * Adds a task to the task list based on user input and type.
      *
