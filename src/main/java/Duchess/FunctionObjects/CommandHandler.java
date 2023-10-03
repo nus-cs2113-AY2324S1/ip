@@ -1,6 +1,5 @@
 package Duchess.FunctionObjects;
 
-import Duchess.FunctionObjects.UI;
 import Duchess.TaskObjects.Deadline;
 import Duchess.TaskObjects.Event;
 import Duchess.TaskObjects.Task;
@@ -126,6 +125,9 @@ public class CommandHandler {
 
     }   
 
+    /** Adds task to taskList.
+     * @param task Task to be added.
+     */
     public void AddTask(Task task){
         taskList.addTask(task);
     }

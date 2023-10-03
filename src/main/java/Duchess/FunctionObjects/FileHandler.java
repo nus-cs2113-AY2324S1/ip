@@ -11,13 +11,25 @@ import Duchess.TaskObjects.Deadline;
 import Duchess.TaskObjects.Event;
 import Duchess.TaskObjects.Task;
 
+/**
+ * Class to handle file input and output.
+ */
 public class FileHandler {
     private String filePath;
 
+    /**
+     * Constructor for FileHandler.
+     * @param filePath Path of file to be handled.
+     */
     public FileHandler(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the file.
+     * @return ArrayList of previously saved tasks.
+     * @throws IOException invalid file path. (E.g. file does not exist)
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(this.filePath));
@@ -43,6 +55,11 @@ public class FileHandler {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the file.
+     * @param tasks ArrayList of tasks to be saved.
+     * @throws IOException invalid file path. (E.g. file does not exist)
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         for (Task task : tasks) {

@@ -6,12 +6,22 @@ import Duchess.TaskObjects.Deadline;
 import Duchess.TaskObjects.ToDo;
 
 
-
+/**
+ * Class to handle string processing for tasks.
+ */
 public class StringHandler {
 
+    /**
+     * Empty constructor.
+     */
     public StringHandler() {
     }
 
+    /**
+     * Processes the string to initialise an Event task.
+     * @param eventString
+     * @return Event object
+     */
     public Event processEventString(String eventString){
         String[] processedString = new String[3];
         
@@ -28,6 +38,11 @@ public class StringHandler {
         return newEvent;
     }
 
+    /**
+     * Processes the string to initialise a Deadline task.
+     * @param deadlineString
+     * @return Deadline object
+     */
     public Deadline processDeadlineString(String deadlineString){
         String[] processedString = new String[2];
         
@@ -41,6 +56,11 @@ public class StringHandler {
         return newDeadline;
     }
 
+    /**
+     * Processes the string to initialise a ToDo task.
+     * @param toDoString
+     * @return ToDo object
+     */
     public ToDo processToDoString(String toDoString){
         
         String toDoName = toDoString.substring(5);

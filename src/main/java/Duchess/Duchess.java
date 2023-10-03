@@ -1,11 +1,9 @@
 package Duchess;
-import java.util.Scanner;
 
 import Duchess.ErrorObjects.DuchessError;
 import Duchess.FunctionObjects.CommandHandler;
 import Duchess.FunctionObjects.UI;
 import Duchess.TextObjects.Constants;
-import Duchess.TextObjects.DefaultStrings;
 
 /** Main class to run. 
  * Follows - A-CodingStandard
@@ -13,21 +11,22 @@ import Duchess.TextObjects.DefaultStrings;
 public class Duchess {
 
 
-    /** Main method that instantiates CommandHandler object and take
-     * input from the user to echo.
-     */
+
 
     private UI ui;
     private CommandHandler commandHandler;
 
     
-
+    /** Main method that instantiates CommandHandler object and take
+     * input from the user to echo.
+     * @param filepath contains the filepath for data saving.
+     */
     public Duchess(String filepath){
         this.ui = new UI();
         this.commandHandler = new CommandHandler(ui, filepath);
     }
     
-    public void run(){
+    private void run(){
         ui.printWelcome();
         boolean isExit = false;
         while (!isExit) {
@@ -41,6 +40,11 @@ public class Duchess {
             }
         }
     }
+
+    /**
+     * Main method to run the program via the run function.
+     * @param args
+     */
     public static void main(String[] args) {
 
         new Duchess(Constants.taskFilePath).run();
