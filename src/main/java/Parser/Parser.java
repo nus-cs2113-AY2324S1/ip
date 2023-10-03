@@ -4,8 +4,17 @@ import Task.EmptyDescriptionException;
 import Task.TaskList;
 import Ui.Ui;
 
+/**
+ * Provides methods to parse inputs into the CLI.
+ */
 public class Parser {
 
+    /**
+     * Removes the command word in front of an argument entered into the command line.
+     * @param in Input string containing the command word.
+     * @return String with the command word removed.
+     * @throws EmptyDescriptionException When the input string only comprises the command word.
+     */
     public static String removeCommandWord(String in) throws EmptyDescriptionException {
         int firstSpaceIndex = in.indexOf(" ") + 1;
 
@@ -18,6 +27,13 @@ public class Parser {
 
         return out;
     }
+
+    /**
+     * Parses the input string to determine which command to carry out.
+     *
+     * @param buf String to be parsed.
+     * @param itemList List of tasks already entered.
+     */
     public static void parse(String buf, TaskList itemList){
         switch(buf.toLowerCase().split(" ")[0]) {
             case "list":

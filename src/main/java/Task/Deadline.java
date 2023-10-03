@@ -22,6 +22,13 @@ public class Deadline extends Task {
         return out;
     }
 
+    /**
+     * Formats class into a row in the save file
+     * Each parameter separated by " /"
+     * Format is [NAME] /[DONE] /[TYPE] /[BY]
+     *
+     * @return String formatted for saving in a .txt
+     */
     @Override
     public String toFileLine(){
         return super.toFileLine() + " /DEADLINE /" + by;

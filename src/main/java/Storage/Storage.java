@@ -16,8 +16,19 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class containing methods for file manipulation.
+ * Enables information entered to be stored after the program is closed.
+ */
+
 public class Storage {
     protected static String FILE_NAME = "./src/main/java/data/duke.txt";
+
+    /**
+     * Saves a taskList to a .txt file.
+     * @param tasks TaskList to be saved.
+     * @throws IOException When there is an issue with file manipulation
+     */
     public static void save(TaskList tasks) throws IOException {
         Files.createDirectories(Paths.get("./src/main/java/data"));
         if(Files.exists(Paths.get(FILE_NAME))) {
@@ -34,6 +45,12 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Loads a .txt file into a TaskList object.
+     * Prints an error message if the file path is invalid.
+     *
+     * @return TaskList containing information from the .txt file.
+     */
     public static ArrayList<Task> load() {
         ArrayList<Task> out = new ArrayList<Task>();
 

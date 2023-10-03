@@ -17,6 +17,11 @@ public class Event  extends Task {
         this.to = to;
     }
 
+    /**
+     * Expresses the task in a String format.
+     *
+     * @return String containing info of the Task
+     */
     @Override
     public String toString(){
         String out = "[E]["
@@ -27,6 +32,14 @@ public class Event  extends Task {
         return out;
     }
 
+
+    /**
+     * Formats class into a row in the save file
+     * Each parameter separated by " /"
+     * Format is [NAME] /[DONE] /[TYPE] /[FROM] /[TO]
+     *
+     * @return String formatted for saving in a .txt
+     */
     @Override
     public String toFileLine(){
         return super.toFileLine() + " /EVENT /" + from + " /" + to;

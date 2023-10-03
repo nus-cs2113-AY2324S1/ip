@@ -9,6 +9,10 @@ import Storage.Storage;
 import Ui.Ui;
 import Parser.Parser;
 
+/**
+ * Stores a list of tasks entered into the chatbot.
+ * Contains methods for manipulating and accessing the tasks inside the list.
+ */
 public class TaskList {
 
     protected ArrayList<Task> itemList;
@@ -19,14 +23,30 @@ public class TaskList {
 
     public static final String LINE_DIVIDER = "    _____________________________________";
 
+    /**
+     * Returns the number of elements currently stored in itemList.
+     *
+     * @return The size of the list of tasks
+     */
     public int size() {
         return itemList.size();
     }
 
+    /**
+     * Returns the task at a specified index in itemList.
+     *
+     * @param j Index of item to be retrieved
+     * @return Task at index j in itemList
+     */
     public Task get(int j) {
         return itemList.get(j);
     }
 
+    /**
+     * Adds a todo object into itemList
+     *
+     * @param in The Todo task to be added
+     */
     public void addTodo(String in) {
         try {
             itemList.add(new ToDo(Parser.removeCommandWord(in)));
@@ -38,6 +58,11 @@ public class TaskList {
         Ui.reportTaskAdded(itemList, itemList.size() - 1);
     }
 
+    /**
+     * Adds an event object into itemList
+     *
+     * @param in The Event task to be added
+     */
     public void addEvent(String in) {
         try {
             String[] vals = in.split(" /");
@@ -56,6 +81,11 @@ public class TaskList {
         Ui.reportTaskAdded(itemList, itemList.size() - 1);
     }
 
+    /**
+     * Adds a deadline object into itemList
+     *
+     * @param in The Deadline task to be added
+     */
     public void addDeadline(String in) {
         try {
             String[] vals = in.split(" /");
@@ -74,6 +104,12 @@ public class TaskList {
         Ui.reportTaskAdded(itemList, itemList.size() - 1);
     }
 
+    /**
+     * Deletes the item at a specified index.
+     * Shows an error message if an invalid index is chosen, or if the list is empty.
+     *
+     * @param j Index of item to be deleted
+     */
     public void delete(int j) {
         try {
             Task temp = itemList.get(j - 1);
@@ -90,6 +126,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks task at a specified index as done.
+     *
+     * @param j Index of task. Index starts from 1.
+     */
     public void markTask(int j) {
 
         itemList.get(j - 1).setDone(true);
@@ -97,12 +138,20 @@ public class TaskList {
         Ui.reportTaskMarked(itemList, j);
     }
 
+    /**
+     * Unmarks task at a specified index as done.
+     *
+     * @param j Index of task. Index starts from 1.
+     */
     public void unmarkTask(int j) {
         itemList.get(j - 1).setDone(false);
 
         Ui.reportTaskUnmarked(itemList, j);
     }
 
+    /**
+     * Prints a list of all the current items in itemList.
+     */
     public void listItems() {
         System.out.println(LINE_DIVIDER);
         for(int j = 0; j < itemList.size(); j += 1) {
@@ -112,6 +161,12 @@ public class TaskList {
         System.out.println(LINE_DIVIDER);
     }
 
+    /**
+     * Finds a task whaich has a name containing a word which matches the input string
+     * This function only supports single words (i.e. no spaces)
+     *
+     * @param in
+     */
     public void findItem(String in) {
         List<Task> temp = itemList.stream()
                 .filter(task -> Arrays.stream(
