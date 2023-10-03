@@ -2,6 +2,9 @@ package MySun.commands;
 
 import MySun.data.TaskList;
 
+/**
+ * Marks a task in the list as done.
+ */
 public class MarkCommand extends Command {
     private int taskIndex;
 

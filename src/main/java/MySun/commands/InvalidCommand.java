@@ -3,6 +3,9 @@ package MySun.commands;
 import MySun.data.TaskList;
 import MySun.data.exception.InvalidActionException;
 
+/**
+ * Represents an invalid command.
+ */
 public class InvalidCommand extends Command {
     @Override
     public void execute(TaskList tasks) throws InvalidActionException {
