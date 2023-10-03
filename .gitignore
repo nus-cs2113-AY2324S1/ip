@@ -22,4 +22,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 # ignore jar
 *.jar
 
+# ignore text
+*.txt
 
