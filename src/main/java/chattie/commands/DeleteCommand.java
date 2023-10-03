@@ -6,6 +6,9 @@ import chattie.error.ChattieException;
 import chattie.Storage;
 import chattie.tasks.Task;
 
+/**
+ * Deals with delete related commands
+ */
 public class DeleteCommand extends Command {
     private static final int TASK_INDEX = 1;
     private static String command;
@@ -14,6 +17,13 @@ public class DeleteCommand extends Command {
         this.command = command;
     }
 
+    /**
+     * Deletes a task from the tasklist
+     *
+     * @param tasks List of tasks
+     * @param ui User interface
+     * @throws ChattieException When command is out of bounds
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ChattieException {
         String[] commandArray = command.split(" ");

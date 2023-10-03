@@ -8,6 +8,9 @@ import chattie.Storage;
 import chattie.tasks.Deadline;
 import chattie.tasks.Todo;
 
+/**
+ * Deals with todo related commands
+ */
 public class TodoCommand extends Command {
 
     private static final int TODO_LENGTH = 5;
@@ -17,6 +20,13 @@ public class TodoCommand extends Command {
         this.command = command;
     }
 
+    /**
+     * Adds a new todo to list of tasks
+     *
+     * @param tasks List of tasks
+     * @param ui User interface
+     * @throws ChattieException If command is empty or not formatted properly
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ChattieException {
         if (command.trim().length() < TODO_LENGTH) {
@@ -26,7 +36,7 @@ public class TodoCommand extends Command {
 
         Todo todo = new Todo(task);
         tasks.add(todo);
-        ui.printAddMessage(todo, tasks);
+        ui.printAddMessage(tasks, todo);
     }
 
     @Override

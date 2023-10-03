@@ -8,8 +8,17 @@ import chattie.tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Deals with list command
+ */
 public class ListCommand extends Command {
 
+    /**
+     * Prints out the list of tasks
+     *
+     * @param tasks List of tasks
+     * @param ui User interface
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ChattieException {
         ArrayList<Task> list = tasks.getList();
