@@ -1,7 +1,15 @@
 
+
+# DUKE User Guide
+
+Duke is a command line interface (CLI) application that helps you keep track of your tasks. It is cross platform and can run on any machine that has Java installed. This serves as a User Guide for the CS2113 individual project.
+
+---
+
 ## Table of Contents
 
 - [DUKE User Guide](#duke-user-guide)
+  - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
   - [Features](#features)
   - [Usage](#usage)
@@ -17,13 +25,6 @@
     - [Autosave and load](#autosave-and-load)
     - [Command summary](#command-summary)
 ---
-
-# DUKE User Guide
-
-Duke User Guide for CS2113 individual project, is a command line interface (CLI) application that helps you keep track of your tasks. It is cross platform and can run on any machine that has Java installed.
-
----
-
 ## Quick Start
 1. Ensure you have Java 11 or above installed. If not you can download it [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
 
