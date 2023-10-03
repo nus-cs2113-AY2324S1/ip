@@ -1,4 +1,9 @@
-package duke;
+package Commands;
+
+import Cara.CaraException;
+import Cara.Storage;
+import Tasks.Task;
+import Cara.Ui;
 
 import java.util.ArrayList;
 
@@ -14,9 +19,9 @@ public interface Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage manager.
-     * @throws DukeException If an error occurs during command execution.
+     * @throws CaraException If an error occurs during command execution.
      */
-    void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws DukeException;
+    void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws CaraException;
 
     /**
      * Checks if this command indicates program exit.

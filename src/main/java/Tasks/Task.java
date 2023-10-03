@@ -1,4 +1,4 @@
-package duke;
+package Tasks;
 
 /**
  * The Task class represents a task with a description and completion status.

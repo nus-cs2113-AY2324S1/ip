@@ -1,4 +1,7 @@
-package duke;
+package Cara;
+
+import Tasks.Task;
+import Tasks.TasksHandler;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,9 +24,9 @@ public class Storage {
      *
      * @return An ArrayList of tasks loaded from the file.
      * @throws IOException   If an I/O error occurs during file reading.
-     * @throws DukeException If there is an issue with Duke while reading the file.
+     * @throws CaraException If there is an issue with Duke while reading the file.
      */
-    public ArrayList<Task> loadTasks() throws IOException, DukeException {
+    public ArrayList<Task> loadTasks() throws IOException, CaraException {
         ArrayList<Task> tasks = new ArrayList<>();
         TasksHandler.readFromFile(tasks); // Pass an ArrayList<Task> to the readFromFile() method
         return tasks;

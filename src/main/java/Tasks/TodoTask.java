@@ -1,4 +1,6 @@
-package duke;
+package Tasks;
+
+import Tasks.Task;
 
 /**
  * The TodoTask class represents a task of type "Todo."

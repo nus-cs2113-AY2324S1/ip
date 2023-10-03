@@ -1,4 +1,4 @@
-package duke;
+package Tasks;
 
 /**
  * Represents a task that is an event, which is a subclass of Task.

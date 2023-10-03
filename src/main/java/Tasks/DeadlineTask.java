@@ -1,4 +1,4 @@
-package duke;
+package Tasks;
 
 /**
  * Represents a task with a deadline, which is a subclass of Task.

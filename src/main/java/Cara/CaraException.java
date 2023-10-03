@@ -1,16 +1,16 @@
-package duke;
+package Cara;
 
 /**
  * DukeException is a custom exception class used to represent exceptions specific to the Duke program.
  */
-public class DukeException extends Exception {
+public class CaraException extends Exception {
 
     /**
      * Constructs a DukeException with the specified error message.
      *
      * @param message The error message associated with the exception.
      */
-    public DukeException(String message) {
+    public CaraException(String message) {
         super(message);
     }
 }

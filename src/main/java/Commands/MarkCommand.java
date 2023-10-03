@@ -1,4 +1,8 @@
-package duke;
+package Commands;
+
+import Cara.*;
+import Tasks.Task;
+import Tasks.TaskList;
 
 import java.util.ArrayList;
 
@@ -23,10 +27,10 @@ public class MarkCommand implements Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage manager (not used in this command).
-     * @throws DukeException If an error occurs during task marking.
+     * @throws CaraException If an error occurs during task marking.
      */
     @Override
-    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws CaraException {
         TaskList.markTask(input, tasks);
     }
 

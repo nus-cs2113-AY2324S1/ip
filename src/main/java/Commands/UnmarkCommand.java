@@ -1,4 +1,8 @@
-package duke;
+package Commands;
+
+import Cara.*;
+import Tasks.Task;
+import Tasks.TaskList;
 
 import java.util.ArrayList;
 
@@ -24,10 +28,10 @@ public class UnmarkCommand implements Command {
      * @param tasks   The list of tasks to be operated on.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving tasks to a file.
-     * @throws DukeException If there is an error during the unmarking process.
+     * @throws CaraException If there is an error during the unmarking process.
      */
     @Override
-    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws CaraException {
         TaskList.unmarkTask(input, tasks);
     }
 

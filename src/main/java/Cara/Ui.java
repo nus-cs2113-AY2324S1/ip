@@ -1,4 +1,4 @@
-package duke;
+package Cara;
 
 import java.util.Scanner;
 
@@ -52,10 +52,10 @@ public class Ui {
     /**
      * Throws a DukeException with an error message for loading errors.
      *
-     * @throws DukeException If there is an error loading tasks from a file.
+     * @throws CaraException If there is an error loading tasks from a file.
      */
-    public void showLoadingError() throws DukeException {
-        throw new DukeException("Error reading from file. Unable to load tasks.");
+    public void showLoadingError() throws CaraException {
+        throw new CaraException("Error reading from file. Unable to load tasks.");
     }
 
     /**
