@@ -105,7 +105,7 @@ Expected outcome:
 Back to the runway, darling! This task needs more Barbie magic!
 	[D][ ] buy Barbie's present (by: Oct 3 2023 3:30 PM)
 ```
-### `del` - delete task
+### `delete` - delete task
 
 This command deletes a task from the list, using that item number of the task
 in that list
