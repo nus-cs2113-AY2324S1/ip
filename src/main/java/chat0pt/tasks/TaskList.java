@@ -14,11 +14,20 @@ public class TaskList {
     private ArrayList<Task> tasks;
     private Ui ui;
 
+    /**
+     * Constructor for the TaskList function
+     * @param ui Used for printing messages
+     * @param tasks TaskList
+     */
     public TaskList(Ui ui, ArrayList<Task> tasks) {
         this.tasks = tasks;
         this.ui = ui;
     }
 
+    /**
+     * Adds a todo task
+     * @param tokens User input that has been split by space
+     */
     public void addTodo(String[] tokens) {
         try {
             if (tokens.length < 2) {
@@ -41,6 +50,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a deadline task
+     * @param tokens User input that has been split by space
+     */
     public void addDeadline(String[] tokens) {
         try {
             if (!FormatCheck.deadlineFormat(tokens)) { // Checks if deadline is in the proper format
@@ -64,6 +77,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds an event task
+     * @param tokens User input that has been split by space
+     */
     public void addEvent(String[] tokens) {
         try {
             if (!FormatCheck.eventFormat(tokens)) { // Check if event is in the right format
@@ -86,6 +103,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes task
+     * @param taskNumber Task number to delete
+     */
     public void deleteTask(int taskNumber) {
         if (taskNumber < tasks.size()) {
             Task task = tasks.get(taskNumber);
@@ -96,6 +117,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method to mark task
+     * @param taskNumber Task number to mark
+     * @param mark Task would be marked if true, otherwise task would be unmarked
+     */
     public void marker(int taskNumber, boolean mark) {
         if (taskNumber < tasks.size()) {
             Task task = tasks.get(taskNumber);
@@ -106,6 +132,12 @@ public class TaskList {
         }
 
     }
+
+
+    /**
+     * Returns the entire tasklist
+     * @return TaskList
+     */
 
     public ArrayList<Task> findTasks(String[] input) {
         ArrayList<Task> foundTasks = new ArrayList<>();

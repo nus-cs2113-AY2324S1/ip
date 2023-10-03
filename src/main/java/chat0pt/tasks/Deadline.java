@@ -8,6 +8,13 @@ public class Deadline extends Task {
     private static final DateTimeFormatter ORIGINALFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private LocalDateTime by;
 
+
+    /**
+     * Constructor for deadline
+     * @param task Name of the task
+     * @param By Deadline of the task
+     */
+
     public Deadline(String tasks, LocalDateTime By) {
         super(tasks);
         this.by = By;

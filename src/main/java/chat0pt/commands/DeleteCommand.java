@@ -13,8 +13,14 @@ public class DeleteCommand extends Command {
         this.commandString = commandString;
     }
 
+    /**
+     * Used when the user trys to delete a task
+     * @param ui Used for printing message
+     * @param tasks Current Tasklist
+     * @throws DukeException When an invalid number is encountered.
+     */
     @Override
-    public void runCommand(Ui ui, Storage storage, TaskList tasks) throws DukeException {
+    public void runCommand(Ui ui, TaskList tasks) throws DukeException {
         int taskNumber = Parser.validNumberInput(commandString);
         if (taskNumber >= 0) {
             tasks.deleteTask(taskNumber);

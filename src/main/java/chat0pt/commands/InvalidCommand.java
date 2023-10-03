@@ -7,7 +7,7 @@ import chat0pt.ui.Ui;
 
 public class InvalidCommand extends Command {
     @Override
-    public void runCommand(Ui ui, Storage storage, TaskList tasks) throws DukeException {
+    public void runCommand(Ui ui, TaskList tasks) throws DukeException {
         ui.unsupportedCommand();
     }
 }

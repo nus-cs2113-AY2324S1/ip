@@ -15,6 +15,12 @@ public class Parser {
         return input.split(" ");
     }
 
+    /**
+     * Command parser to determine which command to execute.
+     * @param command Takes in the user input and splits it
+     * @return Returns a command object based on what command is to be executed
+     * @throws DukeException
+     */
     public Command parse(String command) throws DukeException {
         String[] separatedString = splitString(command);
         String userCommand = separatedString[0].toLowerCase();

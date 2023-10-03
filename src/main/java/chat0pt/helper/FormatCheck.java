@@ -1,6 +1,11 @@
 package chat0pt.helper;
 
 public class FormatCheck {
+    /**
+     * Checks if the deadline command has been properly entered
+     * @param tokens Takes in the user input that has been split by space
+     * @return Returns true if the user input for the deadline command is in the right format
+     */
     public static boolean deadlineFormat(String[] tokens) {
         int position = 0;
         boolean byExists = false;
@@ -14,7 +19,11 @@ public class FormatCheck {
         }
         return byExists && (position <= tokens.length);
     }
-
+    /**
+     * Checks if the event command has been properly entered
+     * @param tokens Takes in the user input that has been split by space
+     * @return Returns true if the user input for the event command is in the right format
+     */
     public static boolean eventFormat(String[] tokens) {
         int fromPosition = 0;
         int toPosition = 0;
