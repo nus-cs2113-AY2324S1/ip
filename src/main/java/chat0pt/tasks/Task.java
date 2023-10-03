@@ -4,6 +4,7 @@ public class Task {
     private final String task;
     private boolean isMarked;
 
+
     /**
      * Constructor for each task containing task name and whether it has been marked
      * @param task Task Name

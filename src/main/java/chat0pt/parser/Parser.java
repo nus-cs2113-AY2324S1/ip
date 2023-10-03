@@ -1,9 +1,16 @@
 package chat0pt.parser;
 
+import chat0pt.Duke;
 import chat0pt.commands.*;
 import chat0pt.helper.DukeException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
+    private static final String pattern = "yyyy-MM-dd HHmm";
+
     private static String[] splitString(String input) {
         return input.split(" ");
     }
@@ -28,6 +35,8 @@ public class Parser {
             return new DeleteCommand(separatedString);
         case "bye":
             return new EndCommand();
+        case "find":
+            return new FindCommand(separatedString);
         case "todo":
         case "event":
         case "deadline":
@@ -59,5 +68,14 @@ public class Parser {
         return key;
     }
 
+    public static LocalDateTime parseDateTime(String input) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(pattern);
+        try {
+            LocalDateTime datetime = LocalDateTime.parse(input, format);
+            return datetime;
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
 
 }

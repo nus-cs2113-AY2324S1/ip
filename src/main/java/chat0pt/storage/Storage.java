@@ -1,5 +1,6 @@
 package chat0pt.storage;
 
+import chat0pt.parser.Parser;
 import chat0pt.tasks.Deadline;
 import chat0pt.tasks.Event;
 import chat0pt.tasks.Task;
@@ -7,6 +8,7 @@ import chat0pt.tasks.Todo;
 import chat0pt.ui.Ui;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Storage {
@@ -63,7 +65,8 @@ public class Storage {
                     boolean marked = Boolean.parseBoolean(tokens[1]);
                     String deadlineString = tokens[2];
                     String byString = tokens[3];
-                    Task deadlineTask = new Deadline(deadlineString, byString);
+                    LocalDateTime deadlineBy = Parser.parseDateTime(byString);
+                    Task deadlineTask = new Deadline(deadlineString, deadlineBy);
                     deadlineTask.setMarked(marked);
                     tasks.add(deadlineTask);
                 }

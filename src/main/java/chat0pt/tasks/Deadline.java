@@ -1,7 +1,13 @@
 package chat0pt.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String by;
+    private static final DateTimeFormatter DATEFORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter ORIGINALFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private LocalDateTime by;
+
 
     /**
      * Constructor for deadline
@@ -9,27 +15,27 @@ public class Deadline extends Task {
      * @param By Deadline of the task
      */
 
-    public Deadline(String task, String By) {
-        super(task);
+    public Deadline(String tasks, LocalDateTime By) {
+        super(tasks);
         this.by = By;
     }
 
     public String getBy() {
-        return by;
+        return this.by.format(DATEFORMAT);
     }
 
-    public void setBy(String by) {
+    public void setBy(LocalDateTime by) {
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by:" + by + ")";
+        return "[D]" + super.toString() + " (by:" + getBy() + ")";
     }
 
     @Override
     public String toFile() {
-        return "D#" + super.toFile() + "#" + by;
+        return "D#" + super.toFile() + "#" + this.by.format(ORIGINALFORMAT);
     }
 
 }
