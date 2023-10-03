@@ -1,9 +1,8 @@
-import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
 public class Duke {
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void addToTasks(String description, Type type) {
         switch (type) {
@@ -35,18 +34,18 @@ public class Duke {
                 return;
             }
         }
-        taskCount++;
         System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t" + tasks.get(taskCount-1));
-        System.out.println("\tNow you have " + taskCount + " task(s) in the list.");
+        System.out.println("\t" + tasks.get(tasks.size()-1));
+        System.out.println("\tNow you have " + tasks.size() + " task(s) in the list.");
+
     }
     public static void printTasks() {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("\tYou do not have any task in the list.");
             return;
         }
         System.out.println("\tHere are the tasks in your list:");
-        for (int i=0; i<taskCount; i++) {
+        for (int i=0; i<tasks.size(); i++) {
             System.out.print("\t");
             System.out.print(i+1 + ".");
             System.out.println(tasks.get(i));
@@ -76,12 +75,12 @@ public class Duke {
             System.out.println("\tNoted. I've removed this task:");
             System.out.println("\t" + tasks.get(number-1));
             tasks.remove(number-1);
-            taskCount--;
-            System.out.println("\tNow you have " + taskCount + " task(s) in the list.");
+            System.out.println("\tNow you have " + tasks.size() + " task(s) in the list.");
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("\tOops! task " + number + " does not exist");
         }
     }
+
 
     public static void main(String[] args) {
         // Greetings
@@ -90,6 +89,9 @@ public class Duke {
                 + "How may I help you?\n"
                 + "~~~~~~~~~~~~~~~~~~~";
         System.out.println(intro);
+        DataManager dataManager = new DataManager("./data/data.txt");
+        tasks = dataManager.loadData();
+
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
@@ -103,13 +105,16 @@ public class Duke {
                 break;
             case "mark":
                 markAsDone(Integer.parseInt(substr[1]));
+                dataManager.save(tasks);
                 break;
             case "unmark":
                 markAsUndone(Integer.parseInt(substr[1]));
+                dataManager.save(tasks);
                 break;
             case "todo":
                 try {
                     addToTasks(substr[1], Type.TODO);
+                    dataManager.save(tasks);
                     break;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("\tDescription of a todo cannot be empty");
@@ -118,6 +123,7 @@ public class Duke {
             case "deadline":
                 try {
                     addToTasks(substr[1], Type.DEADLINE);
+                    dataManager.save(tasks);
                     break;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("\tDescription of a deadline cannot be empty");
@@ -126,6 +132,7 @@ public class Duke {
             case "event":
                 try {
                     addToTasks(substr[1], Type.EVENT);
+                    dataManager.save(tasks);
                     break;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("\tDescription of a event cannot be empty");

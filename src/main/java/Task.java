@@ -29,4 +29,8 @@ public class Task {
         }
         return temp + " " + description;
     }
+
+    public String toSave() {
+        return null;
+    }
 }
