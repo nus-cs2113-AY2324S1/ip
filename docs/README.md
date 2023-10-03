@@ -12,7 +12,6 @@ Alan is a Personal Assistant chatbot application that can help with tracking tas
   * Deleting a task : `delete`
   * Finding tasks : `find`
   * Exit program : `bye`
-* Command summary
 
 ## Quick start
 1. Ensure you have Java `11` or above installed on your computer.
@@ -149,16 +148,3 @@ Dude check it out, here are the matching tasks in your list:
 Exits the chatbot program.
 
 Format: `bye`
-
-## Command Summary
-| Action   | Format                                          | Example                                                    |
-|----------|-------------------------------------------------|------------------------------------------------------------|
-| Todo     | `todo DESCRIPTION`                              | `todo `                                                    |
-| Deadline | `deadline DESCRIPTION /by DATETIME`             | `deadline return book /by 23-10-13`                        |
-| Event    | `event DESCRIPTION /from DATETIME /to DATETIME` | `event project meeting /from Aug 1st 3pm /to Aug 1st 10pm` |
-| List     | `list`                                          | `list`                                                     |
-| Mark     | `mark TASK_INDEX`                               | `mark 1`                                                   |
-| Unmark   | `unmark TASK_INDEX`                             | `unmark 2`                                                 |
-| Delete   | `delete TASK_INDEX`                             | `delete 3`                                                 |
-| Find     | `find KEYWORD`                                  | `find book`                                                |
-| Exit     | `bye`                                           | `bye`                                                      |
