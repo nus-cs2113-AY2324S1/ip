@@ -34,3 +34,43 @@ Example of usage:
 ```
 Deadline do homework /by 8 nov 2023
 ```
+
+### 3. Add Event Task - `Event` 
+
+Add an event task to the tasklist, with a start and end time
+
+Format: `event DESCRIPTION /from STARTTIME /to ENDTIME`
+
+Example of usage: 
+
+```
+event concert /from 6pm /to 9pm
+```
+
+### 4. Delete Task - `Delete` 
+
+Delete a task from the tasklist base on index
+
+Format: `delete INDEX`
+
+Example of usage: 
+
+```
+delete 5
+```
+
+### 5. List Task - `List` 
+
+Delete a task from the tasklist base on index
+
+Format: `delete INDEX`
+
+- The index refers to the index number shown in the tasklist
+- the index **must be a positive integer** 1,2,3...
+
+Example of usage: 
+
+```
+delete 5
+```
+
