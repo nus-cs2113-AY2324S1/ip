@@ -1,6 +1,5 @@
 package alan.storage;
 
-import alan.data.TaskList;
 import alan.data.exception.AlanException;
 import alan.data.task.Deadline;
 import alan.data.task.Event;

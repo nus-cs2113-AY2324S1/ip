@@ -1,6 +1,5 @@
 package alan.ui;
 
-import alan.data.exception.AlanException;
 import alan.data.task.Task;
 
 import java.io.InputStream;
