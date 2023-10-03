@@ -14,6 +14,24 @@ public class Duke {
 
     private static Ui ui;
 
+    /**
+     * Reads task data from a file and returns an ArrayList of tasks.
+     *
+     * This method reads task data from a specified file and parses it into an ArrayList
+     * of Task objects. Each line in the file represents a task, and the format of each
+     * line should be as follows:
+     *
+     * - "T|0|description" for a ToDo task
+     * - "D|0|description|deadline" for a Deadline task
+     * - "E|0|description|eventDate|eventTime" for an Event task
+     *
+     * The first character in each line specifies the task type (T for ToDo, D for Deadline,
+     * E for Event), followed by a status indicator (0 for incomplete, 1 for completed),
+     * and then task-specific details separated by '|' characters.
+     *
+     * @return An ArrayList of Task objects containing the tasks read from the file.
+     * @throws IOException If an error occurs while reading the file.
+     */
     public static ArrayList<Task> getTaskData() throws IOException {
         File f = new File(dukeDataFile);
         if(!f.exists()){
