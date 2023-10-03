@@ -3,7 +3,7 @@ package MySun.commands;
 import MySun.data.TaskList;
 
 /**
- * Marks a specific task in the list as not done.
+ * unMarks a task in the list.
  */
 public class UnmarkCommand extends Command {
     private int taskIndex;

@@ -13,11 +13,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
+/**
+ * The MySun class represents the main application that manages tasks. It handles user interactions
+ * through a command-line interface, parses user commands, and stores tasks in a data file.
+ */
 public class MySun {
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a new MySun instance with the specified file path.
+     * @param filePath The path to the data file where tasks are stored.
+     * @throws IOException If an I/O error occurs while creating or accessing the data file.
+     */
     public MySun(String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -32,7 +41,10 @@ public class MySun {
         }
     }
 
-
+    /**
+     * Runs the MySun application, displaying a welcome message, processing user commands,
+     * and managing tasks until the user chooses to exit.
+     */
     private void run() {
         Ui.showWelcomeMessage();
         boolean isExit = false;
@@ -53,6 +65,11 @@ public class MySun {
         }
     }
 
+    /**
+     * The main method to start the MySun application.
+     * @param args The command-line arguments (not used in this application).
+     * @throws IOException If an I/O error occurs while initializing the application.
+     */
     public static void main(String[] args) throws IOException {
         new MySun("./data/MySun.txt").run();
     }

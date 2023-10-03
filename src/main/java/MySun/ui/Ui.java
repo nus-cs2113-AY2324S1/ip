@@ -6,6 +6,11 @@ import MySun.data.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the application.
+ * read user input.
+ * Display output and exception warning to the user.
+ */
 public class Ui {
     private final Scanner input;
     public static final String LINE = "____________________________________________________________";
@@ -15,10 +20,15 @@ public class Ui {
             + " \\___|| |_| || |  | |\n"
             + "/____/ \\__,_||_|  |_|\n";
 
+
     public Ui() {
         this.input = new Scanner(System.in);
     }
 
+    /**
+     * Reads user input.
+     * @return command entered by user
+     */
     public String getUserCommand() {
         return input.nextLine();
     }

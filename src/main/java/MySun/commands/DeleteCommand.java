@@ -2,6 +2,9 @@ package MySun.commands;
 
 import MySun.data.TaskList;
 
+/**
+ * Deletes a task from the list of tasks.
+ */
 public class DeleteCommand extends Command {
     private int taskIndex;
 
