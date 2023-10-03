@@ -110,10 +110,15 @@ public class TaskList {
         int zero_index = index - ZERO_INDEX_OFFSET;
         try {
             if (isValidIndex(zero_index)) {
-                taskList.get(zero_index).markAsDone();
-                if(showMessage){
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("    " + taskList.get(zero_index));
+                if(taskList.get(zero_index).taskIsDone()){
+                    System.out.println("Task was previously set to done! No additional actions required");
+                }
+                else {
+                    taskList.get(zero_index).markAsDone();
+                    if(showMessage){
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println("    " + taskList.get(zero_index));
+                    }
                 }
             }
             else {
@@ -128,10 +133,15 @@ public class TaskList {
         int zero_index = index - ZERO_INDEX_OFFSET;
         try {
             if (isValidIndex(zero_index)) {
-                System.out.println("Oh NO! I've unmarked this task as undone:");
-                taskList.get(zero_index).markAsUndone();
-                System.out.println("    " + taskList.get(zero_index));
-                System.out.println("Get Grinding Son");
+                if(!taskList.get(zero_index).taskIsDone()){
+                    System.out.println("Task was previously set to undone! No additional actions required");
+                }
+                else {
+                    taskList.get(zero_index).markAsUndone();
+                    System.out.println("Oh NO! I've unmarked this task as undone:");
+                    System.out.println("    " + taskList.get(zero_index));
+                    System.out.println("Get Grinding Son");
+                }
             }
             else {
                 throw JarvisException.invalidTaskNumber(index);
