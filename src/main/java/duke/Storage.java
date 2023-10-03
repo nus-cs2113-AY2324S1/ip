@@ -105,8 +105,10 @@ public class Storage {
                         }
                         break;
                     case "E":
-                        Event newEvent = new Event(splitLineArguments[THIRD_INDEX], splitLineArguments[FOURTH_INDEX],
-                                splitLineArguments[FIFTH_INDEX]);
+                        LocalDateTime eventStartParsed = LocalDateTime.parse(splitLineArguments[FOURTH_INDEX]);
+                        LocalDateTime eventEndParsed = LocalDateTime.parse(splitLineArguments[FIFTH_INDEX]);
+                        Event newEvent = new Event(splitLineArguments[THIRD_INDEX], eventStartParsed,
+                                eventEndParsed);
                         TASKS.add(newEvent);
                         if (splitLineArguments[SECOND_INDEX].equals("1")){
                             newEvent.markAsDone();

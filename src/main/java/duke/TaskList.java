@@ -1,7 +1,5 @@
 package duke;
 
-import javax.swing.text.DateFormatter;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -92,7 +90,7 @@ public class TaskList {
      * </p>
      *
      * @param arguments An array of Strings containing the description, start time, and end time for the event to be added.
-     * @throws DukeException If the arguments provided are insufficient or not in the expected format.
+     * @throws DukeException If the arguments provided are insufficient or not in the expected format, or if the datetime is in an invalid format.
      */
     public void addEventInList(String[] arguments) throws DukeException{
         try {
@@ -102,11 +100,16 @@ public class TaskList {
             argumentsList = argumentsList[SECOND_INDEX].split(" /to ");
             String eventStartTime = argumentsList[FIRST_INDEX];
             String eventEndTime = argumentsList[SECOND_INDEX];
-            Event newEvent = new Event(eventDescription, eventStartTime, eventEndTime);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime eventStartParsed = LocalDateTime.parse(eventStartTime, formatter);
+            LocalDateTime eventEndParsed = LocalDateTime.parse(eventEndTime, formatter);
+            Event newEvent = new Event(eventDescription, eventStartParsed, eventEndParsed);
             this.TASKS.add(newEvent);
             printRemark(newEvent, "Done, I've added this task: ");
         } catch(ArrayIndexOutOfBoundsException e){
-            throw new DukeException("Insufficient arguments provided, try this (event tiktok hackathon /from date /to date)");
+            throw new DukeException("Insufficient arguments provided, try this (event tiktok hackathon /from DATETIME /to DATETIME)");
+        } catch(DateTimeParseException dtEx) {
+            throw new DukeException("Invalid datetime format, try this (event tiktok hackathon /from 2023-10-15 1800 /to 2023-10-17 0900)");
         }
     }
 

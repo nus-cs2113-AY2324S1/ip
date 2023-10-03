@@ -39,7 +39,7 @@ public class Duke {
     private static Storage STORAGE;
     private static TaskList TASKS;
     private static Ui UI;
-    public static String DATAPATH = ".\\data\\duke.txt";
+    public static String DATAPATH = ".\\data\\history.txt";
 
     /**
      * Constructs a new Duke object which initializes the user interface, storage, and task list.
