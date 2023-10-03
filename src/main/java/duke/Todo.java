@@ -15,20 +15,20 @@ public class Todo extends Task {
         super(description);
     }
 
-    @Override
     /**
      * Returns the single line representation of the todo which is used by the UI.
      * @return string representation of the todo.
      */
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
-    @Override
     /**
      * Returns the single line representation of the todo which is used for the file.
      * @return string representation of the todo.
      */
+    @Override
     public String toFileString() {
         return ("T | " + super.toFileString());
     }

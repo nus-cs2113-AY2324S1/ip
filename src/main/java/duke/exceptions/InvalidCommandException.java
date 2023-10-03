@@ -6,9 +6,9 @@ package duke.exceptions;
 public class InvalidCommandException extends Exception {
 
     /**
-     * Notifies user when the input is not a valid command.
+     * Provides error message for the case when the input is not a valid command.
      */
-    public void printErrorMessage() {
-        System.out.println("Oops, seems like I don't know this command. Please provide a valid command!");
+    public String getErrorMessage() {
+        return "Oops, seems like I don't know this command. Please provide a valid command!";
     }
 }

@@ -8,19 +8,18 @@ import duke.exceptions.InvalidCommandException;
  * The user can add tasks, mark tasks as done, delete tasks and view the list of tasks.
  * The bot supports three types of tasks: Todo, Deadline and Event.
  * The tasks are saved in a file and loaded automatically from the file when the program is started again.
- * The file is saved in the data folder.
  * The user can exit the program by typing "bye".
  * */
 public class Duke {
 
+    private static final String TERMINATE_COMMAND = "bye";
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
-    private Parser parser;
 
     /**
      * Constructor of Duke. Initializes the Ui, Storage and Tasks list.
-     * @parm filePath Path to the file where the data is stored. Default path is data/duke.txt.
+     * @param filePath Path to the file where the data is stored. Default path is data/duke.txt.
      * */
     public Duke(String filePath) {
         this.ui = new Ui();
@@ -60,10 +59,10 @@ public class Duke {
                 c.executeCommand(tasks, ui);
                 storage.saveData(tasks.getTasks());
             } catch (InvalidCommandException e) {
-                e.printErrorMessage();
+                ui.printErrorMessage(e.getErrorMessage());
             }
 
             ui.printHorizontalLine();
-        } while (!input.equalsIgnoreCase("bye"));
+        } while (!input.equalsIgnoreCase(TERMINATE_COMMAND));
     }
 }

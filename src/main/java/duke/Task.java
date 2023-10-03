@@ -6,7 +6,7 @@ import duke.exceptions.CorruptedFileException;
  * Represents a task consisting of a description and the marking label.
  */
 public class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     /**
@@ -44,11 +44,11 @@ public class Task {
         }
     }
 
-    @Override
     /**
      * Returns the single line representation of the task which is used by the UI.
      * @return string representation of the task.
      */
+    @Override
     public String toString() {
         String marking = " ";
         if (isDone) {
@@ -61,7 +61,7 @@ public class Task {
      * Returns the single line representation of the task which is used for the file.
      * @return string representation of the task.
      */
-    public String toFileString() {
+    public String toSaveFormat() {
         int isDoneBinary = 0;
         if (isDone) {
             isDoneBinary = 1;

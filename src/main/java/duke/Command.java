@@ -12,13 +12,17 @@ import java.util.ArrayList;
  */
 public class Command {
 
-    private String command;
-    private String argument;
+    private final String command;
+    private final String argument;
+
+    public enum CommandType {
+        LIST, FIND, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
+    }
 
     /**
      * Constructor of Command.
-     * @parm command Command to be executed.
-     * @parm argument Arguments required for the specific command.
+     * @param command Command to be executed.
+     * @param argument Arguments required for the specific command.
      * */
     public Command(String command, String argument) {
         this.command = command;
@@ -27,51 +31,65 @@ public class Command {
 
     /**
      * Executes the given command.
-     * @parm tasks TaskList object containing the list of tasks.
-     * @parm ui Ui object to interact with the user.
+     * @param tasks TaskList object containing the list of tasks.
+     * @param ui Ui object to interact with the user.
      * @return TaskList object containing the list of tasks with the applied modifications.
      * @throws InvalidCommandException If the command is not included in the program or if there is a typo.
      * */
     public TaskList executeCommand(TaskList tasks, Ui ui) throws InvalidCommandException {
-        switch (command) {
-        case "list":
+        CommandType commandType = getCommandType(this.command);
+        switch (commandType) {
+        case LIST:
             ui.printList(tasks);
             break;
-        case "find":
+        case FIND:
             findKeyword(tasks, argument, ui);
             break;
-        case "mark":
+        case MARK:
             tasks = editTask(argument, true, tasks, ui);
             break;
-        case "unmark":
+        case UNMARK:
             tasks = editTask(argument, false, tasks, ui);
             break;
-        case "todo":
+        case TODO:
             tasks = addToDo(argument, tasks, ui);
             break;
-        case "deadline":
+        case DEADLINE:
             tasks = addDeadline(argument, tasks, ui);
             break;
-        case "event":
+        case EVENT:
             tasks = addEvent(argument, tasks, ui);
             break;
-        case "delete":
+        case DELETE:
             tasks = deleteTask(argument, tasks, ui);
             break;
-        case "bye":
-            break;
+        case BYE:
         default:
-            throw new InvalidCommandException();
+            break;
         }
         return tasks;
     }
 
     /**
+     * Returns the CommandType enum based on the given command.
+     * @param command Command to be executed.
+     * @return CommandType enum of the given command.
+     * @throws InvalidCommandException If the command is not included in the program or if there is a typo.
+     * */
+    public CommandType getCommandType(String command) throws InvalidCommandException {
+        try {
+            return CommandType.valueOf(command.toUpperCase());
+        } catch(IllegalArgumentException e) {
+            throw new InvalidCommandException();
+        }
+    }
+
+    /**
      * Finds all the tasks containing the specified keyword in the description.
      * If keyword is empty, it will print the entire list of tasks.
-     * @parm tasks TaskList object containing the list of tasks.
-     * @parm keyword Keyword to be searched for.
-     * @parm ui Ui object to interact with the user.
+     * @param tasks TaskList object containing the list of tasks.
+     * @param keyword Keyword to be searched for.
+     * @param ui Ui object to interact with the user.
      * */
     public void findKeyword(TaskList tasks, String keyword, Ui ui) {
         if (keyword == null || keyword.isEmpty()){
@@ -92,10 +110,10 @@ public class Command {
     /**
      * Marks or unmarks a given task.
      * If the index is out of bounds or if the argument is not a number, it will print an error message.
-     * @parm argument Index of the task to be edited.
-     * @parm done New status of the task.
-     * @parm tasks TaskList object containing the list of tasks.
-     * @parm ui Ui object to interact with the user.
+     * @param argument Index of the task to be edited.
+     * @param done New status of the task.
+     * @param tasks TaskList object containing the list of tasks.
+     * @param ui Ui object to interact with the user.
      * @return TaskList object containing the list of tasks with the applied mark modifications.
      * */
     public TaskList editTask(String argument, boolean done, TaskList tasks, Ui ui) {
@@ -112,9 +130,9 @@ public class Command {
     /**
      * Adds a new Todo task with the description specified in argument.
      * If the description is empty, it will print an error message.
-     * @parm argument Description of the task.
-     * @parm tasks TaskList object containing the list of tasks.
-     * @parm ui Ui object to interact with the user.
+     * @param argument Description of the task.
+     * @param tasks TaskList object containing the list of tasks.
+     * @param ui Ui object to interact with the user.
      * @return TaskList object containing the list of tasks with the new Todo.
      * @see Todo
      * */
@@ -131,9 +149,9 @@ public class Command {
     /**
      * Adds a new Deadline task with the description and due date specified in argument.
      * If the description or due date is empty, it will print an error message.
-     * @parm argument Description and due date of the task.
-     * @parm tasks TaskList object containing the list of tasks.
-     * @parm ui Ui object to interact with the user.
+     * @param argument Description and due date of the task.
+     * @param tasks TaskList object containing the list of tasks.
+     * @param ui Ui object to interact with the user.
      * @return TaskList object containing the list of tasks with the newly added deadline.
      * @see Deadline
      * */
@@ -160,9 +178,9 @@ public class Command {
     /**
      * Adds a new Event task with the description, start date and end date specified in argument.
      * If the description, start date or end date is empty, it will print an error message.
-     * @parm argument Description, start date and end date of the task.
-     * @parm tasks TaskList object containing the list of tasks.
-     * @parm ui Ui object to interact with the user.
+     * @param argument Description, start date and end date of the task.
+     * @param tasks TaskList object containing the list of tasks.
+     * @param ui Ui object to interact with the user.
      * @return TaskList object containing the list of tasks with the newly added Event.
      * @see Event
      * */
@@ -197,9 +215,9 @@ public class Command {
     /**
      * Deletes a task from the list of tasks based on the specified position within the list starting at index 1.
      * If the index is out of bounds or if the argument is not a number, it will print an error message.
-     * @parm argument Index of the task to be deleted (>= 1).
-     * @parm tasks TaskList object containing the list of tasks.
-     * @parm ui Ui object to interact with the user.
+     * @param argument Index of the task to be deleted (>= 1).
+     * @param tasks TaskList object containing the list of tasks.
+     * @param ui Ui object to interact with the user.
      * @return TaskList object containing the updated list of tasks.
      * */
     public TaskList deleteTask(String argument, TaskList tasks, Ui ui) {

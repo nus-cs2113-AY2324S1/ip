@@ -10,7 +10,7 @@ public class Event extends Task {
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("MMM-dd-yyyy HH:mm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM-dd-yyyy HH:mm");
 
     /**
      * Constructor for Event class.
@@ -24,23 +24,23 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
-    @Override
     /**
      * Returns the single line representation of the event which is used by the UI.
      * @return string representation of the event.
      */
+    @Override
     public String toString() {
-        String startEndDescription = " (from: " + startDate.format(DTF) + " to: " + endDate.format(DTF) + ")";
+        String startEndDescription = " (from: " + startDate.format(DATE_TIME_FORMATTER) + " to: " + endDate.format(DATE_TIME_FORMATTER) + ")";
         return ("[E]" + super.toString() + startEndDescription);
     }
 
-    @Override
     /**
      * Returns the single line representation of the event which is used for the file.
      * @return string representation of the event.
      */
-    public String toFileString() {
-        String startEndDescription = " | " + startDate.format(DTF) + " | " + endDate.format(DTF);
-        return ("E | " + super.toFileString() + startEndDescription);
+    @Override
+    public String toSaveFormat() {
+        String startEndDescription = " | " + startDate.format(DATE_TIME_FORMATTER) + " | " + endDate.format(DATE_TIME_FORMATTER);
+        return ("E | " + super.toSaveFormat() + startEndDescription);
     }
 }

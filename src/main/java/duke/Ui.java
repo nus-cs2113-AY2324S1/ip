@@ -90,8 +90,7 @@ public class Ui {
      * @return String containing the provided input.
      */
     public String readCommand() {
-        String input = in.nextLine().trim();
-        return input;
+        return in.nextLine().trim();
     }
 
     /**
@@ -119,7 +118,7 @@ public class Ui {
     /**
      * Prints the list of tasks that match the provided keyword.
      * If no tasks match, user will be notified as well.
-     * @param matchingTasks
+     * @param matchingTasks ArrayList of Task objects that match the provided keyword.
      */
     public void printKeywordSearchResult(ArrayList<Task> matchingTasks) {
         if (matchingTasks.size() == 0) {
@@ -188,5 +187,9 @@ public class Ui {
     public void printInvalidDateTimeMessage() {
         System.out.println("Oops, I don't understand that! Please provide valid date and time in a readable format " +
                 "like: YYYY-MM-DD HH:MM");
+    }
+
+    public void printErrorMessage(String errorMessage) {
+        System.out.println(errorMessage);
     }
 }
