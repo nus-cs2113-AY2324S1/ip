@@ -2,8 +2,6 @@ package dude;
 
 import java.util.ArrayList;
 
-import java.util.ArrayList;
-
 /**
  * The `TaskList` class manages a list of tasks, providing operations to interact
  * with the tasks such as listing, adding, marking, and deleting tasks.
