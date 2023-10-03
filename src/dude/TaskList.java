@@ -106,6 +106,18 @@ public class TaskList {
         }
     }
 
+    public ArrayList<Task> findTasksByKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
+    }
+
     private void validateInput(String input, int minLength, String errorMessage) throws DudeException {
         if (input.length() <= minLength || input.substring(minLength).trim().isEmpty()) {
             throw new DudeException(errorMessage);
