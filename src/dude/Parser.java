@@ -1,5 +1,7 @@
 package dude;
 
+import java.util.ArrayList;
+
 /**
  * The `Parser` class is responsible for parsing user input commands and executing the
  * corresponding actions on the task list.
@@ -44,6 +46,11 @@ public class Parser {
             break;
         case "delete":
             tasks.deleteTask(input);
+            break;
+        case "find":
+            String keyword = input.substring(5).trim(); // Extract the search keyword
+            ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(keyword); // Find matching tasks
+            ui.showFoundTasks(matchingTasks); // Display matching tasks
             break;
         default:
             throw new DudeException("I'm sorry, I don't know what that means :-(");

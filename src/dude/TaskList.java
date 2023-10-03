@@ -170,6 +170,18 @@ public class TaskList {
      * @param errorMessage The error message to display if validation fails.
      * @throws DudeException If the input validation fails.
      */
+    public ArrayList<Task> findTasksByKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
+    }
+
     private void validateInput(String input, int minLength, String errorMessage) throws DudeException {
         if (input.length() <= minLength || input.substring(minLength).trim().isEmpty()) {
             throw new DudeException(errorMessage);

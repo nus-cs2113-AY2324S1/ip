@@ -140,6 +140,15 @@ public class Ui {
      *
      * @return The user's input command.
      */
+    public void showFoundTasks(ArrayList<Task> matchingTasks) {
+        drawLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + matchingTasks.get(i));
+        }
+        drawLine();
+    }
+
     public String readCommand() {
         return scanner.nextLine();
     }
