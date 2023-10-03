@@ -24,6 +24,6 @@ public class Event extends Task{
         else{
             System.out.print(" ");
         }
-        System.out.println("] " + description + " (" + start + " to " + end + ")");
+        System.out.println("] " + description + " (from:" + start + " to:" + end + ")");
     }
 }

@@ -140,30 +140,37 @@ public class Duke {
             }
 
             else if (keyword.equals("deadline")) {
-                String description = response.substring(9);
-                System.out.println("Please enter the deadline:");
-                String deadline = scanner.nextLine();
+                if(!response.contains("/by")){
+                    throw new InputException("Input Exception: Please ensure that the deadline input is in the correct format\ndeadline [description] /by [date]");
+                }
 
-                taskList.add(new Deadline(description, deadline));
+                int dateIndex = response.indexOf("/by") + 3;
+                String date = response.substring(dateIndex);
+                String description = response.substring(8, dateIndex - 3);
+
+                taskList.add(new Deadline(description, date));
 
                 System.out.println("Created new Deadline:");
-                System.out.println(description);
-                System.out.println("Due: " + deadline);
+                System.out.println(description + " (by:" + date + ")");
             }
 
             else if (keyword.equals("event")) {
-                String description = response.substring(6);
-                System.out.println("Please enter event start period:");
-                String start = scanner.nextLine();
-                System.out.println("Please enter event end period:");
-                String end = scanner.nextLine();
+                if(!(response.contains("/from") && response.contains("/to"))){
+                    throw new InputException(("Input Exception: Please ensure that the event input is in the correct format\nevent [description] /from [date] /to [date]"));
+                }
 
-                taskList.add(new Event(description, start, end));
+                int fromIndex = response.indexOf("/from") + 5;
+                int toIndex = response.indexOf("/to") + 3;
+
+                String fromDate = response.substring(fromIndex, toIndex - 3);
+                String toDate = response.substring(toIndex);
+
+                String description = response.substring(5);
+
+                taskList.add(new Event(description, fromDate, toDate));
 
                 System.out.println("Created new Event:");
-                System.out.println(description);
-                System.out.println("From: " + start);
-                System.out.println("To: " + end);
+                System.out.println(description + " (from:" + fromDate + " to:" + toDate + ")");
             }
 
             else if(keyword.equals("delete")) {

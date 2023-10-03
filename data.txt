@@ -1,1 +1,2 @@
-false|homeowrk|4th aug
+true| go to school /from 4th aug /to 13th dec| 4th aug | 13th dec
+true| homework | tmr
