@@ -48,6 +48,10 @@ public class Parser {
                 itemList.delete(Integer.parseInt(buf.split(" ")[1]));
                 break;
 
+            case "find":
+                itemList.findItem(buf.split(" ")[1]);
+                break;
+
             default:
                 Ui.reportMissingCommandWord();
                 break;

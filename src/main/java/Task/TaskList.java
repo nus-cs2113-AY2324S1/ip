@@ -1,6 +1,10 @@
 package Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import Storage.Storage;
 import Ui.Ui;
 import Parser.Parser;
@@ -107,4 +111,27 @@ public class TaskList {
         }
         System.out.println(LINE_DIVIDER);
     }
+
+    public void findItem(String in) {
+        List<Task> temp = itemList.stream()
+                .filter(task -> Arrays.stream(
+                        task.name.split(" "))
+                        .anyMatch(word -> word.equalsIgnoreCase(in)))
+                .collect(Collectors.toList());
+
+        if(temp.isEmpty()) {
+            System.out.println(LINE_DIVIDER
+            + "\n    Oops, I couldn't find the task you're looking for!\n"
+            + LINE_DIVIDER);
+        } else {
+            System.out.println(LINE_DIVIDER
+            + "\nI found these tasks which match your search:");
+            for (int j = 0; j < temp.size(); j += 1) {
+                System.out.println((j + 1)
+                        + ". " + temp.get(j).toString());
+            }
+            System.out.println(LINE_DIVIDER);
+        }
+    }
+
 }
