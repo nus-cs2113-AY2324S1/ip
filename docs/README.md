@@ -10,7 +10,7 @@ Cara: a fun and friendly task management bot that helps you to organise your tas
 
 ## Features
 
-### 1. Add Todo Task - `Keyword` 
+### 1. Add Todo Task - `Todo` 
 
 Add a todo task to the tasklist
 
@@ -21,4 +21,16 @@ Example of usage:
 ```
 todo buy book
 todo return money 
+```
+
+### 2. Add Deadline Task - `Deadline` 
+
+Add a deadline task to the tasklist, with a date to complete by
+
+Format: `deadline DESCRIPTION /by DEADLINE`
+
+Example of usage: 
+
+```
+Deadline do homework /by 8 nov 2023
 ```
