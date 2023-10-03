@@ -1,10 +1,14 @@
 package doli.commands;
 
-import doli.Doli;
 import doli.GUI.Ui;
 import doli.exceptions.DoliExceptions;
 import doli.files.Storage;
 import doli.tasks.*;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Command {
     protected String command;
@@ -19,6 +23,7 @@ public class Command {
     private static final String CLEAR_COMMAND = "clear";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String OVERVIEW_BY_SPECIFIC_DATE_COMMAND = "overview";
     private static final String EXIT_COMMAND = "bye";
     private static final String UNRECOGNIZED_COMMAND = "I am so sorry, but I do not recognize this command. "
             + "Please try typing something else.";
@@ -31,6 +36,7 @@ public class Command {
     private static final String FAILED_TO_FIND_TASK = "Watch out! The given task index does not exist";
     private static final String MARKED_SUCCESSFULLY = "I've successfully marked task %d as done.";
     private static final String UNMARKED_SUCCESSFULLY = "I've unmarked task %d. You better get it done soon!";
+    private static final String NO_TASKS_FOR_THIS_DATE = "There are no entries in your agenda until this date.";
     private static final String EXIT = "It was a pleasure, bye. See you later!";
     public Command(String command, String[] details) {
         this.command = command;
@@ -49,12 +55,12 @@ public class Command {
                 String.format(SUMMARIZING_CURRENT_AGENDA_ENTRIES, tasks.getSize()));
     }
     private void initializeNewDeadline(TaskList tasks) {
-        Deadline newDeadline = new Deadline(details[0], details[1]);
+        Deadline newDeadline = new Deadline(details[0], details[1].trim());
         tasks.addTask(newDeadline);
         response = newDeadline.toString();
     }
     private void initializeNewEvent(TaskList tasks) {
-        Event newEvent = new Event(details[0], details[1], details[2]);
+        Event newEvent = new Event(details[0], details[1].trim(), details[2].trim());
         tasks.addTask(newEvent);
         response = newEvent.toString();
     }
@@ -86,6 +92,27 @@ public class Command {
         response = String.format("%s\n%s",
                 String.format(UNMARKED_SUCCESSFULLY, taskNumber),
                 ENCOURAGE_TO_MARK);
+    }
+    private void overviewBySpecificDate(TaskList tasks) {
+        TaskList overview = new TaskList();
+        try {
+            LocalDate timeInput = LocalDate.parse(details[0]);
+            for (Task task : tasks) {
+                if (task instanceof Deadline && ((Deadline) task).getDeadline().isBefore(timeInput)) {
+                    overview.addTask(task);
+                } else if (task instanceof Event && ((Event) task).getStartTime().isBefore(timeInput)
+                        && ((Event) task).getEndTime().isAfter(timeInput)) {
+                    overview.addTask(task);
+                }
+            }
+        } catch(DateTimeException e) {
+            System.out.println("Please provide a proper date as input");
+        }
+        if (overview.getSize() > 0) {
+            response = String.format("%s\n%s", AGENDA_OVERVIEW, overview.toString());
+        } else {
+            response = NO_TASKS_FOR_THIS_DATE;
+        }
     }
     private void unrecognizedInputCommand() {
         response = UNRECOGNIZED_COMMAND;
@@ -133,6 +160,9 @@ public class Command {
                 break;
             case UNMARK_COMMAND:
                 unsetMark(tasks);
+                break;
+            case OVERVIEW_BY_SPECIFIC_DATE_COMMAND:
+                overviewBySpecificDate(tasks);
                 break;
             case EXIT_COMMAND:
                 prepareForExit();
