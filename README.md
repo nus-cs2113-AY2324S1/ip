@@ -1,7 +1,7 @@
-# Rene User Guide
+# Jarvis User Guide
 
-Welcome to Rene TaskBot!
-Rene is a Java app for managing your daily tasks, optimized for use via a Command Line Interface (CLI). Given below are instructions on how to use it.
+Welcome to Jarvis TaskBot!
+Jarvis is a Java app for managing your daily tasks, optimized for use via a Command Line Interface (CLI). Given below are instructions on how to use it.
 
 
 ❗ `Prerequisites:` Ensure you have Java 11 installed in your Computer.
