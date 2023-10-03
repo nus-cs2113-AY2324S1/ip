@@ -1,5 +1,8 @@
 package kenergeticbot.exceptionhandler;
 
+/**
+ * Represents error handling messages
+ */
 public class KenergeticBotException extends Exception {
   public static final String INVALID_COMMAND = "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
   public static final String TODO_MISSING_DESCRIPTION = "     \u02D9\u25E0\u02D9 OOPS!!! The description of a todo cannot be empty.";

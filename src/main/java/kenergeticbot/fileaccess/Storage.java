@@ -28,6 +28,7 @@ public class Storage {
 
     /**
      * Checks if the storage file exists, creates the file if not
+     * @throws IOException if the file exists but unable to access
      */
     public void initializeStorage() {
         File f = new File(filePath);
@@ -39,13 +40,9 @@ public class Storage {
                 System.out.println("File already exists.");
             }
         } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.println("An error occurred." + e.getMessage());
         }
-
         System.out.println("full path: " + f.getAbsolutePath());
-        System.out.println("file exists?: " + f.exists());
-        System.out.println("is Directory?: " + f.isDirectory());
     }
 
     /**
@@ -59,13 +56,12 @@ public class Storage {
             System.out.println("Directory cannot be created");
         }
         System.out.println("full path: " + f.getAbsolutePath());
-        System.out.println("file exists?: " + f.exists());
-        System.out.println("is Directory?: " + f.isDirectory());
     }
 
     /**
      * Loads the storage data file into a TaskList object.
-     * @throws FileNotFoundException if unable to locate storage file
+     * Calls readFromFile method
+     * @throws FileNotFoundException if unable to locate storage file using pathfile
      */
     public void loadPreviousList(TaskList taskList) {
         try {
@@ -78,6 +74,7 @@ public class Storage {
 
     /**
      * Access the storage data file to create the appropriate Task object
+     * Creates a scanner to scan the storage data file, parses the text to determine respective Task type, isDone status and description
      */
     public void readFromFile(String filePath, TaskList taskList) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
@@ -128,6 +125,9 @@ public class Storage {
 
     /**
      * Writes a String into a data file for storage.
+     * If data file does not exist, the method creates data file
+     * If data file already exist, the method edits the data file
+     * @throws IOException if the file exists but unable to access
      */
     public void writeToFile(String textToAdd) {
         File f = new File(filePath);

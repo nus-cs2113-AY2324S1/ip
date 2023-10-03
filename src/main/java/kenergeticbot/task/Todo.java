@@ -1,5 +1,9 @@
 package kenergeticbot.task;
 
+/**
+ * Represents a Todo Task
+ * Contains Task Description and Task Type = [T]
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
