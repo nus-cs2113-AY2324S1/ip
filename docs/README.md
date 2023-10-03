@@ -2,30 +2,30 @@
 Andrew Tate is a **CLI tool** to help you manage your tasks.
 
 ## Contents
-* [Quick start](#Quick-start--Return-to-contents)
-* [Features](#Features--Return-to-contents)
-  -  [List current tasks: `list`](#List-current-tasks--list--Return-to-contents)
-  -  [Exiting the program: `bye`](#Exiting-the-program-bye--Return-to-contents)
-  -  [Add a ToDo: `todo`](#Add-a-ToDo-todo--Return-to-contents)
-  -  [Add a Deadline: `deadline`](#Add-a-Deadline-deadline--Return-to-contents)
-  -  [Add an Event: `event`](#Add-an-Event-event--Return-to-contents)
-  -  [Mark a task as done: `mark`](#Mark-a-task-as-done-mark--Return-to-contents)
-  -  [Unmark a task as done: `unmark`](#Unmark-a-task-from-done-unmark--Return-to-contents)
-  -  [Delete a task: `delete`](#Delete-a-task-delete--Return-to-contents)
-  -  [Locate a task by name: `find`](#Locate-a-task-by-name-find--Return-to-contents)
-* [Command summary](#Command-summary--Return-to-contents)
+* [Quick start](#quick-start--Return-to-contents)
+* [Features](#features--Return-to-contents)
+  -  [List current tasks: `list`](#list-current-tasks--list--Return-to-contents)
+  -  [Exiting the program: `bye`](#exiting-the-program-bye--Return-to-contents)
+  -  [Add a ToDo: `todo`](#add-a-ToDo-todo--Return-to-contents)
+  -  [Add a Deadline: `deadline`](#add-a-Deadline-deadline--Return-to-contents)
+  -  [Add an Event: `event`](#add-an-Event-event--Return-to-contents)
+  -  [Mark a task as done: `mark`](#mark-a-task-as-done-mark--Return-to-contents)
+  -  [Unmark a task as done: `unmark`](#unmark-a-task-from-done-unmark--Return-to-contents)
+  -  [Delete a task: `delete`](#delete-a-task-delete--Return-to-contents)
+  -  [Locate a task by name: `find`](#locate-a-task-by-name-find--Return-to-contents)
+* [Command summary](#command-summary--Return-to-contents)
 
 
-## Quick start | [Return to contents](#Contents)
+## Quick start | [Return to contents](#contents)
 1. Make sure that you have Java 11 or above installed on your computer.
-  - [How do I check the verison of my Java](https://www.java.com/en/download/help/version_manual.html)
-2. Download the latest ip.jar release from [Github](https://github.com/000verflow/ip/releases)
+   1. [How do I check the version of my Java](https://www.java.com/en/download/help/version_manual.html)
+2. Download the latest ip.jar release from [GitHub](https://github.com/000verflow/ip/releases)
 3. Create a `data` folder within the same folder as `ip.jar`
 4. Using a CLI prompt like `command prompt` for Windows users and `Terminal` for Mac users
 5. Use `cd` command to move to the folder where you put `ip.jar`
 6. Run the program with `java -jar ip.jar`
 
-## Features | [Return to contents](#Contents)
+## Features | [Return to contents](#contents)
 
 > Note:
 > - Andrew Tate saves your tasks locally using relative path `./data/history.txt`, please create the `./data` directory
@@ -35,17 +35,17 @@ Andrew Tate is a **CLI tool** to help you manage your tasks.
 > - If a command doesn't take any parameters, it will be ignored.
     >   - e.g `bye 1234`
 
-## List current tasks : `list` | [Return to contents](#Contents)
+## List current tasks : `list` | [Return to contents](#contents)
 Lists all current tasks, marked done or undone.
 
 Format: `list`
 
-## Exiting the program: `bye` | [Return to contents](#Contents)
+## Exiting the program: `bye` | [Return to contents](#contents)
 Exits from the program. Any current tasks would've been saved in the `history.txt` file.
 
 Format: `bye`
 
-## Add a ToDo: `todo` | [Return to contents](#Contents)
+## Add a ToDo: `todo` | [Return to contents](#contents)
 Creates a ToDo task and add it into the task list.
 
 Format: `todo DESCRIPTION`
@@ -54,7 +54,7 @@ Example:
 - `todo assignment for cs2113`
 - `todo revise notes`
 
-## Add a Deadline: `deadline` | [Return to contents](#Contents)
+## Add a Deadline: `deadline` | [Return to contents](#contents)
 Creates a Deadline task and add it into the task list.
 
 Format: `deadline DESCRIPTION /by DEADLINE`
@@ -64,7 +64,7 @@ Example:
 - `deadline assignment submission /by 2023-10-15 1800`
 - `deadline create notes /by 2023-09-12 1330 `
 
-## Add an Event: `event` | [Return to contents](#Contents)
+## Add an Event: `event` | [Return to contents](#contents)
 Creates an Event task and add it into the task list.
 
 Format: `event DESCRIPTION /from EVENTSTART /to EVENTEND`
@@ -74,7 +74,7 @@ Example:
 - `event tiktok hackathon /from 2023-10-15 1800 /to 2023-10-17 0900`
 
 
-## Mark a task as done: `mark` | [Return to contents](#Contents)
+## Mark a task as done: `mark` | [Return to contents](#contents)
 Mark a task as done, displayed with a `[X]`.
 
 Format: `mark INDEX`
@@ -84,7 +84,7 @@ Format: `mark INDEX`
 Examples:
 - `mark 1` will mark the 1st task as done in the task list.
 
-## Unmark a task from done: `unmark` | [Return to contents](#Contents)
+## Unmark a task from done: `unmark` | [Return to contents](#contents)
 Unmark a task from done to undone, displayed with a `[ ]`.
 
 Format: `unmark INDEX`
@@ -95,7 +95,7 @@ Examples:
 - `unmark 1` will unmark the 1st task from done to undone in the task list.
 
 
-## Delete a task: `delete` | [Return to contents](#Contents)
+## Delete a task: `delete` | [Return to contents](#contents)
 Deletes a task from the task list.
 
 Format: `delete INDEX`
@@ -105,7 +105,7 @@ Format: `delete INDEX`
 Examples:
 - `delete 1` deletes the 1st task in the task list.
 
-## Locate a task by name: `find` | [Return to contents](#Contents)
+## Locate a task by name: `find` | [Return to contents](#contents)
 Find any tasks in the task list that match given name.
 
 Format: `find KEYWORD`
@@ -119,7 +119,7 @@ Examples:
 - `find submissions` returns `cs2113 project submission deadline`
 
 
-## Command summary | [Return to contents](#Contents)
+## Command summary | [Return to contents](#contents)
 
 | Action   | Command                                                            |
 |----------|--------------------------------------------------------------------|
