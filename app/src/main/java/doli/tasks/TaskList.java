@@ -2,6 +2,7 @@ package doli.tasks;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.stream.Stream;
 
 import doli.tasks.Task;
 
@@ -31,6 +32,9 @@ public class TaskList implements Iterable<Task> {
     @Override
     public Iterator<Task> iterator() {
         return taskList.iterator();
+    }
+    public Stream<Task> stream() {
+        return taskList.stream();
     }
     @Override
     public String toString() {

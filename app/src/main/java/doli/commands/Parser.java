@@ -31,33 +31,33 @@ public class Parser {
     }
     public static void checkForValidInput(String command, String[] args) throws DoliExceptions {
         switch (command) {
-            case TODO_COMMAND:
-                if (args.length == TASK_DESCRIPTION_IS_EMPTY) {
-                    throw new DoliExceptions("Input of a todo cannot be blank!");
-                }
-                break;
-            case DEADLINE_COMMAND:
-                if (args.length < NR_DEADLINE_ARGS) {
-                    throw new DoliExceptions("Time or description missing for deadline");
-                }
-                break;
-            case EVENT_COMMAND:
-                if (args.length < NR_EVENT_ARGS) {
-                    throw new DoliExceptions("Starttime, endtime or desciption missing for event");
-                }
-                break;
-            case MARK_COMMAND:
-                if (args.length == 0) {
-                    throw new DoliExceptions("Please specify the index of the task to mark");
-                }
-                break;
-            case UNMARK_COMMAND:
-                if (args.length == 0) {
-                    throw new DoliExceptions("Please specify the index of the task to unmark");
-                }
-                break;
-            default:
-                break;
+        case TODO_COMMAND:
+            if (args.length == TASK_DESCRIPTION_IS_EMPTY) {
+                throw new DoliExceptions("Input of a todo cannot be blank!");
+            }
+            break;
+        case DEADLINE_COMMAND:
+            if (args.length < NR_DEADLINE_ARGS) {
+                throw new DoliExceptions("Time or description missing for deadline");
+            }
+            break;
+        case EVENT_COMMAND:
+            if (args.length < NR_EVENT_ARGS) {
+                throw new DoliExceptions("Starttime, endtime or desciption missing for event");
+            }
+            break;
+        case MARK_COMMAND:
+            if (args.length == 0) {
+                throw new DoliExceptions("Please specify the index of the task to mark");
+            }
+            break;
+        case UNMARK_COMMAND:
+            if (args.length == 0) {
+                throw new DoliExceptions("Please specify the index of the task to unmark");
+            }
+            break;
+        default:
+            break;
         }
     }
 }
