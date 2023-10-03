@@ -40,6 +40,10 @@ public class Parser {
             System.out.println("to do to be done");
             break;
         }
+        case "find": {
+            System.out.println("find to be done");
+            break;
+        }
         case "deadline": {
             System.out.println("deadline to be done");
             break;
@@ -53,7 +57,7 @@ public class Parser {
             break;
         }
         default: {
-            System.out.println("invalid method name");
+//            System.out.println("invalid method name");
             break;
         }
         }
