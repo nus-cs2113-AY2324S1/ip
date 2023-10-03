@@ -1,17 +1,21 @@
 package jarvis.tasks;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    protected String dueTime;
+    protected LocalDateTime dueTime;
 
-    public Deadline(String description, String dueTime) {
+    public Deadline(String description, LocalDateTime dueTime) {
         super(description, TaskType.DEADLINE);
         this.dueTime = dueTime;
     }
 
     @Override
     public String getTime() {
-        return this.dueTime;
+        String deadlineTiming;
+        deadlineTiming = dueTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        return deadlineTiming;
     }
 
     @Override

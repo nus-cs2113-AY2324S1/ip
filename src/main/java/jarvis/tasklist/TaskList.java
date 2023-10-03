@@ -9,6 +9,9 @@ import jarvis.tasks.Event;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Stores the list of tasks registered on the ChatBot
@@ -18,6 +21,7 @@ import java.util.List;
 public class TaskList {
     private static final int ZERO_INDEX_OFFSET = 1;
     private final ArrayList<Task> taskList = new ArrayList<>();
+    DateTimeFormatter inputDateTimeFormatter = DateTimeFormatter.ofPattern( "dd-MM-yyyy HH:mm" );
 
     public ArrayList<Task> getTaskList(){
         return taskList;
@@ -66,14 +70,18 @@ public class TaskList {
                 List<String> deadlineDescription = TaskManager.parseDeadlineDescription(userInput);
                 String description = deadlineDescription.get(0);
                 String time = deadlineDescription.get(1);
-                taskList.add(new Deadline(description, time));
+                LocalDateTime  deadlineDateTime = LocalDateTime.parse(time, inputDateTimeFormatter);
+                taskList.add(new Deadline(description, deadlineDateTime));
                 if(displayMessage){
-                    TaskManager.showDeadline(description, time);
+                    TaskManager.showDeadline(description, deadlineDateTime);
                     displayTaskCount();
                 }
                 break;
             } catch(JarvisException e){
                 System.out.println(e.getMessage());
+                return;
+            }catch (DateTimeParseException incorrectTimeFormat) {
+                System.out.println("Please provide the datetime format as dd-MM-yyyy HH:mm!");
                 return;
             }
         case EVENT:
@@ -81,14 +89,20 @@ public class TaskList {
                 List<String> eventDescription = TaskManager.parseEventDescription(userInput);
                 String description = eventDescription.get(0);
                 String time = eventDescription.get(1);
-                taskList.add(new Event(description, time));
+                String[] times = time.split(" to ", 2);
+                LocalDateTime startDateTime = LocalDateTime.parse(times[0], inputDateTimeFormatter);
+                LocalDateTime endDateTime = LocalDateTime.parse(times[1], inputDateTimeFormatter);
+                taskList.add(new Event(description, startDateTime, endDateTime));
                 if(displayMessage){
-                    TaskManager.showEvent(description, time);
+                    TaskManager.showEvent(description, startDateTime, endDateTime);
                     displayTaskCount();
                 }
                 break;
             } catch(JarvisException e){
                 System.out.println(e.getMessage());
+                return;
+            } catch (DateTimeParseException | ArrayIndexOutOfBoundsException incorrectTimeFormat) {
+                System.out.println("Please provide the datetime range format as 'dd-MM-yyyy HH:mm to dd-MM-yyyy HH:mm'!");
                 return;
             }
         default:

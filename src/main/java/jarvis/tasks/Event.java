@@ -1,24 +1,28 @@
 package jarvis.tasks;
 
-public class Event extends Task{
-    protected String time;
-    protected String startTime;
-    protected String endTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String time) {
+public class Event extends Task{
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
+
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description, TaskType.EVENT);
-        this.time = time;
-        String[] timeParts = time.split(" to ", 2);
-        this.startTime = timeParts[0];
-        this.endTime = timeParts[1];
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public String getTime() {
-        return this.time;
+        String startTimeStr;
+        String endTimeStr;
+        startTimeStr = startTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        endTimeStr = endTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        return startTimeStr + " | " + endTimeStr;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + time + ")";
+        return "[E]" + super.toString() + " (from: " + startTime + " to " + endTime + ")";
     }
 }

@@ -67,10 +67,12 @@ public class Storage {
                     StorageManager.handleTodoTask(tasks, taskIndex, taskDoneStatus, taskDescription);
                     break;
                 case "D":
-                    StorageManager.handleDeadlineTask(tasks, taskIndex, taskDoneStatus, taskDescription, taskSubStrings[3]);
+                    String dueTimeString = taskSubStrings[3].strip();
+                    StorageManager.handleDeadlineTask(tasks, taskIndex, taskDoneStatus, taskDescription, dueTimeString);
                     break;
                 case "E":
-                    StorageManager.handleEventTask(tasks, taskIndex, taskDoneStatus, taskDescription, taskSubStrings[3]);
+                    String eventTimeString = " /from " + taskSubStrings[3].strip() + " /to " + taskSubStrings[4].strip();
+                    StorageManager.handleEventTask(tasks, taskIndex, taskDoneStatus, taskDescription, eventTimeString);
                     break;
                 default:
                     System.out.println(nextTask);
