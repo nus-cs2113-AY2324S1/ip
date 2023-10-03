@@ -1,6 +1,3 @@
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -40,7 +37,7 @@ public class Duke {
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t" + tasks.get(tasks.size()-1));
         System.out.println("\tNow you have " + tasks.size() + " task(s) in the list.");
-        //Append to file
+
     }
     public static void printTasks() {
         if (tasks.isEmpty()) {
@@ -56,19 +53,30 @@ public class Duke {
     }
     public static void markAsDone(int number) {
         try {
-            tasks.get(number - 1).setDone(true);
+            tasks.get(number-1).setDone(true);
             System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t" + tasks.get(number - 1));
-        } catch (NullPointerException e) {
+            System.out.println("\t" + tasks.get(number-1));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("\tOops! task " + number + " does not exist");
         }
     }
     public static void markAsUndone(int number) {
         try {
-            tasks.get(number - 1).setDone(false);
-            System.out.println("\tNice! I've marked this task as not done yet:");
-            System.out.println("\t" + tasks.get(number - 1));
-        } catch (NullPointerException e) {
+            tasks.get(number-1).setDone(false);
+            System.out.println("\tNice! I've marked this task as undone:");
+            System.out.println("\t" + tasks.get(number-1));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            System.out.println("\tOops! task " + number + " does not exist");
+        }
+    }
+
+    public static void deleteTask(int number) {
+        try {
+            System.out.println("\tNoted. I've removed this task:");
+            System.out.println("\t" + tasks.get(number-1));
+            tasks.remove(number-1);
+            System.out.println("\tNow you have " + tasks.size() + " task(s) in the list.");
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("\tOops! task " + number + " does not exist");
         }
     }
@@ -130,6 +138,9 @@ public class Duke {
                     System.out.println("\tDescription of a event cannot be empty");
                     break;
                 }
+            case "delete":
+                deleteTask(Integer.parseInt(substr[1]));
+                break;
             default:
                 System.out.println("\tInvalid input, please try again");
             }
