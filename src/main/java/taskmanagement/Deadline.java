@@ -1,13 +1,15 @@
 package taskmanagement;
 
+import java.time.LocalDate;
+
 public class Deadline extends Task {
-    protected String by;
-    public Deadline(String description, String by) {
+    protected LocalDate by;
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
         taskType = "D";
     }
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, LocalDate by, boolean isDone) {
         super(description);
         this.by = by;
         taskType = "D";
@@ -15,8 +17,8 @@ public class Deadline extends Task {
     }
     @Override
     public String toString() {
-        return "[" + taskType + "]" + "[" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return "[" + taskType + "]" + "[" + getStatusIcon() + "] " + description + " (by: " + by.format(formatter) + ")";
     }
-    public String getBy(){  return by;  }
+    public LocalDate getBy(){  return by;  }
 
 }

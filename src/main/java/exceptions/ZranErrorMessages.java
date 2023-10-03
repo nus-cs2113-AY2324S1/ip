@@ -19,7 +19,8 @@ public enum ZranErrorMessages {
             "    Please enter an existing task index to (un)mark or type help :)"),
 
     INVALID_TASK_INDEX_DELETE("Invalid delete command: Invalid task index to delete. \n" +
-            "    Please enter an existing task index to delete or type help :)");
+            "    Please enter an existing task index to delete or type help :)"),
+    INVALID_DATE_FORMAT("Invalid date format: Please enter a date in the format yyyy-MM-dd or type help :)");
 
     public final String message;
     ZranErrorMessages(String message) {
