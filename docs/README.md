@@ -2,18 +2,18 @@
 Andrew Tate is a **CLI tool** to help you manage your tasks.
 
 ## Contents
-* [Quick start](#quick-start--Return-to-contents)
-* [Features](#features--Return-to-contents)
-  -  [List current tasks: `list`](#list-current-tasks--list--Return-to-contents)
-  -  [Exiting the program: `bye`](#exiting-the-program-bye--Return-to-contents)
-  -  [Add a ToDo: `todo`](#add-a-ToDo-todo--Return-to-contents)
-  -  [Add a Deadline: `deadline`](#add-a-Deadline-deadline--Return-to-contents)
-  -  [Add an Event: `event`](#add-an-Event-event--Return-to-contents)
-  -  [Mark a task as done: `mark`](#mark-a-task-as-done-mark--Return-to-contents)
-  -  [Unmark a task as done: `unmark`](#unmark-a-task-from-done-unmark--Return-to-contents)
-  -  [Delete a task: `delete`](#delete-a-task-delete--Return-to-contents)
-  -  [Locate a task by name: `find`](#locate-a-task-by-name-find--Return-to-contents)
-* [Command summary](#command-summary--Return-to-contents)
+* [Quick start](#quick-start--return-to-contents)
+* [Features](#features--return-to-contents)
+  -  [List current tasks: `list`](#list-current-tasks--list--return-to-contents)
+  -  [Exiting the program: `bye`](#exiting-the-program-bye--return-to-contents)
+  -  [Add a ToDo: `todo`](#add-a-ToDo-todo--return-to-contents)
+  -  [Add a Deadline: `deadline`](#add-a-Deadline-deadline--return-to-contents)
+  -  [Add an Event: `event`](#add-an-Event-event--return-to-contents)
+  -  [Mark a task as done: `mark`](#mark-a-task-as-done-mark--return-to-contents)
+  -  [Unmark a task as done: `unmark`](#unmark-a-task-from-done-unmark--return-to-contents)
+  -  [Delete a task: `delete`](#delete-a-task-delete--return-to-contents)
+  -  [Locate a task by name: `find`](#locate-a-task-by-name-find--return-to-contents)
+* [Command summary](#command-summary--return-to-contents)
 
 
 ## Quick start | [Return to contents](#contents)
