@@ -23,6 +23,7 @@ public class Command {
     private static final String CLEAR_COMMAND = "clear";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String FIND_COMMAND = "find";
     private static final String OVERVIEW_BY_SPECIFIC_DATE_COMMAND = "overview";
     private static final String EXIT_COMMAND = "bye";
     private static final String UNRECOGNIZED_COMMAND = "I am so sorry, but I do not recognize this command. "
@@ -37,6 +38,8 @@ public class Command {
     private static final String MARKED_SUCCESSFULLY = "I've successfully marked task %d as done.";
     private static final String UNMARKED_SUCCESSFULLY = "I've unmarked task %d. You better get it done soon!";
     private static final String NO_TASKS_FOR_THIS_DATE = "There are no entries in your agenda until this date.";
+    private static final String MATCHING_TASKS = "Here are the tasks matching your input keyword:";
+    private static final String NO_TASKS_FOUND = "The given keyword did not produce any search results in your agenda";
     private static final String EXIT = "It was a pleasure, bye. See you later!";
     public Command(String command, String[] details) {
         this.command = command;
@@ -114,6 +117,19 @@ public class Command {
             response = NO_TASKS_FOR_THIS_DATE;
         }
     }
+    private void find(TaskList tasks) throws DoliExceptions {
+        TaskList searchResults = new TaskList();
+        String keyword = details[0];
+        if (details[0].trim().isEmpty()) {
+            throw new DoliExceptions("Please provide a keyword to search your agenda.");
+        }
+        tasks.stream().filter((t) -> t.getDescription().contains(keyword)).forEach(searchResults::addTask);
+        if (searchResults.getSize() > 0) {
+            response = String.format("%s\n%s", MATCHING_TASKS, searchResults.toString());
+        } else {
+            response = NO_TASKS_FOUND;
+        }
+    }
     private void unrecognizedInputCommand() {
         response = UNRECOGNIZED_COMMAND;
     }
@@ -163,6 +179,9 @@ public class Command {
                 break;
             case OVERVIEW_BY_SPECIFIC_DATE_COMMAND:
                 overviewBySpecificDate(tasks);
+                break;
+            case FIND_COMMAND:
+                find(tasks);
                 break;
             case EXIT_COMMAND:
                 prepareForExit();
