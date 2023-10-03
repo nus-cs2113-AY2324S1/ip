@@ -256,7 +256,7 @@ deadline | `deadline [description] /by [date/time]` | Adds a new deadline task w
 event | `event [description] /from [start time] /to [end time]` | Adds a new event task with the given description and from/to times.
 bye | `bye` | Exits the program.
 list | `list` | Lists all tasks.
-mark | `done [index]` | Marks the specified task as done.
-unmark | `undone [index]` | Unmarks the specified task as done.
+mark | `mark [index]` | Marks the specified task as done.
+unmark | `unmark [index]` | Unmarks the specified task as done.
 delete | `delete [index]` | Deletes the specified task.
 find | `find [keyword]` | Finds all tasks that contain the specified keyword.
