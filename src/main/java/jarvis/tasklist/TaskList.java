@@ -12,6 +12,8 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.stream.Collectors;
+
 
 /**
  * Stores the list of tasks registered on the ChatBot
@@ -32,16 +34,16 @@ public class TaskList {
     }
 
     private void displayTaskCount() {
-        System.out.println("Now you have " + getTaskListSize() + " jarvis.tasks in the list.");
+        System.out.println("Now you have " + getTaskListSize() + " tasks in the list sir.");
     }
 
     public void printTaskList() {
-        System.out.println("Here's your jarvis.tasks!");
+        System.out.println("Here's your tasks sir!");
         for (int i = 0; i < taskList.size(); i++) {
             int indexNum = i + 1;
             System.out.println(indexNum + "." + taskList.get(i));
         }
-        System.out.println("~~ End of list ~~ ");
+        System.out.println("~~ End of Task list ~~ ");
     }
 
     /**
@@ -81,7 +83,7 @@ public class TaskList {
                 System.out.println(e.getMessage());
                 return;
             }catch (DateTimeParseException incorrectTimeFormat) {
-                System.out.println("Please provide the datetime format as dd-MM-yyyy HH:mm!");
+                System.out.println("Please provide the datetime format as dd-MM-yyyy HH:mm sir!");
                 return;
             }
         case EVENT:
@@ -102,7 +104,7 @@ public class TaskList {
                 System.out.println(e.getMessage());
                 return;
             } catch (DateTimeParseException | ArrayIndexOutOfBoundsException incorrectTimeFormat) {
-                System.out.println("Please provide the datetime range format as 'dd-MM-yyyy HH:mm to dd-MM-yyyy HH:mm'!");
+                System.out.println("Please provide the datetime range format as 'dd-MM-yyyy HH:mm to dd-MM-yyyy HH:mm' sir!");
                 return;
             }
         default:
@@ -116,12 +118,12 @@ public class TaskList {
         try {
             if (isValidIndex(zero_index)) {
                 if(taskList.get(zero_index).taskIsDone()){
-                    System.out.println("Task was previously set to done! No additional actions required");
+                    System.out.println("Task was previously set to done! No additional actions required sir.");
                 }
                 else {
                     taskList.get(zero_index).markAsDone();
                     if(showMessage){
-                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println("Nice! I've marked this task as done sir:");
                         System.out.println("    " + taskList.get(zero_index));
                     }
                 }
@@ -139,13 +141,13 @@ public class TaskList {
         try {
             if (isValidIndex(zero_index)) {
                 if(!taskList.get(zero_index).taskIsDone()){
-                    System.out.println("Task was previously set to undone! No additional actions required");
+                    System.out.println("Task was previously set to undone! No additional actions required sir.");
                 }
                 else {
                     taskList.get(zero_index).markAsUndone();
-                    System.out.println("Oh NO! I've unmarked this task as undone:");
+                    System.out.println("Oh NO! I've unmarked this task as undone sir:");
                     System.out.println("    " + taskList.get(zero_index));
-                    System.out.println("Get Grinding Son");
+                    System.out.println("Get Grinding SIR");
                 }
             }
             else {
@@ -161,7 +163,7 @@ public class TaskList {
         try {
             if (isValidIndex(zero_index)) {
                 Task removedTask = taskList.remove(zero_index);
-                System.out.println("Noted. I've removed this task:");
+                System.out.println("Noted sir. I've removed this task sir:");
                 System.out.println("    " + removedTask);
                 displayTaskCount();
             } else {
@@ -169,6 +171,49 @@ public class TaskList {
             }
         } catch (JarvisException e) {
             System.out.println(e.getMessage());
+        }
+    }
+    public void searchListByDescription(String keyword){
+        if(taskList.isEmpty()){
+            System.out.println("Task List is empty!");
+            return;
+        }
+        List<Task> matchedTasks = taskList.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+
+        if(matchedTasks.isEmpty()){
+            System.out.println("No results found. Please check your keyword is correct sir?");
+        } else {
+            printMatchedTasks(matchedTasks);
+        }
+    }
+
+    public void printMatchedTasks(List<Task> matchedTasks) {
+        System.out.println("Here are tasks that matched your search sir:");
+        for (int i = 0; i < matchedTasks.size(); i++) {
+            int indexNum = i + 1;
+            System.out.println("    " + indexNum + "." + matchedTasks.get(i));
+        }
+        System.out.println("~~ End of Search list ~~ ");
+    }
+    public void searchList(String input) {
+        final String SEARCH_USAGE_MESSAGE = "Please format your input as find [description] sir!";
+        String searchKeyword;
+
+        try {
+            searchKeyword = input.split("find")[1].strip();
+        } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
+            System.out.println("Please indicate the keywords you are searching sir");
+            System.out.println(SEARCH_USAGE_MESSAGE);
+            return;
+        }
+
+        if (!searchKeyword.isEmpty()) {
+            searchListByDescription(searchKeyword);
+        } else {
+            System.out.println("Please provide any keyword to search sir");
+            System.out.println(SEARCH_USAGE_MESSAGE);
         }
     }
 

@@ -31,10 +31,10 @@ public class Storage {
     public void loadData(TaskList tasks) throws JarvisException, IOException {
         buildTaskListFromFile(tasks);
         if (tasks.getTaskListSize() > 0) {
-            System.out.println("    You currently have the following tasks");
+            System.out.println("You currently have the following tasks sir");
             tasks.printTaskList();
         } else {
-            System.out.println("    You currently have no saved tasks");
+            System.out.println("You currently have no saved tasks sir");
         }
     }
 
@@ -45,10 +45,10 @@ public class Storage {
     private void buildTaskListFromFile(TaskList tasks) throws IOException, JarvisException {
         try {
             if (dataFile.createNewFile()) {
-                System.out.println("    Task-list created: " + dataFile.getName());
+                System.out.println("Task-list created: " + dataFile.getName());
             }
         } catch (IOException invalidFilePath) {
-            System.out.println("    " + invalidFilePath.getMessage());
+            System.out.println(invalidFilePath.getMessage());
         }
 
         try (Scanner fileScanner = new Scanner(dataFile)) {
@@ -125,7 +125,6 @@ public class Storage {
                     break;
                 }
             }
-
         }
         catch(NullPointerException | IOException invalidFilePath){
             System.out.println(invalidFilePath.getMessage());
