@@ -57,6 +57,9 @@ Adds a deadline task in the task list.
 
 Format: `deadline DESCRIPTION /by DATETIME`
 
+- `DATETIME` can be input as `yyyy-mm-dd` to be stored as `dd MMM yyyy` format
+  - e.g. the input `2020-02-14` will be stored as `14 Feb 2020` in the task list
+
 Example: <br> `deadline return book /by Feb 14th`
 
 ### Adding a event : `event`
@@ -64,6 +67,8 @@ Example: <br> `deadline return book /by Feb 14th`
 Adds a event task in the task list.
 
 Format: `event DESCRIPTION /from DATETIME /to DATETIME`
+- `DATETIME` can be input as `yyyy-mm-dd` to be stored as `dd MMM yyyy` format
+  - e.g. the input `2020-02-14` will be stored as `14 Feb 2020` in the task list
 
 Example: <br> `event project meeting /from Aug 6th 2pm /to Aug 6th 4pm`
 
