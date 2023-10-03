@@ -5,9 +5,6 @@ import Duke.Exception.NoTaskSpecifiedException;
 import Duke.Task.*;
 import Duke.Ui.Ui;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -33,16 +30,21 @@ public class Command {
     public static final String MARK_MANY_TASKS_REMINDER = "Please enter a valid number from 1 to %d (inclusive).\n";
     public static final String UNMARK_ONE_TASK_REMINDER = "Please enter 'unmark 1' to check the first task as completed\n";
     public static final String UNMARK_MANY_TASKS_REMINDER = "Please enter a valid number from 1 to %d (inclusive).\n";
-    public static final String TASK_ID_OUT_OF_BOUND_ERROR_PROMPT = "There are only %d tasks.\n";
+    public static final String TASK_ID_OUT_OF_BOUND_ERROR_PROMPT = "There are only %d tasks." +
+            "Please enter a valid value or create a new task.\n";
     public static final String EVENT_START_DATE_INDICATOR = "/from";
     public static final String EVENT_END_DATE_INDICATOR = "/to";
     public static final String TASK_FOUND_MESSAGE = "Here are your results:\n\n";
-    public static final String TASK_NOT_FOUND_MESSAGE = "Sorry, we cannot find any task with the word \" %s \"";
+    public static final String TASK_NOT_FOUND_MESSAGE = "Sorry, we cannot find any task with the word \"%s\" \n";
     public static final String DEADLINE_END_DATE_INDICATOR = "/by";
     public static final String CREATE_TODO_INSTRUCTION = ToDo.taskType;
     public static final String CREATE_DEADLINE_INSTRUCTION = Deadline.taskType;
     public static final String CREATE_EVENT_INSTRUCTION = Event.taskType;
     public static final String LIST_ALL_TASK_MESSAGE = "Here are all your tasks:\n\n";
+
+    public Command() {
+
+    }
 
 
     /**
@@ -213,24 +215,6 @@ public class Command {
         } catch (IndexOutOfBoundsException e) {
             System.out.printf(TASK_ID_OUT_OF_BOUND_ERROR_PROMPT, taskList.getNumTask());
         }
-    }
-
-    /**
-     * Saves all the tasks from the taskList to the given filePath.
-     *
-     * @param filePath Path to the file to store the task list.
-     * @param taskList A TaskList object that contains Task objects.
-     * @throws IOException if the file is unable to be opened by this program.
-     */
-    public void saveTaskList(String filePath, TaskList taskList) throws IOException {
-        String taskSaveFormat;
-        FileWriter fw = new FileWriter(filePath);
-
-        for (int i = 1; i < taskList.getNumTask() + 1; i++) {
-            taskSaveFormat = taskList.getTask(i).convertToSaveFormat();
-            fw.write(taskSaveFormat + "\n");
-        }
-        fw.close();
     }
 
     /**

@@ -24,15 +24,13 @@ public class Duke {
     private final Ui ui;
     private final Storage storage;
     private final Parser parser;
-    private final Command command;
-    private final TaskList tasks1;
+    private final TaskList taskList;
 
     public Duke() {
         ui = new Ui();
-        storage = new Storage();
-        parser = new Parser();
-        command = new Command();
-        tasks1 = new TaskList();
+        storage = new Storage(DIR_PATH, FILE_PATH);
+        parser = new Parser(storage);
+        taskList = new TaskList();
     }
 
     private void interactWithUser() {
@@ -40,7 +38,7 @@ public class Duke {
         String line = in.nextLine();
         while (!line.trim().equals("bye")) {
             try {
-                parser.generateResponse(line, tasks1);
+                parser.generateResponse(line, taskList);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(PARAMETER_COUNT_ERROR_PROMPT);
             }
@@ -49,18 +47,11 @@ public class Duke {
     }
 
     private void initialiseTaskList() {
-        File file = new File(Duke.FILE_PATH);
-        File directory = new File(Duke.DIR_PATH);
-        if (!storage.verifyStorageFilePresent(directory, file)) {
+        if (!storage.verifyStorageFilePresent()) {
             return;
         }
-        Scanner s;
-        try {
-            s = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        storage.loadTaskList(s, tasks1);
+
+        storage.loadTaskList(taskList);
 
     }
 
@@ -73,7 +64,7 @@ public class Duke {
             ui.printWelcomeMessage();
             initialiseTaskList();
             interactWithUser();
-            command.saveTaskList(FILE_PATH, tasks1);
+            storage.saveTaskList(taskList);
             ui.printByeMessage();
         } catch (IOException e) {
             System.out.printf((IO_EXCEPTION_ERROR_PROMPT), FILE_PATH);

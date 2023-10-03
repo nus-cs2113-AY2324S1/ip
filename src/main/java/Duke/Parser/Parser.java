@@ -1,10 +1,13 @@
 package Duke.Parser;
 
 import Duke.Command.Command;
+import Duke.Storage.Storage;
 import Duke.Task.Deadline;
 import Duke.Task.Event;
 import Duke.Task.TaskList;
 import Duke.Task.ToDo;
+
+import java.io.IOException;
 
 /**
  * Accepts input from the user and execute the relevant commands.
@@ -18,10 +21,12 @@ public class Parser {
     private static final String CREATE_EVENT_INSTRUCTION = Event.taskType;
     private static final String DELETE_INSTRUCTION = "delete";
     private static final String FIND_INSTRUCTION = "find";
-    private static final String INVALID_COMMAND_PROMPT = "Command is Invalid!";
+    private static final String INVALID_COMMAND_PROMPT = "Command is Invalid! Please read the user guide for valid commands!";
+    private static final String FILE_SAVE_ERROR_PROMPT = "We are unable to save your task. Please restart the app.";
+    private final Storage storage;
 
-    public Parser() {
-
+    public Parser(Storage storage) {
+        this.storage = storage;
     }
 
     public void generateResponse(String input, TaskList taskList) {
@@ -57,6 +62,15 @@ public class Parser {
         default:
             System.out.println(INVALID_COMMAND_PROMPT);
             break;
+        }
+        saveTaskListAfterCommand(taskList);
+    }
+
+    private void saveTaskListAfterCommand(TaskList taskList) {
+        try {
+            storage.saveTaskList(taskList);
+        } catch (IOException e){
+            System.out.println(FILE_SAVE_ERROR_PROMPT);
         }
     }
 }

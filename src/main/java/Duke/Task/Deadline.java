@@ -27,7 +27,7 @@ public class Deadline extends Task {
     public String convertToSaveFormat() {
         String doneMarker = isDone ? "1" : "0";
         String endDateString = endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        return symbol + " | " + doneMarker + " | " + description + "/by " + endDateString;
+        return symbol + " | " + doneMarker + " | " + description + " /by " + endDateString;
     }
 
     /**

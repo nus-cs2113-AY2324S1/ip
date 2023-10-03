@@ -1,12 +1,16 @@
 package Duke.Storage;
 
 import Duke.Command.Command;
+import Duke.Duke;
 import Duke.Exception.InvalidDateTimeSpecifiedException;
 import Duke.Exception.NoTaskSpecifiedException;
 import Duke.Task.Task;
 import Duke.Task.TaskList;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -19,20 +23,38 @@ public class Storage {
     public static final String TODO_SYMBOL = "T";
     public static final String DEADLINE_SYMBOL = "D";
     public static final String EVENT_SYMBOL = "E";
-    public static final String TASK_LOADING_FAILED_MESSAGE = "Failed loading task: %s. It will be removed.";
+    public static final String TASK_LOADING_FAILED_MESSAGE = "Failed loading task:\n %s\n It will be removed.\n";
 
-    public Storage() {
-
+    private final File file;
+    private final File directory;
+    public Storage(String dirPath, String filePath) {
+        file = new File(filePath);
+        directory = new File(dirPath);
     }
 
     /**
-     * This function verifies if the file of a given filename exists
+     * Saves all the tasks from the taskList to the given filePath.
      *
-     * @param directory directory that contains the file
-     * @param file      file object of the filename.
+     * @param taskList A TaskList object that contains Task objects.
+     * @throws IOException if the file is unable to be opened by this program.
+     */
+    public void saveTaskList(TaskList taskList) throws IOException {
+        String taskSaveFormat;
+        FileWriter fw = new FileWriter(file);
+
+        for (int i = 1; i < taskList.getNumTask() + 1; i++) {
+            taskSaveFormat = taskList.getTask(i).convertToSaveFormat();
+            fw.write(taskSaveFormat + "\n");
+        }
+        fw.close();
+    }
+
+    /**
+     * This function verifies if the filename for this Storage Class exists.
+     *
      * @return True or False depend on whether the file is present.
      */
-    public boolean verifyStorageFilePresent(File directory, File file) {
+    public boolean verifyStorageFilePresent() {
         boolean isDirectoryPresent = directory.exists() && directory.isDirectory();
         if (file.exists()) {
             return true;
@@ -49,12 +71,14 @@ public class Storage {
     /**
      * Loads data from the file with a scanner pointer and place it in a TaskList
      *
-     * @param scanner  Pointer to the file data.
      * @param taskList TaskList to load the tasks from file data into.
      */
-    public void loadTaskList(Scanner scanner, TaskList taskList) {
-        while (scanner.hasNext()) {
-            String storedMessage = scanner.nextLine();
+    public void loadTaskList(TaskList taskList) {
+
+        Scanner s = initialiseFileScanner();
+
+        while (s.hasNext()) {
+            String storedMessage = s.nextLine();
             String[] messageFragments = storedMessage.split("\\|");
             Task task;
             try {
@@ -82,5 +106,16 @@ public class Storage {
                 System.out.printf(TASK_LOADING_FAILED_MESSAGE, storedMessage);
             }
         }
+    }
+
+
+    private Scanner initialiseFileScanner() {
+        Scanner s;
+        try {
+            s = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return s;
     }
 }
