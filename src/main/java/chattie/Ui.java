@@ -78,6 +78,14 @@ public class Ui {
         }
     }
 
+    public void printFilteredList(ArrayList<Task> list) {
+        System.out.println("\tHere are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print("\t" + (i+1) + ". ");
+            System.out.println(list.get(i));
+        }
+    }
+
     public void printExitMessage() {
         System.out.println("\tByeeeee. Hope to see you again soon! :)");
     }
