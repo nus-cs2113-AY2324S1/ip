@@ -9,6 +9,10 @@ import dawson.storage.Storage;
 import dawson.task.TaskList;
 import dawson.ui.TextUI;
 
+/**
+ * Entry point of the Dawson application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Dawson {
 
     private Command newCommand;
@@ -17,8 +21,10 @@ public class Dawson {
     private Storage storage;
 
     /**
-     * Dawson constructor: Mandatory initialisation of ui and storage objects 
-     * before calling setup or run methods
+     * Private constructor for the Dawson class, used for initializing the user interface, storage, and task list.
+     * Load tasks from storage if available, or initializes an empty task list if there is an issue.
+     * 
+     * <p>These initialisations are <strong>mandatory</strong> and hence is declared in the constructor to ensure dependency.</p>
      */
     private Dawson() {
         ui = new TextUI();
@@ -36,6 +42,12 @@ public class Dawson {
         ui.printWelcomeText();
     }
 
+    /**
+     * The main execution loop of the Dawson application.
+     * 
+     * <p> This method continuously accepts user input, parses commands, and executes them until the
+     * user types a "bye" command, at which point the application exits.</p>
+     */
     private void run() {
         do {
             String nextLineString = ui.getUserCommand();

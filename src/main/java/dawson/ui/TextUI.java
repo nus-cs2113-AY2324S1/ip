@@ -4,10 +4,16 @@ import java.util.Scanner;
 
 import dawson.command.CommandResult;
 
+/**
+ * Text UI of the application.
+ */
 public class TextUI {
 
+    /** A platform independent line separator. */
     private static final String LS = System.lineSeparator();
     private static final String DIVIDER = "\t_______________________________________________________" + LS;
+    /** Format of a comment input line. Comment lines are silently consumed when reading user input. */
+    private static final String COMMENT_LINE_FORMAT_REGEX = "#.*";
 
     Scanner scanner;
 
@@ -18,7 +24,7 @@ public class TextUI {
     /**
      * Prompts for the command and reads the text entered by the user.
      * Ignores empty, pure whitespace, and comment lines.
-     * Echos the command back to the user.
+     * 
      * @return command (full line) entered by the user
      */
     public String getUserCommand() {
@@ -40,33 +46,25 @@ public class TextUI {
      * @return true if the entire user input line should be ignored.
      */
     private boolean shouldIgnore(String rawInputLine) {
-        final String COMMENT_LINE_FORMAT_REGEX = "#.*";
         boolean isCommentLine = rawInputLine.trim().matches(COMMENT_LINE_FORMAT_REGEX);
-
         return rawInputLine.trim().isEmpty() || isCommentLine;
     }
 
+    /**
+     * Prints the message strings from a CommandResult to the user.
+     *
+     * @param result The CommandResult object containing message strings to be printed.
+     */
     public void printCommandResult(CommandResult result) {
         printText(result.getMessageStrings());
     }
 
     /**
-     * Print given input text together with a line as separator
-     * 
-     * @param text 
+     * Prints one or more lines of text, surrounded by a divider, to the user console.
+     *
+     * @param texts The lines of text to be printed.
      */
-    public void printText(String text) {
-        System.out.println(DIVIDER);
-        System.out.println("\t " + text);
-        System.out.println(DIVIDER);
-    }
-
-    /**
-     * Print string array of multi line text with a line as separator
-     * 
-     * @param texts multi line text
-     */
-    public void printText(String[] texts) {
+    public void printText(String... texts) {
         System.out.println(DIVIDER);
 
         for (String text : texts) {
@@ -76,6 +74,9 @@ public class TextUI {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Shows welcome message to user
+     */
     public void printWelcomeText() {
         printText(Messages.MESSAGE_WELCOME);
     }

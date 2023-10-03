@@ -4,6 +4,9 @@ import dawson.exception.DawsonException;
 import dawson.parser.Parser;
 import dawson.ui.Messages;
 
+/**
+ * Represents a Todo task 
+ */
 public class TodoTask extends Task {
 
     public TodoTask(String description) {
@@ -21,6 +24,14 @@ public class TodoTask extends Task {
         return String.format("T | %s | %s", isDoneString, description);
     }
 
+    /**
+     * Decodes an encoded string into a TodoTask object.
+     * Extract description and isDone status fields
+     *
+     * @param encodedString The encoded string to be decoded into a TodoTask.
+     * @return A TodoTask object representing the decoded task.
+     * @throws DawsonException If there is an issue decoding the string or missing fields in the encodedString.
+     */
     public static Task decodeTodo(String encodedString) throws DawsonException {
         final int TODO_FIELDS_NO = 3;
         final int DESC_INDEX = 2;

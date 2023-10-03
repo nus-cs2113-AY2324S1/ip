@@ -3,6 +3,9 @@ package dawson.command;
 import dawson.task.TaskList;
 import dawson.ui.Messages;
 
+/**
+ * Terminates the program.
+ */
 public class ExitCommand extends Command {
 
     @Override

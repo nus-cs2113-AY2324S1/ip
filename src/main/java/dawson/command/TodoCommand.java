@@ -5,6 +5,9 @@ import dawson.task.TaskList;
 import dawson.task.TodoTask;
 import dawson.ui.Messages;
 
+/**
+ * Adds a Todo task.
+ */
 public class TodoCommand extends Command {
 
     private String payload;

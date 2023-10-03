@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import dawson.exception.DawsonException;
 import dawson.task.TaskList;
 
+/**
+ * Finds all tasks with desciption matching a query string.
+ */
 public class FindCommand extends Command {
 
     private static final String MESSAGE_EMPTY_QUERY = "Empty query found! Please enter non-empty search query";
