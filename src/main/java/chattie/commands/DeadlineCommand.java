@@ -1,5 +1,6 @@
 package chattie.commands;
 
+import chattie.Parser;
 import chattie.TaskList;
 import chattie.Ui;
 import chattie.error.ChattieException;
@@ -33,6 +34,7 @@ public class DeadlineCommand extends Command {
         if (task.isEmpty() || by.isEmpty()) {
             throw new ChattieException(ErrorType.INVALID_DEADLINE); //check if [task] or [by] empty
         }
+        by = Parser.parseDate(by.trim());
 
         Deadline deadline = new Deadline(task, by);
         tasks.add(deadline);
