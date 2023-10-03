@@ -1,12 +1,12 @@
 todo Daniel Pappalardo: Answer CS2113 tutorial questions
-deadline weekly CS2113 quiz /by Monday 9pm
+deadline weekly CS2113 quiz /2023-10-09
 list
-event CS2113 lecture /from Friday 4 /to 6 pm
+event CS2113 lecture /2023-11-09 /2021-12-09
 mark 1
 list
 todo
 deadline assignment
-event class /from 4
+event class /2023-10-01
 list
 delete 2
 list
