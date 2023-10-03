@@ -1,18 +1,25 @@
-package chat0pt.helper;
+package chat0pt.storage;
 
-import chat0pt.commands.Deadline;
-import chat0pt.commands.Event;
-import chat0pt.commands.Task;
-import chat0pt.commands.Todo;
+import chat0pt.tasks.Deadline;
+import chat0pt.tasks.Event;
+import chat0pt.tasks.Task;
+import chat0pt.tasks.Todo;
+import chat0pt.ui.Ui;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class FileHandler {
-    private static final String FILEPATH = "./chat0pt.txt";
+public class Storage {
+    private static String FILEPATH = "./chat0pt.txt";
     private static final File FILE = new File(FILEPATH);
-    public static ArrayList<Task> onStart() {
-        ArrayList<Task> tasks= new ArrayList<>();
+    private static Ui ui;
+
+    public Storage(Ui ui) {
+        this.ui = ui;
+    }
+
+    public ArrayList<Task> onStart() {
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             if (FILE.exists()) {
                 tasks = readFile();
@@ -21,19 +28,20 @@ public class FileHandler {
             }
 
         } catch (IOException ex) {
-            Printer.failedFile();
+            ui.failedFile();
         }
         return tasks;
     }
+
     private static ArrayList<Task> readFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(FILEPATH));
         String line;
-        while((line = reader.readLine()) != null){
-            String[] tokens = line.split(",");
-            switch(tokens[0]){
+        while ((line = reader.readLine()) != null) {
+            String[] tokens = line.split("#");
+            switch (tokens[0]) {
             case "T":
-                if(tokens.length == 3){
+                if (tokens.length == 3) {
                     boolean marked = Boolean.parseBoolean(tokens[1]);
                     String todoString = tokens[2];
                     Task todoTask = new Todo(todoString);
@@ -42,22 +50,22 @@ public class FileHandler {
                 }
                 break;
             case "D":
-                if(tokens.length == 4){
+                if (tokens.length == 4) {
                     boolean marked = Boolean.parseBoolean(tokens[1]);
                     String deadlineString = tokens[2];
                     String byString = tokens[3];
-                    Task deadlineTask = new Deadline(deadlineString,byString);
+                    Task deadlineTask = new Deadline(deadlineString, byString);
                     deadlineTask.setMarked(marked);
                     tasks.add(deadlineTask);
                 }
                 break;
             case "E":
-                if(tokens.length == 5){
+                if (tokens.length == 5) {
                     boolean marked = Boolean.parseBoolean(tokens[1]);
                     String eventString = tokens[2];
                     String fromString = tokens[3];
                     String toString = tokens[4];
-                    Task eventTask = new Event(eventString,fromString,toString);
+                    Task eventTask = new Event(eventString, fromString, toString);
                     eventTask.setMarked(marked);
                     tasks.add(eventTask);
                 }
@@ -69,20 +77,19 @@ public class FileHandler {
         return tasks;
     }
 
-    public static boolean writeFile(ArrayList<Task> tasks){
-        try{
+    public void writeFile(ArrayList<Task> tasks) {
+        try {
             FileWriter fileWriter = new FileWriter(FILEPATH);
             BufferedWriter writer = new BufferedWriter(fileWriter);
-            for (Task t: tasks){
+            for (Task t : tasks) {
                 writer.write(t.toFile() + "\n");
             }
             writer.close();
             fileWriter.close();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;
     }
 
 }

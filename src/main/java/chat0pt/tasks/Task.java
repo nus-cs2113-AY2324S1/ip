@@ -1,6 +1,6 @@
-package chat0pt.commands;
+package chat0pt.tasks;
 
-public class Task{
+public class Task {
     private final String tasks;
     private boolean isMarked;
 
@@ -22,23 +22,23 @@ public class Task{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String toReturn = "";
-        if(isMarked){
+        if (isMarked) {
             toReturn += "[X] ";
-        } else{
+        } else {
             toReturn += "[ ] ";
         }
         return toReturn + tasks;
     }
 
 
-    public String toFile(){
+    public String toFile() {
         String toReturn = "";
-        if(isMarked){
-            toReturn += "true,";
-        } else{
-            toReturn += "false,";
+        if (isMarked) {
+            toReturn += "true#";
+        } else {
+            toReturn += "false#";
         }
         return toReturn + tasks;
     }

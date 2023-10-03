@@ -1,4 +1,4 @@
-package chat0pt.commands;
+package chat0pt.tasks;
 
 public class Event extends Task {
     private final String from;
@@ -11,12 +11,12 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString(){
-        return "[E]" + super.toString() + " (from:" + from + " to:" + to +")";
+    public String toString() {
+        return "[E]" + super.toString() + " (from:" + from + " to:" + to + ")";
     }
 
     @Override
-    public String toFile(){
-        return "E," + super.toFile() + "," + from + "," + to;
+    public String toFile() {
+        return "E#" + super.toFile() + "#" + from + "#" + to;
     }
 }

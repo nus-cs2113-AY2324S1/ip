@@ -1,8 +1,8 @@
-package chat0pt.commands;
-
+package chat0pt.tasks;
 
 public class Deadline extends Task {
     private String by;
+
     public Deadline(String tasks, String By) {
         super(tasks);
         this.by = By;
@@ -17,13 +17,13 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[D]" + super.toString() + " (by:" + by + ")";
     }
 
     @Override
-    public String toFile(){
-        return "D," + super.toFile() + "," + by;
+    public String toFile() {
+        return "D#" + super.toFile() + "#" + by;
     }
 
 }
