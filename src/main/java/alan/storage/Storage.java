@@ -17,7 +17,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static alan.common.Messages.INVALID_TASK_TYPE_FOUND;
+import static alan.common.Messages.MESSAGE_INVALID_TASK_TYPE_FOUND;
+
 /**
  * Handles reading from and storing data to the text file.
  */
@@ -113,7 +114,7 @@ public class Storage {
             taskArrayList.add(new Event(description, from, to));
             break;
         default:
-            new AlanException(INVALID_TASK_TYPE_FOUND);
+            new AlanException(MESSAGE_INVALID_TASK_TYPE_FOUND);
             break;
         }
     }

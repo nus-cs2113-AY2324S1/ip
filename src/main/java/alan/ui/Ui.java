@@ -11,9 +11,10 @@ import java.util.Scanner;
 import static alan.common.Messages.MESSAGE_DELETE_TASK;
 import static alan.common.Messages.MESSAGE_GOODBYE;
 import static alan.common.Messages.MESSAGE_GREET;
-import static alan.common.Messages.MESSAGE_LIST_COMMAND;
 import static alan.common.Messages.MESSAGE_MARK_TASK;
 import static alan.common.Messages.MESSAGE_UNMARK_TASK;
+import static alan.common.Messages.MESSAGE_LIST_COMMAND;
+
 /**
  * Represents the text UI of the application
  */
@@ -67,7 +68,7 @@ public class Ui {
      *
      * @param taskList tasks in the list
      */
-    public void showListMessage(ArrayList<Task> taskList) {
+    public void printTasks(ArrayList<Task> taskList) {
         showToUser(MESSAGE_LIST_COMMAND);
         for (int i = 0; i < taskList.size(); i++) {
             System.out.print((i + DISPLAYED_INDEX_OFFSET) + ". ");

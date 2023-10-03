@@ -4,12 +4,13 @@ import alan.data.task.Task;
 
 import java.util.ArrayList;
 
-import static alan.common.Messages.EMPTY_DESCRIPTION_MESSAGE;
-import static alan.common.Messages.INVALID_DEADLINE_FORMAT_MESSAGE;
-import static alan.common.Messages.INVALID_EVENT_FROM_FORMAT_MESSAGE;
-import static alan.common.Messages.INVALID_EVENT_TO_FORMAT_MESSAGE;
-import static alan.common.Messages.INVALID_INPUT_COMMAND_MESSAGE;
-import static alan.common.Messages.INVALID_TASK_NUMBER_MESSAGE;
+import static alan.common.Messages.MESSAGE_EMPTY_DESCRIPTION;
+import static alan.common.Messages.MESSAGE_INVALID_DEADLINE_FORMAT;
+import static alan.common.Messages.MESSAGE_INVALID_EVENT_FROM_FORMAT;
+import static alan.common.Messages.MESSAGE_INVALID_EVENT_TO_FORMAT;
+import static alan.common.Messages.MESSAGE_INVALID_INPUT_COMMAND;
+import static alan.common.Messages.MESSAGE_INVALID_TASK_NUMBER;
+
 /**
  * Represents the error handling class.
  */
@@ -30,7 +31,7 @@ public class AlanException extends Exception {
         int lastTaskIndex = taskList.size() - 1;
 
         if (selectedIndex > lastTaskIndex) {
-            throw new AlanException(INVALID_TASK_NUMBER_MESSAGE);
+            throw new AlanException(MESSAGE_INVALID_TASK_NUMBER);
         }
     }
 
@@ -40,7 +41,7 @@ public class AlanException extends Exception {
      * @throws AlanException If selected index is out of range of taskList.
      */
     public static void invalidInputCommand() throws AlanException {
-        throw new AlanException(INVALID_INPUT_COMMAND_MESSAGE);
+        throw new AlanException(MESSAGE_INVALID_INPUT_COMMAND);
     }
 
     /**
@@ -52,7 +53,7 @@ public class AlanException extends Exception {
         String[] userInputWords = userInput.split(" ");
 
         if (userInputWords.length == 1) {
-            throw new AlanException(EMPTY_DESCRIPTION_MESSAGE);
+            throw new AlanException(MESSAGE_EMPTY_DESCRIPTION);
         }
     }
 
@@ -64,7 +65,7 @@ public class AlanException extends Exception {
      */
     public static void checkDeadlineInputFormat(String[] words) throws AlanException {
         if (words.length == 1) {
-            throw new AlanException(INVALID_DEADLINE_FORMAT_MESSAGE);
+            throw new AlanException(MESSAGE_INVALID_DEADLINE_FORMAT);
         }
     }
     /**
@@ -75,7 +76,7 @@ public class AlanException extends Exception {
      */
     public static void checkEventInputFromFormat(String[] splitDescriptionAndDate) throws AlanException {
         if (splitDescriptionAndDate.length == 1) {
-            throw new AlanException(INVALID_EVENT_FROM_FORMAT_MESSAGE);
+            throw new AlanException(MESSAGE_INVALID_EVENT_FROM_FORMAT);
         }
     }
     /**
@@ -86,7 +87,7 @@ public class AlanException extends Exception {
      */
     public static void checkEventInputToFormat(String[] splitFromAndTo) throws AlanException {
         if (splitFromAndTo.length == 1) {
-            throw new AlanException(INVALID_EVENT_TO_FORMAT_MESSAGE);
+            throw new AlanException(MESSAGE_INVALID_EVENT_TO_FORMAT);
         }
     }
 

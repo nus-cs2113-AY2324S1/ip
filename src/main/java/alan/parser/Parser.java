@@ -5,6 +5,9 @@ import alan.data.exception.AlanException;
 import alan.data.task.Task;
 import alan.ui.Ui;
 
+import static alan.common.Messages.MESSAGE_FIND_TASK;
+import static alan.common.Messages.MESSAGE_LIST_COMMAND;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -67,6 +70,9 @@ public class Parser {
         case "delete":
             deleteCommandHandler(userInput);
             break;
+        case "find":
+            findCommandHandler(userInput);
+            break;
         default:
             invalidInputCommand();
         }
@@ -76,7 +82,8 @@ public class Parser {
      * Handles displaying all the tasks within the TaskList.
      */
     public void listCommandHandler() {
-        ui.showListMessage(tasks.getTaskList());
+        ui.showToUser(MESSAGE_LIST_COMMAND);
+        ui.printTasks(tasks.getTaskList());
     }
 
     /**
@@ -186,6 +193,21 @@ public class Parser {
         ui.showNumberOfTasksMessage(numberOfTasks);
     }
 
+    public void findCommandHandler(String userInput) {
+        String findText = userInput.replace("find ", "");
+        TaskList findResultTasks = new TaskList();
+
+        for (Task task : tasks.getTaskList()) {
+            String taskDescription = task.getDescription();
+
+            if (taskDescription.matches("(.*)" + findText + "(.*)")) {
+                findResultTasks.getTaskList().add(task);
+            }
+        }
+
+        ui.showToUser(MESSAGE_FIND_TASK);
+        ui.printTasks(findResultTasks.getTaskList());
+    }
     private String parseDate(String inputDate) {
         if (isValidDate(inputDate)) {
             LocalDate parsedDate = LocalDate.parse(inputDate);
