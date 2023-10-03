@@ -277,11 +277,11 @@ The `bye` command  exits the application.
 
 #### Usage
 
-##### `bye` - find a task that contains a certain keyword.
+##### `bye` - Exit Chatty application.
 ##### Format: `bye`
 Example of usage:
 
-You are satisfied with the updating of the task list this time round, and you wish to exit the application 
+You are satisfied with the updating of the task list this time round, and you wish to say goodbye to Chatty 
 for the time being.
 ```
 bye
