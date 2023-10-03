@@ -40,6 +40,8 @@ public class Parser {
             return new EventCommand(command);
         case "bye":
             return new ExitCommand();
+        case "find":
+            return new FindCommand(command);
         default:
             return new EchoCommand(command);
         }
