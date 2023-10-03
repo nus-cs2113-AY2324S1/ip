@@ -3,13 +3,8 @@ package jarvis.storage;
 import jarvis.exception.JarvisException;
 import jarvis.tasks.Task;
 import jarvis.tasklist.TaskList;
-import jarvis.tasks.Deadline;
-import jarvis.tasks.Todo;
-import jarvis.tasks.Event;
 
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
@@ -22,15 +17,15 @@ public class Storage {
     }
 
     /**
-     * Write new data to file
-     * @param filePath - specify file location where data is written to
-     * @param dataToAdd - data to be written
-     * @param toAppend - if True, data is added to the back of the existing data
-    **/
-    private void writeToFile(String filePath, String dataToAdd, boolean toAppend) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath, toAppend);
-        fileWriter.write(dataToAdd);
-        fileWriter.close();
+     * Clear the content of a file.
+     * @throws IOException If an I/O error occurs.
+     */
+    private void clearFileContent() throws IOException {
+        try (FileWriter fileWriter = new FileWriter(dataFile, false)) {
+            fileWriter.write("");
+        } catch (IOException e) {
+            throw new IOException("An error occurred while trying to clear the file: " + e.getMessage(), e);
+        }
     }
 
     public void loadData(TaskList tasks) throws JarvisException, IOException {
@@ -52,67 +47,38 @@ public class Storage {
             if (dataFile.createNewFile()) {
                 System.out.println("    Task-list created: " + dataFile.getName());
             }
-        } catch (NullPointerException | IOException invalidFilePath) {
+        } catch (IOException invalidFilePath) {
             System.out.println("    " + invalidFilePath.getMessage());
         }
-        int taskIndex = 0;
-        try {
-            Scanner fileScanner = new Scanner(dataFile);
+
+        try (Scanner fileScanner = new Scanner(dataFile)) {
+            int taskIndex = 0;
             while (fileScanner.hasNext()) {
                 taskIndex++;
                 String nextTask = fileScanner.nextLine();
                 String[] taskSubStrings = nextTask.split("\\|");
+
                 String taskType = taskSubStrings[0].strip();
                 String taskDoneStatus = taskSubStrings[1].strip();
                 String taskDescription = taskSubStrings[2].strip();
 
                 switch (taskType) {
-                case "T": tasks.addToTaskList("todo " + taskDescription,
-                        Task.TaskType.TODO, false);
-                    if (taskDoneStatus.equals("done")) {
-                        tasks.markTaskAsDone(taskIndex, false);
-                    }
+                case "T":
+                    StorageManager.handleTodoTask(tasks, taskIndex, taskDoneStatus, taskDescription);
                     break;
                 case "D":
-                    String dueTime = taskSubStrings[3].replace("(by:", "")
-                            .replace(")", "").strip();
-                    tasks.addToTaskList("deadline " + taskDescription + " /by " + dueTime,
-                            Task.TaskType.DEADLINE, false);
-                    if (taskDoneStatus.equals("done")) {
-                        tasks.markTaskAsDone(taskIndex, false);
-                    }
+                    StorageManager.handleDeadlineTask(tasks, taskIndex, taskDoneStatus, taskDescription, taskSubStrings[3]);
                     break;
                 case "E":
-                    String[] taskTimings = taskSubStrings[3].strip().split("\\(from:")[1]
-                            .split("to:");
-                    String startTime = taskTimings[0];
-                    String endTime = taskTimings[1].split("\\)")[0];
-                    tasks.addToTaskList("event " + taskDescription + " /from " + startTime
-                            + " /to " + endTime, Task.TaskType.EVENT, false);
-                    if (taskDoneStatus.equals("done")) {
-                        tasks.markTaskAsDone(taskIndex, false);
-                    }
+                    StorageManager.handleEventTask(tasks, taskIndex, taskDoneStatus, taskDescription, taskSubStrings[3]);
                     break;
                 default:
                     System.out.println(nextTask);
                     break;
                 }
             }
-        }
-        catch(NullPointerException | IOException  invalidFilePath){
+        } catch (IOException invalidFilePath) {
             System.out.println("    " + invalidFilePath.getMessage());
-        }
-    }
-
-    /**
-     * Clear the content of a file.
-     * @throws IOException If an I/O error occurs.
-     */
-    private void clearFileContent() throws IOException {
-        try (FileWriter fileWriter = new FileWriter(dataFile, false)) {
-            fileWriter.write("");
-        } catch (IOException e) {
-            throw new IOException("An error occurred while trying to clear the file: " + e.getMessage(), e);
         }
     }
 
@@ -130,28 +96,28 @@ public class Storage {
                 switch (task.getTaskType()) {
                 case TODO:
                     if (task.taskIsDone()) {
-                        writeToFile(dataFile.getPath(), "T | done |  " + task.getDescription()
+                        StorageManager.writeToFile(dataFile.getPath(), "T | done |  " + task.getDescription()
                                 + System.lineSeparator(), true);
                     } else {
-                        writeToFile(dataFile.getPath(), "T | undone |  " + task.getDescription()
+                        StorageManager.writeToFile(dataFile.getPath(), "T | undone |  " + task.getDescription()
                                 + System.lineSeparator(), true);
                     }
                     break;
                 case DEADLINE:
                     if (task.taskIsDone()) {
-                        writeToFile(dataFile.getPath(), "D | done |  " + task.getDescription()
+                        StorageManager.writeToFile(dataFile.getPath(), "D | done |  " + task.getDescription()
                                 + " | " + task.getTime() + System.lineSeparator(), true);
                     } else {
-                        writeToFile(dataFile.getPath(), "D | undone |  " + task.getDescription()
+                        StorageManager.writeToFile(dataFile.getPath(), "D | undone |  " + task.getDescription()
                                 + " | " + task.getTime() + System.lineSeparator(), true);
                     }
                     break;
                 case EVENT:
                     if (task.taskIsDone()) {
-                        writeToFile(dataFile.getPath(), "E | done |  " + task.getDescription()
+                        StorageManager.writeToFile(dataFile.getPath(), "E | done |  " + task.getDescription()
                                 + " | " + task.getTime() + System.lineSeparator(), true);
                     } else {
-                        writeToFile(dataFile.getPath(), "E | undone |  " + task.getDescription()
+                        StorageManager.writeToFile(dataFile.getPath(), "E | undone |  " + task.getDescription()
                                 + " | " + task.getTime() + System.lineSeparator(), true);
                     }
                     break;
