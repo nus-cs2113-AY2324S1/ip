@@ -150,6 +150,7 @@ public class Herbert {
             // Create and add task
             Todo td = new Todo(description);
             this.tasks.add(td);
+            HerbertReader.addTaskToSaveFile(td);
 
             // Print success message
             printMessageAddTask(td);
@@ -166,6 +167,7 @@ public class Herbert {
             // Create and add task
             Deadline dl = new Deadline(dlDetails);
             tasks.add(dl);
+            HerbertReader.addTaskToSaveFile(dl);
 
             // Print success message
             printMessageAddTask(dl);
@@ -181,6 +183,7 @@ public class Herbert {
             // Create and add task
             Event ev = new Event(evDetails);
             tasks.add(ev);
+            HerbertReader.addTaskToSaveFile(ev);
 
             // Print success message
             printMessageAddTask(ev);

@@ -2,20 +2,25 @@ package duke;
 
 import task.Deadline;
 import task.Event;
+import task.Task;
 import task.Todo;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.nio.file.StandardOpenOption;
+import java.sql.SQLOutput;
 
 public abstract class HerbertReader {
 
+    private static final Path folderPath = Paths.get("data");
+    private static final Path filePath = folderPath.resolve("HerbertTasks.txt");
+
     public static void createSaveFileIfNotExists() {
-        Path folderPath = Paths.get("data");
-        Path filePath = folderPath.resolve("HerbertTasks.txt");
 
         try {
             // Create directory if it doesn't exist
@@ -33,7 +38,6 @@ public abstract class HerbertReader {
     }
 
     public static void loadFromSaveFile(Herbert herbert) {
-        Path filePath = Paths.get("data", "HerbertTasks.txt");
 
         try {
             BufferedReader reader = Files.newBufferedReader(filePath);
@@ -62,9 +66,37 @@ public abstract class HerbertReader {
 
                 line = reader.readLine();
             }
-        } catch (IOException | SecurityException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public static void addTaskToSaveFile(Task t) {
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(
+                    filePath,
+                    StandardCharsets.UTF_8,
+                    StandardOpenOption.APPEND
+            );
+
+            StringBuilder s = new StringBuilder(String.format(
+                    "%s | %s | %s",
+                    t.getCode(),
+                    t.isCompleted() ? "1" : "0",
+                    t.getDescription()
+            ));
+            if (t instanceof Deadline) {
+                s.append(String.format(" | %s", ((Deadline) t).getDueDate()));
+            } else if (t instanceof Event) {
+                Event e = (Event) t;
+                s.append(String.format(" | %s | %s", e.getFrom(), e.getTo()));
+            }
+
+            writer.write(s.toString());
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
