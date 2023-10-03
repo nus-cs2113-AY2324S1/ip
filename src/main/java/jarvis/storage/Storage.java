@@ -12,13 +12,19 @@ import java.util.Scanner;
 
 public class Storage {
     private final File dataFile;
+    /**
+     * Initializes a new Storage instance.
+     *
+     * @param filePath The file path of the data storage file.
+     */
     public Storage(String filePath){
         dataFile = new File(filePath);
     }
 
     /**
-     * Clear the content of a file.
-     * @throws IOException If an I/O error occurs.
+     * Clears all content in the data file.
+     *
+     * @throws IOException If an I/O error occurs during file writing.
      */
     private void clearFileContent() throws IOException {
         try (FileWriter fileWriter = new FileWriter(dataFile, false)) {
@@ -27,7 +33,13 @@ public class Storage {
             throw new IOException("An error occurred while trying to clear the file: " + e.getMessage(), e);
         }
     }
-
+    /**
+     * Loads tasks from the data file into the application.
+     *
+     * @param tasks TaskList instance to populate with loaded tasks.
+     * @throws JarvisException If invalid task data is encountered.
+     * @throws IOException If an I/O error occurs.
+     */
     public void loadData(TaskList tasks) throws JarvisException, IOException {
         buildTaskListFromFile(tasks);
         if (tasks.getTaskListSize() > 0) {
@@ -39,8 +51,11 @@ public class Storage {
     }
 
     /**
-     * Build the array list from the local datafile
-     * @param tasks - load tasklist array from TaskList
+     * Populates the provided TaskList instance with tasks from the data file.
+     *
+     * @param tasks TaskList instance to populate.
+     * @throws IOException If an I/O error occurs during file reading.
+     * @throws JarvisException If invalid task data is encountered.
      */
     private void buildTaskListFromFile(TaskList tasks) throws IOException, JarvisException {
         try {
@@ -83,12 +98,11 @@ public class Storage {
             System.out.println("    " + invalidFilePath.getMessage());
         }
     }
-
     /**
-     * update the text file at each instance of edit
-     * clear file content before each update to avoid duplicates
-     * BUG: Continuously appending to the text file - duplications
-     * @param tasks - tasklist array from TaskList
+     * Updates the data file to reflect the current state of the provided TaskList instance.
+     * Clears the data file and repopulates it with the serialized task data present within
+     * the provided TaskList instance.
+     * @param tasks The current task list.
      */
     public void updateFile(TaskList tasks){
         try{

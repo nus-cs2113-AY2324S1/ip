@@ -47,10 +47,11 @@ public class TaskList {
     }
 
     /**
-     * TODO: review the need for displayMessage
-     * @param userInput - takes in user input
-     * @param taskType - define taskType - TODO, DEADLINE, EVENT
-     * @param displayMessage - boolean config to display message on CLI
+     * Adds a task to the task list based on user input and type.
+     *
+     * @param userInput       User's input
+     * @param taskType        Type of task - TODO, DEADLINE, or EVENT
+     * @param displayMessage  Flag to decide whether to display a message on the CLI after adding
      */
     public void addToTaskList(String userInput, Task.TaskType taskType, boolean displayMessage){
         switch(taskType){
