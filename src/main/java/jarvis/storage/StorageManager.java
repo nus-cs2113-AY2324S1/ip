@@ -41,6 +41,5 @@ public class StorageManager {
         if ("done".equals(taskDoneStatus)) {
             tasks.markTaskAsDone(taskIndex, false);
         }
-
     }
 }

@@ -1,7 +1,6 @@
 package jarvis.tasklist;
 
 import jarvis.exception.JarvisException;
-import jarvis.tasks.Task;
 import jarvis.tasks.Todo;
 import jarvis.tasks.Deadline;
 import jarvis.tasks.Event;
