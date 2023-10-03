@@ -14,7 +14,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void runCommand(Ui ui, Storage storage, TaskList tasks) {
+    public void runCommand(Ui ui, TaskList tasks) {
         ArrayList<Task> foundTasks = tasks.findTasks(commandString);
         if (foundTasks.isEmpty()){
             ui.failedFind();
