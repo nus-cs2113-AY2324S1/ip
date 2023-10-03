@@ -5,17 +5,23 @@ import alan.data.exception.AlanException;
 import alan.data.task.Task;
 import alan.ui.Ui;
 
-import static alan.data.exception.AlanException.checkDeadlineInputFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static alan.data.exception.AlanException.checkEmptyDescription;
 import static alan.data.exception.AlanException.checkEventInputFromFormat;
 import static alan.data.exception.AlanException.checkEventInputToFormat;
 import static alan.data.exception.AlanException.checkOutOfTaskListIndex;
 import static alan.data.exception.AlanException.invalidInputCommand;
+import static alan.data.exception.AlanException.checkDeadlineInputFormat;
 
 /**
  * Represents a parser that parses the user input.
  */
 public class Parser {
+    public static final String DATE_PARSE_PATTERN = "dd MMM yyyy";
     private TaskList tasks;
     private Ui ui;
 
@@ -108,6 +114,7 @@ public class Parser {
 
         ui.showTaskAddedMessage(tasks.getTaskList());
     }
+
     /**
      * Handles extracting description and 'by' time period text.
      * Adds <code>Deadline</code> object to the TaskList.
@@ -124,10 +131,12 @@ public class Parser {
         String description = data[0];
         String by = data[1];
 
-        tasks.addDeadline(description, by);
+        String parsedBy = parseDate(by);
 
+        tasks.addDeadline(description, parsedBy);
         ui.showTaskAddedMessage(tasks.getTaskList());
     }
+
     /**
      * Handles extracting description, 'from' time period and 'to' time period text.
      * Adds <code>Event</code> object to the TaskList.
@@ -149,10 +158,14 @@ public class Parser {
         String from = splitFromAndTo[0];
         String to = splitFromAndTo[1];
 
-        tasks.addEvent(description, from, to);
+        String parsedFrom = parseDate(from);
+        String parsedTo = parseDate(to);
+
+        tasks.addEvent(description, parsedFrom, parsedTo);
 
         ui.showTaskAddedMessage(tasks.getTaskList());
     }
+
     /**
      * Handles extracting the user's selected task index.
      * Deletes selected task from TaskList.
@@ -171,5 +184,24 @@ public class Parser {
 
         int numberOfTasks = tasks.getTaskListSize();
         ui.showNumberOfTasksMessage(numberOfTasks);
+    }
+
+    private String parseDate(String inputDate) {
+        if (isValidDate(inputDate)) {
+            LocalDate parsedDate = LocalDate.parse(inputDate);
+            inputDate = parsedDate.format(DateTimeFormatter.ofPattern(DATE_PARSE_PATTERN));
+        }
+        return inputDate;
+    }
+
+    public boolean isValidDate(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
     }
 }
