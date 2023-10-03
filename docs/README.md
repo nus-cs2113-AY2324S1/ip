@@ -3,6 +3,16 @@ Chat0PT is a **desktop command-line application to keep track of a user's tasks*
 
 * [Quick Start](#quick-start)
 * [Features](#features)
+  * [List all tasks `list`](#list-all-tasks-list)
+  * [Add a Todo task `todo`](#add-a-todo-task-todo)
+  * [Add a Deadline task `deadline`](#add-a-deadline-task-deadline)
+  * [Add a Event task `event`](#add-a-event-task-event)
+  * [Deleting a task `delete`](#deleting-a-task-delete)
+  * [Marking a task as done `done`](#marking-a-task-as-done-done)
+  * [Marking a task as not done `unmark`](#marking-a-task-as-not-done-unmark)
+  * [Searching for tasks by name `find`](#searching-for-tasks-by-name-find)
+  * [Terminating the program](#terminating-the-program)
+* [Command Summary](#command-summary)
 
 ## Quick Start 
 1. Ensure that you have Java `11` installed on your computer.
