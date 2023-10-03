@@ -6,6 +6,10 @@ public class Main {
 
     public static void main(String[] args) {
         Herbert herbert = new Herbert();
+
+        HerbertReader.createSaveFileIfNotExists();
+        HerbertReader.loadFromSaveFile(herbert);
+
         Scanner scan = new Scanner(System.in);
 
         String line;

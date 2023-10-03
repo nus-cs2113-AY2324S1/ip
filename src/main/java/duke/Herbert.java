@@ -152,6 +152,7 @@ public class Herbert {
             // Create and add task
             Todo td = new Todo(description);
             this.tasks.add(td);
+            HerbertReader.addTaskToSaveFile(td);
 
             // Print success message
             printMessageAddTask(td);
@@ -168,6 +169,7 @@ public class Herbert {
             // Create and add task
             Deadline dl = new Deadline(dlDetails);
             tasks.add(dl);
+            HerbertReader.addTaskToSaveFile(dl);
 
             // Print success message
             printMessageAddTask(dl);
@@ -183,6 +185,7 @@ public class Herbert {
             // Create and add task
             Event ev = new Event(evDetails);
             tasks.add(ev);
+            HerbertReader.addTaskToSaveFile(ev);
 
             // Print success message
             printMessageAddTask(ev);
@@ -192,7 +195,7 @@ public class Herbert {
 
     private void deleteTask(String line) {
         if (checkInputTaskIndex(line) == -1) {
-           return;
+            return;
         }
 
         int taskIndex = extractTaskIndex(line);
@@ -207,6 +210,10 @@ public class Herbert {
         Task taskCopy = tasks.get(taskIndex);
         tasks.remove(taskIndex);
         printMessageDeleteTask(taskCopy);
+    }
+
+    public void addTask(Task t) {
+        this.tasks.add(t);
     }
 
     private int checkInputAddTask(String line) {
@@ -259,7 +266,7 @@ public class Herbert {
                     (i + 1),
                     tasks.get(i).getCode(),
                     tasks.get(i).getStatusIcon(),
-                    tasks.get(i).getDescription()
+                    tasks.get(i)
             );
         }
 

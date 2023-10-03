@@ -11,6 +11,10 @@ public class Event extends Task {
         this.to = to;
     }
 
+    // String[] in the format:
+    // details[0] = description
+    // details[1] = from
+    // details[2] = to
     public Event(String[] details) {
         super(details[0]);
         this.from = details[1];
@@ -24,5 +28,13 @@ public class Event extends Task {
     @Override
     public String toString() {
         return super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+    }
+
+    public String getFrom() {
+        return this.from;
+    }
+
+    public String getTo() {
+        return this.to;
     }
 }
