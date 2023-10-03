@@ -9,6 +9,10 @@ import dawson.storage.Storage;
 import dawson.task.TaskList;
 import dawson.ui.TextUI;
 
+/**
+ * Entry point of the Dawson application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Dawson {
 
     private Command newCommand;
