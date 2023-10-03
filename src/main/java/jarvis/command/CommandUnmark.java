@@ -8,7 +8,7 @@ import jarvis.ui.Ui;
 public class CommandUnmark extends Command {
     private final int taskIndex;
     public CommandUnmark(int taskIndex){
-        super(CommandType.MARK);
+        super(CommandType.UNMARK);
         this.taskIndex = taskIndex;
     }
 

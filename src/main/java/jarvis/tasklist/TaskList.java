@@ -7,6 +7,7 @@ import jarvis.tasks.Todo;
 import jarvis.tasks.Deadline;
 import jarvis.tasks.Event;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  */
 
 public class TaskList {
+    private static final int ZERO_INDEX_OFFSET = 1;
     private final ArrayList<Task> taskList = new ArrayList<>();
 
     public ArrayList<Task> getTaskList(){
@@ -104,15 +106,17 @@ public class TaskList {
         }
     }
 
+    // TODO: abstract mark, unmark and delete to TaskManager
     public void markTaskAsDone(int index) throws JarvisException {
+        int zero_index = index - ZERO_INDEX_OFFSET;
         try {
-            if (isValidIndex(index)) {
+            if (isValidIndex(zero_index)) {
                 System.out.println("Nice! I've marked this task as done:");
-                taskList.get(index).markAsDone();
-                System.out.println("    " + taskList.get(index));
+                taskList.get(zero_index).markAsDone();
+                System.out.println("    " + taskList.get(zero_index));
             }
             else {
-                throw JarvisException.invalidTaskNumber(index);
+                throw JarvisException.invalidTaskNumber(zero_index);
             }
         } catch (JarvisException e) {
             System.out.println(e.getMessage());
@@ -120,11 +124,12 @@ public class TaskList {
     }
 
     public void markTaskAsUndone(int index) throws JarvisException {
+        int zero_index = index - ZERO_INDEX_OFFSET;
         try {
-            if (isValidIndex(index)) {
+            if (isValidIndex(zero_index)) {
                 System.out.println("Oh NO! I've unmarked this task as undone:");
-                taskList.get(index).markAsUndone();
-                System.out.println("    " + taskList.get(index));
+                taskList.get(zero_index).markAsUndone();
+                System.out.println("    " + taskList.get(zero_index));
                 System.out.println("Get Grinding Son");
             }
             else {
@@ -134,6 +139,23 @@ public class TaskList {
             System.out.println(e.getMessage());
         }
     }
+
+    public void deleteTask(int index) throws JarvisException {
+        int zero_index = index - ZERO_INDEX_OFFSET;
+        try {
+            if (isValidIndex(zero_index)) {
+                Task removedTask = taskList.remove(zero_index);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println("    " + removedTask);
+                displayTaskCount();
+            } else {
+                throw JarvisException.invalidTaskNumber(zero_index);
+            }
+        } catch (JarvisException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private boolean isValidIndex(int index) {
         return index >= 0 && index < taskList.size();
     }
