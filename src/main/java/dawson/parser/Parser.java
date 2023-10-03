@@ -1,5 +1,12 @@
 package dawson.parser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
+
 import dawson.command.Command;
 import dawson.command.DeadlineCommand;
 import dawson.command.DeleteCommand;
@@ -8,6 +15,7 @@ import dawson.command.ExitCommand;
 import dawson.command.InvalidCommand;
 import dawson.command.ListCommand;
 import dawson.command.MarkCommand;
+import dawson.command.DateCommand;
 import dawson.command.TodoCommand;
 import dawson.command.UnmarkCommand;
 import dawson.exception.DawsonException;
@@ -15,6 +23,12 @@ import dawson.task.*;
 import dawson.ui.Messages;
 
 public class Parser {
+
+    public static final DateTimeFormatter userDateFormat = 
+        DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+    public static final DateTimeFormatter userDateTimeFormat = DateTimeFormatter
+        .ofPattern("dd MMM yyyy, HH:mm");
 
     public static final String COMMAND_DELIMITER = "\\s+";
     public static final String TASK_DELIMITER = "\\|";
@@ -33,6 +47,8 @@ public class Parser {
                 return new EventCommand(payload);
             case Command.LIST_COMMAND:
                 return new ListCommand();
+            case Command.DATE_COMMAND:
+                return new DateCommand(payload);
             case Command.DELETE_COMMAND:
                 return new DeleteCommand(payload);
             case Command.MARK_COMMAND:
@@ -61,6 +77,28 @@ public class Parser {
                 return EventTask.decodeEvent(encodedTaskString);
         }
         throw new DawsonException(Messages.MESSAGE_PARSE_TASK_ERROR);
+    }
+
+    public static LocalDateTime parseDateTime(String dateTimeString, boolean isStart) {
+        DateTimeFormatter parseFormat = new DateTimeFormatterBuilder()
+            .appendPattern("d/M/yyyy")
+            .optionalStart()
+            .appendPattern(" HHmm")
+            .optionalEnd()
+            .parseDefaulting(ChronoField.HOUR_OF_DAY, isStart ? 0 : 23)
+            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, isStart ? 0 : 59)
+            .toFormatter();
+        
+        try {
+            return LocalDateTime.parse(dateTimeString, parseFormat);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static LocalDate parseDate(String dateString) throws DateTimeParseException {
+        DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
+        return LocalDate.parse(dateString, parseFormat);
     }
 
 }
