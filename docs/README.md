@@ -1,5 +1,3 @@
-
-
 # DUKE User Guide
 
 Duke is a command line interface (CLI) application that helps you keep track of your tasks. It is cross platform and can run on any machine that has Java installed. This serves as a User Guide for the CS2113 individual project.
@@ -23,9 +21,12 @@ Duke is a command line interface (CLI) application that helps you keep track of 
     - [8. `List` -  List all tasks](#8-list----list-all-tasks)
     - [9. `Bye` -  Exits the program](#9-bye----exits-the-program)
     - [Autosave and load](#autosave-and-load)
-    - [Command summary](#command-summary)
+- [Command summary](#command-summary)
+  
 ---
+
 ## Quick Start
+
 1. Ensure you have Java 11 or above installed. If not you can download it [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
 
 2. Download the latest `duke.jar` from [here]
@@ -36,10 +37,11 @@ Duke is a command line interface (CLI) application that helps you keep track of 
 
 5. Run the command `java -jar duke.jar` to start the app. 
 
-6. A welcome greeting message by duke will be shown. 
+6. A welcome greeting message by duke will be shown:
 
-  ```
-  ____________________________________________________________
+
+```
+____________________________________________________________
 Hello! I'm Duke
 What can I do for you?
  ____        _        
@@ -49,7 +51,8 @@ What can I do for you?
 |____/ \__,_|_|\_\___|
 
 ____________________________________________________________
-   ```
+```
+
 
 7. Type the command in the command box ```Enter command: ``` and press Enter to execute. For example typing `list` and pressing Enter will list all the tasks you have.
 
@@ -247,7 +250,7 @@ Bye. Hope to see you again soon!
 The program will create a file /data/duke.txt to store the tasks on the disk. The tasks will be loaded from the file when the program starts and will be saved to the file when the program exits.
 
 
-### Command summary
+# Command summary
 
 Command | Format | Description
 --- | --- | ---
