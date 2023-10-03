@@ -51,8 +51,8 @@ public class Parser {
                     return new AddCommand(parseEvent(arguments));
                 case "delete":
                     return new DeleteCommand(parseTaskIndex(arguments));
-                //case "find":
-                //    return new FindCommand(parseFind(arguments));
+                case "find":
+                    return new FindCommand(parseFind(arguments));
                 default:
                     return new InvalidCommand();
             }
@@ -60,7 +60,7 @@ public class Parser {
             throw e;
         }
     }
-//
+
     private static String dateTimePatternValidation(String date) throws InvalidDateFormatException {
         if (date.matches("\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4}")) {
             return "d/M/yyyy HHmm";
