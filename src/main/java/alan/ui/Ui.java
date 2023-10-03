@@ -1,5 +1,6 @@
 package alan.ui;
 
+import alan.data.exception.AlanException;
 import alan.data.task.Task;
 
 import java.io.InputStream;
@@ -13,7 +14,9 @@ import static alan.common.Messages.MESSAGE_GREET;
 import static alan.common.Messages.MESSAGE_LIST_COMMAND;
 import static alan.common.Messages.MESSAGE_MARK_TASK;
 import static alan.common.Messages.MESSAGE_UNMARK_TASK;
-
+/**
+ * Represents the text UI of the application
+ */
 public class Ui {
     public static final int DISPLAYED_INDEX_OFFSET = 1;
     private static final String horizontalDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
@@ -29,6 +32,11 @@ public class Ui {
         this.out = out;
     }
 
+    /**
+     * Reads the user input
+     *
+     * @return string of the user's input text
+     */
     public String getUserCommand() {
         System.out.print("Input: ");
 
@@ -54,6 +62,11 @@ public class Ui {
         showToUser(MESSAGE_GOODBYE);
     }
 
+    /**
+     * Prints all the <code>Task</code> objects in a list format
+     *
+     * @param taskList tasks in the list
+     */
     public void showListMessage(ArrayList<Task> taskList) {
         showToUser(MESSAGE_LIST_COMMAND);
         for (int i = 0; i < taskList.size(); i++) {
@@ -85,6 +98,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the last <code>Task</code> object added to the taskList
+     *
+     * @param taskList tasks in the list
+     */
     public void showTaskAddedMessage(ArrayList<Task> taskList) {
         int numberOfTasks = taskList.size();
         int lastTaskIndex = taskList.size() - 1;

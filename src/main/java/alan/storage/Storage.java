@@ -1,5 +1,6 @@
 package alan.storage;
 
+import alan.data.TaskList;
 import alan.data.exception.AlanException;
 import alan.data.task.Deadline;
 import alan.data.task.Event;
@@ -17,7 +18,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static alan.common.Messages.INVALID_TASK_TYPE_FOUND;
-
+/**
+ * Handles reading from and storing data to the text file.
+ */
 public class Storage {
     private String filePath;
     private ArrayList<Task> taskArrayList;
@@ -38,7 +41,11 @@ public class Storage {
         saveFileHandler();
     }
 
-    // load from text file
+    /**
+     * Reads the text file from the specified file path and stores the tasks in an ArrayList.
+     *
+     * @throws FileNotFoundException If file is not found at the specified file path.
+     */
     private void readFileHandler() throws FileNotFoundException {
         String userWorkingDirectory = System.getProperty("user.dir");
         java.nio.file.Path tasksFilePath = java.nio.file.Paths.get(userWorkingDirectory, filePath);
@@ -56,6 +63,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Handles the extraction of each parameter.
+     * Creates a task using the extracted parameters and adds in TaskList.
+     *
+     *  @return ArrayList containing tasks extracted from the list of strings.
+     */
     private ArrayList<Task> extractAndStoreDataInTaskList(ArrayList<String> list) {
         //todo: after this line should check if the data is in correct format
         for (String task : list) {
@@ -77,6 +90,11 @@ public class Storage {
         return taskArrayList;
     }
 
+    /**
+     * Adds task to ArrayList according to the respective taskType.
+     *
+     * @throws AlanException If taskType read is invalid.
+     */
     public void addTaskToTaskList(String taskType, String description, String[] splitTaskString) throws AlanException {
         switch (taskType) {
         case "T":
@@ -107,7 +125,11 @@ public class Storage {
         return false;
     }
 
-    // Save to text file
+    /**
+     * Saves the tasks in a text file at th specified path.
+     *
+     * @throws Exception If file or folder does not exist in the specified path.
+     */
     private void saveFileHandler() throws Exception {
         String userWorkingDirectory = System.getProperty("user.dir");
         java.nio.file.Path tasksFilePath = java.nio.file.Paths.get(userWorkingDirectory, filePath);
@@ -137,6 +159,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Formats the task into a string.
+     *
+     * @param i index of the task in ArrayList.
+     * @return a string of the formatted task information to be stored in the text file.
+     */
     private String getStringOfTaskInformation(int i) {
         Task task = taskArrayList.get(i);
         String taskDataRow = task.getTaskType() + " | " + task.getStatusValue() + " | " + task.getDescription();
@@ -155,11 +183,28 @@ public class Storage {
         return taskDataRow;
     }
 
+    /**
+     * Writes text to the text file at the specified file path.
+     * Will overwrite all text in text file.
+     *
+     * @param filePath file path of the text file.
+     * @param textToAdd text to be written to the text file.
+     * @throws IOException If I/O operations are interrupted.
+     */
     private void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
+
+    /**
+     * Appends text to the text file at the specified file path.
+     * Will add text to text file.
+     *
+     * @param filePath file path of the text file.
+     * @param textToAdd text to be added to the text file.
+     * @throws IOException If I/O operations are interrupted.
+     */
     private void appendToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAdd);

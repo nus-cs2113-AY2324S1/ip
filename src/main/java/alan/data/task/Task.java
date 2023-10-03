@@ -1,5 +1,8 @@
 package alan.data.task;
-
+/**
+ * Represents a task.
+ * The <code>Task</code> class is always instantiated as a Todo, Deadline or Event task
+ */
 public class Task {
     private String description;
     private TaskType type;

@@ -1,5 +1,8 @@
 package alan.data.task;
-
+/**
+ * Represents a deadline task. A <code>Deadline</code> object corresponds to
+ * a task consisting of description, by time period and D task type
+ */
 public class Deadline extends Task {
     protected String by;
 

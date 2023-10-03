@@ -6,7 +6,9 @@ import alan.data.task.Task;
 import alan.data.task.Todo;
 
 import java.util.ArrayList;
-
+/**
+ * Represents a list of the <code>Task</code> objects.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
