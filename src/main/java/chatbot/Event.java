@@ -11,6 +11,11 @@ public class Event extends Task{
     }
 
     @Override
+    public String getTime(){
+        return start + "|" + end;
+    }
+
+    @Override
     public void show(){
         System.out.print("[D][");
         if(isDone){

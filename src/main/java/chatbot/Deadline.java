@@ -8,6 +8,11 @@ public class Deadline extends Task{
     }
 
     @Override
+    public String getTime(){
+        return deadline;
+    }
+
+    @Override
     public void show(){
         System.out.print("[D][");
         if(isDone){

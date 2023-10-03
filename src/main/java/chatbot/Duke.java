@@ -1,22 +1,67 @@
 package chatbot;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
     private static ArrayList<Task> taskList = new ArrayList<>();
 
-    public static void printLine(){
+    public static void printLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    public static void updateFile() {
+        String filepath = "data.txt";
+
+        try (FileWriter filewriter = new FileWriter(filepath)) {
+            for(int i = 0; i < taskList.size(); i++){
+                Task task = taskList.get(i);
+                String description = task.getDescription();
+                String isDone = task.getDone();
+
+                if(task instanceof ToDo){
+                    filewriter.write(isDone + "|" + description + "\n");
+                    continue;
+                }
+
+                String time = task.getTime();
+                filewriter.write(isDone + "|" + description + "|" + time + "\n");
+            }
+        }
+        catch (IOException e){
+            System.out.println("Error writing file");
+        }
+    }
+
+    public static void readFile() {
+        String filepath = "data.txt";
+
+        File file = new File(filepath);
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            }
+            catch (IOException e){
+                System.out.println("File creation failed");
+            }
+        }
     }
 
     public static void main(String[] args) throws InputException{
 
         System.out.println("Hello! I'm TheChattyFatty");
 
+        readFile();
+
         Scanner scanner = new Scanner(System.in);
 
         while(true) {
+            updateFile();
             printLine();
             System.out.println("What can I do for you?");
             System.out.println("Functionality:");
@@ -144,7 +189,6 @@ public class Duke {
             else{
                 throw new InputException("Input Exception: Invalid input keyword");
             }
-
         }
 
         System.out.println("Bye. Hope to see you again soon!");
