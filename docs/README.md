@@ -32,23 +32,23 @@ Marks and unMarks the specified task from the list of tasks as done.
 3. Open a command terminal, move into the folder you put the jar file in.
 4. Enter the following command to run the program:
 
-   ```
-   java -jar ip.jar
-   ```
+```
+java -jar ip.jar
+```
+You should see a welcome message as shown below:
+  
+```   
+Hello from
+ ____
+| ___| _   _  ______
+| \__ | | | || /--\ |
+ \___|| |_| || |  | |
+/____/ \__,_||_|  |_|
 
-5. You should see a welcome message as shown below:
-   ```   
-   Hello from
-    ____
-   | ___| _   _  ______
-   | \__ | | | || /--\ |
-    \___|| |_| || |  | |
-   /____/ \__,_||_|  |_|
-
-   ____________________________________________________________
-   What can I do for you?
-   ____________________________________________________________
-   ```
+____________________________________________________________
+What can I do for you?
+____________________________________________________________
+```
 
 ## Usage
 
