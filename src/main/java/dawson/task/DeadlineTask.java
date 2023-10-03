@@ -1,5 +1,6 @@
 package dawson.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import dawson.exception.DawsonException;
@@ -9,7 +10,7 @@ import dawson.ui.Messages;
 public class DeadlineTask extends Task {
 
     protected String by;
-    protected LocalDateTime byDateTime;
+    protected LocalDateTime byDateTime; // Can be null
 
 	public DeadlineTask(String description, String by) {
 		super(description);
@@ -20,7 +21,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        String byString = byDateTime == null ? by : showDateTimeFormat.format(byDateTime);
+        String byString = byDateTime == null ? by : Parser.userDateTimeFormat.format(byDateTime);
         return String.format("[D]%s (by: %s)", super.toString(), byString);
     }
 
@@ -28,6 +29,15 @@ public class DeadlineTask extends Task {
     public String encode() {
         String isDoneString = isDone ? "1" : "0";
         return String.format("D | %s | %s | %s", isDoneString, description, by);
+    }
+
+    public boolean containsQueryDate(LocalDate queryDate) {
+        if (byDateTime == null) {
+            return false;
+        }
+
+        LocalDate deadlineDate = byDateTime.toLocalDate();
+        return deadlineDate.equals(queryDate);
     }
 
     public static Task decodeDeadline(String encodedString) throws DawsonException {
