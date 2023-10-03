@@ -9,7 +9,7 @@ Lexi is a desktop app for managing different tasks, including todos, events and 
   E.g., _find [KEYWORD]_ can be used as _find_ or as _find book_
 + Parameters must be provided in the correct order.
   E.g., if the command specifies _deadline DESCRIPTION DUE_DATE_, _deadline DUE_DATE DESCRIPTION_ is not acceptable.
-+ The commands are not case sensitive.
++ The commands are not case-sensitive.
   E.g., _find_ as well as _FiNd_ is acceptable input.
   
 ### Listing all tasks: _list_
@@ -41,7 +41,7 @@ Adds an event that starts and ends at specific times.
 
 The provided dates and times should be in the format 'yyyy-mm-dd hh:mm'
 
-Format: _event DESCRIPTION /from STARTDATETIME /to ENDDATETIME
+Format: _event DESCRIPTION /from START_DATETIME /to END_DATETIME
 
 Examples:
 + _event project meeting /from 2022-08-06 13:00 /to 2022-08-06 14:00_
@@ -86,11 +86,11 @@ Examples:
 Finds and displays all tasks that contain the given keyword in their description.
 
 Format: _find [KEYWORD]_
-+ The search is case-sensitive. E.g., _book_ will not match _Book_.
++ The search is case-insensitive. E.g., _book_ will match _Book_.
 + You can list all tasks by leaving the keyword blank.
 
 Examples:
-+ _find book_ returns _read book_ but not _read Book_
++ _find book_ returns _read book_ and _read Book_
 + _find oo_ returns _read book_ and _read Book_
 + _find_ returns all tasks
 

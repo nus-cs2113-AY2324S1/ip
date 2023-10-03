@@ -99,7 +99,7 @@ public class Command {
 
         ArrayList<Task> matchingTasks = new ArrayList<Task>();
         for (Task task : tasks.getTasks()) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }
         }

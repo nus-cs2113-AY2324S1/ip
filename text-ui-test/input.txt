@@ -7,7 +7,7 @@ unmark 0
 blah
 list
 delete 1
-todo join book club
+todo join Book club
 delete
 mark
 todo borrow book

@@ -38,7 +38,7 @@ Alright, I have removed the following task:
 Now you have 1 tasks in the list.
 --------------------------------------------
 Ok, I have added the following task:
-   [T][ ] join book club
+   [T][ ] join Book club
 Now you have 2 tasks in the list.
 --------------------------------------------
 This task id does not exist, please provide a valid task number!
@@ -50,7 +50,7 @@ Ok, I have added the following task:
 Now you have 3 tasks in the list.
 --------------------------------------------
 Here are the matching tasks in your list:
-1.[T][ ] join book club
+1.[T][ ] join Book club
 2.[T][ ] borrow book
 --------------------------------------------
 Ok, I have added the following task:
