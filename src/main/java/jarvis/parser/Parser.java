@@ -28,8 +28,10 @@ public class Parser {
                 commandDescription = userInput.split(" ")[1];
                 taskIndex = Integer.parseInt(commandDescription.strip());
                 return new CommandMark(taskIndex-1);
-//            case "unmark":
-//                return;
+            case "unmark":
+                commandDescription = userInput.split(" ")[1];
+                taskIndex = Integer.parseInt(commandDescription.strip());
+                return new CommandUnmark(taskIndex-1);
             case "deadline":
                 return new CommandDeadline(userInput);
             case "event":

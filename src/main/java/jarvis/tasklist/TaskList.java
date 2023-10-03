@@ -118,6 +118,22 @@ public class TaskList {
             System.out.println(e.getMessage());
         }
     }
+
+    public void markTaskAsUndone(int index) throws JarvisException {
+        try {
+            if (isValidIndex(index)) {
+                System.out.println("Oh NO! I've unmarked this task as undone:");
+                taskList.get(index).markAsUndone();
+                System.out.println("    " + taskList.get(index));
+                System.out.println("Get Grinding Son");
+            }
+            else {
+                throw JarvisException.invalidTaskNumber(index);
+            }
+        } catch (JarvisException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     private boolean isValidIndex(int index) {
         return index >= 0 && index < taskList.size();
     }
