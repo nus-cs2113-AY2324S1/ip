@@ -26,7 +26,12 @@ public class ChattieException extends Exception{
         case OUT_OF_BOUNDS:
             System.out.println("\tOh no! This task doesn't exist");
             break;
+        case EMPTY_LIST:
+            System.out.println("\tSorry, no matching results :(");
+            break;
+        default:
+            System.out.println("\tOh no! Unknown error encountered");
+            break;
         }
-
     }
 }
