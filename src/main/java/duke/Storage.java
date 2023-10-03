@@ -44,7 +44,7 @@ public class Storage {
                 readDataLine(input);
             }
         } catch (IOException e) {
-            System.out.println("An error occurred when accessing the file.");
+            System.out.println("Data file not found, creating new file.");
         }
         return tasks;
     }

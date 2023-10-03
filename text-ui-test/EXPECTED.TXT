@@ -1,3 +1,4 @@
+Data file not found, creating new file.
  ____        _
 |  _ \ _   _| | _____
 | | | | | | | |/ / _ \
@@ -51,6 +52,14 @@ Now you have 3 tasks in the list.
 Here are the matching tasks in your list:
 1.[T][ ] join book club
 2.[T][ ] borrow book
+--------------------------------------------
+Ok, I have added the following task:
+   [D][ ] apply to Harvard (by: Dec-06-2023 23:59)
+Now you have 4 tasks in the list.
+--------------------------------------------
+Ok, I have added the following task:
+   [D][ ] organize present for birthday party (by: Aug-08-2023 14:00)
+Now you have 5 tasks in the list.
 --------------------------------------------
 --------------------------------------------
 Have a wonderful day! Hope to see you again soon!

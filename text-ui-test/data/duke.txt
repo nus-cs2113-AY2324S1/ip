@@ -1,0 +1,5 @@
+E | 0 | project meeting | Aug-06-2022 13:00 | Aug-06-2022 14:00
+T | 0 | join book club
+T | 0 | borrow book
+D | 0 | apply to Harvard | Dec-06-2023 23:59
+D | 0 | organize present for birthday party | Aug-08-2023 14:00
