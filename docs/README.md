@@ -8,30 +8,17 @@ Cara: a fun and friendly task management bot that helps you to organise your tas
 - **List Tasks**: View a list of all your tasks.
 - **Find Tasks**: Search for specific tasks using keywords.
 
-## Features 
+## Features
 
-### Feature-ABC
+### 1. Add Todo Task - `Keyword` 
 
-Description of the feature.
+Add a todo task to the tasklist
 
-### Feature-XYZ
-
-Description of the feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
+Format: `todo DESCRIPTION`
 
 Example of usage: 
 
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
 ```
-expected output
+todo buy book
+todo return money 
 ```
