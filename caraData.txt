@@ -1,6 +1,6 @@
-T | false | mark 1
+T | true | mark 1
 T | false | buy book
 E | false | meet caleb /from 4 to /9 | No Start Date | No End Date
 E | false | meet caleb /from 8 nov /to 9 | 8 nov | 9
 D | false | ksfgb /by kjsdbf | kjsdbf
-E | false | skjfbg /from kfjgb /to | kfjgb | 
+E | true | skjfbg /from kfjgb /to | kfjgb | 
