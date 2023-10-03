@@ -12,6 +12,7 @@ import dawson.command.DeadlineCommand;
 import dawson.command.DeleteCommand;
 import dawson.command.EventCommand;
 import dawson.command.ExitCommand;
+import dawson.command.FindCommand;
 import dawson.command.InvalidCommand;
 import dawson.command.ListCommand;
 import dawson.command.MarkCommand;
@@ -49,6 +50,8 @@ public class Parser {
                 return new ListCommand();
             case Command.DATE_COMMAND:
                 return new DateCommand(payload);
+            case Command.FIND_COMMAND:
+                return new FindCommand(payload);
             case Command.DELETE_COMMAND:
                 return new DeleteCommand(payload);
             case Command.MARK_COMMAND:

@@ -12,6 +12,7 @@ public abstract class Command {
     public static final String UNMARK_COMMAND = "unmark";
 
     public static final String LIST_COMMAND = "list";
+    public static final String FIND_COMMAND = "find";
     public static final String DATE_COMMAND = "date";
     public static final String DELETE_COMMAND = "delete";
     public static final String EXIT_COMMAND = "bye";
