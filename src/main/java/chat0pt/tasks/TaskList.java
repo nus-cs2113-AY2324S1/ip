@@ -8,6 +8,7 @@ import chat0pt.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -104,6 +105,24 @@ public class TaskList {
             ui.invalidMark();
         }
 
+    }
+
+    public ArrayList<Task> findTasks(String[] input) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        if (input.length < 2) {
+            return foundTasks;
+        }
+        StringJoiner searchString = new StringJoiner(" ");
+        for (int i = 1; i < input.length; i++){
+            searchString.add(input[i]);
+        }
+        String search = searchString.toString();
+        for (Task t : tasks){
+            if (t.getTask().contains(search)){
+                foundTasks.add(t);
+            }
+        }
+        return foundTasks;
     }
 
     public ArrayList<Task> returnTaskList() {

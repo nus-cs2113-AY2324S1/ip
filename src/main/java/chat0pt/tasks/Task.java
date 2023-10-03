@@ -1,16 +1,16 @@
 package chat0pt.tasks;
 
 public class Task {
-    private final String tasks;
+    private final String task;
     private boolean isMarked;
 
-    public Task(String tasks) {
-        this.tasks = tasks;
+    public Task(String task) {
+        this.task = task;
         this.isMarked = false;
     }
 
-    public String getTasks() {
-        return tasks;
+    public String getTask() {
+        return task;
     }
 
     public boolean isMarked() {
@@ -29,7 +29,7 @@ public class Task {
         } else {
             toReturn += "[ ] ";
         }
-        return toReturn + tasks;
+        return toReturn + task;
     }
 
 
@@ -40,6 +40,6 @@ public class Task {
         } else {
             toReturn += "false#";
         }
-        return toReturn + tasks;
+        return toReturn + task;
     }
 }

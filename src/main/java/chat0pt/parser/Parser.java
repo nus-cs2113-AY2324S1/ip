@@ -29,6 +29,8 @@ public class Parser {
             return new DeleteCommand(separatedString);
         case "bye":
             return new EndCommand();
+        case "find":
+            return new FindCommand(separatedString);
         case "todo":
         case "event":
         case "deadline":

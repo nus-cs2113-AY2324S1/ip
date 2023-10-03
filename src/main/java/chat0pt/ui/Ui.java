@@ -74,7 +74,7 @@ public class Ui {
     public void listHandler(ArrayList<Task> tasks) {
         int count = 1;
         String[] taskStrings = new String[tasks.size() + 1];
-        taskStrings[0] = "Here are the tasks in your list: ";
+        taskStrings[0] = "Here are the tasks/matching tasks in your list: ";
         for (Task t : tasks) {
             taskStrings[count] = count + ". " + t.toString();
             count++;
@@ -84,6 +84,11 @@ public class Ui {
 
     public void failedFile() {
         String[] message = {"Failed to access file. This session of Chat0PT would not be saved"};
+        print(message);
+    }
+
+    public void failedFind(){
+        String[] message = {"We are unable to find any results. Try using list to see all tasks instead or ensure your command is in the format find <keyword>."};
         print(message);
     }
 
