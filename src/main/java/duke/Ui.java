@@ -31,7 +31,7 @@ public class Ui {
         String name = "Lexi";
 
         System.out.println(logo);
-        System.out.println(HORIZONTAL_LINE);
+        printHorizontalLine();
         System.out.println("Hello! I'm " + name);
 
         if (tasks.getTasks().size() > 0) {
@@ -41,7 +41,7 @@ public class Ui {
         }
 
         System.out.println("How can I help you buddy?");
-        System.out.println(HORIZONTAL_LINE);
+        printHorizontalLine();
     }
 
     /**
@@ -49,7 +49,7 @@ public class Ui {
      */
     public void farewellBot() {
         System.out.println("Have a wonderful day! Hope to see you again soon!");
-        System.out.println(HORIZONTAL_LINE);
+        printHorizontalLine();
     }
 
     /**

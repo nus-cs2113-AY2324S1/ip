@@ -32,15 +32,13 @@ public class Task {
      * @param done 0 if not done, 1 if done
      * @throws CorruptedFileException if done is not 0 or 1
      */
-    public void setDone(int done) throws CorruptedFileException {
+    public void setDoneFromFile(int done) throws CorruptedFileException {
         if (done == 0) {
             isDone = false;
+        } else if (done == 1){
+            isDone = true;
         } else {
-            if(done == 1) {
-                isDone = true;
-            } else {
-                throw new CorruptedFileException();
-            }
+            throw new CorruptedFileException();
         }
     }
 

@@ -12,4 +12,7 @@ delete
 mark
 todo borrow book
 find book
+--
+deadline apply to Harvard /by 2023-12-06 23:59
+deadline organize present for birthday party /by 2023-08-08 14:00
 bye

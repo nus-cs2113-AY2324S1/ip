@@ -17,6 +17,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns the list of tasks.
+     * @return list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }

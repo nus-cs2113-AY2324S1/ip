@@ -1,7 +1,5 @@
 package duke;
 
-import duke.Task;
-
 /**
  * Represents a todo task consisting of a description of the task.
  */
@@ -29,7 +27,7 @@ public class Todo extends Task {
      * @return string representation of the todo.
      */
     @Override
-    public String toFileString() {
-        return ("T | " + super.toFileString());
+    public String toSaveFormat() {
+        return ("T | " + super.toSaveFormat());
     }
 }

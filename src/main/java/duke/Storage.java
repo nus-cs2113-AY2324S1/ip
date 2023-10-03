@@ -78,7 +78,7 @@ public class Storage {
             }
 
             int binaryIsDone = Integer.parseInt(parts[1]);
-            task.setDone(binaryIsDone);
+            task.setDoneFromFile(binaryIsDone);
             tasks.add(task);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | CorruptedFileException e) {
             System.out.println("Failed to read line, the file is corrupted.");
@@ -98,7 +98,7 @@ public class Storage {
             f.createNewFile();
             FileWriter fw = new FileWriter(path);
             for (Task task : tasks) {
-                fw.write(task.toFileString()+"\n");
+                fw.write(task.toSaveFormat()+"\n");
             }
             fw.close();
         } catch (IOException e) {
