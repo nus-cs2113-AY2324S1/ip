@@ -147,6 +147,11 @@ public class Storage {
             ui.showFileNotFoundMessage(dataFolderPath);
         }
 
+
+        if (taskArrayList.isEmpty()) {
+            writeToFile(tasksFilePath.toString(), ""); //overwrite text file to store empty text
+        }
+
         //input arraylist data into text file
         for (int i = 0; i < taskArrayList.size(); i++) {
             String taskDataRow = getStringOfTaskInformation(i);
