@@ -22,7 +22,9 @@ Axel is a chatbot designed to help the user in managing tasks, for use in the CL
 
 ### *Adding a task:* `todo`, `deadline` and `event`
 Adds a `Task` to the list.
+
 Format: `todo/deadline/event [NAME] {Additional parameters}`
+
 There are 3 sub-types of task, `ToDo`, `Deadline` and `Event`.
  - `ToDo` is added by entering `todo [NAME]`
  - `Deadline` is added by entering `deadline [NAME] /by [TIME]`
@@ -30,6 +32,7 @@ There are 3 sub-types of task, `ToDo`, `Deadline` and `Event`.
 
 Each type of task has different parameters for time to make it easier to keep track of important dates and times.
 Times entered by the user will be stored as-is, and should not include any forward slash characters.
+
 Examples:
  - `todo homework`
  - `deadline submit group project /by 2230 hours`
@@ -38,9 +41,11 @@ Examples:
 
 ### *Deleting a task:* `delete`
 Deletes a `Task`.
+
 Format: `delete [INDEX]`
  - Deletes the `Task` at the specified index. Indices start from 1.
  - Indices must be a positive integer.
+
 Example:
  - `delete 1` Deletes the task at index 1
 
@@ -51,11 +56,13 @@ Lists all existing tasks.
 
 ### *Locating tasks by keyword* `find`
 Finds a task by searching for a single keyword in its name.
+
 Format: `find [KEYWORD]`
 
 
 ### *Marking tasks as done* `mark`,`unmark`
 Adds or removes a mark on a task which indicates it as done.
+
 Format: `mark [INDEX]`, `unmark[INDEX]`
 - Marks/unmarks the `Task` at the specified index. Indices start from 1.
 - Indices must be a positive integer.
