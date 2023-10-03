@@ -6,6 +6,9 @@ import chattie.tasks.Event;
 import chattie.tasks.Task;
 import chattie.tasks.Todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Parser {
     //deals with making sense of the user command
 
@@ -61,5 +64,15 @@ public class Parser {
         }
         task.setDone(isDone);
         return task;
+    }
+
+    public static String parseDate(String by) {
+        by = by.replace("/", "-");
+        try {
+            LocalDate date = LocalDate.parse(by);
+            return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (Exception e) {
+            return by;
+        }
     }
 }
