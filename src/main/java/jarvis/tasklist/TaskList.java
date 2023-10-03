@@ -40,15 +40,6 @@ public class TaskList {
         System.out.println("~~ End of list ~~ ");
     }
 
-    public static int extractIndex(String userInput, int startIndex) {
-        if (startIndex < userInput.length()) {
-            return Integer.parseInt(userInput.substring(startIndex).trim()) - 1; // Convert to 0-indexed
-        }
-        else {
-            return -1;
-        }
-    }
-
     /**
      * TODO: review the need for displayMessage
      * @param userInput - takes in user input

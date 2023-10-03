@@ -45,7 +45,6 @@ public class Ui {
     }
 
     public void displayGoodbyeMessage() {
-//        dataStorage.updateFile(tasks);
         System.out.println("Good bye sir! Have a good day" + "\n" + LINE_BREAK);
     }
 }
