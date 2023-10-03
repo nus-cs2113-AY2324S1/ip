@@ -9,6 +9,7 @@ public class Deadline extends Task {
         this.dueTime = dueTime;
     }
 
+    @Override
     public String getTime() {
         return this.dueTime;
     }

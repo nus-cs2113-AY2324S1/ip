@@ -45,8 +45,6 @@ public class Parser {
             default:
                 throw JarvisException.invalidCommand();
             }
-        }catch(NumberFormatException | ArrayIndexOutOfBoundsException invalidIndex){
-            System.out.println("Please enter valid integer index!");
         }catch(JarvisException e){
             System.out.println(e.getMessage());
             // TODO: send the help /help

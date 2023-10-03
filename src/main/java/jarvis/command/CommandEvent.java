@@ -15,6 +15,6 @@ public class CommandEvent extends Command {
     @Override
     public void executeCommand(Ui ui, Storage dataStorage, TaskList tasks){
         tasks.addToTaskList(userInput, Task.TaskType.EVENT, true);
-        // TODO: add to storage
+        dataStorage.updateFile(tasks);
     }
 }

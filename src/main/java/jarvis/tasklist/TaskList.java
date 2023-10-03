@@ -7,7 +7,6 @@ import jarvis.tasks.Todo;
 import jarvis.tasks.Deadline;
 import jarvis.tasks.Event;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,13 +106,15 @@ public class TaskList {
     }
 
     // TODO: abstract mark, unmark and delete to TaskManager
-    public void markTaskAsDone(int index) throws JarvisException {
+    public void markTaskAsDone(int index, boolean showMessage) throws JarvisException {
         int zero_index = index - ZERO_INDEX_OFFSET;
         try {
             if (isValidIndex(zero_index)) {
-                System.out.println("Nice! I've marked this task as done:");
                 taskList.get(zero_index).markAsDone();
-                System.out.println("    " + taskList.get(zero_index));
+                if(showMessage){
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("    " + taskList.get(zero_index));
+                }
             }
             else {
                 throw JarvisException.invalidTaskNumber(zero_index);

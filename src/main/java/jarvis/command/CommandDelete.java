@@ -2,7 +2,6 @@ package jarvis.command;
 import jarvis.exception.JarvisException;
 import jarvis.storage.Storage;
 import jarvis.tasklist.TaskList;
-import jarvis.tasklist.TaskManager;
 import jarvis.ui.Ui;
 
 public class CommandDelete extends Command {
@@ -15,5 +14,6 @@ public class CommandDelete extends Command {
     @Override
     public void executeCommand(Ui ui, Storage dataStorage, TaskList tasks) throws JarvisException {
         tasks.deleteTask(taskIndex);
+        dataStorage.updateFile(tasks);
     }
 }

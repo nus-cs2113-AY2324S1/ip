@@ -15,7 +15,7 @@ public class CommandToDo extends Command {
     @Override
     public void executeCommand(Ui ui, Storage dataStorage, TaskList tasks){
         tasks.addToTaskList(userInput, Task.TaskType.TODO, true);
-        //TODO: add to storage
+        dataStorage.updateFile(tasks);
     }
 
 }

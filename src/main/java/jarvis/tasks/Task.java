@@ -25,6 +25,10 @@ public class Task {
         return (isDone ? "X" : " "); //return tick symbol once done
     }
 
+    public boolean taskIsDone(){
+        return isDone;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -33,6 +37,9 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getTime() {
+        return "";
+    }
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "]" + " " + this.description;

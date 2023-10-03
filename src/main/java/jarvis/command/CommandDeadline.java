@@ -15,6 +15,6 @@ public class CommandDeadline extends Command {
     @Override
     public void executeCommand(Ui ui, Storage dataStorage, TaskList tasks){
         tasks.addToTaskList(userInput, Task.TaskType.DEADLINE, true);
-        // TODO: add to storage
+        dataStorage.updateFile(tasks);
     }
 }

@@ -1,14 +1,16 @@
 package jarvis.ui;
 
+import jarvis.exception.JarvisException;
 import jarvis.storage.Storage;
 import jarvis.tasklist.TaskList;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
     private final Scanner input = new Scanner(System.in);
-//    private Storage dataStorage;
-    private TaskList tasks;
+    private final Storage dataStorage;
+    private final TaskList tasks;
 
     private static final String LOGO = "\n" +
             "     ____.  _____ ______________   ____.___  _________\n" +
@@ -19,9 +21,9 @@ public class Ui {
             "                 \\/       \\/                       \\/ \n";
     private static final String LINE_BREAK = "____________________________________________________________";
 
-    public Ui(TaskList tasks){
-//        this.dataStorage = dataStorage;
+    public Ui(Storage dataStorage, TaskList tasks){
         this.tasks = tasks;
+        this.dataStorage = dataStorage;
     }
 
     /**
@@ -36,14 +38,14 @@ public class Ui {
         System.out.println(LINE_BREAK + "\n");
     }
 
-    public void displayWelcomeMessage() {
+    public void displayWelcomeMessage() throws JarvisException, IOException {
         System.out.println("Hello from\n" + LOGO);
         System.out.println(LINE_BREAK + "\n Hi Sir! I'm JARVIS \n" + " What can I do for you today?\n" + LINE_BREAK);
-//        dataStorage.loadData(tasks);
+        dataStorage.loadData(tasks);
     }
 
     public void displayGoodbyeMessage() {
-//        dataStorage.updateData(tasks);
+//        dataStorage.updateFile(tasks);
         System.out.println("Good bye sir! Have a good day" + "\n" + LINE_BREAK);
     }
 }
