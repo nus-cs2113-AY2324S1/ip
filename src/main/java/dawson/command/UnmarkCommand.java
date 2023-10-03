@@ -4,6 +4,9 @@ import dawson.exception.DawsonException;
 import dawson.task.Task;
 import dawson.task.TaskList;
 
+/**
+ * Marks a task as NOT done based on a given index
+ */
 public class UnmarkCommand extends Command {
 
     private String payload;

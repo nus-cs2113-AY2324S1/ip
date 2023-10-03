@@ -5,6 +5,9 @@ import dawson.task.EventTask;
 import dawson.task.TaskList;
 import dawson.ui.Messages;
 
+/**
+ * Adds an Event task.
+ */
 public class EventCommand extends Command {
 
     private static final String FROM_DELIMITER = "/from";

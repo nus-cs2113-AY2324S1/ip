@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import dawson.task.TaskList;
 
+/**
+ * Lists all tasks in the TaskList to the user.
+ */
 public class ListCommand extends Command {
 
     private static final String MESSAGE_EMPTY_LIST = "Empty list!";

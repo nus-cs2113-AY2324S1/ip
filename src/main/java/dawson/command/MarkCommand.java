@@ -4,6 +4,9 @@ import dawson.exception.DawsonException;
 import dawson.task.Task;
 import dawson.task.TaskList;
 
+/**
+ * Marks a task as done based on a given index
+ */
 public class MarkCommand extends Command {
 
     private String payload;

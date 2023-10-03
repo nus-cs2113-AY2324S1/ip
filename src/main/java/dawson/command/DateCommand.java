@@ -8,6 +8,9 @@ import dawson.exception.DawsonException;
 import dawson.parser.Parser;
 import dawson.task.TaskList;
 
+/**
+ * Finds event or deadline tasks that have matching date as a given query date
+ */
 public class DateCommand extends Command {
 
     private static final String MESSAGE_CANNOT_PARSE_DATE = "Unable to parse input date!";

@@ -5,6 +5,9 @@ import dawson.task.DeadlineTask;
 import dawson.task.TaskList;
 import dawson.ui.Messages;
 
+/**
+ * Adds a Deadline task.
+ */
 public class DeadlineCommand extends Command {
 
     private static final String BY_DELIMITER = "/by";

@@ -4,6 +4,9 @@ import dawson.exception.DawsonException;
 import dawson.task.Task;
 import dawson.task.TaskList;
 
+/**
+ * Deletes a task from the TaskList based on the given index
+ */
 public class DeleteCommand extends Command {
 
     private String payload;
