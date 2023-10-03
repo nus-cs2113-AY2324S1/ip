@@ -11,7 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
-    protected String FILE_PATH;
+    protected final String FILE_PATH;
+    private static final String TODO_SYMBOL = "T";
+    private static final String DEADLINE_SYMBOL = "D";
+    private static final String EVENT_SYMBOL = "E";
     private static final String INFO_SEPARATOR = "|";
     public Storage(String filePath){
         FILE_PATH = filePath;
@@ -45,14 +48,14 @@ public class Storage {
             String description = task[2];
 
             switch (type) {
-            case "T":
+            case TODO_SYMBOL:
                 addTodo(description, isDone, agenda);
                 break;
-            case "D":
+            case DEADLINE_SYMBOL:
                 String deadline = task[3];
                 addDeadline(description, isDone, deadline, agenda);
                 break;
-            case "E":
+            case EVENT_SYMBOL:
                 String startDate = task[3];
                 String endDate = task[4];
                 addEvent(description, isDone, startDate, endDate, agenda);
@@ -82,36 +85,33 @@ public class Storage {
             throw new RuntimeException(e);
         }
     }
-    private static Task addTodo(String description, boolean isDone, ArrayList<Task> agenda) {
+    private static void addTodo(String description, boolean isDone, ArrayList<Task> agenda) {
         ToDo todo = new ToDo(description);
         todo.setDone(isDone);
         agenda.add(todo);
-        return todo;
     }
-    private static Task addDeadline(String description, boolean isDone, String date, ArrayList<Task> agenda) {
+    private static void addDeadline(String description, boolean isDone, String date, ArrayList<Task> agenda) {
         Deadline deadline = new Deadline(description, date);
         deadline.setDone(isDone);
         agenda.add(deadline);
-        return deadline;
     }
-    private static Task addEvent(String description, boolean isDone,
+    private static void addEvent(String description, boolean isDone,
                                  String startDate, String endDate, ArrayList<Task> agenda) {
         Event event = new Event(description, startDate, endDate);
         event.setDone(isDone);
         agenda.add(event);
-        return event;
     }
     public static void writeTodo(FileWriter fw, ToDo todo) throws IOException {
-        fw.write("T" + INFO_SEPARATOR + todo.getStatusIcon()
+        fw.write(TODO_SYMBOL + INFO_SEPARATOR + todo.getStatusIcon()
                 + INFO_SEPARATOR + todo.getDescription() + System.lineSeparator());
     }
     public static void writeDeadline(FileWriter fw, Deadline deadline) throws IOException {
-        fw.write("D" + INFO_SEPARATOR + deadline.getStatusIcon()
+        fw.write(DEADLINE_SYMBOL + INFO_SEPARATOR + deadline.getStatusIcon()
                 + INFO_SEPARATOR + deadline.getDescription() +
                 INFO_SEPARATOR + deadline.getDeadline() + System.lineSeparator());
     }
     public static void writeEvent(FileWriter fw, Event event) throws IOException {
-        fw.write("E" + INFO_SEPARATOR + event.getStatusIcon()
+        fw.write(EVENT_SYMBOL + INFO_SEPARATOR + event.getStatusIcon()
                 + INFO_SEPARATOR + event.getDescription() +
                 INFO_SEPARATOR + event.getStartTime() +
                 INFO_SEPARATOR + event.getEndTime() + System.lineSeparator());

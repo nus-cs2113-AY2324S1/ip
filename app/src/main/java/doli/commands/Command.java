@@ -102,7 +102,9 @@ public class Command {
         }
     }
     private void checkNotOutOfBounds(int inputNumber, TaskList tasks) throws DoliExceptions{
-        if (inputNumber > tasks.getSize() || inputNumber == -1) {
+        int totalTaskSize = tasks.getSize();
+        int parsingFailed = -1;
+        if (inputNumber > totalTaskSize || inputNumber == parsingFailed) {
             throw new DoliExceptions(FAILED_TO_FIND_TASK);
         }
     }

@@ -33,7 +33,7 @@ public class Doli {
         while (!isExit) {
             try {
                 String fullCommand = ui.getInput();
-                ui.printLine();
+                ui.printHLine();
                 Command c = Parser.parseInputIntoCommand(fullCommand);
                 c.handleCommand(tasks, ui, storage);
                 c.getResponse();
@@ -41,7 +41,7 @@ public class Doli {
             } catch (DoliExceptions e) {
                 ui.showError(e.getMessage());
             } finally {
-                ui.printLine();
+                ui.printHLine();
             }
         }
     }

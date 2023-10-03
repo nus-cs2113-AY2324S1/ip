@@ -36,7 +36,7 @@ public class Ui {
         print(WELCOME_MESSAGE);
     }
 
-    public void printLine() {
+    public void printHLine() {
         print("________________________________");
     }
 
