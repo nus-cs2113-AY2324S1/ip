@@ -1,18 +1,30 @@
 package doli.tasks;
 
+import doli.exceptions.DoliExceptions;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 /** Subclass of Task, specifying tasks containing a deadline */
 public class Deadline extends Task{
-    protected String deadline;
+    protected LocalDate deadline;
+    protected final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
     protected boolean isDone;
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadlineInput) {
         super(description);
-        this.deadline = deadline;
+        try {
+            this.deadline = LocalDate.parse(deadlineInput);
+        } catch(DateTimeException e) {
+            System.out.println("Could not parse the date.");
+        }
         this.isDone = false;
     }
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
+    public void setDeadline(String deadlineInput) {
+        this.deadline = LocalDate.parse(deadlineInput, DATE_FORMATTER);
     }
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
     public void setDone(boolean done) {
@@ -24,7 +36,7 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         String summary = String.format("[D] %s (%s)", super.toString(), // D stands for Deadline
-                deadline.replace("by", "by:"));
+                "by: " + DATE_FORMATTER.format(deadline));
         return summary;
     }
 }
