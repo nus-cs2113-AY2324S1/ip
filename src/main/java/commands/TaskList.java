@@ -20,6 +20,10 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public ArrayList<Task> getAllTasks(){
+        return tasks;
+    }
+
     public int size(){
         return tasks.size();
     }

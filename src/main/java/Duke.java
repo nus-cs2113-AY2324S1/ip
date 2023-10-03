@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import commands.*;
 
@@ -167,9 +168,6 @@ public class Duke {
                 }
 
                 case "delete":{
-                    if (!isValidInputs(initialWord, words)) {
-                        break;
-                    }
                     int index = Integer.parseInt(words[1]);
                     Task item = tasks.get(index - 1);
                     storage.removeFromFile(index);
@@ -179,10 +177,28 @@ public class Duke {
                     break;
                 }
 
-                case "mark": {
-                    if (!isValidInputs(initialWord, words)) {
-                        break;
+                case "find":{
+                    //only a single keyword
+                    String keyword = words[1];
+                    AtomicBoolean matchFound = new AtomicBoolean(false);
+                    System.out.println("Here are the tasks that contains the keyword '" + keyword + "'");
+                    tasks.getAllTasks().stream()
+                            .filter(task -> {
+                                if(!task.getDescription().contains(keyword)){
+                                    return false;
+                                }
+                                matchFound.set(true);
+                                return true;
+                            }).forEach(System.out::println);
+                    if(!matchFound.get()){
+                        System.out.println("No matching items found");
                     }
+                    break;
+
+                }
+
+                case "mark": {
+
                     int index = Integer.parseInt(words[1]);
                     Task currTask = tasks.get(index - 1);
                     currTask.markStatus();
@@ -193,9 +209,7 @@ public class Duke {
 
                 }
                 case "unmark": {
-                    if (!isValidInputs(initialWord, words)) {
-                        break;
-                    }
+
                     // unmark an item
                     System.out.println("unmark " + words[1]);
                     int index = Integer.parseInt(words[1]);
