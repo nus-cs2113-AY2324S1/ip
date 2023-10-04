@@ -35,23 +35,25 @@ public class Luke {
         System.out.println("\t" + "Hello! I'm\n" + logo);
 
         File taskListFile = new File("./src/main/java/luke/files/memory.txt");
-        try {
             if (taskListFile.exists()) {
-                taskList = Memory.readMemory("./src/main/java/luke/files/memory.txt", taskList);
+                try {
+                    taskList = Memory.readMemory("./src/main/java/luke/files/memory.txt", taskList);
+                    System.out.println("\n\tMemory retrieval successful!\n");
+                } catch (FileNotFoundException e) {
+                    System.out.println("\tNo existing memory. (1)");
+                }
             } else {
-                taskListFile.createNewFile();
+                try {
+                    taskListFile.createNewFile();
+                    System.out.println("\tNo existing memory.");
+                } catch (IOException e) {
+                    System.out.println("\tIOException.");
+                } catch (SecurityException e) {
+                    System.out.println("\tSecurityException.");
+                }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("No existing memory.");
-            //File newMemory = new File("./luke/files/memory.txt");
-            //Memory taskListFile = new Memory();
-        } catch (IOException e) {
-            System.out.println("IOException.");
-        } catch (SecurityException e) {
-            System.out.println("SecurityException.");
-        }
 
-        System.out.println("\t" + "What can I do for you?");
+        System.out.println("\tWhat can I do for you?");
 
         //Task[] taskList = new Task[100];
 
@@ -105,7 +107,7 @@ public class Luke {
                                 System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(taskList.size() - 1));
                                 System.out.println("\tNow you have " + taskList.size() + " tasks in the list.");
                             } catch (LukeTimeError e) {
-                                System.out.println("OOPS!!! There's an error in the deadline's 'do by' date.");
+                                System.out.println("\tOOPS!!! There's an error in the deadline's 'do by' date.");
                             }
                             break;
 
@@ -117,7 +119,7 @@ public class Luke {
                                 System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(taskList.size() - 1));
                                 System.out.println("\tNow you have " + taskList.size() + " tasks in the list.");
                             } catch (LukeTimeError e) {
-                                System.out.println("OOPS!!! There's an error in the event's start and end time.");
+                                System.out.println("\tOOPS!!! There's an error in the event's start and end time.");
                             }
                             break;
 
@@ -132,22 +134,18 @@ public class Luke {
                             break;
                     }
                 } catch (IndexOutOfBoundsException e) { //empty for MARK, UNMARK, TO DO description, DEADLINE description, EVENT description
-                    System.out.println("OOPS!!! You have missing arguments for " + words[0] + ".");
+                    System.out.println("\tOOPS!!! You have missing arguments for " + words[0] + ".");
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
             echo = userInput.nextLine();
         }
 
         //store in memory.txt
-        try {
-            Memory.storeMemory("./src/main/java/luke/files/memory.txt", taskList);
-            System.out.println("Memory Stored Safely!");
-        } catch (IOException e) {
-            System.out.println("IO Exception");
-        }
+
+        Memory.storeMemory("./src/main/java/luke/files/memory.txt", taskList);
 
         System.out.println("\tBye. Hope to see you again soon!");
 

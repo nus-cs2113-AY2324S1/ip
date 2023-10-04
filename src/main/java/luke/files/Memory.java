@@ -20,7 +20,7 @@ public class Memory {
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
             String currentLine = s.nextLine();
-            System.out.println(currentLine);
+            System.out.println("\t" + currentLine);
 
             String taskDetails = currentLine.substring(0,6);
             //System.out.println(taskDetails);
@@ -46,13 +46,13 @@ public class Memory {
 
                 taskList.add(newTask);
             } catch (LukeTimeError e) {
-                System.out.println("somethings wrong");
+                System.out.println("\tsomethings wrong");
             }
         }
         return taskList;
     }
 
-    public static void storeMemory(String filePath, ArrayList<Task> taskList) throws IOException {
+    public static void storeMemory(String filePath, ArrayList<Task> taskList){
         try {
             FileWriter fw = new FileWriter(filePath); //overwrite file
 
@@ -62,8 +62,10 @@ public class Memory {
 
             fw.close();
 
+            System.out.println("\tMemory Stored Safely!");
+
         } catch (IOException e) {
-            System.out.println("IO Exception, storeMemory fail");
+            System.out.println("\tIO Exception: fail to store memory");
             return;
         }
 
