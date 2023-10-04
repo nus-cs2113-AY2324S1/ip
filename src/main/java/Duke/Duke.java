@@ -1,9 +1,13 @@
 package Duke;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) {        
         final String LOGO = "       _       _        \n"
                 + "      | |     | |       \n"
                 + "      | | __ _| | _____ \n"
@@ -18,6 +22,18 @@ public class Duke {
         Scanner inputReader = new Scanner(System.in);
         String userInput = "";
         ArrayList<Task> botMemory = new ArrayList<Task>();
+
+        // Bot Text File to store botMemory
+        File botMemoryFile = new File("data/botMemory.txt");
+        String botMemoryFilePath = botMemoryFile.getAbsolutePath();
+        System.out.println("botMemory file location:" + botMemoryFilePath);
+        System.out.println("Does the botMemory file exist?: " + botMemoryFile.exists());
+        
+        try { 
+            loadFileContents(botMemoryFilePath, botMemory); 
+        } catch (FileNotFoundException e) { 
+            System.out.println("Error! The botMemory file is not found"); 
+        }
 
         while (true) {
             System.out.print("User: ");
@@ -126,6 +142,13 @@ public class Duke {
             else {
                 System.out.println("I'm sorry, but I don't know what that means :[");
             }
+            
+            // Execute writeToFile to save the botMemory after every transaction
+            try { 
+                writeToFile(botMemoryFilePath, botMemory); 
+            } catch (IOException e) { 
+                System.out.println("Something went wrong: " + e.getMessage()); 
+            }
         }
     }
 
@@ -139,6 +162,7 @@ public class Duke {
             return true;
         }
     }
+    
     // Method to validate user input and throw DukeException if it doesn't match requirements
     public static void validateInput(String userInput) throws DukeException {
         String text[] = userInput.split(" ");
@@ -155,6 +179,7 @@ public class Duke {
         }
     }
 
+    // Method to check if the specified String is Integer
     public static boolean isInteger(String text) {
         try {
             Integer.parseInt(text);
@@ -162,5 +187,73 @@ public class Duke {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+    
+    // Method to load the contents of botMemoryFile into the botMemory ArrayList
+    private static void loadFileContents(String filePath, ArrayList<Task> taskList) throws FileNotFoundException {
+        File file = new File(filePath); // create a File for the given file path
+        Scanner fileReader = new Scanner(file);
+        while (fileReader.hasNextLine()) {
+            String task[] = fileReader.nextLine().split(";");
+            int taskIndex = Integer.parseInt(task[0]);
+            String type = task[1];
+            int mark = Integer.parseInt(task[2]);
+            String desc = task[3];
+            switch (type) {
+                case "T":
+                    Task todo = new Todo(desc);
+                    taskList.add(todo);
+                    break;
+                case "E":
+                    String start = task[4];
+                    String end = task[5];
+                    Task event = new Event(desc, start, end);
+                    taskList.add(event);
+                    break;
+                case "D":
+                    String when = task[4];
+                    Task deadline = new Deadline(desc, when);
+                    taskList.add(deadline);
+                    break;
+                default:
+                    System.out.println("Error the specified task type doesn't exist");
+            }
+            if (mark == 1) {
+                taskList.get(taskIndex-1).markTask();
+            }
+        }
+        fileReader.close();
+    }
+
+    // Method to save the contents of botMemory ArrayList into the botMemoryFile
+    private static void writeToFile(String filePath, ArrayList<Task> taskList) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
+        int taskIndex;
+        String type;
+        int mark;
+        String desc;
+        for (int i = 0; i < taskList.size(); i++) {
+            taskIndex = i + 1;
+            type = taskList.get(i).getTaskType();
+            mark = taskList.get(i).getTaskStatus() == "X" ? 1 : 0;
+            desc = taskList.get(i).getDescriptionText();
+            switch (type) {
+                case "T":
+                    fileWriter.write(taskIndex + ";" + type + ";" + mark + ";" + desc + ";" + System.lineSeparator());
+                    break;
+                case "E":
+                    String start = taskList.get(i).getStart();
+                    String end = taskList.get(i).getEnd();
+                    fileWriter.write(taskIndex + ";" + type + ";" + mark + ";" + desc + ";" + start + ";" + end + ";" + System.lineSeparator());
+                    break;
+                case "D":
+                    String when = taskList.get(i).getWhen();
+                    fileWriter.write(taskIndex + ";" + type + ";" + mark + ";" + desc + ";" + when + ";" + System.lineSeparator());
+                    break;
+                default:
+                    System.out.println("Error the specified task type doesn't exist");
+            }
+        }
+        fileWriter.close();
     }
 }

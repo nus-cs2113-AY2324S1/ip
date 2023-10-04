@@ -7,6 +7,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     private static int count = 0;
+    protected String type;
 
     public Task(String description) {
         this.description = description;
@@ -14,8 +15,16 @@ public class Task {
         count++;
     }
 
+    public String getTaskType() {
+        return type;
+    }
+
     public String getTaskStatus() {
         return (isDone ? "X" : " ");
+    }
+
+    public String getDescriptionText() {
+        return this.description;
     }
 
     // Method to return the task description
@@ -43,4 +52,17 @@ public class Task {
         taskList.remove(taskIndex);
         count--;
     }
+    
+    public String getStart() {
+        return null;
+    }
+
+    public String getEnd() {
+        return null;
+    }
+
+    public String getWhen() {
+        return null;
+    }
+
 }

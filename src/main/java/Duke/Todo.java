@@ -4,10 +4,11 @@ public class Todo extends Task {
 
     public Todo(String description) {
         super(description);
+        this.type = "T";
     }
 
     @Override
     public String getDescription() {
-        return "[T]" + super.getDescription();
+        return "[" + type + "]" + super.getDescription();
     }
 }
