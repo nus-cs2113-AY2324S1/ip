@@ -28,7 +28,7 @@ Example: `event CS2113 iP /from 10/08/2023 0000 /to 05/10/2023 2359`
 Delete a task by it's index<br><br>
 Format: `delete indexOfTheTask`<br>
 - The index must be a positive integer 1, 2, 3, …​
-- The index refers to the index number shown in the displayed task list.<br>
+- The index refers to the index number shown in the displayed task list.<br><br>
 Example: `delete 1`
 
 ### Mark a task as done: `mark`
