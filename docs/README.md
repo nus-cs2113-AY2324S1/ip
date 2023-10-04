@@ -44,10 +44,12 @@ Create 3 types of Tasks:
 
    Format: `deadline {Description} /by {Deadline Date & Time}`
    
-   Example: <br> `deadline return book /by Feb 14th`
+   Example: <br> `deadline return book /by Sunday`
 3. Event: Tasks which are happening at a specific time frame, using /from and /to.
 
    Format: `event {Description} /from {Event Start Date & Time} /to {Event End Date & Time}`
+
+   Example: <br> `event project meeting /from Mon 2pm /to 4pm`
 
 </details>
 
