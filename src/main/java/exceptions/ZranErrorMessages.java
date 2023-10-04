@@ -1,5 +1,9 @@
 package exceptions;
 
+/**
+ * Enumerates error messages for Zran application exceptions.
+ * Each constant is an error scenario, paired with its respective error message.
+ */
 public enum ZranErrorMessages {
     INVALID_TASK_DESCRIPTION("Invalid task command: Empty name of the task. \n" +
             "    Please key in the description of the task or type help :)"),

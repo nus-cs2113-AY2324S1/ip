@@ -1,5 +1,8 @@
 package userinputs;
 
+/**
+ * Enumerates messages to be displayed to users for Zran application exceptions.
+ */
 public enum UserMessages {
     WELCOME_MESSAGE("hello! I'm Zran, your personal assistant:)! \n" +
             "    Type in your to dos for the day and press enter! \n " +
