@@ -4,7 +4,7 @@ I am a personal Task managing chatbot, able to store tasks such as To dos, Deadl
 
 ## Here are some of the things I can do!
 
-=Create 3 types of Tasks:
+Create 3 types of Tasks:
 <details>
 1. Todo: Tasks which are not time sensitive.
 2. Deadline: Tasks which are time sensitive, able to indicate deadline using /by.
