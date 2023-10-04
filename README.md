@@ -1,4 +1,4 @@
-# Duke project User guide
+# Hilary User guide
 1. **Introduction**
 	This is a task management robot that use to manage different types of tasks of user.
 	This user guide is to guide the user how to use this robot on command line input
