@@ -27,6 +27,7 @@ ____________________________________________________________
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar IP.jar command to run the application.
    In a few seconds, it should show that:
 ![Screenshot of the display in terminal]([https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/Haoyuli2002/ip/assets/139958049/cade8150-21a1-43be-8d82-6e59374f4c7f))
+
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
 Some example commands you can try:
 
