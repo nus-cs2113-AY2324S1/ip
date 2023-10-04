@@ -92,7 +92,7 @@ public class Parser {
         default:
             // invalid command
             throw new BotBuddyException("Invalid command! Supported commands are: " +
-                    "todo, event, deadline, list, mark, unmark, bye");
+                    "todo, event, deadline, list, mark, unmark, find, bye");
         }
     }
 
