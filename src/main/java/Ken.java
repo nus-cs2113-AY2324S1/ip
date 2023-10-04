@@ -1,3 +1,10 @@
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,15 +17,19 @@ public class Ken {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_MARK = "mark";
+    private static final String DATA_FILE_PATH = "data/ken.txt"; // Relative path to the data file
 
     private static List<String> taskDescriptions = new ArrayList<>();
     private static List<Boolean> taskDoneStatus = new ArrayList<>();
     private static List<String> taskTypes = new ArrayList<>();
     private static List<String> taskDates = new ArrayList<>();
-    private static int taskCount = 0;
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        // Load tasks from the file when the chatbot starts up
+        loadTasks();
 
         printWelcomeMessage();
 
@@ -118,10 +129,14 @@ public class Ken {
         taskDescriptions.add(taskDescription.trim());
         taskDoneStatus.add(false);
 
+
         System.out.println(" Got it. I've added this task:");
         String dateInfoText = taskDates.get(taskDescriptions.size() - 1) != null ? " " + taskDates.get(taskDescriptions.size() - 1) : "";
         System.out.println("   [" + taskTypes.get(taskDescriptions.size() - 1) + "][ ] " + taskDescriptions.get(taskDescriptions.size() - 1) + dateInfoText);
         System.out.println(" Now you have " + taskDescriptions.size() + " tasks in the list.");
+
+        // Call saveTasks to save the tasks after adding
+        saveTasks();
     }
 
     private static void deleteTask(int taskIndex) {
@@ -131,6 +146,8 @@ public class Ken {
             taskTypes.remove(taskIndex);
             taskDates.remove(taskIndex);
 
+            // Call saveTasks to save the tasks after deleting
+            saveTasks();
         } else {
                 System.out.println("Task not found. Nothing was deleted.");
             }
@@ -163,6 +180,9 @@ public class Ken {
                     taskDoneStatus.set(taskIndex, true);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(" [X] " + taskDescriptions.get(taskIndex) + (taskDates.get(taskIndex) != null ? taskDates.get(taskIndex) : ""));
+
+                    // Call saveTasks to save the tasks after marking
+                    saveTasks();
                 } else {
                     System.out.println("This task is already marked as done.");
                 }
@@ -194,6 +214,56 @@ public class Ken {
         }
         return new String[]{description, null};
     }
+
+
+
+    private static void loadTasks() {
+        File file = new File(DATA_FILE_PATH);
+
+        if (file.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Parse the line and add tasks to the lists
+                    // Format: T | 1 | read book | dateInfo (if available)
+                    String[] parts = line.split(" \\| ");
+                    if (parts.length >= 3) {
+                        taskTypes.add(parts[0]);
+                        taskDoneStatus.add(parts[1].equals("1"));
+                        taskDescriptions.add(parts[2]);
+
+                        // Check if dateInfo is available
+                        if (parts.length >= 4) {
+                            taskDates.add(parts[3]);
+                        } else {
+                            taskDates.add(null); // No dateInfo
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Error loading tasks from the data file.");
+            }
+        }
+    }
+
+
+    private static void saveTasks() {
+        File file = new File(DATA_FILE_PATH);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (int i = 0; i < taskDescriptions.size(); i++) {
+                String taskType = taskTypes.get(i);
+                String doneStatus = taskDoneStatus.get(i) ? "1" : "0";
+                String description = taskDescriptions.get(i);
+                writer.write(taskType + " | " + doneStatus + " | " + description);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to the data file.");
+        }
+    }
+
+
 }
 
 class KenException extends Exception {
