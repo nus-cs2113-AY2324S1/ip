@@ -3,7 +3,7 @@ package doli.tasks;
 /** Parent class defining a task with description, process and agenda overview */
 public abstract class Task {
     private final String description;
-    private boolean isDone;
+    public boolean isDone;
     private static int numberOfTotalTasks = 0;
     public Task(String description) {
         this.description = description;
@@ -37,6 +37,11 @@ public abstract class Task {
     public static int getNumberOfTotalTasks() {
         return numberOfTotalTasks;
     }
+    /**
+     * Overrides the general objects method .toString() allowing for
+     * a tailored use incorporating details of the task such as its description and whether it is done or not.
+     * @return a String summarising the tasks's details
+     */
     @Override
     public String toString() {
         String summary = String.format("[%c] %s", getStatusIcon(), getDescription());

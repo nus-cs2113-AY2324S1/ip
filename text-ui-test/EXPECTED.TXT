@@ -55,7 +55,7 @@ ________________________________
 Time or description missing for deadline
 ________________________________
 ________________________________
-Starttime, endtime or desciption missing for event
+Start-time, end-time or description missing for event
 ________________________________
 ________________________________
 Here is an overview of your agenda:

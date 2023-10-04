@@ -55,21 +55,27 @@ public class Doli {
     /**
      * Method that runs the core of the chatbot.
      * It works in a sequential manner by first welcoming
-     * the user before entering a loop where Doli will
-     * process and handle the user input by printing a
-     * response which will also be stored in the initialised
-     * file path.
+     * the user and recording his/her name before entering a loop where
+     * Doli will process and handle the user input by printing a
+     * response which will also be stored in the initialised file path.
      * <p>
      * Once the user gives the command to halt the program,
      * the wile loop will stop and the program will exit.
      */
     public void run() {
         ui.welcomeUser();
+        String name;
+        try {
+             name = ui.getName();
+        } catch(DoliExceptions e) {
+             name = "User:";
+        }
+        ui.askForInstruction();
         boolean isExit = false;
         while (!isExit) {
             try {
+                ui.printUser(name);
                 String fullCommand = ui.getInput();
-                ui.printHLine();
                 Command c = Parser.parseInputIntoCommand(fullCommand);
                 c.handleCommand(tasks, ui, storage);
                 c.getResponse();
@@ -80,6 +86,7 @@ public class Doli {
                 ui.printHLine();
             }
         }
+    ui.greetUser();
     }
     /**
      * This is Doli's main method.
