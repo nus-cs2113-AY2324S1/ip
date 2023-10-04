@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.Optional;
 
 import jerry.commands.CommandResult;
 import jerry.task.Task;
@@ -119,9 +120,9 @@ public class TextUi {
      * command execution segments.
      */
     public void showResultToUser(CommandResult result) {
-        final List<Task> resultTasks = result.getRelevantTasks();
-        if (resultTasks != null) {
-            showTaskListView(resultTasks);
+        final Optional<List<Task>> resultTasks = result.getRelevantTasks();
+        if (resultTasks.isPresent()) {
+            showTaskListView(resultTasks.get());
         }
         showToUser(result.feedbackToUser, DIVIDER);
     }

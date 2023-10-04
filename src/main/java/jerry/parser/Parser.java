@@ -5,6 +5,9 @@ import jerry.exceptions.IllegalValueException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
 
 import static jerry.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static jerry.common.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
@@ -52,6 +55,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case FindCommand.COMMAND_WORD:
+            return prepareFindCommand(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -166,6 +172,12 @@ public class Parser {
         } catch (NumberFormatException nfe) {
             return new IncorrectCommand(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+    }
+
+    private Command prepareFindCommand(String args) {
+        final String[] keywords = args.split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new FindCommand(keywordSet);
     }
 
 

@@ -1,5 +1,6 @@
 package jerry;
 
+import jerry.task.Task;
 import jerry.task.TaskList;
 import jerry.commands.Command;
 import jerry.commands.CommandResult;
@@ -10,9 +11,14 @@ import jerry.storage.StorageFile;
 import jerry.storage.StorageFile.InvalidStorageFilePathException;
 import jerry.storage.StorageFile.StorageOperationException;
 
+import java.util.List;
+import java.util.Collections;
+import java.util.Optional;
+
 public class Main {
 
-    private static TaskList taskList;
+    private TaskList taskList;
+    private List<Task> lastShownList = Collections.emptyList(); 
     private TextUi ui;
     private StorageFile storage;
 
@@ -57,7 +63,7 @@ public class Main {
             String userCommandText = ui.getUserCommand();
             command = new Parser().parseCommand(userCommandText);
             CommandResult result = executeCommand(command);
-            taskList.setLastShownList(result.getRelevantTasks());
+            recordResult(result);
             ui.showResultToUser(result);
 
         } while (!ExitCommand.isExit(command));
@@ -72,13 +78,21 @@ public class Main {
      */
     private CommandResult executeCommand(Command command) {
         try {
-            command.setData(taskList);
+            command.setData(taskList, lastShownList);
             CommandResult result = command.execute();
             storage.save(taskList);
             return result;
         } catch (Exception e) {
             ui.showToUser(e.getMessage());
             throw new RuntimeException(e);
+        }
+    }
+
+    /** Updates the {@link #lastShownList} if the result contains a list of tasks. */
+    private void recordResult(CommandResult result) {
+        final Optional<List<Task>> taskList = result.getRelevantTasks();
+        if (taskList.isPresent()) {
+            lastShownList = taskList.get();
         }
     }
 
