@@ -1,3 +1,17 @@
+/**
+ * Event is a task that has a specific start and end time.
+ * It is a subclass of the Task class and includes methods to
+ * retrieve and format the event time.
+ *
+ * <p>
+ * Event objects can be created with a description, start time,
+ * and end time.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-09-30
+ */
+
 package Duke.tasks;
 
 import Duke.Task;
