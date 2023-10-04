@@ -139,8 +139,7 @@ public class Storage {
      */
     public static void deleteTaskFromFile(String taskToDelete) {
 
-        taskFileContents = taskFileContents.replace(taskToDelete + "\r\n", "");
-
+        taskFileContents = taskFileContents.replace(taskToDelete + System.lineSeparator(), "");
     }
     /**
      * Updates details of a <code>Task</code> in <code>taskFileContents</code>,
