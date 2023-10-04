@@ -31,20 +31,6 @@ public class Event extends Task {
         return String.format("[E][%s] %s (from: %s to: %s)", this.getStatusIcon(), this.getDescription(), this.getFrom(), this.getTo());
     }
 
-    // public static Event fromString(String userInput) throws InvalidTaskFormatException {
-    //     Pattern pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
-    //     Matcher matcher = pattern.matcher(userInput);
-    //
-    //     if (matcher.matches() && matcher.groupCount() == 3) {
-    //         String description = matcher.group(1);
-    //         String from = matcher.group(2);
-    //         String to = matcher.group(3);
-    //         return new Event(description, from, to);
-    //     } else {
-    //         throw new InvalidTaskFormatException(FORMAT_EXCEPTION_MESSAGE);
-    //     }
-    // }
-
     @Override
     public String encode() {
         return String.format("E~%s~%s~%s~%s", this.getStatusIcon(), this.getDescription(), this.getFrom(), this.getTo());
@@ -59,7 +45,7 @@ public class Event extends Task {
             String from = matcher.group(3);
             String to = matcher.group(4);
             Event newTask = new Event(description, from, to);
-            if (isTaskDoneStr == "X") {
+            if (isTaskDoneStr.equals("X")) {
                 newTask.markAsDone();
             }
             return newTask;

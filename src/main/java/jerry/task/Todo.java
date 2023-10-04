@@ -30,7 +30,7 @@ public class Todo extends Task {
             String isTaskDoneStr = matcher.group(1);
             String description = matcher.group(2);
             Todo newTask = new Todo(description);
-            if (isTaskDoneStr == "X") {
+            if (isTaskDoneStr.equals("X")) {
                 newTask.markAsDone();
             }
             return newTask;

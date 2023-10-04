@@ -25,18 +25,6 @@ public class Deadline extends Task {
         return String.format("[D][%s] %s (by: %s)", this.getStatusIcon(), this.getDescription(), this.getBy());
     }
 
-    // public static Deadline fromString(String userInput) throws InvalidTaskFormatException {
-    //     Pattern pattern = Pattern.compile("(.+) /by (.+)");
-    //     Matcher matcher = pattern.matcher(userInput);
-    //     if (matcher.matches() && matcher.groupCount() == 2) {
-    //         String description = matcher.group(1);
-    //         String by = matcher.group(2);
-    //         return new Deadline(description, by);
-    //     } else {
-    //         throw new InvalidTaskFormatException(FORMAT_EXCEPTION_MESSAGE);
-    //     }
-    // }
-
     @Override
     public String encode() {
         return String.format("D~%s~%s~%s", this.getStatusIcon(), this.getDescription(), this.getBy());
@@ -50,7 +38,7 @@ public class Deadline extends Task {
             String description = matcher.group(2);
             String by = matcher.group(3);
             Deadline newTask = new Deadline(description, by);
-            if (isTaskDoneStr == "X") {
+            if (isTaskDoneStr.equals("X")) {
                 newTask.markAsDone();
             }
             return newTask;
