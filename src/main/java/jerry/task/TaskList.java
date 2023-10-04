@@ -15,6 +15,9 @@ import jerry.task.Task;
 import jerry.Main;
 import jerry.exceptions.TaskNotFoundException;
 
+/**
+ * Represents the entire taks list. Contains the tasks data.
+ */
 public class TaskList implements Serializable {
     private List<Task> allTasks;
 
@@ -35,45 +38,17 @@ public class TaskList implements Serializable {
         allTasks.add(task);
     }
 
-    // public Task removeTask(int index) throws TaskNotFoundException {
-    //     if (index < 1 || index > tasks.size()) {
-    //         throw new TaskNotFoundException(this.getTaskNotFoundMessage(index));
-    //     }
-    //     Task task = this.getTaskByIndex(index);
-    //     this.tasks.remove(index - 1);
-    //     return task;
-    // }
     
     public void removeTask(Task task) throws TaskNotFoundException {
         allTasks.remove(task);
     }
 
-    public int size() {
-        return allTasks.size();
-    }
-
-    public Boolean isEmpty() {
-        return allTasks.isEmpty();
-    }
-
-    private String getTaskNotFoundMessage(int index) {
-        if (index <= 0) {
-            return TASK_INDEX_MUST_BE_POSITIF_MESSAGE;
-        }
-        switch (allTasks.size()) {
-            case 0:
-            return TASK_LIST_EMPTY_MESSAGE;
-            case 1:
-            return ONLY_ONE_TASK_MESSAGE;
-            default:
-            return String.format("The task number must be between 1 and %d.", allTasks.size());
-        }
-    }
-
+    /**
+     * Get the right task given an index
+     *
+     * @return the task
+     */
     public Task getTaskByIndex(int index) {
-        // if (index < 1 || index > tasks.size()) {
-        //     throw new TaskNotFoundException(this.getTaskNotFoundMessage(index));
-        // }
         return allTasks.get(index - 1);
     }
 
@@ -88,21 +63,6 @@ public class TaskList implements Serializable {
         return stringBuilder.toString();
     }
 
-    public void serializeToFile(Path filePath) throws IOException {
-        try (FileOutputStream fileOut = new FileOutputStream(filePath.toString());
-             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
-            objectOut.writeObject(this);
-        }
-    }
-
-    public static TaskList deserializeFromFile(Path filePath) throws IOException, ClassNotFoundException {
-        try (FileInputStream fileIn = new FileInputStream(filePath.toString());
-             ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
-            TaskList tasks = (TaskList) objectIn.readObject();
-            return tasks;
-        }
-    }
-
     /**
      * Updates the {@link #lastShownList} if the result contains a list of Tasks.
      */
@@ -113,7 +73,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Returns a new UniquePersonList of all persons in the PersonBook at the time of the call.
+     * Returns a new list of all tasks in the taskList at the time of the call.
      */
     public List<Task> getAllTasks() {
         return allTasks;

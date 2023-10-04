@@ -15,12 +15,18 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Optional;
 
+/**
+ * Entry point of the Task List application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Main {
 
     private TaskList taskList;
-    private List<Task> lastShownList = Collections.emptyList(); 
     private TextUi ui;
     private StorageFile storage;
+
+    /** The list of tasks shown to the user most recently.  */
+    private List<Task> lastShownList = Collections.emptyList(); 
 
     public static void main(String[] launchArgs) {
         new Main().run(launchArgs);

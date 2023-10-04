@@ -5,6 +5,9 @@ import java.util.regex.Pattern;
 import jerry.exceptions.InvalidTaskFormatException;
 import jerry.exceptions.IllegalValueException;
 
+/**
+ * Represents a task of type event in the task list.
+ */
 public class Event extends Task {
     private String from;
     private String to;
@@ -36,6 +39,12 @@ public class Event extends Task {
         return String.format("E~%s~%s~%s~%s", this.getStatusIcon(), this.getDescription(), this.getFrom(), this.getTo());
     }
 
+    /**
+     * Create the adequate task according to the encode string
+     *
+     * @parameter the encoded string
+     * @returns the task
+     */
     public static Event decode(String string) throws IllegalValueException {
         Pattern pattern = Pattern.compile(DECODE_REGEX);
         Matcher matcher = pattern.matcher(string);

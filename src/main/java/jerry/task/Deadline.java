@@ -5,6 +5,9 @@ import java.util.regex.Pattern;
 import jerry.exceptions.InvalidTaskFormatException;
 import jerry.exceptions.IllegalValueException;
 
+/**
+ * Represents a task of type deadline in the task list.
+ */
 public class Deadline extends Task {
     private String by;
 
@@ -30,6 +33,12 @@ public class Deadline extends Task {
         return String.format("D~%s~%s~%s", this.getStatusIcon(), this.getDescription(), this.getBy());
     }
 
+    /**
+     * Create the adequate task according to the encode string
+     *
+     * @parameter the encoded string
+     * @returns the task
+     */
     public static Deadline decode(String string) throws IllegalValueException {
         Pattern pattern = Pattern.compile(DECODE_REGEX);
         Matcher matcher = pattern.matcher(string);

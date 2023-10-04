@@ -17,6 +17,9 @@ import jerry.task.Deadline;
 import jerry.task.Event;
 import jerry.exceptions.IllegalValueException;
 
+/**
+ * Represents the file used to store task list data.
+ */
 public class StorageFile {
 
     /** Default file path used if the user doesn't provide the file name. */
