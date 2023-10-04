@@ -1,14 +1,10 @@
 package torchie;
 
-import torchie.exception.InvalidFormatException;
+import torchie.parser.CommandParser;
 import torchie.parser.TaskDetailsParser;
 import torchie.storage.DataManager;
 import torchie.exception.TorchieException;
-import torchie.task.Deadline;
-import torchie.task.Event;
-import torchie.task.Task;
 import torchie.task.TaskList;
-import torchie.task.ToDo;
 
 import java.util.Scanner;
 
@@ -19,11 +15,13 @@ public class Torchie {
         TaskDetailsParser taskDetailsParser = new TaskDetailsParser();
         TaskList taskList = dataManager.retrieveData();
         Scanner scanner = new Scanner(System.in);
+        CommandParser commandparser = new CommandParser(taskList, dataManager);
 
         taskList.start();
-        String input;
+        commandparser.getUserCommand();
+//        String input;
 
-        do {
+        /*do {
             input = scanner.nextLine();
             String firstWord = input.split(" ")[0];
 
@@ -125,7 +123,7 @@ public class Torchie {
                 System.out.println("Invalid Command!");
             }
 
-        } while (!input.equals("bye"));
+        } while (!input.equals("bye"));*/
 
     }
 }
