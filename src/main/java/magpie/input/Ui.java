@@ -1,11 +1,10 @@
 package magpie.input;
 
 import magpie.exceptions.MagpieException;
-import magpie.task.TaskList;
 import java.util.Scanner;
 /**
- * <b>Ui</b> class is responsible for initializing a <code>scanner</code> list to get user input.<br>
- * Contains methods to print messages such as logo and bye, and parse input by calling <code>Parser</code> methods.
+ * Initializes a <code>scanner</code> list to get user input, contains methods to print messages
+ * such as logo and bye, and parses input by calling <code>Parser</code> methods.
  */
 public class Ui {
 
@@ -14,20 +13,17 @@ public class Ui {
     private static Scanner scanInput;
 
     /**
-     * Constructor to initialize <code>Scanner</code> for user input.
+     * Initializes <code>Scanner</code> for user input.
      */
     public Ui() {
-
         scanInput = new Scanner(System.in);
     }
 
     /**
      * Reads user input until <code>bye</code> is given and initializes a <code>Parser</code> to process each input.
      * Prints error messages if <code>MagpieException</code> is caught.
-     *
-     * @param taskManager TaskList object for task operations.
      */
-    public static void processUserInput(TaskList taskManager) {
+    public static void processUserInput() {
 
         String input = "";
         input = scanInput.nextLine();
@@ -35,14 +31,12 @@ public class Ui {
         while (!input.equalsIgnoreCase("bye")) {
 
             Parser userInput = new Parser(input);
-            try{
-                userInput.processCommand(taskManager);
-            }
-            catch (MagpieException e){
+            try {
+                userInput.processCommand();
+            } catch (MagpieException e) {
                 System.out.println(e.getErrorMessage());
             }
             input = scanInput.nextLine();
-
 
         }
     }

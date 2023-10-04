@@ -8,7 +8,7 @@ public class Deadline extends Task {
     protected String by;
 
     /**
-     * Constructor for <code>description</code>, <code>isDone</code>, and <code>by</code>.
+     * Constructs <code>description</code>, <code>isDone</code>, and <code>by</code>.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -32,6 +32,5 @@ public class Deadline extends Task {
 
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
-
 
 }

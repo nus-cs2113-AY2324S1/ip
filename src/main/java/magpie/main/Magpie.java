@@ -1,11 +1,11 @@
-package main;
+package magpie.main;
 import magpie.files.Storage;
 import magpie.input.Ui;
 import magpie.task.TaskList;
 import java.io.IOException;
 
 /**
- * The main class of Magpie which initializes Storage, TaskList, and Ui objects.
+ * Initializes Storage, TaskList, and Ui objects.
  * Loads data file to populate TaskList (if any).
  * Runs and exits process when user is done.
  */
@@ -23,7 +23,7 @@ public class Magpie {
         taskManager = new TaskList();
         ui = new Ui();
         storage = new Storage();
-        storage.loadFile(taskManager);
+        storage.loadFile();
 
     }
 
@@ -32,10 +32,9 @@ public class Magpie {
      */
     public void exit() {
         ui.printByeMessage();
-        try{
+        try {
             storage.saveToFile();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Opps. File writing error!");
         }
     }
@@ -46,7 +45,7 @@ public class Magpie {
      */
     public void run() {
         ui.printLogo();
-        ui.processUserInput(taskManager);
+        ui.processUserInput();
 
         exit();
     }

@@ -1,7 +1,7 @@
 package magpie.exceptions;
 
 /**
- * <b>MagpieException</b> class is an Exception class for Magpie-related errors.<br>
+ * Represents an Exception class for Magpie-related errors.<br>
  * Contains <code>errorMessage</code> to let users know the error. <i>E.g missing arguments</i>
  */
 public class MagpieException extends Exception {
@@ -9,13 +9,12 @@ public class MagpieException extends Exception {
     private String errorMessage;
 
     /**
-     * Constructor for <code>errorMessage</code>.
+     * Constructs <code>errorMessage</code>.
      *
      * @param errorMessage errorMessage to be printed to user.
      */
 
     public MagpieException(String errorMessage) {
-
         this.errorMessage = errorMessage;
     }
 
@@ -26,7 +25,6 @@ public class MagpieException extends Exception {
      */
 
     public String getErrorMessage() {
-
         return errorMessage;
     }
 

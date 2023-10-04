@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import magpie.files.Storage;
 
 /**
- * <b>TaskList</b> class is responsible for initializing a <code>tasks</code> list to track Task objects.<br>
+ * Represents a <b>TaskList</b> for initializing a <code>tasks</code> list to track Task objects.<br>
  * Contains methods to manage Tasks such as <code>list</code>, <code>add</code>, <code>delete</code>,
- * <code>find</code>, and <code>mark</code>
+ * <code>find</code>, and <code>mark</code>.
  */
 public class TaskList {
 
@@ -14,9 +14,9 @@ public class TaskList {
     private static int taskCount;
 
     /**
-     * Constructor for <code>taskCount</code> and to initialize <code>ArrayList</code> for <code>tasks</code>.
+     * Constructs <code>taskCount</code> and to initialize <code>ArrayList</code> for <code>tasks</code>.
      */
-    public TaskList()  {
+    public TaskList() {
         tasks = new ArrayList<>();
         taskCount = 0;
     }
@@ -114,7 +114,7 @@ public class TaskList {
         System.out.println("  " + t.toString());
         System.out.println("Now you have " + taskCount + " task(s) in the list.");
         System.out.println("____________________________________________________________\n");
-        Storage.appendTaskToFile(t.getTextToWrite());
+        Storage.appendTaskToFile(t.getTextToWrite() + System.lineSeparator());
     }
 
 
@@ -126,7 +126,7 @@ public class TaskList {
      */
     public static void deleteTask(int index) {
 
-        try{
+        try {
             Task t = tasks.get(index);
             tasks.remove(index);
             taskCount--;
@@ -136,8 +136,7 @@ public class TaskList {
             System.out.println("  " + t);
             System.out.println("Now you have " + taskCount + " task(s) in the list.");
             System.out.println("____________________________________________________________\n");
-        }
-        catch(IndexOutOfBoundsException e) {
+        } catch(IndexOutOfBoundsException e) {
             displayIndexError();
         }
 
@@ -165,10 +164,9 @@ public class TaskList {
             }
         }
 
-        if (count == 0){
+        if (count == 0) {
             System.out.println("No task(s) were found with keyword: " + keyword + "\n");
-        }
-        else{
+        } else {
             System.out.println(count + " task(s) were found with keyword: " + keyword + "\n");
         }
         System.out.println("____________________________________________________________\n");
@@ -176,7 +174,7 @@ public class TaskList {
     }
 
     /**
-     * Mark or Unmark a <code>Task</code> object in <code>tasks</code> list based on boolean value given.
+     * Marks or Unmarks a <code>Task</code> object in <code>tasks</code> list based on boolean value given.
      * Prints success message if there were no errors.
      *
      * @param index Index of task.

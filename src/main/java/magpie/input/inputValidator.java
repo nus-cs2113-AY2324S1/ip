@@ -2,7 +2,7 @@ package magpie.input;
 import magpie.exceptions.MagpieException;
 
 /**
- * <b>InputValidator</b> class is responsible for validating parsed user input for each command e.g adding Deadline.<br>
+ * Validates parsed user input for each command e.g adding Deadline.<br>
  * Ensures that the necessary arguments are present <i>(e.g /by)</i> and <code>int</code>
  * can be parsed from <code>String</code>.<br>
  * Throws <code>MagpieException</code> if validation fails.
@@ -57,13 +57,11 @@ public class InputValidator {
         boolean hasFrom = Parser.arguments.contains("/from");
         boolean hasTo = Parser.arguments.contains("/to");
 
-        if(!hasFrom && !hasTo){
+        if(!hasFrom && !hasTo) {
             throw new MagpieException("Please specify starting and ending times using /from and /to!");
-        }
-        else if (!hasFrom) {
+        } else if (!hasFrom) {
             throw new MagpieException("Please specify a starting time using /from!");
-        }
-        else if (!hasTo) {
+        } else if (!hasTo) {
             throw new MagpieException("Please specify a ending time using /to!");
 
         }

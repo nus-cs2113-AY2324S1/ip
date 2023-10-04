@@ -9,8 +9,8 @@ import java.util.Scanner;
 import java.io.FileWriter;
 
 /**
- * <b>Storage</b> class is responsible for loading tasks from the file and saving tasks in the file.<br>
- * Contains methods to related to file operations such as reading, writing, and saving files.
+ * Contains methods for file operations such as reading, writing, and saving files.
+ * Responsible for loading tasks from the file and saving tasks in the file.<br>
  */
 public class Storage {
 
@@ -32,13 +32,13 @@ public class Storage {
         String directoryPath = System.getProperty("user.dir") + "/data";
         filePath = directoryPath + "/data.txt";
         File directory = new File(directoryPath);
-        if (!directory.exists()){
+        if (!directory.exists()) {
             directory.mkdir();
         }
     }
 
     /**
-     * Constructor that calls <code>createDirectory</code> and initializes <code>taskFile</code> for file handling.
+     * Calls <code>createDirectory</code> and initializes <code>taskFile</code> for file handling.
      * Creates a new <code>data.txt</code> file if not present.
      */
     public Storage() {
@@ -55,15 +55,21 @@ public class Storage {
             }
             else {
                 System.out.println("Data file found! Now loading...");
-
             }
-
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Hmmmm...an IOException occurred. Check that data directory exists or try again!");
         }
 
+    }
 
+    /**
+     * Trims leading and trailing whitespaces from each element in splitTaskLines
+     */
+    public void trimTaskLine() {
+
+        for (int i = 0; i < splitTaskLines.length; i++) {
+            splitTaskLines[i] = splitTaskLines[i].trim();
+        }
     }
 
     /**
@@ -74,8 +80,8 @@ public class Storage {
      * @throws MagpieException if data file contains invalid task lines.
      */
     public void addTaskLine() throws MagpieException {
-        boolean isMark = !(splitTaskLines[1].trim().equals("0"));
-        switch(splitTaskLines[0].trim()) {
+        boolean isMark = !(splitTaskLines[1].equals("0"));
+        switch(splitTaskLines[0]) {
         case "T":
             TaskList.addTodo(isMark, splitTaskLines[2]);
             break;
@@ -94,24 +100,21 @@ public class Storage {
     /**
      * Reads data file line by line using a <code>Scanner</code> object. For each line, retrieve
      * Task Details by splitting using "|" and call <code>addTaskLine</code> to load task.
-     *
-     * @param taskManager taskManager TaskList object for task operations.
      */
-    public void loadFile(TaskList taskManager) {
+    public void loadFile() {
 
         try {
             scanFile = new Scanner(taskFile);
-            while(scanFile.hasNext()){
+            while(scanFile.hasNext()) {
                 taskLine = scanFile.nextLine();
                 splitTaskLines = taskLine.split("\\|");
-
+                trimTaskLine();
                 addTaskLine();
-
             }
             scanFile.close();
         } catch (FileNotFoundException e) {
             System.out.println("Uh oh!! File not found!");
-        } catch (ArrayIndexOutOfBoundsException e ){
+        } catch (ArrayIndexOutOfBoundsException e ) {
             System.out.println("Uh oh!! Looks like your data file's corrupted!");
         } catch (MagpieException e) {
             System.out.println(e.getErrorMessage());
@@ -125,7 +128,7 @@ public class Storage {
      * @param newTask Task to be appended.
      */
     public static void appendTaskToFile(String newTask) {
-        taskFileContents += newTask + System.lineSeparator();
+        taskFileContents += newTask;
 
     }
 
@@ -148,7 +151,6 @@ public class Storage {
      */
     public static void updateTaskInFile(String oldLine, String newLine) {
         taskFileContents = taskFileContents.replace(oldLine, newLine);
-
     }
 
     /**

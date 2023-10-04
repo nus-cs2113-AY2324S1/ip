@@ -10,7 +10,7 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * Constructor for <code>description</code>, <code>isDone</code>, <code>from</code>, and <code>to</code>.
+     * Constructs <code>description</code>, <code>isDone</code>, <code>from</code>, and <code>to</code>.
      */
     public Event(String description, String from, String to) {
         super(description);

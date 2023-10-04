@@ -11,7 +11,7 @@ public class Task {
     protected String textToWrite;
 
     /**
-     * Constructor for <code>description</code> and <code>isDone</code>.
+     * Constructs <code>description</code> and <code>isDone</code>.
      *
      * @param description description of Task object.
      */
@@ -42,23 +42,21 @@ public class Task {
      * @param done Boolean value to indicate marked or unmarked.
      */
     public void setDone(boolean done) {
-
         isDone = done;
     }
 
     /**
-     * Parse <code>true</code> to Integer value <code>1</code>.
-     * Parse <code>false</code> to Integer value <code>0</code>.
+     * Parses <code>true</code> to Integer value <code>1</code>.
+     * Parses <code>false</code> to Integer value <code>0</code>.
      *
      * @param input Boolean value to be parsed into an Integer.
      * @return Parsed Integer value.
      */
     public static int parseBooleanToInt(boolean input) {
 
-        if (input){
+        if (input) {
             return 1;
-        }
-        else{
+        } else {
             return 0;
         }
     }

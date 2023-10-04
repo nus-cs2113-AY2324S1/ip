@@ -7,7 +7,7 @@ package magpie.task;
 public class Todo extends Task {
 
     /**
-     * Constructor for <code>description</code> and <code>isDone</code>.
+     * Constructs <code>description</code> and <code>isDone</code>.
      */
     public Todo(String description) {
 
