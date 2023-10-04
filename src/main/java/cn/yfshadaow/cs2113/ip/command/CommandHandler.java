@@ -109,6 +109,30 @@ public class CommandHandler {
                 bot.sendMessage(bot.getTasks().get(index - 1).toStringWithIsDone());
                 break;
             }
+            case "delete": {
+                if (cmd.args.size() != 1) {
+                    bot.sendMessage("Incorrect arguments");
+                    break;
+                }
+                int index;
+                try {
+                    index = Integer.parseInt(cmd.args.get(0));
+                } catch (Exception e) {
+                    bot.sendMessage(String.format("Error parsing int: %s", e.getMessage()));
+                    break;
+                }
+                Task task;
+                try {
+                    task = bot.getTasks().get(index - 1);
+                } catch (Exception e) {
+                    bot.sendMessage(String.format("Error getting task: %s", e.getMessage()));
+                    break;
+                }
+                bot.sendMessageWithoutSplit("Noted. I've removed this task:");
+                bot.sendMessage(task.toStringWithIsDone());
+                bot.getTasks().remove(index - 1);
+                break;
+            }
             case "list": {
                 List<Task> tasks = bot.getTasks();
                 for (int i = 0; i < tasks.size(); i += 1) {

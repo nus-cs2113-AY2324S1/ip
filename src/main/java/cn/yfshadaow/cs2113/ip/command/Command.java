@@ -52,7 +52,8 @@ public class Command {
                 if (currentPart == null) {
                     arguments.add(next);
                 } else {
-                    extraArguments.put(currentPart, extraArguments.get(currentPart) + " " + next);
+                    String storedString = extraArguments.get(currentPart);
+                    extraArguments.put(currentPart,  storedString + (storedString.isEmpty()? "" : " ") + next);
                 }
             }
         }
