@@ -131,6 +131,9 @@ public class CommandHandler {
 
     }   
 
+    /** Adds task to taskList.
+     * @param task Task to be added.
+     */
     public void AddTask(Task task){
         taskList.addTask(task);
     }

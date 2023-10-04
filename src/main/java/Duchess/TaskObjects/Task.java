@@ -2,6 +2,9 @@ package Duchess.TaskObjects;
 
 import java.util.Scanner;
 
+/** Parent class for tasks. 
+ * 
+ */
 public class Task {
     
     /**Done condition and
@@ -16,7 +19,6 @@ public class Task {
     /** Constructor class to be declared
      * @param name Name of task to be set
      */
-
     public Task(String name){
         this.name = name;
     }
@@ -29,6 +31,9 @@ public class Task {
         this.name = name;
     }
 
+    /** Replaces name
+     * @param sc Scanner to take in user input
+     */
     public void replaceName(Scanner sc) {
         System.out.println("What would you like to change the name to?");
         String newName = sc.nextLine();
@@ -71,6 +76,9 @@ public class Task {
         }
     }
 
+    /** Gets task as string for saving
+     * @return name Name of task for saving
+     */
     public String toFileString() {
         if (this.isDone){
             return (" X | " + this.name);

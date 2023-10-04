@@ -10,17 +10,23 @@ import Duchess.TextObjects.DefaultStrings;
 
 import Duchess.ErrorObjects.FileNotFoundError;
 
-
+/**
+ * Class to handle list of tasks.
+ * 
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;
     private FileHandler fileHandler;
 
-    
+    /** Empty constructor. */
     public TaskList(){
         this.tasks = new ArrayList<Task>();
     }
 
+    /** Main importing function for TaskList class.
+     * @param tasks ArrayList of tasks.
+     */
     public void importTasks(String filepath) throws FileNotFoundError{
         try{
             fileHandler = new FileHandler(filepath);
@@ -30,6 +36,10 @@ public class TaskList {
         }
     }
 
+    /** Main exporting function for TaskList class.
+     * If file does not exist, create new file at filepath.
+     * @param tasks ArrayList of tasks.
+     */
     public void saveTasks(String filepath) throws FileNotFoundError{
         try{
             fileHandler = new FileHandler(filepath);
@@ -46,6 +56,9 @@ public class TaskList {
         }
     }
 
+    /** Adds task to list.
+     * @param task Task to be added.
+     */
     public void addTask(Task task){
         this.tasks.add(task);
         System.out.println(DefaultStrings.splittingLine
@@ -55,6 +68,9 @@ public class TaskList {
         this.displayNumTasks();
     }
 
+    /** Deletes task from list.
+     * @param taskNum User-side index number of task to be deleted.
+     */
     public void deleteTask(int taskNum){
         try{
             Task task = this.tasks.get(taskNum-1);
@@ -71,6 +87,7 @@ public class TaskList {
         }
     }
 
+    /** Displays number of tasks in list. */
     public void displayNumTasks(){
         System.out.println(DefaultStrings.splittingLine
                 + "\n" + DefaultStrings.numTasksStringStart + this.tasks.size()
@@ -78,6 +95,7 @@ public class TaskList {
                 + "\n" + DefaultStrings.splittingLine);
     }
 
+    /** Lists all tasks in list. */
     public void listTasks(){
         System.out.print(DefaultStrings.splittingLine);
         for (int i = 1; i <= this.tasks.size(); i++){
@@ -86,11 +104,17 @@ public class TaskList {
         System.out.println(DefaultStrings.splittingLine);
     }
 
+    /** Marks task as done.
+     * @param taskNumber User-side index number of task to be marked.
+     */
     public void markTask(int taskNumber){
         this.tasks.get(taskNumber-1).markAsDone();
         printTaskSkeleton(taskNumber, DefaultStrings.markedString);
     }
 
+    /** Marks task as undone.
+     * @param taskNumber User-side index number of task to be unmarked.
+     */
     public void unmarkTask(int taskNumber){
         this.tasks.get(taskNumber-1).markAsUndone();
         printTaskSkeleton(taskNumber, DefaultStrings.unmarkedString);
