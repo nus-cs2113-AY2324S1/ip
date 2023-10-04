@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * User interface object that handles the format and content of various outputs to the user
+ * through command line interface.
+ */
 public class Ui {
     private static final String LINE_DIVIDER = "\t---------------------------------------";
     protected Scanner scanner;

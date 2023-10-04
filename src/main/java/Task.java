@@ -22,15 +22,19 @@ public class Task {
         isDone = done;
     }
 
+    /**
+     * Returns the format of the task to be printed out to user
+     * @return String representation of the task
+     */
     public String toString() {
-        String temp = "[ ]";
-        if (isDone) {
-            temp = "[X]";
-        }
-        return temp + " " + description;
+        return (isDone ? "[X]" : "[ ]") + " " + description;
     }
 
+    /**
+     * Returns the format of the task to be saved into a file
+     * @return String representation of the task
+     */
     public String toSave() {
-        return null;
+        return (isDone ? "1" : "0") + " | " + description;
     }
 }

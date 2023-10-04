@@ -4,12 +4,20 @@ public class ToDo extends Task {
         super(description);
     }
 
+    /**
+     * Returns the format of the task to be printed out to user
+     * @return String representation of the task
+     */
     public String toString() {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Returns the format of the task to be saved into a file
+     * @return String representation of the task
+     */
     @Override
     public String toSave() {
-        return "T | " + (this.isDone() ? "1" : "0") + " | " + this.getDescription();
+        return "T | " + super.toSave();
     }
 }

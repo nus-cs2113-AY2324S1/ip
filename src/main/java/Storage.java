@@ -4,6 +4,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * Storage object that handles loading and saving of tasks into specified file
+ */
 public class Storage {
     private String filePath;
 
@@ -11,6 +15,14 @@ public class Storage {
          this.filePath = filePath;
     }
 
+    /**
+     * This method attempts to load pre-existing tasks from the file specified by
+     * the filepath. It will read the text file line by line and extract the information
+     * based on a format specified by the program.
+     *
+     * @return A TaskList object that contains the tasks loaded from the file.
+     * @throws DukeException If the file cannot be found or is corrupted.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> allTasks = new ArrayList<Task>();
         try {
@@ -64,6 +76,16 @@ public class Storage {
         return allTasks;
     }
 
+    /**
+     *
+     * This method save the tasks in TaskList into the file specified by filepath.
+     * If the file specified by the filepath does not exist, it will create a new file as
+     * specified by the filepath.
+     *
+     * @param taskList TaskList object that contains the tasks.
+     * @throws DukeException If there is an error during the saving process due to corrupted
+     *                       data or invalid input.
+     */
     public void save(TaskList taskList) throws DukeException {
         ArrayList<Task> tasks = taskList.getTasks();
         try {
@@ -78,6 +100,11 @@ public class Storage {
         }
     }
 
+    /**
+     * This method create the file specified by the filepath.
+     *
+     * @throws DukeException If it fails to create the specified file.
+     */
     public void createFile() throws DukeException {
         try {
             File f = new File(filePath);
