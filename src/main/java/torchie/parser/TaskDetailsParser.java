@@ -1,12 +1,28 @@
 package torchie.parser;
 
-import torchie.exception.InvalidDeadlineFormatException;
-import torchie.exception.InvalidEventFormatException;
-import torchie.exception.MissingTaskNameException;
-import torchie.exception.TorchieException;
+import torchie.exception.*;
 
 public class TaskDetailsParser {
     public TaskDetailsParser() {
+    }
+
+    public String getIndex(String s) throws InvalidIndexException {
+        // split sentence into 2 parts, first word and everything else
+        String[] words = s.split(" ", 2);
+
+        if (words.length<2) {
+            throw new InvalidIndexException();
+        }
+
+        // making sure content stops before the key characters such as /
+        String content = words[1];
+
+        if (content.indexOf('/') != -1) {
+            int keyWordIndex = content.indexOf('/');
+            content = content.substring(0, keyWordIndex - 1);
+        }
+
+        return content;
     }
 
     public String getContent(String s) throws MissingTaskNameException {

@@ -1,5 +1,6 @@
 package torchie.parser;
 
+import torchie.Torchie;
 import torchie.command.*;
 import torchie.exception.*;
 import torchie.storage.Storage;
@@ -10,7 +11,7 @@ import torchie.task.ToDo;
 
 import java.util.Scanner;
 
-public class CommandParser {
+public class Parser {
 
     public final String LIST = "list";
     public final String EXIT = "bye";
@@ -25,7 +26,7 @@ public class CommandParser {
     private TaskList taskList;
     private Storage dataManager;
     private TaskDetailsParser taskDetailsParser;
-    public CommandParser(TaskList tl, Storage dm) {
+    public Parser(TaskList tl, Storage dm) {
         this.taskList = tl;
         this.dataManager = dm;
         this.taskDetailsParser = new TaskDetailsParser();
@@ -38,13 +39,15 @@ public class CommandParser {
         return new SetStatusCommand(c, taskList, itemNum);
     }
 */
-    public Command parseCommand(String input) throws InvalidDeadlineFormatException, InvalidCommandException, MissingTaskNameException, InvalidEventFormatException, InvalidDeadlineFormatException {
+    public Command parseCommand(String input) throws TorchieException {
 
         String command = input.split(" ")[0];
+        Command commandObj = new InvalidCommand();
 
         switch (command) {
         case LIST:
-            return new ListCommand(taskList);
+            commandObj = new ListCommand(taskList);
+            break;
 
         case MARK:
         case UNMARK:
@@ -56,11 +59,12 @@ public class CommandParser {
                 String itemNum_str = taskDetailsParser.getContent(input);
                 int itemNum = Integer.parseInt(itemNum_str) - 1;
 
-                return new SetStatusCommand(command, taskList, itemNum);
+                commandObj = new SetStatusCommand(command, taskList, itemNum);
 //                dataManager.save(taskList);
             } catch (TorchieException e) {
                 e.showExceptionMessage();
-            }/*catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            }
+            break;/*catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Invalid Format! Correct format: \"mark <index>\", where index is an integer ");
                 // throw invalid format exception
                 throw new InvalidDeadlineFormatException();
@@ -93,12 +97,13 @@ public class CommandParser {
                 }
                 break;*/
         case EXIT:
-            return new ExitCommand();
+            commandObj =  new ExitCommand(taskList);
+            break;
         case TODO:
             try {
                 String taskDescription = taskDetailsParser.getContent(input);
                 ToDo td = new ToDo(taskDescription);
-                return new AddCommand(td, taskList);
+                commandObj = new AddCommand(td, taskList);
                 /*taskList.addTask(td);
                 td.announceTaskAdd();
                 taskList.announceListSize();*/
@@ -112,7 +117,7 @@ public class CommandParser {
                 String taskDescription = taskDetailsParser.getContent(input);
                 String taskDeadline = taskDetailsParser.getDeadlineDate(input);
                 Deadline d = new Deadline(taskDescription, taskDeadline);
-                return new AddCommand(d, taskList);
+                commandObj =  new AddCommand(d, taskList);
                 /*taskList.addTask(d);
                 d.announceTaskAdd();
                 taskList.announceListSize();*/
@@ -129,7 +134,7 @@ public class CommandParser {
                 String taskEventStart = taskDetailsParser.getEventStart(input);
                 String taskEventEnd = taskDetailsParser.getEventEnd(input);
                 Event e = new Event(taskDescription, taskEventStart, taskEventEnd);
-                return new AddCommand(e, taskList);
+                commandObj = new AddCommand(e, taskList);
                 /*taskList.addTask(e);
                 e.announceTaskAdd();
                 taskList.announceListSize();*/
@@ -144,7 +149,7 @@ public class CommandParser {
             try {
                 String itemNum_str = taskDetailsParser.getContent(input);
                 int itemNum = Integer.parseInt(itemNum_str) - 1;
-                return new DeleteCommand(taskList, itemNum);
+                commandObj = new DeleteCommand(taskList, itemNum);
                 /*taskList.deleteTask(itemNum);
                 taskList.announceListSize();*/
             } catch (TorchieException e) {
@@ -160,7 +165,7 @@ public class CommandParser {
             throw new InvalidCommandException();
         }
 
-        return new InvalidCommand();
+        return commandObj;
     }
 
     public void getUserCommand() {
