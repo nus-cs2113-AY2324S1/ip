@@ -22,8 +22,10 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        ui.showLoadingFile();
         try {
             taskList = new TaskList(storage.load());
+            ui.showFileLoaded();
         } catch (DukeException e) {
             ui.showError(e);
             taskList = new TaskList();

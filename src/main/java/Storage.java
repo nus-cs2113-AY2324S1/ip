@@ -64,14 +64,14 @@ public class Storage {
                     }
                     break;
                 default:
-                    System.out.println("\tUnknown task encountered. Skipping");
+                    System.out.println("\tUnknown task encountered. Skipping.");
                     break;
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("\tFailed to load file");
+            throw new DukeException("\tFailed to load file: file not found.");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("\tFile is corrupted");
+            throw new DukeException("\tFailed to load file: file is corrupted.");
         }
         return allTasks;
     }

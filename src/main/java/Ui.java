@@ -13,12 +13,22 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    public void showLoadingFile() {
+        showLine();
+        System.out.println("\tLoading file......");
+        showLine();
+    }
+
+    public void showFileLoaded() {
+        showLine();
+        System.out.println("\tFile has been successfully loaded");
+        showLine();
+    }
     public void showStartMessage() {
-        String intro = "~~~~~~~~~~~~~~~~~~~\n"
-                        + "Hello! I'm Wenny!\n"
-                        + "How may I help you?\n"
-                        + "~~~~~~~~~~~~~~~~~~~";
+        showLine();
+        String intro = "\tHello! I'm Wenny!\n\tHow may I help you?";
         System.out.println(intro);
+        showLine();
     }
 
     public void showByeMessage() {

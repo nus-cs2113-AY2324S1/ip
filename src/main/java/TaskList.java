@@ -60,7 +60,7 @@ public class TaskList {
             Deadline deadline = new Deadline(description, by);
             tasks.add(deadline);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Wrong format! Expected format: deadline [task] /by [time]");
+            throw new DukeException("Wrong format! Expected format: deadline DESCRIPTION /by TIME");
         }
 
     }
@@ -88,7 +88,7 @@ public class TaskList {
             Event event = new Event(description, from, to);
             tasks.add(event);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Wrong format! Expected format: event [task] /from [time] /to [time]");
+            throw new DukeException("Wrong format! Expected format: event DESCRIPTION /from START_TIME /to END_TIME");
         }
 
     }
