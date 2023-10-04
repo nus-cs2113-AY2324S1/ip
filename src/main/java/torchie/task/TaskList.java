@@ -13,14 +13,6 @@ public class TaskList {
         return taskList;
     }
 
-    public void start() {
-        System.out.println("Hello! I'm Torchie!");
-        System.out.println("What can I do for you?");
-        System.out.println("Let's play storetorchie today! You say something and I ll store it!");
-
-        System.out.println("=================================");
-        showTasks();
-    }
     public void addTask(Task t) {
         taskList.add(t);
     }
