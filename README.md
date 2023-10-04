@@ -4,22 +4,22 @@ I am a personal Task managing chatbot, able to store tasks such as To dos, Deadl
 
 ## Here are some of the things I can do!
 
-1) Create 3 types of Tasks:
+=Create 3 types of Tasks:
 <details>
 1. Todo: Tasks which are not time sensitive.
 2. Deadline: Tasks which are time sensitive, able to indicate deadline using /by.
 3. Event: Tasks which are happening at a specific time frame, using /from and /to.
 </details>
 
-2) Keep track of Task completion.
+Keep track of Task completion.
 <details>
  1. [ ] Indicates Tasks that are not completed
  2. [X] Indicates Tasks that are completed
 </details>
       
-3) Store and retreive your tasks into a dedicated save file.
+Store and retreive your tasks into a dedicated save file.
 
-4) Search for keyword using the Find function.
+Search for keyword using the Find function.
 
 <details>
   ### find [keyword]
@@ -34,7 +34,7 @@ ____________________________________________________________
 ```
 </details>
 
-5) Remove stored Tasks using the Delete function.
+Remove stored Tasks using the Delete function.
 
 <details>
 <summary>Useage Example</summary>
