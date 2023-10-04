@@ -76,6 +76,18 @@ public class Luke {
                             }
                             break;
 
+                        case FIND:
+                            String findWord = echo.substring(4);
+                            System.out.println("\tHere are the matching tasks in your list:");
+                            int j = 1;
+                            for (int i = 0; i < taskList.size(); i += 1) {
+                                if (taskList.get(i).getDescription().contains(findWord)) {
+                                    System.out.println("\t" + j + "." + taskList.get(i));
+                                    j += 1;
+                                }
+                            }
+                            break;
+
                         case MARK:
                             taskNumber = Integer.parseInt(words[1]) - 1;
                             System.out.println("\tWoohoo! You have accomplished:");
