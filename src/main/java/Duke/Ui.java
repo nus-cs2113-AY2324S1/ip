@@ -1,12 +1,8 @@
 package Duke;
 
-import java.util.Scanner;
-
 public class Ui {
-
-    Ui() {
+    public void greeting(){
         System.out.println("Hello! I'm Bot Hilary");
         System.out.println("What can I do for you?");
-        String eventTime = "";
     }
 }

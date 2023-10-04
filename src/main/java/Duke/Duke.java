@@ -27,10 +27,8 @@ public class Duke {
     private static SaveToFile saveTasks;
     private static TaskList tasks;
     private static Ui ui;
-    private String filePath;
 
-    public Duke(String filePath) {
-        this.filePath = filePath;
+    private Duke(String filePath) {
         ui = new Ui();
         getTasks = new GetFromFile(filePath);
         saveTasks = new SaveToFile(filePath);
@@ -39,6 +37,7 @@ public class Duke {
 
     public static void main(String[] args) {
         new Duke("Duke.txt");
+        ui.greeting();
         try{
             getTasks.getFromTextFile(tasks);
         } catch(FileNotFoundException e){
@@ -46,7 +45,7 @@ public class Duke {
         }
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
-        String eventTime = "";
+        String eventTime;
         DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         while (!userInput.equals("bye")) {
             String command = "list";
