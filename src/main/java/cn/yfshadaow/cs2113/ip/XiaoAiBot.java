@@ -4,7 +4,8 @@ import cn.yfshadaow.cs2113.ip.command.Command;
 import cn.yfshadaow.cs2113.ip.command.CommandHandler;
 import cn.yfshadaow.cs2113.ip.task.Task;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,7 +18,7 @@ public class XiaoAiBot {
     private static final String QUIT_MESSAGE = "See you next time, master!";
 
 
-    private final List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks = new LinkedList<>();
 
     public List<Task> getTasks() {
         return tasks;
