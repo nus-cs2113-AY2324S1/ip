@@ -16,7 +16,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * Represents a storage class used for saving and loading data.
+ */
 public class Storage {
+    /**
+     * Initialize the storage instance by creating necessary files and directories.
+     *
+     * @throws IOException the io exception
+     */
     public void initialize() throws IOException {
         Files.createDirectories(Paths.get(DATA_DIRECTORY_PATH));
         taskDataFile.createNewFile();
@@ -32,11 +40,20 @@ public class Storage {
             .registerSubtype(Deadline.class, "Deadline")
             .registerSubtype(Event.class, "Event")
             .registerSubtype(Todo.class, "Todo");
+    /**
+     * The constant gson.
+     */
     public static final Gson gson = new GsonBuilder()
             .registerTypeAdapterFactory(taskAdapterFactory)
             .setPrettyPrinting()
             .create();
 
+    /**
+     * Save data.
+     *
+     * @param list the list
+     * @throws IOException the io exception
+     */
     public void saveData(TaskList list) throws IOException {
         JsonObject dataObject = new JsonObject();
         JsonArray tasksArray = new JsonArray();
@@ -53,6 +70,14 @@ public class Storage {
         FileUtils.write(taskDataFile, gson.toJson(dataObject), StandardCharsets.UTF_8);
     }
 
+    /**
+     * Load data task list.
+     *
+     * @return the task list
+     * @throws IOException           the io exception
+     * @throws IllegalStateException the illegal state exception
+     * @throws JsonParseException    the json parse exception
+     */
     public TaskList loadData() throws IOException, IllegalStateException, JsonParseException {
         TaskList list = new TaskList();
         String dataString = FileUtils.readFileToString(taskDataFile, StandardCharsets.UTF_8);

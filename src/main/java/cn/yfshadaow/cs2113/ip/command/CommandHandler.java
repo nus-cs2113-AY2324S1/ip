@@ -8,17 +8,30 @@ import cn.yfshadaow.cs2113.ip.task.Todo;
 
 import java.util.List;
 
+/**
+ * Represents a command handler.
+ */
 public class CommandHandler {
 
     private final XiaoAiBot bot;
 
+    /**
+     * Instantiates a new Command handler.
+     *
+     * @param bot the bot
+     */
     public CommandHandler(XiaoAiBot bot) {
         this.bot = bot;
     }
 
+    /**
+     * Handle command.
+     *
+     * @param cmd the command
+     */
     public void handleCommand(Command cmd) {
         bot.getUi().sendSplit();
-        switch (cmd.getCmd()) {
+        switch (cmd.getName()) {
             case "bye": {
                 bot.setShouldQuit(true);
                 break;
