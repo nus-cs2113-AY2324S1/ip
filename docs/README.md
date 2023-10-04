@@ -25,7 +25,7 @@ Format: `deadline DESCRIPTION /by BY`
 
 Adds an event task to the task list.
 
-Format: `event DESCRIPTION /frorm FROM /to TO`
+Format: `event DESCRIPTION /from FROM /to TO`
 
 ### View list: `list`
 
