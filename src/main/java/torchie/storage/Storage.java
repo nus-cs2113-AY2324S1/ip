@@ -15,13 +15,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class DataManager {
+public class Storage {
 
     private File file;
     private File directory;
     private final String PATH = "./data/";
     private final String FILENAME = "torchie.txt";
-    public DataManager() {
+    public Storage() {
         directory = new File(PATH);
         file = new File(PATH + FILENAME);
 

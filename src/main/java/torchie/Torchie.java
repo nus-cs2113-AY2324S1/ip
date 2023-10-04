@@ -1,23 +1,23 @@
 package torchie;
 
-import torchie.parser.CommandParser;
+import torchie.parser.Parser;
 import torchie.parser.TaskDetailsParser;
-import torchie.storage.DataManager;
+import torchie.storage.Storage;
 import torchie.exception.TorchieException;
 import torchie.task.TaskList;
-
-import java.util.Scanner;
+import torchie.ui.Ui;
 
 public class Torchie {
     public static void main(String[] args) throws TorchieException {
         // initialisation
-        DataManager dataManager = new DataManager();
-        TaskDetailsParser taskDetailsParser = new TaskDetailsParser();
-        TaskList taskList = dataManager.retrieveData();
-        Scanner scanner = new Scanner(System.in);
-        CommandParser commandparser = new CommandParser(taskList, dataManager);
+        Storage storage = new Storage();
+        TaskList taskList = storage.retrieveData();
+        Ui ui = new Ui(taskList);
+        Parser commandparser = new Parser(taskList, storage);
+//        TaskDetailsParser taskDetailsParser = new TaskDetailsParser();
+//        Scanner scanner = new Scanner(System.in);
 
-        taskList.start();
+        ui.start();
         commandparser.getUserCommand();
 //        String input;
 
@@ -34,7 +34,7 @@ public class Torchie {
                     String itemNum_str = taskDetailsParser.getContent(input);
                     int itemNum = Integer.parseInt(itemNum_str) - 1;
                     taskList.markTask(itemNum);
-                    dataManager.save(taskList);
+                    storage.save(taskList);
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     System.out.println("Invalid Format! Correct format: \"mark <index>\", where index is an integer ");
                 } catch (NullPointerException e) {
@@ -46,7 +46,7 @@ public class Torchie {
                     String itemNum_str = taskDetailsParser.getContent(input);
                     int itemNum = Integer.parseInt(itemNum_str) - 1;
                     taskList.unmarkTask(itemNum);
-                    dataManager.save(taskList);
+                    storage.save(taskList);
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     System.out.println("Invalid Format! Correct format: \"unmark <index>\" where" +
                             " index is an integer ");
@@ -66,7 +66,7 @@ public class Torchie {
                     taskList.addTask(td);
                     td.announceTaskAdd();
                     taskList.announceListSize();
-                    dataManager.save(taskList);
+                    storage.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: todo <read>");
                 }
@@ -80,7 +80,7 @@ public class Torchie {
                     taskList.addTask(d);
                     d.announceTaskAdd();
                     taskList.announceListSize();
-                    dataManager.save(taskList);
+                    storage.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
                 } catch (TorchieException e) {
@@ -97,7 +97,7 @@ public class Torchie {
                     taskList.addTask(e);
                     e.announceTaskAdd();
                     taskList.announceListSize();
-                    dataManager.save(taskList);
+                    storage.save(taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
                 } catch (TorchieException e) {
@@ -111,7 +111,7 @@ public class Torchie {
                     int itemNum = Integer.parseInt(itemNum_str) - 1;
                     taskList.deleteTask(itemNum);
                     taskList.announceListSize();
-                    dataManager.save(taskList);
+                    storage.save(taskList);
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     System.out.println("Invalid Format! Correct format: \"delete <index>\" where" +
                             " index is an integer ");
