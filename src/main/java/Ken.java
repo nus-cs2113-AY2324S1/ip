@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Ken {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
@@ -17,7 +18,6 @@ public class Ken {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_MARK = "mark";
-    private static final String DATA_FILE_PATH = "data/ken.txt"; // Relative path to the data file
 
     private static List<String> taskDescriptions = new ArrayList<>();
     private static List<Boolean> taskDoneStatus = new ArrayList<>();
@@ -246,6 +246,8 @@ public class Ken {
         }
     }
 
+    private static final String DATA_FILE_PATH = "ken.txt";
+
 
     private static void saveTasks() {
         File file = new File(DATA_FILE_PATH);
@@ -260,6 +262,8 @@ public class Ken {
             }
         } catch (IOException e) {
             System.out.println("Error saving tasks to the data file.");
+            e.getMessage();
+            e.printStackTrace();
         }
     }
 
