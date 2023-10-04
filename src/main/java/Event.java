@@ -1,8 +1,8 @@
-public class Events extends Task {
+public class Event extends Task {
     String from;
     String to;
 
-    public Events(String description, String from, String to) {
+    public Event(String description, String from, String to) {
         super(description);
         setFrom(from);
         setTo(to);

@@ -1,21 +1,17 @@
-import com.sun.source.tree.AnnotationTree;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
-public class DataManager {
+public class Storage {
     private String filePath;
 
-    public DataManager(String filePath) {
+    public Storage(String filePath) {
          this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadData(){
+    public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> allTasks = new ArrayList<Task>();
         try {
             File f = new File(filePath);
@@ -28,7 +24,7 @@ public class DataManager {
                 String description = lineTokens[2].trim();
                 switch (taskType) {
                 case "T":
-                    ToDos todo = new ToDos(description);
+                    ToDo todo = new ToDo(description);
                     allTasks.add(todo);
                     if (completionStatus.equals("1")) {
                         todo.setDone(true);
@@ -38,7 +34,7 @@ public class DataManager {
                     String[] deadlineTokens = description.split("\\|");
                     description = deadlineTokens[0].trim();
                     String by = deadlineTokens[1].trim();
-                    Deadlines deadline = new Deadlines(description, by);
+                    Deadline deadline = new Deadline(description, by);
                     allTasks.add(deadline);
                     if (completionStatus.equals("1")) {
                         deadline.setDone(true);
@@ -49,7 +45,7 @@ public class DataManager {
                     description = eventTokens[0].trim();
                     String from = eventTokens[1].trim();
                     String to = eventTokens[2].trim();
-                    Events event = new Events(description, from, to);
+                    Event event = new Event(description, from, to);
                     allTasks.add(event);
                     if (completionStatus.equals("1")) {
                         event.setDone(true);
@@ -60,13 +56,16 @@ public class DataManager {
                     break;
                 }
             }
-        } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("\tFailed to read line");
+        } catch (FileNotFoundException e) {
+            throw new DukeException("\tFailed to load file");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("\tFile is corrupted");
         }
         return allTasks;
     }
 
-    public void save(ArrayList<Task> tasks) {
+    public void save(TaskList taskList) throws DukeException {
+        ArrayList<Task> tasks = taskList.getTasks();
         try {
             createFile();
             FileWriter fw = new FileWriter(filePath);
@@ -75,11 +74,11 @@ public class DataManager {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("An error has occurred while saving");
+            throw new DukeException("An error has occurred while saving");
         }
     }
 
-    public void createFile() {
+    public void createFile() throws DukeException {
         try {
             File f = new File(filePath);
             if (f.exists()) {
@@ -90,7 +89,7 @@ public class DataManager {
             }
             f.createNewFile();
         } catch (IOException e) {
-            System.out.println("Cannot create file; reason: " + e.getMessage());
+            throw new DukeException("Cannot create file; reason: " + e.getMessage());
         }
     }
 }

@@ -1,6 +1,6 @@
-public class ToDos extends Task {
+public class ToDo extends Task {
 
-    public ToDos(String description) {
+    public ToDo(String description) {
         super(description);
     }
 
