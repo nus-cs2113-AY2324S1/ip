@@ -6,6 +6,7 @@ I am a personal Task managing chatbot, able to store tasks such as To dos, Deadl
 
 Create 3 types of Tasks:
 <details>
+ 
  1. Todo: Tasks which are not time sensitive.
  2. Deadline: Tasks which are time sensitive, able to indicate deadline using /by.
  3. Event: Tasks which are happening at a specific time frame, using /from and /to.
@@ -13,6 +14,7 @@ Create 3 types of Tasks:
 
 Keep track of Task completion.
 <details>
+ 
  1. [ ] Indicates Tasks that are not completed
  2. [X] Indicates Tasks that are completed
 </details>
@@ -26,7 +28,9 @@ Store and retreive your tasks into a dedicated save file.
 Search for keyword using the Find function.
 
 <details>
+ 
   <summary>Useage Example</summary>
+  
   ### find [keyword]
 
    find book
@@ -41,7 +45,9 @@ Search for keyword using the Find function.
 Remove stored Tasks using the Delete function.
 
 <details>
+ 
 <summary>Useage Example</summary>
+
  ### delete [task index]
 
 delete 2
