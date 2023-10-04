@@ -1,5 +1,6 @@
 package cn.yfshadaow.cs2113.ip;
 
+import cn.yfshadaow.cs2113.ip.command.Command;
 import cn.yfshadaow.cs2113.ip.command.CommandHandler;
 import cn.yfshadaow.cs2113.ip.task.Task;
 
@@ -67,8 +68,15 @@ public class XiaoAiBot {
         sendMessage(GREET_MESSAGE);
 
         while (!shouldQuit) {
-            String command = readLine();
-            commandHandler.handleCommand(command);
+            String commandString = readLine();
+            Command cmd;
+            try {
+                cmd = Command.parseCommand(commandString);
+            } catch (IllegalArgumentException e) {
+                sendMessage(String.format("Error parsing command: %s", e.getMessage()));
+                continue;
+            }
+            commandHandler.handleCommand(cmd);
         }
 
         sendMessage(QUIT_MESSAGE);

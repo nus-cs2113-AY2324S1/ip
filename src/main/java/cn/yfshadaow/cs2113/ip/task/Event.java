@@ -1,5 +1,7 @@
 package cn.yfshadaow.cs2113.ip.task;
 
+import cn.yfshadaow.cs2113.ip.command.Command;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,25 +37,24 @@ public class Event extends Task {
         return "[E][" + (isDone ? "X" : " ") + "] " + name + " (from: " + from + " to: " + to + ")";
     }
 
-    public static Event parseEvent(String[] args) {
-        int index = 0;
-        List<String> nameFragments = new ArrayList<>();
-        while (!args[index].equals("/from")) {
-            nameFragments.add(args[index]);
-            index += 1;
+    public static Event parseEvent(Command cmd)  throws IllegalArgumentException{
+        if (cmd.args.isEmpty()) {
+            throw new IllegalArgumentException("Event name cannot be empty!");
         }
-        index += 1;
-        List<String> fromFragments = new ArrayList<>();
-        while (!args[index].equals("/to")) {
-            fromFragments.add(args[index]);
-            index += 1;
+        if (!cmd.extraArgs.containsKey("from")) {
+            throw new IllegalArgumentException("Event must have -from argument!");
         }
-        index += 1;
-        List<String> toFragments = new ArrayList<>();
-        while (index < args.length) {
-            toFragments.add(args[index]);
-            index += 1;
+        String fromString = cmd.extraArgs.get("from");
+        if (fromString.isEmpty()) {
+            throw new IllegalArgumentException("-from argument cannot be empty!");
         }
-        return new Event(String.join(" ", nameFragments), String.join(" ", fromFragments), String.join(" ", toFragments));
+        if (!cmd.extraArgs.containsKey("to")) {
+            throw new IllegalArgumentException("Event must have -to argument!");
+        }
+        String toString = cmd.extraArgs.get("to");
+        if (toString.isEmpty()) {
+            throw new IllegalArgumentException("-to argument cannot be empty!");
+        }
+        return new Event(String.join(" ", cmd.args), fromString, toString);
     }
 }

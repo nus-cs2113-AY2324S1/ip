@@ -1,5 +1,7 @@
 package cn.yfshadaow.cs2113.ip.task;
 
+import cn.yfshadaow.cs2113.ip.command.Command;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,19 +26,17 @@ public class Deadline extends Task {
         return "[D][" + (isDone ? "X" : " ") + "] " + name + " (by: " + by + ")";
     }
 
-    public static Deadline parseDeadline(String[] args) {
-        int index = 0;
-        List<String> nameFragments = new ArrayList<>();
-        while (!args[index].equals("/by")) {
-            nameFragments.add(args[index]);
-            index += 1;
+    public static Deadline parseDeadline(Command cmd)  throws IllegalArgumentException{
+        if (cmd.args.isEmpty()) {
+            throw new IllegalArgumentException("Deadline name cannot be empty!");
         }
-        index += 1;
-        List<String> byFragments = new ArrayList<>();
-        while (index < args.length) {
-            byFragments.add(args[index]);
-            index += 1;
+        if (!cmd.extraArgs.containsKey("by")) {
+            throw new IllegalArgumentException("Deadline must have -by argument!");
         }
-        return new Deadline(String.join(" ", nameFragments), String.join(" ", byFragments));
+        String byString = cmd.extraArgs.get("by");
+        if (byString.isEmpty()) {
+            throw new IllegalArgumentException("-by argument cannot be empty!");
+        }
+        return new Deadline(String.join(" ", cmd.args), byString);
     }
 }

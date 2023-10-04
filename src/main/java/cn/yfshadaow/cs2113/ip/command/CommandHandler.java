@@ -1,12 +1,11 @@
 package cn.yfshadaow.cs2113.ip.command;
 
-import cn.yfshadaow.cs2113.ip.*;
+import cn.yfshadaow.cs2113.ip.XiaoAiBot;
 import cn.yfshadaow.cs2113.ip.task.Deadline;
 import cn.yfshadaow.cs2113.ip.task.Event;
 import cn.yfshadaow.cs2113.ip.task.Task;
 import cn.yfshadaow.cs2113.ip.task.Todo;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class CommandHandler {
@@ -17,19 +16,9 @@ public class CommandHandler {
         this.bot = bot;
     }
 
-    public void handleCommand(String command) {
-        if (command == null) {
-            bot.sendMessage("Command is null!");
-            return;
-        }
-        String[] splitCommand = command.split(" ");
-        if (splitCommand.length < 1) {
-            bot.sendMessage("No command detected!");
-            return;
-        }
-        String[] args = Arrays.copyOfRange(splitCommand, 1, splitCommand.length);
+    public void handleCommand(Command cmd) {
         bot.sendSplit();
-        switch (splitCommand[0]) {
+        switch (cmd.getCmd()) {
             case "bye": {
                 bot.setShouldQuit(true);
                 break;
@@ -37,7 +26,7 @@ public class CommandHandler {
             case "todo": {
                 Todo todo;
                 try {
-                    todo = Todo.parseTodo(args);
+                    todo = Todo.parseTodo(cmd);
                 } catch (Exception e) {
                     bot.sendMessage(String.format("Error parsing task: %s", e.getMessage()));
                     break;
@@ -51,7 +40,7 @@ public class CommandHandler {
             case "deadline": {
                 Deadline deadline;
                 try {
-                    deadline = Deadline.parseDeadline(args);
+                    deadline = Deadline.parseDeadline(cmd);
                 } catch (Exception e) {
                     bot.sendMessage(String.format("Error parsing task: %s", e.getMessage()));
                     break;
@@ -65,7 +54,7 @@ public class CommandHandler {
             case "event": {
                 Event event;
                 try {
-                    event = Event.parseEvent(args);
+                    event = Event.parseEvent(cmd);
                 } catch (Exception e) {
                     bot.sendMessage(String.format("Error parsing task: %s", e.getMessage()));
                     break;
@@ -77,13 +66,13 @@ public class CommandHandler {
                 break;
             }
             case "mark": {
-                if (args.length != 1) {
+                if (cmd.args.size() != 1) {
                     bot.sendMessage("Incorrect arguments");
                     break;
                 }
                 int index;
                 try {
-                    index = Integer.parseInt(args[0]);
+                    index = Integer.parseInt(cmd.args.get(0));
                 } catch (NumberFormatException e) {
                     bot.sendMessage(String.format("Error parsing int: %s", e.getMessage()));
                     break;
@@ -99,13 +88,13 @@ public class CommandHandler {
                 break;
             }
             case "unmark": {
-                if (args.length != 1) {
+                if (cmd.args.size() != 1) {
                     bot.sendMessage("Incorrect arguments");
                     break;
                 }
                 int index;
                 try {
-                    index = Integer.parseInt(args[0]);
+                    index = Integer.parseInt(cmd.args.get(0));
                 } catch (Exception e) {
                     bot.sendMessage(String.format("Error parsing int: %s", e.getMessage()));
                     break;
