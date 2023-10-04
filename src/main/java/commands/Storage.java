@@ -129,6 +129,7 @@ public class Storage {
         ) {
             String currentLine;
             int lineNumber = 0;
+            System.out.println("line to remove is: " + lineToRemove);
 
             while ((currentLine = reader.readLine()) != null) {
                 lineNumber++;
@@ -138,7 +139,9 @@ public class Storage {
                     //if it's the last item, we don't add a newLine to the next line
 
                     writer.write(currentLine);
-                    if (lineNumber != this.taskListSize && (lineNumber + 1) != lineToRemove) {
+//                    System.out.println(lineNumber != this.taskListSize);
+//                    System.out.println((lineNumber + 1) != lineToRemove);
+                    if (lineNumber != this.taskListSize && (lineNumber + 1) != this.taskListSize) {
                         writer.newLine(); // Add a new line after writing
                     }
 
