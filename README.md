@@ -20,3 +20,29 @@ ____________________________________________________________
  What can I do for you?
 ____________________________________________________________
    ```
+## Quick Start
+1. Ensure you have Java 11 installed in your Computer.
+2. Download the latest IP.jar from here.
+3. Copy the file to the folder you want to use as the home folder for your Tum ChatBot.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar IP.jar command to run the application.
+   In a few seconds, it should show that:
+<img width="566" alt="Screenshot 2023-10-04 at 12 20 58" src="https://github.com/Haoyuli2002/ip/assets/139958049/cade8150-21a1-43be-8d82-6e59374f4c7f">
+5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
+Some example commands you can try:
+
+-list: Lists all contacts.
+
+-todo: todo return book
+
+-delete 3: Deletes the 3rd task shown in the current list.
+
+-clear: Deletes all contacts.
+
+-bye: Exits the app.
+
+
+
+
+
+
+
