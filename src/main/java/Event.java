@@ -24,15 +24,22 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Returns the format of the task to be printed out to user
+     * @return String representation of the task
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + ", to: " + to + ")";
     }
 
+    /**
+     * Returns the format of the task to be saved into a file
+     * @return String representation of the task
+     */
     @Override
     public String toSave() {
-        return "E | " + (this.isDone() ? "1" : "0") + " | " + this.getDescription()
-                + " | " + this.getFrom() + " | " + this.getTo();
+        return "E | " + super.toSave() + " | " + from + " | " + to;
     }
 }
 

@@ -11,14 +11,21 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns the format of the task to be printed out to user
+     * @return String representation of the task
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
+    /**
+     * Returns the format of the task to be saved into a file
+     * @return String representation of the task
+     */
     @Override
     public String toSave() {
-        return "D | " + (this.isDone() ? "1" : "0") + " | " + this.getDescription()
-                + " | " + this.getBy();
+        return "D | " + super.toSave() + " | " + by;
     }
 }
