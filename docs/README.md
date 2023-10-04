@@ -35,7 +35,7 @@ deadline Submit ST2334 quiz /by 2023-10-04
     ____________________________________________________________
 ```
 
-### Adding a Event Task: `event`
+### Adding an Event Task: `event`
 
 Adds an event task to the task list.
 Format: `event EVENT_DESCRIPTION /from START_OF_EVENT /to END_OF_EVENT`
@@ -109,7 +109,7 @@ delete 1
     ____________________________________________________________
 ```
 
-### Adding a Event Task: `find`
+### Finding Tasks: `find`
 
 Filters out tasks containing user's input of choice/keyword.
 Format: `find KEYWORD`
@@ -123,7 +123,7 @@ find quiz
     ____________________________________________________________
 ```
 
-### Adding a Event Task: `help`
+### Help: `help`
 
 Outputs a list of commands and its format of usage.
 Format: `help`
@@ -156,7 +156,7 @@ help
     ____________________________________________________________
 ```
 
-### Adding a Event Task: `bye`
+### Exit: `bye`
 
 Exits the chatbot.
 Format: `bye`
