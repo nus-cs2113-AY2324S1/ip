@@ -1,0 +1,10 @@
+1;T;1;code 1;
+2;E;0;project meeting ;Gen 1 ;Rev END;
+3;D;1;homework ;Wed 4pm;
+4;T;1;eat food;
+5;E;1;movie ;10pm ;11pm;
+6;D;0;breakfast ;Tue 8am;
+7;T;0;fishing;
+8;E;0;concert ;Expo ;Exponent;
+9;D;1;review ;the perfect time;
+10;T;0;Git;

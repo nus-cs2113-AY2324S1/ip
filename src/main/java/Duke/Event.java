@@ -9,10 +9,21 @@ public class Event extends Task {
         super(description);
         this.start = start;
         this.end = end;
+        this.type = "E";
     }
     
     @Override
     public String getDescription() {
-        return "[E]" + super.getDescription() + "(from: " + start + "to: " + end + ")";
+        return "[" + type + "]" + super.getDescription() + "(from: " + start + "to: " + end + ")";
+    }
+
+    @Override
+    public String getStart() {
+        return start;
+    }
+
+    @Override
+    public String getEnd() {
+        return end;
     }
 }

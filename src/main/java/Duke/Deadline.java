@@ -7,10 +7,16 @@ public class Deadline extends Task {
     public Deadline(String description, String when) {
         super(description);
         this.when = when;
+        this.type = "D";
     }
     
     @Override
     public String getDescription() {
-        return "[D]" + super.getDescription() + "(by: " + when + ")";
+        return "[" + type + "]" + super.getDescription() + "(by: " + when + ")";
+    }
+
+    @Override
+    public String getWhen() {
+        return when;
     }
 }
