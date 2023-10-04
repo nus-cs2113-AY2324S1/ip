@@ -1,11 +1,13 @@
 package chatbot;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FileReader;
 
 public class Duke {
     private static ArrayList<Task> taskList = new ArrayList<>();
@@ -37,7 +39,7 @@ public class Duke {
         }
     }
 
-    public static void readFile() {
+    public static void readFile() throws FileFormatException{
         String filepath = "data.txt";
 
         File file = new File(filepath);
@@ -50,11 +52,39 @@ public class Duke {
                 System.out.println("File creation failed");
             }
         }
+        else{
+            try(BufferedReader br = new BufferedReader(new FileReader("data.txt"))){
+                String line;
+                while ((line = br.readLine()) != null) {
+                    //Do something
+                    String [] words = line.split("\\|");
 
-        
+                    for(int i = 0; i < words.length; i++){
+                        System.out.println(words[i]);
+                    }
+
+                    boolean isDone = (words[0].equals("true"));
+                    if (words.length == 2) {
+                        taskList.add(new ToDo(words[1], isDone));
+                    }
+                    else if (words.length == 3) {
+                        taskList.add(new Deadline(words[1], isDone, words[2]));
+                    }
+                    else if (words.length == 4){
+                        taskList.add(new Event(words[1], isDone, words[2], words[3]));
+                    }
+                    else {
+                        throw new FileFormatException("Save file corrupted");
+                    }
+                }
+            }
+            catch (IOException e) {
+                System.out.println("Error reading file!");
+            }
+        }
     }
 
-    public static void main(String[] args) throws InputException{
+    public static void main(String[] args) throws InputException, FileFormatException{
 
         System.out.println("Hello! I'm TheChattyFatty");
 
@@ -135,7 +165,7 @@ public class Duke {
 
             else if (keyword.equals("todo")) {
                 String description = response.substring(5);
-                taskList.add(new ToDo(description));
+                taskList.add(new ToDo(description, false));
 
                 System.out.println("Created new ToDo:");
                 System.out.println(description);
@@ -150,7 +180,7 @@ public class Duke {
                 String date = response.substring(dateIndex);
                 String description = response.substring(8, dateIndex - 3);
 
-                taskList.add(new Deadline(description, date));
+                taskList.add(new Deadline(description, false, date));
 
                 System.out.println("Created new Deadline:");
                 System.out.println(description + " (by:" + date + ")");
@@ -167,9 +197,9 @@ public class Duke {
                 String fromDate = response.substring(fromIndex, toIndex - 3);
                 String toDate = response.substring(toIndex);
 
-                String description = response.substring(5);
+                String description = response.substring(5, fromIndex - 5);
 
-                taskList.add(new Event(description, fromDate, toDate));
+                taskList.add(new Event(description, false, fromDate, toDate));
 
                 System.out.println("Created new Event:");
                 System.out.println(description + " (from:" + fromDate + " to:" + toDate + ")");

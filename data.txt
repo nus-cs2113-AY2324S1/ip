@@ -1,2 +1,3 @@
-true| go to school /from 4th aug /to 13th dec| 4th aug | 13th dec
-true| homework | tmr
+false| homework | thursday
+true|homework
+true| class /from friday /to sunday| friday | sunday

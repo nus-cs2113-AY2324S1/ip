@@ -2,8 +2,8 @@ package chatbot;
 
 public class Deadline extends Task{
     private String deadline;
-    public Deadline(String description, String deadline){
-        super(description);
+    public Deadline(String description, boolean isDone, String deadline){
+        super(description, isDone);
         this.deadline = deadline;
     }
 
