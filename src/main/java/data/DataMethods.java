@@ -5,13 +5,16 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Class containing methods that handle data e.g. creating files and editing files
+ */
 public class DataMethods {
-    public static void createSimonTxt(String userDirectory) {
-        String dataDirectory = userDirectory + "/" + "data";
-        createDirectory(dataDirectory);
-        createFileInDirectory(dataDirectory, "simon.txt");
-    }
+    /**
+     * This method takes in a path and creates a directory at that location. Should the
+     * directory already exist, no new directory will be created.
+     *
+     * @param folderPath the location of where the directory should be created
+     */
     public static void createDirectory(String folderPath) {
 
         File folder = new File(folderPath);
@@ -22,6 +25,13 @@ public class DataMethods {
         }
     }
 
+    /**
+     * This method takes in the path of a directory and creates a file 'fileName' in
+     * the directory. Should the file already exist, no new file will be created.
+     *
+     * @param directoryPath the location of the directory where the file should be created
+     * @param fileName the name of the file to be created
+     */
     public static void createFileInDirectory(String directoryPath, String fileName) {
 
         // Create the full path to the text file
@@ -41,7 +51,13 @@ public class DataMethods {
         }
     }
 
-
+    /**
+     * This method takes in the path of a txt file and adds 'textToAdd' to the last line
+     * of the file
+     *
+     * @param filePath location of the file to be edited
+     * @param textToAdd String to be added to the end of the txt file
+     */
     public static void addTextToFile(String filePath, String textToAdd) {
         try {
             // Create a FileWriter object with the specified file path in append mode (true).
@@ -65,6 +81,14 @@ public class DataMethods {
         }
     }
 
+    /**
+     * This method takes in the path to a txt file and replaces a specific line of the
+     * txt file with 'newText'
+     *
+     * @param filePath location of the file to be edited
+     * @param newText String to replace a line of text
+     * @param lineNumber line number of text to be replaced
+     */
     public static void editTextFile(String filePath, String newText, int lineNumber) {
         try {
             // Read the existing content of the file into memory.
@@ -102,11 +126,23 @@ public class DataMethods {
         }
     }
 
+    /**
+     * Takes in the location of the file in question and returns whether the file exist
+     *
+     * @param filePath
+     * @return return true if the file exist,return false otherwise
+     */
     public static boolean isFileExist(String filePath) {
         Path path = Paths.get(filePath);
         return Files.exists(path);
     }
 
+    /**
+     * Takes in the location of a txt file and deletes the specified line from the file
+     *
+     * @param filePath location of txt file
+     * @param lineToDelete line number to delete from txt file
+     */
     public static void deleteLineFromFile(String filePath, int lineToDelete) {
         try {
             // Read the existing content of the file into memory.
