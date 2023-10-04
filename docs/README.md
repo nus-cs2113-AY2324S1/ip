@@ -5,7 +5,7 @@ Hilary chatbot is a **task management** chatbot that use to manage different typ
 This robot can identify in 3 different tasks, **todo**, **event** and **deadline**
 It can also **record** and **display** the tasks user input, **modify the status**, **search task by name** and **retrieve tasks** from the disk.
 
-### Viewing help: `#0969DA`help
+### Viewing help: `help`
 
 Description of the feature.
 
