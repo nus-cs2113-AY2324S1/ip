@@ -1,27 +1,19 @@
 package task;
 
+import java.time.LocalDate;
+
 /**
  * An Event is a Task which has a description, a start time (from), and an end time (to).
  */
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
-    }
-
-    // String[] in the format:
-    // details[0] = description
-    // details[1] = from
-    // details[2] = to
-    public Event(String[] details) {
-        super(details[0]);
-        this.from = details[1];
-        this.to = details[2];
     }
 
     public String getCode() {
@@ -33,11 +25,11 @@ public class Event extends Task {
         return super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 
-    public String getFrom() {
+    public LocalDate getFrom() {
         return this.from;
     }
 
-    public String getTo() {
+    public LocalDate getTo() {
         return this.to;
     }
 }

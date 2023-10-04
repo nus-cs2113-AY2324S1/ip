@@ -2,6 +2,7 @@ package herbert;
 
 import task.*;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -140,8 +141,14 @@ public class Herbert {
                 return;
             }
 
+            String description = dlDetails[0];
+            LocalDate dueDate = HerbertParser.parseDate(dlDetails[1]);
+            if (dueDate == null) {
+                return;
+            }
+
             // Create and add task
-            Deadline dl = new Deadline(dlDetails);
+            Deadline dl = new Deadline(description, dueDate);
             this.taskList.add(dl);
             this.reader.addTaskToSaveFile(dl);
 
@@ -156,8 +163,15 @@ public class Herbert {
                 return;
             }
 
+            String description = evDetails[0];
+            LocalDate fromDate = HerbertParser.parseDate(evDetails[1]);
+            LocalDate toDate = HerbertParser.parseDate(evDetails[2]);
+            if (fromDate == null || toDate == null) {
+                return;
+            }
+
             // Create and add task
-            Event ev = new Event(evDetails);
+            Event ev = new Event(description, fromDate, toDate);
             this.taskList.add(ev);
             this.reader.addTaskToSaveFile(ev);
 

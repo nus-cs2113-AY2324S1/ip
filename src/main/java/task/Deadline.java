@@ -1,23 +1,17 @@
 package task;
 
+import java.time.LocalDate;
+
 /**
  * A Deadline is a Task which has both a description and a due date.
  */
 public class Deadline extends Task {
 
-    protected String dueDate;
+    protected LocalDate dueDate;
 
-    public Deadline(String description, String dueDate) {
+    public Deadline(String description, LocalDate dueDate) {
         super(description);
         this.dueDate = dueDate;
-    }
-
-    // String[] in the format:
-    // details[0] = description
-    // details[1] = due date
-    public Deadline(String[] details) {
-        super(details[0]);
-        this.dueDate = details[1];
     }
 
     public String getCode() {
@@ -29,7 +23,7 @@ public class Deadline extends Task {
         return super.toString() + " (by: " + this.dueDate + ")";
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return this.dueDate;
     }
 }
