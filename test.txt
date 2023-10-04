@@ -1,7 +1,0 @@
-T|true|something
-T|false|something else
-D|false|something |2pm
-D|false|something else |2pm
-E|false|something |3|4
-T|false|something else
-D|false|something |later

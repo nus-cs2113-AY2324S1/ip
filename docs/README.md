@@ -52,20 +52,23 @@ Deletes a task based on the index entered.
         Now you have 1 tasks in the list.
         ____________________________________________________________        
 
-### Mark and Unmark a Task
-Allows the user to check `[X]` or uncheck `[ ]` a task so he knows what is
+### Mark a Task
+Allows the user to check `[X]` a task to keep track of what is
 completed and what is not.
-- `mark 1` will check the first item on the list.
 
+`mark 1` will check the first item on the list.
 
     mark 1
         ____________________________________________________________
         Nice! I've marked this task as done:
            [X] CS2113 HW
         ____________________________________________________________
-- `unmark 2` will uncheck the second item on the list.
 
-                                                               
+### Unmark a Task
+Allows the user to uncheck `[ ]` a task to keep track of what is
+completed and what is not.
+`unmark 2` will uncheck the second item on the list.
+
     unmark 2
         ____________________________________________________________
         OK, I've marked this task as not done yet:
