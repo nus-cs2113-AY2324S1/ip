@@ -37,5 +37,7 @@ public abstract class Task implements Serializable {
 
     @Override
     public abstract String toString();
+
+    public abstract String encode();
 }
 

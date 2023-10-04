@@ -1,11 +1,12 @@
-package jerry.userInterface;
+package jerry.ui;
 
 import java.util.Scanner;
 
 import jerry.task.Task;
 import jerry.task.TaskList;
 
-public class UserInterface {
+public class TextUi {
+
     private static final String HORIZONTAL_LINE = "--------------------------------------------";
     private static final String LOGO = "                                                  \n" + "                                                     \n" + "         $$\\  $$$$$$\\   $$$$$$\\   $$$$$$\\  $$\\   $$\\ \n" + "         \\__|$$  __$$\\ $$  __$$\\ $$  __$$\\ $$ |  $$ |\n" + "         $$\\ $$$$$$$$ |$$ |  \\__|$$ |  \\__|$$ |  $$ |\n" + "         $$ |$$   ____|$$ |      $$ |      $$ |  $$ |\n" + "         $$ |\\$$$$$$$\\ $$ |      $$ |      \\$$$$$$$ |\n" + "         $$ | \\_______|\\__|      \\__|       \\____$$ |\n" + "   $$\\   $$ |                              $$\\   $$ |\n" + "   \\$$$$$$  |                              \\$$$$$$  |\n" + "    \\______/                                \\______/ \n" + "   \n";
 

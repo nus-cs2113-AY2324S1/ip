@@ -3,12 +3,14 @@ package jerry.task;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jerry.exceptions.InvalidTaskFormatException;
+import jerry.exceptions.IllegalValueException;
 
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    private String from;
+    private String to;
 
     private static final String FORMAT_EXCEPTION_MESSAGE = "Invalid Event format.";
+    private static final String DECODE_REGEX = "^E~(.)~(.*)~(.*)~(.*)";
 
     public Event(String description, String from, String to) {
         super(description);
@@ -16,22 +18,53 @@ public class Event extends Task {
         this.to = to;
     }
 
-    @Override
-    public String toString() {
-        return String.format("[T][%s] %s (from: %s to: %s)", this.getStatusIcon(), this.getDescription(), this.from, this.to);
+    public String getFrom() {
+        return this.from;
     }
 
-    public static Event fromString(String userInput) throws InvalidTaskFormatException {
-        Pattern pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
-        Matcher matcher = pattern.matcher(userInput);
+    public String getTo() {
+        return this.to;
+    }
 
-        if (matcher.matches() && matcher.groupCount() == 3) {
-            String description = matcher.group(1);
-            String from = matcher.group(2);
-            String to = matcher.group(3);
-            return new Event(description, from, to);
+    @Override
+    public String toString() {
+        return String.format("[E][%s] %s (from: %s to: %s)", this.getStatusIcon(), this.getDescription(), this.getFrom(), this.getTo());
+    }
+
+    // public static Event fromString(String userInput) throws InvalidTaskFormatException {
+    //     Pattern pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
+    //     Matcher matcher = pattern.matcher(userInput);
+    //
+    //     if (matcher.matches() && matcher.groupCount() == 3) {
+    //         String description = matcher.group(1);
+    //         String from = matcher.group(2);
+    //         String to = matcher.group(3);
+    //         return new Event(description, from, to);
+    //     } else {
+    //         throw new InvalidTaskFormatException(FORMAT_EXCEPTION_MESSAGE);
+    //     }
+    // }
+
+    @Override
+    public String encode() {
+        return String.format("E~%s~%s~%s~%s", this.getStatusIcon(), this.getDescription(), this.getFrom(), this.getTo());
+    }
+
+    public static Event decode(String string) throws IllegalValueException {
+        Pattern pattern = Pattern.compile(DECODE_REGEX);
+        Matcher matcher = pattern.matcher(string);
+        if (matcher.matches() && matcher.groupCount() == 4) {
+            String isTaskDoneStr = matcher.group(1);
+            String description = matcher.group(2);
+            String from = matcher.group(3);
+            String to = matcher.group(4);
+            Event newTask = new Event(description, from, to);
+            if (isTaskDoneStr == "X") {
+                newTask.markAsDone();
+            }
+            return newTask;
         } else {
-            throw new InvalidTaskFormatException(FORMAT_EXCEPTION_MESSAGE);
+            throw new IllegalValueException("ehllooo");
         }
     }
 }
