@@ -3,6 +3,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Ken {
+    private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_MARK = "mark";
+
     private static List<String> taskDescriptions = new ArrayList<>();
     private static List<Boolean> taskDoneStatus = new ArrayList<>();
     private static List<String> taskTypes = new ArrayList<>();
@@ -18,10 +26,10 @@ public class Ken {
             String userInput = scanner.nextLine();
 
             System.out.println(" ____________________________________________________________");
-            if (userInput.equalsIgnoreCase("bye")) {
+            if (userInput.equalsIgnoreCase(COMMAND_BYE)) {
                 printGoodbyeMessage();
                 break;
-            } else if (userInput.equalsIgnoreCase("list")) {
+            } else if (userInput.equalsIgnoreCase(COMMAND_LIST)) {
                 listTasks();
             } else {
                 try {
@@ -35,6 +43,7 @@ public class Ken {
 
         scanner.close();
     }
+
     private static void printKEN() {
         System.out.println("  K   K  EEEEE  N   N");
         System.out.println("  K  K   E      NN  N");
@@ -59,7 +68,7 @@ public class Ken {
         System.out.println(" Here are the tasks in your list:");
         int numTasks = taskDescriptions.size(); // Get the number of tasks
 
-        for (int i = 0; i < numTasks; i++) {
+        for (int i = 0; !(i >= numTasks); i++) {
             char doneSymbol = taskDoneStatus.get(i) ? 'X' : ' ';
             String dateInfo = taskDates.get(i) != null ? taskDates.get(i) : "";
             System.out.println(" " + (i + 1) + ".[" + taskTypes.get(i) + "][" + doneSymbol + "] " + taskDescriptions.get(i) + dateInfo);
@@ -75,11 +84,11 @@ public class Ken {
             String taskType = parts[0].trim();
             String taskDescription = parts[1].trim();
 
-            if (taskType.equalsIgnoreCase("todo") || taskType.equalsIgnoreCase("deadline") || taskType.equalsIgnoreCase("event")) {
+            if (taskType.equalsIgnoreCase(COMMAND_TODO) || taskType.equalsIgnoreCase(COMMAND_DEADLINE) || taskType.equalsIgnoreCase(COMMAND_EVENT)) {
                 handleAddTask(taskType, taskDescription);
-            } else if (taskType.equalsIgnoreCase("delete")) {
+            } else if (taskType.equalsIgnoreCase(COMMAND_DELETE)) {
                 handleDeleteTask(taskDescription);
-            } else if (taskType.equalsIgnoreCase("mark")) {
+            } else if (taskType.equalsIgnoreCase(COMMAND_MARK)) {
                 handleMarkTask(taskDescription);
             } else {
                 throw new KenException("Hmm, what's that? Please use 'todo,' 'deadline,' 'event,' 'delete [number],' or 'mark [number].'");
@@ -87,19 +96,19 @@ public class Ken {
         }
     }
 
-    private static void handleInvalidCommand(String command) throws KenException {
+    private static void handleInvalidCommand(String command) throws InvalidCommandException, EmptyDescriptionException {
         if (command.equalsIgnoreCase("delete")) {
-            throw new KenException("Please provide a task number to delete.");
+            throw new InvalidCommandException("Please provide a task number to delete.");
         } else if (command.equalsIgnoreCase("todo") || command.equalsIgnoreCase("deadline") || command.equalsIgnoreCase("event")) {
-            throw new KenException("Hey!! Description cannot be empty for a " + command + " task.");
+            throw new EmptyDescriptionException("Hey!! Description cannot be empty for a " + command + " task.");
         } else {
-            throw new KenException("Hmm, what's that? Please use 'todo,' 'deadline,' 'event,' 'delete [number],' or 'mark [number].'");
+            throw new InvalidCommandException("Hmm, what's that? Please use 'todo,' 'deadline,' 'event,' 'delete [number],' or 'mark [number].'");
         }
     }
 
-    private static void handleAddTask(String taskType, String taskDescription) throws KenException {
+    private static void handleAddTask(String taskType, String taskDescription) throws EmptyDescriptionException {
         if (taskDescription.isEmpty()) {
-            throw new KenException("Hey!! Description cannot be empty for a " + taskType + " task.");
+            throw new EmptyDescriptionException("Hey!! Description cannot be empty for a " + taskType + " task.");
         }
 
         taskTypes.add(taskType.substring(0, 1).toUpperCase());
@@ -139,10 +148,10 @@ public class Ken {
                 deleteTask(taskIndex);
                 System.out.println("Now you have " + taskDescriptions.size() + " tasks in the list.");
             } else {
-                throw new KenException("I can't find this task. Please provide a valid task number.");
+                throw new TaskNotFoundException("I can't find this task. Please provide a valid task number.");
             }
         } catch (NumberFormatException e) {
-            throw new KenException("Wrong format!! Please provide the number of the task.");
+            throw new TaskNotFoundException("Wrong format!! Please provide the number of the task.");
         }
     }
 
@@ -158,10 +167,10 @@ public class Ken {
                     System.out.println("This task is already marked as done.");
                 }
             } else {
-                throw new KenException("I can't find this task. Please provide a valid task number.");
+                throw new TaskNotFoundException("I can't find this task. Please provide a valid task number.");
             }
         } catch (NumberFormatException e) {
-            throw new KenException("Wrong format!! Please provide the number of the task.");
+            throw new TaskNotFoundException("Wrong format!! Please provide the number of the task.");
         }
     }
 
@@ -189,6 +198,24 @@ public class Ken {
 
 class KenException extends Exception {
     public KenException(String message) {
+        super(message);
+    }
+}
+
+class InvalidCommandException extends KenException {
+    public InvalidCommandException(String message) {
+        super(message);
+    }
+}
+
+class EmptyDescriptionException extends KenException {
+    public EmptyDescriptionException(String message) {
+        super(message);
+    }
+}
+
+class TaskNotFoundException extends KenException {
+    public TaskNotFoundException(String message) {
         super(message);
     }
 }
