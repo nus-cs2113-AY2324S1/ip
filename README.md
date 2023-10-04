@@ -26,7 +26,7 @@ ____________________________________________________________
 3. Copy the file to the folder you want to use as the home folder for your Tum ChatBot.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar IP.jar command to run the application.
    In a few seconds, it should show that:
-<img width="566" alt="Screenshot 2023-10-04 at 12 20 58" src="https://github.com/Haoyuli2002/ip/assets/139958049/cade8150-21a1-43be-8d82-6e59374f4c7f">
+![Screenshot of the display in terminal]([https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/Haoyuli2002/ip/assets/139958049/cade8150-21a1-43be-8d82-6e59374f4c7f))
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
 Some example commands you can try:
 
@@ -39,6 +39,68 @@ Some example commands you can try:
 -clear: Deletes all contacts.
 
 -bye: Exits the app.
+
+## Features
+
+### Adding a task: todo/deadline/event
+Add a task to your TaskList. We have 3 kinds of tasks available: todo, deadline, event
+Format: todo DESCRIPTION_OF_TODO
+Format: deadline DESCRIPTION_OF_DEADLINE /by DEADLINE
+Format: event DESCRIPTION_OF_EVENT /from START_TIME /to END_TIME
+
+Examples:
+todo borrow book
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+
+### Listing all tasks:
+Shows a list of all tasks that have been stored in the task list
+Format: list
+
+### Editing the status of a task : mark or unmark
+Set the status of a task based on a given index to "DONE" by using "mark" or
+Set the status of a task based on a given index to "NOT_DONE" by using "unmark"
+
+Format: mark INDEX
+Format: unmark INDEX
+
+Examples:
+mark 1
+unmark 2
+
+### Finding all relative tasks by keywords: find
+Search for all the tasks in the task list that contain the keyword given by the user
+
+Format: find DESCRIPTION
+Examples:
+find book
+
+### Deleting a task: delete
+Deletes the specified task from the task list based on the index
+Format: delete INDEX
+
+Deletes the person at the specified INDEX.
+The index refers to the index number shown in the displayed person list.
+The index must be a positive integer 1, 2, 3, …​
+Examples:
+
+delete 2: deletes the 2nd person in the address book.
+find Betsy followed by delete 1 deletes the 1st person in the results of the find command.
+
+### Exiting the program: bye
+Exits the program.
+
+Format: bye
+
+
+
+
+
+
+
+
+
+
 
 
 
