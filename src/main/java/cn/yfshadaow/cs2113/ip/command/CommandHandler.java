@@ -39,7 +39,6 @@ public class CommandHandler {
                     bot.saveData();
                 } catch (Exception e) {
                     bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
-                    e.printStackTrace();
                     break;
                 }
                 break;
