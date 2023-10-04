@@ -1,4 +1,4 @@
-# User Guide
+# Magpie User Guide
 
 Magpie is a chatbot for **managing your tasks** via a Command Line Interface (CLI). Using intuitive commands, Magpie can help you keep track of your **Todos, Deadlines, and Events** with features such as **add, mark, view,** and more! 
 
