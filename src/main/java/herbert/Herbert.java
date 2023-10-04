@@ -2,8 +2,6 @@ package herbert;
 
 import task.*;
 
-
-import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -85,6 +83,10 @@ public class Herbert {
         return 0;
     }
 
+    /**
+     * Searches through all current tasks to find matches with the user input.
+     * @param line The raw input string from the user.
+     */
     private void findTask(String line) {
         if (HerbertParser.checkInputTwoOrMoreArgs(line) == -1) {
             return;

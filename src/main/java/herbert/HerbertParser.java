@@ -95,6 +95,11 @@ public abstract class HerbertParser {
         return new String[] {matcher.group(1), matcher.group(2)};
     }
 
+    /**
+     * Attempts to parse a given string into a LocalDate object.
+     * @param dateString The date string inputted by the user.
+     * @return A LocalDate object on success, null on failure.
+     */
     public static LocalDate parseDate(String dateString) {
         try {
             return LocalDate.parse(dateString);
@@ -122,6 +127,11 @@ public abstract class HerbertParser {
         return new String[] {matcher.group(1), matcher.group(2), matcher.group(3)};
     }
 
+    /**
+     * Extracts the search query from the user input.
+     * @param line The raw input string from the user.
+     * @return The complete string after the keyword 'find'.
+     */
     public static String getSearchQuery(String line) {
         String lower = line.toLowerCase();
         return lower.substring("find ".length());

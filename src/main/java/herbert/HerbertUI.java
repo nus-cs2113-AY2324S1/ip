@@ -2,8 +2,6 @@ package herbert;
 
 import task.Task;
 
-import java.util.ArrayList;
-
 /**
  * Contains all methods relating to printing messages to the user through the CLI.
  */
@@ -165,10 +163,12 @@ public abstract class HerbertUI {
         println();
     }
 
+    /**
+     * Prints out the results of a search to the user.
+     * @param searchResults The TaskList containing all tasks which matched the user's search inmput.
+     */
     public static void printMessageSearchResults(TaskList searchResults) {
-
         println();
-
         if (searchResults.size() == 0) {
             System.out.println("\tSorry, I could not find any tasks matching that description :(");
             println();
@@ -184,7 +184,6 @@ public abstract class HerbertUI {
                     searchResults.get(i)
             );
         }
-
         println();
     }
     //endregion
