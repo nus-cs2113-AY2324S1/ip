@@ -21,6 +21,6 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         List<Task> allTasks = taskList.getAllTasks();
-        return new CommandResult(getMessageForPersonListShownSummary(allTasks), allTasks);
+        return new CommandResult(getMessageForTaskListShownSummary(allTasks), allTasks);
     }
 }

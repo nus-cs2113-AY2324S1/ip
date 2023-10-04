@@ -22,7 +22,7 @@ public class TaskListDecoder {
      * @throws StorageOperationException if the {@code encodedTaskList} is in an invalid format.
      */
     public static TaskList decodeTaskList(List<String> encodedTaskList)
-    throws IllegalValueException, StorageOperationException {
+    throws IllegalValueException {
         final TaskList decodedTaskList = new TaskList();
         Task newTask;
         for (String encodedTask : encodedTaskList) {
@@ -38,7 +38,7 @@ public class TaskListDecoder {
      * @throws StorageOperationException if {@code encodedTask} is in an invalid format.
      */
     private static Task decodeTaskFromString(String encodedTask)
-    throws IllegalValueException, StorageOperationException {
+    throws IllegalValueException {
         Task task = null;
         switch (getEncodedTaskType(encodedTask)) {
             case 'T':

@@ -24,7 +24,7 @@ public class TextUi {
     /** Offset required to convert between 1-indexing and 0-indexing.  */
     public static final int DISPLAYED_INDEX_OFFSET = 1;
 
-    /** A decorative prefix added to the beginning of lines printed by PersonBook */
+    /** A decorative prefix added to the beginning of lines printed by Jerry */
     private static final String LINE_PREFIX = "|| ";
 
     /** A platform independent line separator. */
@@ -119,15 +119,15 @@ public class TextUi {
      * command execution segments.
      */
     public void showResultToUser(CommandResult result) {
-        final List<Task> resultPersons = result.getRelevantTasks();
-        if (resultPersons != null) {
-            showTaskListView(resultPersons);
+        final List<Task> resultTasks = result.getRelevantTasks();
+        if (resultTasks != null) {
+            showTaskListView(resultTasks);
         }
         showToUser(result.feedbackToUser, DIVIDER);
     }
 
     /**
-     * Shows a list of persons to the user, formatted as an indexed list.
+     * Shows a list of tasks to the user, formatted as an indexed list.
      */
     private void showTaskListView(List<Task> tasks) {
         final List<String> formattedTasks = new ArrayList<>();

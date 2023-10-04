@@ -37,12 +37,12 @@ public abstract class Command {
     }
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
      *
-     * @param personsDisplayed used to generate summary
-     * @return summary message for persons displayed
+     * @param tasksDisplayed used to generate summary
+     * @return summary message for tasks displayed
      */
-    public static String getMessageForPersonListShownSummary(List<Task> tasksDisplayed) {
+    public static String getMessageForTaskListShownSummary(List<Task> tasksDisplayed) {
         return String.format(Messages.MESSAGE_TASK_LISTED_OVERVIEW, tasksDisplayed.size());
     }
 
