@@ -2,13 +2,17 @@
 import java.util.Scanner;
 //import ArrayList
 import java.util.ArrayList;
-import javax.lang.model.type.NullType;
 //import File I/O class
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
+
+//Import packages and classes
+import Task.Task;
+import Task.Todo;
+import Task.Deadline;
+import Task.Event;
+
 
 
 public class Botbot {
@@ -92,7 +96,7 @@ public class Botbot {
             String[] parts = input.split(" /by ");
             //check if task or deadline are null
             if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
-                throw new DukeException("Task or deadline cannot be empty... Please check your input again~");
+                throw new DukeException("Task.Task or deadline cannot be empty... Please check your input again~");
             }
             task = parts[0].substring("deadline ".length());
             deadline = parts[1];
@@ -118,7 +122,7 @@ public class Botbot {
             String[] parts = input.split(" /");
             //check if task, to, from are null
             if (parts.length != 3 || parts[0].isEmpty() || parts[1].equals("from") || parts[2].equals("to")) {
-                throw new DukeException("Task, from or to cannot be empty... Please check your input again~");
+                throw new DukeException("Task.Task, from or to cannot be empty... Please check your input again~");
             }
             task = parts[0].substring("event ".length());
             from = parts[1].substring("from".length());
