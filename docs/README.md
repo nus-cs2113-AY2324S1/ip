@@ -38,7 +38,7 @@ Example: `delete 1`
 Format: `mark indexOfTheTask`
 Example: `mark 1`
 
-### unmark a task as done: `unmark`
+### Unmark a task as done: `unmark`
 - mark a task as not done by it's index
 - The index must be a positive integer 1, 2, 3, …​
 - The index refers to the index number shown in the displayed task list.
