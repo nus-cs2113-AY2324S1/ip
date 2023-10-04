@@ -4,7 +4,7 @@ Magpie is a chatbot for **managing your tasks** via a Command Line Interface (CL
 
 ## Table of Content
 
-* [Quick start](#quick-start-)
+* [Quick start](#quick-start)
 * [Command Summary](#feature-and-command-summary)
 * [Features](#features)
   * [List: `list`](#-list---list-all-current-tasks)
@@ -18,7 +18,7 @@ Magpie is a chatbot for **managing your tasks** via a Command Line Interface (CL
   * [Exiting the program: `bye`](#-bye---exits-magpie)
   * [Saving Tasks in hard disk](#-saving-tasks-in-hard-disk)
 
-## Quick Start 
+## Quick Start
 
 1. Install `Java 11` from [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) if you do not have it installed.
 2. In your command terminal, navigate to the directory containing `Magpie.jar`.
