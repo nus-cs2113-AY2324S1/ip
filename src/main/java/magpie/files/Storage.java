@@ -52,8 +52,7 @@ public class Storage {
             if (isCreated) {
                 System.out.println("Created new data file for tasks :)");
                 System.out.println("file created " + taskFile.getCanonicalPath());
-            }
-            else {
+            } else {
                 System.out.println("Data file found! Now loading...");
             }
         } catch (IOException e) {
