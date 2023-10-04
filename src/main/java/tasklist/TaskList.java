@@ -168,12 +168,10 @@ public class TaskList {
             markTaskDone(taskIndex);
             ui.printMarkedTask(taskIndex, this);
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please use 'mark + <number>'.");
+            System.out.println("Invalid input. Please use 'mark <number>'.");
             ui.printLine();
         } catch (IndexOutOfBoundsException e) {
-            ui.printLine();
-            System.out.println("Please specify the task number");
-            ui.printLine();
+            ui.markBlankIndexException();
         }
     }
 
@@ -188,23 +186,21 @@ public class TaskList {
             unmarkTask(taskIndex);
             ui.printUnmarkedTask(taskIndex, this);
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please use 'unmark + <number>'.");
+            System.out.println("Invalid input. Please use 'unmark <number>'.");
             ui.printLine();
         } catch (IndexOutOfBoundsException e) {
-            ui.printLine();
-            System.out.println("Please specify the task number");
-            ui.printLine();
+            ui.markBlankIndexException();
         }
     }
 
     /**
      * Method to delete a task.
      *
-     * @param inputWords The array of split input by user
+     * @param taskIndexToDelete The task index that user wants to delete
      */
-    public void deleteTask(String[] inputWords) {
+    public void deleteTask(String taskIndexToDelete) {
         try {
-            int taskIndex = Integer.parseInt(inputWords[1]);
+            int taskIndex = Integer.parseInt(taskIndexToDelete);
             if (isValidIndex(taskIndex)) {
                 Task removedTask = tasks.remove(taskIndex - 1);
                 ui.printRemovedTask(removedTask, this);
@@ -266,22 +262,21 @@ public class TaskList {
     /**
      *Search the task list to find any task containing the given keyword
      *
-     * @param inputWords The array of split input by user
+     * @param args The keyword from user input
      */
-    public void findTask(String[] inputWords) {
-        String input = inputWords.length == 2 ? inputWords[1] : "";
-        if (input.isEmpty()) {
+    public void findTask(String args) {
+        if (args.isEmpty()) {
             ui.printBlankArgumentError("Keyword");
             return;
         }
-        input.trim().split(" ");
+        args.trim().split(" ");
         int taskNum = 0;
         boolean taskFound = false;
         for (Task task : tasks) {
-            if (task.getName().contains(input)) {
+            if (task.getName().contains(args)) {
                 if (!taskFound) {
                     taskFound = true;
-                    ui.printTaskFoundMessage(input);
+                    ui.printTaskFoundMessage(args);
                 }
                 ui.printTaskWithNumber(taskNum, task);
             }

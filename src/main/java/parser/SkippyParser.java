@@ -24,6 +24,7 @@ public class SkippyParser {
     public void parseUserInput(String input) {
         String[] inputWords = input.trim().split(" ");
         String command = inputWords[0].toLowerCase();
+        String args = inputWords.length == 2 ? inputWords[1] : "";
 
         switch (command) {
         case "bye":
@@ -52,10 +53,10 @@ public class SkippyParser {
             skippy.taskList.unmark(inputWords);
             break;
         case "delete":
-            skippy.taskList.deleteTask(inputWords);
+            skippy.taskList.deleteTask(args);
             break;
         case "find":
-            skippy.taskList.findTask(inputWords);
+            skippy.taskList.findTask(args);
             break;
         default:
             skippy.ui.printInvalidInputMessage();

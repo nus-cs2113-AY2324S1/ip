@@ -152,14 +152,20 @@ public class SkippyUi {
         printLine();
     }
 
+    public void printDeleteTaskException() {
+        printLine();
+        System.out.println("Invalid input. Please use 'delete <number>'.");
+        printLine();
+    }
+
     public void printBlankArgumentError(String arg) {
         System.out.println("☹ OOPS!!! " + arg + " cannot be blank.");
         printLine();
     }
 
-    public void printDeleteTaskException() {
+    public void markBlankIndexException() {
         printLine();
-        System.out.println("Invalid input. Please use 'delete <number>'.");
+        System.out.println("Please specify the task number");
         printLine();
     }
 
