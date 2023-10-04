@@ -15,7 +15,7 @@ public class Parser {
     public Command parse(String fullCommand) {
         String[] substr = fullCommand.split("\\s+", 2);
         if (substr.length == 1) {
-            return new Command(substr[0], null);
+            return new Command(substr[0], "");
         }
         return new Command(substr[0], substr[1]);
     }

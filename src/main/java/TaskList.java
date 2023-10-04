@@ -33,10 +33,11 @@ public class TaskList {
      * @throws DukeException If the description of the todo task is empty.
      */
     public void addTodo(String description) throws DukeException {
-        if (description.isBlank()) {
+        if (description.isBlank()) { // Check if description is empty
             throw new DukeException("Description of a todo cannot be empty");
         }
         tasks.add(new ToDo(description));
+
     }
 
     /**
@@ -50,13 +51,13 @@ public class TaskList {
      *                       or when the /by keyword is not provided.
      */
     public void addDeadline(String description) throws DukeException {
-        if (description.isBlank()) {
-            throw new DukeException("Description of a deadline cannot be empty");
-        }
         try {
             String[] deadlineTokens = description.split("/by");
             description = deadlineTokens[0].trim();
             String by = deadlineTokens[1].trim();
+            if (description.isBlank() | by.isBlank()) { // Check if description is empty
+                throw new DukeException("Wrong format! Expected format: deadline DESCRIPTION /by TIME");
+            }
             Deadline deadline = new Deadline(description, by);
             tasks.add(deadline);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -76,15 +77,16 @@ public class TaskList {
      *                       or when the /from and /to keywords are the provided.
      */
     public void addEvent(String description) throws DukeException {
-        if (description.isBlank()) {
-            throw new DukeException("Description of a event cannot be empty");
-        }
         try {
             String[] eventTokens = description.split("/from");
             description = eventTokens[0].trim();
             String[] fromAndToTokens = eventTokens[1].split("/to");
             String from = fromAndToTokens[0].trim();
             String to = fromAndToTokens[1].trim();
+            if (description.isBlank() | from.isBlank() | to.isBlank()) { // Check if format is correct
+                throw new DukeException("Wrong format! Expected format: "
+                                         + "event DESCRIPTION /from START_TIME /to END_TIME");
+            }
             Event event = new Event(description, from, to);
             tasks.add(event);
         } catch (ArrayIndexOutOfBoundsException e) {
