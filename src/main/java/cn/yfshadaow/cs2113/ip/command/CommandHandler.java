@@ -35,6 +35,13 @@ public class CommandHandler {
                 bot.sendMessageWithoutSplit("Got it. I've added this task:");
                 bot.sendMessageWithoutSplit(todo.toStringWithIsDone());
                 bot.sendMessage("Now you have " + bot.getTasks().size() + " tasks in the list.");
+                try {
+                    bot.saveData();
+                } catch (Exception e) {
+                    bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    e.printStackTrace();
+                    break;
+                }
                 break;
             }
             case "deadline": {
@@ -49,6 +56,12 @@ public class CommandHandler {
                 bot.sendMessageWithoutSplit("Got it. I've added this task:");
                 bot.sendMessageWithoutSplit(deadline.toStringWithIsDone());
                 bot.sendMessage("Now you have " + bot.getTasks().size() + " tasks in the list.");
+                try {
+                    bot.saveData();
+                } catch (Exception e) {
+                    bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    break;
+                }
                 break;
             }
             case "event": {
@@ -63,6 +76,12 @@ public class CommandHandler {
                 bot.sendMessageWithoutSplit("Got it. I've added this task:");
                 bot.sendMessageWithoutSplit(event.toStringWithIsDone());
                 bot.sendMessage("Now you have " + bot.getTasks().size() + " tasks in the list.");
+                try {
+                    bot.saveData();
+                } catch (Exception e) {
+                    bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    break;
+                }
                 break;
             }
             case "mark": {
@@ -85,6 +104,12 @@ public class CommandHandler {
                 }
                 bot.sendMessageWithoutSplit("Nice! I've marked this task as done:");
                 bot.sendMessage(bot.getTasks().get(index - 1).toStringWithIsDone());
+                try {
+                    bot.saveData();
+                } catch (Exception e) {
+                    bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    break;
+                }
                 break;
             }
             case "unmark": {
@@ -107,6 +132,12 @@ public class CommandHandler {
                 }
                 bot.sendMessageWithoutSplit("OK, I've marked this task as not done yet:");
                 bot.sendMessage(bot.getTasks().get(index - 1).toStringWithIsDone());
+                try {
+                    bot.saveData();
+                } catch (Exception e) {
+                    bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    break;
+                }
                 break;
             }
             case "list": {

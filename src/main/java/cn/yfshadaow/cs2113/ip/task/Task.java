@@ -1,7 +1,11 @@
 package cn.yfshadaow.cs2113.ip.task;
 
+import com.google.gson.annotations.Expose;
+
 public abstract class Task {
+    @Expose
     protected boolean isDone = false;
+    @Expose
     protected String name;
 
     @SuppressWarnings("unused")
