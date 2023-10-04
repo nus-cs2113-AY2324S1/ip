@@ -4,6 +4,7 @@ public abstract class Task {
     protected boolean isDone = false;
     protected String name;
 
+    @SuppressWarnings("unused")
     public boolean isDone() {
         return isDone;
     }
@@ -12,10 +13,12 @@ public abstract class Task {
         isDone = done;
     }
 
+    @SuppressWarnings("unused")
     public String getName() {
         return name;
     }
 
+    @SuppressWarnings("unused")
     public void setName(String name) {
         this.name = name;
     }

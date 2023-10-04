@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class XiaoAiBot {
-    private final String BOT_NAME = "XiaoAi";
-    private final String SPLIT = "____________________________________________";
-    private final String GREET_MESSAGE = "Welcome back, master!\n" +
+    private static final String BOT_NAME = "XiaoAi";
+    private static final String SPLIT = "____________________________________________";
+    private static final String GREET_MESSAGE = "Welcome back, master!\n" +
             BOT_NAME + " here. What can I do for you?";
 
-    private final String QUIT_MESSAGE = "See you next time, master!";
+    private static final String QUIT_MESSAGE = "See you next time, master!";
 
 
     private final List<Task> tasks = new ArrayList<>();
@@ -24,6 +24,7 @@ public class XiaoAiBot {
     }
 
 
+    @SuppressWarnings("unused")
     public CommandHandler getCommandHandler() {
         return commandHandler;
     }

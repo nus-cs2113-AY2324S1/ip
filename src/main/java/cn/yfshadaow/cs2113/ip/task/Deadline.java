@@ -2,15 +2,14 @@ package cn.yfshadaow.cs2113.ip.task;
 
 import cn.yfshadaow.cs2113.ip.command.Command;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Deadline extends Task {
     private String by;
+    @SuppressWarnings("unused")
     public String getBy() {
         return by;
     }
 
+    @SuppressWarnings("unused")
     public void setBy(String by) {
         this.by = by;
     }

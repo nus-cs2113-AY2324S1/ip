@@ -2,26 +2,27 @@ package cn.yfshadaow.cs2113.ip.task;
 
 import cn.yfshadaow.cs2113.ip.command.Command;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Event extends Task {
 
     private String from;
     private String to;
 
+    @SuppressWarnings("unused")
     public String getFrom() {
         return from;
     }
 
+    @SuppressWarnings("unused")
     public void setFrom(String from) {
         this.from = from;
     }
 
+    @SuppressWarnings("unused")
     public String getTo() {
         return to;
     }
 
+    @SuppressWarnings("unused")
     public void setTo(String to) {
         this.to = to;
     }

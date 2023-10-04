@@ -5,10 +5,12 @@ import java.util.*;
 public class Command {
     private String cmd;
 
+    @SuppressWarnings("unused")
     public String getCmd() {
         return cmd;
     }
 
+    @SuppressWarnings("unused")
     public void setCmd(String cmd) {
         this.cmd = cmd;
     }
