@@ -73,8 +73,7 @@ public class TaskList {
         }
     }
 
-    public Task deleteTask(TaskList taskList, String taskID) throws DukeException {
-        ArrayList<Task> tasks = taskList.getTasks();
+    public Task deleteTask(String taskID) throws DukeException {
         try {
             int index = Integer.parseInt(taskID);
             Task removedTask = tasks.get(index-1);
@@ -85,5 +84,22 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Oops! Task " + taskID + " does not exist");
         }
+    }
+
+    public ArrayList<Task> find(String keyword) throws DukeException {
+        if (keyword.isBlank()) {
+            throw new DukeException("Keyword cannot be empty");
+        }
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (Task task : tasks) {
+            String[] substrs = task.getDescription().split("\\s+");
+            for (String substr : substrs) {
+                if (substr.equals(keyword)) {
+                    matchingTasks.add(task);
+                    break;
+                }
+            }
+        }
+        return matchingTasks;
     }
 }

@@ -83,7 +83,18 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void showDeadlineError() {
-
+    public void showFind(ArrayList<Task> matchingTasks) {
+        showLine();
+        if (matchingTasks.isEmpty()) {
+            System.out.println("\tKeyword does not match any task in the list.");
+        } else {
+            System.out.println("\tHere are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.print("\t");
+                System.out.print(i + 1 + ".");
+                System.out.println(matchingTasks.get(i));
+            }
+        }
+        showLine();
     }
 }

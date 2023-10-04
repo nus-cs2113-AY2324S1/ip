@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Command {
 
     private String command;
@@ -72,9 +74,17 @@ public class Command {
             break;
         case "delete":
             try {
-                Task removedTask = taskList.deleteTask(taskList, this.arg);
+                Task removedTask = taskList.deleteTask(this.arg);
                 storage.save(taskList);
                 ui.showDeleteTask(taskList, removedTask);
+            } catch (DukeException e) {
+                ui.showError(e);
+            }
+            break;
+        case "find":
+            try {
+                ArrayList<Task> matchingTasks = taskList.find(this.arg);
+                ui.showFind(matchingTasks);
             } catch (DukeException e) {
                 ui.showError(e);
             }
