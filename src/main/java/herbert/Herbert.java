@@ -1,4 +1,4 @@
-package duke;
+package herbert;
 
 import task.*;
 
@@ -6,13 +6,13 @@ import java.util.Scanner;
 
 public class Herbert {
 
-    private final HerbertReader reader;
+    private final HerbertSaver reader;
     private final TaskList taskList;
 
     public Herbert() {
         this.taskList = new TaskList();
 
-        this.reader = new HerbertReader("data", "HerbertTasks.txt");
+        this.reader = new HerbertSaver("data", "HerbertTasks.txt");
         this.reader.loadFromSaveFile(this);
 
         HerbertUI.sayHello();
@@ -32,7 +32,6 @@ public class Herbert {
             }
         }
     }
-
 
     public int processLine(String line) {
         line = line.strip();
@@ -164,11 +163,6 @@ public class Herbert {
         this.taskList.remove(taskIndex);
         HerbertUI.printMessageDeleteTask(taskCopy, this.taskList);
     }
-
-
-
-
-
 
 }
 

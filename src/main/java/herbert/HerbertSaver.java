@@ -1,4 +1,4 @@
-package duke;
+package herbert;
 
 import task.Deadline;
 import task.Event;
@@ -14,12 +14,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public class HerbertReader {
+public class HerbertSaver {
 
     private final Path folderPath;
     private final Path filePath;
 
-    public HerbertReader(String folderPath, String fileName) {
+    public HerbertSaver(String folderPath, String fileName) {
         // Convert the paths given as Strings into Path objects
         this.folderPath = Paths.get(folderPath);
         this.filePath = this.folderPath.resolve(fileName);

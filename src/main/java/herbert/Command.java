@@ -1,4 +1,4 @@
-package duke;
+package herbert;
 
 public enum Command {
     LIST {

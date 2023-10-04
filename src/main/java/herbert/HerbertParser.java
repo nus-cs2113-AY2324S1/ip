@@ -1,4 +1,4 @@
-package duke;
+package herbert;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
