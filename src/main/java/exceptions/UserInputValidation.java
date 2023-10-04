@@ -2,6 +2,9 @@ package exceptions;
 
 import commands.Commands;
 import taskmanagement.TaskList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Class for validating user inputs in the Zran application.
@@ -77,7 +80,7 @@ public class UserInputValidation {
      * @throws ZranExceptions If validation fails with specific error messages.
      */
     public static String[] validateAddEventCommand(String input) throws ZranExceptions {
-        String[] taskInfo = new String[]{"", "", ""};
+        String[] taskInfo = new String[]{ "", "", ""};
         taskInfo[0] = validateTaskDescription(input, Commands.EVENT_TASK_COMMAND);
         return validateEventDuration(input, taskInfo);
     }
@@ -188,5 +191,16 @@ public class UserInputValidation {
             throw new ZranExceptions(ZranErrorMessages.INVALID_TASK_DESCRIPTION.message);
         }
         return description;
+    }
+
+    public static LocalDate validateDate(String input) throws ZranExceptions {
+        LocalDate parsedDate;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            parsedDate = LocalDate.parse(input, formatter);
+        } catch (DateTimeParseException e) {
+            throw new ZranExceptions(ZranErrorMessages.INVALID_DATE_FORMAT.message);
+        }
+        return parsedDate;
     }
 }

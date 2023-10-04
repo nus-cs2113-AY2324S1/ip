@@ -6,6 +6,7 @@ import exceptions.ZranExceptions;
 import taskmanagement.*;
 import userinputs.Ui;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -94,8 +95,9 @@ public class AddTaskCommand extends Commands {
      */
     private Task createDeadlineTask(String input) throws ZranExceptions {
         String[] taskInfo = UserInputValidation.validateAddDeadlineCommand(input);
+        LocalDate by = UserInputValidation.validateDate(taskInfo[1]);
         String description = UserInputValidation.validateDeadlineDescription(input);
-        return new Deadline(description, taskInfo[1]);
+        return new Deadline(description, by);
     }
 
     /**
@@ -108,8 +110,10 @@ public class AddTaskCommand extends Commands {
      */
     private Task createEventTask(String input) throws ZranExceptions {
         String[] taskInfo = UserInputValidation.validateAddEventCommand(input);
+        LocalDate from = UserInputValidation.validateDate(taskInfo[1]);
+        LocalDate to = UserInputValidation.validateDate(taskInfo[2]);
         String description = UserInputValidation.validateEventDescription(input);
-        return new Event(description, taskInfo[1], taskInfo[2]);
+        return new Event(description, from, to);
     }
 
 }

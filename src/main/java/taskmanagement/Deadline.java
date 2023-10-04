@@ -1,20 +1,21 @@
 package taskmanagement;
 
+import java.time.LocalDate;
+
 /**
  * Deadline class in Zran application.
  * It represents a task of class 'Deadline' which consists of an additional variable 'by'.
  * Extends the base Task class.
  */
 public class Deadline extends Task {
-    protected String by;
-
+    protected LocalDate by;
     /**
      * Constructs an instance of 'Deadline' with the given description and deadline.
      *
      * @param description The description of the deadline task.
      * @param by          The deadline for the task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
         taskType = "D";
@@ -35,8 +36,8 @@ public class Deadline extends Task {
     }
     @Override
     public String toString() {
-        return "[" + taskType + "]" + "[" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return "[" + taskType + "]" + "[" + getStatusIcon() + "] " + description + " (by: " + by.format(formatter) + ")";
     }
-    public String getBy(){  return by;  }
+    public LocalDate getBy(){  return by;  }
 
 }
