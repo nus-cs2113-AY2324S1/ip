@@ -12,12 +12,12 @@ package Duke;
 
 import Duke.dealWithFiles.GetFromFile;
 import Duke.dealWithFiles.SaveToFile;
+import Duke.inputProcess.Parser;
 import Duke.inputProcess.TaskList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
@@ -45,17 +45,18 @@ public class Duke {
         }
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
-        String eventTime;
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        Parser parser = new Parser(userInput);
         while (!userInput.equals("bye")) {
             String command = "list";
             if (!userInput.equals("list")){
                 try{
-                    command = userInput.split(" ", 2)[0].toLowerCase();
-                    userInput = userInput.split(" ", 2)[1];
+                    command = parser.getCommand();
+                    userInput = parser.getRemainingPart();
+                    parser.newUserInput(userInput);
                 } catch(IndexOutOfBoundsException e){
                     System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
                     userInput = in.nextLine();
+                    parser.newUserInput(userInput);
                     continue;
                 }
             }
@@ -73,9 +74,8 @@ public class Duke {
             case "deadline":
                 try {
                     try {
-                        LocalDateTime taskDeadline = LocalDateTime.parse(userInput.split("/by ", 2)[1], df);
-                        userInput = userInput.split("/", 2)[0];
-                        tasks.addDeadline(userInput, taskDeadline);
+                        Parser deadlineParse = parser.getDeadlineInput();
+                        tasks.addDeadline(deadlineParse.getTaskName(), parser.getTaskTime1());
                         System.out.println("\tGot it. I've added this task:\n\t\t" + tasks.get(tasks.size() - 1) + "\n\tNow you have " + tasks.size() + " tasks in the list.");
                     } catch (DateTimeParseException e){
                         System.out.println("\tThe input format for deadline event need to be \"deadline deadlineEvent /by dd/MM/yyyy HHmm\"");
@@ -85,23 +85,19 @@ public class Duke {
                 }
                 break;
             case "event":
-                LocalDateTime start;
-                LocalDateTime end;
+                Parser EventParse;
                 try {
                     try {
-                        eventTime = userInput.split("/from ", 2)[1];
-                        start = LocalDateTime.parse(eventTime.split(" /to ", 2)[0], df);
-                        end = LocalDateTime.parse(eventTime.split(" /to ", 2)[1], df);
+                        EventParse = parser.getEventInput();
                     } catch (DateTimeParseException e) {
                         System.out.println("\tThe input format for event need to be \"event eventName /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm\"");
                         break;
                     }
-                    if (end.isBefore(start)){
+                    if (EventParse.getTaskTime2().isBefore(EventParse.getTaskTime1())){
                         System.out.println("\tStart time cannot be later than end time");
                         break;
                     }
-                    userInput = userInput.split("/",2)[0];
-                    tasks.addEvent(userInput, start, end);
+                    tasks.addEvent(parser.getTaskName(), parser.getTaskTime1(), parser.getTaskTime2());
                     System.out.println("\tGot it. I've added this task:\n\t\t" + tasks.get(tasks.size() - 1) + "\n\tNow you have "+ tasks.size() + " tasks in the list.");
                 } catch(IndexOutOfBoundsException e){
                     System.out.println("\tOOPS!!! The event timing need to separated by \"/from\" and \"/to\"" );
@@ -116,7 +112,7 @@ public class Duke {
                     tasks.get(Integer.parseInt(userInput) - 1);
                     tasks.deleteTask(Integer.parseInt(userInput) - 1);
                 } catch(NumberFormatException | NullPointerException | IndexOutOfBoundsException e){
-                    System.out.println("OOPS!!! Need to specify which task want to delete");
+                    System.out.println("\tOOPS!!! Need to specify which task want to delete");
                 }
                 break;
             case "find":
@@ -131,6 +127,7 @@ public class Duke {
                 System.out.println("Something wrong to save the file");
             }
             userInput = in.nextLine();
+            parser.newUserInput(userInput);
         }
         System.out.println("Bye. Hope to see you again soon! ");
     }
