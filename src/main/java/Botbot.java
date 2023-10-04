@@ -5,52 +5,36 @@ import Commands.Command;
 import Commands.ByeCommand;
 import Task.TaskList;
 import Parser.Parser;
+import Storage.Storage;
+import Ui.Ui;
 
 import java.io.IOException;
 import Exceptions.DukeException;
 import Exceptions.DukeFormatException;
 import Exceptions.DukeIndexException;
-import Storage.Storage;
+
 
 public class Botbot {
-    public static String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-
     //main method
     public static void main(String[] args) throws DukeException, IOException, DukeIndexException, DukeFormatException {
+        Ui.startBot();
         TaskList taskList = new TaskList();
         //load file
         Storage.loadListFromFile();
-        //message
-        System.out.println("Hello! I'm Botbot \n" +
-                "───────────────────────────────────────────────────────────────────────────────────────────────\n" +
-                "─██████████████───██████████████─██████████████─██████████████───██████████████─██████████████─\n" +
-                "─██░░░░░░░░░░██───██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░██───██░░░░░░░░░░██─██░░░░░░░░░░██─\n" +
-                "─██░░██████░░██───██░░██████░░██─██████░░██████─██░░██████░░██───██░░██████░░██─██████░░██████─\n" +
-                "─██░░██──██░░██───██░░██──██░░██─────██░░██─────██░░██──██░░██───██░░██──██░░██─────██░░██─────\n" +
-                "─██░░██████░░████─██░░██──██░░██─────██░░██─────██░░██████░░████─██░░██──██░░██─────██░░██─────\n" +
-                "─██░░░░░░░░░░░░██─██░░██──██░░██─────██░░██─────██░░░░░░░░░░░░██─██░░██──██░░██─────██░░██─────\n" +
-                "─██░░████████░░██─██░░██──██░░██─────██░░██─────██░░████████░░██─██░░██──██░░██─────██░░██─────\n" +
-                "─██░░██────██░░██─██░░██──██░░██─────██░░██─────██░░██────██░░██─██░░██──██░░██─────██░░██─────\n" +
-                "─██░░████████░░██─██░░██████░░██─────██░░██─────██░░████████░░██─██░░██████░░██─────██░░██─────\n" +
-                "─██░░░░░░░░░░░░██─██░░░░░░░░░░██─────██░░██─────██░░░░░░░░░░░░██─██░░░░░░░░░░██─────██░░██─────\n" +
-                "─████████████████─██████████████─────██████─────████████████████─██████████████─────██████─────\n" +
-                "───────────────────────────────────────────────────────────────────────────────────────────────");
-        System.out.println("What can I do for you?");
-        System.out.println(line);
 
         //create new scanner object
         Scanner scanner = new Scanner(System.in);
         Command command;
 
-        do {
+         do{
             String input = scanner.nextLine();
-            System.out.println(line);
+            Ui.printLine();
             command = Parser.parse(input);
             command.execute();
-            System.out.println(line);
-        } while (!(command instanceof ByeCommand));
+            Ui.printLine();
+         }while (!(command instanceof ByeCommand));
 
-        System.out.println("Bye! Hope to see you again soon!");
+        Ui.endBot();
         scanner.close();
     }
 }

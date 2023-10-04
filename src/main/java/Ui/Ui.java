@@ -1,8 +1,10 @@
 package Ui;
 
 public class Ui {
-    public static String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
+    public static void printLine(){
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
     public static void startBot(){
         System.out.println("Hello! I'm Botbot \n" +
                 "───────────────────────────────────────────────────────────────────────────────────────────────\n" +
@@ -19,7 +21,7 @@ public class Ui {
                 "─████████████████─██████████████─────██████─────████████████████─██████████████─────██████─────\n" +
                 "───────────────────────────────────────────────────────────────────────────────────────────────");
         System.out.println("What can I do for you?");
-        System.out.println(line);
+        printLine();
     }
 
     public static void endBot(){
