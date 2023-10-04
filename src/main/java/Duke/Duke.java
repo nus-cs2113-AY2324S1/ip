@@ -1,3 +1,13 @@
+/**
+ * Duke is a command-line task management robot that allows users to
+ * add, mark, unmark, delete, and search for tasks. It also supports
+ * different types of tasks such as Todo, Deadline, and Event.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-09-30
+ */
+
 package Duke;
 
 import Duke.dealWithFiles.GetFromFile;
