@@ -2,6 +2,8 @@ package herbert;
 
 import task.Task;
 
+import java.util.ArrayList;
+
 /**
  * Contains all methods relating to printing messages to the user through the CLI.
  */
@@ -160,6 +162,29 @@ public abstract class HerbertUI {
         System.out.println("\tNoted. I've removed this task from your list:");
         System.out.printf("\t\t[%s][%s] %s\n", t.getCode(), t.getStatusIcon(), t);
         System.out.printf("\tNow you have %d task(s) in your list.\n", taskList.size());
+        println();
+    }
+
+    public static void printMessageSearchResults(TaskList searchResults) {
+
+        println();
+
+        if (searchResults.size() == 0) {
+            System.out.println("\tSorry, I could not find any tasks matching that description :(");
+            println();
+            return;
+        }
+
+        System.out.println("\tHere are the matching tasks in your list:");
+        for (int i = 0; i < searchResults.size(); i++) {
+            System.out.printf("\t%d. [%s][%s] %s\n",
+                    (i + 1),
+                    searchResults.get(i).getCode(),
+                    searchResults.get(i).getStatusIcon(),
+                    searchResults.get(i)
+            );
+        }
+
         println();
     }
     //endregion
