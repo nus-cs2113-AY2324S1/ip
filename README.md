@@ -20,8 +20,9 @@ I am a personal Task managing chatbot, able to store tasks such as To dos, Deadl
 3) Store and retreive your tasks into a dedicated save file.
 
 4) Search for keyword using the Find function.
-find [keyword]
+
 <details>
+  ### find [keyword]
 ```
 <summary>Useage Example</summary>
 find book
@@ -34,9 +35,10 @@ ____________________________________________________________
 </details>
 
 5) Remove stored Tasks using the Delete function.
-delete [task index]
+
 <details>
 <summary>Useage Example</summary>
+ ### delete [task index]
 ```
 delete 2
 ____________________________________________________________
@@ -46,7 +48,7 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 ```
 ```ruby
-puts "Hello World"
+   puts "Hello World"
 ```
 </details>
 
