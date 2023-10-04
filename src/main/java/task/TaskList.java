@@ -3,6 +3,7 @@ package task;
 import UI.Ui;
 import exception.*;
 import java.util.ArrayList;
+import static java.util.stream.Collectors.toList;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -108,5 +109,12 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new SimonException2();
         }
+    }
+
+    public void printMatchingTasks(String word, Ui ui) {
+        ArrayList<Task> matchingList = (ArrayList<Task>) taskList.stream()
+                .filter(n -> n.getDescription().contains(word))
+                .collect(toList());
+        ui.printMatchingList(matchingList);
     }
 }
