@@ -9,6 +9,7 @@ import java.io.IOException;
 
 //Import packages and classes
 import Exceptions.DukeException;
+import Storage.Storage;
 import Task.Task;
 import Task.Todo;
 import Task.Deadline;
@@ -76,69 +77,6 @@ public class Botbot {
         }
     }
 
-//    //method to add todo tasks
-//    public static void createTodoTasks(String task) {
-//        //instantiate new todo object
-//        Todo todoTask = new Todo(task);
-//        //add to array
-//        list.add(todoTask);
-//        System.out.println("Got it. I've added this task:");
-//        System.out.println(todoTask);
-//        System.out.println("Now you have " + (list.size()) + " tasks in the list.");
-//        System.out.println(line);
-//    }
-//
-//    //method to add deadline tasks
-//    public static void createDeadlineTasks(String input) throws DukeException {
-//        String task;
-//        String deadline;
-//        if (!input.contains("/by")) {
-//            throw new DukeException("Ohno... Please check your format and include '/by'~");
-//        } else {
-//            String[] parts = input.split(" /by ");
-//            //check if task or deadline are null
-//            if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
-//                throw new DukeException("Task.Task or deadline cannot be empty... Please check your input again~");
-//            }
-//            task = parts[0].substring("deadline ".length());
-//            deadline = parts[1];
-//        }
-//        //instantiate new deadline object
-//        Deadline deadlineTask = new Deadline(task, deadline);
-//        //add to array
-//        list.add(deadlineTask);
-//        System.out.println("Got it. I've added this task:");
-//        System.out.println(deadlineTask);
-//        System.out.println("Now you have " + (list.size()) + " tasks in the list.");
-//        System.out.println(line);
-//    }
-//
-//    //method to add eventTask
-//    public static void createEventTask(String input) throws DukeException {
-//        String task;
-//        String from;
-//        String to;
-//        if (!input.contains("/from") || !input.contains("/to")) {
-//            throw new DukeException("Uhoh... Please check your format and include '/from' and '/to'~");
-//        } else {
-//            String[] parts = input.split(" /");
-//            //check if task, to, from are null
-//            if (parts.length != 3 || parts[0].isEmpty() || parts[1].equals("from") || parts[2].equals("to")) {
-//                throw new DukeException("Task.Task, from or to cannot be empty... Please check your input again~");
-//            }
-//            task = parts[0].substring("event ".length());
-//            from = parts[1].substring("from".length());
-//            to = parts[2].substring("to".length());
-//        }
-//        //instantiate new event object
-//        Event eventTask = new Event(task, from, to);
-//        //add to array
-//        list.add(eventTask);
-//        System.out.println("Got it. I've added this task:");
-//        System.out.println(eventTask);
-//        System.out.println("Now you have " + (list.size()) + " tasks in the list.");
-//        System.out.println(line);
-//    }
 
     //method to delete tasks
     public static void deleteTasks(String command) throws DukeException {
@@ -152,85 +90,85 @@ public class Botbot {
         System.out.println("Now you have " + (list.size()) + " tasks in the list.");
         System.out.println(line);
     }
-
-    //method to save list to file
-    public static void saveListToFile() throws IOException {
-        try (FileWriter fileWriter = new FileWriter("data/botbot.txt")){
-            for (int i = 0; i<list.size(); i++) {
-                fileWriter.write(list.get(i).toString() + "\n");
-            }
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    //method to extract todo task
-    public static void extractTodo(String savedTask){
-        TaskList.createTodoTasks(savedTask.substring(8));
-    }
-
-    //method to extract deadline task
-    public static void extractDeadline(String savedTask) throws DukeException {
-        String[] parts = savedTask.split(" \\(by: " );
-        String task = parts[0].substring(8);
-        String deadline = parts[1].substring(0, parts[1].length() - 1);
-        if (task.isEmpty() || deadline.isEmpty()) {
-                throw new DukeException("Loaded task or deadline is empty... Please check your saved list again~");
-        } else {
-            //instantiate new deadline object
-            Deadline deadlineTask = new Deadline(task, deadline);
-            //add to array
-            list.add(deadlineTask);
-        }
-    }
-
-    //method to extract event task
-    public static void extractEvent(String savedTask) throws DukeException {
-        String[] parts = savedTask.split(" \\(");
-        String task = parts[0].substring(8);
-        String[] timeSplit = parts[1].split(" to: ");
-        String from = timeSplit[0].substring(6);
-        String to = timeSplit[1].substring(0, timeSplit[1].length() - 1);
-        if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new DukeException("Loaded task or time period is empty... Please check your saved list again~");
-        } else {
-            //instantiate new event object
-            Event eventTask = new Event(task, from, to);
-            //add to array
-            list.add(eventTask);
-        }
-    }
-
-    // method to load list from file
-    public static void loadListFromFile() throws IOException, DukeException {
-        File file = new File("data/botbot.txt");
-        if (!file.exists()){
-            try {
-                boolean createdDirectory = file.mkdirs();
-                boolean createdFile = file.createNewFile();
-            } catch (IOException e){
-                System.out.println("Something went wrong: " + e.getMessage());
-            }
-        } else {
-            Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNext()) {
-                String savedTask = fileScanner.nextLine();
-                if (savedTask.contains("T")) {
-                    extractTodo(savedTask);
-                } else if (savedTask.contains("D")) {
-                    extractDeadline(savedTask);
-                } else if (savedTask.contains("E")) {
-                    extractEvent(savedTask);
-                }
-            }
-        }
-    }
+//
+//    //method to save list to file
+//    public static void saveListToFile() throws IOException {
+//        try (FileWriter fileWriter = new FileWriter("data/botbot.txt")){
+//            for (int i = 0; i<list.size(); i++) {
+//                fileWriter.write(list.get(i).toString() + "\n");
+//            }
+//        } catch (IOException e) {
+//            System.out.println("Something went wrong: " + e.getMessage());
+//        }
+//    }
+//
+//    //method to extract todo task
+//    public static void extractTodo(String savedTask){
+//        TaskList.createTodoTasks(savedTask.substring(8));
+//    }
+//
+//    //method to extract deadline task
+//    public static void extractDeadline(String savedTask) throws DukeException {
+//        String[] parts = savedTask.split(" \\(by: " );
+//        String task = parts[0].substring(8);
+//        String deadline = parts[1].substring(0, parts[1].length() - 1);
+//        if (task.isEmpty() || deadline.isEmpty()) {
+//                throw new DukeException("Loaded task or deadline is empty... Please check your saved list again~");
+//        } else {
+//            //instantiate new deadline object
+//            Deadline deadlineTask = new Deadline(task, deadline);
+//            //add to array
+//            list.add(deadlineTask);
+//        }
+//    }
+//
+//    //method to extract event task
+//    public static void extractEvent(String savedTask) throws DukeException {
+//        String[] parts = savedTask.split(" \\(");
+//        String task = parts[0].substring(8);
+//        String[] timeSplit = parts[1].split(" to: ");
+//        String from = timeSplit[0].substring(6);
+//        String to = timeSplit[1].substring(0, timeSplit[1].length() - 1);
+//        if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
+//            throw new DukeException("Loaded task or time period is empty... Please check your saved list again~");
+//        } else {
+//            //instantiate new event object
+//            Event eventTask = new Event(task, from, to);
+//            //add to array
+//            list.add(eventTask);
+//        }
+//    }
+//
+//    // method to load list from file
+//    public static void loadListFromFile() throws IOException, DukeException {
+//        File file = new File("data/botbot.txt");
+//        if (!file.exists()){
+//            try {
+//                boolean createdDirectory = file.mkdirs();
+//                boolean createdFile = file.createNewFile();
+//            } catch (IOException e){
+//                System.out.println("Something went wrong: " + e.getMessage());
+//            }
+//        } else {
+//            Scanner fileScanner = new Scanner(file);
+//            while (fileScanner.hasNext()) {
+//                String savedTask = fileScanner.nextLine();
+//                if (savedTask.contains("T")) {
+//                    extractTodo(savedTask);
+//                } else if (savedTask.contains("D")) {
+//                    extractDeadline(savedTask);
+//                } else if (savedTask.contains("E")) {
+//                    extractEvent(savedTask);
+//                }
+//            }
+//        }
+//    }
 
 
     //main method
     public static void main(String[] args) throws DukeException, IOException {
         //load file
-        loadListFromFile();
+        Storage.loadListFromFile();
         //message
         System.out.println("Hello! I'm Botbot \n" +
                 "───────────────────────────────────────────────────────────────────────────────────────────────\n" +
@@ -275,19 +213,19 @@ public class Botbot {
                         break;
                     case "mark":
                         markUnmarkTask(input);
-                        saveListToFile();
+                        Storage.saveListToFile();
                         break;
                     case "todo":
                         TaskList.createTodoTasks(input.substring(5));
-                        saveListToFile();
+                        Storage.saveListToFile();
                         break;
                     case "deadline":
                         TaskList.createDeadlineTasks(input);
-                        saveListToFile();
+                        Storage.saveListToFile();
                         break;
                     case "event":
                         TaskList.createEventTask(input);
-                        saveListToFile();
+                        Storage.saveListToFile();
                         break;
                     case "delete":
                         deleteTasks(input);

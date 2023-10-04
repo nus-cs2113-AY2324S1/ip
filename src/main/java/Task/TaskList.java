@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private static ArrayList<Task> list;
+
+    public static ArrayList<Task> list;
     public static String line = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
     //instantiate an array list
@@ -16,22 +17,22 @@ public class TaskList {
     }
 
     //method to add to arraylist
-    public void add(Task task){
+    public static void add(Task task){
         list.add(task);
     }
 
     //method to remove elements from arraylist using index
-    public void remove(int index){
+    public static void remove(int index){
         list.remove(index);
     }
 
     //getting elements
-    public Task get(int index){
+    public static Task get(int index){
         return list.get(index);
     }
 
     //obtaining size of array
-    public int size(){
+    public static int size(){
         return list.size();
     }
 
