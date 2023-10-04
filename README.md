@@ -19,22 +19,23 @@ Keep track of Task completion.
       
 Store and retreive your tasks into a dedicated save file.
 ```
-   puts "Hello World"
+   Loading previous list
+   Successfully wrote to the file.
 ```
 
 Search for keyword using the Find function.
 
 <details>
+  <summary>Useage Example</summary>
   ### find [keyword]
-```
-<summary>Useage Example</summary>
-find book
-____________________________________________________________
-Here are the matching tasks in your list:
-1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-____________________________________________________________
-```
+
+   find book
+   ____________________________________________________________
+   Here are the matching tasks in your list:
+   1.[T][ ] borrow book
+   2.[D][ ] return book (by: Sunday)
+   ____________________________________________________________
+
 </details>
 
 Remove stored Tasks using the Delete function.
@@ -42,17 +43,14 @@ Remove stored Tasks using the Delete function.
 <details>
 <summary>Useage Example</summary>
  ### delete [task index]
-```
+
 delete 2
 ____________________________________________________________
 Noted. I've removed this task:
 [D][ ] return book (by: Sunday)
 Now you have 1 tasks in the list.
 ____________________________________________________________
-```
-```ruby
-   puts "Hello World"
-```
+
 </details>
 
 <details>
