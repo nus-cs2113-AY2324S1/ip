@@ -1,9 +1,7 @@
 package torchie.parser;
 
 import torchie.command.*;
-import torchie.exception.InvalidCommandException;
-import torchie.exception.InvalidFormatException;
-import torchie.exception.TorchieException;
+import torchie.exception.*;
 import torchie.storage.DataManager;
 import torchie.task.Deadline;
 import torchie.task.Event;
@@ -40,7 +38,7 @@ public class CommandParser {
         return new SetStatusCommand(c, taskList, itemNum);
     }
 */
-    public Command parseCommand(String input) throws InvalidFormatException, InvalidCommandException {
+    public Command parseCommand(String input) throws InvalidDeadlineFormatException, InvalidCommandException, MissingTaskNameException, InvalidEventFormatException, InvalidDeadlineFormatException {
 
         String command = input.split(" ")[0];
 
@@ -51,18 +49,24 @@ public class CommandParser {
         case MARK:
         case UNMARK:
             try {
-//                commandObject = createSetStatusCommand(command);
+//                commandObject = createSetStatusCommand(command)
+
+
+
                 String itemNum_str = taskDetailsParser.getContent(input);
                 int itemNum = Integer.parseInt(itemNum_str) - 1;
+
                 return new SetStatusCommand(command, taskList, itemNum);
 //                dataManager.save(taskList);
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            } catch (TorchieException e) {
+                e.showExceptionMessage();
+            }/*catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Invalid Format! Correct format: \"mark <index>\", where index is an integer ");
                 // throw invalid format exception
-                throw new InvalidFormatException();
+                throw new InvalidDeadlineFormatException();
             } catch (NullPointerException e) {
                 System.out.println("Task number to mark cannot exceed: <" + taskList.getSize() + ">");
-            }
+            }*/
             /*case "mark":
                 try {
                     String itemNum_str = taskDetailsParser.getContent(input);
@@ -99,8 +103,8 @@ public class CommandParser {
                 td.announceTaskAdd();
                 taskList.announceListSize();*/
 //                dataManager.save(taskList);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Missing <task name>: Example: todo <read>");
+            } catch (TorchieException e) {
+                e.showExceptionMessage();
             }
             break;
         case DEADLINE:
@@ -113,11 +117,11 @@ public class CommandParser {
                 d.announceTaskAdd();
                 taskList.announceListSize();*/
 //                dataManager.save(taskList);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
             } catch (TorchieException e) {
-                System.out.println("Missing <deadline>: Example: deadline read </by Aug 1st>");
-            }
+                e.showExceptionMessage();
+            } /*catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Missing <task name>: Example: deadline <read> /by Aug 1st");
+            }*/
             break;
         case EVENT:
             try {
@@ -130,12 +134,11 @@ public class CommandParser {
                 e.announceTaskAdd();
                 taskList.announceListSize();*/
 //                dataManager.save(taskList);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
             } catch (TorchieException e) {
-                System.out.println("Missing keyword </from start time> or </by end time> " +
-                        "Example: event read </from Aug 1st 4pm> </to 6pm>");
-            }
+                e.showExceptionMessage();
+            }/*catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
+            }*/
             break;
         case "delete":
             try {
@@ -144,17 +147,20 @@ public class CommandParser {
                 return new DeleteCommand(taskList, itemNum);
                 /*taskList.deleteTask(itemNum);
                 taskList.announceListSize();*/
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            } catch (TorchieException e) {
+                e.showExceptionMessage();
+            }/*catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Invalid Format! Correct format: \"delete <index>\" where" +
                         " index is an integer ");
             } catch (NullPointerException e) {
                 System.out.println("Task number to delete cannot exceed: <" + taskList.getSize() + ">");
-            }
+            }*/
             break;
         default:
             throw new InvalidCommandException();
         }
 
+        return new InvalidCommand();
     }
 
     public void getUserCommand() {
@@ -167,9 +173,7 @@ public class CommandParser {
                 Command command = parseCommand(input);
                 command.handleCommand();
                 dataManager.save(taskList);
-            } catch (InvalidFormatException e) {
-                System.out.println(e);
-            } catch (InvalidCommandException e) {
+            } catch (TorchieException e) {
                 e.showExceptionMessage();
             }
 
