@@ -1,18 +1,28 @@
 package taskmanagement;
 
 import java.time.format.DateTimeFormatter;
-
+/**
+ * The base class for all task classes in the Zran application.
+ * Represents a task in the application.
+ */
 public class Task {
     protected String description;
     protected String taskType;
     public boolean isDone;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-
-    // Default constructor so that the class can be used as a superclass
+    /**
+     * Default constructor for the Task class.
+     * Enables the class to be used as a superclass.
+     */
     public Task(){
     }
 
+    /**
+     * Constructs an instance of Task with the given description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description){
         this.description = description;
         this.isDone = false;

@@ -8,6 +8,15 @@ import userinputs.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * The base class for all command classes in the Zran application.
+ * Commands perform operations on the task list.
+ *
+ * <p> Each command class that extends this base class implements
+ * the execute method to carry out its specific functionality.
+ *
+ * <p> The class also defines constants for different command types
+ */
 public class Commands {
     public static final String DELETE_TASK_COMMAND = "delete ";
     public static final String MARK_TASK_COMMAND = "mark ";
@@ -24,12 +33,19 @@ public class Commands {
     public static final String USER_FIND_COMMAND = "find";
 
     protected String input;
+
     public Commands(String input) {
         this.input = input;
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {}
 
+    /**
+     * Determines if the provided user's input is an exit command.
+     *
+     * @param input User's input provided to the application.
+     * @return true if the input is an exit command, false otherwise.
+     */
     public boolean isExitCommand(String input) {
         return input.equalsIgnoreCase(Commands.EXIT_BOT_COMMAND);
     }

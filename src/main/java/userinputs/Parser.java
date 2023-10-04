@@ -2,6 +2,11 @@ package userinputs;
 
 import commands.*;
 
+/**
+ * Parser class for the Zran application.
+ * Parses user's input to identify user's action.
+ * Creates an instance of the corresponding command class.
+ */
 public class Parser {
     public static Commands parse(String input) {
         if (input.startsWith(Commands.MARK_TASK_COMMAND)) {
@@ -22,5 +27,4 @@ public class Parser {
             return new AddTaskCommand(input);
         }
     }
-
 }

@@ -9,14 +9,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the storing of tasks in the Zran application.
+ * Manages the initialization, loading, and saving of tasks to a user specified file.
+ */
 public class Storage {
+    /**
+     * The default folder path for storing data files.
+     */
     private static final String FOLDER_PATH = "./data";
     private String filePath;
 
+    /**
+     * Constructs an instance of Storage with the user specified file path.
+     *
+     * @param filePath The file path for saving and loading of tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Creates the necessary folder and file if they do not exist.
+     *
+     * @throws IOException If an I/O error occurs during initialization.
+     */
     public void init() throws IOException {
         File folder = new File(FOLDER_PATH);
         if (!folder.exists()) {
@@ -31,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from user specified file.
+     *
+     * @return An ArrayList of tasks loaded from the storage file.
+     * @throws IOException If an I/O error occurs during loading.
+     */
     public ArrayList<Task> load() throws IOException {
         init();
         ArrayList<Task> storedTasks = new ArrayList<>();
@@ -49,6 +72,13 @@ public class Storage {
         return storedTasks;
     }
 
+    /**
+     * Parses data from a string and creates a Task object.
+     * Used in loading stored tasks.
+     *
+     * @param data The string containing task data.
+     * @return A Task object created from the parsed data.
+     */
     private Task parseData(String data) {
         String[] taskData = data.split("\\|");
         String taskType = taskData[0].trim();
@@ -79,6 +109,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Saves tasks to user specified storage file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     * @throws IOException If an I/O error occurs during saving.
+     */
     public void saveTasks(TaskList tasks) throws IOException {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks.listItems) {
