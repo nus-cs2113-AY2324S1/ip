@@ -4,11 +4,19 @@ import task.*;
 
 import java.util.Scanner;
 
+/**
+ * The main chatbot class which contains methods to add, delete, update, and load tasks from file.
+ */
 public class Herbert {
 
     private final HerbertSaver reader;
     private final TaskList taskList;
 
+    /**
+     * Constructor for the chatbot class.
+     * Automatically attempts to find a save file on disk at "./data/HerbertTasks.txt" and parse all tasks from it.
+     * Prints welcome message on success.
+     */
     public Herbert() {
         this.taskList = new TaskList();
 
@@ -18,6 +26,9 @@ public class Herbert {
         HerbertUI.sayHello();
     }
 
+    /**
+     * Main chatbot loop which constantly reads in new input from the user until the user inputs "bye".
+     */
     public void run() {
         Scanner scan = new Scanner(System.in);
         String line;
@@ -33,6 +44,11 @@ public class Herbert {
         }
     }
 
+    /**
+     * Parses each line of user input.
+     * @param line The raw input string from the user.
+     * @return -1 if no input is entered, 1 if user enters "bye", and 0 otherwise.
+     */
     public int processLine(String line) {
         line = line.strip();
         if (line.isEmpty()) {
@@ -64,6 +80,11 @@ public class Herbert {
         return 0;
     }
 
+    /**
+     * Marks a task as either complete or incomplete depending on given user input.
+     * @param line The raw input string from the user.
+     * @param completed Describes whether to mark the task as complete or incomplete.
+     */
     private void markTask(String line, boolean completed) {
         // Check for valid user input
         if (HerbertParser.checkInputTaskIndex(line) == -1) {
@@ -86,6 +107,11 @@ public class Herbert {
         HerbertUI.printMessageMarkTask(task, completed);
     }
 
+    /**
+     * Parses user input to decode either an event, deadline or todo, and then adds the task to the Herbert TaskList.
+     * Also saves the new task to file.
+     * @param line The raw input string from the user.
+     */
     private void addTask(String line) {
         if (HerbertParser.checkInputAddTask(line) == -1) {
             return;
@@ -141,10 +167,18 @@ public class Herbert {
         }
     }
 
+    /**
+     * Adds a given task to the Herbert TaskList.
+     * @param t The task to add to the TaskList.
+     */
     public void addTask(Task t) {
         this.taskList.add(t);
     }
 
+    /**
+     * Parses user input to delete a specific task from the Herbert TaskList using the task index.
+     * @param line The raw input string from the user.
+     */
     private void deleteTask(String line) {
         if (HerbertParser.checkInputTaskIndex(line) == -1) {
             return;

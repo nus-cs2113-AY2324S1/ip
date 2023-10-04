@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * A Deadline is a Task which has both a description and a due date.
+ */
 public class Deadline extends Task {
 
     protected String dueDate;

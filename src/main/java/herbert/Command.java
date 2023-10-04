@@ -1,5 +1,10 @@
 package herbert;
 
+/**
+ * Stores all legal Herbert commands, mostly for documentation purposes.
+ * The toString() method has been overridden with descriptive text for each command. This is printed when the
+ * `help` command is input by the user into the chatbot.
+ */
 public enum Command {
     LIST {
         @Override

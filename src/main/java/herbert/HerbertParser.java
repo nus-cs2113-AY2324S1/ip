@@ -3,8 +3,17 @@ package herbert;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Contains all functionality for parsing and validating user input.
+ */
 public abstract class HerbertParser {
 
+    /**
+     * Validates user input for commands which require exactly 1 extra argument to be input.
+     * Used for commands such as `delete X` where X is a task index.
+     * @param line The raw input string from the user.
+     * @return 0 on success, -1 on an incorrect number of arguments input by the user.
+     */
    public static int checkInputTaskIndex(String line) {
        if (line.split(" ").length != 2) {
            HerbertUI.printMessageInvalidInput(
@@ -16,6 +25,11 @@ public abstract class HerbertParser {
        return 0;
    }
 
+    /**
+     * Extracts the integer task index from raw user input.
+     * @param line The raw input string from the user.
+     * @return The 0-indexed integer task index on success, -1 if the task index is not numeric.
+     */
     public static int extractTaskIndex(String line) {
         int taskIndex;
         try {
@@ -28,6 +42,12 @@ public abstract class HerbertParser {
         return taskIndex;
     }
 
+    /**
+     * Verifies that a certain task index is valid against a given TaskList.
+     * @param taskIndex The index of the task to validate.
+     * @param taskList The Herbert TaskList to validate the index against.
+     * @return 0 on success, -1 on invalid input.
+     */
     public static int verifyTaskIndex(int taskIndex, TaskList taskList) {
         if (taskIndex >= taskList.size()) {
             HerbertUI.printMessageInvalidInput("No such task exists!");
@@ -40,6 +60,12 @@ public abstract class HerbertParser {
         return 0;
     }
 
+    /**
+     * Validates user input upon adding a new task to Herbert.
+     * The method checks whether at least 1 more argument has been supplied by the user.
+     * @param line The raw input string from the user.
+     * @return 0 on success, -1 on invalid input.
+     */
     public static int checkInputAddTask(String line) {
         String[] words = line.split(" ");
         if (words.length < 2) {
@@ -49,6 +75,11 @@ public abstract class HerbertParser {
         return 0;
     }
 
+    /**
+     * Runs a regex pattern matcher to extract details from user input related to a new deadline task.
+     * @param line The raw input string from the user.
+     * @return A string array of the form [description, due date].
+     */
     public static String[] getDeadlineDetails(String line) {
         String patternString = "^deadline\\s+(.+?)\\s+/by\\s+(.+)$";
         Pattern pattern = Pattern.compile(patternString);
@@ -62,6 +93,11 @@ public abstract class HerbertParser {
         return new String[] {matcher.group(1), matcher.group(2)};
     }
 
+    /**
+     * Runs a regex pattern matcher to extract details from user input related to a new event task.
+     * @param line The raw input string from the user.
+     * @return A string array of the form [description, from, to].
+     */
     public static String[] getEventDetails(String line) {
         String patternString = "^event\\s+(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)$";
         Pattern pattern = Pattern.compile(patternString);

@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * An Event is a Task which has a description, a start time (from), and an end time (to).
+ */
 public class Event extends Task {
 
     protected String from;

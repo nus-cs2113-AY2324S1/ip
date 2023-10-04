@@ -2,6 +2,9 @@ package herbert;
 
 import task.Task;
 
+/**
+ * Contains all methods relating to printing messages to the user through the CLI.
+ */
 public abstract class HerbertUI {
 
     private static void println() {
@@ -12,6 +15,9 @@ public abstract class HerbertUI {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * Prints out the Herbert logo and presents all possible commands to the user.
+     */
     public static void sayHello() {
         String logo = " __   __  _______  ______    _______  _______  ______    _______ \n"
                 + "|  | |  ||       ||    _ |  |  _    ||       ||    _ |  |       |\n"
@@ -33,12 +39,19 @@ public abstract class HerbertUI {
         println();
     }
 
+    /**
+     * Prints a goodbye message to the user.
+     */
     public static void sayGoodbye() {
         println();
         System.out.println("\tBye. Hope to see you again soon!");
         println();
     }
 
+    /**
+     * Pretty-prints a list of tasks given an instance of a TaskList.
+     * @param taskList The TaskList to be pretty-printed.
+     */
     public static void listTasks(TaskList taskList) {
         println();
 
@@ -61,6 +74,9 @@ public abstract class HerbertUI {
         println();
     }
 
+    /**
+     * Prints out all Herbert commands available to the user as well as their usage.
+     */
     public static void displayHelp() {
         System.out.println("###########################################################################");
         System.out.println("\tWelcome to the Herbert Helpline!" + System.lineSeparator());
@@ -74,6 +90,11 @@ public abstract class HerbertUI {
     }
 
     //region Message methods
+
+    /**
+     * Prints out a specific error message to the user.
+     * @param errorMessage The error message to be displayed to the user.
+     */
     public static void printMessageInvalidInput(String errorMessage) {
         println();
         System.out.printf("\t%s\n", errorMessage);
@@ -81,18 +102,30 @@ public abstract class HerbertUI {
         println();
     }
 
+    /**
+     * Prints out a generic error message to the user.
+     */
     public static void printMessageInvalidInput() {
         println();
         System.out.println("\tInvalid input. Use 'help' for usage instructions.");
         println();
     }
 
+    /**
+     * Prints out an error message when the user inputs a command which was not successfully parsed.
+     * @param userInput The raw input string from the user.
+     */
     public static void printMessageUnknownCommand(String userInput) {
         println();
         System.out.printf("\tUnknown command '%s'. Use 'help' for a full list of user commands.\n", userInput);
         println();
     }
 
+    /**
+     * Prints out a success message upon marking a task as complete or incomplete.
+     * @param task The newly-updated task.
+     * @param completed Whether the task was marked as complete or incomplete.
+     */
     public static void printMessageMarkTask(Task task, boolean completed) {
         println();
         if (completed) {
@@ -104,6 +137,11 @@ public abstract class HerbertUI {
         println();
     }
 
+    /**
+     * Prints out a success message when a new task is added to the TaskList.
+     * @param t The newly added task.
+     * @param taskList The TaskList instance the task was added to.
+     */
     public static void printMessageAddTask(Task t, TaskList taskList) {
         println();
         System.out.println("\tOkay, I've added this to your task list:");
@@ -112,6 +150,11 @@ public abstract class HerbertUI {
         println();
     }
 
+    /**
+     * Prints out a success message when a new task is removed from the TaskList.
+     * @param t The removed task.
+     * @param taskList The TaskList instance the task was removed from.
+     */
     public static void printMessageDeleteTask(Task t, TaskList taskList) {
         println();
         System.out.println("\tNoted. I've removed this task from your list:");

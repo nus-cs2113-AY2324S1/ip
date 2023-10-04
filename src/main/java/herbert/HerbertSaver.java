@@ -14,11 +14,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+/**
+ * This class deals with the local storage of the Herbert TaskList to disk.
+ */
 public class HerbertSaver {
 
     private final Path folderPath;
     private final Path filePath;
 
+    /**
+     * Constructor for the HerbertSaver class. Automatically creates a save file located at the given folder path
+     * and file name if it does not already exist.
+     * @param folderPath Path to the folder which the save file is located in.
+     * @param fileName The name of the save file e.g. "HerbertTasks.txt"
+     */
     public HerbertSaver(String folderPath, String fileName) {
         // Convert the paths given as Strings into Path objects
         this.folderPath = Paths.get(folderPath);
@@ -43,8 +52,11 @@ public class HerbertSaver {
         }
     }
 
+    /**
+     * Reads and parses the save file line-by-line to re-populate the chatbot TaskList with previously saved tasks.
+     * @param herbert The current instance of the chatbot to add saved tasks to.
+     */
     public void loadFromSaveFile(Herbert herbert) {
-
         try {
             BufferedReader reader = Files.newBufferedReader(filePath);
             String line = reader.readLine();
@@ -77,6 +89,10 @@ public class HerbertSaver {
         }
     }
 
+    /**
+     * Adds a new task to the save file in a standard encoding.
+     * @param t The task to be encoded into the save file.
+     */
     public void addTaskToSaveFile(Task t) {
         try {
             BufferedWriter writer = Files.newBufferedWriter(
@@ -106,5 +122,6 @@ public class HerbertSaver {
         }
     }
 
+    // TODO: Remove task from save file
     // TODO: Update task status in save file
 }
