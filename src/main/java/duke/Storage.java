@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -80,7 +81,8 @@ public class Storage {
             int binaryIsDone = Integer.parseInt(parts[1]);
             task.setDoneFromFile(binaryIsDone);
             tasks.add(task);
-        } catch (ArrayIndexOutOfBoundsException | NumberFormatException | CorruptedFileException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException | CorruptedFileException
+                 | DateTimeParseException e) {
             System.out.println("Failed to read line, the file is corrupted.");
         }
     }
