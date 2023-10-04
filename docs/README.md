@@ -30,13 +30,19 @@ Todos, deadlines and events are saved in between running the program.
 ### `todo`/`deadline`/`event` - Add todo, deadline or event
 
 How to add a Todo:
+
 todo [description]
 
+
 How to add a Deadline:
+
 deadline [description] /by [due date]
 
+
 How to add an Event:
+
 event [description] /from [start date] /to [end date]
+
 
 Example of usage: 
 
@@ -54,8 +60,11 @@ Created new Deadline:
 ### `mark`/`unmark` - Mark/unmark todo, deadline or event
 
 Mark/unmark a todo/event/deadline as done or not done yet using the mark/unmark keyword:
+
 mark [item position in list]
+
 unmark [item position in list]
+
 
 Example of usage:
 
