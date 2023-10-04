@@ -33,9 +33,15 @@ public class Ui {
         System.out.println("\t" + "Bye. Hope to see you again soon!");
     }
 
-    public void printList(ArrayList<Task> tasks, Ui ui) {
+    public void printList(ArrayList<Task> tasks) {
         System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < Task.getNumberOfTask(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("\t" + (i + 1) + "." + tasks.get(i));
+        }
+    }
+    public void printMatchingList(ArrayList<Task> tasks) {
+        System.out.println("\tHere are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t" + (i + 1) + "." + tasks.get(i));
         }
     }
@@ -76,7 +82,7 @@ public class Ui {
     }
 
     public void printEmptyDescriptionError(String task) {
-        System.out.println("\t☹ OOPS!!! The description of a" + task + " cannot be empty.");
+        System.out.println("\t☹ OOPS!!! The description of " + task + " cannot be empty.");
     }
 
     public void printEventFormat() {
@@ -88,4 +94,5 @@ public class Ui {
         System.out.println("\tPlease include when the deadline of your task is in the following format:");
         System.out.println("\tdeadline [description] /by [deadline]");
     }
+
 }

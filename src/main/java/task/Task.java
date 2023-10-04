@@ -39,4 +39,5 @@ public class Task {
     public String toText() {
         return " " + " | " + getStatusIcon() + " | " + getDescription();
     }
+
 }

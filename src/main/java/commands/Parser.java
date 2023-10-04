@@ -4,6 +4,7 @@ import UI.Ui;
 import data.Storage;
 import exception.SimonException;
 import exception.SimonException2;
+import task.Task;
 import task.TaskList;
 
 public class Parser {
@@ -15,7 +16,15 @@ public class Parser {
         switch (splitInputs[0]) {
 
         case "list":
-            ui.printList(tasks.getTaskList(), ui);
+            ui.printList(tasks.getTaskList());
+            break;
+
+        case "find":
+            try {
+                tasks.printMatchingTasks(splitInputs[1], ui);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.printEmptyDescriptionError(splitInputs[0]);
+            }
             break;
 
         case "mark":
