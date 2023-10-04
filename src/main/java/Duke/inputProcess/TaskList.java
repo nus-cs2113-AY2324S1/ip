@@ -71,4 +71,20 @@ public class TaskList {
         System.out.println("\tNow you have " + list.size() + " in the list");
 
     }
+
+    public void find(String userInput) {
+        int count = 1;
+        for (Task task : list) {
+            if (task.getDescription().contains(userInput)) {
+                if (count == 1){
+                    System.out.println("Here are the matching tasks in your list:");
+                }
+                System.out.println("\t" +count + "."  + task);
+                count++;
+            }
+        }
+        if (count == 1){
+            System.out.println("\tCannot find task with " + userInput);
+        }
+    }
 }
