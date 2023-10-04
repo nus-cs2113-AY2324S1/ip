@@ -5,6 +5,7 @@ import AMY.command.Deadline;
 import AMY.command.Event;
 import AMY.command.Task;
 import AMY.command.Todo;
+import AMY.command.Delete;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -82,8 +83,21 @@ public class AMY {
         }
     }
 
+    // Delete a task from the list
+    public static void deleteTask(int taskIndex) {
+        if (taskIndex >= 1 && taskIndex <= taskList.size()) {
+            Task removedTask = taskList.remove(taskIndex - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        } else {
+            System.out.println("Invalid task index. Please try again.");
+        }
+    }
+
     public static void manageException(String userInput) throws EmptyInput, EmptyToDoException,
-            EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException, EmptyEventException {
+            EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException, EmptyEventException,
+            EmptyDeleteException {
 
         Scanner input = new Scanner(userInput);
         String command;
@@ -106,6 +120,9 @@ public class AMY {
         }
         if (command.equals("event") && !input.hasNext()) {
             throw new EmptyEventException();
+        }
+        if (command.equals("delete") && !input.hasNext()) {
+            throw new EmptyDeleteException();
         }
     }
 
@@ -145,6 +162,9 @@ public class AMY {
                     String to = dateTimeParts[1].trim();
                     Event event = new Event(description, from, to);
                     addToList(event);
+                } else if (userInput.startsWith("delete")) {
+                    int taskIndex = Integer.parseInt(userInput.substring(7).trim());
+                    deleteTask(taskIndex);
                 } else {
                     System.out.println("Invalid command. Please try again.");
                 }
@@ -160,6 +180,8 @@ public class AMY {
                 System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
             } catch (EmptyEventException exception) {
                 System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+            } catch (EmptyDeleteException exception) {
+                System.out.println("☹ OOPS!!! The description of an delete cannot be empty.");
             }
             drawLine();
         }
