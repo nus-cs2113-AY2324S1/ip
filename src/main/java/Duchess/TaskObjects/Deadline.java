@@ -1,5 +1,7 @@
 package Duchess.TaskObjects;
 
+import Duchess.FunctionObjects.DateParser;
+
 public class Deadline extends Task {
 
     private String deadline;
@@ -10,7 +12,12 @@ public class Deadline extends Task {
 
     public Deadline(String name, String deadline) {
         super(name);
-        this.deadline = deadline;
+        DateParser parsedDeadline = new DateParser(deadline);
+        if (parsedDeadline.getDate() == null) {
+            this.deadline = deadline;
+        } else {
+            this.deadline = parsedDeadline.getDate() + " " + parsedDeadline.getTime();
+        }
     }
 
     @Override
