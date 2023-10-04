@@ -55,7 +55,7 @@ public class SkippyParser {
             skippy.taskList.deleteTask(inputWords);
             break;
         case "find":
-            skippy.taskList.findTask(inputWords[1]);
+            skippy.taskList.findTask(inputWords);
             break;
         default:
             skippy.ui.printInvalidInputMessage();

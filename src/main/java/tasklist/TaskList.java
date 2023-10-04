@@ -2,6 +2,8 @@ package tasklist;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import skippy.SkippyUi;
 import tasks.Deadline;
@@ -166,7 +168,8 @@ public class TaskList {
             markTaskDone(taskIndex);
             ui.printMarkedTask(taskIndex, this);
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please use 'mark <number>'.");
+            System.out.println("Invalid input. Please use 'mark + <number>'.");
+            ui.printLine();
         } catch (IndexOutOfBoundsException e) {
             ui.printLine();
             System.out.println("Please specify the task number");
@@ -185,7 +188,8 @@ public class TaskList {
             unmarkTask(taskIndex);
             ui.printUnmarkedTask(taskIndex, this);
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please use 'unmark + number'.");
+            System.out.println("Invalid input. Please use 'unmark + <number>'.");
+            ui.printLine();
         } catch (IndexOutOfBoundsException e) {
             ui.printLine();
             System.out.println("Please specify the task number");
@@ -206,6 +210,7 @@ public class TaskList {
                 ui.printRemovedTask(removedTask, this);
             } else {
                 System.out.println("Invalid task index.");
+                ui.printLine();
             }
         } catch (NumberFormatException e) {
             ui.printDeleteTaskException();
@@ -261,9 +266,10 @@ public class TaskList {
     /**
      *Search the task list to find any task containing the given keyword
      *
-     * @param input the find keyword
+     * @param inputWords The array of split input by user
      */
-    public void findTask(String input) {
+    public void findTask(String[] inputWords) {
+        String input = inputWords.length == 2 ? inputWords[1] : "";
         if (input.isEmpty()) {
             ui.printBlankArgumentError("Keyword");
             return;
