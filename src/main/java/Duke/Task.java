@@ -1,5 +1,7 @@
 package Duke;
 
+import java.util.ArrayList;
+
 public class Task {
     
     protected String description;
@@ -34,5 +36,11 @@ public class Task {
     // Return the total no. of Task
     public static int getTaskCount() {
         return count;
+    }
+
+    // Delete Task
+    public static void removeTask(ArrayList<Task> taskList, int taskIndex) {
+        taskList.remove(taskIndex);
+        count--;
     }
 }
