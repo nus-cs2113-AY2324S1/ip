@@ -7,7 +7,7 @@ It handles various kind of tasks such as todos, deadlines and even events.
 
 1. Ensure you have Java 11 or above installed in your Computer.
 
-2. Download the latest Jerry.jar from here.
+2. Download the latest Jerry.jar from [here](https://github.com/martinschnder/ip/releases/tag/A-JavaDoc).
 
 3. Copy the file to the folder you want to use as the home folder for your task list.
 
