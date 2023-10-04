@@ -14,8 +14,8 @@ src/main/java/META-INF/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+# testing files
+text-ui-test/
 
 # program resource files
 data/
