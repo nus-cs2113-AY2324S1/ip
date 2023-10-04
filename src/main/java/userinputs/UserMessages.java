@@ -4,12 +4,12 @@ package userinputs;
  * Enumerates messages to be displayed to users for Zran application exceptions.
  */
 public enum UserMessages {
-    WELCOME_MESSAGE("hello! I'm Zran, your personal assistant:)! \n" +
+    WELCOME_MESSAGE("    hello! I'm Zran, your personal assistant:)! \n" +
             "    Type in your to dos for the day and press enter! \n " +
             "   Type 'help' to view to list of commands the bot accepts! "),
-    GOODBYE_MESSAGE("Goodbye <3 Have a great day ahead!"),
-    LOADING_ERROR("Unable to load the file. Please check your filepath. :)"),
-    HELP_MESSAGE("Help is here! :) \n" +
+    GOODBYE_MESSAGE("    Goodbye <3 Have a great day ahead!"),
+    LOADING_ERROR("    Unable to load the file. Please check your filepath. :)"),
+    HELP_MESSAGE("    Help is here! :) \n" +
             "    Listed below are the valid commands: \n" +
             "    - mark \n    - unmark \n " +
             "   - todo \n    - deadline \n    - event \n" +

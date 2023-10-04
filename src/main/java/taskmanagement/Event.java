@@ -1,5 +1,6 @@
 package taskmanagement;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 /**
@@ -8,10 +9,8 @@ import java.time.LocalDate;
  * Extends the base Task class.
  */
 public class Event extends Task {
-//    protected String from;
-//    protected String to;
-    protected LocalDate from;
-    protected LocalDate to;
+    protected String from;
+    protected String to;
     
      /**
      * Constructs an instance of 'Event' with the given description and deadline.
@@ -20,7 +19,7 @@ public class Event extends Task {
      * @param from        The start date of the event.
      * @param to          The end date of the event.
      */
-    public Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -35,7 +34,7 @@ public class Event extends Task {
      * @param to          The end date of the event.
      * @param isDone      The completion status of the task.
      */
-    public Event(String description, LocalDate from, LocalDate to, Boolean isDone) {
+    public Event(String description, String from, String to, Boolean isDone) {
         super(description);
         this.from = from;
         this.to = to;
@@ -44,8 +43,16 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return "[" + taskType + "]" + "[" + getStatusIcon() + "] " + description + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
+        LocalDate displayedFrom;
+        LocalDate displayedTo;
+        try {
+            displayedFrom = LocalDate.parse(from);
+            displayedTo = LocalDate.parse(to);
+            return "[" + taskType + "]" + "[" + getStatusIcon() + "] " + description + " (from: " + displayedFrom.format(formatter) + " to: " + displayedTo.format(formatter) + ")";
+        } catch (DateTimeException e) {
+            return "[" + taskType + "]" + "[" + getStatusIcon() + "] " + description + " (from: " + from + " to: " + to + ")";
+        }
     }
-    public LocalDate getTo(){ return to; }
-    public LocalDate getFrom(){ return from; }
+    public String getTo(){ return to; }
+    public String getFrom(){ return from; }
 }

@@ -95,8 +95,15 @@ public class AddTaskCommand extends Commands {
      */
     private Task createDeadlineTask(String input) throws ZranExceptions {
         String[] taskInfo = UserInputValidation.validateAddDeadlineCommand(input);
-        LocalDate by = UserInputValidation.validateDate(taskInfo[1]);
         String description = UserInputValidation.validateDeadlineDescription(input);
+        String by;
+        try {
+            by = UserInputValidation.validateDate(taskInfo[1]).toString();
+        } catch (ZranExceptions e){
+            System.out.println(e.getMessage());
+            by = taskInfo[1];
+        }
+
         return new Deadline(description, by);
     }
 
@@ -110,9 +117,17 @@ public class AddTaskCommand extends Commands {
      */
     private Task createEventTask(String input) throws ZranExceptions {
         String[] taskInfo = UserInputValidation.validateAddEventCommand(input);
-        LocalDate from = UserInputValidation.validateDate(taskInfo[1]);
-        LocalDate to = UserInputValidation.validateDate(taskInfo[2]);
+        String from;
+        String to;
         String description = UserInputValidation.validateEventDescription(input);
+        try {
+            from = UserInputValidation.validateDate(taskInfo[1]).toString();
+            to = UserInputValidation.validateDate(taskInfo[2]).toString();
+        } catch (ZranExceptions e){
+            System.out.println(e.getMessage());
+            from = taskInfo[1];
+            to = taskInfo[2];
+        }
         return new Event(description, from, to);
     }
 

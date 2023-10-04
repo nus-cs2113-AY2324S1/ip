@@ -89,7 +89,7 @@ public class Ui {
     public static void echo(ArrayList<Task> items, Task task, String input) {
         String action = input.startsWith(Commands.DELETE_TASK_COMMAND) ? "deleted" : "added";
         String statusMessage = input.startsWith(Commands.DELETE_TASK_COMMAND) ? "" : " [" + task.getStatusIcon() + "]";
-        String output = "Noted! Task " + action + ": " + task.getDescription() + statusMessage + "\n" +
+        String output = "    Noted! Task " + action + ": " + task.getDescription() + statusMessage + "\n" +
                 "    Number of Tasks: " + items.size();
 
         printAndEcho(output, items);
@@ -103,8 +103,8 @@ public class Ui {
      */
     public static void echo(Task task, boolean isDone) {
         String action = isDone ? "marked as done" : "unmarked";
-        String output = isDone ? "Congrats! :D Task " + action + ": " + task.getDescription() + " [" + task.getStatusIcon() + "]"
-                : "Oopsies! Task " + action + ": " + task.getDescription() + " [" + task.getStatusIcon() + "]";
+        String output = isDone ? "    Congrats! :D Task " + action + ": " + task.getDescription() + " [" + task.getStatusIcon() + "]"
+                : "    Oopsies! Task " + action + ": " + task.getDescription() + " [" + task.getStatusIcon() + "]";
 
         printAndEcho(output);
     }

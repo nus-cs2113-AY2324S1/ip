@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -83,25 +84,21 @@ public class Storage {
         String[] taskData = data.split("\\|");
         String taskType = taskData[0].trim();
         String description = taskData[2].trim();
-        boolean isDone = Boolean.parseBoolean(taskData[1].trim());
+        boolean isDone = "1".equals(taskData[1].trim());
 
         Task task = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         switch (taskType) {
         case "T":
             task = new ToDos(description, isDone);
             break;
         case "D":
             String by = taskData[3].trim();
-            LocalDate parsedBy = LocalDate.parse(by, formatter);
-            task = new Deadline(description, parsedBy, isDone);
+            task = new Deadline(description, by, isDone);
             break;
         case "E":
             String from = taskData[3].trim();
             String to = taskData[4].trim();
-            LocalDate parsedFrom = LocalDate.parse(from, formatter);
-            LocalDate parsedTo = LocalDate.parse(to, formatter);
-            task = new Event(description, parsedFrom, parsedTo, isDone);
+            task = new Event(description, from, to, isDone);
             break;
         default:
             break;
