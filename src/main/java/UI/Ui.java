@@ -33,12 +33,23 @@ public class Ui {
         System.out.println("\t" + "Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Takes in an ArrayList of tasks and prints every task in the list
+     *
+     * @param tasks
+     */
     public void printList(ArrayList<Task> tasks) {
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t" + (i + 1) + "." + tasks.get(i));
         }
     }
+
+    /**
+     * Takes in an ArrayList of matching tasks and prints every task in the list
+     *
+     * @param tasks
+     */
     public void printMatchingList(ArrayList<Task> tasks) {
         System.out.println("\tHere are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -93,6 +104,10 @@ public class Ui {
     public void printDeadlineFormat() {
         System.out.println("\tPlease include when the deadline of your task is in the following format:");
         System.out.println("\tdeadline [description] /by [deadline]");
+    }
+
+    public void printNumberFormatError() {
+        System.out.println("\tPlease type an integer to specify your task.");
     }
 
 }

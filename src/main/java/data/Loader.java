@@ -6,7 +6,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Class that contains method to read simon.txt into an ArrayList
+ */
 public class Loader {
+    /**
+     * Takes in the location of simon.txt and loads the contents of the
+     * file to an ArrayList
+     *
+     * @param filePath location of simon.txt
+     * @return ArrayList containing tasks stored in simon.txt
+     */
     public static ArrayList<Task> readToList (String filePath) {
         ArrayList<Task> newList = new ArrayList<>();
 

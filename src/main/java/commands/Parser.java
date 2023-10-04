@@ -4,13 +4,25 @@ import UI.Ui;
 import data.Storage;
 import exception.SimonException;
 import exception.SimonException2;
-import task.Task;
 import task.TaskList;
 
+/**
+ * Class containing methods to make sense of the user command
+ */
 public class Parser {
     public Parser() {
 
     }
+
+    /**
+     * Takes in the user input from the command line and decides what the next course of
+     * action is based on certain key words
+     *
+     * @param userInput User input from command line
+     * @param tasks Contains the task list and its operations
+     * @param ui Deals with interactions with the user
+     * @param storage Deals with loading tasks from the file and saving tasks in the file
+     */
     public static void parse(String userInput, TaskList tasks, Ui ui, Storage storage) {
         String[] splitInputs = userInput.split(" ", 2);
         switch (splitInputs[0]) {
@@ -28,18 +40,30 @@ public class Parser {
             break;
 
         case "mark":
-            tasks.markTask(splitInputs[1], ui);
-            storage.markTask(splitInputs[1], tasks.getTaskList());
+            try {
+                tasks.markTask(splitInputs[1], ui);
+                storage.markTask(splitInputs[1], tasks.getTaskList());
+            } catch (NumberFormatException e) {
+                ui.printNumberFormatError();
+            }
             break;
 
         case "unmark":
-            tasks.unmarkTask(splitInputs[1], ui);
-            storage.unmarkTask(splitInputs[1], tasks.getTaskList());
+            try {
+                tasks.unmarkTask(splitInputs[1], ui);
+                storage.unmarkTask(splitInputs[1], tasks.getTaskList());
+            } catch (NumberFormatException e) {
+                ui.printNumberFormatError();
+            }
             break;
 
         case "delete":
-            tasks.deleteTask(splitInputs[1], ui);
-            storage.deleteTask(splitInputs[1], tasks.getTaskList());
+            try {
+                tasks.deleteTask(splitInputs[1], ui);
+                storage.deleteTask(splitInputs[1], tasks.getTaskList());
+            } catch (NumberFormatException e) {
+                ui.printNumberFormatError();
+            }
             break;
 
         case "todo":
@@ -65,7 +89,7 @@ public class Parser {
         case "deadline":
             try {
                 tasks.addDeadline(splitInputs[1], ui);
-                storage.addTodo(splitInputs[1], tasks.getTaskList());
+                storage.addDeadline(splitInputs[1], tasks.getTaskList());
             } catch (IndexOutOfBoundsException | SimonException e) { //Empty description
                 ui.printEmptyDescriptionError(splitInputs[0]);
             } catch (SimonException2 f) { //Wrong format
