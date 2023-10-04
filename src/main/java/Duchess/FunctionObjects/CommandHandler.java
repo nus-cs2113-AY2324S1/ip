@@ -116,6 +116,12 @@ public class CommandHandler {
                 taskNumber = Integer.parseInt(commandArray[1]);
                 taskList.deleteTask(taskNumber);
                 break;
+
+            case Constants.findCommand:
+                String keyword = commandArray[1];
+                TaskSearcher searcher = new TaskSearcher(taskList, ui);
+                searcher.search(keyword);
+                break;
             
             default: // Unrecognisedcommand
                 throw new UnrecognisedCommandError(DefaultStrings.unrecognisedString);

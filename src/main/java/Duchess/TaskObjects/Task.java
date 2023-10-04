@@ -79,4 +79,8 @@ public class Task {
         }
     }
 
+    public Boolean contains(String keyword) {
+        return this.name.contains(keyword);
+    }
+
 }
