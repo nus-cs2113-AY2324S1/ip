@@ -3,12 +3,14 @@ package doli.commands;
 import doli.GUI.Ui;
 import doli.exceptions.DoliExceptions;
 import doli.files.Storage;
-import doli.tasks.*;
+import doli.tasks.TaskList;
+import doli.tasks.Event;
+import doli.tasks.Deadline;
+import doli.tasks.ToDo;
+import doli.tasks.Task;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * <h3>Command class</h3>
@@ -34,6 +36,7 @@ public class Command {
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
     private static final String FIND_COMMAND = "find";
+    private static final String LATE_COMMAND = "late";
     private static final String OVERVIEW_BY_SPECIFIC_DATE_COMMAND = "overview";
     private static final String EXIT_COMMAND = "bye";
     private static final String UNRECOGNIZED_COMMAND = "I am so sorry, but I do not recognize this command. "
@@ -49,8 +52,10 @@ public class Command {
     private static final String UNMARKED_SUCCESSFULLY = "I've unmarked task %d. You better get it done soon!";
     private static final String NO_TASKS_FOR_THIS_DATE = "There are no entries in your agenda until this date.";
     private static final String MATCHING_TASKS = "Here are the tasks matching your input keyword:";
+    private static final String LATE_TASKS_OVERVIEW = "Here's an overview of tasks that were due and past events";
+    private static final String NO_LATE_TASKS = "You have no late tasks, great job!";
     private static final String NO_TASKS_FOUND = "The given keyword did not produce any search results in your agenda";
-    private static final String EXIT = "It was a pleasure, bye. See you later!";
+    private static final String EXIT = "Alright, I hope I was able to help you out.";
 
     /**
      * Constructs an object of type Command. The boolean isExit is automatically
@@ -151,7 +156,7 @@ public class Command {
 
     /**
      * Marks the task specified by the user as done (X). The user
-     * input is expected to be of type command + task number
+     * input is expected to be of type command + task number.
      * @param tasks of type TaskList containing the entire agenda
      * @throws DoliExceptions to handle the cases in which the task number is not contained in the agenda
      */
@@ -166,7 +171,7 @@ public class Command {
 
     /**
      * Marks the task specified by the user as not done (X). The user
-     * input is expected to be of type command + task number
+     * input is expected to be of type command + task number.
      * @param tasks of type TaskList containing the entire agenda
      * @throws DoliExceptions to handle the cases in which the task number is not contained in the agenda
      */
@@ -182,21 +187,20 @@ public class Command {
     /**
      * Sets response equal to an overview of all the deadlines and events contained in the agenda
      * which are due (or scheduled to happen, in case of events) by a user-specified date.
-     * The expected command input is of type command + date
+     * The expected command input is of type command + date.
      * @param tasks of type TaskList containing all the tasks in the agenda
      */
     private void overviewBySpecificDate(TaskList tasks) {
         TaskList overview = new TaskList();
         try {
             LocalDate timeInput = LocalDate.parse(details[0]);
-            for (Task task : tasks) {
-                if (task instanceof Deadline && ((Deadline) task).getDeadline().isBefore(timeInput)) {
-                    overview.addTask(task);
-                } else if (task instanceof Event && ((Event) task).getStartTime().isBefore(timeInput)
-                        && ((Event) task).getEndTime().isAfter(timeInput)) {
-                    overview.addTask(task);
-                }
-            }
+            tasks.stream()
+                    .filter((t) -> t instanceof Deadline
+                            && ((Deadline) t).getDeadline().isBefore(timeInput)).forEach(overview::addTask);
+            tasks.stream()
+                    .filter((t) -> t instanceof Event
+                            && ((Event) t).getStartTime().isBefore(timeInput)
+                            && ((Event) t).getEndTime().isAfter(timeInput) ).forEach(overview::addTask);
         } catch(DateTimeException e) {
             System.out.println("Please provide a proper date as input");
         }
@@ -224,6 +228,26 @@ public class Command {
             response = String.format("%s\n%s", MATCHING_TASKS, searchResults.toString());
         } else {
             response = NO_TASKS_FOUND;
+        }
+    }
+
+    /**
+     * Lists all tasks of type deadline that were due before today
+     * as well as all past events.
+     * @param tasks of type TaskList referring to the agenda where the tasks are contained
+     */
+    private void listLateTasks(TaskList tasks) {
+        TaskList overview = new TaskList();
+        tasks.stream()
+                .filter((t) -> t instanceof Deadline
+                        && ((Deadline) t).getDeadline().isBefore(LocalDate.now())).forEach(overview::addTask);
+        tasks.stream()
+                .filter((t) -> t instanceof Event
+                        && ((Event) t).getEndTime().isBefore(LocalDate.now())).forEach(overview::addTask);
+        if (overview.getSize() > 0) {
+            response = String.format("%s\n%s", LATE_TASKS_OVERVIEW, overview.toString());
+        } else {
+            response = NO_LATE_TASKS;
         }
     }
     /**
@@ -313,6 +337,9 @@ public class Command {
             case FIND_COMMAND:
                 find(tasks);
                 break;
+            case LATE_COMMAND:
+                listLateTasks(tasks);
+                break;
             case EXIT_COMMAND:
                 prepareForExit();
                 break;
@@ -324,9 +351,9 @@ public class Command {
     }
 
     /**
-     * Prints out the response variable which has been to an appropriate answer by the handleCommand() method
+     * Prints out the response variable which has been to an appropriate answer by the handleCommand() method.
      */
     public void getResponse() {
-        System.out.println(response);
+        System.out.printf(String.format("Doli:\n%s\n", response));
     }
 }
