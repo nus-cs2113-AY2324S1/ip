@@ -6,6 +6,7 @@ import cn.yfshadaow.cs2113.ip.task.Event;
 import cn.yfshadaow.cs2113.ip.task.Task;
 import cn.yfshadaow.cs2113.ip.task.Todo;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandHandler {
@@ -174,6 +175,27 @@ public class CommandHandler {
                 for (int i = 0; i < tasks.size(); i += 1) {
                     Task task = tasks.get(i);
                     bot.getUi().sendMessageWithoutSplit((i + 1) + "." + task.toStringWithIsDone());
+                }
+                bot.getUi().sendSplit();
+                break;
+            }
+            case "find" : {
+                if (cmd.args.isEmpty()) {
+                    bot.getUi().sendMessage("Please enter keyword for searching");
+                    break;
+                }
+                String searchKeyWord = String.join(" ", cmd.args);
+                if (searchKeyWord.isEmpty()) {
+                    bot.getUi().sendMessage("Search keyword cannot be empty");
+                    break;
+                }
+                bot.getUi().sendMessageWithoutSplit("Here are the matching tasks in your list:");
+                List<Task> tasks = bot.getTaskList().tasks;
+                for (int i = 0; i < tasks.size(); i += 1) {
+                    Task task = tasks.get(i);
+                    if (task.getName().toLowerCase().contains(searchKeyWord.toLowerCase())) {
+                        bot.getUi().sendMessageWithoutSplit((i + 1) + "." + task.toStringWithIsDone());
+                    }
                 }
                 bot.getUi().sendSplit();
                 break;
