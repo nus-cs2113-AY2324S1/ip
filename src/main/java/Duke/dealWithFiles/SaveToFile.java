@@ -1,3 +1,15 @@
+/**
+ * SaveToFile is a class responsible for saving tasks from the TaskList into a text file.
+ * It supports saving tasks of different types (Todo, Deadline, Event) along with their
+ * respective statuses to the specified file path.
+ * <p>
+ * SaveToFile is used to persist tasks to a file when the Duke application needs to save data.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-09-30
+ */
+
 package Duke.dealWithFiles;
 
 import Duke.Task;
