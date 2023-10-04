@@ -106,7 +106,10 @@ public class Command {
     private void initializeNewDeadline(TaskList tasks) {
         Deadline newDeadline = new Deadline(details[0], details[1].trim());
         tasks.addTask(newDeadline);
-        response = newDeadline.toString();
+        response = String.format("%s\n\t%s\n%s",
+                ADDED_TASK_SUCCESSFULLY,
+                newDeadline.toString(),
+                String.format(SUMMARIZING_CURRENT_AGENDA_ENTRIES, tasks.getSize()));
     }
     /**
      * Initialises a new event task with the description given
@@ -120,7 +123,10 @@ public class Command {
     private void initializeNewEvent(TaskList tasks) {
         Event newEvent = new Event(details[0], details[1].trim(), details[2].trim());
         tasks.addTask(newEvent);
-        response = newEvent.toString();
+        response = String.format("%s\n\t%s\n%s",
+                ADDED_TASK_SUCCESSFULLY,
+                newEvent.toString(),
+                String.format(SUMMARIZING_CURRENT_AGENDA_ENTRIES, tasks.getSize()));
     }
 
     /**
@@ -199,8 +205,7 @@ public class Command {
                             && ((Deadline) t).getDeadline().isBefore(timeInput)).forEach(overview::addTask);
             tasks.stream()
                     .filter((t) -> t instanceof Event
-                            && ((Event) t).getStartTime().isBefore(timeInput)
-                            && ((Event) t).getEndTime().isAfter(timeInput) ).forEach(overview::addTask);
+                            && ((Event) t).getEndTime().isBefore(timeInput)).forEach(overview::addTask);
         } catch(DateTimeException e) {
             System.out.println("Please provide a proper date as input");
         }

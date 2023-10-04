@@ -16,8 +16,8 @@ import java.io.IOException;
  * todos, deadlines and events.
  * <p>
  * <b>Note:</b> The user can interact with Doli using a number of commands
- * that e.g. allow adding, deleting, viewing, marking and searching individual
- * tasks.
+ * that e.g. allow adding, deleting, viewing, searching and marking individual
+ * tasks as done.
  *
  * @author pappalardodaniel
  * @version 1.0
