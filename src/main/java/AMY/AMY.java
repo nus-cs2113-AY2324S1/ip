@@ -1,18 +1,27 @@
 package AMY;
 
-import AMY.Exceptions.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import AMY.Exceptions.EmptyDeadlineException;
+import AMY.Exceptions.EmptyEventException;
+import AMY.Exceptions.EmptyInput;
+import AMY.Exceptions.EmptyMarkException;
+import AMY.Exceptions.EmptyToDoException;
+import AMY.Exceptions.EmptyUnmarkException;
+
 import AMY.command.Deadline;
 import AMY.command.Event;
 import AMY.command.Task;
 import AMY.command.Todo;
-
-import java.util.Scanner;
 public class AMY {
     public static final String BOT_NAME = "AMY";
     public static final String LINE = "____________________________________________________________";
     public static Task[] taskList = new Task[100];
     public static int numberOfTasks = 0;
-    public static Scanner scanner = new Scanner(System.in);
 
     // Draws a line
     public static void drawLine() {
@@ -39,6 +48,50 @@ public class AMY {
     public static void byMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         drawLine();
+    }
+
+    // File path for storing tasks
+    private static final String FILE_PATH = "./data/AMY.txt";
+
+    // Save tasks to a file
+    public static void saveTasksToFile() {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (int i = 0; i < numberOfTasks; i++) {
+                Task task = taskList[i];
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("☹ OOPS!!! Error saving tasks to the file.");
+        }
+    }
+
+    // Load tasks from a file
+    public static void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Create parent directories if they don't exist
+                file.createNewFile();
+            }
+            Scanner scanner = new Scanner(file);
+            int numberOfTasks = 0; // Initialize numberOfTasks
+            while (scanner.hasNextLine()) {
+                String taskData = scanner.nextLine();
+                Task task = Task.parseFromFileString(taskData);
+                if (task != null) {
+                    AMY.addToList(task);
+                    numberOfTasks++; // Increment numberOfTasks
+                }
+            }
+            scanner.close();
+            AMY.numberOfTasks = numberOfTasks; // Update numberOfTasks in AMY class
+        } catch (FileNotFoundException e) {
+            System.out.println("Data file not found. Creating a new file.");
+        } catch (IOException e) {
+            System.out.println("☹ OOPS!!! Error loading tasks from the file.");
+        }
     }
 
     // Add a task to the list
@@ -168,7 +221,9 @@ public class AMY {
     // Main method executes the Chat bot
     public static void main(String[] args) {
         welcomeMessage();
+        loadTasksFromFile();
         manageInput();
+        saveTasksToFile();
         byMessage();
     }
 }
