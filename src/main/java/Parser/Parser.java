@@ -20,7 +20,6 @@ import java.io.IOException;
 public class Parser {
 
     private Parser(){
-
     }
 
     //method to identify command
@@ -29,13 +28,14 @@ public class Parser {
         String command = parts[0].toLowerCase();
 
         try {
+            if (command.equals("bye")){
+                return new ByeCommand();
+            }
             if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :< Check your input again~");
             }
 
             switch (command) {
-                case "bye":
-                    return new ByeCommand();
                 case "list":
                     return new ListCommand();
                 case "mark":
