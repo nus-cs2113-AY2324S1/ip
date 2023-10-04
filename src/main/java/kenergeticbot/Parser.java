@@ -4,6 +4,7 @@ import kenergeticbot.command.AddCommand;
 import kenergeticbot.command.Command;
 import kenergeticbot.command.DeleteCommand;
 import kenergeticbot.command.ExitCommand;
+import kenergeticbot.command.FindCommand;
 import kenergeticbot.command.IncorrectCommand;
 import kenergeticbot.command.ListCommand;
 import kenergeticbot.command.MarkCommand;
