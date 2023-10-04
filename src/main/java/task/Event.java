@@ -3,7 +3,8 @@ package task;
 import java.time.LocalDate;
 
 /**
- * An Event is a Task which has a description, a start time (from), and an end time (to).
+ * An Event is a Task which has a description, a start date (from), and an end date (to).
+ * Dates are formatted as YYYY-MM-DD.
  */
 public class Event extends Task {
 

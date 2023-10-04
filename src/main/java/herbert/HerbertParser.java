@@ -99,7 +99,7 @@ public abstract class HerbertParser {
         try {
             return LocalDate.parse(dateString);
         } catch (DateTimeParseException e) {
-            HerbertUI.printMessageInvalidInput("Please enter a date in the format YYYY-MM-DD");
+            HerbertUI.printMessageInvalidInput("Please enter a date in the format YYYY-MM-DD.");
             return null;
         }
     }

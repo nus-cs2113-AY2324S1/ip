@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 /**
  * A Deadline is a Task which has both a description and a due date.
+ * The due date is formatted as YYYY-MM-DD.
  */
 public class Deadline extends Task {
 
