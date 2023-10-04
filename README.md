@@ -6,9 +6,9 @@ I am a personal Task managing chatbot, able to store tasks such as To dos, Deadl
 
 Create 3 types of Tasks:
 <details>
-1. Todo: Tasks which are not time sensitive.
-2. Deadline: Tasks which are time sensitive, able to indicate deadline using /by.
-3. Event: Tasks which are happening at a specific time frame, using /from and /to.
+ 1. Todo: Tasks which are not time sensitive.
+ 2. Deadline: Tasks which are time sensitive, able to indicate deadline using /by.
+ 3. Event: Tasks which are happening at a specific time frame, using /from and /to.
 </details>
 
 Keep track of Task completion.
