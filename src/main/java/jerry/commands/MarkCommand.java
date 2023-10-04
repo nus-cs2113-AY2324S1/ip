@@ -3,6 +3,9 @@ package jerry.commands;
 import jerry.task.Task;
 import jerry.common.Messages;
 
+/**
+ * Mark a specified task as done in the takslist
+ */
 public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";

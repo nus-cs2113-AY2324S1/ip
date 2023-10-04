@@ -8,6 +8,9 @@ import jerry.common.Messages;
 
 import java.util.List;
 
+/**
+ * Represents an executable command.
+ */
 public abstract class Command {
 
     protected TaskList taskList;
@@ -26,8 +29,16 @@ public abstract class Command {
         this.relevantTasks = relevantTasks;
     }
 
+    /**
+     * Executes the command and returns the result.
+     */
     public abstract CommandResult execute();
 
+    /**
+     * Find the task corresponding to the selected index in the last shown list
+     * 
+     * @return the appropriate task
+     */
     protected Task getTargetTask() throws IndexOutOfBoundsException {
         return relevantTasks.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }

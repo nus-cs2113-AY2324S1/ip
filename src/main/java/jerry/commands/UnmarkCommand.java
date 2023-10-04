@@ -4,6 +4,9 @@ import jerry.task.Task;
 import jerry.exceptions.TaskNotFoundException;
 import jerry.common.Messages;
 
+/**
+ * Mark a specified task as not done yet in the takslist
+ */
 public class UnmarkCommand extends Command {
 
     public static final String COMMAND_WORD = "unmark";

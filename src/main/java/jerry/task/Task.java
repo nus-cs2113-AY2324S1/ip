@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a task in the task list.
+ */
 public abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;
@@ -47,6 +50,10 @@ public abstract class Task implements Serializable {
     @Override
     public abstract String toString();
 
+
+    /**
+     * Computes the string to store the task state in a file
+     */
     public abstract String encode();
 }
 

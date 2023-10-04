@@ -5,6 +5,9 @@ import jerry.task.Todo;
 import jerry.task.Deadline;
 import jerry.task.Event;
 
+/**
+ * Adds a task to the task list.
+ */
 public class AddCommand extends Command {
 
     public static final String TODO_COMMAND_WORD = "todo";
@@ -20,14 +23,23 @@ public class AddCommand extends Command {
 
     private final Task toAdd;
 
+    /**
+     * Convenience constructor for todos.
+     */
     public AddCommand(String description) {
         this.toAdd = new Todo(description);
     }
 
+    /**
+     * Convenience constructor for deadlines.
+     */
     public AddCommand(String description, String by) {
         this.toAdd = new Deadline(description, by);
     }
 
+    /**
+     * Convenience constructor for events.
+     */
     public AddCommand(String description, String from, String to) {
         this.toAdd = new Event(description, from, to);
     }
