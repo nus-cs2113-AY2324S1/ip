@@ -1,18 +1,43 @@
 package doli.commands;
 
 import doli.exceptions.DoliExceptions;
-
+/**
+ * <h3>Parser class</h3>
+ * The parser class takes a user input and extracts the necessary
+ * information to convert it into an object of type command. It splits
+ * the input into two parts, command and details while making sure that
+ * the inputs are valid (meaning that the right amount of details are
+ * provided in the specific cases).
+ *
+ * @author pappalardodaniel
+ * @version 1.0
+ * @since 2023-11-03
+ */
 public class Parser {
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String DELETE_COMMAND = "delete";
+    private static final String OVERVIEW_BY_SPECIFIC_DATE_COMMAND = "overview";
+    private static final String FIND_COMMAND = "find";
     private static final int NR_EVENT_ARGS = 3;
     private static final int NR_DEADLINE_ARGS = 2;
     private static final int TASK_DESCRIPTION_IS_EMPTY = 0;
+
+    /**
+     * Constructs an empty object of type Parser
+     */
     public Parser() {
     }
+
+    /**
+     * Splits the input String into an array of length 2 containing the
+     * command keyword eventually alongside with some specific details.
+     * @param input of type String which represents the user input
+     * @return an array of two strings, the command keyword and some details
+     */
     private static String[] splitCommandAndDetails(String input) {
         String[] commandAndDetails = input.toLowerCase().split(" ", 2);
         if (commandAndDetails.length == 2) {
@@ -21,6 +46,14 @@ public class Parser {
             return commandAndDetails = new String[]{commandAndDetails[0], ""};
         }
     }
+
+    /**
+     * Creates a new object of type command with the user input command and details
+     * after checking validity of inputs and splitting the input into its subparts.
+     * @param input of type String which represents the user input
+     * @return a new object of type Command
+     * @throws DoliExceptions in case the input is not valid
+     */
     public static Command parseInputIntoCommand(String input) throws DoliExceptions {
         final String command = splitCommandAndDetails(input)[0];
         final String details = splitCommandAndDetails(input)[1];
@@ -29,31 +62,55 @@ public class Parser {
         Command newCommand = new Command(command, args);
         return newCommand;
     }
-    public static void checkForValidInput(String command, String[] args) throws DoliExceptions {
+
+    /**
+     * Checks for the validity of the user input in terms of the amount of
+     * details specified in each scenario. It checks the following commands: todo,
+     * deadline, event, mark, unmark, delete, overview and find.
+     * @param command of type String specifying the command keyword contained in the user input
+     * @param details an array of type String containing eventual details of the input exceeding the command keyword
+     * @throws DoliExceptions in case the proper amount of details required by the command is not met
+     */
+    public static void checkForValidInput(String command, String[] details) throws DoliExceptions {
         switch (command) {
         case TODO_COMMAND:
-            if (args.length == TASK_DESCRIPTION_IS_EMPTY) {
+            if (details.length == TASK_DESCRIPTION_IS_EMPTY) {
                 throw new DoliExceptions("Input of a todo cannot be blank!");
             }
             break;
         case DEADLINE_COMMAND:
-            if (args.length < NR_DEADLINE_ARGS) {
+            if (details.length < NR_DEADLINE_ARGS) {
                 throw new DoliExceptions("Time or description missing for deadline");
             }
             break;
         case EVENT_COMMAND:
-            if (args.length < NR_EVENT_ARGS) {
-                throw new DoliExceptions("Starttime, endtime or desciption missing for event");
+            if (details.length < NR_EVENT_ARGS) {
+                throw new DoliExceptions("Start-time, end-time or description missing for event");
             }
             break;
         case MARK_COMMAND:
-            if (args.length == 0) {
+            if (details.length == 0) {
                 throw new DoliExceptions("Please specify the index of the task to mark");
             }
             break;
         case UNMARK_COMMAND:
-            if (args.length == 0) {
+            if (details.length == 0) {
                 throw new DoliExceptions("Please specify the index of the task to unmark");
+            }
+            break;
+        case DELETE_COMMAND:
+            if (details.length == 0) {
+                throw new DoliExceptions("Please specify the index of the task to delete");
+            }
+            break;
+        case OVERVIEW_BY_SPECIFIC_DATE_COMMAND:
+            if (details.length == 0) {
+                throw new DoliExceptions("Please specify a proper date to limit the overview of your agenda");
+            }
+            break;
+        case FIND_COMMAND:
+            if (details.length == 0) {
+                throw new DoliExceptions("Please specify a proper keyword to filter and search your agenda");
             }
             break;
         default:

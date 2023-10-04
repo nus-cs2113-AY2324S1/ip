@@ -11,6 +11,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
+// This class defines a GUI for Doli
 public class DialogBox extends HBox {
     private Label text;
     private ImageView profilePicture;
