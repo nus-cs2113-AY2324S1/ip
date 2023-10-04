@@ -64,24 +64,17 @@ public class Storage {
         }
     }
 
-    /*public void addTodo(String description, Ui ui) throws SimonException {
+    public void addTodo(String description, ArrayList<Task> taskList) throws SimonException {
 
         String[] splitDescriptions = description.split(" ");
         if (splitDescriptions.length == 0 || splitDescriptions[0].isEmpty()) {
             throw new SimonException();
         }
 
-        taskList.add(new Todo(description));
-
         addTextToFile(simontxtFilePath, taskList.get(Task.getNumberOfTask() - 1).toText());
-
-        ui.printLine();
-        ui.printAddTaskMessage(taskList);
-        ui.printNumberOfTasks(taskList);
-        ui.printLine();
     }
 
-    public void addEvent(String event, Ui ui) throws SimonException {
+    public void addEvent(String event, ArrayList<Task> taskList) throws SimonException {
         try {
             //Split between 'description' and '/from and /to'
             String[] splitElements = event.split(" /from ", 2);
@@ -92,26 +85,13 @@ public class Storage {
                 throw new SimonException();
             }
 
-            //Split between '/from' and '/to'
-            String[] time = splitElements[1].split(" /to ", 2);
-            String from = time[0];
-            String to = time[1];
-            taskList.add(new Event(description, from, to));
             addTextToFile(simontxtFilePath, taskList.get(Task.getNumberOfTask() - 1).toText());
-            ui.printLine();
-            ui.printAddTaskMessage(taskList);
-            ui.printNumberOfTasks(taskList);
-            ui.printLine();
-        } catch (IndexOutOfBoundsException e) {
-            ui.printLine();
-            System.out.println("\tPlease include when the time of your event in the following format:");
-            System.out.println("\tevent [description] /from [start time] /to [end time]");
-            ui.printLine();
+        } catch (IndexOutOfBoundsException ignored) {
+
         }
     }
 
-    public void addDeadline(String deadline, Ui ui) throws SimonException {
-        ui.printLine();
+    public void addDeadline(String deadline, ArrayList<Task> taskList) throws SimonException {
         try {
             //Split between 'description' and '/by'
             String[] splitElements = deadline.split(" /by ", 2);
@@ -122,17 +102,11 @@ public class Storage {
                 throw new SimonException();
             }
 
-            String by = splitElements[1];
-            taskList.add(new Deadline(description, by));
             addTextToFile(simontxtFilePath, taskList.get(Task.getNumberOfTask() - 1).toText());
 
-            ui.printAddTaskMessage(taskList);
-            ui.printNumberOfTasks(taskList);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tPlease include when the deadline of your task is in the following format:");
-            System.out.println("\tdeadline [description] /by [deadline]");
+        } catch (IndexOutOfBoundsException ignored) {
+
         }
-        ui.printLine();
-    }*/
+    }
 
 }

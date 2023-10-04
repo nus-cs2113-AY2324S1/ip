@@ -74,4 +74,18 @@ public class Ui {
         System.out.println("\tSorry! The task number inputted is out of bounds");
         System.out.println("\tPlease key in a number from 1-" + Task.getNumberOfTask());
     }
+
+    public void printEmptyDescriptionError(String task) {
+        System.out.println("\t☹ OOPS!!! The description of a" + task + " cannot be empty.");
+    }
+
+    public void printEventFormat() {
+        System.out.println("\tPlease include when the time of your event in the following format:");
+        System.out.println("\tevent [description] /from [start time] /to [end time]");
+    }
+
+    public void printDeadlineFormat() {
+        System.out.println("\tPlease include when the deadline of your task is in the following format:");
+        System.out.println("\tdeadline [description] /by [deadline]");
+    }
 }

@@ -1,10 +1,8 @@
 package task;
 
 import UI.Ui;
-import exception.SimonException;
+import exception.*;
 import java.util.ArrayList;
-import static data.DataMethods.addTextToFile;
-import static data.SimonFilePath.simontxtFilePath;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -62,13 +60,11 @@ public class TaskList {
 
         taskList.add(new Todo(description));
 
-        addTextToFile(simontxtFilePath, taskList.get(Task.getNumberOfTask() - 1).toText());
-
         ui.printAddTaskMessage(taskList);
         ui.printNumberOfTasks(taskList);
     }
 
-    public void addEvent(String event, Ui ui) throws SimonException {
+    public void addEvent(String event, Ui ui) throws SimonException, SimonException2 {
         try {
             //Split between 'description' and '/from and /to'
             String[] splitElements = event.split(" /from ", 2);
@@ -84,18 +80,16 @@ public class TaskList {
             String from = time[0];
             String to = time[1];
             taskList.add(new Event(description, from, to));
-            addTextToFile(simontxtFilePath, taskList.get(Task.getNumberOfTask() - 1).toText());
 
             ui.printAddTaskMessage(taskList);
             ui.printNumberOfTasks(taskList);
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tPlease include when the time of your event in the following format:");
-            System.out.println("\tevent [description] /from [start time] /to [end time]");
+            throw new SimonException2();
         }
     }
 
-    public void addDeadline(String deadline, Ui ui) throws SimonException {
+    public void addDeadline(String deadline, Ui ui) throws SimonException, SimonException2 {
         try {
             //Split between 'description' and '/by'
             String[] splitElements = deadline.split(" /by ", 2);
@@ -108,13 +102,11 @@ public class TaskList {
 
             String by = splitElements[1];
             taskList.add(new Deadline(description, by));
-            addTextToFile(simontxtFilePath, taskList.get(Task.getNumberOfTask() - 1).toText());
 
             ui.printAddTaskMessage(taskList);
             ui.printNumberOfTasks(taskList);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tPlease include when the deadline of your task is in the following format:");
-            System.out.println("\tdeadline [description] /by [deadline]");
+            throw new SimonException2();
         }
     }
 }

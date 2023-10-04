@@ -3,6 +3,7 @@ package commands;
 import UI.Ui;
 import data.Storage;
 import exception.SimonException;
+import exception.SimonException2;
 import task.TaskList;
 
 public class Parser {
@@ -35,30 +36,31 @@ public class Parser {
         case "todo":
             try {
                 tasks.addTodo(splitInputs[1], ui);
+                storage.addTodo(splitInputs[1], tasks.getTaskList());
             } catch (IndexOutOfBoundsException | SimonException e) { //Empty description
-                ui.printLine();
-                System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
-                ui.printLine();
+                ui.printEmptyDescriptionError(splitInputs[0]);
             }
             break;
 
         case "event":
             try {
                 tasks.addEvent(splitInputs[1], ui);
+                storage.addEvent(splitInputs[1], tasks.getTaskList());
             } catch (IndexOutOfBoundsException | SimonException e) { //Empty description
-                ui.printLine();
-                System.out.println("\t☹ OOPS!!! The description of an event cannot be empty.");
-                ui.printLine();
+                ui.printEmptyDescriptionError(splitInputs[0]);
+            } catch (SimonException2 f) { //Wrong format
+                ui.printEventFormat();
             }
             break;
 
         case "deadline":
             try {
                 tasks.addDeadline(splitInputs[1], ui);
+                storage.addTodo(splitInputs[1], tasks.getTaskList());
             } catch (IndexOutOfBoundsException | SimonException e) { //Empty description
-                ui.printLine();
-                System.out.println("\t☹ OOPS!!! The description of a deadline cannot be empty.");
-                ui.printLine();
+                ui.printEmptyDescriptionError(splitInputs[0]);
+            } catch (SimonException2 f) { //Wrong format
+                ui.printDeadlineFormat();
             }
             break;
 
