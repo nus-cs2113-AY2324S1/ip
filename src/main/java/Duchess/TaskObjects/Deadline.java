@@ -3,6 +3,8 @@ package Duchess.TaskObjects;
 /** Class for Deadline tasks. Extension of Task class.
  * 
  */
+import Duchess.FunctionObjects.DateParser;
+
 public class Deadline extends Task {
 
     private String deadline;
@@ -18,7 +20,12 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String deadline) {
         super(name);
-        this.deadline = deadline;
+        DateParser parsedDeadline = new DateParser(deadline);
+        if (parsedDeadline.getDate() == null) {
+            this.deadline = deadline;
+        } else {
+            this.deadline = parsedDeadline.getDate() + " " + parsedDeadline.getTime();
+        }
     }
 
     /** Converts Deadline object to string representation for display. */

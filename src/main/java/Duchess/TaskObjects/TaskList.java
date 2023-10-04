@@ -126,4 +126,13 @@ public class TaskList {
                 + "\n" + DefaultStrings.splittingLine);
     }
 
+    public int size(){
+        return this.tasks.size();
+    }
+
+    public Task get(int i){
+        return this.tasks.get(i);
+    }
+
+
 }

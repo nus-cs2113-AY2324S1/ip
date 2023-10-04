@@ -29,6 +29,8 @@ public class Constants {
     public static final String eventEndTime = "/to";
     /** User command for deleting a task. */
     public static final String deleteCommand = "delete";
+    /** User command for finding a task. */
+    public static final String findCommand = "find";
     /** Filepath specification string. */
     public static final String taskFilePath = "./src/main/java/data/tasks.txt";
 }

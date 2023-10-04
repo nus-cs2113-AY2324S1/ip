@@ -1,5 +1,6 @@
 package Duchess.TaskObjects;
 
+import Duchess.FunctionObjects.DateParser;
 import java.util.Scanner;
 
 /** Event class for event tasks. Extension of Task class.
@@ -20,8 +21,21 @@ public class Event extends Task{
      */
     public Event(String name, String Starttime, String endTime) {
         super(name);
-        this.Starttime = Starttime;
-        this.endTime = endTime;
+
+        DateParser parsedStart = new DateParser(Starttime);
+        DateParser parsedEnd = new DateParser(endTime);
+        
+        if (parsedStart.getDate() == null) {
+            this.Starttime = Starttime;
+        } else {
+            this.Starttime = parsedStart.getDate();
+        }
+
+        if (parsedEnd.getDate() == null) {
+            this.endTime = endTime;
+        } else {
+            this.endTime = parsedEnd.getDate();
+        }
     }
 
     /** Sets new parameters of event task in case of error or edits.
