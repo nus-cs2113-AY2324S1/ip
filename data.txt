@@ -1,3 +1,2 @@
 false| homework | thursday
-true|homework
-true| class /from friday /to sunday| friday | sunday
+true| concert | aer | thurs

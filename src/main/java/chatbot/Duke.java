@@ -84,6 +84,15 @@ public class Duke {
         }
     }
 
+    private static void find(String arg){
+        System.out.println("The results are: ");
+        for(int i = 0; i < taskList.size(); i++){
+            if(taskList.get(i).getDescription().contains(arg)){
+                taskList.get(i).show();
+            }
+        }
+    }
+
     public static void main(String[] args) throws InputException, FileFormatException{
 
         System.out.println("Hello! I'm TheChattyFatty");
@@ -96,13 +105,7 @@ public class Duke {
             updateFile();
             printLine();
             System.out.println("What can I do for you?");
-            System.out.println("Functionality:");
-            System.out.println("todo [task name] (Creates a new todo)");
-            System.out.println("deadline [task name] (Creates a new deadline)");
-            System.out.println("event [event name] (Creates a new event)");
-            System.out.println("mark [task number] (Marks todo/event/deadline as done");
-            System.out.println("unmark [task number (Marks todo/event/deadline as not done yet");
-            System.out.println("list (displays all todos/events/deadlines)");
+            System.out.println("Type \"help\" for instructions");
             String response = scanner.nextLine();
 
             // For handling keyword responses with multiple words
@@ -115,11 +118,30 @@ public class Duke {
                 break;
             }
 
+            // Handle "help" keyword
+            else if (response.equals("help")) {
+                System.out.println("Functionality:");
+                System.out.println("todo [task name] (Creates a new todo)");
+                System.out.println("deadline [task name] /by [date](Creates a new deadline with deadline [date])");
+                System.out.println("event [event name] /from [date1] /to [date2] (Creates a new event from [date1] to [date2])");
+                System.out.println("mark [task number] (Marks todo/event/deadline as done)");
+                System.out.println("unmark [task number] (Marks todo/event/deadline as not done yet)");
+                System.out.println("list (displays all todos/events/deadlines)");
+                System.out.println("find [search term] (Finds todos/events/deadlines whose description contains the search term)");
+                System.out.println("bye (To exit program)");
+            }
+
             // Handle "list" keyword
             else if (response.equals("list")) {
                 for (int i = 0; i < taskList.size(); i++) {
                     taskList.get(i).show();
                 }
+            }
+
+            // Handle "find" keyword
+            else if (keyword.equals("find")) {
+                String searchTerm = response.substring(5);
+                find(searchTerm);
             }
 
             else if (keyword.equals("mark")) {
