@@ -17,7 +17,7 @@ public class CommandHandler {
     }
 
     public void handleCommand(Command cmd) {
-        bot.sendSplit();
+        bot.getUi().sendSplit();
         switch (cmd.getCmd()) {
             case "bye": {
                 bot.setShouldQuit(true);
@@ -28,17 +28,17 @@ public class CommandHandler {
                 try {
                     todo = Todo.parseTodo(cmd);
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error parsing task: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error parsing task: %s", e.getMessage()));
                     break;
                 }
-                bot.getTasks().add(todo);
-                bot.sendMessageWithoutSplit("Got it. I've added this task:");
-                bot.sendMessageWithoutSplit(todo.toStringWithIsDone());
-                bot.sendMessage("Now you have " + bot.getTasks().size() + " tasks in the list.");
+                bot.getTaskList().tasks.add(todo);
+                bot.getUi().sendMessageWithoutSplit("Got it. I've added this task:");
+                bot.getUi().sendMessageWithoutSplit(todo.toStringWithIsDone());
+                bot.getUi().sendMessage("Now you have " + bot.getTaskList().tasks.size() + " tasks in the list.");
                 try {
-                    bot.saveData();
+                    bot.getStorage().saveData(bot.getTaskList());
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error saving data: %s", e.getMessage()));
                     break;
                 }
                 break;
@@ -48,17 +48,17 @@ public class CommandHandler {
                 try {
                     deadline = Deadline.parseDeadline(cmd);
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error parsing task: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error parsing task: %s", e.getMessage()));
                     break;
                 }
-                bot.getTasks().add(deadline);
-                bot.sendMessageWithoutSplit("Got it. I've added this task:");
-                bot.sendMessageWithoutSplit(deadline.toStringWithIsDone());
-                bot.sendMessage("Now you have " + bot.getTasks().size() + " tasks in the list.");
+                bot.getTaskList().tasks.add(deadline);
+                bot.getUi().sendMessageWithoutSplit("Got it. I've added this task:");
+                bot.getUi().sendMessageWithoutSplit(deadline.toStringWithIsDone());
+                bot.getUi().sendMessage("Now you have " + bot.getTaskList().tasks.size() + " tasks in the list.");
                 try {
-                    bot.saveData();
+                    bot.getStorage().saveData(bot.getTaskList());
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error saving data: %s", e.getMessage()));
                     break;
                 }
                 break;
@@ -68,112 +68,118 @@ public class CommandHandler {
                 try {
                     event = Event.parseEvent(cmd);
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error parsing task: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error parsing task: %s", e.getMessage()));
                     break;
                 }
-                bot.getTasks().add(event);
-                bot.sendMessageWithoutSplit("Got it. I've added this task:");
-                bot.sendMessageWithoutSplit(event.toStringWithIsDone());
-                bot.sendMessage("Now you have " + bot.getTasks().size() + " tasks in the list.");
+                bot.getTaskList().tasks.add(event);
+                bot.getUi().sendMessageWithoutSplit("Got it. I've added this task:");
+                bot.getUi().sendMessageWithoutSplit(event.toStringWithIsDone());
+                bot.getUi().sendMessage("Now you have " + bot.getTaskList().tasks.size() + " tasks in the list.");
                 try {
-                    bot.saveData();
+                    bot.getStorage().saveData(bot.getTaskList());
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error saving data: %s", e.getMessage()));
                     break;
                 }
                 break;
             }
             case "mark": {
                 if (cmd.args.size() != 1) {
-                    bot.sendMessage("Incorrect arguments");
+                    bot.getUi().sendMessage("Incorrect arguments");
                     break;
                 }
                 int index;
                 try {
                     index = Integer.parseInt(cmd.args.get(0));
                 } catch (NumberFormatException e) {
-                    bot.sendMessage(String.format("Error parsing int: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error parsing int: %s", e.getMessage()));
                     break;
                 }
                 try {
-                    bot.getTasks().get(index - 1).setDone(true);
+                    bot.getTaskList().tasks.get(index - 1).setDone(true);
                 } catch (IndexOutOfBoundsException e) {
-                    bot.sendMessage(String.format("Error getting task: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error getting task: %s", e.getMessage()));
                     break;
                 }
-                bot.sendMessageWithoutSplit("Nice! I've marked this task as done:");
-                bot.sendMessage(bot.getTasks().get(index - 1).toStringWithIsDone());
+                bot.getUi().sendMessageWithoutSplit("Nice! I've marked this task as done:");
+                bot.getUi().sendMessage(bot.getTaskList().tasks.get(index - 1).toStringWithIsDone());
                 try {
-                    bot.saveData();
+                    bot.getStorage().saveData(bot.getTaskList());
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error saving data: %s", e.getMessage()));
                     break;
                 }
                 break;
             }
             case "unmark": {
                 if (cmd.args.size() != 1) {
-                    bot.sendMessage("Incorrect arguments");
+                    bot.getUi().sendMessage("Incorrect arguments");
                     break;
                 }
                 int index;
                 try {
                     index = Integer.parseInt(cmd.args.get(0));
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error parsing int: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error parsing int: %s", e.getMessage()));
                     break;
                 }
                 try {
-                    bot.getTasks().get(index - 1).setDone(false);
+                    bot.getTaskList().tasks.get(index - 1).setDone(false);
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error getting task: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error getting task: %s", e.getMessage()));
                     break;
                 }
-                bot.sendMessageWithoutSplit("OK, I've marked this task as not done yet:");
-                bot.sendMessage(bot.getTasks().get(index - 1).toStringWithIsDone());
+                bot.getUi().sendMessageWithoutSplit("OK, I've marked this task as not done yet:");
+                bot.getUi().sendMessage(bot.getTaskList().tasks.get(index - 1).toStringWithIsDone());
                 try {
-                    bot.saveData();
+                    bot.getStorage().saveData(bot.getTaskList());
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error saving data: %s", e.getMessage()));
                     break;
                 }
                 break;
             }
             case "delete": {
                 if (cmd.args.size() != 1) {
-                    bot.sendMessage("Incorrect arguments");
+                    bot.getUi().sendMessage("Incorrect arguments");
                     break;
                 }
                 int index;
                 try {
                     index = Integer.parseInt(cmd.args.get(0));
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error parsing int: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error parsing int: %s", e.getMessage()));
                     break;
                 }
                 Task task;
                 try {
-                    task = bot.getTasks().get(index - 1);
+                    task = bot.getTaskList().tasks.get(index - 1);
                 } catch (Exception e) {
-                    bot.sendMessage(String.format("Error getting task: %s", e.getMessage()));
+                    bot.getUi().sendMessage(String.format("Error getting task: %s", e.getMessage()));
                     break;
                 }
-                bot.sendMessageWithoutSplit("Noted. I've removed this task:");
-                bot.sendMessage(task.toStringWithIsDone());
-                bot.getTasks().remove(index - 1);
+                bot.getUi().sendMessageWithoutSplit("Noted. I've removed this task:");
+                bot.getUi().sendMessage(task.toStringWithIsDone());
+                bot.getTaskList().tasks.remove(index - 1);
+                try {
+                    bot.getStorage().saveData(bot.getTaskList());
+                } catch (Exception e) {
+                    bot.getUi().sendMessage(String.format("Error saving data: %s", e.getMessage()));
+                    break;
+                }
                 break;
             }
             case "list": {
-                List<Task> tasks = bot.getTasks();
+                List<Task> tasks = bot.getTaskList().tasks;
                 for (int i = 0; i < tasks.size(); i += 1) {
                     Task task = tasks.get(i);
-                    bot.sendMessageWithoutSplit((i + 1) + "." + task.toStringWithIsDone());
+                    bot.getUi().sendMessageWithoutSplit((i + 1) + "." + task.toStringWithIsDone());
                 }
-                bot.sendSplit();
+                bot.getUi().sendSplit();
                 break;
             }
             default: {
-                bot.sendMessage("Unknown command");
+                bot.getUi().sendMessage("Unknown command");
             }
         }
     }
