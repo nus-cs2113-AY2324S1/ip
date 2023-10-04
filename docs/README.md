@@ -1,11 +1,28 @@
 # User Guide: Zran
-Zran acts as your personal assistant and keeps track of your task list!
+Zran acts as your personal assistant and keeps track of your task list through the command line interface!
+* Quick Start
+* Features
+* Command Summary
+
+# Quick Start
+1. Ensure you have Java 11 or above installed in your computer
+2. Download the latest IP.jar from [here](https://github.com/NaychiMin/ip/releases).
+3. Copy the file to the folder you want to use as the home folder for Zran.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use `java -jar IP.jar` command to run the application.
+5. If the setup is correct, the output should look similar to the following: 
+```
+    ____________________________________________________________
+    hello! I'm Zran, your personal assistant:)!
+    Type in your to dos for the day and press enter!
+    Type 'help' to view to list of commands the bot accepts!
+    ____________________________________________________________
+```
 
 # Features
 ### Adding a ToDo Task: `todo`
 
-Adds a todo task to the task list.
-Format: `todo TASK_DESCRIPTION`
+Adds a todo task to the task list. </br>
+Format: `todo TASK_DESCRIPTION` </br>
 Expected Output:
 ```
 todo Cook lunch
@@ -20,10 +37,10 @@ todo Cook lunch
 
 ### Adding a Deadline Task: `deadline`
 
-Adds a deadline task to the task list.
-For the deadline to be displayed in a DD MMM YYYY format, key in the TASK_DEADLINE as yyyy-mm-dd.
-Otherwise, proceed to key in the TASK_DEADLINE in any desired format.
-Format: `deadline TASK_DESCRIPTION /by TASK_DEADLINE`
+Adds a deadline task to the task list. </br>
+For the deadline to be displayed in a DD MMM YYYY format, key in the TASK_DEADLINE as yyyy-mm-dd. </br>
+Otherwise, proceed to key in the TASK_DEADLINE in any desired format.</br>
+Format: `deadline TASK_DESCRIPTION /by TASK_DEADLINE` </br>
 Expected Output:
 ```
 deadline Submit ST2334 quiz /by 2023-10-04
@@ -39,10 +56,10 @@ deadline Submit ST2334 quiz /by 2023-10-04
 
 ### Adding an Event Task: `event`
 
-Adds an event task to the task list.
-For the dates to be displayed in a DD MMM YYYY format, key in the START_OF_EVENT and END_OF_EVENT as yyyy-mm-dd.
-Otherwise, proceed to key in the START_OF_EVENT and END_OF_EVENT in any desired format.
-Format: `event EVENT_DESCRIPTION /from START_OF_EVENT /to END_OF_EVENT`
+Adds an event task to the task list. </br>
+For the dates to be displayed in a DD MMM YYYY format, key in the START_OF_EVENT and END_OF_EVENT as yyyy-mm-dd. </br>
+Otherwise, proceed to key in the START_OF_EVENT and END_OF_EVENT in any desired format. </br>
+Format: `event EVENT_DESCRIPTION /from START_OF_EVENT /to END_OF_EVENT` </br>
 Expected Output:
 ```
 event Rugby competition /from 2023-10-14 /to 2023-10-15
@@ -59,8 +76,8 @@ event Rugby competition /from 2023-10-14 /to 2023-10-15
 
 ### List all Tasks: `list`
 
-Lists all tasks in the task list.
-Format: `list`
+Lists all tasks in the task list. </br>
+Format: `list` </br>
 Expected Output:
 ```
 list
@@ -74,8 +91,8 @@ list
 
 ### Marking a Task: `mark`
 
-Marks the task corresponding to provided task index as done on the task list.
-Format: `mark TASK_INDEX`
+Marks the task corresponding to provided task index as done on the task list.</br>
+Format: `mark TASK_INDEX` </br>
 Expected Output:
 ```
 mark 1
@@ -86,8 +103,8 @@ mark 1
 
 ### Unmarking a Task: `unmark`
 
-Marks the task corresponding to provided task index as NOT done on the task list.
-Format: `unmark TASK_INDEX`
+Marks the task corresponding to provided task index as NOT done on the task list. </br>
+Format: `unmark TASK_INDEX` </br>
 Expected Output:
 ```
 unmark 1
@@ -98,8 +115,8 @@ unmark 1
 
 ### Deleting a task: `delete`
 
-Removes the task corresponding to provided task index from the task list.
-Format: `delete TASK_INDEX`
+Removes the task corresponding to provided task index from the task list. </br>
+Format: `delete TASK_INDEX` </br>
 Expected Output:
 ```
 delete 1
@@ -115,8 +132,8 @@ delete 1
 
 ### Finding Tasks: `find`
 
-Filters out tasks containing user's input of choice/keyword.
-Format: `find KEYWORD`
+Filters out tasks containing user's input of choice/keyword. </br>
+Format: `find KEYWORD` </br>
 Expected Output:
 ```
 find quiz
@@ -129,8 +146,8 @@ find quiz
 
 ### Help: `help`
 
-Outputs a list of commands and its format of usage.
-Format: `help`
+Outputs a list of commands and its format of usage. </br>
+Format: `help` </br>
 Expected Output:
 ```
 help
@@ -162,8 +179,8 @@ help
 
 ### Exit: `bye`
 
-Exits the chatbot.
-Format: `bye`
+Exits the chatbot. </br>
+Format: `bye` </br>
 Expected Output:
 ```
 bye
