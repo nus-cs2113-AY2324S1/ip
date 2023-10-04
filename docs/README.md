@@ -11,19 +11,22 @@ Format: `help`
 
 ### Adding a todo: `todo`
 Adds a todo task to the list<br><br>
-Format: `todo taskName`<br><br>
+Format: `todo taskName`<br>
+
 Example:
 - `todo CS2113 iP` add a todo task call CS2113 iP into the task list
 
 ### Adding a deadline: `deadline`
 Adds a deadline task with deadline time to the list<br><br>
-Format: `deadline taskName /by dd/MM/yyyy hhmm` <br><br>
+Format: `deadline taskName /by dd/MM/yyyy hhmm` <br>
+
 Example:
 - `deadline CS2113 iP /by 05/10/2023 2359` add a deadline task  CS2113 iP with the deadline time is 5th Oct 2023 at 11:59pm
 
 ### Adding a event: `event`
 Adds a event task to the list<br><br>
-Format: `event taskName /from dd/MM/yyyy hhmm /to dd/MM/yyyy hhmm` <br><br>
+Format: `event taskName /from dd/MM/yyyy hhmm /to dd/MM/yyyy hhmm` <br>
+
 Example: 
 - `event CS2113 iP /from 10/08/2023 0000 /to 05/10/2023 2359` add a event task CS2113 iP with the starting time of 10th Aug 2023 12:00am to 5th Oct 2023 11:59pm
 
@@ -31,7 +34,8 @@ Example:
 Delete a task by it's index<br><br>
 Format: `delete indexOfTheTask`<br>
 - The index must be a positive integer 1, 2, 3, …​
-- The index refers to the index number shown in the displayed task list.<br><br>
+- The index refers to the index number shown in the displayed task list.<br>
+
 Example:
 - `delete 1` delete the 1st task in the task list
 
@@ -39,7 +43,8 @@ Example:
 Mark a task as done by it's index<br><br>
 Format: `mark indexOfTheTask`<br>
 - The index must be a positive integer 1, 2, 3, …​
-- The index refers to the index number shown in the displayed task list.<br><br>
+- The index refers to the index number shown in the displayed task list.<br>
+
 Example:
 - `mark 1`  mark the 1st task in the task list as done
 
@@ -47,7 +52,8 @@ Example:
 mark a task as not done by it's index<br><br>
 Format: `unmark indexOfTheTask`<br>
 - The index must be a positive integer 1, 2, 3, …​
-- The index refers to the index number shown in the displayed task list.<br><br>
+- The index refers to the index number shown in the displayed task list.<br>
+
 Example:
 - `unmark 1` mark the 1st task in the task list as not done
 
@@ -58,6 +64,7 @@ Format: `find taskName`<br>
 - The order of the keywords does matter. e.g. cs2113 ip will not match ip cs2113
 - Only the name is searched.
 - Any task contain the keyword will be match e.g. 2113 will match with CS2113<br>
+
 Example:
 - `find CS2113` return the task name include CS2113 with case insensitive
 
@@ -69,12 +76,12 @@ Format: `list`
 Exit the program<br><br>
 Format: `bye`
 
-### Exiting the program: `bye`
+### Editing the data file
 Task list data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### FAQ
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Send the Duke.txt inside the JAR file to another computer's JAR file location for the Duke
+**A**: Send the Duke.txt inside the JAR file location to another computer's JAR file location for the Duke
 
 
 
