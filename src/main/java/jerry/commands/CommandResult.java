@@ -3,6 +3,7 @@ package jerry.commands;
 import java.util.List;
 import jerry.task.Task;
 
+import java.util.Optional;
 
 /**
  * Represents the result of a command execution.
@@ -28,8 +29,8 @@ public class CommandResult {
     /**
      * Returns a list of tasks that was produced by the command, if any.
      */
-    public List<Task> getRelevantTasks() {
-        return relevantTasks;
+    public Optional<List<Task>> getRelevantTasks() {
+        return Optional.ofNullable(relevantTasks);
     }
 
 }

@@ -1,5 +1,7 @@
 package jerry.commands;
 
+import static jerry.ui.TextUi.DISPLAYED_INDEX_OFFSET;
+
 import jerry.task.TaskList;
 import jerry.task.Task;
 import jerry.common.Messages;
@@ -9,6 +11,7 @@ import java.util.List;
 public abstract class Command {
 
     protected TaskList taskList;
+    protected List<Task> relevantTasks;
     private int targetIndex = -1;
 
     public Command(int targetIndex) {
@@ -18,14 +21,15 @@ public abstract class Command {
     protected Command() {
     }
 
-    public void setData(TaskList tasklist) {
+    public void setData(TaskList tasklist, List<Task> relevantTasks) {
         this.taskList = tasklist;
+        this.relevantTasks = relevantTasks;
     }
 
     public abstract CommandResult execute();
 
     protected Task getTargetTask() throws IndexOutOfBoundsException {
-        return taskList.getTaskByIndex(getTargetIndex());
+        return relevantTasks.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
     public int getTargetIndex() {
