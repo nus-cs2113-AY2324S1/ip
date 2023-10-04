@@ -3,16 +3,36 @@ package duke;
 import task.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Herbert {
 
     private ArrayList<Task> tasks;
+    private HerbertReader reader;
 
     public Herbert() {
         this.tasks = new ArrayList<>();
         this.sayHello();
+
+        this.reader = new HerbertReader("data", "HerbertTasks.txt");
+        this.reader.loadFromSaveFile(this);
+    }
+
+    public void run() {
+        Scanner scan = new Scanner(System.in);
+        String line;
+        while (scan.hasNextLine()) {
+            line = scan.nextLine();
+            System.out.println();
+
+            int process = this.processLine(line);
+            if (process == 1) {
+                // User has inputted "bye"
+                break;
+            }
+        }
     }
 
     private void sayHello() {
@@ -152,7 +172,7 @@ public class Herbert {
             // Create and add task
             Todo td = new Todo(description);
             this.tasks.add(td);
-            HerbertReader.addTaskToSaveFile(td);
+            this.reader.addTaskToSaveFile(td);
 
             // Print success message
             printMessageAddTask(td);
@@ -169,7 +189,7 @@ public class Herbert {
             // Create and add task
             Deadline dl = new Deadline(dlDetails);
             tasks.add(dl);
-            HerbertReader.addTaskToSaveFile(dl);
+            this.reader.addTaskToSaveFile(dl);
 
             // Print success message
             printMessageAddTask(dl);
@@ -185,7 +205,7 @@ public class Herbert {
             // Create and add task
             Event ev = new Event(evDetails);
             tasks.add(ev);
-            HerbertReader.addTaskToSaveFile(ev);
+            this.reader.addTaskToSaveFile(ev);
 
             // Print success message
             printMessageAddTask(ev);

@@ -15,13 +15,20 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.sql.SQLOutput;
 
-public abstract class HerbertReader {
+public class HerbertReader {
 
-    private static final Path folderPath = Paths.get("data");
-    private static final Path filePath = folderPath.resolve("HerbertTasks.txt");
+    private final Path folderPath;
+    private final Path filePath;
 
-    public static void createSaveFileIfNotExists() {
+    public HerbertReader(String folderPath, String fileName) {
+        // Convert the paths given as Strings into Path objects
+        this.folderPath = Paths.get(folderPath);
+        this.filePath = this.folderPath.resolve(fileName);
 
+        this.createSaveFileIfNotExists(this.folderPath, this.filePath);
+    }
+
+    private void createSaveFileIfNotExists(Path folderPath, Path filePath) {
         try {
             // Create directory if it doesn't exist
             if (!Files.exists(folderPath)) {
@@ -37,7 +44,7 @@ public abstract class HerbertReader {
         }
     }
 
-    public static void loadFromSaveFile(Herbert herbert) {
+    public void loadFromSaveFile(Herbert herbert) {
 
         try {
             BufferedReader reader = Files.newBufferedReader(filePath);
@@ -71,10 +78,10 @@ public abstract class HerbertReader {
         }
     }
 
-    public static void addTaskToSaveFile(Task t) {
+    public void addTaskToSaveFile(Task t) {
         try {
             BufferedWriter writer = Files.newBufferedWriter(
-                    filePath,
+                    this.filePath,
                     StandardCharsets.UTF_8,
                     StandardOpenOption.APPEND
             );
