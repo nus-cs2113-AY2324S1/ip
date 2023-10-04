@@ -110,6 +110,9 @@ public class Duke {
                     System.out.println("OOPS!!! Need to specify which task want to delete");
                 }
                 break;
+            case "find":
+                tasks.find(userInput);
+                break;
             default:
                 System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
             }
