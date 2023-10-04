@@ -2,6 +2,27 @@
 
 Magpie is a chatbot for **managing your tasks** via a Command Line Interface (CLI). Using intuitive commands, Magpie can help you keep track of your **Todos, Deadlines, and Events** with features such as **add, mark, view,** and more! 
 
+## Table of Content
+
+* Quick start
+* Command Summary
+* Features
+  * List: `list`
+  * Adding a Todo task: `todo`
+  * Adding a Deadline task: `deadline`
+  * Adding an Event task: `event`
+  * Marking a Task:  `mark`
+  * Unmarking a Task: `unmark`
+  * Deleting a Task: `delete`
+  * Exiting the program: `bye`
+  * Saving Tasks in hard disk
+
+## Quick Start 
+
+## Command Summary
+
+
+
 ## Features 
 
 ### List
