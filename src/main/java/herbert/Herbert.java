@@ -2,6 +2,7 @@ package herbert;
 
 import task.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -73,11 +74,30 @@ public class Herbert {
             markTask(line, true);
         } else if (lowerLine.startsWith("unmark")) {
             markTask(line, false);
+        } else if (lowerLine.startsWith("find")) {
+            findTask(line);
         } else {
             HerbertUI.printMessageUnknownCommand(line);
         }
 
         return 0;
+    }
+
+    private void findTask(String line) {
+        if (HerbertParser.checkInputTwoOrMoreArgs(line) == -1) {
+            return;
+        }
+
+        String searchQuery = HerbertParser.getSearchQuery(line);
+
+        TaskList searchResults = new TaskList();
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task task = this.taskList.get(i);
+            if (task.getDescription().contains(searchQuery)) {
+                searchResults.add(task);
+            }
+        }
+        HerbertUI.printMessageSearchResults(searchResults);
     }
 
     /**
@@ -113,7 +133,7 @@ public class Herbert {
      * @param line The raw input string from the user.
      */
     private void addTask(String line) {
-        if (HerbertParser.checkInputAddTask(line) == -1) {
+        if (HerbertParser.checkInputTwoOrMoreArgs(line) == -1) {
             return;
         }
 

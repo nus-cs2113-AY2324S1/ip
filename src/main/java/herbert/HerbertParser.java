@@ -66,7 +66,7 @@ public abstract class HerbertParser {
      * @param line The raw input string from the user.
      * @return 0 on success, -1 on invalid input.
      */
-    public static int checkInputAddTask(String line) {
+    public static int checkInputTwoOrMoreArgs(String line) {
         String[] words = line.split(" ");
         if (words.length < 2) {
             HerbertUI.printMessageInvalidInput();
@@ -109,5 +109,10 @@ public abstract class HerbertParser {
         }
 
         return new String[] {matcher.group(1), matcher.group(2), matcher.group(3)};
+    }
+
+    public static String getSearchQuery(String line) {
+        String lower = line.toLowerCase();
+        return lower.substring("find ".length());
     }
 }
