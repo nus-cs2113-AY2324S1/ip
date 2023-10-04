@@ -2,7 +2,7 @@ package torchie.parser;
 
 import torchie.command.*;
 import torchie.exception.*;
-import torchie.storage.DataManager;
+import torchie.storage.Storage;
 import torchie.task.Deadline;
 import torchie.task.Event;
 import torchie.task.TaskList;
@@ -23,9 +23,9 @@ public class CommandParser {
 
 
     private TaskList taskList;
-    private DataManager dataManager;
+    private Storage dataManager;
     private TaskDetailsParser taskDetailsParser;
-    public CommandParser(TaskList tl, DataManager dm) {
+    public CommandParser(TaskList tl, Storage dm) {
         this.taskList = tl;
         this.dataManager = dm;
         this.taskDetailsParser = new TaskDetailsParser();
