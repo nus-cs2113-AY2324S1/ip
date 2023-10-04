@@ -11,6 +11,7 @@ import commands.ListCommand;
 import commands.AsciiCommand;
 import commands.DeleteCommand;
 import commands.FindCommand;
+import commands.HelpCommand;
 
 import task.Task;
 
@@ -32,6 +33,7 @@ public class ResponseProcessor {
         put("ascii", new AsciiCommand());
         put("delete", new DeleteCommand());
         put("find", new FindCommand());
+        put("help", new HelpCommand());
     }};
     /**
      * Check against the hashmap of commands to execute
@@ -48,7 +50,7 @@ public class ResponseProcessor {
                 System.out.println(e.getMessage());
             }
         } else {
-            System.out.println("I don't understand masta! Type a command uwu! " + AsciiArt.getArt("sad"));
+            System.out.println("I don't understand masta! Type 'help' for a list of commands uwu! " + AsciiArt.getArt("sad"));
         }
     }
     /**
