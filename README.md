@@ -50,6 +50,22 @@ puts "Hello World"
 ```
 </details>
 
+<details>
+
+<summary>Tips for collapsed sections</summary>
+
+### You can add a header
+
+You can add text within a collapsed section. 
+
+You can add an image or a code block, too.
+
+```ruby
+   puts "Hello World"
+```
+
+</details>
+
 ## User Guide
 To find out more details on how to interact with KenergeticBot, please refer to *(http://Cazh1.github.io/ip/)*.
 
