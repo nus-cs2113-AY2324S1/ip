@@ -9,17 +9,29 @@ public enum UserMessages {
             "   Type 'help' to view to list of commands the bot accepts! "),
     GOODBYE_MESSAGE("    Goodbye <3 Have a great day ahead!"),
     LOADING_ERROR("    Unable to load the file. Please check your filepath. :)"),
+
     HELP_MESSAGE("    Help is here! :) \n" +
             "    Listed below are the valid commands: \n" +
-            "    - mark \n    - unmark \n " +
-            "   - todo \n    - deadline \n    - event \n" +
+            "    - todo \n" +
+            "    - deadline \n" +
+            "    - event \n" +
+            "    - mark \n" +
+            "    - unmark \n" +
+            "    - delete \n" +
+            "    - find \n" +
+            "    - help \n" +
+            "    - bye \n" +
             "    For the formats below, replace *field* with your input \n" +
-            "    MARK: mark *existing task index* \n" +
-            "    UNMARK: unmark *existing task index* \n" +
             "    TODO: todo *task name* \n" +
             "    DEADLINE: deadline *task name* /by *deadline* \n" +
             "    EVENT: event *event name* /from *start date* /to *end date* \n" +
-            "    DELETE: delete *existing task index* "),
+            "    LIST: list\n" +
+            "    MARK: mark *existing task index* \n" +
+            "    UNMARK: unmark *existing task index* \n" +
+            "    DELETE: delete *existing task index* \n" +
+            "    FIND: find *keyword*\n" +
+            "    HELP: help\n" +
+            "    BYE: bye"),
     LINE("    ____________________________________________________________"),
     ;
 

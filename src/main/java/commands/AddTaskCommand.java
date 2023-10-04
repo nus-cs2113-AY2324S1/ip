@@ -60,11 +60,11 @@ public class AddTaskCommand extends Commands {
      * @throws ZranExceptions If an error occurs during task creation.
      */
     private Task createTaskFromInput(String input) throws ZranExceptions {
-        if (input.startsWith(Commands.TODO_TASK_COMMAND)) {
+        if (input.toLowerCase().startsWith(Commands.TODO_TASK_COMMAND)) {
             return createTodoTask(input);
-        } else if (input.startsWith(Commands.DEADLINE_TASK_COMMAND)) {
+        } else if (input.toLowerCase().startsWith(Commands.DEADLINE_TASK_COMMAND)) {
             return createDeadlineTask(input);
-        } else if (input.startsWith(Commands.EVENT_TASK_COMMAND)){
+        } else if (input.toLowerCase().startsWith(Commands.EVENT_TASK_COMMAND)){
             return createEventTask(input);
         } else {
             throw new ZranExceptions(ZranErrorMessages.UNRECOGNISED_COMMAND.message);

@@ -47,7 +47,7 @@ public class FindTaskCommand extends Commands{
      * @return An ArrayList of tasks matching the given keyword.
      */
     public static ArrayList<Task> findTask(String key, Task... items) {
-        // decided to experiment with the use of Varargs 
+        // decided to experiment with the use of Varargs
         ArrayList<Task> filteredTasks = new ArrayList<>();
         int index = 0;
         for (Task item : items) {
