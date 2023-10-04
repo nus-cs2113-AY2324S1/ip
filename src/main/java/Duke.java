@@ -38,9 +38,11 @@ public class Duke {
         String userInput = scanner.nextLine();
 
         while (!userInput.equals("Bye")) {
+
             String[] words = userInput.split(" ");
 
             String initialWord = words[0];
+
             boolean validWord = Parser.validateInput(initialWord, words, tasks.size());
 
             if (validWord) {
@@ -54,7 +56,7 @@ public class Duke {
                     System.out.println("Welcome to your to do list!. Here are the commands");
                     System.out.println("To add Deadlines, type in 'deadline <task name> /<deadline>");
                     System.out.println("example: 'deadline do 2113 assignment /tuesday 2pm");
-                    System.out.println("To add Events, dltype in 'evmarkent <event name> /<event start time> /<event end time>");
+                    System.out.println("To add Events, type in 'event <event name> /<event start time> /<event end time>");
                     System.out.println("example: 'deadline do 2113 assignment /tuesday 2pm/4pm");
                     break;
                 }
@@ -97,7 +99,7 @@ public class Duke {
                     System.out.println("Nice! I've marked this task as done: ");
                     String message = String.format("[%s] %s", currTask.getStatusIcon(), currTask.getDescription());
                     System.out.println(message);
-                    storage.updateMark(index,1);
+                    storage.updateMark(index, 1);
                     break;
 
                 }
@@ -112,7 +114,7 @@ public class Duke {
                     System.out.println("Nice! I've unmarked this task: ");
                     String message = String.format("[%s] %s", currTask.getStatusIcon(), currTask.getDescription());
                     System.out.println(message);
-                    storage.updateMark(index,0);
+                    storage.updateMark(index, 0);
                     break;
 
                 }
@@ -128,7 +130,7 @@ public class Duke {
 
                     String newWord = userInput.replace("deadline ", "");
                     String[] deadlineArray = newWord.split("/");
-                    if(!Parser.validateTimedTasks("deadline",deadlineArray)){
+                    if (!Parser.validateTimedTasks("deadline", deadlineArray)) {
                         break;
                     }
                     Deadline currTask = new Deadline(deadlineArray[0], deadlineArray[1]);
@@ -141,7 +143,7 @@ public class Duke {
                 case "event": {
                     String newWord = userInput.replace("event ", "");
                     String[] firstSplit = newWord.split("/");
-                    if(!Parser.validateTimedTasks("event",firstSplit)){
+                    if (!Parser.validateTimedTasks("event", firstSplit)) {
                         break;
                     }
                     Event currTask = new Event(firstSplit[0], firstSplit[1], firstSplit[2]);
@@ -168,9 +170,7 @@ public class Duke {
 
         }
 
-        String lineBreak = "------------------------------ \n";
-
-        System.out.println(lineBreak + "Bye. Hope to see you again soon!\n");
+        ui.showGoodbye();
 
         // Close the scanner when you're done with it
         scanner.close();
