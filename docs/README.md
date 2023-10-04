@@ -21,8 +21,8 @@ Zran acts as your personal assistant and keeps track of your task list through t
 # Features
 ### Adding a ToDo Task: `todo`
 
-Adds a todo task to the task list. </br>
-Format: `todo TASK_DESCRIPTION` </br>
+Adds a todo task to the task list.  
+Format: `todo TASK_DESCRIPTION`  
 Expected Output:
 ```
 todo Cook lunch
@@ -37,10 +37,10 @@ todo Cook lunch
 
 ### Adding a Deadline Task: `deadline`
 
-Adds a deadline task to the task list. </br>
-For the deadline to be displayed in a DD MMM YYYY format, key in the TASK_DEADLINE as yyyy-mm-dd. </br>
-Otherwise, proceed to key in the TASK_DEADLINE in any desired format.</br>
-Format: `deadline TASK_DESCRIPTION /by TASK_DEADLINE` </br>
+Adds a deadline task to the task list.  
+For the deadline to be displayed in a DD MMM YYYY format, key in the TASK_DEADLINE as yyyy-mm-dd.   
+Otherwise, proceed to key in the TASK_DEADLINE in any desired format.  
+Format: `deadline TASK_DESCRIPTION /by TASK_DEADLINE`   
 Expected Output:
 ```
 deadline Submit ST2334 quiz /by 2023-10-04
@@ -56,10 +56,10 @@ deadline Submit ST2334 quiz /by 2023-10-04
 
 ### Adding an Event Task: `event`
 
-Adds an event task to the task list. </br>
-For the dates to be displayed in a DD MMM YYYY format, key in the START_OF_EVENT and END_OF_EVENT as yyyy-mm-dd. </br>
-Otherwise, proceed to key in the START_OF_EVENT and END_OF_EVENT in any desired format. </br>
-Format: `event EVENT_DESCRIPTION /from START_OF_EVENT /to END_OF_EVENT` </br>
+Adds an event task to the task list.   
+For the dates to be displayed in a DD MMM YYYY format, key in the START_OF_EVENT and END_OF_EVENT as yyyy-mm-dd.   
+Otherwise, proceed to key in the START_OF_EVENT and END_OF_EVENT in any desired format.   
+Format: `event EVENT_DESCRIPTION /from START_OF_EVENT /to END_OF_EVENT`   
 Expected Output:
 ```
 event Rugby competition /from 2023-10-14 /to 2023-10-15
@@ -76,8 +76,8 @@ event Rugby competition /from 2023-10-14 /to 2023-10-15
 
 ### List all Tasks: `list`
 
-Lists all tasks in the task list. </br>
-Format: `list` </br>
+Lists all tasks in the task list.   
+Format: `list`   
 Expected Output:
 ```
 list
@@ -91,8 +91,8 @@ list
 
 ### Marking a Task: `mark`
 
-Marks the task corresponding to provided task index as done on the task list.</br>
-Format: `mark TASK_INDEX` </br>
+Marks the task corresponding to provided task index as done on the task list.  
+Format: `mark TASK_INDEX`   
 Expected Output:
 ```
 mark 1
@@ -103,8 +103,8 @@ mark 1
 
 ### Unmarking a Task: `unmark`
 
-Marks the task corresponding to provided task index as NOT done on the task list. </br>
-Format: `unmark TASK_INDEX` </br>
+Marks the task corresponding to provided task index as NOT done on the task list.   
+Format: `unmark TASK_INDEX`   
 Expected Output:
 ```
 unmark 1
@@ -115,8 +115,8 @@ unmark 1
 
 ### Deleting a task: `delete`
 
-Removes the task corresponding to provided task index from the task list. </br>
-Format: `delete TASK_INDEX` </br>
+Removes the task corresponding to provided task index from the task list.   
+Format: `delete TASK_INDEX`   
 Expected Output:
 ```
 delete 1
@@ -132,8 +132,8 @@ delete 1
 
 ### Finding Tasks: `find`
 
-Filters out tasks containing user's input of choice/keyword. </br>
-Format: `find KEYWORD` </br>
+Filters out tasks containing user's input of choice/keyword.   
+Format: `find KEYWORD`   
 Expected Output:
 ```
 find quiz
@@ -146,8 +146,8 @@ find quiz
 
 ### Help: `help`
 
-Outputs a list of commands and its format of usage. </br>
-Format: `help` </br>
+Outputs a list of commands and its format of usage.   
+Format: `help`   
 Expected Output:
 ```
 help
@@ -179,8 +179,8 @@ help
 
 ### Exit: `bye`
 
-Exits the chatbot. </br>
-Format: `bye` </br>
+Exits the chatbot.   
+Format: `bye`   
 Expected Output:
 ```
 bye
@@ -189,16 +189,18 @@ bye
 ```
 
 ## Command Summary
-| Action       | Format, Examples                                                                                                                        |
-|--------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| Add todo     | `todo TASK_DESCRIPTION`  <br/>example: `todo Cook lunch`                                                                                |
-| Add deadline | `deadline TASK_DESCRIPTION /by TASK_DEADLINE`  <br/>example: `deadline Submit ST2334 quiz /by 2023-10-04`                               |
-| Add event    | `event EVENT_DESCRIPTION /from START_OF_EVENT /to END_OF_EVENT` <br/>example: `event Rugby competition /from 2023-10-14 /to 2023-10-15` |
-| List         | `list`               <br/>example: `list`                                                                                               |
-| Mark task    | `mark TASK_INDEX`    <br/>example: `mark 1`                                                                                             |
-| Unmark task  | `unmark TASK_INDEX`  <br/>example: `unmark 1`                                                                                           |
-| Delete task  | `delete TASK_INDEX`  <br/>example: `delete 1`                                                                                           |
-| Find         | `find KEYWORD`       <br/>example: `find quiz`                                                                                          |
-| Help         | `help`               <br/>example: `help`                                                                                               |
-| Exit         | `bye`                <br/>example: `bye`                                                                                                |
+| Action       | Format, Examples                                                                                                                  |
+|--------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| Add todo     | `todo TASK_DESCRIPTION`<br>example: `todo Cook lunch`                                                                            |
+| Add deadline | `deadline TASK_DESCRIPTION /by TASK_DEADLINE`<br>example: `deadline Submit ST2334 quiz /by 2023-10-04`                           |
+| Add event    | `event EVENT_DESCRIPTION /from START_OF_EVENT /to END_OF_EVENT`<br>example: `event Rugby competition /from 2023-10-14 /to 2023-10-15`|
+| List         | `list`<br>example: `list`                                                                                                         |
+| Mark task    | `mark TASK_INDEX`<br>example: `mark 1`                                                                                           |
+| Unmark task  | `unmark TASK_INDEX`<br>example: `unmark 1`                                                                                       |
+| Delete task  | `delete TASK_INDEX`<br>example: `delete 1`                                                                                       |
+| Find         | `find KEYWORD`<br>example: `find quiz`                                                                                           |
+| Help         | `help`<br>example: `help`                                                                                                       |
+| Exit         | `bye`<br>example: `bye`                                                                                                         |
+                                                                                                     |
+
 
