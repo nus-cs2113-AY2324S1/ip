@@ -59,18 +59,18 @@ completed and what is not.
 
 
     mark 1
-    ____________________________________________________________
-    Nice! I've marked this task as done:
-       [X] CS2113 HW
-    ____________________________________________________________
+        ____________________________________________________________
+        Nice! I've marked this task as done:
+           [X] CS2113 HW
+        ____________________________________________________________
 - `unmark 2` will uncheck the second item on the list.
 
                                                                
     unmark 2
-    ____________________________________________________________
-    OK, I've marked this task as not done yet:
-       [ ] CS2113 HW
-    ____________________________________________________________
+        ____________________________________________________________
+        OK, I've marked this task as not done yet:
+           [ ] CS2113 HW
+        ____________________________________________________________
 
 ### List the tasks: `list`
 Lists all the tasks in the list.
