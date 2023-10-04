@@ -18,7 +18,7 @@ Keep track of Task completion.
 </details>
       
 Store and retreive your tasks into a dedicated save file.
-```ruby
+```
    puts "Hello World"
 ```
 
