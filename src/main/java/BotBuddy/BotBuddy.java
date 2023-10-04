@@ -94,6 +94,10 @@ public class BotBuddy {
                 deleteTask(parameters);
                 break;
 
+            case "find":
+                findTask(parameters);
+                break;
+
             case "bye":
                 exitProgram();
                 return;
@@ -171,6 +175,14 @@ public class BotBuddy {
         ui.printToUser("I've deleted this task:"
                 + System.lineSeparator()
                 + tempMessage);
+    }
+
+    public void findTask(String parameters) {
+        int noOfTasks = Task.getNoOfTasks();
+        ui.printToUser("Here are the found tasks for '" + parameters + "':");
+        ui.printUnderscores();
+        tasks.findTasksInTaskList(parameters, noOfTasks);
+        ui.printUnderscores();
     }
 
     public void exitProgram() {

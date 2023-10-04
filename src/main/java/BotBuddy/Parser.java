@@ -83,6 +83,12 @@ public class Parser {
             }
             break;
 
+        case "find":
+            if (parameters.isEmpty()) {
+                throw new BotBuddyException("You cannot search for nothing! Please try again.");
+            }
+            break;
+
         default:
             // invalid command
             throw new BotBuddyException("Invalid command! Supported commands are: " +
