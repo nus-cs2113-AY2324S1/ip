@@ -49,25 +49,25 @@ public class Duke {
             // Bot Mark task feature = set task status to done with markTask();
             else if (text[0].equalsIgnoreCase("mark")) {
                 int index = Integer.parseInt(text[1]) - 1;
-                if (index > botMemory.size() - 1 || (index + 1) < 1) { 
-                    System.out.println("I'm sorry, but item " + (index + 1) + " doesn't exist");
-                    continue;
-                }
+                if (checkIndexExist(botMemory, index)) {
                 botMemory.get(index).markTask();
                 System.out.println("Nice! I've marked this task done:");
                 System.out.println(botMemory.get(index).getDescription());
+                } else {
+                    continue;
+                }
             }
 
             // Bot Unmark task feature = unset task status with unMarkTask();
             else if (text[0].equalsIgnoreCase("unmark")) {
                 int index = Integer.parseInt(text[1]) - 1;
-                if (index > botMemory.size() - 1 || (index + 1) < 1) { 
-                    System.out.println("I'm sorry, but item " + (index + 1) + " doesn't exist");
+                if (checkIndexExist(botMemory, index)) {
+                    botMemory.get(index).unMarkTask();
+                    System.out.println("Ok, I've unmarked the following task:");
+                    System.out.println(botMemory.get(index).getDescription());
+                } else {
                     continue;
                 }
-                botMemory.get(index).unMarkTask();
-                System.out.println("Ok, I've unmarked the following task:");
-                System.out.println(botMemory.get(index).getDescription());
             }
 
             // Bot Todo task feature (use: todo [desc])
@@ -108,6 +108,19 @@ public class Duke {
                 System.out.println(t.getDescription());
                 System.out.println("Now there are " + Task.getTaskCount() + " tasks in the botMemory list!");
             }
+
+            // Bot Delete task feature (use: delete [index])
+            else if (text[0].equalsIgnoreCase("delete")) {
+                int index = Integer.parseInt(text[1]) - 1;
+                if (checkIndexExist(botMemory, index)) {
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(botMemory.get(index).getDescription());
+                    Task.removeTask(botMemory, index);
+                    System.out.println("Now there are " + Task.getTaskCount() + " tasks in the botMemory list!");
+                } else {
+                    continue;
+                }
+            }
             
             // Bot default reaction to unknown action
             else {
@@ -116,6 +129,16 @@ public class Duke {
         }
     }
 
+    // Method to check if chosen index is within the botMemory range
+    public static boolean checkIndexExist(ArrayList<Task> taskList, int taskIndex) {
+        if (taskIndex > taskList.size() - 1 || (taskIndex + 1) < 1) { 
+            System.out.println("I'm sorry, but item " + (taskIndex + 1) + " doesn't exist");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     // Method to validate user input and throw DukeException if it doesn't match requirements
     public static void validateInput(String userInput) throws DukeException {
         String text[] = userInput.split(" ");
