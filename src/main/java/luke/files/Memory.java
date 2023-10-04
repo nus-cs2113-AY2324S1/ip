@@ -6,7 +6,7 @@ import luke.tasks.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.io.FileReader;
+//import java.io.FileReader;
 import java.io.FileWriter;
 
 import java.io.IOException;
@@ -66,9 +66,8 @@ public class Memory {
 
         } catch (IOException e) {
             System.out.println("\tIO Exception: fail to store memory");
-            return;
+            //return;
         }
-
 
     }
 }

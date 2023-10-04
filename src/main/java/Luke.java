@@ -14,7 +14,6 @@ public class Luke {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
 
-
     private static void addTask(Task taskName) {
         taskList.add(taskName);
         //System.out.println(numbers);
