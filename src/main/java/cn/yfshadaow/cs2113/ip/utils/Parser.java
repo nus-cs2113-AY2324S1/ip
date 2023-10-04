@@ -4,8 +4,18 @@ import cn.yfshadaow.cs2113.ip.command.Command;
 
 import java.util.*;
 
+/**
+ * Represents a parser to parse commands.
+ */
 public class Parser {
 
+    /**
+     * Parse command from string.
+     *
+     * @param s the string to be parsed
+     * @return the command parsed
+     * @throws IllegalArgumentException the illegal argument exception
+     */
     public static Command parseCommand(String s) throws IllegalArgumentException{
         Iterator<String> iterator = Arrays.stream(s.split(" ")).iterator();
         if (!iterator.hasNext()) {
@@ -15,27 +25,24 @@ public class Parser {
         List<String> arguments = new ArrayList<>();
         Map<String, String> extraArguments = new HashMap<>();
 
-        // currentPart stores which part of argument the parser is reading
-        // For example, if currentPart is null, the parser is reading main arguments
-        // If it is not null, the parser is reading extra arguments associated with that string
-        String currentPart = null;
+        String currentTargetKey = null;
         while (iterator.hasNext()) {
             String next = iterator.next();
             if (next.startsWith("-")) {
                 if (next.length() == 1) {
                     throw new IllegalArgumentException("Extra argument identifier cannot be empty!");
                 }
-                currentPart = next.substring(1);
-                if (extraArguments.containsKey(currentPart)) {
+                currentTargetKey = next.substring(1);
+                if (extraArguments.containsKey(currentTargetKey)) {
                     throw new IllegalArgumentException("Duplicate argument identifier!");
                 }
-                extraArguments.put(currentPart, "");
+                extraArguments.put(currentTargetKey, "");
             } else {
-                if (currentPart == null) {
+                if (currentTargetKey == null) {
                     arguments.add(next);
                 } else {
-                    String storedString = extraArguments.get(currentPart);
-                    extraArguments.put(currentPart,  storedString + (storedString.isEmpty()? "" : " ") + next);
+                    String storedString = extraArguments.get(currentTargetKey);
+                    extraArguments.put(currentTargetKey,  storedString + (storedString.isEmpty()? "" : " ") + next);
                 }
             }
         }
