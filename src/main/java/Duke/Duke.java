@@ -45,8 +45,8 @@ public class Duke {
         String userInput = in.nextLine();
         Parser parser = new Parser(userInput);
         while (!userInput.equals("bye")) {
-            String command = "list";
-            if (!userInput.equals("list")){
+            String command = userInput;
+            if (!userInput.equals("list") && !userInput.equals("help")){
                 try{
                     command = parser.getCommand();
                     userInput = parser.getRemainingPart();
@@ -115,6 +115,9 @@ public class Duke {
                 break;
             case "find":
                 tasks.find(userInput);
+                break;
+            case "help":
+                ui.help();
                 break;
             default:
                 System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
