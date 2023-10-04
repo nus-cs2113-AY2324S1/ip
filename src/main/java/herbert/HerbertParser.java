@@ -1,7 +1,9 @@
 package herbert;
 
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
 
 /**
  * Contains all functionality for parsing and validating user input.
@@ -91,6 +93,15 @@ public abstract class HerbertParser {
         }
 
         return new String[] {matcher.group(1), matcher.group(2)};
+    }
+
+    public static LocalDate parseDate(String dateString) {
+        try {
+            return LocalDate.parse(dateString);
+        } catch (DateTimeParseException e) {
+            HerbertUI.printMessageInvalidInput("Please enter a date in the format YYYY-MM-DD.");
+            return null;
+        }
     }
 
     /**

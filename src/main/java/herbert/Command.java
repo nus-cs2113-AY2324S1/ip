@@ -49,7 +49,7 @@ public enum Command {
     DEADLINE {
         @Override
         public String toString() {
-            return "\tAdd a new deadline to your list of tasks."
+            return "\tAdd a new deadline to your list of tasks. Due date must be specified in YYYY-MM-DD format."
                     + System.lineSeparator()
                     + "\tUsage: deadline <task description> /by <due date>";
         }
@@ -57,7 +57,7 @@ public enum Command {
     EVENT {
         @Override
         public String toString() {
-            return "\tAdd a new event to your list of tasks."
+            return "\tAdd a new event to your list of tasks. Start and end dates must be specified in YYYY-MM-DD format."
                     + System.lineSeparator()
                     + "\tUsage: event <task description> /from <start> /to <end>";
         }
