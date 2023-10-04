@@ -51,4 +51,15 @@ public class TaskList {
     public void removeTaskFromTaskList(int taskToDelete) {
         taskArrayList.remove(taskToDelete);
     }
+
+    public void findTasksInTaskList(String parameters, int noOfTasks) {
+        for (int i = 0; i < noOfTasks; i++) {
+            String currentTask = String.valueOf(taskArrayList.get(i));
+            if (currentTask.contains(parameters)) {
+                System.out.println(i + 1 + ". " + taskArrayList.get(i));
+            }
+        }
+    }
+
+
 }
