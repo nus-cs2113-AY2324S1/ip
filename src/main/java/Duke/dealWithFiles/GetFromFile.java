@@ -1,3 +1,15 @@
+/**
+ * GetFromFile is a class responsible for reading from text files
+ * and fill the task list with the retrieved tasks. it supports reading
+ * different types of tasks (Todo, deadlines, events) and their respective statuses.
+ * <p>
+ * GetFromFile is used to load tasks from a file when the Duke application starts.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-09-30
+ */
+
 package Duke.dealWithFiles;
 
 

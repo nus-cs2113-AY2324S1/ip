@@ -1,3 +1,18 @@
+/**
+ * TaskList represents a list of tasks for the Duke Robot
+ * It provides methods for adding different types of tasks (Todo, Event, Deadline)
+ * into the ArrayList, instead of allowing the Duke program to modify the content in the list,
+ * retrieve tasks by index, getting the size of the task list, printing the list,
+ * marking tasks as done, unmarking tasks, and deleting tasks. It also supports
+ * searching for tasks containing specific keywords.
+ * <p>
+ * TaskList is used to manage and manipulate tasks within the Duke application.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-09-30
+ */
+
 package Duke.inputProcess;
 
 import Duke.Task;

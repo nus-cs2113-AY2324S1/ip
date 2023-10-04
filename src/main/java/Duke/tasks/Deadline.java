@@ -1,3 +1,15 @@
+/**
+ * Deadline is a kind of task with a specific deadline.
+ * It is a subclass of the Task class and includes methods to
+ * retrieve and format the deadline.
+ * <p>
+ * Deadline objects can be created with a description and a deadline time.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-09-30
+ */
+
 package Duke.tasks;
 
 import Duke.Task;
