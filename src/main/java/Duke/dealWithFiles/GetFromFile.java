@@ -1,15 +1,10 @@
 package Duke.dealWithFiles;
 
-import Duke.Task;
-import Duke.tasks.Deadline;
-import Duke.tasks.Event;
-import Duke.tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import Duke.inputProcess.TaskList;
 import java.util.Scanner;
 
