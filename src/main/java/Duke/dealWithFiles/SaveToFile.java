@@ -7,7 +7,6 @@ import Duke.tasks.Todo;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import Duke.inputProcess.TaskList;
 
 public class SaveToFile {
