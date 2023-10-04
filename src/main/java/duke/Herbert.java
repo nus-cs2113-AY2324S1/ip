@@ -2,22 +2,20 @@ package duke;
 
 import task.*;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Herbert {
 
-    private ArrayList<Task> tasks;
-    private HerbertReader reader;
+    private final HerbertReader reader;
+    private final TaskList taskList;
 
     public Herbert() {
-        this.tasks = new ArrayList<>();
-        this.sayHello();
+        this.taskList = new TaskList();
 
         this.reader = new HerbertReader("data", "HerbertTasks.txt");
         this.reader.loadFromSaveFile(this);
+
+        HerbertUI.sayHello();
     }
 
     public void run() {
@@ -35,59 +33,23 @@ public class Herbert {
         }
     }
 
-    private void sayHello() {
-        String logo = " __   __  _______  ______    _______  _______  ______    _______ \n"
-                + "|  | |  ||       ||    _ |  |  _    ||       ||    _ |  |       |\n"
-                + "|  |_|  ||    ___||   | ||  | |_|   ||    ___||   | ||  |_     _|\n"
-                + "|       ||   |___ |   |_||_ |       ||   |___ |   |_||_   |   |  \n"
-                + "|       ||    ___||    __  ||  _   | |    ___||    __  |  |   |  \n"
-                + "|   _   ||   |___ |   |  | || |_|   ||   |___ |   |  | |  |   |  \n"
-                + "|__| |__||_______||___|  |_||_______||_______||___|  |_|  |___|  ";
-
-        System.out.println(System.lineSeparator() + logo);
-        System.out.println("___________________________________________________________________________");
-        System.out.println("\tHello! I'm Herbert." + System.lineSeparator() + "\tWhat can I do for you?");
-        System.out.println(System.lineSeparator() + "\tYou may choose from the following commands:");
-        for (Command s : Command.values()) {
-            System.out.println("\t- " + s.name().toLowerCase());
-        }
-        System.out.println("___________________________________________________________________________");
-    }
-
-    private void sayGoodbye() {
-        System.out.println("___________________________________________________________________________");
-        System.out.println("\tBye. Hope to see you again soon!");
-        System.out.println("___________________________________________________________________________");
-    }
-
-    private void displayHelp() {
-        System.out.println("###########################################################################");
-        System.out.println("\tWelcome to the Herbert Helpline!" + System.lineSeparator());
-        System.out.println("\tCOMMANDS");
-        for (Command s : Command.values()) {
-            System.out.println("\t* " + s.name().toLowerCase());
-            System.out.println(s);
-            System.out.println();
-        }
-        System.out.println("###########################################################################");
-    }
 
     public int processLine(String line) {
         line = line.strip();
         if (line.isEmpty()) {
-            printMessageInvalidInput("Please enter a command!");
+            HerbertUI.printMessageInvalidInput("Please enter a command!");
             return -1;
         }
 
         String lowerLine = line.toLowerCase();
 
         if (lowerLine.equals("bye")) {
-            sayGoodbye();
+            HerbertUI.sayGoodbye();
             return 1;
         } else if (lowerLine.equals("list")) {
-            listTasks();
+            HerbertUI.listTasks(this.taskList);
         } else if (lowerLine.equals("help")) {
-            displayHelp();
+            HerbertUI.displayHelp();
         } else if (lowerLine.startsWith("todo") || lowerLine.startsWith("deadline") || lowerLine.startsWith("event")) {
             addTask(line);
         } else if (lowerLine.startsWith("delete")) {
@@ -97,7 +59,7 @@ public class Herbert {
         } else if (lowerLine.startsWith("unmark")) {
             markTask(line, false);
         } else {
-            printMessageUnknownCommand(line);
+            HerbertUI.printMessageUnknownCommand(line);
         }
 
         return 0;
@@ -105,61 +67,28 @@ public class Herbert {
 
     private void markTask(String line, boolean completed) {
         // Check for valid user input
-        if (checkInputTaskIndex(line) == -1) {
+        if (HerbertParser.checkInputTaskIndex(line) == -1) {
             return;
         }
 
         // Extract task index and mark the task as completed
-        int taskIndex = extractTaskIndex(line);
+        int taskIndex = HerbertParser.extractTaskIndex(line);
         if (taskIndex == -1) {
             return;
         }
-        int verify = verifyTaskIndex(taskIndex);
+        int verify = HerbertParser.verifyTaskIndex(taskIndex, this.taskList);
         if (verify == -1) {
             return;
         }
-        Task task = tasks.get(taskIndex);
+        Task task = taskList.get(taskIndex);
         task.setCompleted(completed);
 
         // Print result message to user
-        printMessageMarkTask(task, completed);
-    }
-
-    private int checkInputTaskIndex(String line) {
-        if (line.split(" ").length != 2) {
-            printMessageInvalidInput("Please enter the task number you wish to change the status of.");
-            return -1;
-        }
-
-        return 0;
-    }
-
-    private int extractTaskIndex(String line) {
-        int taskIndex;
-        try {
-            taskIndex = Integer.parseInt(line.split(" ")[1]) - 1;
-        } catch (NumberFormatException e) {
-            printMessageInvalidInput("Task index must be a positive integer.");
-            return -1;
-        }
-
-        return taskIndex;
-    }
-
-    private int verifyTaskIndex(int taskIndex) {
-        if (taskIndex >= tasks.size()) {
-            printMessageInvalidInput("No such task exists!");
-            return -1;
-        }
-        if (taskIndex < 0) {
-            printMessageInvalidInput("Task index must be a positive integer.");
-            return -1;
-        }
-        return 0;
+        HerbertUI.printMessageMarkTask(task, completed);
     }
 
     private void addTask(String line) {
-        if (checkInputAddTask(line) == -1) {
+        if (HerbertParser.checkInputAddTask(line) == -1) {
             return;
         }
 
@@ -171,175 +100,75 @@ public class Herbert {
 
             // Create and add task
             Todo td = new Todo(description);
-            this.tasks.add(td);
+            this.taskList.add(td);
             this.reader.addTaskToSaveFile(td);
 
             // Print success message
-            printMessageAddTask(td);
+            HerbertUI.printMessageAddTask(td, this.taskList);
 
             break;
         }
         case "deadline": {
             // Get details
-            String[] dlDetails = getDeadlineDetails(line);
+            String[] dlDetails = HerbertParser.getDeadlineDetails(line);
             if (dlDetails == null) {
                 return;
             }
 
             // Create and add task
             Deadline dl = new Deadline(dlDetails);
-            tasks.add(dl);
+            this.taskList.add(dl);
             this.reader.addTaskToSaveFile(dl);
 
             // Print success message
-            printMessageAddTask(dl);
+            HerbertUI.printMessageAddTask(dl, this.taskList);
             break;
         }
         case "event":
             // Get details
-            String[] evDetails = getEventDetails(line);
+            String[] evDetails = HerbertParser.getEventDetails(line);
             if (evDetails == null) {
                 return;
             }
 
             // Create and add task
             Event ev = new Event(evDetails);
-            tasks.add(ev);
+            this.taskList.add(ev);
             this.reader.addTaskToSaveFile(ev);
 
             // Print success message
-            printMessageAddTask(ev);
+            HerbertUI.printMessageAddTask(ev, this.taskList);
             break;
         }
     }
 
+    public void addTask(Task t) {
+        this.taskList.add(t);
+    }
+
     private void deleteTask(String line) {
-        if (checkInputTaskIndex(line) == -1) {
+        if (HerbertParser.checkInputTaskIndex(line) == -1) {
             return;
         }
 
-        int taskIndex = extractTaskIndex(line);
+        int taskIndex = HerbertParser.extractTaskIndex(line);
         if (taskIndex == -1) {
             return;
         }
-        int verify = verifyTaskIndex(taskIndex);
+        int verify = HerbertParser.verifyTaskIndex(taskIndex, this.taskList);
         if (verify == -1) {
             return;
         }
 
-        Task taskCopy = tasks.get(taskIndex);
-        tasks.remove(taskIndex);
-        printMessageDeleteTask(taskCopy);
+        Task taskCopy = taskList.get(taskIndex);
+        this.taskList.remove(taskIndex);
+        HerbertUI.printMessageDeleteTask(taskCopy, this.taskList);
     }
 
-    public void addTask(Task t) {
-        this.tasks.add(t);
-    }
 
-    private int checkInputAddTask(String line) {
-        String[] words = line.split(" ");
-        if (words.length < 2) {
-            printMessageInvalidInput();
-            return -1;
-        }
-        return 0;
-    }
 
-    private String[] getDeadlineDetails(String line) {
-        String patternString = "^deadline\\s+(.+?)\\s+/by\\s+(.+)$";
-        Pattern pattern = Pattern.compile(patternString);
-        Matcher matcher = pattern.matcher(line);
 
-        if (!matcher.find()) {
-            printMessageInvalidInput();
-            return null;
-        }
 
-        return new String[] {matcher.group(1), matcher.group(2)};
-    }
-
-    private String[] getEventDetails(String line) {
-        String patternString = "^event\\s+(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)$";
-        Pattern pattern = Pattern.compile(patternString);
-        Matcher matcher = pattern.matcher(line);
-
-        if (!matcher.find()) {
-            printMessageInvalidInput();
-            return null;
-        }
-
-        return new String[] {matcher.group(1), matcher.group(2), matcher.group(3)};
-    }
-
-    public void listTasks() {
-        System.out.println("___________________________________________________________________________");
-
-        if (tasks.size() == 0) {
-            System.out.println("\tThere are no tasks in your list! Sit back, relax, and enjoy.");
-            System.out.println("___________________________________________________________________________");
-            return;
-        }
-
-        System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("\t%d. [%s][%s] %s\n",
-                    (i + 1),
-                    tasks.get(i).getCode(),
-                    tasks.get(i).getStatusIcon(),
-                    tasks.get(i)
-            );
-        }
-
-        System.out.println("___________________________________________________________________________");
-    }
-
-    //region Message methods
-    private void printMessageInvalidInput(String errorMessage) {
-        System.out.println("___________________________________________________________________________");
-        System.out.printf("\t%s\n", errorMessage);
-        System.out.println("\tUse 'help' for usage instructions.");
-        System.out.println("___________________________________________________________________________");
-    }
-
-    private void printMessageInvalidInput() {
-        System.out.println("___________________________________________________________________________");
-        System.out.println("\tInvalid input. Use 'help' for usage instructions.");
-        System.out.println("___________________________________________________________________________");
-    }
-
-    private void printMessageUnknownCommand(String userInput) {
-        System.out.println("___________________________________________________________________________");
-        System.out.printf("\tUnknown command '%s'. Use 'help' for a full list of user commands.\n", userInput);
-        System.out.println("___________________________________________________________________________");
-    }
-
-    private void printMessageMarkTask(Task task, boolean completed) {
-        System.out.println("___________________________________________________________________________");
-        if (completed) {
-            System.out.println("\tLovely! I've marked this task as done:");
-        } else {
-            System.out.println("\tOkay, I've unmarked this task for you:");
-        }
-        System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getDescription());
-        System.out.println("___________________________________________________________________________");
-    }
-
-    private void printMessageAddTask(Task t) {
-        System.out.println("___________________________________________________________________________");
-        System.out.println("\tOkay, I've added this to your task list:");
-        System.out.printf("\t\t[%s][%s] %s\n", t.getCode(), t.getStatusIcon(), t);
-        System.out.printf("\tNow you have %d task(s) in your list.\n", tasks.size());
-        System.out.println("___________________________________________________________________________");
-    }
-
-    private void printMessageDeleteTask(Task t) {
-        System.out.println("___________________________________________________________________________");
-        System.out.println("\tNoted. I've removed this task from your list:");
-        System.out.printf("\t\t[%s][%s] %s\n", t.getCode(), t.getStatusIcon(), t);
-        System.out.printf("\tNow you have %d task(s) in your list.\n", tasks.size());
-        System.out.println("___________________________________________________________________________");
-    }
-    //endregion
 
 }
 
