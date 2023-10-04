@@ -1,14 +1,21 @@
 package torchie.parser;
 
+import torchie.exception.InvalidDeadlineFormatException;
+import torchie.exception.InvalidEventFormatException;
+import torchie.exception.MissingTaskNameException;
 import torchie.exception.TorchieException;
 
 public class TaskDetailsParser {
     public TaskDetailsParser() {
     }
 
-    public String getContent(String s) {
+    public String getContent(String s) throws MissingTaskNameException {
         // split sentence into 2 parts, first word and everything else
         String[] words = s.split(" ", 2);
+
+        if (words.length<2) {
+            throw new MissingTaskNameException();
+        }
 
         // making sure content stops before the key characters such as /
         String content = words[1];
@@ -26,7 +33,7 @@ public class TaskDetailsParser {
         int keyWordIndex = s.indexOf('/');
 
         if (keyWordIndex == -1) {
-            throw new TorchieException();
+            throw new InvalidDeadlineFormatException();
         }
         return s.substring(keyWordIndex + SIZE_OF_BUFFER);
     }
@@ -37,7 +44,7 @@ public class TaskDetailsParser {
         // first occurrence of '/' character
         int startTimeIndex = s.indexOf('/');
         if (startTimeIndex == -1) {
-            throw new TorchieException();
+            throw new InvalidEventFormatException();
         }
 
         // second occurrence of '/' character
@@ -54,7 +61,7 @@ public class TaskDetailsParser {
         // second occurrence of '/' character
         int endTimeIndex = s.indexOf('/', startTimeIndex+1);
         if (endTimeIndex == -1) {
-            throw new TorchieException();
+            throw new InvalidEventFormatException();
         }
         return s.substring(endTimeIndex + SIZE_OF_BUFFER);
     }
