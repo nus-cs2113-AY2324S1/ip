@@ -21,6 +21,8 @@ todo Cook lunch
 ### Adding a Deadline Task: `deadline`
 
 Adds a deadline task to the task list.
+For the deadline to be displayed in a DD MMM YYYY format, key in the TASK_DEADLINE as yyyy-mm-dd.
+Otherwise, proceed to key in the TASK_DEADLINE in any desired format.
 Format: `deadline TASK_DESCRIPTION /by TASK_DEADLINE`
 Expected Output:
 ```
@@ -38,6 +40,8 @@ deadline Submit ST2334 quiz /by 2023-10-04
 ### Adding an Event Task: `event`
 
 Adds an event task to the task list.
+For the dates to be displayed in a DD MMM YYYY format, key in the START_OF_EVENT and END_OF_EVENT as yyyy-mm-dd.
+Otherwise, proceed to key in the START_OF_EVENT and END_OF_EVENT in any desired format.
 Format: `event EVENT_DESCRIPTION /from START_OF_EVENT /to END_OF_EVENT`
 Expected Output:
 ```
