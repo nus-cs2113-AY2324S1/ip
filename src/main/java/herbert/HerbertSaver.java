@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 
 /**
  * This class deals with the local storage of the Herbert TaskList to disk.
@@ -64,6 +65,7 @@ public class HerbertSaver {
             while (line != null) {
                 String[] split = line.split(" \\| ");
 
+                String description;
                 switch (split[0]) {
                 case "T":
                     Todo t = new Todo(split[2]);
@@ -71,12 +73,25 @@ public class HerbertSaver {
                     herbert.addTask(t);
                     break;
                 case "D":
-                    Deadline d = new Deadline(split[2], split[3]);
+                    description = split[2];
+                    LocalDate dueDate = HerbertParser.parseDate(split[3]);
+                    if (dueDate == null) {
+                        return;
+                    }
+
+                    Deadline d = new Deadline(description, dueDate);
                     d.setCompleted(split[1].equals("1"));
                     herbert.addTask(d);
                     break;
                 case "E":
-                    Event e = new Event(split[2], split[3], split[4]);
+                    description = split[2];
+                    LocalDate fromDate = HerbertParser.parseDate(split[3]);
+                    LocalDate toDate = HerbertParser.parseDate(split[4]);
+                    if (fromDate == null || toDate == null) {
+                        return;
+                    }
+
+                    Event e = new Event(description, fromDate, toDate);
                     e.setCompleted(split[1].equals("1"));
                     herbert.addTask(e);
                     break;
