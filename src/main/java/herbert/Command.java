@@ -62,6 +62,14 @@ public enum Command {
                     + "\tUsage: event <task description> /from <start> /to <end>";
         }
     },
+    FIND {
+        @Override
+        public String toString() {
+            return "\tSearch for keywords amongst all tasks in your list."
+                    + System.lineSeparator()
+                    + "\tUsage: find <search query>";
+        }
+    },
     HELP {
         @Override
         public String toString() {
