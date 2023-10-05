@@ -36,7 +36,10 @@ public class Storage {
                 String taskType = taskList.getTaskTypes().get(i);
                 String doneStatus = taskList.getTaskDoneStatus().get(i) ? "1" : "0";
                 String description = taskList.getTaskDescriptions().get(i);
-                writer.write(taskType + " | " + doneStatus + " | " + description);
+                String date = taskList.getTaskDates().get(i); // Add this line to get the date
+
+                // Make sure to include the date in the saved format
+                writer.write(taskType + " | " + doneStatus + " | " + description + " | " + date);
                 writer.newLine();
             }
         } catch (IOException e) {

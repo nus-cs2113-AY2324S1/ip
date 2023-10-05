@@ -1,20 +1,25 @@
 import java.util.Scanner;
 
 public class Ken {
-    private static final String DATA_FILE_PATH = "ken.txt";
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Ui ui = new Ui();
-        Storage storage = new Storage(DATA_FILE_PATH);
-        TaskList taskList = new TaskList(); // Create a new TaskList instance
+    public Ken(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        taskList = new TaskList();
 
         // Load tasks from the file when the chatbot starts up
         storage.loadTasks(taskList);
+    }
 
+    public void run() {
         Ui.printLine();
         Ui.printWelcomeMessage();
         Ui.printLine();
+
+        Scanner scanner = new Scanner(System.in);
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -38,6 +43,10 @@ public class Ken {
         }
 
         scanner.close();
+    }
+
+    public static void main(String[] args) {
+        new Ken("ken.txt").run();
     }
 }
 
