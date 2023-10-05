@@ -8,36 +8,29 @@ import java.util.ArrayList;
 /**
  * Lists all persons in the PersonBook to the user.
  */
-public class ActivatedCommand extends Command {
+public class FindCommand extends Command {
 
-    public static final String COMMAND_WORD = "activated";
+    public static final String COMMAND_WORD = "find";
     private static final int validArgumentAmount = 1;
-    private final Date date;
+    private final String partialDescription;
 
-    public ActivatedCommand(String[] arguments) throws Exception {
+    public FindCommand(String[] arguments) throws Exception {
         super(COMMAND_WORD, validArgumentAmount);
         checkArguments(arguments);
-        date = new Date(arguments[0]);
+        partialDescription = arguments[0];
     }
 
     @Override
     public String customFunction() {
         ArrayList<Task> filteredTasks = new ArrayList<Task>();
         for (Task task : runningState.tasks) {
-            if (task instanceof Deadline) {
-                if (((Deadline) task).by.compareDate(date) != 1) {
-                    filteredTasks.add(task);
-                }
-            }
-            if (task instanceof Event) {
-                if (((Event) task).to.compareDate(date) != -1 && ((Event) task).from.compareDate(date) != 1) {
-                    filteredTasks.add(task);
-                }
+            if (task.description.contains(partialDescription)) {
+                filteredTasks.add(task);
             }
         }
 
         if (filteredTasks.size() == 0) {
-            return "There are no activated tasks!";
+            return " There are no tasks with such partial description!";
         }
 
         String result = taskToString(filteredTasks, 0);
@@ -55,6 +48,6 @@ public class ActivatedCommand extends Command {
     @Override
     public CommandResult getCommandResult(String content) {
         return new CommandResult(
-                "Here are the tasks that are still activated on " + date.toString() + ":\n" + content);
+                "Here are the tasks that have partial description with '" + partialDescription + "':\n" + content);
     }
 }

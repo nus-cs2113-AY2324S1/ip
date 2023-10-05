@@ -30,7 +30,7 @@ public class ListCommand extends Command {
 
     private String taskToString(int index) {
         Task task = runningState.tasks.get(index);
-        return (index + 1) + "." + task.toString();
+        return " " + (index + 1) + "." + task.toString();
     }
 
     @Override
