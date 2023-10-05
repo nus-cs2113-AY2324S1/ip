@@ -45,9 +45,9 @@ public class Dukey {
         } */
         while (true) {
             line = in.nextLine();
-            String[] words = line.split(" ");
-            String firstWord = words[0];
-            switch (firstWord) {
+            String[] input = Parser.parseUserInput(line);
+            String command = input[0];
+            switch (command) {
                 case "bye":
                     Ui.showExitMessage();
                     return;
@@ -61,15 +61,18 @@ public class Dukey {
                     TaskList.unmarkTask(line, tasks.tasks);
                     break;
                 case "deadline":
-                    TaskList.addDeadline(line, tasks.tasks);
+                    String[] deadline = Parser.parseCommandInput(command, input[1]);
+                    TaskList.addDeadline(deadline[0], deadline[1], tasks.tasks);
                     storage.taskArrayToFile(filePath, tasks.tasks);
                     break;
                 case "event":
-                    TaskList.addEvent(line, tasks.tasks);
+                    String[] event = Parser.parseCommandInput(command, input[1]);
+                    TaskList.addEvent(event[0], event[1], event[2], tasks.tasks);
                     storage.taskArrayToFile(filePath, tasks.tasks);
                     break;
                 case "todo":
-                    TaskList.addTodo(line, tasks.tasks);
+                    String[] todo = Parser.parseCommandInput(command, input[1]);
+                    TaskList.addTodo(todo[0], tasks.tasks);
                     storage.taskArrayToFile(filePath, tasks.tasks);
                     break;
                 case "delete":

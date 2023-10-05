@@ -60,9 +60,10 @@ goals:
 OOP
 JavaDoc
 Another JarFile
+Delete and mark tasks for parser
 Bugs - check marking, delete, deadline and event only accept one word inputs, create folder for save function
 situation when function is deleted, file array needs to be reupdated, either rewrite whole thing or last line removed
-
+fix storage if i have time, not the priority
 
 
 
