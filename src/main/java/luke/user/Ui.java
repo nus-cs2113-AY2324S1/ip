@@ -28,7 +28,7 @@ public class Ui {
 
     public void showLine() {
         // show the divider line ("_______")
-        System.out.println("__________________ (pls change)")
+        System.out.println("__________________ (pls change)");
     }
     public void showLoadingError() {
         System.out.println("Loading Error... (pls change)");
