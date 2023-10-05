@@ -57,13 +57,12 @@ goals:
 1. save should work
 2. implement the fkin make new file if file doesnt exist
 
-killminjun (by: 9pm on tuesday) -> parse into description and due
-use split -> split by: (end of this index) until ')' use indexat to find this
-make a duplicate
-use split -> (by: (start of this index)
+OOP
+JavaDoc
+Another JarFile
+Bugs - check marking, delete, deadline and event only accept one word inputs, create folder for save function
+situation when function is deleted, file array needs to be reupdated, either rewrite whole thing or last line removed
 
-3.[D][ ] killminjun (by: 9)
 
 
-4.[E][ ] killmj (from: 5 to: 9pm )
-substring from index 8 to (from
+
