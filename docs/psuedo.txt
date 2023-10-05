@@ -57,8 +57,10 @@ goals:
 1. save should work
 2. implement the fkin make new file if file doesnt exist
 
-OOP
-JavaDoc
+OOP done
+JavaDoc done
+merge the thing
+User Guide
 Another JarFile
 Delete and mark tasks for parser
 Bugs - check marking, delete, deadline and event only accept one word inputs, create folder for save function
