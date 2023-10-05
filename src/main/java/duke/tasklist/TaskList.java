@@ -61,4 +61,16 @@ public class TaskList {
 
         return formatted.toString();
     }
+
+    public String getIndexedTasksByKeyword(String keyword) {
+        int idx = 1;
+        StringBuilder formatted = new StringBuilder();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                formatted.append(idx++).append(". ").append(task.getFormattedTask()).append("\n");
+            }
+        }
+
+        return formatted.toString();
+    }
 }

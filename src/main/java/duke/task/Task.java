@@ -23,4 +23,8 @@ public class Task {
     public String getSerializedString() {
         return isDone + "|" + description;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
