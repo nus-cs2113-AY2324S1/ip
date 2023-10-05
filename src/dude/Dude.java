@@ -52,6 +52,6 @@ public class Dude {
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Dude("data/dude.txt").run();
+        new Dude("dude.txt").run();
     }
 }
