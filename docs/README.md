@@ -60,3 +60,93 @@ Expected outcome:
 Added: [E][ ] project meeting (from: Sep 18 2020 to: Sep 19 2020)
 Now you have (x) tasks in the list.
 ```
+
+### `list` - list all tasks
+
+Lists all tasks in the task list.
+
+Format: `list`
+
+Expected outcome:
+
+```
+These are the chores you have at hand, mortal:
+1. [D][ ] return book (by: Sep 18 2020)
+2. [T][ ] read book
+3. [E][ ] project meeting (from: Sep 18 2020 to: Sep 19 2020)
+```
+
+### `mark` - mark a task as done
+
+Marks a task as done in the task list.
+
+Format: `mark INDEX`
+
+> [!NOTE]
+> - `INDEX` must not be larger than size of task list.
+
+Example input: `mark 2`
+
+Expected outcome:
+
+```
+Consider it done:
+[D][X] return book (by: Sep 18 2020)
+```
+
+### `unmark` - mark a task as not done
+
+Marks a task as not done in the task list.
+
+Format: `unmark INDEX`
+
+> [!NOTE]
+> - `INDEX` must not be larger than size of task list.
+
+Example input: `unmark 2`
+
+Expected outcome:
+
+```
+Consider it done:
+[D][ ] return book (by: Sep 18 2020)
+```
+
+### `delete` - delete a task
+
+Deletes a task from the task list.
+
+Format: `delete INDEX`
+
+> [!NOTE]
+> - `INDEX` must not be larger than size of task list.
+
+Example input: `delete 2`
+
+Expected outcome:
+
+```
+Noted. I've removed this task. Now you have (x) tasks in the list.
+```
+
+### `find` - find tasks by a keyword
+
+Finds tasks in the task list by a keyword.
+
+Format: `find KEYWORD`
+
+Example input: `find book`
+
+Expected outcome:
+
+```
+These are the matching chores you have at hand, mortal:
+1. [D][ ] return book (by: Sep 18 2020)
+3. [T][ ] read book
+```
+
+### `bye` - exit the program
+
+Exits the program.
+
+Format: `bye`
