@@ -18,9 +18,9 @@ The following features are available in Duchess:
 
 Duchess allows you to manage your tasks by adding, deleting, and marking them as done.
 Tasks can be of three types (as of this version): 
-                             - [x] [Todo](#todo)
-                             - [x] [Deadline](#deadline)
-                             - [x] [Event](#event)
+- [x] [Todo](#todo)
+- [x] [Deadline](#deadline)
+- [x] [Event](#event)
 
 
 ## Usage:
