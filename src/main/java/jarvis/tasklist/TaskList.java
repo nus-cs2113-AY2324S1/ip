@@ -99,6 +99,11 @@ public class TaskList {
                 String[] times = time.split(" to ", 2);
                 LocalDateTime startDateTime = LocalDateTime.parse(times[0], inputDateTimeFormatter);
                 LocalDateTime endDateTime = LocalDateTime.parse(times[1], inputDateTimeFormatter);
+
+                // Check if startDateTime is after endDateTime and throw exception if true
+                if (startDateTime.isAfter(endDateTime)) {
+                    throw new JarvisException("Start time cannot be after end time sir!");
+                }
                 taskList.add(new Event(description, startDateTime, endDateTime));
                 if(displayMessage){
                     TaskManager.showEvent(description, startDateTime, endDateTime);
