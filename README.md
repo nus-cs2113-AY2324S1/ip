@@ -99,17 +99,17 @@ Exits the program.
 Format: bye
 
 ### Command summary
-Action	 Format,                                                            Examples
+Action	  Format,                                                            Examples
 todo      todo DESCRIPTION                                                   todo return book
 deadline  deadline DESCRIPTION /by DEADLINE                                  deadline return book /by Sunday
 event     event DESCRIPTION_OF_EVENT /from START_TIME /to END_TIME           event project meeting /from Mon 2pm /to 4pm
-delete	 delete INDEX                                                       delete 3
-mark	    mark INDEX                                                         mark 2
-unmark	 unmark INDEX                                                       unmark 2
-Find	    find KEYWORD                                                       find book
-List	    list
+delete	  delete INDEX                                                       delete 3
+mark	  mark INDEX                                                         mark 2
+unmark	  unmark INDEX                                                       unmark 2
+Find	  find KEYWORD                                                       find book
+List	  list
 Clear     clear
-Help	    help
+Help	  help
 
 
 
