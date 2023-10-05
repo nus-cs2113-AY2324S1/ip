@@ -9,10 +9,12 @@ import java.util.Scanner;
 public class Ui {
     private final Scanner scanner;
 
-    /**
+    /**1
+     *
      * Constructs an Ui object with a Scanner for reading user input.
      */
     public Ui() {
+
         this.scanner = new Scanner(System.in);
     }
 
