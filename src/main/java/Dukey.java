@@ -165,15 +165,10 @@ public class Dukey {
         String file2 = "./docs/dukey.txt";
         File file = new File(file2);
         // Check if the file or directory exists, and create it if it doesn't
-        if (!file.exists()) {
-            try {
-                if (file.getParentFile() != null && !file.getParentFile().exists()) {
-                    file.getParentFile().mkdirs();
-                }
-                file.createNewFile(); // Create the file
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
-            }
+        if (file.createNewFile()) {
+            System.out.println("File created");
+        } else {
+            System.out.println("File already exists");
         }
         try {
             fileToTaskArray(file2, tasks);
