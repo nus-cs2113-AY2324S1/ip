@@ -19,14 +19,16 @@ public class AddCommand extends Command {
             try {
                 latestTask = new Deadline(parameters);
             } catch (LukeTimeError e) {
-                System.out.println("\tOOPS!!! There's an error in the deadline's 'do by' date.");
+                System.out.println("\tOOPS!!! You have missing/invalid arguments for deadline. No changes have been made.");
+                throw new LukeTimeError();
             }
         }
         if (theAction == EVENT) {
             try {
                 latestTask = new Event(parameters);
             } catch (LukeTimeError e) {
-                System.out.println("\tOOPS!!! There's an error in the event's start and end time.");
+                System.out.println("\tOOPS!!! You have missing/invalid arguments for event. No changes have been made.");
+                throw new LukeTimeError();
             }
         }
 

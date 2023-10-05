@@ -4,23 +4,26 @@ import luke.user.LukeTimeError;
 public class Event extends Task {
     protected String startDate;
     protected String endDate;
+    protected String eventGuide = "\tevent <description> /from <start date> /to <end date>";
 
     public Event(String taskDescription) throws LukeTimeError {
         super(taskDescription);
 
         int slashCut = taskDescription.indexOf("/");
         if (slashCut <= 0) {
+            System.out.println("\tThere is a missing task description. Please follow this format:");
+            printGuide();
             throw new LukeTimeError();
         }
-
-        String taskDuration = taskDescription.substring(slashCut + 1);
-        setDates(taskDuration);
 
         description = taskDescription.substring(0, slashCut);
 
         if (description.length() <= 1) {
             throw new IndexOutOfBoundsException();
         }
+
+        String taskDuration = taskDescription.substring(slashCut + 1);
+        setDates(taskDuration);
     }
 
     public String getStartDate() {
@@ -34,6 +37,8 @@ public class Event extends Task {
     public void setDates(String dates) throws LukeTimeError {
         String[] words = dates.split(" ");
         if (!words[0].equals("from")) {
+            System.out.println("\tThere is a syntax problem. Please follow this format:");
+            printGuide();
             throw new LukeTimeError();
         }
 
@@ -41,6 +46,8 @@ public class Event extends Task {
 
         int slashCut = dates.indexOf("/");
         if (slashCut <= 0) {
+            System.out.println("\tThere is a syntax problem. Please follow this format:");
+            printGuide();
             throw new LukeTimeError();
         }
 
@@ -49,6 +56,8 @@ public class Event extends Task {
 
         words = dates.split(" ");
         if (!words[0].equals("to")) {
+            System.out.println("\tThere is a syntax problem. Please follow this format:");
+            printGuide();
             throw new LukeTimeError();
         }
 
@@ -62,6 +71,11 @@ public class Event extends Task {
     }
 
      */
+
+    @Override
+    public void printGuide() {
+        System.out.println(eventGuide);
+    }
 
     @Override
     public String toString() {

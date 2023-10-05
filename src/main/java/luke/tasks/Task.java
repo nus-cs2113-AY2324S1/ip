@@ -18,7 +18,16 @@ public abstract class Task {
     }
 
     public void setDone(boolean done) {
+        if (done) {
+            System.out.println("\tWoohoo! You have accomplished:");
+        } else {
+            System.out.println("\tHA! You still have to complete:");
+        }
         isDone = done;
+    }
+
+    public void printGuide() {
+        //nothing
     }
 /*
     public String getType() {

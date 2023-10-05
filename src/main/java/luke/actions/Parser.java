@@ -44,12 +44,20 @@ public class Parser{
 
                     case DEADLINE:
                         parameters = fullCommand.substring(9);
-                        c = new AddCommand(theAction, parameters);
+                        try {
+                            c = new AddCommand(theAction, parameters);
+                        } catch (LukeTimeError e) {
+                            c = new DoNothingCommand(ActionType.LIST, parameters);
+                        }
                         break;
 
                     case EVENT:
                         parameters = fullCommand.substring(6);
-                        c = new AddCommand(theAction, parameters);
+                        try {
+                            c = new AddCommand(theAction, parameters);
+                        } catch (LukeTimeError e) {
+                            c = new DoNothingCommand(ActionType.LIST, parameters);
+                        }
                         break;
 
                     case DELETE:
@@ -63,17 +71,19 @@ public class Parser{
                         break;
 
                     default:
-                        c = new AddCommand(theAction, "");
+                        c = new DoNothingCommand(theAction, "");
                         assert false: "This line should never be reached";
                         break;
                 }
             } catch (IndexOutOfBoundsException e) { //empty for MARK, UNMARK, TO DO description, DEADLINE description, EVENT description
-                System.out.println("\tOOPS!!! You have missing arguments for " + words[0] + ".");
+                System.out.println("\tOOPS!!! You have missing arguments for " + words[0] + ". No changes have been made.");
+                c = new DoNothingCommand(ActionType.LIST, "");
             }
 
             //return c;
         } catch (IllegalArgumentException e) {
             System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
+            c = new DoNothingCommand(ActionType.LIST, "");
         }
         return c;
 

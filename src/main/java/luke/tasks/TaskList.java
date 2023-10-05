@@ -36,8 +36,9 @@ public class TaskList{
         return numberOfTasks;
     }
 
-    public Task get(int TaskNumber) {
+    public Task get(int TaskNumber) throws IndexOutOfBoundsException {
         return mainTaskList.get(TaskNumber);
+
     }
 
     public ArrayList<Task> getMainTaskList() {

@@ -27,13 +27,13 @@ public class MarkCommand extends Command {
         //command has theActionWord and parameters
 
         int taskNumber = Integer.parseInt(parameters) - 1;
-        if (isDone) {
-            System.out.println("\tWoohoo! You have accomplished:");
-        } else {
-            System.out.println("\tHA! You still have to complete:");
-        }
-        tasks.get(taskNumber).setDone(isDone);
 
-        System.out.println(tasks.get(taskNumber));
+        try {
+            tasks.get(taskNumber).setDone(isDone);
+            System.out.println(tasks.get(taskNumber));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tOOPS!!! Your arguments for " + theAction + " exceeds your task list.");
+        }
+
     }
 }

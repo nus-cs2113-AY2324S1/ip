@@ -13,7 +13,7 @@ public class Luke {
     private TaskList tasks;
     private Ui ui;
 
-    public Luke(String filePath) {//i dont get how this works
+    public Luke(String filePath) {//i dont get how this filePath works
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -35,7 +35,7 @@ public class Luke {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(tasks, ui, storage); //error because c is null
                 isExit = c.isExit(); //for bye command
             } catch (LukeTimeError e) { //from Parser.parse i think
                 ui.showError(e.getMessage());

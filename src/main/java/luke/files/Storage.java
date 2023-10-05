@@ -15,6 +15,7 @@ public class Storage {
         File taskListFile = new File(filePath);
         if (taskListFile.exists()) {
             try {
+                System.out.println("\n\tRetrieving memory...\n");
                 tasks = Memory.readMemory(filePath);
                 System.out.println("\n\tMemory retrieval successful!\n");
                 //return tasks;

@@ -18,8 +18,8 @@ public class DeleteCommand extends Command {
             System.out.println("\tNoted. I've removed this task:\n" + tasks.get(taskNumber));
             tasks.removeTask(taskNumber);
             System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
-        } catch (IndexOutOfBoundsException e) { //empty for MARK, UNMARK, TO DO description, DEADLINE description, EVENT description
-            System.out.println("\tOOPS!!! You have missing arguments for " + theAction + ".");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tOOPS!!! Your arguments for " + theAction + " exceeds your task list.");
         }
     }
 }
