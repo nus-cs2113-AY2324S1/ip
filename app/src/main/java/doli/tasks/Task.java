@@ -1,29 +1,53 @@
 package doli.tasks;
 
-import doli.exceptions.DoliExceptions;
-
-/** Parent class defining a task with description, process and agenda overview */
+/**
+ * <h3>Task class</h3>
+ * The Task class is the corresponding superclass for ToDo, Deadline and Event.
+ * It allows the user to manage tasks which have a description and can be marked as completed or not.
+ *
+ * @author pappalardodaniel
+ * @version 1.0
+ * @since 2023-11-03
+ */
 public abstract class Task {
     private final String description;
     public boolean isDone;
     private static int numberOfTotalTasks = 0;
+
+    /**
+     * Constructs an object of type Task and sets it as not yet done by default.
+     * @param description of type String describing the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         numberOfTotalTasks++;
     }
+
+    /**
+     * Returns a cross (X) when the task is done and a blank ( ) else
+     * @return a character 'X' or ' ' depending on whether the task is completed
+     */
     public char getStatusIcon() {
-        return (isDone ? 'X' : ' '); // returns a cross (X) when the task is done and a blank ( ) else
+        return (isDone ? 'X' : ' ');
     }
+
+    /**
+     * Marks the task as done (and sets its icon as 'X').
+     */
     public void markTaskAsDone() {
         isDone = true;
     }
+
+    /**
+     * Marks the task as not yet done.
+     */
     public void markTaskAsNotDone() {
         isDone = false;
     }
 
     /** Retrieves the true task description from the user input
-     *  removes any time bound information such as deadlines, start- or endtimes
+     *  removes any time bound information such as deadlines, start- or end-times.
      */
     public String getDescription() {
         boolean containsTime = description.contains("/");
@@ -33,16 +57,26 @@ public abstract class Task {
             return description;
         }
     }
+
+    /**
+     * Returns true if the task is completed and false otherwise.
+     * @return a boolean value indicating whether the task is completed
+     */
     public boolean isDone() {
         return isDone;
     }
+
+    /**
+     * Returns the number of total tasks created.
+     * @return an integer
+     */
     public static int getNumberOfTotalTasks() {
         return numberOfTotalTasks;
     }
     /**
-     * Overrides the general objects method .toString() allowing for
+     * Overrides the general objects method toString() allowing for
      * a tailored use incorporating details of the task such as its description and whether it is done or not.
-     * @return a String summarising the tasks's details
+     * @return a String summarising the tasks' details
      */
     @Override
     public String toString() {

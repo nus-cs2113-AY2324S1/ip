@@ -34,7 +34,7 @@ public class Storage {
 
     /**
      * Constructs an object of type Storage to manage the storage of a file
-     * and its contents
+     * and its contents.
      * @param filePath of type String specifying the relative file path
      */
     public Storage(String filePath){
@@ -108,9 +108,8 @@ public class Storage {
     /**
      * Updates the file in order to account for new commands and changes performed by the user.
      * @param agenda of type TaskList refers to the agenda containing the recent changes to transcribe onto the file
-     * @throws DoliExceptions in case the agenda entry could not be recognized and transcribed
      */
-    public void modifyFile(TaskList agenda) throws DoliExceptions {
+    public void modifyFile(TaskList agenda) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
             for (Task task : agenda) {
@@ -188,8 +187,8 @@ public class Storage {
      */
     public static void writeDeadline(FileWriter fw, Deadline deadline) throws IOException {
         fw.write(DEADLINE_SYMBOL + INFO_SEPARATOR + deadline.getStatusIcon()
-                + INFO_SEPARATOR + deadline.getDescription() +
-                INFO_SEPARATOR + deadline.getDeadline() + System.lineSeparator());
+                + INFO_SEPARATOR + deadline.getDescription()
+                + INFO_SEPARATOR + deadline.getDeadline() + System.lineSeparator());
     }
     /**
      * Writes out an event task onto a file using FileWriter so that the new entries of the agenda can be
@@ -200,8 +199,8 @@ public class Storage {
      */
     public static void writeEvent(FileWriter fw, Event event) throws IOException {
         fw.write(EVENT_SYMBOL + INFO_SEPARATOR + event.getStatusIcon()
-                + INFO_SEPARATOR + event.getDescription() +
-                INFO_SEPARATOR + event.getStartTime() +
-                INFO_SEPARATOR + event.getEndTime() + System.lineSeparator());
+                + INFO_SEPARATOR + event.getDescription()
+                + INFO_SEPARATOR + event.getStartTime()
+                + INFO_SEPARATOR + event.getEndTime() + System.lineSeparator());
     }
 }

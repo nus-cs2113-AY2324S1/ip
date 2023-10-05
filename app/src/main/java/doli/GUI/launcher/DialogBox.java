@@ -1,4 +1,4 @@
-package doli.GUI;
+package doli.GUI.launcher;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

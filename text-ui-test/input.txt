@@ -1,7 +1,8 @@
+Mr. NoBody
 todo Daniel Pappalardo: Answer CS2113 tutorial questions
 deadline weekly CS2113 quiz /2023-10-09
-list
 event CS2113 lecture /2023-11-09 /2021-12-09
+list
 mark 1
 list
 todo
@@ -10,5 +11,6 @@ event class /2023-10-01
 list
 delete 2
 list
+find tutorial
 clear
 list

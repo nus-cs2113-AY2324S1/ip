@@ -8,6 +8,10 @@ created agenda even after exiting the program.
 
 ## Features 
 
+### Obtaining an overview of Doli's features: `help`
+Displays a link to this user guide.  
+Format: `help`
+
 ### Adding a todo: `todo`
 
 Adds a task of type todo to the agenda.  

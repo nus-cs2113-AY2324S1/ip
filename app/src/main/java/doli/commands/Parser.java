@@ -49,7 +49,7 @@ public class Parser {
 
     /**
      * Creates a new object of type command with the user input command and details
-     * after checking validity of inputs and splitting the input into its subparts.
+     * after checking validity of inputs and splitting the input into its sub-parts.
      * @param input of type String which represents the user input
      * @return a new object of type Command
      * @throws DoliExceptions in case the input is not valid

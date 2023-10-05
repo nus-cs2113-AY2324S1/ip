@@ -15,7 +15,7 @@ import java.time.LocalDate;
  * <h3>Command class</h3>
  * The command class aims at organising the input of the user,
  * by delegating an action according to the specific command.
- * Its core is a collection of methods to be applied to the input.
+ * Its core is represented by a multitude of methods to be applied to the input.
  *
  * @author pappalardodaniel
  * @version 1.0
@@ -89,7 +89,8 @@ public class Command {
      * @param tasks of type TaskList into which the new todo will be inserted.
      */
     private void initializeNewTodo(TaskList tasks) {
-        ToDo newTodo = new ToDo(details[0]);
+        String description = details[0];
+        ToDo newTodo = new ToDo(description);
         tasks.addTask(newTodo);
         response = String.format("%s\n\t%s\n%s",
                 ADDED_TASK_SUCCESSFULLY,
@@ -105,7 +106,9 @@ public class Command {
      * @param tasks of type TaskList into which the new deadline will be inserted.
      */
     private void initializeNewDeadline(TaskList tasks) {
-        Deadline newDeadline = new Deadline(details[0], details[1].trim());
+        String description = details[0];
+        String deadline = details[1].trim();
+        Deadline newDeadline = new Deadline(description, deadline);
         tasks.addTask(newDeadline);
         response = String.format("%s\n\t%s\n%s",
                 ADDED_TASK_SUCCESSFULLY,
@@ -116,13 +119,16 @@ public class Command {
      * Initialises a new event task with the description given
      * by the first element in the array of the details of the user input
      * command, the start date given by the second element and the end
-     * date given by the third element of the orrray provided by the user,
+     * date given by the third element of the array provided by the user,
      * adds it to the TaskList and summarises this within the
      * String variable response.
      * @param tasks of type TaskList into which the new event will be inserted.
      */
     private void initializeNewEvent(TaskList tasks) {
-        Event newEvent = new Event(details[0], details[1].trim(), details[2].trim());
+        String description = details[0];
+        String startDate = details[1].trim();
+        String endDate = details[2].trim();
+        Event newEvent = new Event(description, startDate, endDate);
         tasks.addTask(newEvent);
         response = String.format("%s\n\t%s\n%s",
                 ADDED_TASK_SUCCESSFULLY,
@@ -314,54 +320,53 @@ public class Command {
      * in the storage, so that the agenda is stored in its updated version and can be retrieved as such
      * when Doli is run for the next time.
      * @param tasks of type TaskList containing all entries of the agenda
-     * @param ui of type Ui
-     * @param storage of type Storage
+     * @param storage of type Storage to handle permanent modifications of the agenda
      * @throws DoliExceptions handling any kind of error related to wrongly formatted input commands or similar
      */
-    public void handleCommand(TaskList tasks, Ui ui, Storage storage) throws DoliExceptions {
+    public void handleCommand(TaskList tasks, Storage storage) throws DoliExceptions {
         switch (command) {
-            case TODO_COMMAND:
-                initializeNewTodo(tasks);
-                break;
-            case DEADLINE_COMMAND:
-                initializeNewDeadline(tasks);
-                break;
-            case EVENT_COMMAND:
-                initializeNewEvent(tasks);
-                break;
-            case LIST_COMMAND:
-                listAgenda(tasks);
-                break;
-            case DELETE_COMMAND:
-                deleteTask(tasks);
-                break;
-            case CLEAR_COMMAND:
-                deleteAll(tasks);
-                break;
-            case MARK_COMMAND:
-                setMark(tasks);
-                break;
-            case UNMARK_COMMAND:
-                unsetMark(tasks);
-                break;
-            case OVERVIEW_BY_SPECIFIC_DATE_COMMAND:
-                overviewBySpecificDate(tasks);
-                break;
-            case FIND_COMMAND:
-                find(tasks);
-                break;
-            case LATE_COMMAND:
-                listLateTasks(tasks);
-                break;
-            case HELP_COMMAND:
-                help();
-                break;
-            case EXIT_COMMAND:
-                prepareForExit();
-                break;
-            default:
-                unrecognizedInputCommand();
-                break;
+        case TODO_COMMAND:
+            initializeNewTodo(tasks);
+            break;
+        case DEADLINE_COMMAND:
+            initializeNewDeadline(tasks);
+            break;
+        case EVENT_COMMAND:
+            initializeNewEvent(tasks);
+            break;
+        case LIST_COMMAND:
+            listAgenda(tasks);
+            break;
+        case DELETE_COMMAND:
+            deleteTask(tasks);
+            break;
+        case CLEAR_COMMAND:
+            deleteAll(tasks);
+            break;
+        case MARK_COMMAND:
+            setMark(tasks);
+            break;
+        case UNMARK_COMMAND:
+            unsetMark(tasks);
+            break;
+        case OVERVIEW_BY_SPECIFIC_DATE_COMMAND:
+            overviewBySpecificDate(tasks);
+            break;
+        case FIND_COMMAND:
+            find(tasks);
+            break;
+        case LATE_COMMAND:
+            listLateTasks(tasks);
+            break;
+        case HELP_COMMAND:
+            help();
+            break;
+        case EXIT_COMMAND:
+            prepareForExit();
+            break;
+        default:
+            unrecognizedInputCommand();
+            break;
         }
         storage.modifyFile(tasks);
     }

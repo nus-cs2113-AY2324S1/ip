@@ -68,7 +68,7 @@ public class Doli {
         try {
              name = ui.getName();
         } catch(DoliExceptions e) {
-             name = "User:";
+             name = "User";
         }
         ui.askForInstruction();
         boolean isExit = false;
@@ -77,7 +77,7 @@ public class Doli {
                 ui.printUser(name);
                 String fullCommand = ui.getInput();
                 Command c = Parser.parseInputIntoCommand(fullCommand);
-                c.handleCommand(tasks, ui, storage);
+                c.handleCommand(tasks, storage);
                 c.getResponse();
                 isExit = c.isExit();
             } catch (DoliExceptions e) {

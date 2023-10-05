@@ -6,80 +6,90 @@ Hello, my name is
 |____/|____|__||_|
 
 I can help you create an agenda to manage your tasks.
-Simply use one of the below listed commands to proceed:
-	• todo: adds a task with a DESCRIPTION
-	• deadline /: adds a task with DESCRIPTION and /DEADLINE
-	• event / /: adds a task with DESCRIPTION, /STARTDATE and /ENDDATE
-	• mark: marks the task with the provided INDEX as done
-	• unmark: resets the task with the provided INDEX as not done
-	• count: returns the total number of tasks in the agenda
-	• delete: deletes the task with the provided INDEX
-	• clear: deletes all tasks within the agenda
-	• list: lists all current entries in the agenda
-	• bye: exits the program
+What is your name?
 How can I help you?
-________________________________
+==============================
+Mr. NoBody:
+Doli:
 Got it! I've added the following task to your agenda:
 	[T] [ ] daniel pappalardo: answer cs2113 tutorial questions
 Now you have a total of 1 tasks in your agenda.
-________________________________
-________________________________
-[D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
-________________________________
-________________________________
+==============================
+Mr. NoBody:
+Doli:
+Got it! I've added the following task to your agenda:
+	[D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
+Now you have a total of 2 tasks in your agenda.
+==============================
+Mr. NoBody:
+Doli:
+Got it! I've added the following task to your agenda:
+	[E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
+Now you have a total of 3 tasks in your agenda.
+==============================
+Mr. NoBody:
+Doli:
 Here is an overview of your agenda:
    1. [T] [ ] daniel pappalardo: answer cs2113 tutorial questions
    2. [D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
+   3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
 
-________________________________
-________________________________
-[E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
-________________________________
-________________________________
+==============================
+Mr. NoBody:
+Doli:
 I've successfully marked task 1 as done.
 Would you like to mark/unmark something else?
-________________________________
-________________________________
+==============================
+Mr. NoBody:
+Doli:
 Here is an overview of your agenda:
    1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
    2. [D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
    3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
 
-________________________________
-________________________________
-Got it! I've added the following task to your agenda:
-	[T] [ ]
-Now you have a total of 4 tasks in your agenda.
-________________________________
-________________________________
+==============================
+Mr. NoBody:
+Input of a todo cannot be blank!
+==============================
+Mr. NoBody:
 Time or description missing for deadline
-________________________________
-________________________________
+==============================
+Mr. NoBody:
 Start-time, end-time or description missing for event
-________________________________
-________________________________
+==============================
+Mr. NoBody:
+Doli:
 Here is an overview of your agenda:
    1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
    2. [D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
    3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
-   4. [T] [ ]
 
-________________________________
-________________________________
+==============================
+Mr. NoBody:
+Doli:
 Got it! I've deleted task 2
-________________________________
-________________________________
+==============================
+Mr. NoBody:
+Doli:
 Here is an overview of your agenda:
    1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
    2. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
-   3. [T] [ ]
 
-________________________________
-________________________________
+==============================
+Mr. NoBody:
+Doli:
+Here are the tasks matching your input keyword:
+   1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
+
+==============================
+Mr. NoBody:
+Doli:
 Got it! I've deleted all tasks. Your agenda is now empty.
-________________________________
-________________________________
+==============================
+Mr. NoBody:
+Doli:
 Here is an overview of your agenda:
 
-________________________________
-________________________________
+==============================
+Mr. NoBody:
+==============================
