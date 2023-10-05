@@ -1,3 +1,8 @@
+/**
+ * This is the Event class which contains a task description, event start time and event end time.
+ * It inherits from the task class.
+ */
+
 package chatbot;
 
 public class Event extends Task{

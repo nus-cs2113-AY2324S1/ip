@@ -1,3 +1,7 @@
+/**
+ * This is the deadline class which contains a description as well as a due date. It inherits from the task class
+ */
+
 package chatbot;
 
 public class Deadline extends Task{

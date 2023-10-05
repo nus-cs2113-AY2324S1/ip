@@ -1,3 +1,8 @@
+/**
+ * This is the task class which is the base class for todo, deadline and event classes.
+ * All task class objects can be marked as done or not done yet
+ */
+
 package chatbot;
 
 public class Task{

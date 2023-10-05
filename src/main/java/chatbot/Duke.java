@@ -1,3 +1,9 @@
+/**
+ * This is the chatbot class. This contains an array of Task objects and contains functions to handle them.
+ * The functions include mark, unmark, find, list, delete and bye functions.
+ * It also contains the main UI for the app.
+ */
+
 package chatbot;
 
 import java.io.BufferedReader;
