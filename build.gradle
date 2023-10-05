@@ -29,7 +29,7 @@ jar {
     }
 
     manifest {
-        attributes 'Main-Class': 'eggybyte.ip.Main'
+        attributes 'Main-Class': 'Duke'
     }
     
 }
