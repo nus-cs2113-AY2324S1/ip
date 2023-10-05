@@ -34,6 +34,9 @@ Tasks can be of three types (as of this version):
 >   e.g. `event` must be supplied with both `/from` and `/to` parameters.
 > - Commands are case-sensitive.
 >   e.g. `todo` must be in all lowercase.
+> - Duchess will create a new save file if it cannot find an existing one.
+> - Duchess will load the save file if it exists.
+> - Duchess will only save the task list when the user exits the program with the `bye` command.
 
 
 ### Add a task
