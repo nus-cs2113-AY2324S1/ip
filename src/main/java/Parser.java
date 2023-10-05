@@ -38,7 +38,6 @@ public class Parser {
             case "event":
                 int startIndexOfFrom = input.indexOf("/from");
                 int startIndexOfTo = input.indexOf("/to");
-                final int beginIndex = 6;
                 String from = input.substring(startIndexOfFrom + 5, startIndexOfTo);
                 String to = input.substring(startIndexOfTo + 4);
                 String description = input.substring(0, startIndexOfFrom);

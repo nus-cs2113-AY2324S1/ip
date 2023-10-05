@@ -1,9 +1,6 @@
 import Tasks.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Dukey {
@@ -29,20 +26,7 @@ public class Dukey {
         ui.showWelcomeMessage();
         Scanner in = new Scanner(System.in);
         String line;
-    //    ArrayList<Task> tasks = new ArrayList<>();
-    //    File file = new File(filePath);
-        // Check if the file or directory exists, and create it if it doesn't
         storage.checkFileExists(filePath);
-    /*    if (file.createNewFile()) {
-            System.out.println("File created");
-        } else {
-            System.out.println("File already exists");
-        } */
-  /*      try {
-            storage.fileToTaskArray(filePath, tasks); // Changed Storage to storage
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        } */
         while (true) {
             line = in.nextLine();
             String[] input = Parser.parseUserInput(line);
