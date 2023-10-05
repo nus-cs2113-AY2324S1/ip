@@ -25,19 +25,7 @@ public abstract class Command {
             try {
                 switch (action) {
 
-                    case MARK:
-                        taskNumber = Integer.parseInt(words[1]) - 1;
-                        System.out.println("\tWoohoo! You have accomplished:");
-                        taskList.get(taskNumber).setDone(true);
-                        System.out.println(taskList.get(taskNumber));
-                        break;
 
-                    case UNMARK:
-                        taskNumber = Integer.parseInt(words[1]) - 1;
-                        System.out.println("\tHA! You still have to complete:");
-                        taskList.get(taskNumber).setDone(false);
-                        System.out.println(taskList.get(taskNumber));
-                        break;
 
                     default:
                         assert false: "This line should never be reached";
