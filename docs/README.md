@@ -29,6 +29,9 @@ Adds a task of type deadline to the agenda.
 Format: `deadline DESCRIPTION /DEADLINE`  
 - DEADLINE **must be of format yyyy-MM-dd**
 
+>[!NOTE]  
+> DEADLINE must be of format yyyy-MM-dd
+
 Examples:
 - `deadline leftovers expire /2023-10-10`
 - `deadline individual project /2023-10-06`
