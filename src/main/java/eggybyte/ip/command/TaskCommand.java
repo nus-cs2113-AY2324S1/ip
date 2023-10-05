@@ -1,15 +1,15 @@
 package eggybyte.ip.command;
 
 import eggybyte.ip.data.exception.TipsException;
+import eggybyte.ip.data.task.Task;
 
 /**
- * Commands for Terminating the Program.
+ * Commands for Adding General Tasks.
  * 
  * @see #COMMAND_WORD
  */
-public class ByeCommand extends Command {
-
-    public static final String COMMAND_WORD = "bye";
+public class TaskCommand extends AddCommand {
+    public static final String COMMAND_WORD = "task";
     protected static final int validArgumentAmount = 0;
 
     /**
@@ -23,19 +23,15 @@ public class ByeCommand extends Command {
      *                       information about this exception and the possible
      *                       solution.
      */
-    public ByeCommand(String[] arguments) throws Exception {
+    public TaskCommand(String description, String[] arguments) throws TipsException {
         super(COMMAND_WORD, validArgumentAmount);
-        checkArguments(arguments);
+        // checkArguments(arguments);
+        task = new Task(description);
     }
 
     @Override
     public String customFunction() {
-        runningState.exit();
-        return "";
-    }
-
-    @Override
-    public CommandResult getCommandResult(String content) {
-        return new CommandResult(" Bye. Hope to see you again soon!");
+        runningState.tasks.add(task);
+        return task.toString();
     }
 }

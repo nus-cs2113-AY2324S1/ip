@@ -3,16 +3,16 @@ package eggybyte.ip.util;
 import eggybyte.ip.command.*;
 
 /**
- * Parses user input.
+ * An util used for parsing the input to a valid command and executing it.
  */
 public class Parser {
     public static Boolean debugMode = false;
 
     /**
-     * Parses user input into command for execution.
+     * Parse user's input into command for execution.
      *
-     * @param userInput full user input string
-     * @return the command based on the user input
+     * @param userInput The full input of user.
+     * @return The command based on the user input.
      * @throws Exception
      */
     public Command parseCommand(String userInput) throws Exception {
@@ -38,8 +38,16 @@ public class Parser {
                     return new EventCommand(arguments);
                 case DeleteCommand.COMMAND_WORD:
                     return new DeleteCommand(arguments);
+                case MarkCommand.COMMAND_WORD:
+                    return new MarkCommand(arguments);
+                case UnmarkCommand.COMMAND_WORD:
+                    return new UnmarkCommand(arguments);
                 case ListCommand.COMMAND_WORD:
                     return new ListCommand(arguments);
+                case ActivatedCommand.COMMAND_WORD:
+                    return new ActivatedCommand(arguments);
+                case FindCommand.COMMAND_WORD:
+                    return new FindCommand(arguments);
                 case ByeCommand.COMMAND_WORD:
                     return new ByeCommand(arguments);
                 default:
@@ -51,10 +59,11 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parse arguments in the context of the argumentString.
      *
-     * @param args full command args string
-     * @return the prepared command
+     * @param argumentString The remaining string that doesn't contain the command
+     *                       word.
+     * @return A String[] that contains all the argument that is split by '/'.
      */
     private String[] getArguments(String argumentString) {
         if (argumentString.length() == 0) {
@@ -67,49 +76,4 @@ public class Parser {
         }
         return parts;
     }
-
-    // /**
-    // * Parses arguments in the context of the delete person command.
-    // *
-    // * @param args full command args string
-    // * @return the prepared command
-    // */
-    // private Command prepareDeleteCommand(String args) {
-    // try {
-    // final int targetIndex = parseArgsAsDisplayedIndex(args);
-    // return new DeleteCommand(targetIndex);
-    // } catch (ParseException pe) {
-    // return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-    // DeleteCommand.MESSAGE_USAGE));
-    // } catch (NumberFormatException nfe) {
-    // return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    // }
-    // }
-
-    // /**
-    // * Parses the given arguments string as a single index number.
-    // *
-    // * @param args arguments string to parse as index number
-    // * @return the parsed index number
-    // * @throws ParseException if no region of the args string could be found
-    // * for the index
-    // * @throws NumberFormatException the args string region is not a valid number
-    // */
-    // private int parseArgsAsDisplayedIndex(String args) throws ParseException,
-    // NumberFormatException {
-    // if (args.isEmpty()) {
-    // throw new ParseException("Could not find index number to parse");
-    // }
-    // return Integer.parseInt(args.split(" ")[0]);
-    // }
-
-    // /**
-    // * Signals that the user input could not be parsed.
-    // */
-    // public static class ParseException extends Exception {
-    // ParseException(String message) {
-    // super(message);
-    // }
-    // }
-
 }

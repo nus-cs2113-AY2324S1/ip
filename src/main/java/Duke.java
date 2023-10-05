@@ -1,105 +1,79 @@
-// import java.util.Scanner;
+import eggybyte.ip.data.task.Task;
+import eggybyte.ip.command.Command;
+import eggybyte.ip.command.CommandResult;
+import eggybyte.ip.data.RunningState;
+import eggybyte.ip.util.Parser;
+import eggybyte.ip.util.DataManager;
+import eggybyte.ip.util.Logger;
 
-// public class Duke {
-// static Task[] tasks = new Task[1000];
-// static int amount = 0;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-// public static void showGreeting() {
-// showLog("Hello! I'm EggyByte!\nWhat can I do for you?");
-// }
+/**
+ * The main class of the program.
+ */
+public class Duke {
+    private static RunningState runningState = new RunningState(new ArrayList<Task>());
+    private static Boolean debugMode = false;
+    private static String savePath = "Tasks.json";
 
-// public static void showBye() {
-// showLog("Bye. Hope to see you again soon!");
-// }
+    public static void main(String[] args) {
+        initialize();
 
-// public static void showLog(Object content) {
-// System.out.println("____________________________________________________________");
-// System.out.println(content);
-// System.out.println("____________________________________________________________");
-// }
+        runCommandLoopUntilByeCommand();
+    }
 
-// public static void insertTask(Task newTask) {
-// if (amount >= tasks.length) {
-// showLog("Too many tasks!");
-// return;
-// }
-// tasks[amount] = newTask;
-// amount++;
-// showLog("Got it. I've added this task:\n" + newTask.toString() + "\nNow you
-// have " + amount
-// + " tasks in the list.");
-// }
+    /**
+     * Used for initialization.
+     */
+    private static void initialize() {
+        try {
+            Command.setRunningState(runningState);
+            Logger.debugMode = Parser.debugMode = debugMode;
+            DataManager.setRelativePath(savePath);
+            String dataJson = DataManager.readData();
+            ArrayList<Task> data = DataManager.convertFromJsonToTaskList(dataJson);
+            if (data != null) {
+                runningState.tasks = data;
+            }
+            Logger.showGreeting();
+        } catch (Exception exception) {
+            Logger.showLog(exception, true);
+        }
+    }
 
-// public static void showTasks() {
-// String log = "Here are the tasks in your list:";
-// for (int i = 0; i < amount; i++) {
-// log += "\n" + (i + 1) + "." + tasks[i].toString();
-// }
-// showLog(log);
-// }
+    /**
+     * Read the user command and execute it, until the user issues the bye
+     * command.
+     */
+    private static void runCommandLoopUntilByeCommand() {
+        Scanner scanner = new Scanner(System.in);
+        do {
+            try {
+                String userCommandText = scanner.nextLine();
+                Command command = new Parser().parseCommand(userCommandText);
+                CommandResult commandResult = command.execute();
+                switch (commandResult.state) {
+                    case success: {
+                        Logger.showLog(commandResult.result, true);
+                        break;
+                    }
+                    case fail: {
+                        // Logger.showLog(commandResult.result, Logger.LogLevel.ERROR, true);
+                        // break;
+                        throw commandResult.exception;
+                    }
+                }
+            } catch (Exception exception) {
+                Logger.showLog(exception, true);
+            }
+        } while (runningState.isRunning());
 
-// public static void main(String[] args) {
-// String logo = " ____ _ \n"
-// + "| _ \\ _ _| | _____ \n"
-// + "| | | | | | | |/ / _ \\\n"
-// + "| |_| | |_| | < __/\n"
-// + "|____/ \\__,_|_|\\_\\___|\n";
-// System.out.println("Hello from\n" + logo);
-// showGreeting();
-// Scanner scanner = new Scanner(System.in);
-// String input;
-// Boolean running = true;
-
-// while (running) {
-// input = scanner.nextLine();
-// int[] firstDevider = new int[] { input.indexOf(" ") };
-// String firstCommand;
-// if (firstDevider.length == 0 || firstDevider[0] == -1) {
-// firstCommand = input;
-// } else {
-// firstCommand = input.substring(0, firstDevider[0]);
-// }
-// showLog(firstCommand);
-// switch (firstCommand) {
-// case "bye": {
-// running = false;
-// break;
-// }
-// case "todo": {
-// Task newTask = new Todo(input.substring(5, input.length()));
-// insertTask(newTask);
-// break;
-// }
-// case "deadline": {
-// int[] dividerPositions = new int[] { input.indexOf("/") };
-// Task newTask = new Deadline(input.substring(9, dividerPositions[0] - 1),
-// input.substring(dividerPositions[0] + 4, input.length()));
-// insertTask(newTask);
-// break;
-// }
-// case "event": {
-// int[] dividerPositions = new int[] { input.indexOf("/"), 0 };
-// // Try to find the second "/"
-// String remainingString = input.substring(dividerPositions[0] + 1,
-// input.length());
-// dividerPositions[1] = dividerPositions[0] + 1 + remainingString.indexOf("/");
-// Task newTask = new Event(input.substring(6, dividerPositions[0] - 1),
-// input.substring(dividerPositions[0] + 6, dividerPositions[1] - 1),
-// input.substring(dividerPositions[1] + 3, input.length()));
-// insertTask(newTask);
-// break;
-// }
-// case "list": {
-// showTasks();
-// break;
-// }
-// default: {
-// showLog(input);
-// }
-// }
-// }
-
-// scanner.close();
-// showBye();
-// }
-// }
+        try {
+            DataManager.saveData(DataManager.convertToJson(runningState.tasks));
+        } catch (Exception exception) {
+            Logger.showLog(exception, true);
+        }
+        scanner.close();
+    }
+}
