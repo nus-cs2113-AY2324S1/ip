@@ -41,6 +41,8 @@ public class Parser {
                     return new UnmarkCommand(arguments);
                 case ListCommand.COMMAND_WORD:
                     return new ListCommand(arguments);
+                case ActivatedCommand.COMMAND_WORD:
+                    return new ActivatedCommand(arguments);
                 case ByeCommand.COMMAND_WORD:
                     return new ByeCommand(arguments);
                 default:

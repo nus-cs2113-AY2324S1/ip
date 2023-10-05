@@ -15,6 +15,6 @@ public class Event extends Todo {
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + from + " to: " + to + ")";
+        return super.toString() + " (from: " + from + ", to: " + to + ")";
     }
 }
