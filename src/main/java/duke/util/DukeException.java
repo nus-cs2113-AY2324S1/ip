@@ -1,3 +1,5 @@
+package main.java.duke.util;
+
 public class DukeException extends Exception{
 
     private String message;

@@ -1,3 +1,8 @@
+package main.java.duke;
+
+import main.java.duke.task.*;
+import main.java.duke.util.*;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -133,7 +138,7 @@ public class Duke {
                     System.out.println(event);
                     System.out.println("You now have " + tasksIndex + " task(s) in your list. :]");
                 } catch (DukeException e) {
-                    System.out.println(e.getMessage());;
+                    System.out.println(e.getMessage());
                 }
             }
             // if "deadline" command is given
@@ -164,8 +169,8 @@ public class Duke {
                     System.out.println("I've added this task to your list:");
                     System.out.println(deadline);
                     System.out.println("You now have " + tasksIndex + " task(s) in your list. :]");
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
                 }
             }
             // if not unique command, prompt user again

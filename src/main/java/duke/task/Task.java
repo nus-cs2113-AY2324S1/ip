@@ -1,4 +1,6 @@
-// Task object implementation
+package main.java.duke.task;
+
+// util.Task object implementation
 public class Task {
     private boolean isMarked = false;
     private String name;
@@ -25,7 +27,7 @@ public class Task {
         this.name = name;
     }
 
-    // String representation of Task
+    // String representation of util.Task
     @Override
     public String toString() {
         String taskCheckbox = this.isMarked ? "[X]" : "[ ]";
