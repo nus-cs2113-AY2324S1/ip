@@ -17,7 +17,6 @@ public abstract class Task {
     public Task(String name) {
         this.name = name;
         this.isComplete = false;
-        numberOfTasks++;
     }
 
     public String getName() {

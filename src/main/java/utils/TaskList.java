@@ -16,13 +16,18 @@ public class TaskList {
         return tasks;
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DukeException {
+        if (task.getName().isEmpty()) {
+            throw new DukeException("Task must have a name.");
+        }
         tasks.add(task);
     }
 
     public Task deleteTask(int index) throws DukeException {
         if (index > tasks.size() - 1) {
-            throw new DukeException("Index out of bounds.");
+            throw new DukeException("Index provided is greater than size of list");
+        } else if (index < 0) {
+            throw new DukeException("Index provided must be greater than 0");
         }
         return tasks.remove(index);
     }
@@ -34,6 +39,8 @@ public class TaskList {
     public void updateTaskStatus(int index, boolean status) throws DukeException {
         if (index > tasks.size() - 1) {
             throw new DukeException("Index provided is greater than size of list");
+        } else if (index < 0) {
+            throw new DukeException("Index provided must be greater than 0");
         }
         Task task = tasks.get(index);
         task.setIsComplete(status);

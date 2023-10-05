@@ -13,6 +13,7 @@ public class Todo extends Task {
 
     @Override
     public String getAddMessage() {
+        numberOfTasks++;
         return "Got it. I've added this task:\n" +
                 "[T][" + (getIsComplete() ? "X" : " ") + "] " + getName() + "\n" +
                 "Now you have " + numberOfTasks + " tasks in the list.";

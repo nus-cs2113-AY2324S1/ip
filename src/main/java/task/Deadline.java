@@ -20,6 +20,7 @@ public class Deadline extends Task {
 
     @Override
     public String getAddMessage() {
+        numberOfTasks++;
         return "Got it. I've added this task:\n" +
                 "[D][" + (getIsComplete() ? "X" : " ") + "] " +
                 getName() + " (by: " + parseDate(by) + ")\n" +

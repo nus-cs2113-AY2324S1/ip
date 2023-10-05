@@ -28,6 +28,7 @@ public class Event extends Task {
 
     @Override
     public String getAddMessage() {
+        numberOfTasks++;
         return "Got it. I've added this task:\n" +
                 "[E][" + (getIsComplete() ? "X" : " ") + "] " + getName() +
                 " (from: " + parseDate(from) + " to: " + parseDate(to) + ")\n" +
