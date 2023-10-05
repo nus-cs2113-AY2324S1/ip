@@ -1,14 +1,16 @@
 package careo;
 
-
-import java.io.Serializable;
-
-public class Task implements Serializable {
+public class Task {
     /** Textual description of the task */
     protected String description;
     /** Whether the task has been completed */
     protected boolean isDone;
 
+    /**
+     * Instantiates a Task instance from a description.
+     *
+     * @param description Textual description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -27,6 +29,11 @@ public class Task implements Serializable {
         return description;
     }
 
+    /**
+     * Returns type, description and whether it is done of a task.
+     *
+     * @return A string representation of the task.
+     */
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }

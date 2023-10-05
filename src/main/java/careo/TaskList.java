@@ -3,9 +3,17 @@ package careo;
 import java.util.ArrayList;
 
 public class TaskList {
+    /** UI that is responsible for user input and output */
     private Ui ui;
+    /** Internal-only list of all tasks that make up this TaskList */
     private ArrayList<Task> tasks;
 
+    /**
+     * Instantiates a TaskList from a list of tasks and connects it to a Ui.
+     *
+     * @param tasks List of tasks that will be assigned to the internal tasks.
+     * @param ui The Ui instance used by the main Duke instance.
+     */
     public TaskList(ArrayList<Task> tasks, Ui ui) {
         this.tasks = tasks;
         this.ui = ui;
@@ -16,6 +24,11 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Computes and returns the number of tasks in this TaskList.
+     *
+     * @return The number of tasks in this TaskList.
+     */
     public int size() {
         return tasks.size();
     }
@@ -55,6 +68,11 @@ public class TaskList {
         ui.printSuccessfullyAddedTask(newTask, this);
     }
 
+    /**
+     * Removes a tasks from tasks and prints a confirmation.
+     *
+     * @param taskIdx Index of the task that shall be removed.
+     */
     public void removeTask(int taskIdx) {
         Task removedTask = tasks.remove(taskIdx);
 

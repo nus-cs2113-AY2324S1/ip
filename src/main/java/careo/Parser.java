@@ -4,9 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
+    /** UI that is responsible for user input and output */
     private Ui ui;
+    /** Used for storing and querying user tasks */
     private TaskList tasks;
 
+    /**
+     * Instantiates a Parser instance connected to the ui and tasks of a Duke instance.
+     *
+     * @param ui The Ui instance used by the central Duke instance.
+     * @param tasks The TaskList instance used by the central Duke instance.
+     */
     public Parser(Ui ui, TaskList tasks) {
         this.ui = ui;
         this.tasks = tasks;

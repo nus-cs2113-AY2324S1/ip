@@ -43,6 +43,9 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints that loading from a persistence file was unsuccessful.
+     */
     public void showLoadingError() {
         printHorizontalLine();
         System.out.println("    No file specifying saved tasks was present.");
@@ -50,6 +53,9 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints that the input was invalid.
+     */
     public void showInvalidInputError() {
         printHorizontalLine();
         System.out.println("    Invalid input!");
@@ -57,18 +63,29 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints that a command was missing arguments.
+     *
+     * @param input The name of the command whose arguments were missing.
+     */
     public void showCommandArgumentMissingError(String input) {
         printHorizontalLine();
         System.out.println("    ☹ OOPS!!! The description of a " + input + " cannot be empty.");
         printHorizontalLine();
     }
 
+    /**
+     * Printst that the command was not recognized.
+     */
     public void showUnrecognizedCommandError() {
         printHorizontalLine();
         System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         printHorizontalLine();
     }
 
+    /**
+     * Prints that the task list is currently empty.
+     */
     public void printTaskListEmpty() {
         printHorizontalLine();
         System.out.println("    Sorry, there are no tasks yet!");
@@ -76,6 +93,11 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints that the chosen task index is invalid (too high or too low).
+     *
+     * @param tasks The TaskList which is supposed to be indexed into.
+     */
     public void showInvalidTaskIndexError(TaskList tasks) {
         printHorizontalLine();
         System.out.println("    Sorry, the chosen task index is invalid!");
@@ -84,6 +106,12 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints that a mark or unmark operation completed sucessfully.
+     *
+     * @param markOrUnmark Whether the operation is a mark or an unmark operation.
+     * @param selectedTask Which task is supposed to be (un)selected.
+     */
     public void printSuccessfulMarkOrUnmark(MarkOrUnmark markOrUnmark, Task selectedTask) {
         printHorizontalLine();
         if (markOrUnmark == MarkOrUnmark.MARK) {
@@ -95,6 +123,12 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints that a new task was sucessfully added to the task list.
+     *
+     * @param newTask New Task that is being added.
+     * @param tasks TaskList onto which the new task was added.
+     */
     public void printSuccessfullyAddedTask(Task newTask, TaskList tasks) {
         printHorizontalLine();
         System.out.println("    Got it. I've added this task:");
@@ -109,6 +143,12 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints that a task was successfully removed from the task list.
+     *
+     * @param removedTask The task that was just removed.
+     * @param tasks TaskList from which the task was just removed.
+     */
     public void printSuccessfullyRemovedTask(Task removedTask, TaskList tasks) {
         printHorizontalLine();
         System.out.println("    Noted. I've removed this task:");
