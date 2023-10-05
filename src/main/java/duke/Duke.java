@@ -57,8 +57,8 @@ public class Duke {
             }
             // if "mark" command is given, mark the corresponding task in tasks
             else if (userCommand.equals("mark")) {
-                // split userInput into command and integer
                 try {
+                    // split userInput into command and integer
                     int selectedItem = Integer.parseInt(userWords[1]);
                     // check if integer given is in range of number of tasks
                     tasks.get(selectedItem - 1).setMarked(true);
@@ -70,8 +70,8 @@ public class Duke {
             }
             // if "unmark" command is given, unmark the corresponding task in tasks
             else if (userCommand.equals("unmark")) {
-                // split userInput into command and integer
                 try {
+                    // split userInput into command and integer
                     int selectedItem = Integer.parseInt(userWords[1]);
                     // check if integer given is in range of number of tasks
                     tasks.get(selectedItem - 1).setMarked(false); // unmark task
@@ -169,6 +169,20 @@ public class Duke {
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
+            }
+            // if "delete" command is given, delete the corresponding task in the list
+            else if (userCommand.equals("delete")) {
+                try {
+                    // split userInput into command and integer
+                    int selectedItem = Integer.parseInt(userWords[1]);
+                    // check if integer given is in range of number of tasks
+                    Task removedTask = tasks.remove(selectedItem - 1);
+                    System.out.println("Task " + selectedItem + " delete!\n" +
+                            removedTask);
+                }catch (Exception e) {
+                    System.out.println("Invalid integer input! :(");
+                }
+
             }
             // if not unique command, prompt user again
             else {
