@@ -4,7 +4,6 @@ package neo.task;
  * Represents a form of task that has a starting date and due date.
  */
 public class Event extends Task {
-
     protected String from;
     protected String to;
 

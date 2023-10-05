@@ -9,7 +9,6 @@ import neo.util.Ui;
  * This is the main class of Neo chatbot.
  */
 public class Neo {
-
     /**
      * Main method where data.txt file is loaded or generated, along with creating
      * the list for storing the tasks.

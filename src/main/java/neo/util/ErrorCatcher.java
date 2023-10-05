@@ -13,7 +13,6 @@ import neo.type.TimeValueType;
  * main purpose is to provide methods to catch errors.
  */
 public abstract class ErrorCatcher {
-
     /**
      * Catches errors when user inputs the wrong format while trying to add tasks to the list.
      *
@@ -103,6 +102,7 @@ public abstract class ErrorCatcher {
             throw new NeoTaskException();
         }
     }
+
     private static void catchDateAndTimeError(String line) throws NeoTimeException {
         String[] dateTime = line.split(" ");
         if (!line.matches("(.*)/(.*)/(.*)") || dateTime[1].length() != 4) {
@@ -164,6 +164,7 @@ public abstract class ErrorCatcher {
             throw new NeoTimeException(TimeType.DATE, TimeValueType.MONTH, TimeErrorType.VALUE);
         }
     }
+
     private static boolean hasTime(String line) {
         String[] dateAndTime = line.split(" ");
         return dateAndTime.length == 2;
@@ -195,5 +196,4 @@ public abstract class ErrorCatcher {
             throw new NeoTaskException(field, ErrorType.EMPTY);
         }
     }
-
 }

@@ -4,7 +4,6 @@ package neo.task;
  * Represents a form of task that has a due date.
  */
 public class Deadline extends Task {
-
     protected String by;
 
     /**

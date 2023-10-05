@@ -151,6 +151,7 @@ public abstract class Storage {
             System.out.println("Error with updating data.txt file.");
         }
     }
+
     private static void writeToFile(ArrayList<Task> list) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 

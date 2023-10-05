@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * its main purpose is to provide methods relating to making sense of the user command.
  */
 public abstract class Parser {
-
     /**
      * Calls relevant methods depending on the input from user. Write any changes in list
      * to data.txt file.

@@ -7,7 +7,6 @@ import java.util.Scanner;
  * main purpose is to provide methods relating to interaction with the user.
  */
 public abstract class Ui {
-
     /**
      * Prints message that welcomes user whenever Neo chatbot is started up.
      */

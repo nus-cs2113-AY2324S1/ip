@@ -58,6 +58,7 @@ public class Task {
             return formatDate(line);
         }
     }
+
     private String formatDate(String line) {
         LocalDate date = LocalDate.parse(line, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         return date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));

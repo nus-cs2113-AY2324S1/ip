@@ -281,6 +281,7 @@ public abstract class TaskList {
             e.printException();
         }
     }
+
     private static void addTodo(String line) throws NeoTaskException {
         ErrorCatcher.catchFormatError(CommandType.TODO, line);
 
