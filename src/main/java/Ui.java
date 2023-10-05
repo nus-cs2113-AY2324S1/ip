@@ -243,8 +243,25 @@ public class Ui {
             printLine(String.format("now you have %d tasks in the list", tasks.getSize()));
             System.out.println("    ____________________________________________________________\n");
             storage.saveTask(tasks, tasks.getSize());
-        }
-        else{
+        } else if(tokens[0].equals("find")){
+            int foundTasks = 0;
+            for(int i=0;i<tasks.getSize();i++){
+                Task task = tasks.getTask(i);
+                String description = task.getDescription();
+                if(description.contains(tokens[1].trim())){
+                    foundTasks++;
+                    if(foundTasks == 1){
+                        printLine("Here are the matching tasks in your list:");
+                    }
+                    printLine(String.format("%d.[%s][%s] %s",
+                            foundTasks, task.getTypeIcon(), task.getStatusIcon(), task.getDescription()));
+                }
+            }
+            if(foundTasks == 0){
+                printLine("Cannot found any matching Tasks");
+            }
+            System.out.println("    ____________________________________________________________\n");
+        } else{
             // command not matched
             printLine("☹ Sorry, I cannot understand your command: " + cmd);
             System.out.println("    ____________________________________________________________\n");
