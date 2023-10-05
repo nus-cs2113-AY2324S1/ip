@@ -12,43 +12,13 @@ public class Duke {
         System.out.println("     " + s);
     }
 
-    /* simple function that returns if the string is numeric */
-    static boolean isNumeric(String s){
-        try{
-            Integer.parseInt(s);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
 
-    /* function for check input format */
-    static void checkInputFormat(String[] input) throws InputFormatException{
-        if(input.length !=2){
-            throw new InputFormatException();
-        }
-    }
-
-    /* function for check deadline input format */
-    static void checkDeadlineFormat(String[] schedules) throws InputFormatException{
-        if(schedules.length !=2 || !schedules[1].trim().startsWith("by")){
-            throw new InputFormatException();
-        }
-    }
-
-    static void checkEventFormat(String[] schedules) throws InputFormatException{
-        if(schedules.length !=3 ||
-                !schedules[1].trim().startsWith("from") ||
-                !schedules[2].trim().startsWith("to")){
-            throw new InputFormatException();
-        }
-    }
 
     /* method for save tasks to disk */
-    static void saveTask(ArrayList <Task> tasks, int tasks_size) throws IOException{
+    static void saveTask(TaskList tasks, int tasks_size) throws IOException{
         FileWriter fw = new FileWriter("./nupjuk.txt");
-        for(int i=0;i<tasks_size;i++){
-            Task task = tasks.get(i);
+        for(int i=0;i<tasks.getSize();i++){
+            Task task = tasks.getTask(i);
             fw.write(String.format("%s | %d | %s\r\n",
                     task.getTypeIcon(), task.isDone?1:0 , task.getDescription()));
         }
@@ -56,58 +26,29 @@ public class Duke {
     }
 
     /* Automatically load tasks from disk */
-    static ArrayList <Task> loadTask() throws FileNotFoundException{
-        ArrayList <Task> tasks = new ArrayList<>();
 
-        File f = new File ("./nupjuk.txt");
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            String[] taskTokens = s.nextLine().split("\\|");
-            if(taskTokens[0].trim().equals("T")){
-                Todo todo = new Todo(taskTokens[2].trim());
-                if(taskTokens[1].trim().equals("1")){
-                    todo.doMark();
-                }
-                tasks.add(todo);
-            } else if(taskTokens[0].trim().equals("D")){
-                // task (by: deadline)
-                String[] schedules = taskTokens[2].split(" \\(by: ");
-                // delete "(by:" and ")"
-                Deadline deadline = new Deadline(schedules[0].trim(),
-                        schedules[1].substring(0, schedules[1].length()-1).trim());
-                if(taskTokens[1].trim().equals("1")){
-                    deadline.doMark();
-                }
-                tasks.add(deadline);
-            } else{
-                // task (from: t to: t)
-                String[] schedules = taskTokens[2].split(" \\(from: ");
-                String[] times = schedules[1].split(" to: ");
-                Event event = new Event(schedules[0].trim(), times[0].trim(),
-                        times[1].substring(0, times[1].length()-1).trim());
-                if(taskTokens[1].trim().equals("1")){
-                    event.doMark();
-                }
-                tasks.add(event);
-            }
+
+
+    private static Storage storage;
+    private static TaskList tasks;
+
+    public Duke(String filePath){
+
+        storage = new Storage(filePath);
+
+        try {
+            tasks = new TaskList(storage.loadTask());
+        } catch (FileNotFoundException e){
+            tasks = new TaskList();
+            printLine ("Creating New File");
         }
-
-        return tasks;
-
     }
 
     public static void main(String[] args) throws IOException {
-        Scanner input = new Scanner(System.in);
-        //Task[] tasks = new Task[100];
-        ArrayList<Task> tasks = new ArrayList<>();
-        int tasks_size = 0;
 
-        try {
-            tasks = loadTask();
-        } catch (FileNotFoundException e){
-            printLine ("Creating New File");
-        }
-        tasks_size = tasks.size();
+        new Duke("./nupjuk.txt");
+
+        Scanner input = new Scanner(System.in);
 
         System.out.println("    ____________________________________________________________");
         printLine("Hello! I'm Nupjuk");
@@ -122,12 +63,12 @@ public class Duke {
             if(cmd.equals("bye")){ // bye command
                 break;
             } else if(cmd.equals("list")){
-                if(tasks_size == 0){
+                if(tasks.getSize() == 0){
                     printLine("Nothing in the list");
                 }
                 else{
-                    for(int i=0;i<tasks_size;i++){
-                        Task task = tasks.get(i);
+                    for(int i=0;i<tasks.getSize();i++){
+                        Task task = tasks.getTask(i);
                         printLine(String.format("%d.[%s][%s] %s",
                                 i+1, task.getTypeIcon(), task.getStatusIcon(), task.getDescription()));
                     }
@@ -149,16 +90,16 @@ public class Duke {
                 }
 
                 try {
-                    tasks.get(mark_idx).doMark();
+                    tasks.getTask(mark_idx).doMark();
                 } catch (IndexOutOfBoundsException e){
                     printLine("☹ OOPS!!! Task number is out of List!");
                     System.out.println("    ____________________________________________________________\n");
                     continue;
                 }
                 printLine("Nice! I've marked this task as done:");
-                printLine(" [" + tasks.get(mark_idx).getStatusIcon() + "] " + tasks.get(mark_idx).getDescription());
+                printLine(" [" + tasks.getTask(mark_idx).getStatusIcon() + "] " + tasks.getTask(mark_idx).getDescription());
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks_size);
+                saveTask(tasks, tasks.getSize());
 
             } else if(tokens[0].equals("unmark")){
 
@@ -177,7 +118,7 @@ public class Duke {
                 }
 
                 try {
-                    tasks.get(mark_idx).doMark();
+                    tasks.getTask(mark_idx).doMark();
                 } catch (IndexOutOfBoundsException e){
                     printLine("☹ OOPS!!! Task number is out of List!");
                     System.out.println("    ____________________________________________________________\n");
@@ -185,13 +126,13 @@ public class Duke {
                 }
 
                 printLine("OK, I've marked this task as not done yet:");
-                printLine(" [" + tasks.get(mark_idx).getStatusIcon() + "] " + tasks.get(mark_idx).getDescription());
+                printLine(" [" + tasks.getTask(mark_idx).getStatusIcon() + "] " + tasks.getTask(mark_idx).getDescription());
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks_size);
+                saveTask(tasks, tasks.getSize());
             } else if(tokens[0].equals("todo")) {
 
                 try{
-                    checkInputFormat(tokens);
+                    FormatChecker.checkInputFormat(tokens);
                 } catch (InputFormatException e){
                     printLine("☹ OOPS!!! <todo> should be with task description");
                     System.out.println("    ____________________________________________________________\n");
@@ -201,19 +142,18 @@ public class Duke {
                 // make and add to list
                 printLine("Got it. I've added this task:");
                 Todo todo = new Todo(tokens[1]);
-                tasks.add(todo);
-                tasks_size++;
+                tasks.addTask(todo);
 
                 printLine(String.format("  [%s][%s] %s",
                         todo.getTypeIcon(), todo.getStatusIcon(), todo.getDescription()));
-                printLine(String.format("Now you have %d tasks in the list.", tasks_size));
+                printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks_size);
+                saveTask(tasks, tasks.getSize());
 
             } else if(tokens[0].equals("deadline")){
                 // error handling
                 try{
-                    checkInputFormat(tokens);
+                    FormatChecker.checkInputFormat(tokens);
                 } catch (InputFormatException e){
                     printLine("☹ OOPS!!! <deadline> should be with task description and deadline");
                     System.out.println("    ____________________________________________________________\n");
@@ -225,7 +165,7 @@ public class Duke {
 
                 // error handling
                 try{
-                    checkDeadlineFormat(schedules);
+                    FormatChecker.checkDeadlineFormat(schedules);
                 } catch (InputFormatException e) {
                     printLine("☹ OOPS!!! <deadline> needs argument like (work/by time)");
                     System.out.println("    ____________________________________________________________\n");
@@ -236,18 +176,17 @@ public class Duke {
                 printLine("Got it. I've added this task:");
 
                 Deadline deadline = new Deadline(schedules[0].trim(), schedules[1].trim().substring(2).trim());
-                tasks.add(deadline);
-                tasks_size++;
+                tasks.addTask(deadline);
 
                 printLine(String.format("  [%s][%s] %s",
                         deadline.getTypeIcon(), deadline.getStatusIcon(), deadline.getDescription()));
-                printLine(String.format("Now you have %d tasks in the list.", tasks_size));
+                printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks_size);
+                saveTask(tasks, tasks.getSize());
             } else if(tokens[0].equals("event")){
                 // error handling
                 try{
-                    checkInputFormat(tokens);
+                    FormatChecker.checkInputFormat(tokens);
                 } catch (InputFormatException e){
                     printLine("☹ OOPS!!! <event> should be with task description and start/end time");
                     System.out.println("    ____________________________________________________________\n");
@@ -259,7 +198,7 @@ public class Duke {
 
                 // error handling
                 try{
-                    checkEventFormat(schedules);
+                    FormatChecker.checkEventFormat(schedules);
                 } catch (InputFormatException e) {
                     printLine("☹ OOPS!!! <event> needs input like (work /from start /to end)");
                     System.out.println("    ____________________________________________________________\n");
@@ -272,14 +211,13 @@ public class Duke {
                 Event event = new Event(schedules[0].trim(),
                         schedules[1].trim().substring(4).trim(),
                         schedules[2].trim().substring(2).trim());
-                tasks.add(event);
-                tasks_size++;
+                tasks.addTask(event);
 
                 printLine(String.format("  [%s][%s] %s",
                         event.getTypeIcon(), event.getStatusIcon(), event.getDescription()));
-                printLine(String.format("Now you have %d tasks in the list.", tasks_size));
+                printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks_size);
+                saveTask(tasks, tasks.getSize());
             } else if(tokens[0].equals("delete")){
 
                 int del_idx;
@@ -299,9 +237,8 @@ public class Duke {
                 Task del_task;
 
                 try {
-                    del_task = tasks.get(del_idx);
-                    tasks.remove(del_idx);
-                    tasks_size--;
+                    del_task = tasks.getTask(del_idx);
+                    tasks.removeTask(del_idx);
                 } catch (IndexOutOfBoundsException e){
                     printLine("☹ OOPS!!! Task number is out of List!");
                     System.out.println("    ____________________________________________________________\n");
@@ -310,9 +247,9 @@ public class Duke {
 
                 printLine("Noted. I've removed this task:");
                 printLine(" [" + del_task.getStatusIcon() + "] " + del_task.getDescription());
-                printLine(String.format("now you have %d tasks in the list", tasks_size));
+                printLine(String.format("now you have %d tasks in the list", tasks.getSize()));
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks_size);
+                saveTask(tasks, tasks.getSize());
             }
             else{
                 // command not matched
