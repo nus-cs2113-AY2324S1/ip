@@ -10,13 +10,16 @@ import Ui.Ui;
 
 import java.io.IOException;
 import Exceptions.DukeException;
-import Exceptions.DukeFormatException;
-import Exceptions.DukeIndexException;
 
 
 public class Botbot {
-    //main method
-    public static void main(String[] args) throws DukeException, IOException, DukeIndexException, DukeFormatException {
+    /**
+     * Main method of program.
+     * @param args command-line arguments.
+     * @throws IOException when file does not exist and new file cannot be created
+     * @throws DukeException when format of saved file is wrong and hence cannot be loaded
+     */
+    public static void main(String[] args) throws DukeException, IOException {
         Ui.startBot();
         TaskList taskList = new TaskList();
         //load file
