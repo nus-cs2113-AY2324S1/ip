@@ -11,10 +11,11 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IllegalArgumentException{
         //ui has String echo, storage has ArrayList<Task> tasks, tasks has ArrayList<Task> mainTaskList;
 
         storage.store(tasks);
+        setIsExit(true);
         ui.closeUi();
     }
 }

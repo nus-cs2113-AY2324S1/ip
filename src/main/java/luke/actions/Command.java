@@ -21,6 +21,10 @@ public abstract class Command {
         //do nothing? should not be executed
     }
 
+    public void setIsExit(boolean isExit) {
+        this.isExit = isExit;
+    }
+
     public boolean isExit() {
         return isExit;
     }
