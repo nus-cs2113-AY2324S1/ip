@@ -20,7 +20,7 @@ public class TaskList{
 
     }
 
-    private void addTask(Task taskName) {
+    public void addTask(Task taskName) {
         mainTaskList.add(taskName);
         //System.out.println(numbers);
         numberOfTasks += 1;
@@ -38,5 +38,9 @@ public class TaskList{
 
     public Task get(int TaskNumber) {
         return mainTaskList.get(TaskNumber);
+    }
+
+    public ArrayList<Task> getMainTaskList() {
+        return mainTaskList;
     }
 }
