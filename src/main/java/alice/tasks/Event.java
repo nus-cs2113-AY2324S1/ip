@@ -1,28 +1,33 @@
 package alice.tasks;
 
-public class Event extends Task {
-    private String start;
-    private String end;
+import alice.parser.DateTimeParser;
 
-    public Event(String description, String start, String end) {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Event extends Task {
+    private LocalDateTime start;
+    private LocalDateTime end;
+
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
-    public String getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(String start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public String getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(String end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 
@@ -30,12 +35,14 @@ public class Event extends Task {
     public String toString() {
         String typeOfTask = "[E]";
         String statusOfTask = "[" + super.getStatusIcon() + "] ";
-        String task = super.getDescription() + " (from: " + getStart() + " to: " + getEnd() + ")";
+        String startString = start.format(DateTimeParser.getFormatter());
+        String endString = end.format(DateTimeParser.getFormatter());
+        String task = super.getDescription() + " (from: " + startString + " to: " + endString + ")";
         return typeOfTask + statusOfTask + task;
     }
 
     @Override
     public String encode() {
-        return "Event" + super.encode() + SEPARATOR + getStart() + SEPARATOR + getEnd();
+        return String.format("Event | %s | %s | %s", super.encode(), getStart(), getEnd());
     }
 }

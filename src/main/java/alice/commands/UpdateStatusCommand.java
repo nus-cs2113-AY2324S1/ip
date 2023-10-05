@@ -5,8 +5,8 @@ import alice.enumeration.TaskStatus;
 import alice.ui.Ui;
 
 public class UpdateStatusCommand extends Command {
-    Task task;
-    TaskStatus status;
+    private Task task;
+    private TaskStatus status;
 
     public UpdateStatusCommand(TaskStatus status, Task task) {
         this.task = task;

@@ -1,5 +1,6 @@
 package alice.storage;
 
+import alice.parser.DateTimeParser;
 import alice.tasks.*;
 import alice.ui.Ui;
 
@@ -7,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -83,13 +85,15 @@ public class FileManager {
             task = new Todo(description);
             break;
         case "Deadline":
-            String deadline = inputArray[3];
+            LocalDateTime deadline = LocalDateTime.parse(inputArray[3], DateTimeParser.getFormatter());
             task = new Deadline(description, deadline);
             break;
         case "Event":
-            String start = inputArray[3];
-            String end = inputArray[4];
+            LocalDateTime start = LocalDateTime.parse(inputArray[3], DateTimeParser.getFormatter());
+            LocalDateTime end = LocalDateTime.parse(inputArray[4], DateTimeParser.getFormatter());
             task = new Event(description, start, end);
+            break;
+        default:
             break;
         }
         if (isMarked) {

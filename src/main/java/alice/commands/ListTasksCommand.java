@@ -3,7 +3,7 @@ package alice.commands;
 import alice.tasks.TaskList;
 
 public class ListTasksCommand extends Command{
-    TaskList tasks;
+    private TaskList tasks;
     public ListTasksCommand(TaskList tasks) {
         this.tasks = tasks;
     }

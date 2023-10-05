@@ -7,6 +7,7 @@ public class Task {
     public static final String SEPARATOR = " | ";
     private String description;
     private boolean isDone;
+    
 
     public Task(String description) {
         this.description = description;
@@ -69,6 +70,6 @@ public class Task {
         if (getIsDone()) {
             isDoneSymbol = "1";
         }
-        return SEPARATOR + isDoneSymbol + SEPARATOR +getDescription();
+        return isDoneSymbol + SEPARATOR +getDescription();
     }
 }
