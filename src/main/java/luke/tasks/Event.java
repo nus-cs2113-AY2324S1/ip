@@ -5,10 +5,8 @@ public class Event extends Task {
     protected String startDate;
     protected String endDate;
 
-    public Event(String echo) throws LukeTimeError {
-        super(echo);
-        //setDates(dates);
-        String taskDescription = echo.substring(5);
+    public Event(String taskDescription) throws LukeTimeError {
+        super(taskDescription);
 
         int slashCut = taskDescription.indexOf("/");
         if (slashCut <= 0) {
@@ -55,6 +53,11 @@ public class Event extends Task {
         }
 
         endDate = dates.substring(3);
+    }
+
+    @Override
+    public String getType() {
+        return "event";
     }
 
     @Override

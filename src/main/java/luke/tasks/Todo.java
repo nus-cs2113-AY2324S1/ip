@@ -3,13 +3,17 @@ package luke.tasks;
 public class Todo extends Task {
     //protected boolean isDone;
 
-    public Todo(String echo) {
-        super(echo); //ensures superclass is properly initialised
+    public Todo(String description) {
+        super(description); //ensures superclass is properly initialised
 
-        description = echo.substring(4);
         if (description.isEmpty()) {
             throw new IndexOutOfBoundsException();
         }
+    }
+
+    @Override
+    public String getType() {
+        return "todo";
     }
 
     @Override

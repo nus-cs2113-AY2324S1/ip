@@ -4,10 +4,8 @@ import luke.user.LukeTimeError;
 public class Deadline extends Task {
     protected String date;
 
-    public Deadline(String echo) throws LukeTimeError {
-        super(echo);
-
-        String taskDescription = echo.substring(8);
+    public Deadline(String taskDescription) throws LukeTimeError {
+        super(taskDescription);
 
         int slashCut = taskDescription.indexOf("/");
         if (slashCut <= 0) {
@@ -34,6 +32,11 @@ public class Deadline extends Task {
         }
         int spaceCut = dateString.indexOf(" ");
         date = dateString.substring(spaceCut + 1);
+    }
+
+    @Override
+    public String getType() {
+        return "deadline";
     }
 
     @Override

@@ -59,7 +59,7 @@ public class Memory {
             FileWriter fw = new FileWriter(filePath); //overwrite file
 
             for (int i = 0; i < taskList.size(); i += 1) {
-                fw.write(taskList.get(i).memoryString() + "\n");
+                fw.write(taskList.get(i).getType() + taskList.get(i).memoryString() + "\n");
             }
 
             fw.close();

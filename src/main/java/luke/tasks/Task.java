@@ -21,6 +21,10 @@ public abstract class Task {
         isDone = done;
     }
 
+    public String getType() {
+        return "task";
+    }
+
     /*@Override
     public String toString() {
         return "";
