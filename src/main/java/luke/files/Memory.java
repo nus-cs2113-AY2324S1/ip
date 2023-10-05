@@ -6,7 +6,6 @@ import luke.tasks.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-//import java.io.FileReader;
 import java.io.FileWriter;
 
 import java.io.IOException;
@@ -25,9 +24,7 @@ public class Memory {
             System.out.println("\t" + currentLine);
 
             String taskDetails = currentLine.substring(0,5);
-            //System.out.println(taskDetails);
             String taskDescription = currentLine.substring(6);
-            //System.out.println(taskDescription);
             char[] characters = taskDetails.toCharArray();
             try {
                 Task newTask;
@@ -45,7 +42,6 @@ public class Memory {
                         newTask = new Todo("error");
                         break;
                 }
-
                 tasks.add(newTask);
             } catch (LukeTimeError e) {
                 System.out.println("\tsomethings wrong");
@@ -58,8 +54,8 @@ public class Memory {
         try {
             FileWriter fw = new FileWriter(filePath); //overwrite file
 
-            for (int i = 0; i < taskList.size(); i += 1) {
-                fw.write(taskList.get(i).memoryString() + "\n");
+            for (Task currentTask : taskList) {
+                fw.write(currentTask.memoryString() + "\n");
             }
 
             fw.close();
@@ -68,7 +64,6 @@ public class Memory {
 
         } catch (IOException e) {
             System.out.println("\tIO Exception: fail to store memory");
-            //return;
         }
 
     }

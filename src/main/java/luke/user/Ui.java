@@ -42,5 +42,4 @@ public class Ui {
         echo = userInput.nextLine();
         return echo;
     }
-
 }

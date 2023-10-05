@@ -11,8 +11,6 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        //ui has String echo, storage has ArrayList<Task> tasks, tasks has ArrayList<Task> mainTaskList;
-
         try {
             int taskNumber = Integer.parseInt(parameters) - 1;
             System.out.println("\tNoted. I've removed this task:\n" + tasks.get(taskNumber));

@@ -1,9 +1,5 @@
 package luke.actions;
 
-import luke.tasks.Deadline;
-import luke.tasks.Event;
-import luke.tasks.Task;
-import luke.tasks.Todo;
 import luke.user.LukeTimeError;
 
 public class Parser{
@@ -11,14 +7,14 @@ public class Parser{
 
     public static Command parse(String fullCommand) throws LukeTimeError {
         ActionType theAction;
-        String parameters = "";
+        String parameters;
 
-        String[] words = fullCommand.split(" "); //to identify usage of features "mark" & "unmark"
-        Command c = null;
+        String[] words = fullCommand.split(" ");
+        //to get parameters for actions "mark", "unmark" & "delete"
+        Command c;
         try {
             ActionType action = ActionType.valueOf(words[0].toUpperCase());
             theAction = action;
-            //Command c = null;
 
             try {
                 switch (action) {
@@ -79,13 +75,10 @@ public class Parser{
                 System.out.println("\tOOPS!!! You have missing arguments for " + words[0] + ". No changes have been made.");
                 c = new DoNothingCommand(ActionType.LIST, "");
             }
-
-            //return c;
         } catch (IllegalArgumentException e) {
             System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
             c = new DoNothingCommand(ActionType.LIST, "");
         }
         return c;
-
     }
 }

@@ -8,6 +8,7 @@ public class TaskList{
 
     private ArrayList<Task> mainTaskList;
     public int numberOfTasks;
+
     public TaskList(ArrayList<Task> thetasks) throws LukeTimeError {
         mainTaskList = new ArrayList<Task>();
         numberOfTasks = 0;
@@ -38,7 +39,6 @@ public class TaskList{
 
     public Task get(int TaskNumber) throws IndexOutOfBoundsException {
         return mainTaskList.get(TaskNumber);
-
     }
 
     public ArrayList<Task> getMainTaskList() {

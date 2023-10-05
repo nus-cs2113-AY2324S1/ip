@@ -11,10 +11,6 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        //ui has String echo, storage has ArrayList<Task> tasks, tasks has ArrayList<Task> mainTaskList;
-        //command has theActionWord and parameters
-
-        //String findWord = ui.echo.substring(4);
         System.out.println("\tHere are the matching tasks in your list:");
         int j = 1;
         for (int i = 0; i < tasks.size(); i += 1) {

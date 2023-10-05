@@ -7,12 +7,12 @@ import luke.user.Ui;
 import static luke.actions.ActionType.MARK;
 import static luke.actions.ActionType.UNMARK;
 
-
 public class MarkCommand extends Command {
     private boolean isDone;
-    public MarkCommand(ActionType theAction, String parameters) {
 
+    public MarkCommand(ActionType theAction, String parameters) {
         super(theAction, parameters);
+
         if (theAction == MARK) {
             isDone = true;
         }
@@ -23,9 +23,6 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        //ui has String echo, storage has ArrayList<Task> tasks, tasks has ArrayList<Task> mainTaskList;
-        //command has theActionWord and parameters
-
         int taskNumber = Integer.parseInt(parameters) - 1;
 
         try {

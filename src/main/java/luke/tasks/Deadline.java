@@ -16,12 +16,6 @@ public class Deadline extends Task {
         }
 
         description = taskDescription.substring(0, slashCut);
-/*
-        if (description.length() <= 1) {
-            System.out.println("length prob");
-            throw new IndexOutOfBoundsException();
-        }
- */
 
         setDate(taskDescription.substring(slashCut + 1));
     }
@@ -46,12 +40,6 @@ public class Deadline extends Task {
         date = dateString.substring(spaceCut + 1);
     }
 
-    /*@Override
-    public String getType() {
-        return "deadline";
-    }
-
-     */
     @Override
     public void printGuide() {
         System.out.println(deadlineGuide);
@@ -59,7 +47,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        //super.toString();
         String isDoneString;
 
         if (isDone()) {

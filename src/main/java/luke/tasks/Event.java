@@ -18,10 +18,6 @@ public class Event extends Task {
 
         description = taskDescription.substring(0, slashCut);
 
-        if (description.length() <= 1) {
-            throw new IndexOutOfBoundsException();
-        }
-
         String taskDuration = taskDescription.substring(slashCut + 1);
         setDates(taskDuration);
     }
@@ -63,14 +59,6 @@ public class Event extends Task {
 
         endDate = dates.substring(3);
     }
-
-    /*
-    @Override
-    public String getType() {
-        return "event";
-    }
-
-     */
 
     @Override
     public void printGuide() {

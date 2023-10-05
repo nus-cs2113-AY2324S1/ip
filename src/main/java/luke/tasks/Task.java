@@ -27,20 +27,9 @@ public abstract class Task {
     }
 
     public void printGuide() {
-        //nothing
-    }
-/*
-    public String getType() {
-        return "task";
+        //do nothing
     }
 
- */
-
-    /*@Override
-    public String toString() {
-        return "";
-    }
-    */
     public String memoryString() {
         String isDoneString;
 

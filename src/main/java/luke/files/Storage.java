@@ -18,7 +18,6 @@ public class Storage {
                 System.out.println("\n\tRetrieving memory...\n");
                 tasks = Memory.readMemory(filePath);
                 System.out.println("\n\tMemory retrieval successful!\n");
-                //return tasks;
             } catch (FileNotFoundException e) {
                 System.out.println("\tNo existing memory. (1)");
             }
@@ -32,8 +31,6 @@ public class Storage {
                 System.out.println("\tSecurityException.");
             }
         }
-        //return null;
-
     }
 
     public ArrayList<Task> load() {
@@ -42,7 +39,6 @@ public class Storage {
 
     public void store(TaskList tasksToStore) {
         //store in memory.txt
-
         Memory.storeMemory("./out/artifacts/ip_jar/memory.txt", tasksToStore.getMainTaskList());
 
         System.out.println("\tBye. Hope to see you again soon!");
