@@ -11,22 +11,23 @@ Chat0PT is a **desktop command-line application to keep track of a user's tasks*
   * [Marking a task as done `done`](#marking-a-task-as-done-done)
   * [Marking a task as not done `unmark`](#marking-a-task-as-not-done-unmark)
   * [Searching for tasks by name `find`](#searching-for-tasks-by-name-find)
-  * [Terminating the program](#terminating-the-program)
+  * [Terminating the program `bye`](#terminating-the-program-bye)
 * [Command Summary](#command-summary)
 
-## Quick Start 
+## Quick Start
 1. Ensure that you have Java `11` installed on your computer.
 2. Download the latest `ip.jar` from [here](https://github.com/hooami/ip/releases)
 3. Copy the file to the folder you want to use as the home folder for Chat0PT.
 4. Open a command terminal, cd to your JAR file location and use `java -jar ip.jar` to run the application.
 5. Type the command in the terminal and press Enter to execute it. Refer to [Features](#features) below for the details of each command.
 
-## Features 
-> **Note**  
+## Features
+> **Note**
 > - Words in UPPER_CASE are the parameters to be supplied by the user.<br>
-e.g. in `delete NUMBER`, `NUMBER` is a parameter which can be as `delete 1`
+    e.g. in `delete NUMBER`, `NUMBER` is a parameter which can be as `delete 1`
 > - Extraneous parameters for commands that do not take in parameters (such as `list`) will be ignored.<br>
-e.g. if the command specifies `list abc`, it will be interpreted as `list`.
+    e.g. if the command specifies `list abc`, it will be interpreted as `list`.
+> - A task file `chat0pt.txt` would be created in the directory that JAR file is executed from. In the event the text file gets modified with an invalid input, the entry would be ignored.
 
 ### List all tasks `list`
 Lists all currently active tasks
@@ -76,7 +77,7 @@ Format: `mark INDEX`
 
 Example:
 - `mark 2` to mark the second task in the list as done
-  - If task is already marked, the command would have no effect   
+  - If task is already marked, the command would have no effect
 
 ### Marking a task as not done `unmark`
 Marks an existing task as not done
@@ -87,7 +88,7 @@ Format: `unmark INDEX`
 Example:
 - `unmark 2` to unmark the second task in the list as done
   - If task is already unmarked, the command would have no effect
- 
+
 ### Searching for tasks by name `find`
 Find tasks based on a given keyword
 
@@ -97,7 +98,7 @@ Example:
 - `find homework` to find tasks containing the word homework.
 - `find CS2113 project` to find tasks containing the sentence `CS2113 project`
 
-### Terminating the program
+### Terminating the program `bye`
 Ends the program
 
 Format: `bye`
