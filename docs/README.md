@@ -87,7 +87,8 @@ Lists all the tasks in the list.
 
 
 ### Find a task: `find <keyword>`
-Finds all the task whose description contains the keyword entered.
+Finds all the task whose description contains the keyword entered. Please take note that
+this is <b>case sensitive</b>
 
     find CS2113
         ____________________________________________________________
