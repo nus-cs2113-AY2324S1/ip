@@ -1,26 +1,28 @@
 package eggybyte.ip.data.task;
 
+/**
+ * A child class of Task that has a new variable 'isDone' to show whether the
+ * task is done.
+ */
 public class Todo extends Task {
-    protected final String description;
     protected final String type;
-    protected boolean isDone;
+    public boolean isDone;
 
+    /**
+     * Creating a new Task.
+     */
     public Todo(String description) {
         this(description, "T");
     }
 
+    /**
+     * Creating a new Task.
+     * It's used for child classes to avoid implemented duplicated function.
+     */
     public Todo(String description, String type) {
-        this.description = description;
+        super(description);
         this.type = type;
         isDone = false;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
     }
 
     @Override

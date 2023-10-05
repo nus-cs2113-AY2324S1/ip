@@ -3,14 +3,14 @@ package eggybyte.ip.command;
 import eggybyte.ip.data.exception.TipsException;
 
 /**
- * Commands for Terminating the Program.
- * 
- * @see #COMMAND_WORD
+ * [OBSOLETE]
+ * Command for Reapeating Undefined Commands.
  */
-public class ByeCommand extends Command {
+public class RepeatCommand extends Command {
 
-    public static final String COMMAND_WORD = "bye";
+    public static final String COMMAND_WORD = "repeat";
     protected static final int validArgumentAmount = 0;
+    private String input;
 
     /**
      * Create a new Command.
@@ -23,19 +23,19 @@ public class ByeCommand extends Command {
      *                       information about this exception and the possible
      *                       solution.
      */
-    public ByeCommand(String[] arguments) throws Exception {
+    public RepeatCommand(String input, String[] arguments) throws TipsException {
         super(COMMAND_WORD, validArgumentAmount);
+        this.input = input;
         checkArguments(arguments);
     }
 
     @Override
     public String customFunction() {
-        runningState.exit();
         return "";
     }
 
     @Override
     public CommandResult getCommandResult(String content) {
-        return new CommandResult(" Bye. Hope to see you again soon!");
+        return new CommandResult(" " + input);
     }
 }

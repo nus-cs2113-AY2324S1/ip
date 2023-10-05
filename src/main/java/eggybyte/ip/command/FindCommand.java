@@ -1,17 +1,20 @@
 package eggybyte.ip.command;
 
 import eggybyte.ip.data.exception.TipsException;
-import eggybyte.ip.data.task.Task;
+import eggybyte.ip.data.task.*;
+
+import java.util.ArrayList;
 
 /**
- * Commands for Listing All Existing Tasks.
+ * Commands for Finding Specific Tasks.
  * 
  * @see #COMMAND_WORD
  */
-public class ListCommand extends Command {
+public class FindCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
-    protected static final int validArgumentAmount = 0;
+    public static final String COMMAND_WORD = "find";
+    private static final int validArgumentAmount = 1;
+    private final String partialDescription;
 
     /**
      * Create a new Command.
@@ -24,20 +27,28 @@ public class ListCommand extends Command {
      *                       information about this exception and the possible
      *                       solution.
      */
-    public ListCommand(String[] arguments) throws TipsException {
+    public FindCommand(String[] arguments) throws TipsException {
         super(COMMAND_WORD, validArgumentAmount);
         checkArguments(arguments);
+        partialDescription = arguments[0];
     }
 
     @Override
     public String customFunction() {
-        if (runningState.tasks.size() == 0) {
-            return "The list is empty!";
+        ArrayList<Task> filteredTasks = new ArrayList<Task>();
+        for (Task task : runningState.tasks) {
+            if (task.description.contains(partialDescription)) {
+                filteredTasks.add(task);
+            }
         }
 
-        String result = taskToString(0);
-        for (int i = 1; i < runningState.tasks.size(); i++) {
-            result += "\n" + taskToString(i);
+        if (filteredTasks.size() == 0) {
+            return " There are no tasks with such partial description!";
+        }
+
+        String result = taskToString(filteredTasks, 0);
+        for (int i = 1; i < filteredTasks.size(); i++) {
+            result += "\n" + taskToString(filteredTasks, i);
         }
         return result;
     }
@@ -53,15 +64,14 @@ public class ListCommand extends Command {
      *                       information about this exception and the possible
      *                       solution.
      */
-    private String taskToString(int index) {
-        Task task = runningState.tasks.get(index);
+    private String taskToString(ArrayList<Task> tasks, int index) {
+        Task task = tasks.get(index);
         return " " + (index + 1) + "." + task.toString();
     }
 
     @Override
     public CommandResult getCommandResult(String content) {
         return new CommandResult(
-                "Here are the tasks in your list:\n"
-                        + content);
+                "Here are the tasks that have partial description with '" + partialDescription + "':\n" + content);
     }
 }
