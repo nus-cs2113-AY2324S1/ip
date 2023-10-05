@@ -35,7 +35,7 @@ public class Storage {
         BufferedWriter bufferedWriter = new BufferedWriter(fw);
         BufferedReader reader = new BufferedReader(new FileReader(this.dukeDataFile));
         //we only append newline if the file is not empty
-        if(reader.readLine() != null){
+        if (reader.readLine() != null) {
             bufferedWriter.newLine();
         }
         bufferedWriter.write(textToAdd);
@@ -45,121 +45,98 @@ public class Storage {
     }
 
     /**
-     * Updates the status mark of a task in the data file.
+     * Updates a specific line in the file denoted by `dukeDataFile` without creating a new file.
      *
-     * <p>This method modifies the status mark of a task at the specified line index (lineToEdit)
-     * in the data file. It takes an integer action as a parameter, which is used to determine
-     * the new status mark value. It creates a temporary file to write the modified content, reads
-     * the original file line by line, updates the status mark of the specified line, and replaces
-     * the original file with the temporary file.
-     * </p>
-     *
-     * <p>The action parameter should be an integer value that represents the new status mark value.
-     * Typically, 0 represents an incomplete task, and 1 represents a completed task, but this may
-     * vary depending on your application's conventions.
-     * </p>
-     *
-     * @param lineToEdit The index of the line representing the task to be edited in the data file.
-     * @param action     An integer value indicating the new status mark (e.g., 0 for incomplete, 1 for completed).
+     * @param lineToEdit The line number to be edited (1-based index).
+     * @param action     The new action value to set in the line (0 or 1).
      */
     public void updateMark(int lineToEdit, int action) {
+        ArrayList<String> modifiedLines = new ArrayList<>();
 
-        // Create a temporary file to write the modified content
-        File tempFile = new File("temp.txt");
-
-        try (
-                BufferedReader reader = new BufferedReader(new FileReader(this.dukeDataFile));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-        ) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.dukeDataFile))) {
             String currentLine;
             int lineNumber = 0;
 
             while ((currentLine = reader.readLine()) != null) {
                 lineNumber++;
 
-                // Check if the current line is the one to remove
-                if (lineNumber != lineToEdit) {
-                    writer.write(currentLine);
-                    //if it's the last item, we don't add a newLine to the next line
-                    if (lineNumber == this.taskListSize) {
-                        break;
-                    }
-                    writer.newLine(); // Add a new line after writing
-                } else {
+                if (lineNumber == lineToEdit) {
+                    // Modify the line if it's the one to edit
                     char[] charArray = currentLine.toCharArray();
-                    //to ensure that it is not converted to 'a'
                     charArray[2] = (char) (action + '0');
-                    writer.write(new String(charArray));
-                    writer.newLine();
+                    modifiedLines.add(new String(charArray));
+                } else {
+                    // Keep the original line if it's not the one to edit
+                    modifiedLines.add(currentLine);
                 }
-
             }
         } catch (IOException e) {
-            System.err.println("Error reading/writing the file: " + e.getMessage());
+            System.err.println("Error reading the file: " + e.getMessage());
+            return;
         }
 
-        // Replace the original file with the temporary file
-        if (tempFile.renameTo(new File(dukeDataFile))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.dukeDataFile))) {
+            // Write the modified lines back to the original file
+            for (String line : modifiedLines) {
+                writer.write(line);
+                writer.newLine();
+            }
             System.out.println("Line edited successfully.");
-        } else {
-            System.err.println("Error renaming the temporary file.");
+        } catch (IOException e) {
+            System.err.println("Error writing to the file: " + e.getMessage());
         }
-
     }
 
     /**
-     * Removes a specified line from the data file and updates the task list size.
+     * Removes a specific line from the file denoted by `dukeDataFile` without creating a new file.
      *
-     * <p>This method removes the line at the specified index (lineToRemove) from the data file
-     * and updates the task list size accordingly. It creates a temporary file to write the modified
-     * content, reads the original file line by line, and skips the line to remove. After processing,
-     * it replaces the original file with the temporary file.
-     * </p>
-     *
-     * @param lineToRemove The index of the line to remove from the data file.
+     * @param lineToRemove The line number to be removed (1-based index).
      */
     public void removeFromFile(int lineToRemove) {
+        ArrayList<String> modifiedLines = new ArrayList<>();
 
-        // Create a temporary file to write the modified content
-        File tempFile = new File("temp.txt");
-
-        try (
-                BufferedReader reader = new BufferedReader(new FileReader(this.dukeDataFile));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-        ) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.dukeDataFile))) {
             String currentLine;
             int lineNumber = 0;
-            System.out.println("line to remove is: " + lineToRemove);
 
             while ((currentLine = reader.readLine()) != null) {
                 lineNumber++;
 
-                // Check if the current line is the one to remove
-                if (lineNumber != lineToRemove) {
-                    //if it's the last item, we don't add a newLine to the next line
-
-                    writer.write(currentLine);
-//                    System.out.println(lineNumber != this.taskListSize);
-//                    System.out.println((lineNumber + 1) != lineToRemove);
-                    if (lineNumber != this.taskListSize && (lineNumber + 1) != this.taskListSize) {
-                        writer.newLine(); // Add a new line after writing
-                    }
-
+                if (lineNumber == lineToRemove) {
+                    // Skip the line to remove
+                    continue;
                 }
 
+                modifiedLines.add(currentLine);
             }
-            this.taskListSize -= 1;
         } catch (IOException e) {
-            System.err.println("Error reading/writing the file: " + e.getMessage());
+            System.err.println("Error reading the file: " + e.getMessage());
+            return;
         }
+        this.taskListSize -= 1;
 
-        // Replace the original file with the temporary file
-        if (tempFile.renameTo(new File(dukeDataFile))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.dukeDataFile))) {
+            int oldTaskListSize = this.taskListSize + 1;
+            int lineNumber = 0;
+            // Write the modified lines back to the original file
+            for (String line : modifiedLines) {
+                lineNumber++;
+                writer.write(line);
+                if (lineNumber != this.taskListSize ) {
+                    if(lineToRemove == oldTaskListSize  && lineNumber + 1 == lineToRemove){
+                        continue;
+                    }else{
+                        writer.newLine(); // Add a new line after writing
+                        System.out.println("new line added for:  " + line);
+                    }
+                }
+            }
             System.out.println("Line removed successfully.");
-        } else {
-            System.err.println("Error renaming the temporary file.");
+        } catch (IOException e) {
+            System.err.println("Error writing to the file: " + e.getMessage());
         }
     }
+
 
     /**
      * Reads task data from a file and returns an ArrayList of tasks.
