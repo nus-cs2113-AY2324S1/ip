@@ -135,4 +135,19 @@ public class Storage {
         tasks.add(element);
     }
 
+    protected void searchKeyword(String line, ArrayList<Task> tasks) {
+        ArrayList<Task> searchResults = new ArrayList<>();
+        String keyword = line.substring(4);
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                searchResults.add(task);
+            }
+        }
+        Ui.outputHeader();
+        for (Task task : searchResults) {
+            System.out.println(task);
+        }
+        Ui.printLine();
+    }
+
 }
