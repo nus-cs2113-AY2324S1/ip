@@ -2,7 +2,6 @@ package duke;
 import java.util.Arrays;
 import java.util.Collections;
 
-
 /**
  * Class to check the user input and check for format violations or
  * unrecognised commands and/or operations.
@@ -12,7 +11,7 @@ public class DukeException {
     protected String command;
     protected String[] userInput;
     public boolean exception = false;
-    private Ui ui = new Ui();
+    private final Ui ui = new Ui();
 
     public DukeException(String[] userInput){
         this.userInput = userInput;
@@ -27,7 +26,7 @@ public class DukeException {
         switch (this.command) {
         case "mark":
         case "unmark":
-            if (this.userInput.length == 2 && Integer.parseInt(this.userInput[1]) > 0){
+            if (this.userInput.length == 2 && Integer.parseInt(this.userInput[1]) > 0 && Integer.parseInt(this.userInput[1]) <= size){
                 break;
             } else {
                 customError("You have entered an invalid index");
@@ -84,7 +83,7 @@ public class DukeException {
      */
     public void customError(String message){
         ui.printLine();
-        ui.echo("    ☹ OOPS!!! " + message + " :-(\n");
+        ui.echo("☹ OOPS!!! " + message + " :-(\n");
         ui.printLine();
         exception = true;
     }
@@ -94,7 +93,7 @@ public class DukeException {
      */
     public void unknownCommand(){
         ui.printLine();
-        ui.echo("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+        ui.echo("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         ui.printLine();
         exception = true;
     }
@@ -104,7 +103,7 @@ public class DukeException {
      */
     private void emptyDescription(){
         ui.printLine();
-        ui.echo("    ☹ OOPS!!! The description of a " + this.command + " cannot be empty.\n");
+        ui.echo("☹ OOPS!!! The description of a " + this.command + " cannot be empty.\n");
         ui.printLine();
         exception = true;
     }
@@ -114,7 +113,7 @@ public class DukeException {
      */
     public void missingKeyword(){
         ui.printLine();
-        ui.echo("    ☹ OOPS!!! You are missing an important keyword\n");
+        ui.echo("☹ OOPS!!! You are missing an important keyword\n");
         ui.printLine();
         exception = true;
     }
