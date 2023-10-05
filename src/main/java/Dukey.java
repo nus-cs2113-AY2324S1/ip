@@ -1,12 +1,12 @@
 import Tasks.*;
 import dukey.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import Ui.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -161,7 +161,7 @@ public class Dukey {
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Hey! I'm Dukey, your virtual assistant!\nWhat can I do for you?\n");
+        Ui.showWelcomeMessage();
         Scanner in = new Scanner(System.in);
         String line;
         ArrayList<Task> tasks = new ArrayList<>();
