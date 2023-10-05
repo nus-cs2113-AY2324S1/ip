@@ -6,11 +6,27 @@ import dukey.DukeyException;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class manages a list of tasks (add/delete)
+ */
 public class TaskList {
     protected ArrayList<Task> tasks;
+
+    /**
+     * Constructs a TaskList with the given list of tasks.
+     *
+     * @param tasks The list of tasks to be managed.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+
+    /**
+     * Adds a Todo task to the task list.
+     *
+     * @param words The description of the Todo task.
+     * @param tasks The list of tasks.
+     */
     public static void addTodo(String words, ArrayList<Task> tasks) {
  /*       String[] words = line.split(" ");
         String description = "";
@@ -27,6 +43,12 @@ public class TaskList {
         } */
     }
 
+    /**
+     * Deletes a task from the task list based on its index.
+     *
+     * @param line  The user input containing the index of the task.
+     * @param tasks The list of tasks.
+     */
     public static void deleteTask(String line, ArrayList<Task> tasks) {
         try {
             String[] words = line.split(" ");
@@ -42,6 +64,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds an Event task to the task list.
+     *
+     * @param from        The starting time of the event.
+     * @param to          The ending time of the event.
+     * @param description The description of the Event task.
+     * @param tasks       The list of tasks.
+     */
     public static void addEvent(String from, String to, String description, ArrayList<Task> tasks) {
      //   int startIndexOfFrom = line.indexOf("/from");
      //   int startIndexOfTo = line.indexOf("/to");
@@ -59,6 +89,13 @@ public class TaskList {
     //    }
     }
 
+    /**
+     * Adds a Deadline task to the task list.
+     *
+     * @param description The description of the Deadline task.
+     * @param by          The deadline of the task.
+     * @param tasks       The list of tasks.
+     */
     public static void addDeadline(String description, String by, ArrayList<Task> tasks) {
  //       String[] words = line.split("/by");
 //        String[] words2 = line.split(" ");
@@ -75,18 +112,35 @@ public class TaskList {
   //      }
     }
 
+    /**
+     * Unmarks a task in the task list.
+     *
+     * @param line  The user input containing the index of the task.
+     * @param tasks The list of tasks.
+     */
     public static void unmarkTask(String line, ArrayList<Task> tasks) {
         String[] words = line.split(" ");
         int taskNum = Integer.parseInt(words[1]) - 1;
         tasks.get(taskNum).unmarkTask();
     }
 
+    /**
+     * Marks a task in the task list as done.
+     *
+     * @param line  The user input containing the index of the task.
+     * @param tasks The list of tasks.
+     */
     public static void markTask(String line, ArrayList<Task> tasks) {
         String[] words = line.split(" ");
         int taskNum = Integer.parseInt(words[1]) - 1;
         tasks.get(taskNum).setDone();
     }
 
+    /**
+     * Prints the list of tasks.
+     *
+     * @param tasks The list of tasks to be printed.
+     */
     public static void printTaskList(ArrayList<Task> tasks) {
         Ui.printLine();
         System.out.println("Here are the tasks in your list:");

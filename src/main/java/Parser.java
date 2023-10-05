@@ -5,13 +5,28 @@ import dukey.DukeyException;
 
 import java.util.regex.*;
 
+/**
+ * The Parser class provides methods for parsing user input and command-specific input.
+ */
 public class Parser {
+    /**
+     * Parses the user input into an array of words.
+     *
+     * @param line The user input to be parsed.
+     * @return An array containing the words in the input.
+     */
     public static String[] parseUserInput(String line) {
         String[] words = line.split(" ", 2);
         return words;
     }
 
-    // parses the input line based on what type of command it is
+    /**
+     * Parses command-specific input based on the given command type.
+     *
+     * @param command The type of command (e.g., "deadline", "event", etc.).
+     * @param input   The input specific to the command.
+     * @return An array containing parsed information based on the command.
+     */
     public static String[] parseCommandInput(String command, String input) {
         String[] words = null;  // Initialize the array
         switch (command) {
@@ -47,9 +62,6 @@ public class Parser {
 
         return words;  // Return the array
     }
-
-
-
 
 }
 
