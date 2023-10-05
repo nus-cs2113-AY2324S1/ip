@@ -1,4 +1,6 @@
-# SIMON User Guide
+# Simon User Guide
+
+Simon is a CLI application that helps the user to manage their tasks.
 
 ## Features 
 
