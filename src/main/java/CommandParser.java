@@ -1,15 +1,59 @@
+/**
+ * This class is responsible for parsing and processing user commands for the Ken chatbot.
+ * It defines constants for various supported commands and provides methods to handle
+ * user input and extract task information from it.
+ */
 public class CommandParser {
+
+    /**
+     * Command keyword for terminating the chatbot.
+     */
     public static final String COMMAND_BYE = "bye";
+
+    /**
+     * Command keyword for listing tasks.
+     */
     public static final String COMMAND_LIST = "list";
+
+    /**
+     * Command keyword for adding a to-do task.
+     */
     public static final String COMMAND_TODO = "todo";
+
+    /**
+     * Command keyword for adding a deadline task.
+     */
     public static final String COMMAND_DEADLINE = "deadline";
+
+    /**
+     * Command keyword for adding an event task.
+     */
     public static final String COMMAND_EVENT = "event";
+
+    /**
+     * Command keyword for deleting a task.
+     */
     public static final String COMMAND_DELETE = "delete";
+
+    /**
+     * Command keyword for marking a task as done.
+     */
     public static final String COMMAND_MARK = "mark";
 
+    /**
+     * Command keyword for finding tasks by keyword.
+     */
     public static final String COMMAND_FIND = "find";
 
-
+    /**
+     * Processes the user's command, extracts task type and description, and performs
+     * the corresponding action (e.g., adding, deleting, marking) on the task list.
+     *
+     * @param userInput The user's input command.
+     * @param taskList The task list to which the command should be applied.
+     * @param storage The storage object for saving the task list.
+     * @throws KenException If there's an issue with the user's command or task handling.
+     */
     public static void processUserCommand(String userInput, TaskList taskList, Storage storage) throws KenException {
         String[] parts = userInput.split(" ", 2);
 
@@ -44,8 +88,13 @@ public class CommandParser {
         }
     }
 
-
-
+    /**
+     * Extracts date information from a task description, if present, and returns
+     * an array containing the task description and date information.
+     *
+     * @param description The task description that may contain date information.
+     * @return An array containing the task description and date information.
+     */
     public static String[] extractDateInfo(String description) {
         if (description.contains("/from") && description.contains("/to")) {
             String[] parts = description.split(" /from | /to ");
@@ -65,6 +114,4 @@ public class CommandParser {
         }
         return new String[]{description, null};
     }
-
-
 }

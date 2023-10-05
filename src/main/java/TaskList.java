@@ -1,13 +1,36 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The TaskList class manages the task-related data and provides methods to manipulate tasks.
+ */
 public class TaskList {
-    
+
+    /**
+     * A list to store task descriptions.
+     */
     public static List<String> taskDescriptions = new ArrayList<>();
+
+    /**
+     * A list to store task completion status (true for completed, false for incomplete).
+     */
     public static List<Boolean> taskDoneStatus = new ArrayList<>();
+
+    /**
+     * A list to store task types (e.g., "T" for Todo, "D" for Deadline, "E" for Event).
+     */
     public static List<String> taskTypes = new ArrayList<>();
+
+    /**
+     * A list to store task dates (optional for some task types).
+     */
     public static List<String> taskDates = new ArrayList<>();
 
+    /**
+     * Parses a task description from a string and adds it to the task lists.
+     *
+     * @param line The string containing task information.
+     */
     public void parseAndAddTask(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length >= 3) {
@@ -25,23 +48,47 @@ public class TaskList {
         }
     }
 
-    // Add getter methods for task-related lists
+    /**
+     * Retrieves the list of task descriptions.
+     *
+     * @return The list of task descriptions.
+     */
     public List<String> getTaskDescriptions() {
         return taskDescriptions;
     }
 
+    /**
+     * Retrieves the list of task completion statuses.
+     *
+     * @return The list of task completion statuses.
+     */
     public List<Boolean> getTaskDoneStatus() {
         return taskDoneStatus;
     }
 
+    /**
+     * Retrieves the list of task types.
+     *
+     * @return The list of task types.
+     */
     public List<String> getTaskTypes() {
         return taskTypes;
     }
 
+    /**
+     * Retrieves the list of task dates.
+     *
+     * @return The list of task dates.
+     */
     public List<String> getTaskDates() {
         return taskDates;
     }
 
+    /**
+     * Lists all the tasks in the task list.
+     *
+     * @param taskList The TaskList to be listed.
+     */
     public static void listTasks(TaskList taskList) {
         System.out.println(" Here are the tasks in your list:");
         int numTasks = taskList.getTaskDescriptions().size(); // Get the number of tasks
@@ -53,6 +100,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the addition of a task to the task list.
+     *
+     * @param taskType       The type of the task (e.g., "T" for Todo).
+     * @param taskDescription The description of the task.
+     * @param taskList       The TaskList to which the task will be added.
+     * @throws EmptyDescriptionException If the task description is empty.
+     */
     public static void handleAddTask(String taskType, String taskDescription, TaskList taskList) throws EmptyDescriptionException {
         if (taskDescription.isEmpty()) {
             throw new EmptyDescriptionException("Hey!! Description cannot be empty for a " + taskType + " task.");
@@ -72,7 +127,13 @@ public class TaskList {
         System.out.println(" Now you have " + taskList.getTaskDescriptions().size() + " tasks in the list.");
     }
 
-
+    /**
+     * Handles the deletion of a task from the task list.
+     *
+     * @param taskDescription The description of the task to be deleted.
+     * @param taskList       The TaskList from which the task will be deleted.
+     * @throws KenException If there is an error while handling the task deletion.
+     */
     public static void handleDeleteTask(String taskDescription, TaskList taskList) throws KenException {
         try {
             int taskIndex = Integer.parseInt(taskDescription.trim()) - 1;
@@ -91,6 +152,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the marking of a task as completed in the task list.
+     *
+     * @param taskDescription The description of the task to be marked as completed.
+     * @param taskList       The TaskList in which the task will be marked.
+     * @throws KenException If there is an error while handling the task completion.
+     */
     public static void handleMarkTask(String taskDescription, TaskList taskList) throws KenException {
         try {
             int taskIndex = Integer.parseInt(taskDescription.trim()) - 1;
@@ -111,7 +179,12 @@ public class TaskList {
     }
 
 
-
+    /**
+     * Converts a task at the specified index into a formatted string.
+     *
+     * @param index The index of the task to be converted.
+     * @return The formatted string representing the task.
+     */
     public String taskToString(int index) {
         String taskType = taskTypes.get(index);
         String doneStatus = taskDoneStatus.get(index) ? "[X]" : "[ ]";
@@ -144,19 +217,29 @@ public class TaskList {
     }
 
 
-
+    /**
+     * Finds tasks containing a specified keyword and returns them in a list.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of matching tasks.
+     */
     public ArrayList<String> findTasksByKeyword(String keyword) {
         ArrayList<String> matchingTasks = new ArrayList<>();
         for (int i = 0; i < taskDescriptions.size(); i++) {
             String description = taskDescriptions.get(i);
             if (description.contains(keyword)) {
                 String matchingTask = "[" + taskTypes.get(i) + "]" + taskToString(i);
-                matchingTasks.add(matchingTask);
+                matchingTasks.add((i + 1) + ". " + matchingTask); // Include the task number
             }
         }
         return matchingTasks;
     }
 
+    /**
+     * Handles the "find" command, searching for tasks with a specified keyword.
+     *
+     * @param userInput The user input string containing the "find" command and keyword.
+     */
     public void handleFindCommand(String userInput) {
         String keyword = userInput.substring(CommandParser.COMMAND_FIND.length()).trim();
         ArrayList<String> matchingTasks = findTasksByKeyword(keyword);
