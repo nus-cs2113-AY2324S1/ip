@@ -12,10 +12,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ToDoList {
+public class TaskList {
     private ArrayList<Task> list;
 
-    public ToDoList() {
+    public TaskList() {
         list = new ArrayList<>();
     }
 

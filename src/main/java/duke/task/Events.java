@@ -12,7 +12,7 @@ public class Events extends Task{
         this.end = end;
     }
 
-    public void UpdateDate(String newFrom, String newEnd) {
+    public void updateDate(String newFrom, String newEnd) {
         this.from = newFrom;
         this.end = newEnd;
     }
