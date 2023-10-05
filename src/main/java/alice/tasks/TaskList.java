@@ -72,12 +72,41 @@ public class TaskList {
         Ui.printLineDivider();
     }
 
-    public void markTask(int taskId) {
-        tasks.get(taskId).markTask();
-    }
+    /**
+     * Print tasks that consist of keyword.
+     * @param keyword
+     */
+    public void printFilteredTasks(String keyword) {
+        int taskNumber = 0;
+        boolean haveFilteredTask = false;
 
-    public void unmarkTask(int taskId) {
-        tasks.get(taskId).unmarkTask();
-    }
+        Ui.printOneTabMessage("Here are the tasks you are searching for: ");
 
+        for (Task task : tasks) {
+            taskNumber++;
+            String description = task.getDescription();
+
+            //Finding for keyword the task
+            boolean keywordIsFound = false;
+            String[] wordsInDescription = description.split(" ");
+            for (String word : wordsInDescription) {
+                word.toLowerCase();
+                if (keyword.equals(word)) {
+                    keywordIsFound = true;
+                    haveFilteredTask = true;
+                    break;
+                }
+            }
+
+            //Printing filtered task item
+            if (keywordIsFound) {
+                Ui.printTwoTabMessage(taskNumber + ". " + task.toString());
+            }
+        }
+
+        if (!haveFilteredTask) {
+            Ui.printTwoTabMessage("<No task found in your wonderland>");
+        }
+        Ui.printLineDivider();
+    }
 }
