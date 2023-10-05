@@ -139,6 +139,7 @@ public class Command {
     public TaskList addToDo(String argument, TaskList tasks, Ui ui) {
         if (argument == null || argument.isEmpty()) {
             ui.printEmptyTodoMessage();
+            return tasks;
         }
         Task todo = new Todo(argument);
         tasks.add(todo);

@@ -61,6 +61,8 @@ Ok, I have added the following task:
    [D][ ] organize present for birthday party (by: Aug-08-2023 14:00)
 Now you have 5 tasks in the list.
 --------------------------------------------
+I am sorry, the todo cannot be empty!
+--------------------------------------------
 --------------------------------------------
 Have a wonderful day! Hope to see you again soon!
 --------------------------------------------
