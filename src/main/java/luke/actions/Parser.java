@@ -57,6 +57,11 @@ public class Parser{
                         c = new DeleteCommand(theAction, parameters);
                         break;
 
+                    case BYE:
+                        parameters = "";
+                        c = new ExitCommand(theAction, parameters);
+                        break;
+
                     default:
                         c = new AddCommand(theAction, "");
                         assert false: "This line should never be reached";
