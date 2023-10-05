@@ -28,10 +28,17 @@ public class EventCommand extends Command {
             String errorMsg = "Please include '/from' and '/to' for the start and end time!";
             throw new DawsonException(errorMsg);
         }
-
-        String taskString = payload.substring(0, from_position).trim();
-        String fromString = payload.substring(from_position + FROM_DELIMITER.length(), to_position).trim();
-        String toString = payload.substring(to_position + TO_DELIMITER.length()).trim();
+        
+        String taskString, fromString, toString;
+        if (from_position < to_position) {
+            taskString = payload.substring(0, from_position).trim();
+            fromString = payload.substring(from_position + FROM_DELIMITER.length(), to_position).trim();
+            toString = payload.substring(to_position + TO_DELIMITER.length()).trim();
+        } else {
+            taskString = payload.substring(0, to_position).trim();
+            toString = payload.substring(to_position + TO_DELIMITER.length(), from_position).trim();
+            fromString = payload.substring(from_position + FROM_DELIMITER.length()).trim();
+        }
 
         EventTask newTask = new EventTask(taskString, fromString, toString);
         list.add(newTask);
