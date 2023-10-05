@@ -75,7 +75,7 @@ public class TaskList {
     public void find(String userInput) {
         int count = 1;
         for (Task task : list) {
-            if (task.getDescription().contains(userInput)) {
+            if (task.getDescription().toLowerCase().contains(userInput.toLowerCase())) {
                 if (count == 1){
                     System.out.println("Here are the matching tasks in your list:");
                 }
