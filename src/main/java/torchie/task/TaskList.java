@@ -54,4 +54,15 @@ public class TaskList {
     public void announceListSize() {
         System.out.println("Now you have " + this.getSize() + " task(s) in the list.");
     }
+
+    public TaskList findTask(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task:taskList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+
+        return matchingTasks;
+    }
 }

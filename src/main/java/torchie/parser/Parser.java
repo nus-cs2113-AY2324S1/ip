@@ -21,6 +21,7 @@ public class Parser {
     public final String DEADLINE = "deadline";
     public final String EVENT = "event";
     public final String DELETE = "delete";
+    public final String FIND = "find";
 
 
     private TaskList taskList;
@@ -145,7 +146,7 @@ public class Parser {
                 System.out.println("Missing <task name>: Example: event <read> /from Aug 1st 4pm /to 6pm");
             }*/
             break;
-        case "delete":
+        case DELETE:
             try {
                 String itemNum_str = taskDetailsParser.getContent(input);
                 int itemNum = Integer.parseInt(itemNum_str) - 1;
@@ -160,6 +161,16 @@ public class Parser {
             } catch (NullPointerException e) {
                 System.out.println("Task number to delete cannot exceed: <" + taskList.getSize() + ">");
             }*/
+            break;
+        case FIND:
+            try {
+                String keyword = taskDetailsParser.getContent(input);
+                commandObj = new FindCommand(taskList, keyword);
+                /*taskList.deleteTask(itemNum);
+                taskList.announceListSize();*/
+            } catch (TorchieException e) {
+                e.showExceptionMessage();
+            }
             break;
         default:
             throw new InvalidCommandException();
