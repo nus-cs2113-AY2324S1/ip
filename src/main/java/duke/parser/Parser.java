@@ -8,9 +8,22 @@ import duke.tasklist.TaskList;
 
 import java.util.HashMap;
 
+/**
+ * A <code>Parser</code> object is responsible for parsing and executing
+ * a user provided command string.
+ */
 public class Parser {
     public Parser() {}
 
+    /**
+     * Returns a human-readable result of the command
+     * executed.
+     *
+     * @param line inputted by user.
+     * @param tasks that are currently in the TaskList
+     * @return A human-readable string of the command's result.
+     * @throws DukeException If command has issues.
+     */
     public String executeCommand(String line, TaskList tasks) throws DukeException {
         int divider = line.indexOf(" ");
         if (divider == -1) {

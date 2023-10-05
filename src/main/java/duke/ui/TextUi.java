@@ -2,6 +2,11 @@ package duke.ui;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+
+/**
+ * TextUi object is responsible for all messages displayed to the user.
+ * All formatting is specified and followed in this class.
+ */
 public class TextUi {
     public static final String MESSAGE_WELCOME = "Hello! I'm KevBot";
     private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
