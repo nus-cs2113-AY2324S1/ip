@@ -44,7 +44,7 @@ public class Storage {
     public void store(TaskList tasksToStore) {
         //store in memory.txt
 
-        Memory.storeMemory("./src/main/java/luke/files/memory.txt", tasksToStore);
+        Memory.storeMemory("./src/main/java/luke/files/memory.txt", tasksToStore.getMainTaskList());
 
         System.out.println("\tBye. Hope to see you again soon!");
     }
