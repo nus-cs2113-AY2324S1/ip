@@ -78,6 +78,8 @@ public class Ui extends Utils{
                 Utils.printDivider();
             }
 
+        } else if (command[0].equals("find")) {
+            TaskList.findTask(input.substring(5));
         } else {
             throw new NoTaskNameException();
         }

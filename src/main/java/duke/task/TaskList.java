@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> list;
+    private static ArrayList<Task> list;
 
     public TaskList() {
         list = new ArrayList<>();
@@ -82,6 +82,25 @@ public class TaskList {
         Utils.printDivider();
     }
 
+    public static void findTask(String taskName) {
+        Utils.printDivider();
+        System.out.println("Here are the matching tasks in your list:\n");
+
+        int counter = 1;
+        for (Task task : list) {
+            if (task.getTaskName().contains(taskName)) {
+                System.out.println(" " + counter + "." + task.toString());
+                counter++;
+            }
+        }
+
+        if (counter == 1) {
+            System.out.println("No tasks found with the specified name.");
+        }
+
+        Utils.printDivider();
+    }
+
     private void saveToFile() {
         //saving the current todolist into the json file if it exists, else create new json file
         // the object to write to file
@@ -122,17 +141,20 @@ public class TaskList {
                 switch (taskType) { //adding to the list based on the task type
                     case "T":
                         list.add(new ToDos(taskName, isDone));
+                        Number_Of_Task += 1;
 
                         break;
                     case "D":
                         String dueDate = jsonObject.getString("dueDate");
                         list.add(new Deadlines(taskName, dueDate, isDone));
+                        Number_Of_Task += 1;
 
                         break;
                     case "E":
                         String from = jsonObject.getString("from");
                         String end = jsonObject.getString("end");
                         list.add(new Events(taskName, from, end, isDone));
+                        Number_Of_Task += 1;
 
                         break;
                 }
