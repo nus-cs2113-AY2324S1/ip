@@ -34,7 +34,7 @@ public class Parser{
                         break;
 
                     case FIND:
-                        parameters = fullCommand.substring(4);
+                        parameters = fullCommand.substring(5);
                         c = new FindCommand(theAction, parameters);
                         break;
 
