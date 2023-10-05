@@ -1,7 +1,6 @@
-package tasks;
+package alice.tasks;
 
-import exceptions.InvalidCommandException;
-import ui.Ui;
+import alice.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -29,7 +28,7 @@ public class TaskList {
     }
 
     /**
-     * List all tasks that have been added by user.
+     * List all alice.tasks that have been added by user.
      */
     public void listTasks() {
         int taskCount = 0;
@@ -45,7 +44,7 @@ public class TaskList {
     }
 
     /**
-     * Add a new task to tasks array
+     * Add a new task to alice.tasks array
      * @param newTask is a class
      */
     public void addTask(Task newTask) {
@@ -56,27 +55,29 @@ public class TaskList {
 
         Ui.printOneTabMessage("Gotcha! I have added the following task:");
         Ui.printTwoTabMessage(newTaskDescription);
-        Ui.printOneTabMessage("Total no. of tasks: " + totalNumberOfTasks + " --- YOU'VE GOT THIS!\n");
+        Ui.printOneTabMessage("Total no. of alice.tasks: " + totalNumberOfTasks + " --- YOU'VE GOT THIS!\n");
         Ui.printLineDivider();
     }
 
-    public void deleteTask(String userInput) throws InvalidCommandException {
-        int taskId = Integer.parseInt(userInput.split(" ")[1]);
-        if (taskId > this.tasks.size() || taskId < 1) {
-            throw new InvalidCommandException();
-        }
-
-        int taskPosition = taskId - 1;
-        String taskDescription = this.tasks.get(taskPosition).toString();
+    public void deleteTask(int taskIndex) {
+        String taskDescription = this.tasks.get(taskIndex).toString();
 
         Ui.printOneTabMessage("Gotcha! I have removed the following task:");
         Ui.printTwoTabMessage(taskDescription);
 
-        this.tasks.remove(taskPosition);
+        this.tasks.remove(taskIndex);
         int totalNumberOfTasks = this.tasks.size();
 
-        Ui.printOneTabMessage("Total no. of tasks: " + totalNumberOfTasks + " --- YOU'VE GOT THIS!\n");
+        Ui.printOneTabMessage("Total no. of alice.tasks: " + totalNumberOfTasks + " --- YOU'VE GOT THIS!");
         Ui.printLineDivider();
+    }
+
+    public void markTask(int taskId) {
+        tasks.get(taskId).markTask();
+    }
+
+    public void unmarkTask(int taskId) {
+        tasks.get(taskId).unmarkTask();
     }
 
 }

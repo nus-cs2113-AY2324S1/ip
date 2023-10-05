@@ -1,15 +1,14 @@
-package commands;
+package alice.commands;
 
-import exceptions.InvalidCommandException;
-import tasks.Task;
-import enumeration.TaskStatus;
-import ui.Ui;
+import alice.tasks.Task;
+import alice.enumeration.TaskStatus;
+import alice.ui.Ui;
 
-public class UpdateTaskStatus extends Command {
+public class UpdateStatusCommand extends Command {
     Task task;
     TaskStatus status;
 
-    public UpdateTaskStatus(TaskStatus status, Task task) {
+    public UpdateStatusCommand(TaskStatus status, Task task) {
         this.task = task;
         this.status = status;
     }

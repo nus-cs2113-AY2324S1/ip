@@ -1,4 +1,4 @@
-package ui;
+package alice.ui;
 
 public class Ui {
     private static final String TAB_SPACE = "    ";
@@ -36,5 +36,16 @@ public class Ui {
 
     public static void printTwoTabMessage(String message) {
         System.out.println(TAB_SPACE + TAB_SPACE + message);
+    }
+
+    public static void printLoadingError() {
+        printOneTabMessage("There is a loading error!");
+        printLineDivider();
+    }
+
+    public static void printError(String errorMessage) {
+        printOneTabMessage("There is an error!");
+        printOneTabMessage(errorMessage);
+        printLineDivider();
     }
 }

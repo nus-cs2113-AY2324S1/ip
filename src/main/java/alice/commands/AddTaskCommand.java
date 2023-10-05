@@ -1,7 +1,6 @@
-package commands;
+package alice.commands;
 
-import exceptions.InvalidFormatException;
-import tasks.*;
+import alice.tasks.*;
 
 public class AddTaskCommand extends Command{
     private Task newTask;

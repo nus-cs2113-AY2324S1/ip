@@ -1,7 +1,7 @@
-package storage;
+package alice.storage;
 
-import tasks.*;
-import ui.Ui;
+import alice.tasks.*;
+import alice.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +32,7 @@ public class FileManager {
                 this.file.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println("    Oh no Alice, there was an ERROR in opening the file...");
+            System.out.println("    Oh no alice.Alice, there was an ERROR in opening the file...");
         }
     }
 

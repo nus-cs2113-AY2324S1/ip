@@ -1,4 +1,4 @@
-package enumeration;
+package alice.enumeration;
 
 public enum TaskStatus {
     mark, unmark

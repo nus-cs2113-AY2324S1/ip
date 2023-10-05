@@ -1,4 +1,4 @@
-package tasks;
+package alice.tasks;
 
 public class Task {
     public static final String LINE = "____________________________________________________________\n";

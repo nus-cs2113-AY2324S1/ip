@@ -1,8 +1,8 @@
-package parser;
+package alice.parser;
 
-import exceptions.InvalidCommandException;
-import exceptions.InvalidFormatException;
-import tasks.*;
+import alice.exceptions.InvalidCommandException;
+import alice.exceptions.InvalidFormatException;
+import alice.tasks.*;
 
 public class TaskParser{
     public String actionCommand;
@@ -19,7 +19,7 @@ public class TaskParser{
 
     /**
      * Create a new deadline task in the correct format,
-     * then, calls addTask to add deadline task to tasks array
+     * then, calls addTask to add deadline task to alice.tasks array
      * @return Deadline object
      * @throws InvalidFormatException
      */
@@ -40,7 +40,7 @@ public class TaskParser{
 
     /**
      * Create a new event task in the correct format,
-     * then, calls addTask to add event task to tasks array
+     * then, calls addTask to add event task to alice.tasks array
      * @return Event object
      * @throws InvalidFormatException
      */

@@ -1,19 +1,18 @@
-package parser;
+package alice.parser;
 
-import commands.AddTaskCommand;
-import commands.Command;
-import commands.UpdateTaskStatus;
-import enumeration.TaskStatus;
-import exceptions.InvalidCommandException;
-import exceptions.InvalidFormatException;
-import storage.FileManager;
-import tasks.*;
-import ui.Ui;
+import alice.commands.*;
+import alice.enumeration.TaskStatus;
+import alice.exceptions.InvalidCommandException;
+import alice.exceptions.InvalidFormatException;
+import alice.storage.FileManager;
+import alice.tasks.*;
+import alice.ui.Ui;
 
 import java.util.Scanner;
 
 public class CommandParser {
     private TaskList tasks;
+    boolean isRunning = true;
     public CommandParser(TaskList tasks) {
         this.tasks = tasks;
     }
@@ -27,9 +26,11 @@ public class CommandParser {
      */
     public Command handleInput(String actionOfInput, String userInput) throws InvalidCommandException, InvalidFormatException {
         switch (actionOfInput) {
-        /*case "list":
-            tasks.listTasks();
-            break;*/
+        case "bye":
+            isRunning = false;
+            return new ByeCommand();
+        case "list":
+            return new ListTasksCommand(tasks);
         case "mark":
         case "unmark":
             StatusParser statusParser = new StatusParser(userInput, tasks);
@@ -37,16 +38,17 @@ public class CommandParser {
             TaskStatus status = statusParser.getStatus();
             Task task = statusParser.getTask();
 
-            return new UpdateTaskStatus(status, task);
+            return new UpdateStatusCommand(status, task);
         case "todo":
         case "deadline":
         case "event":
             TaskParser taskParser = new TaskParser(userInput);
             Task newTask = taskParser.createTask();
             return new AddTaskCommand(newTask, tasks);
-        /*case "delete":
-            tasks.deleteTask(userInput);
-            break;*/
+        case "delete":
+            IndexValidityParser deleteParser = new IndexValidityParser(userInput, tasks);
+            int deleteIndex = deleteParser.getValidTaskId();
+            return new DeleteTaskCommand(deleteIndex, tasks);
         default:
             throw new InvalidCommandException();
         }
@@ -59,18 +61,13 @@ public class CommandParser {
      */
     public void execute(FileManager file) throws IndexOutOfBoundsException, InvalidCommandException, InvalidFormatException {
         Scanner input = new Scanner(System.in);
-        boolean isRunning = true;
 
         do {
             String userInput = input.nextLine();
             String actionOfInput = userInput.split(" ")[0];
             try{
-                if (actionOfInput.equals("bye")){
-                    isRunning = false;
-                } else {
-                    Command command = handleInput(actionOfInput, userInput);
-                    command.handleCommand();
-                }
+                Command command = handleInput(actionOfInput, userInput);
+                command.handleCommand();
             } catch (IndexOutOfBoundsException e){
                 Ui.printOneTabMessage("You have an extra input OR you are missing an input!\n CORRECT IT BEFORE THE KNAVE OF HEART COMES!");
                 Ui.printLineDivider();

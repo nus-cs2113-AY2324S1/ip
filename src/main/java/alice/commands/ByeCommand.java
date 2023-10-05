@@ -1,6 +1,6 @@
-package commands;
+package alice.commands;
 
-import ui.Ui;
+import alice.ui.Ui;
 
 public class ByeCommand extends Command{
     @Override

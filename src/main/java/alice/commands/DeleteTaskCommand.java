@@ -1,7 +1,6 @@
-package commands;
+package alice.commands;
 
-import exceptions.InvalidCommandException;
-import tasks.TaskList;
+import alice.tasks.TaskList;
 
 public class DeleteTaskCommand extends Command{
     int deleteIndex;
