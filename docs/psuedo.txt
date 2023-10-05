@@ -65,5 +65,3 @@ Bugs - check marking, delete, deadline and event only accept one word inputs, cr
 situation when function is deleted, file array needs to be reupdated, either rewrite whole thing or last line removed
 fix storage if i have time, not the priority
 
-
-
