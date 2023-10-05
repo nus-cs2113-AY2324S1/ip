@@ -1,14 +1,6 @@
 package Parser;
 
-import Commands.Command;
-import Commands.ByeCommand;
-import Commands.ListCommand;
-import Commands.MarkCommand;
-import Commands.UnmarkCommand;
-import Commands.TodoCommand;
-import Commands.DeadlineCommand;
-import Commands.EventCommand;
-import Commands.DeleteCommand;
+import Commands.*;
 
 import Exceptions.DukeException;
 import Exceptions.DukeFormatException;
@@ -28,28 +20,46 @@ public class Parser {
         String command = parts[0].toLowerCase();
 
         try {
-            if (command.equals("bye")){
-                return new ByeCommand();
-            }
-            if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
-                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :< Check your input again~");
-            }
-
             switch (command) {
+                case "bye":
+                    return new ByeCommand();
                 case "list":
                     return new ListCommand();
                 case "mark":
+                    if (parts.length != 2) {
+                        throw new DukeFormatException("☹ OOPS!!! Check your input again~");
+                    }
                     return new MarkCommand(parts[1]);
                 case "unmark":
+                    if (parts.length != 2) {
+                        throw new DukeFormatException("☹ OOPS!!! Check your input again~");
+                    }
                     return new UnmarkCommand(parts[1]);
                 case "todo":
+                    if (parts.length != 2) {
+                        throw new DukeFormatException("☹ OOPS!!! Check your input again~");
+                    }
                     return new TodoCommand(parts[1]);
                 case "deadline":
+                    if (parts.length != 2) {
+                        throw new DukeFormatException("☹ OOPS!!! Check your input again~");
+                    }
                     return new DeadlineCommand(input);
                 case "event":
+                    if (parts.length != 2) {
+                        throw new DukeFormatException("☹ OOPS!!! Check your input again~");
+                    }
                     return new EventCommand(input);
                 case "delete":
+                    if (parts.length != 2) {
+                        throw new DukeFormatException("☹ OOPS!!! Check your input again~");
+                    }
                     return new DeleteCommand(parts[1]);
+                case "find":
+                    if (parts.length != 2) {
+                        throw new DukeFormatException("☹ OOPS!!! Check your input again~");
+                    }
+                    return new FindCommand(parts[1]);
                 default:
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :<");
             }
