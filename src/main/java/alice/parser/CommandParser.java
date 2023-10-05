@@ -3,6 +3,7 @@ package alice.parser;
 import alice.commands.*;
 import alice.enumeration.TaskStatus;
 import alice.exceptions.InvalidCommandException;
+import alice.exceptions.InvalidDateTimeException;
 import alice.exceptions.InvalidFormatException;
 import alice.storage.FileManager;
 import alice.tasks.*;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class CommandParser {
     private TaskList tasks;
-    boolean isRunning = true;
+    private boolean isRunning = true;
     public CommandParser(TaskList tasks) {
         this.tasks = tasks;
     }
@@ -24,7 +25,7 @@ public class CommandParser {
      * @param userInput
      * @return
      */
-    public Command handleInput(String actionOfInput, String userInput) throws InvalidCommandException, InvalidFormatException {
+    public Command handleInput(String actionOfInput, String userInput) throws InvalidCommandException, InvalidFormatException, InvalidDateTimeException {
         switch (actionOfInput) {
         case "bye":
             isRunning = false;
@@ -61,7 +62,7 @@ public class CommandParser {
      * Scan for input from user and hands input over to handleInput()
      * @param file
      */
-    public void execute(FileManager file) throws IndexOutOfBoundsException, InvalidCommandException, InvalidFormatException {
+    public void execute(FileManager file) throws IndexOutOfBoundsException, InvalidCommandException, InvalidFormatException, InvalidDateTimeException {
         Scanner input = new Scanner(System.in);
 
         do {
@@ -77,6 +78,8 @@ public class CommandParser {
                 //Error message printed in InvalidCommandException class
             } catch (InvalidFormatException e) {
                 //Error message printed in InvalidFormatException class
+            } catch (InvalidDateTimeException e) {
+                //Error message printed in InvalidDateTimeException class
             }
         } while (isRunning);
         input.close();

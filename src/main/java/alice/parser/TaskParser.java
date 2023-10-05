@@ -1,8 +1,11 @@
 package alice.parser;
 
 import alice.exceptions.InvalidCommandException;
+import alice.exceptions.InvalidDateTimeException;
 import alice.exceptions.InvalidFormatException;
 import alice.tasks.*;
+
+import java.time.LocalDateTime;
 
 public class TaskParser{
     public String actionCommand;
@@ -23,7 +26,7 @@ public class TaskParser{
      * @return Deadline object
      * @throws InvalidFormatException
      */
-    public Task newDeadline() throws InvalidFormatException {
+    public Task newDeadline() throws InvalidFormatException, InvalidDateTimeException {
         final int LENGTH_OF_COMMAND = 9; //length of "deadline "
 
         String[] inputArray = getUserInput().split(" /");
@@ -33,8 +36,9 @@ public class TaskParser{
 
         String description = inputArray[0].substring(LENGTH_OF_COMMAND);
         String date = inputArray[1];
+        LocalDateTime formattedDateTime = DateTimeParser.formatDateTime(date);
 
-        return new Deadline(description, date);
+        return new Deadline(description, formattedDateTime);
     }
 
 
@@ -44,7 +48,7 @@ public class TaskParser{
      * @return Event object
      * @throws InvalidFormatException
      */
-    public Task newEvent() throws InvalidFormatException{
+    public Task newEvent() throws InvalidFormatException, InvalidDateTimeException {
         final int LENGTH_OF_COMMAND = 6; //length of "event "
 
         String[] inputArray = getUserInput().split(" /");
@@ -53,10 +57,12 @@ public class TaskParser{
         }
 
         String description = inputArray[0].substring(LENGTH_OF_COMMAND);
-        String startDate = inputArray[1].strip();
-        String endDate = inputArray[2].strip();
+        String start = inputArray[1].strip();
+        String end = inputArray[2].strip();
+        LocalDateTime formattedStart = DateTimeParser.formatDateTime(start);
+        LocalDateTime formattedEnd = DateTimeParser.formatDateTime(end);
 
-        return new Event(description, startDate, endDate);
+        return new Event(description, formattedStart, formattedEnd);
     }
 
     public Task newTodo() throws InvalidFormatException {
@@ -77,7 +83,7 @@ public class TaskParser{
      * @throws InvalidFormatException
      * @throws InvalidCommandException
      */
-    public Task createTask() throws InvalidFormatException, InvalidCommandException {
+    public Task createTask() throws InvalidFormatException, InvalidCommandException, InvalidDateTimeException {
         switch (actionCommand) {
         case "todo":
             return newTodo();

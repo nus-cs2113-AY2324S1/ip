@@ -5,10 +5,11 @@ import alice.exceptions.InvalidFormatException;
 import alice.tasks.TaskList;
 
 public class IndexValidityParser {
-    TaskList tasks;
-    String userInput;
-    int taskId;
-    int lengthOfInputArray;
+    public String userInput;
+    private TaskList tasks;
+    private int taskId;
+    private int lengthOfInputArray;
+
     public IndexValidityParser(String userInput, TaskList tasks) {
         this.userInput = userInput;
         this.tasks = tasks;
@@ -17,14 +18,14 @@ public class IndexValidityParser {
         this.taskId = Integer.parseInt(userInputArray[1]) - 1;
     }
 
-    public boolean indexInRange() throws InvalidCommandException{
+    private boolean indexInRange() throws InvalidCommandException{
         if (taskId >= tasks.size() || taskId < 0) {
             return false;
         }
         return true;
     }
 
-    public boolean correctInputFormat() {
+    private boolean correctInputFormat() {
         if (lengthOfInputArray > 2) {
             return false;
         }

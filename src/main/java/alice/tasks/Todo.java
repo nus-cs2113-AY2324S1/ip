@@ -13,6 +13,6 @@ public class Todo extends Task {
 
     @Override
     public String encode() {
-        return "Todo" + super.encode();
+        return "Todo" + " | " + super.encode();
     }
 }

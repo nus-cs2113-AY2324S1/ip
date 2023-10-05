@@ -28,7 +28,7 @@ public class TaskList {
     }
 
     /**
-     * List all alice.tasks that have been added by user.
+     * List all alice tasks that have been added by user.
      */
     public void listTasks() {
         int taskCount = 0;
