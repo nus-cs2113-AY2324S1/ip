@@ -1,2 +1,1 @@
-todo|me
-deadline|me|soon
+todo|Buy milk
