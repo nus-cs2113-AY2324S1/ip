@@ -182,7 +182,7 @@ public class Ui {
                 FormatChecker.checkEventFormat(schedules);
             } catch (InputFormatException e) {
                 printLine("☹ OOPS!!! <event> needs input like (work /from start /to end)");
-                printLine("time must be this form: dd-MM-yyyy hhmm");
+                printLine("time must be this form: dd-MM-yyyy HHmm");
                 System.out.println("    ____________________________________________________________\n");
                 return false;
             }
