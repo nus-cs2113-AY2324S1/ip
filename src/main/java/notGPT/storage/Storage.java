@@ -67,7 +67,7 @@ public class Storage {
                 if (!taskListFile.exists()) {
                     taskListFile.createNewFile();
                 }
-                System.out.println("Unable to find data file/directory! Created new storage file at ./data/tasks.txt");
+                System.out.println("Unable to find data file/directory! Created new storage file at data/tasks.txt");
             } catch (IOException ex) {
                 System.out.println("Error: Unable to create or access data file/directory!");
             } catch (DateTimeException ex) {

@@ -287,39 +287,39 @@ public class CommandResponse {
      */
     public static void respond(String[] userInput) {
         switch (userInput[0]) {
-            case "bye":
-                handleBye();
-                break;
-            case "list":
-                handleList();
-                break;
-            case "mark":
-                handleMark(userInput);
-                break;
-            case "unmark":
-                handleUnmark(userInput);
-                break;
-            case "todo":
-                handleTodo(userInput);
-                break;
-            case "deadline":
-                handleDeadline(userInput);
-                break;
-            case "event":
-                handleEvent(userInput);
-                break;
-            case "delete":
-                handleDelete(userInput);
-                break;
-            case "find":
-                handleFind(userInput);
-                break;
-            case "help":
-                handleHelp();
-                break;
-            default:
-                System.out.println("I'm sorry, but I don't know what that means :-(");
-                break;
+        case "bye":
+            handleBye();
+            break;
+        case "list":
+            handleList();
+            break;
+        case "mark":
+            handleMark(userInput);
+            break;
+        case "unmark":
+            handleUnmark(userInput);
+            break;
+        case "todo":
+            handleTodo(userInput);
+            break;
+        case "deadline":
+            handleDeadline(userInput);
+            break;
+        case "event":
+            handleEvent(userInput);
+            break;
+        case "delete":
+            handleDelete(userInput);
+            break;
+        case "find":
+            handleFind(userInput);
+            break;
+        case "help":
+            handleHelp();
+            break;
+        default:
+            System.out.println("I'm sorry, but I don't know what that means :-(");
+            break;
         }
     }
 }
