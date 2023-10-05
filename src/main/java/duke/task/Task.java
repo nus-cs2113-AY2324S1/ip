@@ -33,4 +33,10 @@ public class Task {
         String taskCheckbox = this.isMarked ? "[X]" : "[ ]";
         return taskCheckbox + " " + this.name;
     }
+
+    // String representation for storing in file
+    public String toStringFile() {
+        String taskChecked = this.isMarked ? "1" : "0";
+        return taskChecked + "|" + this.name;
+    }
 }
