@@ -41,10 +41,10 @@ Tasks can be of three types (as of this version):
 
 ### Add a task
 
-Adds a task to the task list depending on the comment.
+Adds a task to the task list depending on the command.
 
-#### todo
-##### `todo DESCRIPTION` - Adds a todo task to the task list
+### todo
+### `todo DESCRIPTION` - Adds a simple to-do task to the task list
 
 Example of usage:
 `todo read book`
@@ -63,8 +63,8 @@ Expected outcome:
          You have 1 tasks to do, haiyaku!!!
 ```
 
-#### deadline
-##### `deadline DESCRIPTION /by TIME` - Adds a deadline task to the task list
+### deadline
+### `deadline DESCRIPTION /by TIME` - Adds a deadline task to the task list
 
 Example of usage:
 `deadline return book /by 2020-09-18`
@@ -83,8 +83,8 @@ Expected outcome:
          You have 2 tasks to do, haiyaku!!!
 ```
 
-#### event
-##### `event DESCRIPTION /from START_TIME /to END_TIME` - Adds an event task to the task list
+### event
+### `event DESCRIPTION /from START_TIME /to END_TIME` - Adds an event task to the task list
 
 Example of usage:
 `event project meeting /from 2020-09-18 14:00 /to 2020-09-18 16:00`
@@ -139,7 +139,7 @@ Expected outcome:
 
 ```
 
-### LUnmark a task as done
+### Unmark a task as undone
 ### `unmark TASK_INDEX` - Unmarks a task as done
 
 Example of usage:
