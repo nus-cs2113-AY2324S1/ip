@@ -78,4 +78,16 @@ public class TaskList {
 
         ui.printSuccessfullyRemovedTask(removedTask, this);
     }
+
+    public ArrayList<Task> findMatchingTasks(String searchTerm) {
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().contains(searchTerm)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
+    }
 }

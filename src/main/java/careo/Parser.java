@@ -74,6 +74,12 @@ public class Parser {
             int taskIdx = Integer.parseInt(input.substring(7)) - 1;
 
             tasks.removeTask(taskIdx);
+        } else if (input.startsWith("find ")) {
+            String searchTerm = input.substring(5);
+
+            ArrayList<Task> matchingTasks = tasks.findMatchingTasks(searchTerm);
+
+            ui.showMatchingTasks(matchingTasks);
         } else {
             ui.showUnrecognizedCommandError();
         }

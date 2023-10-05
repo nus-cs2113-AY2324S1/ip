@@ -1,5 +1,7 @@
 package careo;
 
+import java.util.ArrayList;
+
 public class Ui {
     /**
      * Prints a line of dashes indented by four spaces.
@@ -156,6 +158,21 @@ public class Ui {
         } else {
             System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
         }
+        printHorizontalLine();
+    }
+
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        printHorizontalLine();
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("    There are no matching tasks.");
+        } else {
+            System.out.println("    Here are the matching tasks: ");
+            for (Task matchingTask : matchingTasks) {
+                System.out.println("    " + matchingTask);
+            }
+        }
+
         printHorizontalLine();
     }
 }
