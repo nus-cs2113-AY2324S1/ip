@@ -21,23 +21,8 @@ public class Ui {
             + "| | | |____| |  _\n"
             + "| |_| | [] | | | |\n"
             + "|____/|____|__||_|\n";
-    private static final String BULLET_POINT = "\n\t\u2022 ";
-    private static final String INTRO = "I can help you create an agenda to manage your tasks.\n"
-            + "Simply use one of the below listed commands to proceed:"
-            + BULLET_POINT + "todo: adds a task with a DESCRIPTION"
-            + BULLET_POINT + "deadline /: adds a task with DESCRIPTION and /DEADLINE"
-            + BULLET_POINT + "event / /: adds a task with DESCRIPTION, /STARTDATE and /ENDDATE"
-            + BULLET_POINT + "mark: marks the task with the provided INDEX as done"
-            + BULLET_POINT + "unmark: resets the task with the provided INDEX as not done"
-            + BULLET_POINT + "count: returns the total number of tasks in the agenda"
-            + BULLET_POINT + "delete: deletes the task with the provided INDEX"
-            + BULLET_POINT + "clear: deletes all tasks within the agenda"
-            + BULLET_POINT + "list: lists all current entries in the agenda"
-            + BULLET_POINT + "bye: exits the program\n";
-    private static final String USERNAME = "User:";
-    private static final String CHATBOT = "Doli:";
     private static final String WELCOME_MESSAGE = String.format("Hello, my name is\n%s\n"
-            + INTRO + "What is your name?", LOGO);
+            + "I can help you create an agenda to manage your tasks.\nWhat is your name?", LOGO);
     private static final String BYE_MESSAGE = "Thank you for your patience, hope to see you soon! Bye!";
 
     /**

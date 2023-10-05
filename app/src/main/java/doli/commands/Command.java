@@ -7,7 +7,6 @@ import doli.tasks.TaskList;
 import doli.tasks.Event;
 import doli.tasks.Deadline;
 import doli.tasks.ToDo;
-import doli.tasks.Task;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -38,6 +37,7 @@ public class Command {
     private static final String FIND_COMMAND = "find";
     private static final String LATE_COMMAND = "late";
     private static final String OVERVIEW_BY_SPECIFIC_DATE_COMMAND = "overview";
+    private static final String HELP_COMMAND = "help";
     private static final String EXIT_COMMAND = "bye";
     private static final String UNRECOGNIZED_COMMAND = "I am so sorry, but I do not recognize this command. "
             + "Please try typing something else.";
@@ -52,8 +52,9 @@ public class Command {
     private static final String UNMARKED_SUCCESSFULLY = "I've unmarked task %d. You better get it done soon!";
     private static final String NO_TASKS_FOR_THIS_DATE = "There are no entries in your agenda until this date.";
     private static final String MATCHING_TASKS = "Here are the tasks matching your input keyword:";
-    private static final String LATE_TASKS_OVERVIEW = "Here's an overview of tasks that were due and past events";
+    private static final String LATE_TASKS_OVERVIEW = "Here's an overview of tasks that were due and past events:";
     private static final String NO_LATE_TASKS = "You have no late tasks, great job!";
+    private static final String HELP = "Refer to the user guide for help: https://danielpappa.github.io/ip/";
     private static final String NO_TASKS_FOUND = "The given keyword did not produce any search results in your agenda";
     private static final String EXIT = "Alright, I hope I was able to help you out.";
 
@@ -255,6 +256,13 @@ public class Command {
             response = NO_LATE_TASKS;
         }
     }
+
+    /**
+     * Sets response to a String containing the link to the user guide with an overview of the chatbots features
+     */
+    private void help() {
+        response = HELP;
+    }
     /**
      * Highlights how Doli was not able to capture the command as it did not recognize it
      * and sets response equal to a description of the previous.
@@ -344,6 +352,9 @@ public class Command {
                 break;
             case LATE_COMMAND:
                 listLateTasks(tasks);
+                break;
+            case HELP_COMMAND:
+                help();
                 break;
             case EXIT_COMMAND:
                 prepareForExit();

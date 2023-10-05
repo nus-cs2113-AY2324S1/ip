@@ -23,8 +23,8 @@ public class Parser {
     private static final String OVERVIEW_BY_SPECIFIC_DATE_COMMAND = "overview";
     private static final String FIND_COMMAND = "find";
     private static final int NR_EVENT_ARGS = 3;
+    private static final int DATE_FORMAT_LENGTH = 10; // "yyyy-MM-dd"
     private static final int NR_DEADLINE_ARGS = 2;
-    private static final int TASK_DESCRIPTION_IS_EMPTY = 0;
 
     /**
      * Constructs an empty object of type Parser
@@ -64,6 +64,39 @@ public class Parser {
     }
 
     /**
+     * Checks whether the input String can be converted i.e. parsed into a number
+     * @param date of type String
+     * @return true if the String can be parsed into an Integer
+     */
+    public static boolean isANumber(String date) {
+        try {
+            Integer.parseInt(date);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
+    /**
+     * Checks whether the input date is actually a valid date, meaning of format "yyyy-MM-dd"
+     * @param date of type String must be of format "yyyy-MM-dd" for the method to return true
+     * @return true if the date's format is valid and false otherwise
+     */
+    public static boolean checkForValidDate(String date) {
+        boolean dateIsValid;
+        if (date.trim().length() == DATE_FORMAT_LENGTH
+                && date.indexOf('-') == 4 && date.lastIndexOf('-') == 7
+                && isANumber(date.trim().split("-")[0])
+                && isANumber(date.trim().split("-")[1])
+                && isANumber(date.trim().split("-")[2])) {
+            dateIsValid = true;
+        } else {
+            dateIsValid = false;
+        }
+        return dateIsValid;
+    }
+
+    /**
      * Checks for the validity of the user input in terms of the amount of
      * details specified in each scenario. It checks the following commands: todo,
      * deadline, event, mark, unmark, delete, overview and find.
@@ -74,37 +107,38 @@ public class Parser {
     public static void checkForValidInput(String command, String[] details) throws DoliExceptions {
         switch (command) {
         case TODO_COMMAND:
-            if (details.length == TASK_DESCRIPTION_IS_EMPTY) {
+            if (details[0].trim().equals("")) {
                 throw new DoliExceptions("Input of a todo cannot be blank!");
             }
             break;
         case DEADLINE_COMMAND:
-            if (details.length < NR_DEADLINE_ARGS) {
+            if (details.length < NR_DEADLINE_ARGS || !checkForValidDate(details[1])) {
                 throw new DoliExceptions("Time or description missing for deadline");
             }
             break;
         case EVENT_COMMAND:
-            if (details.length < NR_EVENT_ARGS) {
+            if (details.length < NR_EVENT_ARGS
+                    || !checkForValidDate(details[1]) || !checkForValidDate(details[2])) {
                 throw new DoliExceptions("Start-time, end-time or description missing for event");
             }
             break;
         case MARK_COMMAND:
-            if (details.length == 0) {
+            if (details.length == 0 || !isANumber(details[0])) {
                 throw new DoliExceptions("Please specify the index of the task to mark");
             }
             break;
         case UNMARK_COMMAND:
-            if (details.length == 0) {
+            if (details.length == 0 || !isANumber(details[0])) {
                 throw new DoliExceptions("Please specify the index of the task to unmark");
             }
             break;
         case DELETE_COMMAND:
-            if (details.length == 0) {
+            if (details.length == 0 || !isANumber(details[0])) {
                 throw new DoliExceptions("Please specify the index of the task to delete");
             }
             break;
         case OVERVIEW_BY_SPECIFIC_DATE_COMMAND:
-            if (details.length == 0) {
+            if (details.length == 0 || !checkForValidDate(details[0])) {
                 throw new DoliExceptions("Please specify a proper date to limit the overview of your agenda");
             }
             break;

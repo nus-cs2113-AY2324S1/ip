@@ -4,6 +4,7 @@ import doli.exceptions.DoliExceptions;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * <h3>Deadline class</h3>
@@ -17,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task{
     protected LocalDate deadline;
     protected final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    protected final String DATE_PARSING_FAILED = "Could not parse the date.";
 
     /**
      * Constructs an object of type Deadline with a description of the task
@@ -29,7 +31,7 @@ public class Deadline extends Task{
         try {
             this.deadline = LocalDate.parse(deadlineInput);
         } catch(DateTimeException e) {
-            System.out.println("Could not parse the date.");
+            System.out.println(DATE_PARSING_FAILED);
         }
     }
 
@@ -72,7 +74,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        String summary = String.format("[D] %s (%s)", super.toString(), // D stands for Deadline
+        String summary = String.format("[D] %s (%s)", super.toString(),
                 "by: " + DATE_FORMATTER.format(deadline));
         return summary;
     }

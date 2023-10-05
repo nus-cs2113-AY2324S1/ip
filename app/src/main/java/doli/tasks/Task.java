@@ -1,5 +1,7 @@
 package doli.tasks;
 
+import doli.exceptions.DoliExceptions;
+
 /** Parent class defining a task with description, process and agenda overview */
 public abstract class Task {
     private final String description;
