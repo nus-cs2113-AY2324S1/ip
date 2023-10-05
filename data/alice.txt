@@ -1,0 +1,5 @@
+Todo | 0 | keep laundry
+Deadline | 1 | eat icecream | tonight
+Event | 0 | ulti trng | 6pm | 7pm
+Todo | 0 | eat biscuit
+Todo | 0 | Eat banana

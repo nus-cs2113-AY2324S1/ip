@@ -1,4 +1,4 @@
-package tasks;
+package alice.tasks;
 
 public class Task {
     public static final String LINE = "____________________________________________________________\n";
@@ -13,8 +13,8 @@ public class Task {
         this.isDone = false;
     }
 
-    public boolean getIsDone() {
-        return this.isDone;
+    public String getDescription() {
+        return description;
     }
 
     public void setIsDone(boolean isDone) {
@@ -51,14 +51,6 @@ public class Task {
         System.out.println(LINE);
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String toString() {
         String statusOfTask = "[" + getStatusIcon() + "] ";
         return statusOfTask + getDescription();
@@ -66,7 +58,7 @@ public class Task {
 
     public String encode() {
         String isDoneSymbol = "0"; //default is unmarked
-        if (getIsDone()) {
+        if (isDone) {
             isDoneSymbol = "1";
         }
         return SEPARATOR + isDoneSymbol + SEPARATOR +getDescription();

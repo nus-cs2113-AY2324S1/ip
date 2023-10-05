@@ -1,9 +1,7 @@
-package storage;
+package alice.storage;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import alice.tasks.*;
+import alice.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,11 +32,11 @@ public class FileManager {
                 this.file.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println("    Oh no Alice, there was an ERROR in opening the file...");
+            System.out.println("    Oh no alice.Alice, there was an ERROR in opening the file...");
         }
     }
 
-    public void save(ArrayList<Task> tasks) {
+    public void save(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
             int noOfTasks = tasks.size();
@@ -52,7 +50,8 @@ public class FileManager {
     }
 
     public ArrayList<Task> retrieve() throws FileNotFoundException {
-        ArrayList<Task> tasks= new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
+
         Task task = null;
         Scanner scanner = null;
 
@@ -63,7 +62,8 @@ public class FileManager {
                 tasks.add(task);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("    Your file can't be not found :(");
+            Ui.printOneTabMessage("Your file can't be not found :(");
+            Ui.printLineDivider();
         }
 
         return tasks;

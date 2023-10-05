@@ -1,4 +1,4 @@
-package tasks;
+package alice.tasks;
 
 public class Deadline extends Task {
     private String deadline;
