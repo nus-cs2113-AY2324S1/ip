@@ -14,12 +14,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles Duke's storage capabilities. A <code>StorageFile</code> object handles the
+ * loading and saving aspects of new tasks.
+ */
 public class StorageFile {
     String filePath;
     public StorageFile(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads all tasks from the .txt file
+     * when the program is first ran.
+     *
+     * @return List of Task objects representing saved tasks.
+     * @throws DukeException If there is an issue loading tasks.
+     */
     public List<Task> load() throws DukeException {
         List<Task> tasks = new ArrayList<>();
         File f = new File(filePath);
@@ -61,6 +72,13 @@ public class StorageFile {
         return tasks;
     }
 
+    /**
+     * Saves all tasks to the .txt file after
+     * a command that modifies the TaskList
+     *
+     * @param tasks to be written to the file
+     * @throws DukeException If there is an error writing.
+     */
     public void saveTasks(TaskList tasks) throws DukeException {
         File f = new File(filePath);
 
