@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=A-MoreOOP
-set MESSAGE="Use More OOP"
+set TAG_NAME=Level-8
+set MESSAGE="Dates and Times"
 
 rem create a branch
 git branch branch-%TAG_NAME%

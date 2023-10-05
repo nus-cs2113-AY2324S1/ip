@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Duke {
     private static RunningState runningState = new RunningState(new ArrayList<Task>());
     private static Boolean debugMode = false;
-    private static String savePath = "Tasks.txt";
+    private static String savePath = "Tasks.json";
 
     public static void main(String[] args) {
         initialize();

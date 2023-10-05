@@ -9,7 +9,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 
+import eggybyte.ip.data.DateTime;
+import eggybyte.ip.data.exception.TipsException;
 import eggybyte.ip.data.task.*;
+import eggybyte.ip.util.Logger.LogLevel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,6 +22,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DataManager {
@@ -58,7 +62,7 @@ public class DataManager {
         FileWriter writer = new FileWriter(file);
         writer.write(content);
         writer.close();
-        Logger.showLog("[INFO]Your data has been saved at the path:\n  " + absolutePath, false);
+        Logger.showLog("Your data has been saved at the path:\n  " + absolutePath, LogLevel.IMPORTANT, false);
     }
 
     public static <CustomType> CustomType convertFromJson(String json) {
@@ -74,9 +78,10 @@ public class DataManager {
         Type type = new TypeToken<ArrayList<Task>>() {
         }.getType();
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(Task.class, new TaskAdapter());
-        Gson gson = gsonBuilder.create();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Task.class, new TaskAdapter())
+                .registerTypeAdapter(DateTime.class, new DateTimeAdapter())
+                .create();
 
         return gson.fromJson(json, type);
     }
@@ -103,6 +108,21 @@ public class DataManager {
                 default:
                     throw new JsonParseException("Unknown task type: " + type);
             }
+        }
+    }
+
+    private static class DateTimeAdapter implements JsonDeserializer<DateTime> {
+        @Override
+        public DateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
+            JsonObject jsonObject = json.getAsJsonObject();
+
+            String rawData = jsonObject.get("rawData").getAsString();
+            try {
+                return new DateTime(rawData);
+            } catch (TipsException e) {
+                Logger.showLog(e.toString(), LogLevel.DEBUG, false);
+            }
+            return null;
         }
     }
 }

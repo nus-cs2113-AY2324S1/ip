@@ -12,7 +12,7 @@ public class Logger {
     }
 
     public enum LogLevel {
-        DEBUG, WARNING, INFO, ERROR, FATAL
+        DEBUG, WARNING, INFO, ERROR, FATAL, IMPORTANT
     }
 
     public static void showLog(Object object, Boolean showLine) {
