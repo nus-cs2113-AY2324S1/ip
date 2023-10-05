@@ -17,8 +17,8 @@ public class FileManager {
     private static final ArrayList<duke.Task> taskList = new ArrayList<>();
 
     public FileManager() throws IOException {
-        this.writer = new FileWriter("./test.txt", true);
-        this.file = new File("./test.txt");
+        this.writer = new FileWriter("./cache.txt", true);
+        this.file = new File("./cache.txt");
     }
 
     /**
@@ -26,7 +26,7 @@ public class FileManager {
      */
     public ArrayList<Task> read(){
         try {
-            FileReader fileReader = new FileReader("./test.txt");
+            FileReader fileReader = new FileReader("./cache.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
 
@@ -78,7 +78,7 @@ public class FileManager {
             if (this.writer != null){
                 closeFile();
             }
-            this.writer = new FileWriter("./test.txt");
+            this.writer = new FileWriter("./cache.txt");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
