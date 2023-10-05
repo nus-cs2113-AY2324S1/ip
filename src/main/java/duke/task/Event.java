@@ -13,4 +13,10 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + fromDate + " to: " + toDate + ")";
     }
+
+    // String representation for storing in file
+    @Override
+    public String toStringFile() {
+        return "E|" + super.toStringFile() + "|" + this.fromDate + "|" + this.toDate;
+    }
 }

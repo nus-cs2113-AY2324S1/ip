@@ -3,12 +3,48 @@ package main.java.duke;
 import main.java.duke.task.*;
 import main.java.duke.util.*;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+
+        // Task ArrayList for storing all user inputted tasks
+        ArrayList<Task> tasks = new ArrayList<Task>();
+
+        // IO file handling
+        try {
+            // file object with expected file path
+            File dataFile = new File("./data/duke.txt");
+            // attempt file creation, if file already exist, read from file
+            if (!dataFile.createNewFile()) {
+                Scanner fileScanner = new Scanner(dataFile);
+                while (fileScanner.hasNext()) {
+                    String line = fileScanner.nextLine();
+                    String[] taskData = line.split("\\|");
+                    switch (taskData[0]) {
+                    case "T":
+                        tasks.add(new Todo(taskData[2]));
+                        break;
+                    case "E":
+                        tasks.add(new Event(taskData[2], taskData[3], taskData[4]));
+                        break;
+                    case "D":
+                        tasks.add(new Deadline(taskData[2], taskData[3]));
+                        break;
+                    }
+                    if (Integer.parseInt(taskData[1]) == 1) {
+                        tasks.get(tasks.size() - 1).setMarked(true);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         partition();
 
@@ -31,10 +67,6 @@ public class Duke {
         String userInput = scanner.nextLine();
         String[] userWords = userInput.split(" ");
         String userCommand = userWords[0];
-
-        // Task array for storing all user inputted tasks, and integer indexer to monitor size of array,
-        // assume number of tasks do not exceed 100
-        ArrayList<Task> tasks = new ArrayList<Task>();
 
         // if 'bye' command is given exit program, else keep prompting for user input
         while (!userCommand.equals("bye")) {
@@ -203,6 +235,22 @@ public class Duke {
 
         partition();
         System.out.println("                          -END-                             ");
+
+        // writing to file
+        try {
+            File dataFile = new File("./data/duke.txt");
+            // attempt file creation
+            dataFile.createNewFile();
+
+            // add all tasks to file
+            FileWriter fileWriter = new FileWriter(dataFile);
+            for(Task task : tasks) {
+                fileWriter.write(task.toStringFile() + System.lineSeparator());
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // private function to print a stream of underscores for partitioning robot conversation

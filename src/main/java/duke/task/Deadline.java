@@ -11,4 +11,10 @@ public class Deadline extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    // String representation for storing in file
+    @Override
+    public String toStringFile() {
+        return "D|" + super.toStringFile() + "|" + this.by;
+    }
 }

@@ -9,4 +9,10 @@ public class Todo extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    // String representation for storing in file
+    @Override
+    public String toStringFile() {
+        return "T|" + super.toStringFile();
+    }
 }
