@@ -26,18 +26,18 @@ ____________________________________________________________
 3. Copy the file to the folder you want to use as the home folder for your Tum ChatBot.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar IP.jar command to run the application.
    In a few seconds, it should show that:
-![Screenshot of the display in terminal]([https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/Haoyuli2002/ip/assets/139958049/cade8150-21a1-43be-8d82-6e59374f4c7f))
+![Screenshot of the display in terminal](https://github.com/Haoyuli2002/ip/assets/139958049/cade8150-21a1-43be-8d82-6e59374f4c7f))
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
 Some example commands you can try:
 
 -list: Lists all contacts.
 
--todo: todo return book
+-todo return book: add the task todo "return book" in your task list
 
--delete 3: Deletes the 3rd task shown in the current list.
+-delete 1: Deletes the first task shown in the current list.
 
--clear: Deletes all contacts.
+-clear: Deletes all tasks.
 
 -bye: Exits the app.
 
@@ -88,10 +88,28 @@ Examples:
 delete 2: deletes the 2nd person in the address book.
 find Betsy followed by delete 1 deletes the 1st person in the results of the find command.
 
+### Clearing all entries: clear
+Clears all entries from the address book.
+
+Format: clear
+
 ### Exiting the program: bye
 Exits the program.
 
 Format: bye
+
+### Command summary
+Action	 Format,                                                            Examples
+todo      todo DESCRIPTION                                                   todo return book
+deadline  deadline DESCRIPTION /by DEADLINE                                  deadline return book /by Sunday
+event     event DESCRIPTION_OF_EVENT /from START_TIME /to END_TIME           event project meeting /from Mon 2pm /to 4pm
+delete	 delete INDEX                                                       delete 3
+mark	    mark INDEX                                                         mark 2
+unmark	 unmark INDEX                                                       unmark 2
+Find	    find KEYWORD                                                       find book
+List	    list
+Clear     clear
+Help	    help
 
 
 
