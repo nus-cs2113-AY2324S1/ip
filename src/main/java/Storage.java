@@ -9,13 +9,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles reading from and writing to a file.
+ */
 public class Storage {
 
     protected String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path of the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Checks if the file exists, and creates it if it doesn't.
+     *
+     * @param filePath The file path to check and create.
+     */
     protected void checkFileExists(String filePath) {
         File file = new File(filePath);
         // Check if the file or directory exists, and create it if it doesn't
@@ -29,6 +43,13 @@ public class Storage {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * Appends the details of the last task in the list to the storage file.
+     *
+     * @param filePath The file path to write to.
+     * @param tasks    The list of tasks.
+     * @throws IOException If an I/O error occurs.
+     */
     protected void taskArrayToFile(String filePath, ArrayList<Task> tasks) throws IOException {
         checkFileExists(filePath);
         FileWriter fw = new FileWriter(filePath, true);
@@ -38,6 +59,13 @@ public class Storage {
         fw.write("\n");
         fw.close();
     }
+    /**
+     * Reads tasks from the storage file and adds them to the tasks list.
+     *
+     * @param filePath The file path to read from.
+     * @param tasks    The list of tasks to populate.
+     * @throws IOException If an I/O error occurs.
+     */
     protected void fileToTaskArray(String filePath, ArrayList<Task> tasks) throws IOException {
         File f = new File(filePath); // create a File for the given file path
         Scanner list = new Scanner(f); // create a Scanner using the File as the source
@@ -59,7 +87,13 @@ public class Storage {
             }
         }
     }
-
+    /**
+     * Adds a Todo task to the tasks list based on the input line.
+     *
+     * @param line  The input line.
+     * @param tasks The list of tasks.
+     * @throws IOException If an I/O error occurs.
+     */
     private static void addTodoFromFile(String line, ArrayList<Task> tasks) throws IOException {
         Task element = new Todo(line.substring(7));
         if (line.charAt(6) == 'X') {
@@ -67,7 +101,13 @@ public class Storage {
         }
         tasks.add(element);
     }
-
+    /**
+     * Adds a Deadline task to the tasks list based on the input line.
+     *
+     * @param line  The input line.
+     * @param tasks The list of tasks.
+     * @throws IOException If an I/O error occurs.
+     */
     private static void addDeadlineFromFile(String line, ArrayList<Task> tasks) throws IOException {
         int endOfDescriptionIndex = line.indexOf("(by");
         String description = line.substring(8, endOfDescriptionIndex);
@@ -77,7 +117,13 @@ public class Storage {
         Task element = new Deadline(description, due);
         tasks.add(element);
     }
-
+    /**
+     * Adds an Event task to the tasks list based on the input line.
+     *
+     * @param line  The input line.
+     * @param tasks The list of tasks.
+     * @throws IOException If an I/O error occurs.
+     */
     private static void addEventFromFile(String line, ArrayList<Task> tasks) throws IOException {
         int endOfDescriptionIndex = line.indexOf("(from:");
         String description = line.substring(8, endOfDescriptionIndex);
