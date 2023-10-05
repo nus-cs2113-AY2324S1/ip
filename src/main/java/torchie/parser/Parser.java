@@ -137,8 +137,8 @@ public class Parser {
         case EVENT:
             try {
                 String taskDescription = taskDetailsParser.getContent(input);
-                String taskEventStart = taskDetailsParser.getEventStart(input);
-                String taskEventEnd = taskDetailsParser.getEventEnd(input);
+                LocalDateTime taskEventStart = taskDetailsParser.getEventStart(input);
+                LocalDateTime taskEventEnd = taskDetailsParser.getEventEnd(input);
                 Event e = new Event(taskDescription, taskEventStart, taskEventEnd);
                 commandObj = new AddCommand(e, taskList);
                 /*taskList.addTask(e);

@@ -110,8 +110,8 @@ public class Storage {
         case "E":
             try {
                 String taskDuration =  taskDetails[3];
-                String eventStart = taskDetailsParser.getEventStart(taskDuration);
-                String eventEnd = taskDetailsParser.getEventEnd(taskDuration);
+                LocalDateTime eventStart = taskDetailsParser.getEventStart(taskDuration);
+                LocalDateTime eventEnd = taskDetailsParser.getEventEnd(taskDuration);
                 task = new Event(taskDescription, eventStart, eventEnd);
             } catch (TorchieException e) {
                 throw new CorruptedFileException();

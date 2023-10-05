@@ -4,11 +4,6 @@ import torchie.exception.InvalidDateTimeException;
 
 import java.time.LocalDateTime;
 public class DateTimeParser {
-    private String deadlineString;
-
-    public DateTimeParser(String ds) {
-        this.deadlineString = ds;
-    }
 
     //2007-12-03 1015
     public LocalDateTime getDateTimeObject(String s) throws InvalidDateTimeException{

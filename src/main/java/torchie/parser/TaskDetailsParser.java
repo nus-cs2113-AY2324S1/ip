@@ -9,7 +9,10 @@ import torchie.parser.DateTimeParser;
 import java.time.LocalDateTime;
 
 public class TaskDetailsParser {
+
+    private DateTimeParser dateTimeParser;
     public TaskDetailsParser() {
+        dateTimeParser = new DateTimeParser();
     }
 
     public String getIndex(String s) throws InvalidIndexException {
@@ -61,12 +64,11 @@ public class TaskDetailsParser {
 
         // correct format of deadline: yyyy-mm-ddTHH:mm
         String deadlineString = s.substring(keyWordIndex + SIZE_OF_BUFFER);
-        DateTimeParser dateTimeParser = new DateTimeParser(deadlineString);
 
         return dateTimeParser.getDateTimeObject(deadlineString);
     }
 
-    public String getEventStart(String s) throws TorchieException {
+    public LocalDateTime getEventStart(String s) throws TorchieException {
         int SIZE_OF_BUFFER = 6;
 
         // first occurrence of '/' character
@@ -77,10 +79,12 @@ public class TaskDetailsParser {
 
         // second occurrence of '/' character
         int endTimeIndex = s.indexOf('/', startTimeIndex+1);
-        return s.substring(startTimeIndex + SIZE_OF_BUFFER, endTimeIndex-1);
+        String eventStartString = s.substring(startTimeIndex + SIZE_OF_BUFFER, endTimeIndex-1);
+
+        return dateTimeParser.getDateTimeObject(eventStartString);
     }
 
-    public String getEventEnd(String s) throws TorchieException {
+    public LocalDateTime getEventEnd(String s) throws TorchieException {
         int SIZE_OF_BUFFER = 4;
 
         // first occurrence of '/' character
@@ -91,6 +95,7 @@ public class TaskDetailsParser {
         if (endTimeIndex == -1) {
             throw new InvalidEventFormatException();
         }
-        return s.substring(endTimeIndex + SIZE_OF_BUFFER);
+        String eventEndString = s.substring(endTimeIndex + SIZE_OF_BUFFER);
+        return dateTimeParser.getDateTimeObject(eventEndString);
     }
 }
