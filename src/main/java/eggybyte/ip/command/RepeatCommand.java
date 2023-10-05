@@ -1,5 +1,7 @@
 package eggybyte.ip.command;
 
+import eggybyte.ip.data.exception.TipsException;
+
 /**
  * Terminates the program.
  */
@@ -9,7 +11,18 @@ public class RepeatCommand extends Command {
     protected static final int validArgumentAmount = 0;
     private String input;
 
-    public RepeatCommand(String input, String[] arguments) throws Exception {
+    /**
+     * Creates a new Command.
+     *
+     * @param arguments The specified arguments will be used for creating command,
+     *                  it will automatically check whethere the arguments are
+     *                  valid.
+     * @see #validArgumentAmount
+     * @throws TipsException Any excption will be throw in this type, which contains
+     *                       information about this exception and the possible
+     *                       solution.
+     */
+    public RepeatCommand(String input, String[] arguments) throws TipsException {
         super(COMMAND_WORD, validArgumentAmount);
         this.input = input;
         checkArguments(arguments);
@@ -22,6 +35,6 @@ public class RepeatCommand extends Command {
 
     @Override
     public CommandResult getCommandResult(String content) {
-        return new CommandResult(" " +input);
+        return new CommandResult(" " + input);
     }
-} 
+}

@@ -1,12 +1,14 @@
 package eggybyte.ip.command;
 
-import eggybyte.ip.data.Date;
+import eggybyte.ip.data.exception.TipsException;
 import eggybyte.ip.data.task.*;
 
 import java.util.ArrayList;
 
 /**
- * Lists all persons in the PersonBook to the user.
+ * Commands for Finding Specific Tasks.
+ * 
+ * @see #COMMAND_WORD
  */
 public class FindCommand extends Command {
 
@@ -14,7 +16,18 @@ public class FindCommand extends Command {
     private static final int validArgumentAmount = 1;
     private final String partialDescription;
 
-    public FindCommand(String[] arguments) throws Exception {
+    /**
+     * Creates a new Command.
+     *
+     * @param arguments The specified arguments will be used for creating command,
+     *                  it will automatically check whethere the arguments are
+     *                  valid.
+     * @see #validArgumentAmount
+     * @throws TipsException Any excption will be throw in this type, which contains
+     *                       information about this exception and the possible
+     *                       solution.
+     */
+    public FindCommand(String[] arguments) throws TipsException {
         super(COMMAND_WORD, validArgumentAmount);
         checkArguments(arguments);
         partialDescription = arguments[0];

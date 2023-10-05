@@ -1,16 +1,30 @@
 package eggybyte.ip.command;
 
+import eggybyte.ip.data.exception.TipsException;
 import eggybyte.ip.data.task.Task;
 
 /**
- * Lists all persons in the PersonBook to the user.
+ * Commands for Listing All Existing Tasks.
+ * 
+ * @see #COMMAND_WORD
  */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     protected static final int validArgumentAmount = 0;
 
-    public ListCommand(String[] arguments) throws Exception {
+    /**
+     * Creates a new Command.
+     *
+     * @param arguments The specified arguments will be used for creating command,
+     *                  it will automatically check whethere the arguments are
+     *                  valid.
+     * @see #validArgumentAmount
+     * @throws TipsException Any excption will be throw in this type, which contains
+     *                       information about this exception and the possible
+     *                       solution.
+     */
+    public ListCommand(String[] arguments) throws TipsException {
         super(COMMAND_WORD, validArgumentAmount);
         checkArguments(arguments);
     }

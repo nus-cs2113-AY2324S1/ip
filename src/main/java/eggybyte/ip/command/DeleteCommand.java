@@ -2,12 +2,28 @@ package eggybyte.ip.command;
 
 import eggybyte.ip.data.exception.TipsException;
 
+/**
+ * Commands for Deleting Existing Tasks.
+ * 
+ * @see #COMMAND_WORD
+ */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     protected static final int validArgumentAmount = 1;
     private int index;
 
-    public DeleteCommand(String[] arguments) throws Exception {
+    /**
+     * Creates a new Command.
+     *
+     * @param arguments The specified arguments will be used for creating command,
+     *                  it will automatically check whethere the arguments are
+     *                  valid.
+     * @see #validArgumentAmount
+     * @throws TipsException Any excption will be throw in this type, which contains
+     *                       information about this exception and the possible
+     *                       solution.
+     */
+    public DeleteCommand(String[] arguments) throws TipsException {
         super(COMMAND_WORD, validArgumentAmount);
         checkArguments(arguments);
         index = Integer.parseInt(arguments[0]);

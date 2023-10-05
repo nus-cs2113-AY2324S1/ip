@@ -1,13 +1,13 @@
 package eggybyte.ip.command;
 
 /**
- * Represents the result of a command execution.
+ * The Result after the Execution of the Command.
  */
 public class CommandResult {
 
     /**
-     * The feedback message to be shown to the user. Contains a description of the
-     * execution result
+     * The feedback message to be shown to the user. Contains the execution result
+     * and exception if something unexpected happens.
      */
     public final String result;
     public final Exception exception;

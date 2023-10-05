@@ -4,14 +4,26 @@ import eggybyte.ip.data.RunningState;
 import eggybyte.ip.data.exception.TipsException;
 
 /**
- * Represents an executable command.
+ * Basic Command Class.
+ * 
  */
 public class Command {
     protected static RunningState runningState;
     protected final String type;
     protected final int validArgumentAmount;
 
-    public Command(String type, int validArgumentAmount) {
+    /**
+     * Creates a new Command.
+     *
+     * @param arguments The specified arguments will be used for creating command,
+     *                  it will automatically check whethere the arguments are
+     *                  valid.
+     * @see #validArgumentAmount
+     * @throws TipsException Any excption will be throw in this type, which contains
+     *                       information about this exception and the possible
+     *                       solution.
+     */
+    public Command(String type, int validArgumentAmount) throws TipsException {
         this.type = type;
         this.validArgumentAmount = validArgumentAmount;
     }
