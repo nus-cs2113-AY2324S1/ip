@@ -37,4 +37,12 @@ delete 10
 list
 mark 7
 unmark 7
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+list
 bye
