@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +15,18 @@ public class Storage {
         this.path = path;
     }
 
+    /* method for save tasks to disk */
+    public void saveTask(TaskList tasks, int tasks_size) throws IOException {
+        FileWriter fw = new FileWriter("./nupjuk.txt");
+        for(int i=0;i<tasks.getSize();i++){
+            Task task = tasks.getTask(i);
+            fw.write(String.format("%s | %d | %s\r\n",
+                    task.getTypeIcon(), task.isDone?1:0 , task.getDescription()));
+        }
+        fw.close();
+    }
+
+    /* Automatically load tasks from disk */
     public ArrayList<Task> loadTask() throws FileNotFoundException {
         ArrayList <Task> tasks = new ArrayList<>();
 

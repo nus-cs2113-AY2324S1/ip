@@ -13,22 +13,6 @@ public class Duke {
     }
 
 
-
-    /* method for save tasks to disk */
-    static void saveTask(TaskList tasks, int tasks_size) throws IOException{
-        FileWriter fw = new FileWriter("./nupjuk.txt");
-        for(int i=0;i<tasks.getSize();i++){
-            Task task = tasks.getTask(i);
-            fw.write(String.format("%s | %d | %s\r\n",
-                    task.getTypeIcon(), task.isDone?1:0 , task.getDescription()));
-        }
-        fw.close();
-    }
-
-    /* Automatically load tasks from disk */
-
-
-
     private static Storage storage;
     private static TaskList tasks;
 
@@ -99,7 +83,7 @@ public class Duke {
                 printLine("Nice! I've marked this task as done:");
                 printLine(" [" + tasks.getTask(mark_idx).getStatusIcon() + "] " + tasks.getTask(mark_idx).getDescription());
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks.getSize());
+                storage.saveTask(tasks, tasks.getSize());
 
             } else if(tokens[0].equals("unmark")){
 
@@ -128,7 +112,7 @@ public class Duke {
                 printLine("OK, I've marked this task as not done yet:");
                 printLine(" [" + tasks.getTask(mark_idx).getStatusIcon() + "] " + tasks.getTask(mark_idx).getDescription());
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks.getSize());
+                storage.saveTask(tasks, tasks.getSize());
             } else if(tokens[0].equals("todo")) {
 
                 try{
@@ -148,7 +132,7 @@ public class Duke {
                         todo.getTypeIcon(), todo.getStatusIcon(), todo.getDescription()));
                 printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks.getSize());
+                storage.saveTask(tasks, tasks.getSize());
 
             } else if(tokens[0].equals("deadline")){
                 // error handling
@@ -182,7 +166,7 @@ public class Duke {
                         deadline.getTypeIcon(), deadline.getStatusIcon(), deadline.getDescription()));
                 printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks.getSize());
+                storage.saveTask(tasks, tasks.getSize());
             } else if(tokens[0].equals("event")){
                 // error handling
                 try{
@@ -217,7 +201,7 @@ public class Duke {
                         event.getTypeIcon(), event.getStatusIcon(), event.getDescription()));
                 printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks.getSize());
+                storage.saveTask(tasks, tasks.getSize());
             } else if(tokens[0].equals("delete")){
 
                 int del_idx;
@@ -249,7 +233,7 @@ public class Duke {
                 printLine(" [" + del_task.getStatusIcon() + "] " + del_task.getDescription());
                 printLine(String.format("now you have %d tasks in the list", tasks.getSize()));
                 System.out.println("    ____________________________________________________________\n");
-                saveTask(tasks, tasks.getSize());
+                storage.saveTask(tasks, tasks.getSize());
             }
             else{
                 // command not matched
