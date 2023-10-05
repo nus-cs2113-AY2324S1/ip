@@ -4,7 +4,6 @@ CSGPT is a desktop app for managing your tasks, optimized for use via a Command 
 
 ## Features 
 
-> [!NOTE]
 > **Notes about the command format:**
 > - Words in `UPPER_CASE` are the parameters to be supplied by the user.\
 > e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
@@ -30,7 +29,7 @@ Adds a deadline task to the task list.
 
 Format: `deadline DESCRIPTION /by DATE`
 
-> [!NOTE]
+> **Note**
 > - `DATE` must be in the format `YYYY-MM-DD`.
 
 Example input: `deadline return book /by 2020-09-18`
@@ -48,7 +47,7 @@ Adds an event task to the task list.
 
 Format: `event DESCRIPTION /from START_DATE /to END_DATE`
 
-> [!NOTE]
+> **Note**
 > - `START_DATE` and `END_DATE` must be in the format `YYYY-MM-DD`.
 > - `START_DATE` must be before `END_DATE`.
 > - Command `/from` and `/to` must be in the exact order.
@@ -83,7 +82,7 @@ Marks a task as done in the task list.
 
 Format: `mark INDEX`
 
-> [!NOTE]
+> **Note**
 > - `INDEX` must not be larger than size of task list.
 
 Example input: `mark 2`
@@ -101,7 +100,7 @@ Marks a task as not done in the task list.
 
 Format: `unmark INDEX`
 
-> [!NOTE]
+> **Note**
 > - `INDEX` must not be larger than size of task list.
 
 Example input: `unmark 2`
@@ -119,7 +118,7 @@ Deletes a task from the task list.
 
 Format: `delete INDEX`
 
-> [!NOTE]
+> **Note**
 > - `INDEX` must not be larger than size of task list.
 
 Example input: `delete 2`
