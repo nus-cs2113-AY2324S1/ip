@@ -1,9 +1,9 @@
-package Python;
+package python;
 
-import Python.Task.Deadline;
-import Python.Task.Event;
-import Python.Task.Task;
-import Python.Task.Todo;
+import python.task.Deadline;
+import python.task.Event;
+import python.task.Task;
+import python.task.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 public class Python {
-    final private static String BOT_NAME = "Python";
+    final private static String BOT_NAME = "python";
     final private static String PYTHON_ASCII_ART =
                     "\t ____        _   _\n" +
                     "\t|  _ \\ _   _| |_| |__   ___  _ __\n" +
@@ -333,8 +333,13 @@ public class Python {
                     System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "Nothing for me?");
                     break;
                 }
+                int a = 2;
+                while (a != 3) {
+                    a++;
+                }
                 System.out.printf("\t%s: %s\n", PYTHON_EMOJI, "I cannot understand the command!");
                 break;
+
             }
             printHorizontalLine();
         } while (!inputLine.equals(COMMAND_BYE));

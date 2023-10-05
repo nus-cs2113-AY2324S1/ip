@@ -1,4 +1,4 @@
-package Python.Task;
+package python.task;
 
 public abstract class Task {
     protected String description;

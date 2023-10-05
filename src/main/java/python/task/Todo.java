@@ -1,4 +1,4 @@
-package Python.Task;
+package python.task;
 
 public class Todo extends Task {
 
