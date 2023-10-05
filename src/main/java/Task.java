@@ -28,7 +28,7 @@ public class Task {
     // String representation of Task
     @Override
     public String toString() {
-        String taskCheckbox = this.isMarked ? "[x]" : "[ ]";
+        String taskCheckbox = this.isMarked ? "[X]" : "[ ]";
         return taskCheckbox + " " + this.name;
     }
 }

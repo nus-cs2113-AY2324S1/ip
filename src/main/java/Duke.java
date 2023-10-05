@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -45,7 +46,7 @@ public class Duke {
                     }
                 }
             }
-            // if 'mark' command is given, mark the corresponding task in tasks
+            // if "mark" command is given, mark the corresponding task in tasks
             else if (userCommand.equals("mark")) {
                 // split userInput into command and integer
                 try {
@@ -58,7 +59,7 @@ public class Duke {
                     System.out.println("Invalid integer input! :(");
                 }
             }
-            // if 'unmark' command is given, unmark the corresponding task in tasks
+            // if "unmark" command is given, unmark the corresponding task in tasks
             else if (userCommand.equals("unmark")) {
                 // split userInput into command and integer
                 try {
@@ -71,11 +72,65 @@ public class Duke {
                     System.out.println("Invalid integer input! :(");
                 }
             }
-            // if not unique command, taken as adding a new Task
-            else {
-                userInput.split(" ");
-                tasks[tasksIndex] = new Task(userInput); // Store user input into array
+            // if "todo" command is given
+            else if (userCommand.equals("todo")) {
+                // store information of todo: Name
+                String todoName = String.join(" ", Arrays.copyOfRange(userWords, 1, userWords.length));
+                Todo todo = new Todo(todoName);
+                tasks[tasksIndex] = todo; // Store user input into array
                 tasksIndex++; // Increase String array index
+                System.out.println("I've added this task to your list:");
+                System.out.println(todo);
+                System.out.println("You now have " + tasksIndex + " task(s) in your list. :]");
+            }
+            // if "event" command is given
+            else if (userCommand.equals("event")) {
+                // find the index of "/from" and "/to" to separate the information
+                int fromSplitIndex = 0;
+                int toSplitIndex = 0;
+                for(int i = 1; i < userWords.length; i++) {
+                    if (userWords[i].equals("/from")) {
+                        fromSplitIndex = i;
+                    }
+                    else if (userWords[i].equals("/to")) {
+                        toSplitIndex = i;
+                        break;
+                    }
+                }
+                // store information of event: Name, From and To
+                String eventName = String.join(" ", Arrays.copyOfRange(userWords, 1, fromSplitIndex));
+                String eventFrom = String.join(" ", Arrays.copyOfRange(userWords, fromSplitIndex + 1, toSplitIndex));
+                String eventTo = String.join(" ", Arrays.copyOfRange(userWords, toSplitIndex + 1, userWords.length));
+                Event event = new Event(eventName, eventFrom, eventTo); // New Event object
+                tasks[tasksIndex] = event; // Store user input into array
+                tasksIndex++; // Increase String array index
+                System.out.println("I've added this task to your list:");
+                System.out.println(event);
+                System.out.println("You now have " + tasksIndex + " task(s) in your list. :]");
+            }
+            // if "deadline" command is given
+            else if (userCommand.equals("deadline")) {
+                // find the index of "/by" to separate the information
+                int splitIndex = 0;
+                for(int i = 1; i < userWords.length; i++) {
+                    if (userWords[i].equals("/by")) {
+                        splitIndex = i;
+                        break;
+                    }
+                }
+                // store information of deadline: Name and By
+                String deadlineName = String.join(" ", Arrays.copyOfRange(userWords, 1, splitIndex));
+                String deadlineBy = String.join(" ", Arrays.copyOfRange(userWords, splitIndex + 1, userWords.length));
+                Deadline deadline = new Deadline(deadlineName, deadlineBy); // New Deadline object
+                tasks[tasksIndex] = deadline; // Store user input into array
+                tasksIndex++; // Increase String array index
+                System.out.println("I've added this task to your list:");
+                System.out.println(deadline);
+                System.out.println("You now have " + tasksIndex + " task(s) in your list. :]");
+            }
+            // if not unique command, prompt user again
+            else {
+                System.out.println("Invalid command! :/");
             }
 
             partition();
