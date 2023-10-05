@@ -13,7 +13,7 @@ public class ByeCommand extends Command {
     protected static final int validArgumentAmount = 0;
 
     /**
-     * Creates a new Command.
+     * Create a new Command.
      *
      * @param arguments The specified arguments will be used for creating command,
      *                  it will automatically check whethere the arguments are

@@ -18,7 +18,7 @@ public class ActivatedCommand extends Command {
     private final Date date;
 
     /**
-     * Creates a new Command.
+     * Create a new Command.
      *
      * @param arguments The specified arguments will be used for creating command,
      *                  it will automatically check whethere the arguments are
@@ -61,6 +61,17 @@ public class ActivatedCommand extends Command {
         return result;
     }
 
+    /**
+     * Convert task to string
+     *
+     * @param tasks To make clear which tasks is going to be converted.
+     * @param index To make clear which element of the tasks is going to be
+     *              converted, and the index is to be shown in the front.
+     * @see #validArgumentAmount
+     * @throws TipsException Any excption will be throw in this type, which contains
+     *                       information about this exception and the possible
+     *                       solution.
+     */
     private String taskToString(ArrayList<Task> tasks, int index) {
         Task task = tasks.get(index);
         return " " + (index + 1) + "." + task.toString();

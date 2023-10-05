@@ -2,14 +2,17 @@ package eggybyte.ip.util;
 
 import eggybyte.ip.command.*;
 
+/**
+ * An util used for parsing the input to a valid command and executing it.
+ */
 public class Parser {
     public static Boolean debugMode = false;
 
     /**
-     * Parses user input into command for execution.
+     * Parse user's input into command for execution.
      *
-     * @param userInput full user input string
-     * @return the command based on the user input
+     * @param userInput The full input of user.
+     * @return The command based on the user input.
      * @throws Exception
      */
     public Command parseCommand(String userInput) throws Exception {
@@ -56,10 +59,11 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parse arguments in the context of the argumentString.
      *
-     * @param args full command args string
-     * @return the prepared command
+     * @param argumentString The remaining string that doesn't contain the command
+     *                       word.
+     * @return A String[] that contains all the argument that is split by '/'.
      */
     private String[] getArguments(String argumentString) {
         if (argumentString.length() == 0) {

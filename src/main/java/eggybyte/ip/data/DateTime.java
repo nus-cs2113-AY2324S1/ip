@@ -9,6 +9,10 @@ import java.util.Locale;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Customized class for showing date time and parsing supported string to date
+ * time.
+ */
 public class DateTime {
     transient LocalDateTime dateTime;
 
@@ -23,6 +27,16 @@ public class DateTime {
             DateTimeFormatter.ofPattern("MMM d, yyyy HH:mm", Locale.ENGLISH), };
     private static DateTimeFormatter toStringFormatter = formatters[formatters.length - 1];
 
+    /**
+     * Modifying an existing date time with a rawData String.
+     *
+     * @param rawData A String that needs to comply with a supported format and
+     *                indicates a correct time that will be recorded by this Date
+     *                instance.
+     * @throws TipsException Any excption will be throw in this type, which contains
+     *                       information about this exception and the possible
+     *                       solution.
+     */
     public void setRawData(String rawData) throws TipsException {
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -36,6 +50,16 @@ public class DateTime {
                 "Please check the date time string you have input, and make sure you are using the supported format!");
     }
 
+    /**
+     * Create a new date time.
+     *
+     * @param rawData A String that needs to comply with a supported format and
+     *                indicates a correct time that will be recorded by this Date
+     *                instance time.
+     * @throws TipsException Any excption will be throw in this type, which contains
+     *                       information about this exception and the possible
+     *                       solution.
+     */
     public DateTime(String rawData) throws TipsException {
         setRawData(rawData);
     }
@@ -45,6 +69,14 @@ public class DateTime {
         return dateTime.format(toStringFormatter);
     }
 
+    /**
+     * Compare the dates of this DateTime and another DateTime.
+     *
+     * @param dateTime The other DateTime that is used to compare.
+     * @return If the date of current instance is earlier,it returns -1.
+     *         If the date of current instance is later,it returns 1.
+     *         Otherwise(when they're at exactly the same date) it returns 0.
+     */
     public int compareDate(DateTime dateTime) {
         LocalDate date1 = this.dateTime.toLocalDate(), date2 = dateTime.dateTime.toLocalDate();
         if (date1.isBefore(date2)) {
@@ -56,6 +88,14 @@ public class DateTime {
         return 0;
     }
 
+    /**
+     * Compare the dates of this DateTime and another Date.
+     *
+     * @param date The other Date that is used to compare.
+     * @return If the date of current instance is earlier,it returns -1.
+     *         If the date of current instance is later,it returns 1.
+     *         Otherwise(when they're at exactly the same date) it returns 0.
+     */
     public int compareDate(Date date) {
         LocalDate date1 = this.dateTime.toLocalDate(), date2 = date.date;
         if (date1.isBefore(date2)) {

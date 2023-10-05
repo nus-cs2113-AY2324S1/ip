@@ -8,6 +8,9 @@ import java.util.Locale;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Customized class for showing date and parsing supported string to date.
+ */
 public class Date {
     transient LocalDate date;
 
@@ -20,6 +23,16 @@ public class Date {
             DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.ENGLISH), };
     private static DateTimeFormatter toStringFormatter = formatters[formatters.length - 1];
 
+    /**
+     * Modifying an existing date with a rawData String.
+     *
+     * @param rawData A String that needs to comply with a supported format and
+     *                indicates a correct date that will be recorded by this Date
+     *                instance.
+     * @throws TipsException Any excption will be throw in this type, which contains
+     *                       information about this exception and the possible
+     *                       solution.
+     */
     public void setRawData(String rawData) throws TipsException {
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -33,6 +46,16 @@ public class Date {
                 "Please check the date time string you have input, and make sure you are using the supported format!");
     }
 
+    /**
+     * Create a new date.
+     *
+     * @param rawData A String that needs to comply with a supported format and
+     *                indicates a correct date that will be recorded by this Date
+     *                instance.
+     * @throws TipsException Any excption will be throw in this type, which contains
+     *                       information about this exception and the possible
+     *                       solution.
+     */
     public Date(String rawData) throws TipsException {
         setRawData(rawData);
     }

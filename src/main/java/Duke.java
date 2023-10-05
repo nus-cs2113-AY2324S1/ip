@@ -9,6 +9,9 @@ import eggybyte.ip.util.Logger;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The main class of the program.
+ */
 public class Duke {
     private static RunningState runningState = new RunningState(new ArrayList<Task>());
     private static Boolean debugMode = false;
@@ -20,6 +23,9 @@ public class Duke {
         runCommandLoopUntilByeCommand();
     }
 
+    /**
+     * Used for initialization.
+     */
     private static void initialize() {
         try {
             Command.setRunningState(runningState);
@@ -37,7 +43,7 @@ public class Duke {
     }
 
     /**
-     * Reads the user command and executes it, until the user issues the bye
+     * Read the user command and execute it, until the user issues the bye
      * command.
      */
     private static void runCommandLoopUntilByeCommand() {

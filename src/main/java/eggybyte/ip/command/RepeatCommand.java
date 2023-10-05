@@ -3,7 +3,8 @@ package eggybyte.ip.command;
 import eggybyte.ip.data.exception.TipsException;
 
 /**
- * Terminates the program.
+ * [OBSOLETE]
+ * Command for Reapeating Undefined Commands.
  */
 public class RepeatCommand extends Command {
 
@@ -12,7 +13,7 @@ public class RepeatCommand extends Command {
     private String input;
 
     /**
-     * Creates a new Command.
+     * Create a new Command.
      *
      * @param arguments The specified arguments will be used for creating command,
      *                  it will automatically check whethere the arguments are

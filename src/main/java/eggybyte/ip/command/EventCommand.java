@@ -13,7 +13,7 @@ public class EventCommand extends AddCommand {
     protected static final int validArgumentAmount = 3;
 
     /**
-     * Creates a new Command.
+     * Create a new Command.
      *
      * @param arguments The specified arguments will be used for creating command,
      *                  it will automatically check whethere the arguments are

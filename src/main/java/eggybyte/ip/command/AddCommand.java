@@ -13,7 +13,7 @@ public class AddCommand extends Command {
     protected Task task;
 
     /**
-     * Creates a new Command.
+     * Create a new Command.
      *
      * @param arguments The specified arguments will be used for creating command,
      *                  it will automatically check whethere the arguments are

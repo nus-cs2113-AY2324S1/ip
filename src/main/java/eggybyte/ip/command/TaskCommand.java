@@ -3,12 +3,17 @@ package eggybyte.ip.command;
 import eggybyte.ip.data.exception.TipsException;
 import eggybyte.ip.data.task.Task;
 
+/**
+ * Commands for Adding General Tasks.
+ * 
+ * @see #COMMAND_WORD
+ */
 public class TaskCommand extends AddCommand {
     public static final String COMMAND_WORD = "task";
     protected static final int validArgumentAmount = 0;
 
     /**
-     * Creates a new Command.
+     * Create a new Command.
      *
      * @param arguments The specified arguments will be used for creating command,
      *                  it will automatically check whethere the arguments are
