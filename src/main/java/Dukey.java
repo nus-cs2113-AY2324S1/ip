@@ -65,7 +65,6 @@ public class Dukey {
         tasks.get(taskNum).setDone();
     }
 
-
     public static void printTaskList(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
         int index = 1;
@@ -74,12 +73,12 @@ public class Dukey {
         }
     }
 
+
     public static void main(String[] args) {
         System.out.println("Hey! I'm Dukey, your virtual assistant!\nWhat can I do for you?\n");
         Scanner in = new Scanner(System.in);
         String line;
         ArrayList<Task> tasks = new ArrayList<>();
-
         while (true) {
             line = in.nextLine();
             String[] words = line.split(" ");
@@ -116,7 +115,6 @@ public class Dukey {
                         System.out.println(DukeyException.InvalidInputError());
                         System.out.println("____________________________________________________________");
                     }
-
             }
         }
     }
