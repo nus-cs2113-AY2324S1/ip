@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=Level-8
-set MESSAGE="Dates and Times"
+set TAG_NAME=A-JavaDoc
+set MESSAGE="Add JavaDoc comments"
 
 rem create a branch
 git branch branch-%TAG_NAME%
