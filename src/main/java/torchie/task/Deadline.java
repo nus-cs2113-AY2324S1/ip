@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private LocalDateTime deadline;
-    private final String DATE_TIME_FORMAT = "MMM d yyyy, HHmm";
+    private final String DATE_TIME_FORMAT = "MMM d yyyy, HH:mm";
 
     public Deadline(String description, LocalDateTime deadline){
         super(description);

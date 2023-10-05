@@ -59,6 +59,7 @@ public class TaskDetailsParser {
             throw new InvalidDeadlineFormatException();
         }
 
+        // correct format of deadline: yyyy-mm-ddTHH:mm
         String deadlineString = s.substring(keyWordIndex + SIZE_OF_BUFFER);
         DateTimeParser dateTimeParser = new DateTimeParser(deadlineString);
 

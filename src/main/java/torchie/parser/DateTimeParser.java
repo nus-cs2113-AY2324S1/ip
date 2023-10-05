@@ -16,7 +16,7 @@ public class DateTimeParser {
 
         // if both date and time are present
         if (dateTimeArray.length==2) {
-            return LocalDateTime.parse(s);
+            return LocalDateTime.parse(dateTimeArray[0] + "T" + dateTimeArray[1]);
         } /*else if (dateTimeArray.length==1) {
             // if only date is present
 
