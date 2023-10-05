@@ -15,15 +15,11 @@ public class JarvisException extends Exception {
     }
 
     public static JarvisException invalidTaskNumber(int index) {
-        return new JarvisException("Invalid task number " + (index + 1) + ". Try Again sir!");
+        return new JarvisException("Invalid task number " + index + ". Try Again sir!");
     }
 
     public static JarvisException invalidCommand(){
         return new JarvisException("Unknown jarvis.command. Please try again sir.");
-    }
-    
-    public static JarvisException numberFormatException() {
-        return new JarvisException("Expected a number for the task index. Please provide a valid integer sir!");
     }
 
     public JarvisException(String message) {

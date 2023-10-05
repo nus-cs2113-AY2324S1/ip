@@ -63,8 +63,8 @@ public class Parser {
         }catch(JarvisException e){
             // Handle the caught JarvisException by outputting its message to the user.
             System.out.println(e.getMessage());
-        }catch (NumberFormatException nfe) {
-            throw new JarvisException("Please provide a valid integer for the task number, sir!");
+        } catch(NumberFormatException | ArrayIndexOutOfBoundsException invalidIndex){
+            System.out.println("Expected a number for the task index. Please provide a valid integer sir!");
         }
         // Return a default command (with null type) if command parsing fails.
         return new Command(null);

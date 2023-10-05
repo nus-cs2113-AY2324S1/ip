@@ -146,49 +146,6 @@ public class TaskList {
         }
     }
 
-//    public void processInput(String userInput) {
-//        String[] parts = userInput.split(" ");
-//        if (parts[0].equals("done")) {
-//            if (isInteger(parts[1])) {
-//                int taskIndex = Integer.parseInt(parts[1]);
-//                markTaskAsDone(taskIndex, true);
-//            } else {
-//                System.out.println("Please provide a valid integer for the task number sir!");
-//            }
-//        }
-//    }
-//
-//    public boolean isInteger(String str) {
-//        try {
-//            Integer.parseInt(str);
-//            return true;
-//        } catch (NumberFormatException e) {
-//            return false;
-//        }
-//    }
-//
-//    public void markTaskAsDone(int index, boolean showMessage) {
-//        int zero_index = index - ZERO_INDEX_OFFSET;
-//        try {
-//            if (isValidIndex(zero_index)) {
-//                if (taskList.get(zero_index).taskIsDone()) {
-//                    System.out.println("Task was previously set to done! No additional actions required sir.");
-//                } else {
-//                    taskList.get(zero_index).markAsDone();
-//                    if (showMessage) {
-//                        System.out.println("Nice! I've marked this task as done sir:");
-//                        System.out.println("    " + taskList.get(zero_index));
-//                    }
-//                }
-//            } else {
-//                throw JarvisException.invalidTaskNumber(zero_index);
-//            }
-//        } catch (JarvisException je) {
-//            System.out.println(je.getMessage());
-//        }
-//    }
-
-
     public void markTaskAsUndone(int index) throws JarvisException {
         int zero_index = index - ZERO_INDEX_OFFSET;
         try {
