@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.yfshadaow.cs2113.ip</groupId>
-    <artifactId>Duke</artifactId>
+    <artifactId>XiaoAiBot</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Duke</name>
+    <name>XiaoAiBot</name>
 
     <properties>
         <java.version>11</java.version>
