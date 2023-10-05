@@ -25,7 +25,7 @@ public class Parser {
      * @param userInput Raw input string provided by the user.
      * @return Corresponding command object based on user input.
      */
-    public Command parseCommand(String userInput){
+    public Command parseCommand(String userInput) throws JarvisException {
         String commandTitle = userInput.split(" ")[0];
         String commandDescription;
         int taskIndex;
@@ -63,6 +63,8 @@ public class Parser {
         }catch(JarvisException e){
             // Handle the caught JarvisException by outputting its message to the user.
             System.out.println(e.getMessage());
+        }catch (NumberFormatException nfe) {
+            throw new JarvisException("Please provide a valid integer for the task number, sir!");
         }
         // Return a default command (with null type) if command parsing fails.
         return new Command(null);

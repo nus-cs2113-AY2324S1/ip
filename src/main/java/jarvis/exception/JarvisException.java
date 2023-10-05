@@ -21,6 +21,10 @@ public class JarvisException extends Exception {
     public static JarvisException invalidCommand(){
         return new JarvisException("Unknown jarvis.command. Please try again sir.");
     }
+    
+    public static JarvisException numberFormatException() {
+        return new JarvisException("Expected a number for the task index. Please provide a valid integer sir!");
+    }
 
     public JarvisException(String message) {
         super(message);
