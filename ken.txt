@@ -1,3 +1,2 @@
-T | 0 | yay | null
-D | 0 | please sriram |  by: fri
-E | 0 | this |  from: fri to: fri
+D | 1 | ip |  by: friday
+T | 0 | studying for test | null
