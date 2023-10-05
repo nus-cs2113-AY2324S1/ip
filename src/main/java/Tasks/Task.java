@@ -13,7 +13,6 @@ public class Task {
     public static int getNumTasks() {
         return numTasks;
     }
-
     public String getDescription() {
         return this.description;
     }
@@ -24,7 +23,9 @@ public class Task {
 
     public void setDone() {
         this.isDone = true;
+        System.out.println("_____________________________________________________");
         System.out.println("Nice! I've marked this task as done:\n\t  " + this);
+        System.out.println("_____________________________________________________");
     }
     // defines constructor for the task class
     public Task(String description) {
@@ -56,4 +57,17 @@ public class Task {
             System.out.println(" task in the list.");
         }
     }
+
+    public void printDeleteTask() {
+        System.out.println("_____________________________________________________");
+        int num_tasks = getNumTasks() - 1;
+        System.out.print("Noted. I have removed this task:\n  " + this + "\nNow you have " + (num_tasks));
+        if (num_tasks > 1) {
+            System.out.println(" tasks in the list.");
+        } else {
+            System.out.println(" task in the list.");
+        }
+        System.out.println("_____________________________________________________");
+    }
+
 }

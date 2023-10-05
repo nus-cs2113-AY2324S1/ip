@@ -1,5 +1,3 @@
-
-
 import Tasks.*;
 import dukey.*;
 
@@ -15,6 +13,21 @@ public class Dukey {
             tasks.add(new Todo(description));
             tasks.get(tasks.size() - 1).printNewTask();
         } catch(IndexOutOfBoundsException e) {
+            System.out.println("_____________________________________________________");
+            System.out.println(DukeyException.todoDescriptionError());
+            System.out.println("_____________________________________________________");
+        }
+    }
+
+    private static void deleteTask(String line, ArrayList<Task> tasks) {
+        try {
+            String[] words = line.split(" ");
+            int index  = Integer.parseInt(words[1]) - 1;
+            Task delete = tasks.get(index);
+            tasks.get(index).printDeleteTask();
+            tasks.remove(index);
+        }
+        catch(IndexOutOfBoundsException e) {
             System.out.println("_____________________________________________________");
             System.out.println(DukeyException.todoDescriptionError());
             System.out.println("_____________________________________________________");
@@ -66,11 +79,13 @@ public class Dukey {
     }
 
     public static void printTaskList(ArrayList<Task> tasks) {
+        System.out.println("_____________________________________________________");
         System.out.println("Here are the tasks in your list:");
         int index = 1;
         for (Task task : tasks) {
             System.out.println((index++) + "." + task);
         }
+        System.out.println("_____________________________________________________");
     }
 
 
@@ -104,6 +119,9 @@ public class Dukey {
                     break;
                 case "todo":
                     addTodo(line, tasks);
+                    break;
+                case "delete":
+                    deleteTask(line, tasks);
                     break;
                 default:
                     if (line.trim().isEmpty()) {
