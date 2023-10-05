@@ -160,6 +160,30 @@ public class Dukey {
         tasks.add(element);
     }
 
+    private static void searchKeyword(String line, ArrayList<Task> tasks) {
+        ArrayList<Task> searchResults = new ArrayList<>();
+        String keyword = line.substring(4);
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                searchResults.add(task);
+            }
+        }
+        outputHeader();
+        for (Task task : searchResults) {
+            System.out.println(task);
+        }
+        printLine();
+    }
+
+    public static void outputHeader() {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:\n");
+    }
+
+    public static void printLine() {
+        System.out.println("_____________________________________________________");
+    }
+
     public static void main(String[] args) throws IOException {
         System.out.println("Hey! I'm Dukey, your virtual assistant!\nWhat can I do for you?\n");
         Scanner in = new Scanner(System.in);
@@ -209,6 +233,9 @@ public class Dukey {
                     break;
                 case "delete":
                     deleteTask(line, tasks);
+                    break;
+                case "find":
+                    searchKeyword(line, tasks);
                     break;
                 default:
                     if (line.trim().isEmpty()) {

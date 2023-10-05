@@ -62,7 +62,6 @@ public class Task {
         }
     }
 
-<<<<<<< HEAD
     public void printDeleteTask() {
         System.out.println("_____________________________________________________");
         int num_tasks = getNumTasks() - 1;
@@ -74,7 +73,4 @@ public class Task {
         }
         System.out.println("_____________________________________________________");
     }
-=======
->>>>>>> branch-Level-7
-
 }

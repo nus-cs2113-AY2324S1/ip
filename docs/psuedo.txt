@@ -67,3 +67,12 @@ use split -> (by: (start of this index)
 
 4.[E][ ] killmj (from: 5 to: 9pm )
 substring from index 8 to (from
+
+
+
+
+
+
+    case "find":
+                        searchKeyword(line, tasks);
+                        break;
