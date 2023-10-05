@@ -1,10 +1,20 @@
 package Ui;
 
+/**
+ * class that provides interaction with user
+ */
 public class Ui {
 
+    /**
+     * prints line for aesthetic purposes
+     */
     public static void printLine(){
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
+
+    /**
+     * prints greeting upon starting of bot
+     */
     public static void startBot(){
         System.out.println("Hello! I'm Botbot \n" +
                 "───────────────────────────────────────────────────────────────────────────────────────────────\n" +
@@ -24,6 +34,9 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * prints goodbye upon ending of bot
+     */
     public static void endBot(){
         System.out.println("Bye! Hope to see you again soon! \n" +
                 "\n" +

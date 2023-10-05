@@ -7,10 +7,17 @@ import static Task.TaskList.list;
 import java.io.IOException;
 import Exceptions.DukeFormatException;
 
-
+/**
+ * Represent an intent to create a todo task
+ */
 public class TodoCommand extends Command{
    String task;
 
+    /**
+     * Constructor for 'TodoCommand" command with the task to create
+     * @param inputTask from string input provided by user
+     * @throws DukeFormatException if format provided by user is not what is expected
+     */
    public TodoCommand(String inputTask) throws DukeFormatException {
        if (inputTask.isEmpty()) {
            throw new DukeFormatException("Task or deadline cannot be empty... Please check your input again~");
@@ -18,6 +25,10 @@ public class TodoCommand extends Command{
        task = inputTask;
    }
 
+    /**
+     * Creates todo task in TaskList and saves to storage file
+     * @throws IOException if file cannot be found
+     */
     @Override
     public void execute() throws IOException {
         TaskList.createTodoTasks(task);

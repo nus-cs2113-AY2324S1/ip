@@ -11,11 +11,15 @@ import Task.Event;
 import Task.TaskList;
 import static Task.TaskList.list;
 
-
+/**
+ * class containing all relevant methods to saving and loading information from file
+ */
 public class Storage {
 
-    //method to save list to file
-    public static void saveListToFile() throws IOException {
+    /**
+     * Method to save all list items to file recursively
+     */
+    public static void saveListToFile()  {
         try (FileWriter fileWriter = new FileWriter("data/botbot.txt")){
             for (int i = 0; i<TaskList.size(); i++) {
                 fileWriter.write(list.get(i).toString() + "\n");
@@ -25,13 +29,19 @@ public class Storage {
         }
     }
 
-    //method to extract todo task
+    /**
+     * extracts todo tasks out of the saved string and adds it to tasklist as task type
+     * @param savedTask String of task saved in file
+     */
     public static void extractTodo(String savedTask){
         TaskList.createTodoTasks(savedTask.substring(8));
     }
 
-    //method to extract deadline task
-    public static void extractDeadline(String savedTask) throws DukeException {
+    /**
+     * extracts deadline tasks and its deadline out of the saved string and adds it to tasklist as task type
+     * @param savedTask String of task saved in file
+     * @throws DukeException when format of saved task is wrong
+     */    public static void extractDeadline(String savedTask) throws DukeException {
         String[] parts = savedTask.split(" \\(by: " );
         String task = parts[0].substring(8);
         String deadline = parts[1].substring(0, parts[1].length() - 1);
@@ -45,8 +55,11 @@ public class Storage {
         }
     }
 
-    //method to extract event task
-    public static void extractEvent(String savedTask) throws DukeException {
+    /**
+     * extracts event tasks and its time period out of the saved string and adds it to tasklist as task type
+     * @param savedTask String of task saved in file
+     * @throws DukeException when format of saved task is wrong
+     */    public static void extractEvent(String savedTask) throws DukeException {
         String[] parts = savedTask.split(" \\(");
         String task = parts[0].substring(8);
         String[] timeSplit = parts[1].split(" to: ");
@@ -62,8 +75,11 @@ public class Storage {
         }
     }
 
-    // method to load list from file
-    public static void loadListFromFile() throws IOException, DukeException {
+    /**
+     * extracts tasks out of the saved file and adds it to tasklist
+     * @throws IOException when file does not exist and new file cannot be created
+     * @throws DukeException when format of saved file is wrong and hence cannot be loaded
+     */    public static void loadListFromFile() throws IOException, DukeException {
         File file = new File("data/botbot.txt");
         if (!file.exists()){
             try {

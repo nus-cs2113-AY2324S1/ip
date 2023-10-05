@@ -6,16 +6,19 @@ import Exceptions.DukeException;
 import Exceptions.DukeFormatException;
 import Exceptions.DukeIndexException;
 
-import java.io.IOException;
-
-
+/*
+ * Parser class to handle user input commands
+ */
 public class Parser {
 
     private Parser(){
     }
 
-    //method to identify command
-    public static Command parse(String input) throws DukeFormatException {
+    /**
+     * method to handle input string and return resultant command class
+     * @param input string input by user
+     */
+    public static Command parse(String input) {
         String[] parts = input.split(" ", 2);
         String command = parts[0].toLowerCase();
 
