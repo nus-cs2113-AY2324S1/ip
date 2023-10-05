@@ -1,6 +1,6 @@
 # User Guide
 
-CSGPT is a desktop app for managing your tasks, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CSGPT can get your task management done faster than traditional GUI apps.
+CSGPT is a desktop app for managing your tasks, optimized for use via a Command Line Interface (CLI). If you can type fast, CSGPT can get your task management done faster than traditional GUI apps.
 
 ## Features 
 
