@@ -12,7 +12,13 @@ import java.util.Scanner;
 public class Duke {
     private static RunningState runningState = new RunningState(new ArrayList<Task>());
     private static Boolean debugMode = false;
-    private static String savePath = "/data/Tasks.txt";
+    private static String savePath = "Tasks.txt";
+
+    public static void main(String[] args) {
+        initialize();
+
+        runCommandLoopUntilByeCommand();
+    }
 
     private static void initialize() {
         try {
@@ -28,12 +34,6 @@ public class Duke {
         } catch (Exception exception) {
             Logger.showLog(exception, true);
         }
-    }
-
-    public static void main(String[] args) {
-        initialize();
-
-        runCommandLoopUntilByeCommand();
     }
 
     /**

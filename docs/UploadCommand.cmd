@@ -1,6 +1,6 @@
 rem customize the tag name and message here
-set TAG_NAME=A-Collections
-set MESSAGE="Use Java Collections classes"
+set TAG_NAME=A-MoreOOP
+set MESSAGE="Use More OOP"
 
 rem create a branch
 git branch branch-%TAG_NAME%
