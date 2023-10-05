@@ -1,12 +1,11 @@
 package luke.files;
 
-import luke.errors.LukeTimeError;
+import luke.user.LukeTimeError;
 import luke.tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-//import java.io.FileReader;
 import java.io.FileWriter;
 
 import java.io.IOException;
@@ -14,7 +13,9 @@ import java.util.ArrayList;
 
 public class Memory {
 
-    public static ArrayList<Task> readMemory(String filePath, ArrayList<Task> taskList) throws FileNotFoundException {
+    public static ArrayList<Task> readMemory(String filePath) throws FileNotFoundException {
+
+        ArrayList<Task> tasks = new ArrayList<>();
 
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -22,10 +23,8 @@ public class Memory {
             String currentLine = s.nextLine();
             System.out.println("\t" + currentLine);
 
-            String taskDetails = currentLine.substring(0,6);
-            //System.out.println(taskDetails);
-            String taskDescription = currentLine.substring(7);
-            //System.out.println(taskDescription);
+            String taskDetails = currentLine.substring(0,5);
+            String taskDescription = currentLine.substring(6);
             char[] characters = taskDetails.toCharArray();
             try {
                 Task newTask;
@@ -43,21 +42,20 @@ public class Memory {
                         newTask = new Todo("error");
                         break;
                 }
-
-                taskList.add(newTask);
+                tasks.add(newTask);
             } catch (LukeTimeError e) {
                 System.out.println("\tsomethings wrong");
             }
         }
-        return taskList;
+        return tasks;
     }
 
     public static void storeMemory(String filePath, ArrayList<Task> taskList){
         try {
             FileWriter fw = new FileWriter(filePath); //overwrite file
 
-            for (int i = 0; i < taskList.size(); i += 1) {
-                fw.write(taskList.get(i).memoryString() + "\n");
+            for (Task currentTask : taskList) {
+                fw.write(currentTask.memoryString() + "\n");
             }
 
             fw.close();
@@ -66,7 +64,6 @@ public class Memory {
 
         } catch (IOException e) {
             System.out.println("\tIO Exception: fail to store memory");
-            //return;
         }
 
     }

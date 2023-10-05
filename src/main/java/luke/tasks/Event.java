@@ -1,28 +1,25 @@
 package luke.tasks;
-import luke.errors.LukeTimeError;
+import luke.user.LukeTimeError;
 
 public class Event extends Task {
     protected String startDate;
     protected String endDate;
+    protected String eventGuide = "\tevent <description> /from <start date> /to <end date>";
 
-    public Event(String echo) throws LukeTimeError {
-        super(echo);
-        //setDates(dates);
-        String taskDescription = echo.substring(5);
+    public Event(String taskDescription) throws LukeTimeError {
+        super(taskDescription);
 
         int slashCut = taskDescription.indexOf("/");
         if (slashCut <= 0) {
+            System.out.println("\tThere is a missing task description. Please follow this format:");
+            printGuide();
             throw new LukeTimeError();
         }
 
-        String taskDuration = taskDescription.substring(slashCut + 1);
-        setDates(taskDuration);
-
         description = taskDescription.substring(0, slashCut);
 
-        if (description.length() <= 1) {
-            throw new IndexOutOfBoundsException();
-        }
+        String taskDuration = taskDescription.substring(slashCut + 1);
+        setDates(taskDuration);
     }
 
     public String getStartDate() {
@@ -36,6 +33,8 @@ public class Event extends Task {
     public void setDates(String dates) throws LukeTimeError {
         String[] words = dates.split(" ");
         if (!words[0].equals("from")) {
+            System.out.println("\tThere is a syntax problem. Please follow this format:");
+            printGuide();
             throw new LukeTimeError();
         }
 
@@ -43,6 +42,8 @@ public class Event extends Task {
 
         int slashCut = dates.indexOf("/");
         if (slashCut <= 0) {
+            System.out.println("\tThere is a syntax problem. Please follow this format:");
+            printGuide();
             throw new LukeTimeError();
         }
 
@@ -51,10 +52,17 @@ public class Event extends Task {
 
         words = dates.split(" ");
         if (!words[0].equals("to")) {
+            System.out.println("\tThere is a syntax problem. Please follow this format:");
+            printGuide();
             throw new LukeTimeError();
         }
 
         endDate = dates.substring(3);
+    }
+
+    @Override
+    public void printGuide() {
+        System.out.println(eventGuide);
     }
 
     @Override
@@ -68,7 +76,7 @@ public class Event extends Task {
             isDoneString = "[ ]";
         }
 
-        return "\t[E]" + isDoneString + getDescription() + "(from: " + getStartDate() + "to: " + getEndDate() + ")";
+        return "\t[E]" + isDoneString + " " + getDescription() + "(from: " + getStartDate() + "to: " + getEndDate() + ")";
     }
 
     @Override
@@ -81,6 +89,6 @@ public class Event extends Task {
             isDoneString = "[ ]";
         }
 
-        return "[E]" + isDoneString + " event" + getDescription() + "/from " + getStartDate() + "/to " + getEndDate();
+        return "[E]" + isDoneString + getDescription() + "/from " + getStartDate() + "/to " + getEndDate();
     }
 }

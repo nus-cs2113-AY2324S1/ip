@@ -2,14 +2,21 @@ package luke.tasks;
 
 public class Todo extends Task {
     //protected boolean isDone;
+    protected String todoGuide = "\ttodo <description>";
 
-    public Todo(String echo) {
-        super(echo); //ensures superclass is properly initialised
+    public Todo(String description) {
+        super(description); //ensures superclass is properly initialised
 
-        description = echo.substring(4);
         if (description.isEmpty()) {
+            System.out.println("\tThere is a missing task description. Please follow this format:");
+            printGuide();
             throw new IndexOutOfBoundsException();
         }
+    }
+
+    @Override
+    public void printGuide() {
+        System.out.println(todoGuide);
     }
 
     @Override
@@ -23,7 +30,7 @@ public class Todo extends Task {
             isDoneString = "[ ]";
         }
 
-        return "\t[T]" + isDoneString + getDescription();
+        return "\t[T]" + isDoneString + " " + getDescription();
     }
 
     @Override
@@ -36,7 +43,7 @@ public class Todo extends Task {
             isDoneString = "[ ]";
         }
 
-        return "[T]" + isDoneString + " todo" + getDescription();
+        return "[T]" + isDoneString + getDescription();
     }
 
 }

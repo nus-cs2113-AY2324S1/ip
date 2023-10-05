@@ -18,14 +18,18 @@ public abstract class Task {
     }
 
     public void setDone(boolean done) {
+        if (done) {
+            System.out.println("\tWoohoo! You have accomplished:");
+        } else {
+            System.out.println("\tHA! You still have to complete:");
+        }
         isDone = done;
     }
 
-    /*@Override
-    public String toString() {
-        return "";
+    public void printGuide() {
+        //do nothing
     }
-    */
+
     public String memoryString() {
         String isDoneString;
 
