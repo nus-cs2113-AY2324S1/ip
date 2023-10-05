@@ -5,49 +5,40 @@ import luke.tasks.*;
 import luke.user.LukeTimeError;
 import luke.user.Ui;
 
+import static luke.actions.ActionType.*;
+
 public class AddCommand extends Command {
-    public AddCommand(ActionType theAction, String parameters) {
+    private Task latestTask;
+    public AddCommand(ActionType theAction, String parameters) throws LukeTimeError {
 
         super(theAction, parameters);
+        if (theAction == TODO) {
+            latestTask = new Todo(parameters);
+        }
+        if (theAction == DEADLINE) {
+            try {
+                latestTask = new Deadline(parameters);
+            } catch (LukeTimeError e) {
+                System.out.println("\tOOPS!!! There's an error in the deadline's 'do by' date.");
+            }
+        }
+        if (theAction == EVENT) {
+            try {
+                latestTask = new Event(parameters);
+            } catch (LukeTimeError e) {
+                System.out.println("\tOOPS!!! There's an error in the event's start and end time.");
+            }
+        }
+
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         //ui has String echo, storage has ArrayList<Task> tasks, tasks has ArrayList<Task> mainTaskList;
 
-        case TODO:
-        Task newTodo = new Todo(echo);
-        addTask(newTodo);
+        tasks.addTask(latestTask);
 
-        System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(taskList.size() - 1));
-        System.out.println("\tNow you have " + taskList.size() + " tasks in the list.");
-        break;
-
-        case DEADLINE:
-        try {
-            Task newDeadline = new Deadline(echo);
-            addTask(newDeadline);
-
-            System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(taskList.size() - 1));
-            System.out.println("\tNow you have " + taskList.size() + " tasks in the list.");
-        } catch (LukeTimeError e) {
-            System.out.println("\tOOPS!!! There's an error in the deadline's 'do by' date.");
-        }
-        break;
-
-        case EVENT:
-        try {
-            Task newEvent = new Event(echo);
-            addTask(newEvent);
-
-            System.out.println("\tGot it. I've added this task:" + "\n" + taskList.get(taskList.size() - 1));
-            System.out.println("\tNow you have " + taskList.size() + " tasks in the list.");
-        } catch (LukeTimeError e) {
-            System.out.println("\tOOPS!!! There's an error in the event's start and end time.");
-        }
-        break;
-    } catch (IndexOutOfBoundsException e) { //empty for MARK, UNMARK, TO DO description, DEADLINE description, EVENT description
-        System.out.println("\tOOPS!!! You have missing arguments for " + words[0] + ".");
-    }
+        System.out.println("\tGot it. I've added this task:" + "\n" + tasks.get(tasks.size() - 1));
+        System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
     }
 }
