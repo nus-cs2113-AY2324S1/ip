@@ -3,7 +3,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /* Storage Class that read & save txt file*/
 /* If no file exist, create new one*/
@@ -43,9 +46,10 @@ public class Storage {
             } else if(taskTokens[0].trim().equals("D")){
                 // task (by: deadline)
                 String[] schedules = taskTokens[2].split(" \\(by: ");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
                 // delete "(by:" and ")"
                 Deadline deadline = new Deadline(schedules[0].trim(),
-                        schedules[1].substring(0, schedules[1].length()-1).trim());
+                        LocalDateTime.parse(schedules[1].substring(0, schedules[1].length()-1).trim(), formatter));
                 if(taskTokens[1].trim().equals("1")){
                     deadline.doMark();
                 }
@@ -54,8 +58,10 @@ public class Storage {
                 // task (from: t to: t)
                 String[] schedules = taskTokens[2].split(" \\(from: ");
                 String[] times = schedules[1].split(" to: ");
-                Event event = new Event(schedules[0].trim(), times[0].trim(),
-                        times[1].substring(0, times[1].length()-1).trim());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
+                Event event = new Event(schedules[0].trim(),
+                        LocalDateTime.parse(times[0].trim(), formatter),
+                        LocalDateTime.parse(times[1].substring(0, times[1].length()-1).trim(),formatter));
                 if(taskTokens[1].trim().equals("1")){
                     event.doMark();
                 }

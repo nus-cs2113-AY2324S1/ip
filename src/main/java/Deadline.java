@@ -3,19 +3,28 @@
  *  extends Task class
  *  tasks with deadline
  */
-public class Deadline extends Task{
-    protected String deadline;
 
-    public Deadline(String description, String deadline){
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
+public class Deadline extends Task{
+    protected LocalDateTime deadline;
+
+    public Deadline(String description, LocalDateTime deadline){
         super(description);
         this.deadline = deadline;
     }
 
     //override
-    public String getTypeIcon(){ return "D"; }
+    public String getTypeIcon(){
+        return "D";
+    }
 
     //override
     public String getDescription(){
-        return String.format("%s (by: %s)", description, deadline);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
+        // delete "(by:" and ")"
+        return String.format("%s (by: %s)", description, deadline.format(formatter));
     }
 }
