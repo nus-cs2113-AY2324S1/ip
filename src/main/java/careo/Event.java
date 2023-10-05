@@ -6,6 +6,14 @@ public class Event extends Task {
     /** When the event ends */
     protected String to;
 
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
     /**
      * Instantiates an Event instance given its parameters.
      *

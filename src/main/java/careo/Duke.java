@@ -57,7 +57,7 @@ public class Duke {
 
         ui.printFarewell();
 
-        storage.save(tasks);
+        storage.save(tasks, ui);
     }
 
     public static void main(String[] args) {

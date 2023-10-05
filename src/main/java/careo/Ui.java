@@ -161,6 +161,11 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Shows all tasks matching a certain keyword.
+     *
+     * @param matchingTasks The already selected, matching tasks.
+     */
     public void showMatchingTasks(ArrayList<Task> matchingTasks) {
         printHorizontalLine();
 
@@ -173,6 +178,16 @@ public class Ui {
             }
         }
 
+        printHorizontalLine();
+    }
+
+    /**
+     * Prints out that storing the persistence file was unsuccessful.
+     */
+    public void showLoadingFileError() {
+        printHorizontalLine();
+        System.out.println("    An error occured when trying to save your TaskList to a file.");
+        System.out.println("    Ensure that your account has write permissions and try again.");
         printHorizontalLine();
     }
 }

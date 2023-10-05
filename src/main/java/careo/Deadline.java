@@ -5,6 +5,15 @@ public class Deadline extends Task {
     protected String by;
 
     /**
+     * Retrieves the by date of this deadline.
+     *
+     * @return The date as string.
+     */
+    public String getBy() {
+        return by;
+    }
+
+    /**
      * Instantiates a deadline given its description and by date.
      *
      * @param description Textual description of the deadline.
