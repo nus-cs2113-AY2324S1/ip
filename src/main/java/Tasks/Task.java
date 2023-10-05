@@ -27,6 +27,10 @@ public class Task {
         System.out.println("Nice! I've marked this task as done:\n\t  " + this);
         System.out.println("_____________________________________________________");
     }
+
+    public void setType(char letter) {
+        this.type = letter;
+    }
     // defines constructor for the task class
     public Task(String description) {
         this.description = description;
@@ -58,6 +62,7 @@ public class Task {
         }
     }
 
+<<<<<<< HEAD
     public void printDeleteTask() {
         System.out.println("_____________________________________________________");
         int num_tasks = getNumTasks() - 1;
@@ -69,5 +74,7 @@ public class Task {
         }
         System.out.println("_____________________________________________________");
     }
+=======
+>>>>>>> branch-Level-7
 
 }
