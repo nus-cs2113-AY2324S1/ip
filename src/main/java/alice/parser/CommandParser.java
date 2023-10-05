@@ -34,10 +34,8 @@ public class CommandParser {
         case "mark":
         case "unmark":
             StatusParser statusParser = new StatusParser(userInput, tasks);
-
             TaskStatus status = statusParser.getStatus();
             Task task = statusParser.getTask();
-
             return new UpdateStatusCommand(status, task);
         case "todo":
         case "deadline":
@@ -49,6 +47,10 @@ public class CommandParser {
             IndexValidityParser deleteParser = new IndexValidityParser(userInput, tasks);
             int deleteIndex = deleteParser.getValidTaskId();
             return new DeleteTaskCommand(deleteIndex, tasks);
+        case "find":
+            FindParser findParser = new FindParser(userInput);
+            String keyword = findParser.getKeyword();
+            return new FindTaskCommand(tasks, keyword);
         default:
             throw new InvalidCommandException();
         }
