@@ -7,11 +7,19 @@ import static Task.TaskList.list;
 import java.io.IOException;
 import Exceptions.DukeFormatException;
 
-
+/**
+ * Represent an intent to create deadline task
+ */
 public class DeadlineCommand extends Command{
     String task;
     String deadline;
 
+    /**
+     * Constructor for "DeadlineCommand" command with the task to create
+     *
+     * @param input string input provided by user
+     * @throws DukeFormatException if format provided by user is not what is expected
+     */
     public DeadlineCommand(String input) throws DukeFormatException {
         if (!input.contains("/by")) {
             throw new DukeFormatException("Ohno... Please check your format and include '/by'~");
@@ -26,6 +34,10 @@ public class DeadlineCommand extends Command{
         }
     }
 
+    /**
+     * Creates deadline task in TaskList and saves to storage file
+     * @throws IOException if file cannot be found
+     */
     @Override
     public void execute() throws IOException {
         TaskList.createDeadlineTasks(task, deadline);
