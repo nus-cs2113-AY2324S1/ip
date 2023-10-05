@@ -75,7 +75,8 @@ public class Duke {
             // if "todo" command is given
             else if (userCommand.equals("todo")) {
                 // store information of todo: Name
-                String todoName = String.join(" ", Arrays.copyOfRange(userWords, 1, userWords.length));
+                String[] todoNameWords = Arrays.copyOfRange(userWords, 1, userWords.length);
+                String todoName = String.join(" ", todoNameWords);
                 Todo todo = new Todo(todoName);
                 tasks[tasksIndex] = todo; // Store user input into array
                 tasksIndex++; // Increase String array index
@@ -98,9 +99,12 @@ public class Duke {
                     }
                 }
                 // store information of event: Name, From and To
-                String eventName = String.join(" ", Arrays.copyOfRange(userWords, 1, fromSplitIndex));
-                String eventFrom = String.join(" ", Arrays.copyOfRange(userWords, fromSplitIndex + 1, toSplitIndex));
-                String eventTo = String.join(" ", Arrays.copyOfRange(userWords, toSplitIndex + 1, userWords.length));
+                String[] eventNameWords = Arrays.copyOfRange(userWords, 1, fromSplitIndex);
+                String[] eventFromWords = Arrays.copyOfRange(userWords, fromSplitIndex + 1, toSplitIndex);
+                String[] eventToWords = Arrays.copyOfRange(userWords, toSplitIndex + 1, userWords.length);
+                String eventName = String.join(" ", eventNameWords);
+                String eventFrom = String.join(" ", eventFromWords);
+                String eventTo = String.join(" ", eventToWords);
                 Event event = new Event(eventName, eventFrom, eventTo); // New Event object
                 tasks[tasksIndex] = event; // Store user input into array
                 tasksIndex++; // Increase String array index
@@ -119,8 +123,10 @@ public class Duke {
                     }
                 }
                 // store information of deadline: Name and By
-                String deadlineName = String.join(" ", Arrays.copyOfRange(userWords, 1, splitIndex));
-                String deadlineBy = String.join(" ", Arrays.copyOfRange(userWords, splitIndex + 1, userWords.length));
+                String[] deadlineNameWords = Arrays.copyOfRange(userWords, 1, splitIndex);
+                String[] deadlineByWords = Arrays.copyOfRange(userWords, splitIndex + 1, userWords.length);
+                String deadlineName = String.join(" ", deadlineNameWords);
+                String deadlineBy = String.join(" ", deadlineByWords);
                 Deadline deadline = new Deadline(deadlineName, deadlineBy); // New Deadline object
                 tasks[tasksIndex] = deadline; // Store user input into array
                 tasksIndex++; // Increase String array index
