@@ -51,6 +51,7 @@ Format: `event DESCRIPTION /from START_DATE /to END_DATE`
 > [!NOTE]
 > - `START_DATE` and `END_DATE` must be in the format `YYYY-MM-DD`.
 > - `START_DATE` must be before `END_DATE`.
+> - Command `/from` and `/to` must be in the exact order.
 
 Example input: `event project meeting /from 2020-09-18 /to 2020-09-19`
 
