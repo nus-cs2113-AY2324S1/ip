@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Class that consists handles all of the UI and printing operations of this chatbot.
+ * Class that consists handles all the UI and printing operations of this chatbot.
  */
 public class Ui {
 
@@ -9,7 +9,7 @@ public class Ui {
      * Method to print a divider line
      */
     public void printLine() {
-        System.out.println("    ____________________________________________________________");
+        echo("____________________________________________________________\n");
     }
 
     /**
@@ -24,10 +24,10 @@ public class Ui {
                 + "\\____/ \\___/|_.__/|_.__/ \\__, |\n"
                 + "                          __/ |\n"
                 + "                         |___/";
-        System.out.println("    Hello from\n" + logo);
+        echo("Hello from\n" + logo+'\n');
         printLine();
-        System.out.println("    Hello! I'm Bobby");
-        System.out.println("    What can I do for you?");
+        echo("Hello! I'm Bobby\n");
+        echo("What can I do for you?\n");
         printLine();
     }
 
@@ -36,7 +36,7 @@ public class Ui {
      */
     public void printBye(){
         printLine();
-        System.out.println("    Bye. Hope to see you again soon!");
+        echo("Bye. Hope to see you again soon!\n");
         printLine();
     }
 
@@ -51,21 +51,21 @@ public class Ui {
      * Callback method to inform the user that an item has been marked.
      */
     public void printMarked(){
-        System.out.println("    Nice! I've marked this task as done:");
+        echo("Nice! I've marked this task as done:\n");
     }
 
     /**
      * Callback method to inform the user that an item has been unmarked.
      */
     public void printUnmarked(){
-        System.out.println("    OK, I've marked this task as not done yet:");
+        echo("OK, I've marked this task as not done yet:\n");
     }
 
     /**
-     * @param text Userinput text that will be echo'd back into the output.
+     * @param text User input text that will be echoed back into the output.
      */
     public void echo(String text){
-        System.out.print(text);
+        System.out.print("    " + text);
     }
 
 }
