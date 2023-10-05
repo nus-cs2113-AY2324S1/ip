@@ -3,6 +3,7 @@ package main.java.duke;
 import main.java.duke.task.*;
 import main.java.duke.util.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -33,15 +34,14 @@ public class Duke {
 
         // Task array for storing all user inputted tasks, and integer indexer to monitor size of array,
         // assume number of tasks do not exceed 100
-        Task[] tasks = new Task[100];
-        int tasksIndex = 0;
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         // if 'bye' command is given exit program, else keep prompting for user input
         while (!userCommand.equals("bye")) {
             // if 'list' command is given, list out all tasks
             if (userCommand.equals("list")) {
                 // if list is empty, print 'no item' message instead of tasks
-                if (tasksIndex == 0) {
+                if (tasks.isEmpty()) {
                     try {
                         throw new DukeException("Empty List");
                     } catch (DukeException e) {
@@ -50,33 +50,33 @@ public class Duke {
                 } else {
                     System.out.println("Here are the item(s) in your list. :)");
                     // print out tasks and number each task
-                    for (int i = 0; i < tasksIndex; i++) {
-                        System.out.println(i + 1 + ". " + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println(i + 1 + ". " + tasks.get(i));
                     }
                 }
             }
             // if "mark" command is given, mark the corresponding task in tasks
             else if (userCommand.equals("mark")) {
-                // split userInput into command and integer
                 try {
+                    // split userInput into command and integer
                     int selectedItem = Integer.parseInt(userWords[1]);
                     // check if integer given is in range of number of tasks
-                    tasks[selectedItem - 1].setMarked(true);
+                    tasks.get(selectedItem - 1).setMarked(true);
                     System.out.println("Task " + selectedItem + " marked!\n" +
-                            tasks[selectedItem - 1]);
+                            tasks.get(selectedItem - 1));
                 }catch (Exception e) {
                     System.out.println("Invalid integer input! :(");
                 }
             }
             // if "unmark" command is given, unmark the corresponding task in tasks
             else if (userCommand.equals("unmark")) {
-                // split userInput into command and integer
                 try {
+                    // split userInput into command and integer
                     int selectedItem = Integer.parseInt(userWords[1]);
                     // check if integer given is in range of number of tasks
-                    tasks[selectedItem - 1].setMarked(false); // unmark task
+                    tasks.get(selectedItem - 1).setMarked(false); // unmark task
                     System.out.println("Task " + selectedItem + " unmarked!\n" +
-                            tasks[selectedItem - 1]);
+                            tasks.get(selectedItem - 1));
                 }catch (Exception e) {
                     System.out.println("Invalid integer input! :(");
                 }
@@ -92,11 +92,10 @@ public class Duke {
                     String[] todoNameWords = Arrays.copyOfRange(userWords, 1, userWords.length);
                     String todoName = String.join(" ", todoNameWords);
                     Todo todo = new Todo(todoName);
-                    tasks[tasksIndex] = todo; // Store user input into array
-                    tasksIndex++; // Increase String array index
+                    tasks.add(todo); // Store user input into array
                     System.out.println("I've added this task to your list:");
                     System.out.println(todo);
-                    System.out.println("You now have " + tasksIndex + " task(s) in your list. :]");
+                    System.out.println("You now have " + tasks.size() + " task(s) in your list. :]");
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -132,11 +131,10 @@ public class Duke {
                     String eventFrom = String.join(" ", eventFromWords);
                     String eventTo = String.join(" ", eventToWords);
                     Event event = new Event(eventName, eventFrom, eventTo); // New Event object
-                    tasks[tasksIndex] = event; // Store user input into array
-                    tasksIndex++; // Increase String array index
+                    tasks.add(event); // Store user input into array
                     System.out.println("I've added this task to your list:");
                     System.out.println(event);
-                    System.out.println("You now have " + tasksIndex + " task(s) in your list. :]");
+                    System.out.println("You now have " + tasks.size() + " task(s) in your list. :]");
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -164,14 +162,27 @@ public class Duke {
                     String deadlineName = String.join(" ", deadlineNameWords);
                     String deadlineBy = String.join(" ", deadlineByWords);
                     Deadline deadline = new Deadline(deadlineName, deadlineBy); // New Deadline object
-                    tasks[tasksIndex] = deadline; // Store user input into array
-                    tasksIndex++; // Increase String array index
+                    tasks.add(deadline); // Store user input into array
                     System.out.println("I've added this task to your list:");
                     System.out.println(deadline);
-                    System.out.println("You now have " + tasksIndex + " task(s) in your list. :]");
+                    System.out.println("You now have " + tasks.size() + " task(s) in your list. :]");
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
+            }
+            // if "delete" command is given, delete the corresponding task in the list
+            else if (userCommand.equals("delete")) {
+                try {
+                    // split userInput into command and integer
+                    int selectedItem = Integer.parseInt(userWords[1]);
+                    // check if integer given is in range of number of tasks
+                    Task removedTask = tasks.remove(selectedItem - 1);
+                    System.out.println("Task " + selectedItem + " delete!\n" +
+                            removedTask);
+                }catch (Exception e) {
+                    System.out.println("Invalid integer input! :(");
+                }
+
             }
             // if not unique command, prompt user again
             else {
