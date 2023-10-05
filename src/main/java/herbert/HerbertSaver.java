@@ -116,20 +116,8 @@ public class HerbertSaver {
                     StandardOpenOption.APPEND
             );
 
-            StringBuilder s = new StringBuilder(String.format(
-                    "%s | %s | %s",
-                    t.getCode(),
-                    t.isCompleted() ? "1" : "0",
-                    t.getDescription()
-            ));
-            if (t instanceof Deadline) {
-                s.append(String.format(" | %s", ((Deadline) t).getDueDate()));
-            } else if (t instanceof Event) {
-                Event e = (Event) t;
-                s.append(String.format(" | %s | %s", e.getFrom(), e.getTo()));
-            }
-
-            writer.write(s.toString());
+            String s = this.buildTaskString(t);
+            writer.write(s);
             writer.newLine();
             writer.close();
         } catch (IOException e) {
@@ -137,6 +125,46 @@ public class HerbertSaver {
         }
     }
 
-    // TODO: Remove task from save file
-    // TODO: Update task status in save file
+    /**
+     * Rewrites the entire save file with all the tasks in a given task list.
+     * @param taskList The task list to override the save file with.
+     */
+    public void rewriteSaveFile(TaskList taskList) {
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(
+                    this.filePath,
+                    StandardCharsets.UTF_8,
+                    StandardOpenOption.WRITE
+            );
+            for (int i = 0; i < taskList.size(); i++) {
+                String s = this.buildTaskString(taskList.get(i));
+                writer.write(s);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Encodes a given task into the format required for the save file.
+     * @param t The task to be encoded.
+     * @return The string encoding of the task in the standard format.
+     */
+    private String buildTaskString(Task t) {
+        StringBuilder s = new StringBuilder(String.format(
+                "%s | %s | %s",
+                t.getCode(),
+                t.isCompleted() ? "1" : "0",
+                t.getDescription()
+        ));
+        if (t instanceof Deadline) {
+            s.append(String.format(" | %s", ((Deadline) t).getDueDate()));
+        } else if (t instanceof Event) {
+            Event e = (Event) t;
+            s.append(String.format(" | %s | %s", e.getFrom(), e.getTo()));
+        }
+        return s.toString();
+    }
 }

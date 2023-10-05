@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Herbert {
 
-    private final HerbertSaver reader;
+    private final HerbertSaver saver;
     private final TaskList taskList;
 
     /**
@@ -21,8 +21,8 @@ public class Herbert {
     public Herbert() {
         this.taskList = new TaskList();
 
-        this.reader = new HerbertSaver("data", "HerbertTasks.txt");
-        this.reader.loadFromSaveFile(this);
+        this.saver = new HerbertSaver("data", "HerbertTasks.txt");
+        this.saver.loadFromSaveFile(this);
 
         HerbertUI.sayHello();
     }
@@ -126,6 +126,7 @@ public class Herbert {
         }
         Task task = taskList.get(taskIndex);
         task.setCompleted(completed);
+        this.saver.rewriteSaveFile(this.taskList);
 
         // Print result message to user
         HerbertUI.printMessageMarkTask(task, completed);
@@ -150,7 +151,7 @@ public class Herbert {
             // Create and add task
             Todo td = new Todo(description);
             this.taskList.add(td);
-            this.reader.addTaskToSaveFile(td);
+            this.saver.addTaskToSaveFile(td);
 
             // Print success message
             HerbertUI.printMessageAddTask(td, this.taskList);
@@ -173,7 +174,7 @@ public class Herbert {
             // Create and add task
             Deadline dl = new Deadline(description, dueDate);
             this.taskList.add(dl);
-            this.reader.addTaskToSaveFile(dl);
+            this.saver.addTaskToSaveFile(dl);
 
             // Print success message
             HerbertUI.printMessageAddTask(dl, this.taskList);
@@ -196,7 +197,7 @@ public class Herbert {
             // Create and add task
             Event ev = new Event(description, fromDate, toDate);
             this.taskList.add(ev);
-            this.reader.addTaskToSaveFile(ev);
+            this.saver.addTaskToSaveFile(ev);
 
             // Print success message
             HerbertUI.printMessageAddTask(ev, this.taskList);
@@ -232,6 +233,8 @@ public class Herbert {
 
         Task taskCopy = taskList.get(taskIndex);
         this.taskList.remove(taskIndex);
+        this.saver.rewriteSaveFile(this.taskList);
+
         HerbertUI.printMessageDeleteTask(taskCopy, this.taskList);
     }
 

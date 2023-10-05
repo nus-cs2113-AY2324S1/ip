@@ -50,9 +50,7 @@ Both the `from` and `to` dates must be specified by the user in ISO-8601 format:
 
 ### Local storage of tasks
 
-Herbert wouldn't be very helpful if he forgot your list of tasks each time you restarted him! But you can rest assured that at any moment, a copy of your tasks is stored to your local hard-drive from which Herbert will automatically repopulate your task list from on startup. 
-
-*See #known-issues for more on this.
+Herbert wouldn't be very helpful if he forgot your list of tasks each time you restarted him! But you can rest assured that at any moment, a copy of your tasks is stored to your local hard-drive from which Herbert will automatically repopulate your task list from on startup. Whenever you add, delete, or update a task, the changes will be reflected in the local storage.
 
 ## Commands
 
@@ -144,7 +142,3 @@ Usage: `bye`
 | find     | `find <search query>`                                     |
 | help     | `help`                                                    |
 | bye      | `bye`                                                     |
-
-## Known issues
-
-1. The local storage of tasks is not updated on the deletion of a task or the update of a task's status. This is still being worked on.
