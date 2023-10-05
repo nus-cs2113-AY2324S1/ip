@@ -6,10 +6,10 @@ import luke.tasks.Task;
 import luke.tasks.Todo;
 import luke.user.LukeTimeError;
 
-public class Parser {
+public class Parser{
     //user input from Ui to luke command to Command
 
-    public static Command parse(String fullCommand) {
+    public static Command parse(String fullCommand) throws LukeTimeError {
         ActionType theAction;
         String parameters = "";
 
