@@ -26,6 +26,10 @@ public class Task {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:\n\t  " + this);
     }
+
+    public void setType(char letter) {
+        this.type = letter;
+    }
     // defines constructor for the task class
     public Task(String description) {
         this.description = description;
@@ -56,4 +60,6 @@ public class Task {
             System.out.println(" task in the list.");
         }
     }
+
+
 }
