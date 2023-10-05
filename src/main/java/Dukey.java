@@ -83,20 +83,6 @@ public class Dukey {
         }
     }
 
-    private static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-    }
-
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(textToAdd);
-        fw.close();
-    }
-
     // appends the last index of the task array into the file
     private static void taskArrayToFile(String filePath, ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
