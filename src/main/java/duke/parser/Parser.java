@@ -22,6 +22,10 @@ public class Parser {
             String description = line.substring(divider + 1);
 
             return tasks.addTask(new Todo(description));
+        } else if (line.startsWith("find")) {
+            String keyword = line.substring(divider + 1);
+
+            return tasks.getIndexedTasksByKeyword(keyword);
         }
 
         if (line.contains("mark") || line.startsWith("delete")) {
