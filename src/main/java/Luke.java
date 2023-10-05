@@ -5,13 +5,23 @@ import luke.user.Ui;
 import luke.tasks.*;
 import luke.files.*;
 
+/**
+ * The Luke Class represents the main application class for Luke, a task management application.
+ * It manages the user interface, task storage, and task list.
+ */
 public class Luke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Luke(String filePath) {//i dont get how this filePath works
+    /**
+     * Constructs a Luke object.
+     *
+     * @param filePath The file path to the storage file.
+     *                 The storage file contains task data that will be loaded into the application.
+     */
+    public Luke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -22,6 +32,11 @@ public class Luke {
         }
     }
 
+    /**
+     * Runs the Luke application.
+     * It displays a welcome message, reads user commands, and executes corresponding actions.
+     * The application continues running until the user exits.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -42,6 +57,11 @@ public class Luke {
         }
     }
 
+    /**
+     * The main method that starts the Luke application.
+     *
+     * @param args The command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Luke("./out/artifacts/ip_jar/memory.txt").run();
         //new Luke("data/tasks.txt").run();
