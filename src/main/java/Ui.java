@@ -23,15 +23,14 @@ public class Ui {
         System.out.println("Error loading tasks from text file to Dukey");
     }
     public void showTaskList(ArrayList<Task> tasks) {
-        System.out.println("_____________________________________________________");
+        printLine();
         System.out.println("Here are the tasks in your list:");
         int index = 1;
         for (Task task : tasks) {
             System.out.println((index++) + "." + task);
         }
-        System.out.println("_____________________________________________________");
+        printLine();
     }
 
-    // Add other UI-related methods here
 }
 
