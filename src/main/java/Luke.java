@@ -23,10 +23,8 @@ public class Luke {
         }
     }
 
-
-    private static final String BYE_COMMAND = "bye";
-
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    //private static final String BYE_COMMAND = "bye";
+    //private static ArrayList<Task> taskList = new ArrayList<>();
 
     public void run() {
         ui.showWelcome();
@@ -44,13 +42,6 @@ public class Luke {
                 ui.showLine();
             }
         }
-
-    }
-
-    public void run() {
-        //Task[] taskList = new Task[100];
-
-        int taskNumber;
 
     }
 
