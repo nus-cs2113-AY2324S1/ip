@@ -10,6 +10,12 @@ K   K  EEEEE   N   N
 ## Features 
 Ken is a CLI chatbot that helps you manage your tasks efficiently. Easily add and delete tasks, deadline and events, save them, and use Ken to manage them easily. 
 
+- Add tasks of different types: Todo, Deadline, Event
+- List all your tasks
+- Mark tasks as done
+- Delete tasks
+- Find tasks
+
 ## Usage
 
 ### `todo, deadline, event` - Add a Task 
