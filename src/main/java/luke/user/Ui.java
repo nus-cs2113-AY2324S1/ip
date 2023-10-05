@@ -10,8 +10,10 @@ public class Ui {
         userInput = new Scanner(System.in);
     }
 
-    //decompiler
-    //userInput.close();
+    //decompiler???
+    public void closeUi() {
+        userInput.close();
+    }
 
     public void showWelcome() {
         String logo = "\t _           _        \n"

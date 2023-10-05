@@ -1,6 +1,6 @@
 package luke.files;
 
-import luke.errors.LukeTimeError;
+import luke.user.LukeTimeError;
 import luke.tasks.*;
 
 import java.io.File;
@@ -14,7 +14,9 @@ import java.util.ArrayList;
 
 public class Memory {
 
-    public static ArrayList<Task> readMemory(String filePath, ArrayList<Task> taskList) throws FileNotFoundException {
+    public static ArrayList<Task> readMemory(String filePath) throws FileNotFoundException {
+
+        ArrayList<Task> tasks = new ArrayList<>();
 
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -44,12 +46,12 @@ public class Memory {
                         break;
                 }
 
-                taskList.add(newTask);
+                tasks.add(newTask);
             } catch (LukeTimeError e) {
                 System.out.println("\tsomethings wrong");
             }
         }
-        return taskList;
+        return tasks;
     }
 
     public static void storeMemory(String filePath, ArrayList<Task> taskList){

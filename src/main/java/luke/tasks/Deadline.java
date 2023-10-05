@@ -1,5 +1,5 @@
 package luke.tasks;
-import luke.errors.LukeTimeError;
+import luke.user.LukeTimeError;
 
 public class Deadline extends Task {
     protected String date;
