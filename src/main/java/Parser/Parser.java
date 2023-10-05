@@ -1,14 +1,6 @@
 package Parser;
 
-import Commands.Command;
-import Commands.ByeCommand;
-import Commands.ListCommand;
-import Commands.MarkCommand;
-import Commands.UnmarkCommand;
-import Commands.TodoCommand;
-import Commands.DeadlineCommand;
-import Commands.EventCommand;
-import Commands.DeleteCommand;
+import Commands.*;
 
 import Exceptions.DukeException;
 import Exceptions.DukeFormatException;
@@ -50,6 +42,8 @@ public class Parser {
                     return new EventCommand(input);
                 case "delete":
                     return new DeleteCommand(parts[1]);
+                case "find":
+                    return new FindCommand(parts[1]);
                 default:
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :<");
             }

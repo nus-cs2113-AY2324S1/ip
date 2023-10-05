@@ -35,6 +35,25 @@ public class TaskList {
         return list.size();
     }
 
+    //find tasks with keyword
+    public static void findTasks(String keyword) {
+        ArrayList<Task> foundList = new ArrayList<>();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            String taskAsString = list.get(i).toString();
+            if (taskAsString.contains(keyword)) {
+                foundList.add(list.get(i));
+                System.out.print((i + 1) + ". ");
+                System.out.println(get(i));
+            }
+        }
+        if (foundList.isEmpty()) {
+            System.out.println("oops, there are none :(");
+        }
+    }
+
+
+
     //method to add todo tasks
     public static void createTodoTasks(String task) {
         //instantiate new todo object
