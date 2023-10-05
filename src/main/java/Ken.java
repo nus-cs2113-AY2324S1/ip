@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ken {
@@ -14,7 +15,13 @@ public class Ken {
         storage.loadTasks(taskList);
     }
 
-    public void run() {
+
+    public static void main(String[] args) throws KenException {
+        Ken ken = new Ken("ken.txt");
+        ken.run();
+    }
+
+    public void run() throws KenException {
         Ui.printLine();
         Ui.printWelcomeMessage();
         Ui.printLine();
@@ -25,7 +32,9 @@ public class Ken {
             String userInput = scanner.nextLine();
             Ui.printLine();
 
-            if (userInput.equalsIgnoreCase(CommandParser.COMMAND_BYE)) {
+            if (userInput.toLowerCase().startsWith(CommandParser.COMMAND_FIND)) {
+                taskList.handleFindCommand(userInput);
+            } else if (userInput.equalsIgnoreCase(CommandParser.COMMAND_BYE)) {
                 Ui.printGoodbyeMessage();
                 break;
             } else {
@@ -33,7 +42,7 @@ public class Ken {
                     CommandParser.processUserCommand(userInput, taskList, storage);
                 } catch (KenException e) {
                     if (userInput.equalsIgnoreCase(CommandParser.COMMAND_LIST)) {
-                        TaskList.listTasks(taskList); // Call the listTasks method
+                        TaskList.listTasks(taskList);
                     } else {
                         System.out.println("Error: " + e.getMessage());
                     }
@@ -44,12 +53,7 @@ public class Ken {
 
         scanner.close();
     }
-
-    public static void main(String[] args) {
-        new Ken("ken.txt").run();
-    }
 }
-
 
 class KenException extends Exception {
     public KenException(String message) {
@@ -75,6 +79,8 @@ class TaskNotFoundException extends KenException {
         super(message);
     }
 }
+
+
 
 
 

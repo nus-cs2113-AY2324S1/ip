@@ -38,7 +38,7 @@ public class Storage {
                 String description = taskList.getTaskDescriptions().get(i);
                 String date = taskList.getTaskDates().get(i); // Add this line to get the date
 
-                // Make sure to include the date in the saved format
+                // Use the same separator character "|" for consistency
                 writer.write(taskType + " | " + doneStatus + " | " + description + " | " + date);
                 writer.newLine();
             }
@@ -48,6 +48,7 @@ public class Storage {
             e.printStackTrace();
         }
     }
+
 
     public static void deleteTask(int taskIndex, TaskList taskList) {
         if (taskIndex >= 0 && taskIndex < TaskList.taskDescriptions.size()) {

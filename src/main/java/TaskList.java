@@ -15,10 +15,12 @@ public class TaskList {
             taskDoneStatus.add(parts[1].equals("1"));
             taskDescriptions.add(parts[2]);
 
-            if (parts.length >= 4) {
-                taskDates.add(parts[3]);
+            if (parts[0].equals("T")) {
+                taskDates.add(null); // Set the date to null for Todo tasks
+            } else if (parts.length >= 4) {
+                taskDates.add(parts[3]); // Set the date for Deadline and Event tasks
             } else {
-                taskDates.add(null);
+                taskDates.add(null); // Handle the case where the date is missing for Deadline and Event tasks
             }
         }
     }
@@ -107,6 +109,70 @@ public class TaskList {
             throw new TaskNotFoundException("Wrong format!! Please provide the number of the task.");
         }
     }
+
+
+
+    public String taskToString(int index) {
+        String taskType = taskTypes.get(index);
+        String doneStatus = taskDoneStatus.get(index) ? "[X]" : "[ ]";
+        String description = taskDescriptions.get(index);
+        String date = taskDates.get(index);
+
+        switch (taskType) {
+            case "T":
+                return doneStatus + " " + description;
+            case "D":
+                if (date != null) {
+                    return doneStatus + " " + description +  " (" + date + ")";
+                } else {
+                    return doneStatus + " " + description;
+                }
+            case "E":
+                if (date != null) {
+                    String[] dateParts = date.split(" to ");
+                    if (dateParts.length == 2) {
+                        return doneStatus + " " + description + " (" + dateParts[0] + " to " + dateParts[1] + ")";
+                    } else if (dateParts.length == 1) {
+                        return doneStatus + " " + description + " (" + dateParts[0] + " )";
+                    }
+                } else {
+                    return doneStatus + " " + description;
+                }
+            default:
+                return "Unknown task type: " + taskType;
+        }
+    }
+
+
+
+    public ArrayList<String> findTasksByKeyword(String keyword) {
+        ArrayList<String> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < taskDescriptions.size(); i++) {
+            String description = taskDescriptions.get(i);
+            if (description.contains(keyword)) {
+                String matchingTask = "[" + taskTypes.get(i) + "]" + taskToString(i);
+                matchingTasks.add(matchingTask);
+            }
+        }
+        return matchingTasks;
+    }
+
+    public void handleFindCommand(String userInput) {
+        String keyword = userInput.substring(CommandParser.COMMAND_FIND.length()).trim();
+        ArrayList<String> matchingTasks = findTasksByKeyword(keyword);
+
+        Ui.printLine();
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (String matchingTask : matchingTasks) {
+                System.out.println(matchingTask);
+            }
+        }
+        Ui.printLine();
+    }
+
 
 }
 

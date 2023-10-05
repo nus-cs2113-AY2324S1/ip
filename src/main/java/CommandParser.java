@@ -7,6 +7,9 @@ public class CommandParser {
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_MARK = "mark";
 
+    public static final String COMMAND_FIND = "find";
+
+
     public static void processUserCommand(String userInput, TaskList taskList, Storage storage) throws KenException {
         String[] parts = userInput.split(" ", 2);
 
