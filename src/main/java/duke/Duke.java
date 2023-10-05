@@ -4,9 +4,17 @@ import duke.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * The main class that starts the Duke application.
+ */
 public class Duke {
     static TaskList taskList = new TaskList();
 
+    /**
+     * The main the start and runs the duke program
+     *
+     * @param args Th command-line inputs
+     */
     public static void main(String[] args) {
         Ui.intro(); //prints the intro
 

@@ -12,6 +12,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks and provides methods to manipulate the tasks.
+ */
 public class TaskList {
     private static ArrayList<Task> list;
 
@@ -19,6 +22,11 @@ public class TaskList {
         list = new ArrayList<>();
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param taskIndex The index of the task to be marked as done.
+     */
     public void mark(int taskIndex) { //marking task as done
         Utils.printDivider();
         System.out.println("Nice! I've marked this task as done:\n");
@@ -30,6 +38,12 @@ public class TaskList {
     }
 
     int Number_Of_Task = 0;
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param taskType The type of the task (e.g., "T" for ToDos).
+     * @param task     The task to be added.
+     */
     public void addToList(String taskType, Task task) { //adding a new task into todolist
         list.add(task);
         Number_Of_Task += 1;
@@ -45,6 +59,11 @@ public class TaskList {
         Utils.printDivider();
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param taskNumber The index of the task to be deleted.
+     */
     public void deleteTask(int taskNumber) {
         Task taskToDelete = list.get(taskNumber - 1);
         Utils.printDivider();
@@ -56,6 +75,11 @@ public class TaskList {
         saveToFile();
     }
 
+    /**
+     * Unmarks a task as done.
+     *
+     * @param taskIndex The index of the task to be unmarked.
+     */
     public void unmark(int taskIndex) { //unmarking a task
         Utils.printDivider();
         System.out.println("OK, I've marked this task as not done yet:\n");
@@ -66,10 +90,18 @@ public class TaskList {
         saveToFile();
     }
 
+    /**
+     * Prints a single task to the console.
+     *
+     * @param task The task to be printed.
+     */
     private void printTask(Task task) { //printing the task
         System.out.println(task.toString() + "\n");
     }
 
+    /**
+     * Prints the list of tasks to the console.
+     */
     public void printList() { //printing the current to do list
         Utils.printDivider();
         System.out.println("Here are the tasks in your list:\n");
@@ -82,6 +114,11 @@ public class TaskList {
         Utils.printDivider();
     }
 
+    /**
+     * Finds tasks that match a specified name and displays them.
+     *
+     * @param taskName The name to search for in task descriptions.
+     */
     public static void findTask(String taskName) {
         Utils.printDivider();
         System.out.println("Here are the matching tasks in your list:\n");
@@ -101,6 +138,9 @@ public class TaskList {
         Utils.printDivider();
     }
 
+    /**
+     * Saves the current task list to a JSON file.
+     */
     private void saveToFile() {
         //saving the current todolist into the json file if it exists, else create new json file
         // the object to write to file
@@ -124,6 +164,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Initializes the task list by loading data from a JSON file if it exists.
+     */
     public void initialiseToDoList() { //Will read existing to do list from json if it exists, else a new list is created
         try {
             FileReader fileReader = new FileReader("./list.json");

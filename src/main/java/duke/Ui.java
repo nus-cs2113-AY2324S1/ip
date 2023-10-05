@@ -5,7 +5,14 @@ import duke.task.Events;
 import duke.task.TaskList;
 import duke.task.ToDos;
 
+/**
+ * A utility class that provides user interface functions.
+ */
 public class Ui extends Utils{
+
+    /**
+     * Displays the initial message when the program starts
+     */
     public static void intro() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -24,12 +31,26 @@ public class Ui extends Utils{
 
     }
 
+    /**
+     * Displays the ending message when the user enters "bye"
+     */
     public static void outro() {
         System.out.println("Bye. Hope to see you again soon!\n");
         printDivider();
     }
 
-    static void mainLogic(TaskList taskList, String[] command, String input) throws StringIndexOutOfBoundsException, NoTaskNameException, ArrayIndexOutOfBoundsException {
+    /**
+     *
+     * Handles the main logic of the user inputs
+     *
+     * @param taskList the list that contains whatever tasks that has been stored
+     * @param command The array that contains the command and arguments
+     * @param input The input that the use has keyed in
+     * @throws StringIndexOutOfBoundsException When there is a string indexing issue
+     * @throws NoTaskNameException When there is no task name given
+     * @throws ArrayIndexOutOfBoundsException When there is a array indexing issue
+     */
+    public static void mainLogic(TaskList taskList, String[] command, String input) throws StringIndexOutOfBoundsException, NoTaskNameException, ArrayIndexOutOfBoundsException {
         if (command[0].equals("list")) {
             taskList.printList();
         } else if (command[0].equals("mark")) {
