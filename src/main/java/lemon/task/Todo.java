@@ -1,7 +1,5 @@
 package lemon.task;
 
-import lemon.task.Task;
-
 public class Todo extends Task {
     public Todo(String description, boolean isDone) {
         super(description, isDone);
@@ -10,5 +8,9 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    public String toFile() {
+        return "T" + super.toFile();
     }
 }

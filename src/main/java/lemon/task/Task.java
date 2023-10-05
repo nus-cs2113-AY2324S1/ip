@@ -1,20 +1,12 @@
 package lemon.task;
 
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private final String description;
+    private boolean isDone;
 
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
     }
 
     public void markAsDone() {
@@ -25,8 +17,20 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getStatus() {
+        return (isDone ? "1" : "0");
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + description;
+    }
+
+    public String toFile() {
+        return " | " + this.getStatus() + " | " + description;
     }
 }
