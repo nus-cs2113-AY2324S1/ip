@@ -127,7 +127,6 @@ public class Storage {
                         continue;
                     }else{
                         writer.newLine(); // Add a new line after writing
-                        System.out.println("new line added for:  " + line);
                     }
                 }
             }
