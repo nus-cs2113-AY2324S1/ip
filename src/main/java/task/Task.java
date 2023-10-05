@@ -3,6 +3,11 @@ package task;
 public class Task {
     protected String description;
     protected boolean isDone;
+
+    /**
+     * Basic constructor for Task
+     * @param description Task description or name
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
