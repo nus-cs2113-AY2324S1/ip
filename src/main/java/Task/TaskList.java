@@ -4,33 +4,46 @@ import java.util.ArrayList;
 
 import Exceptions.DukeException;
 
+/**
+ * class indicating an array list of all task objects
+ */
 public class TaskList {
 
 
     public static ArrayList<Task> list;
 
-    //instantiate an array list
+    /**
+     * constructor of "TaskList"
+     */
     public TaskList() {
         //creation of array list
         list = new ArrayList<>();
     }
 
-    //method to add to arraylist
+    /**
+     * adds an object of task type to the TaskList
+     */
     public static void add(Task task){
         list.add(task);
     }
 
-    //method to remove elements from arraylist using index
+    /**
+     * removes an object of task type from TaskList
+     */
     public static void remove(int index){
         list.remove(index);
     }
 
-    //getting elements
+    /**
+     * gets an object of task type from TaskList given the index
+     */
     public static Task get(int index){
         return list.get(index);
     }
 
-    //obtaining size of array
+    /**
+     * obtaining size of TaskList
+     */
     public static int size(){
         return list.size();
     }
