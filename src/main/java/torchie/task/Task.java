@@ -25,6 +25,12 @@ public class Task {
         this.isDone = b;
     }
 
+    /**
+     * Used to check if Task was marked or not
+     *
+     * @return String that reflects status of Task
+     *
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done torchie.task with X
     }
@@ -33,10 +39,20 @@ public class Task {
         System.out.println(s);
     }
 
+    /**
+     * Used to display Task object in a user-friendly way
+     *
+     * @return String that shows a user-friendly version of Task object
+     *
+     */
     public String toString() {
         return ("[" + this.getStatusIcon() + "] " + this.description);
     }
 
+    /**
+     * Mark task and print a line to tell users that task was marked successfully
+     *
+     */
     public void markTask() {
         setIsDone(true);
         this.isDone = true;
@@ -44,22 +60,40 @@ public class Task {
         printTask(this.toString());
     }
 
+    /**
+     * Unmark task and print a line to tell users that task was unmarked successfully
+     *
+     */
     public void unmarkTask() {
         setIsDone(false);
         System.out.println("Ok, I've marked this task as not done yet: ");
         printTask(this.toString());
     }
 
+    /**
+     * Print a line to tell users that task was added successfully
+     *
+     */
     public void announceTaskAdd() {
         System.out.println("Got it. I've added this task: ");
         System.out.print("\t");
     }
 
+    /**
+     * Print a line to tell users that task was deleted successfully
+     *
+     */
     public void announceTaskDelete() {
         System.out.println("Noted. I've removed this task: ");
         System.out.print("\t");
     }
 
+    /**
+     * Change Deadline task to a format that will be used to store in file
+     *
+     * @return String raw format to be saved in file
+     *
+     */
     public String toFileFormat() {
         return (getStatusIcon() + " | " + getDescription());
     }

@@ -35,6 +35,10 @@ public class TaskList {
         return taskList.indexOf(t);
     }
 
+    /**
+     * Displays the task in the list
+     *
+     */
     public void showTasks() {
         System.out.println("Here are the tasks in your list: ");
         for (int i=0; i<this.getSize(); i++){
@@ -55,6 +59,10 @@ public class TaskList {
         System.out.println("Now you have " + this.getSize() + " task(s) in the list.");
     }
 
+    /**
+     * Finds existing tasks via keyword
+     * @return TaskList a list of tasks taht matches the keywords
+     */
     public TaskList findTask(String keyword) {
         TaskList matchingTasks = new TaskList();
         for (Task task:taskList) {

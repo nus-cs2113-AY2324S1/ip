@@ -1,11 +1,7 @@
 package torchie.parser;
 
-import torchie.exception.InvalidIndexException;
-import torchie.exception.InvalidEventFormatException;
-import torchie.exception.TorchieException;
-import torchie.exception.InvalidDeadlineFormatException;
-import torchie.exception.MissingTaskNameException;
-import torchie.parser.DateTimeParser;
+import torchie.exception.*;
+
 import java.time.LocalDateTime;
 
 public class TaskDetailsParser {
@@ -15,6 +11,15 @@ public class TaskDetailsParser {
         dateTimeParser = new DateTimeParser();
     }
 
+    /**
+     * Get index of task to perform command on the task
+     *
+     * @param s user input string that contains the index of task we want to perform a command to
+     * @return String index of task
+     *
+     * @throws InvalidIndexException index out of bounds
+     *
+     */
     public String getIndex(String s) throws InvalidIndexException {
         // split sentence into 2 parts, first word and everything else
         String[] words = s.split(" ", 2);
@@ -34,6 +39,15 @@ public class TaskDetailsParser {
         return content;
     }
 
+    /**
+     * Get task name from user input so that command can be performed
+     *
+     * @param s user input string that contains the name of task as a required task detail
+     * @return String name of task
+     *
+     * @throws MissingTaskNameException name of task is missing
+     *
+     */
     public String getContent(String s) throws MissingTaskNameException {
         // split sentence into 2 parts, first word and everything else
         String[] words = s.split(" ", 2);
@@ -53,7 +67,17 @@ public class TaskDetailsParser {
         return content;
     }
 
-    public LocalDateTime getDeadlineDate(String s) throws TorchieException {
+    /**
+     * Get deadline as a string from user input and convert to LocalDateTime object
+     *
+     * @param s user input string that contains the deadline of task
+     * @return LocalDateTime deadline of task
+     *
+     * @throws InvalidDeadlineFormatException format of deadline is wrong, example: deadline <name> /by DateTime
+     * @throws InvalidDateTimeException the date and time of the input string is in
+     *
+     */
+    public LocalDateTime getDeadlineDate(String s) throws InvalidDateTimeException, InvalidDeadlineFormatException {
         int SIZE_OF_BUFFER = 4;
         int keyWordIndex = s.indexOf('/');
 
@@ -68,7 +92,17 @@ public class TaskDetailsParser {
         return dateTimeParser.getDateTimeObject(deadlineString);
     }
 
-    public LocalDateTime getEventStart(String s) throws TorchieException {
+    /**
+     * Get event start time as a string from user input and convert to LocalDateTime object
+     *
+     * @param s user input string that contains the event start time of task
+     * @return LocalDateTime start time of event task
+     *
+     * @throws InvalidEventFormatException format of event is wrong, example: event <name> /from DateTime /to DateTime
+     * @throws InvalidDateTimeException the date and time of the input string is in
+     *
+     */
+    public LocalDateTime getEventStart(String s) throws InvalidDateTimeException, InvalidEventFormatException {
         int SIZE_OF_BUFFER = 6;
 
         // first occurrence of '/' character
@@ -84,7 +118,17 @@ public class TaskDetailsParser {
         return dateTimeParser.getDateTimeObject(eventStartString);
     }
 
-    public LocalDateTime getEventEnd(String s) throws TorchieException {
+    /**
+     * Get event end time as a string from user input and convert to LocalDateTime object
+     *
+     * @param s user input string that contains the event end time of task
+     * @return LocalDateTime end time of event task
+     *
+     * @throws InvalidEventFormatException format of event is wrong, example: event <name> /from DateTime /to DateTime
+     * @throws InvalidDateTimeException the date and time of the input string is in
+     *
+     */
+    public LocalDateTime getEventEnd(String s) throws InvalidDateTimeException, InvalidEventFormatException {
         int SIZE_OF_BUFFER = 4;
 
         // first occurrence of '/' character

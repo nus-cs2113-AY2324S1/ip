@@ -1,5 +1,6 @@
 package torchie.parser;
 
+import torchie.Torchie;
 import torchie.command.Command;
 import torchie.command.AddCommand;
 import torchie.command.DeleteCommand;
@@ -9,6 +10,11 @@ import torchie.command.InvalidCommand;
 import torchie.command.ListCommand;
 import torchie.command.SetStatusCommand;
 import torchie.exception.InvalidCommandException;
+import torchie.exception.MissingTaskNameException;
+import torchie.exception.InvalidIndexException;
+import torchie.exception.InvalidDeadlineFormatException;
+import torchie.exception.InvalidEventFormatException;
+import torchie.exception.InvalidDateTimeException;
 import torchie.exception.TorchieException;
 import java.time.LocalDateTime;
 import torchie.storage.Storage;
@@ -47,8 +53,7 @@ public class Parser {
      * @param input user input string that contains the command and other task details
      * @return Command object that will be used to perform commands
      *
-     * @throws TorchieException the date and time of the input string is in the wrong format
-     *
+     * @throws TorchieException exceptions that are related to the program will be thrown
      *
      */
     public Command parseCommand(String input) throws TorchieException {
@@ -64,11 +69,10 @@ public class Parser {
         case MARK:
         case UNMARK:
             try {
-                String itemNum_str = taskDetailsParser.getContent(input);
+                String itemNum_str = taskDetailsParser.getIndex(input);
                 int itemNum = Integer.parseInt(itemNum_str) - 1;
-
                 commandObj = new SetStatusCommand(command, taskList, itemNum);
-            } catch (TorchieException e) {
+            } catch (InvalidIndexException e) {
                 e.showExceptionMessage();
             }
             break;
@@ -80,7 +84,7 @@ public class Parser {
                 String taskDescription = taskDetailsParser.getContent(input);
                 ToDo td = new ToDo(taskDescription);
                 commandObj = new AddCommand(td, taskList);
-            } catch (TorchieException e) {
+            } catch (MissingTaskNameException e) {
                 e.showExceptionMessage();
             }
             break;
@@ -90,7 +94,7 @@ public class Parser {
                 LocalDateTime taskDeadline = taskDetailsParser.getDeadlineDate(input);
                 Deadline d = new Deadline(taskDescription, taskDeadline);
                 commandObj =  new AddCommand(d, taskList);
-            } catch (TorchieException e) {
+            } catch (MissingTaskNameException |  InvalidDeadlineFormatException | InvalidDateTimeException e) {
                 e.showExceptionMessage();
             }
             break;
@@ -101,16 +105,16 @@ public class Parser {
                 LocalDateTime taskEventEnd = taskDetailsParser.getEventEnd(input);
                 Event e = new Event(taskDescription, taskEventStart, taskEventEnd);
                 commandObj = new AddCommand(e, taskList);
-            } catch (TorchieException e) {
+            } catch (MissingTaskNameException |  InvalidEventFormatException | InvalidDateTimeException e) {
                 e.showExceptionMessage();
             }
             break;
         case DELETE:
             try {
-                String itemNum_str = taskDetailsParser.getContent(input);
+                String itemNum_str = taskDetailsParser.getIndex(input);
                 int itemNum = Integer.parseInt(itemNum_str) - 1;
                 commandObj = new DeleteCommand(taskList, itemNum);
-            } catch (TorchieException e) {
+            } catch (InvalidIndexException e) {
                 e.showExceptionMessage();
             }
             break;
@@ -118,7 +122,7 @@ public class Parser {
             try {
                 String keyword = taskDetailsParser.getContent(input);
                 commandObj = new FindCommand(taskList, keyword);
-            } catch (TorchieException e) {
+            } catch (MissingTaskNameException e) {
                 e.showExceptionMessage();
             }
             break;
@@ -129,6 +133,10 @@ public class Parser {
         return commandObj;
     }
 
+    /**
+     * While loop that continously takes user input and uses other methods to fulfil users command
+     *
+     */
     public void getUserCommand() {
         Scanner scanner = new Scanner(System.in);
         String input;

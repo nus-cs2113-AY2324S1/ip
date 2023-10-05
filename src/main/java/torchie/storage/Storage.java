@@ -1,6 +1,8 @@
 package torchie.storage;
 
 import torchie.exception.CorruptedFileException;
+import torchie.exception.InvalidDateTimeException;
+import torchie.exception.InvalidEventFormatException;
 import torchie.exception.TorchieException;
 import torchie.parser.TaskDetailsParser;
 import torchie.task.TaskList;
@@ -23,6 +25,11 @@ public class Storage {
     private final String PATH = "./data/";
     private final String FILENAME = "torchie.txt";
 
+    /**
+     * Constructor for Storage class that will check if directory and file exists,
+     * will create the resources if needed
+     *
+     */
     public Storage() {
         directory = new File(PATH);
         file = new File(PATH + FILENAME);
@@ -40,6 +47,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Save to do list to a txt file
+     *
+     * @param taskList list of tasks that will be saved
+     *
+     */
     public void save(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(PATH + FILENAME);
@@ -53,6 +66,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieve list of tasks that was saved on our local drive
+     *
+     * @return TaskList list of tasks that we had saved
+     *
+     */
     public TaskList retrieveData() {
         TaskList taskList = new TaskList();
         Task task;
@@ -76,6 +95,15 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Parse every task in our to do list into their respective Task classes
+     *
+     * @param s task in raw string format stored in the file
+     * @return Task a valid task object
+     *
+     * @throws CorruptedFileException format of saved file is wrong
+     *
+     */
     public Task decode(String s) throws CorruptedFileException {
         String[] taskDetails = s.split(" \\| ");
 
