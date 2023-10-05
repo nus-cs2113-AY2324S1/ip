@@ -1,6 +1,7 @@
 package Commands;
 
 import Storage.Storage;
+import Task.Deadline;
 import Task.TaskList;
 import static Task.TaskList.list;
 
@@ -21,15 +22,15 @@ public class DeadlineCommand extends Command{
      * @throws DukeFormatException if format provided by user is not what is expected
      */
     public DeadlineCommand(String input) throws DukeFormatException {
-        if (!input.contains("/by")) {
+        if (!input.contains(" /by")) {
             throw new DukeFormatException("Ohno... Please check your format and include '/by'~");
         } else {
             String[] parts = input.split(" /by ");
+            task = parts[0].substring("deadline".length());
             //check if task or deadline are null
-            if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
+            if (parts.length != 2 || task.isEmpty() || parts[1].isEmpty()) {
                 throw new DukeFormatException("Task or deadline cannot be empty... Please check your input again~");
             }
-            task = parts[0].substring("deadline ".length());
             deadline = parts[1];
         }
     }
@@ -40,9 +41,10 @@ public class DeadlineCommand extends Command{
      */
     @Override
     public void execute() throws IOException {
-        TaskList.createDeadlineTasks(task, deadline);
+        Deadline deadlineTask = new Deadline(task, deadline);
+        list.add(deadlineTask);
         System.out.println("Got it. I've added this task:");
-        System.out.println(task);
+        System.out.println(deadlineTask);
         System.out.println("Now you have " + (list.size()) + " tasks in the list.");
         Storage.saveListToFile();
     }

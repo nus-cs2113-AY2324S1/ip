@@ -15,14 +15,14 @@ public class TodoCommand extends Command{
 
     /**
      * Constructor for 'TodoCommand" command with the task to create
-     * @param task from string input provided by user
+     * @param inputTask from string input provided by user
      * @throws DukeFormatException if format provided by user is not what is expected
      */
-   public TodoCommand(String task) throws DukeFormatException {
-        task = this.task;
-       if (task.isEmpty()) {
+   public TodoCommand(String inputTask) throws DukeFormatException {
+       if (inputTask.isEmpty()) {
            throw new DukeFormatException("Task or deadline cannot be empty... Please check your input again~");
        }
+       task = inputTask;
    }
 
     /**
