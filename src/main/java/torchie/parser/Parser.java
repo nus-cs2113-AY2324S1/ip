@@ -1,7 +1,13 @@
 package torchie.parser;
 
-import torchie.Torchie;
-import torchie.command.*;
+import java.time.LocalDateTime;
+import torchie.command.AddCommand;
+import torchie.command.Command;
+import torchie.command.DeleteCommand;
+import torchie.command.ExitCommand;
+import torchie.command.InvalidCommand;
+import torchie.command.ListCommand;
+import torchie.command.SetStatusCommand;
 import torchie.exception.*;
 import torchie.storage.Storage;
 import torchie.task.Deadline;
@@ -116,7 +122,7 @@ public class Parser {
         case DEADLINE:
             try {
                 String taskDescription = taskDetailsParser.getContent(input);
-                String taskDeadline = taskDetailsParser.getDeadlineDate(input);
+                LocalDateTime taskDeadline = taskDetailsParser.getDeadlineDate(input);
                 Deadline d = new Deadline(taskDescription, taskDeadline);
                 commandObj =  new AddCommand(d, taskList);
                 /*taskList.addTask(d);
@@ -132,8 +138,8 @@ public class Parser {
         case EVENT:
             try {
                 String taskDescription = taskDetailsParser.getContent(input);
-                String taskEventStart = taskDetailsParser.getEventStart(input);
-                String taskEventEnd = taskDetailsParser.getEventEnd(input);
+                LocalDateTime taskEventStart = taskDetailsParser.getEventStart(input);
+                LocalDateTime taskEventEnd = taskDetailsParser.getEventEnd(input);
                 Event e = new Event(taskDescription, taskEventStart, taskEventEnd);
                 commandObj = new AddCommand(e, taskList);
                 /*taskList.addTask(e);

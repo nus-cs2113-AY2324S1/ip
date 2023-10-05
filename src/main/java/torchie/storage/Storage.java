@@ -9,6 +9,7 @@ import torchie.task.ToDo;
 import torchie.task.Deadline;
 import torchie.task.Event;
 
+import java.time.LocalDateTime;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -21,6 +22,7 @@ public class Storage {
     private File directory;
     private final String PATH = "./data/";
     private final String FILENAME = "torchie.txt";
+
     public Storage() {
         directory = new File(PATH);
         file = new File(PATH + FILENAME);
@@ -99,8 +101,8 @@ public class Storage {
         case "D":
             try {
                 String taskDuration =  taskDetails[3];
-                String date = taskDetailsParser.getDeadlineDate(taskDuration);
-                task = new Deadline(taskDescription, date);
+                LocalDateTime deadlineDate = taskDetailsParser.getDeadlineDate(taskDuration);
+                task = new Deadline(taskDescription, deadlineDate);
             } catch (TorchieException e) {
                 throw new CorruptedFileException();
             }
@@ -108,8 +110,8 @@ public class Storage {
         case "E":
             try {
                 String taskDuration =  taskDetails[3];
-                String eventStart = taskDetailsParser.getEventStart(taskDuration);
-                String eventEnd = taskDetailsParser.getEventEnd(taskDuration);
+                LocalDateTime eventStart = taskDetailsParser.getEventStart(taskDuration);
+                LocalDateTime eventEnd = taskDetailsParser.getEventEnd(taskDuration);
                 task = new Event(taskDescription, eventStart, eventEnd);
             } catch (TorchieException e) {
                 throw new CorruptedFileException();
