@@ -1,18 +1,25 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Ui {
 
-    /* print a line starts with four spaces */
-    public void printLine(String s){
-        System.out.println("     " + s);
-    }
+
+
 
     public Ui(){
         System.out.println("    ____________________________________________________________");
         printLine("Hello! I'm Nupjuk");
         printLine("What can I do for you?");
         System.out.println("    ____________________________________________________________\n");
+    }
+
+    /* print a line starts with four spaces */
+    public void printLine(String s){
+        System.out.println("     " + s);
     }
 
     public boolean runCommand(String cmd, TaskList tasks, Storage storage) throws IOException {
@@ -133,10 +140,23 @@ public class Ui {
                 return false;
             }
 
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm", Locale.ENGLISH);
+            LocalDateTime date;
+            // using datetime format
+            try{
+                date = LocalDateTime.parse(schedules[1].trim().substring(2).trim(), formatter);
+            } catch (DateTimeParseException e){
+                printLine("☹ OOPS!!! time must be this form: dd-MM-yyyy hhmm");
+                System.out.println("    ____________________________________________________________\n");
+                return false;
+            }
+
+
             // make and add to list
             printLine("Got it. I've added this task:");
 
-            Deadline deadline = new Deadline(schedules[0].trim(), schedules[1].trim().substring(2).trim());
+            Deadline deadline = new Deadline(schedules[0].trim(), date);
             tasks.addTask(deadline);
 
             printLine(String.format("  [%s][%s] %s",
@@ -162,6 +182,20 @@ public class Ui {
                 FormatChecker.checkEventFormat(schedules);
             } catch (InputFormatException e) {
                 printLine("☹ OOPS!!! <event> needs input like (work /from start /to end)");
+                printLine("time must be this form: dd-MM-yyyy HHmm");
+                System.out.println("    ____________________________________________________________\n");
+                return false;
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm", Locale.ENGLISH);
+            LocalDateTime from;
+            LocalDateTime to;
+            // using datetime format
+            try{
+                from = LocalDateTime.parse(schedules[1].trim().substring(4).trim(), formatter);
+                to = LocalDateTime.parse(schedules[2].trim().substring(2).trim(), formatter);
+            } catch (DateTimeParseException e){
+                printLine("☹ OOPS!!! time must be this form: dd-MM-yyyy HHmm");
                 System.out.println("    ____________________________________________________________\n");
                 return false;
             }
@@ -169,9 +203,7 @@ public class Ui {
             // make and add to list
             printLine("Got it. I've added this task:");
 
-            Event event = new Event(schedules[0].trim(),
-                    schedules[1].trim().substring(4).trim(),
-                    schedules[2].trim().substring(2).trim());
+            Event event = new Event(schedules[0].trim(), from, to);
             tasks.addTask(event);
 
             printLine(String.format("  [%s][%s] %s",
