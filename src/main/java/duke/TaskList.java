@@ -35,9 +35,11 @@ public class TaskList {
         ui.printLine();
         if (!taskList.isEmpty()) {
             for (Task task : taskList) {
-                ui.echo("    " + (taskList.indexOf(task) + 1) + ".");
+                ui.echo((taskList.indexOf(task) + 1) + ".");
                 task.printTask();
             }
+        } else {
+            ui.echo("There are no tasks on your list!\n");
         }
         ui.printLine();
     }
@@ -73,12 +75,12 @@ public class TaskList {
         if (isMark) {
             taskList.get(taskCount).isDone = true;
             ui.printMarked();
-            ui.echo("       " + taskList.get(taskCount).getStatusIcon()
+            ui.echo(taskList.get(taskCount).getStatusIcon()
                     + " " + taskList.get(taskCount).description + "\n");
         } else {
             taskList.get(taskCount).isDone = false;
             ui.printUnmarked();
-            ui.echo("       " + taskList.get(taskCount).getStatusIcon()
+            ui.echo(taskList.get(taskCount).getStatusIcon()
                     + " " + taskList.get(taskCount).description + "\n");
         }
         ui.printLine();
@@ -87,12 +89,12 @@ public class TaskList {
     /**
      * @param task Task object added to be reflected in the callback message.
      */
-    public void addTaskCallback(Task task){
+    private void addTaskCallback(Task task){
         ui.printLine();
-        ui.echo("    Got it. I've added this task:\n");
+        ui.echo("Got it. I've added this task:\n");
         ui.printIndentTask();
         task.printTask();
-        ui.echo("    Now you have " + (taskList.size())
+        ui.echo("Now you have " + (taskList.size())
                 + " tasks in the list.\n");
         ui.printLine();
     }
@@ -100,12 +102,12 @@ public class TaskList {
     /**
      * @param task Task object added to be reflected in the callback message.
      */
-    public void deleteTaskCallback(Task task){
+    private void deleteTaskCallback(Task task){
         ui.printLine();
-        ui.echo("    Noted. I've removed this task:\n");
+        ui.echo("Noted. I've removed this task:\n");
         ui.printIndentTask();
         task.printTask();
-        ui.echo("    Now you have " + taskList.size()
+        ui.echo("Now you have " + taskList.size()
                 + " tasks in the list.\n");
         ui.printLine();
     }
@@ -122,14 +124,14 @@ public class TaskList {
         ui.printLine();
         for (int i = 0; i < taskList.size(); i++){
             if (taskList.get(i).description.contains(word)) {
-                ui.echo("    " + (i+1) + ".");
+                ui.echo((i+1) + ".");
                 taskList.get(i).printTask();
                 foundItem = true;
             }
         }
 
         if (!foundItem){
-            ui.echo("    No task on the tasklist matches your keyword :-(\n");
+            ui.echo("No task on the tasklist matches your keyword :-(\n");
         }
         ui.printLine();
     }
