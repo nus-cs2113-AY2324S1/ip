@@ -1,29 +1,69 @@
-# User Guide
+# XiaoAi User Guide
 
 ## Features 
 
-### Feature-ABC
+### Feature: Add tasks
 
-Description of the feature.
+You can add your tasks to the task list.
 
-### Feature-XYZ
+### Feature: Delete tasks
 
-Description of the feature.
+You can delete an existing task from the task list.
+
+### Feature: List tasks
+
+You can list all existing tasks.
+
+### Feature: Mark task as done/not done
+
+You can mark an existing task as done/not done.
+
+### Feature: Find tasks
+
+You can search for tasks using keywords.
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo` - adds a todo task
 
-Describe the action and its outcome.
+usage: `todo <name...>`
+example usage: `todo drink some coffee`
 
-Example of usage: 
+### `deadline` - adds a deadline task
 
-`keyword (optional arguments)`
+usage: `deadline <name...> -by <by...>`
+example usage: `deadline submit assignment -by today 7pm`
 
-Expected outcome:
+### `event` - adds an event task
 
-Description of the outcome.
+usage: `event <name...> -from <from...> -to <to...>`
+example usage: `event go to concert -from 11/7 8pm -to 11/7 10pm`
 
-```
-expected output
-```
+### `list` - list all existing tasks
+
+usage: `list`
+
+### `delete` - delete a task with index
+
+usage: `delete <index>`
+example usage: `delete 3`
+
+### `mark` - mark a task as done
+
+usage: `mark <index>`
+example usage: `mark 3`
+
+### `unmark` - mark a task as not done
+
+usage: `unmark <index>`
+example usage: `unmark 3`
+
+### `find` - find all tasks with name containing the keywords
+
+usage: `find <keyword...>`
+example usage: `find read books`
+
+### `bye` - stop the bot and quit
+
+usage: `bye`
+
