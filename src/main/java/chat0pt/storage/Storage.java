@@ -1,5 +1,7 @@
 package chat0pt.storage;
 
+import chat0pt.helper.DukeException;
+import chat0pt.helper.FormatCheck;
 import chat0pt.parser.Parser;
 import chat0pt.tasks.Deadline;
 import chat0pt.tasks.Event;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 public class Storage {
     private static String FILEPATH = "./chat0pt.txt";
     private static final File FILE = new File(FILEPATH);
-    private static Ui ui;
+    private Ui ui;
 
     public Storage(Ui ui) {
         this.ui = ui;
@@ -22,17 +24,15 @@ public class Storage {
 
     /**
      * Reads file if it already exists, otherwise creates a new file.
+     *
      * @return Tasks ArrayList after parsing the file, if not return an empty ArrayList
      */
     public ArrayList<Task> onStart() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            if (FILE.exists()) {
+            if (!FILE.createNewFile()) {
                 tasks = readFile();
-            } else {
-                FILE.createNewFile();
             }
-
         } catch (IOException ex) {
             ui.failedFile();
         }
@@ -41,6 +41,7 @@ public class Storage {
 
     /**
      * Reads the file and adds tasks.
+     *
      * @return Returns the tasklist after parsing the file
      * @throws IOException
      */
@@ -66,6 +67,9 @@ public class Storage {
                     String deadlineString = tokens[2];
                     String byString = tokens[3];
                     LocalDateTime deadlineBy = Parser.parseDateTime(byString);
+                    if (deadlineBy == null) {
+                        break;
+                    }
                     Task deadlineTask = new Deadline(deadlineString, deadlineBy);
                     deadlineTask.setMarked(marked);
                     tasks.add(deadlineTask);
@@ -91,9 +95,10 @@ public class Storage {
 
     /**
      * Writes file after every action
+     *
      * @param tasks Current tasklist
      */
-    public void writeFile(ArrayList<Task> tasks) {
+    public void writeFile(ArrayList<Task> tasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(FILEPATH);
             BufferedWriter writer = new BufferedWriter(fileWriter);
@@ -103,8 +108,8 @@ public class Storage {
             writer.close();
             fileWriter.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new DukeException("Error writing to file!");
         }
     }
 
