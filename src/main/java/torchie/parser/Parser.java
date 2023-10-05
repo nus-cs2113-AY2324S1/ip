@@ -10,6 +10,7 @@ import torchie.command.ListCommand;
 import torchie.command.SetStatusCommand;
 import torchie.exception.InvalidCommandException;
 import torchie.exception.TorchieException;
+import java.time.LocalDateTime;
 import torchie.storage.Storage;
 import torchie.task.Deadline;
 import torchie.task.Event;
@@ -86,7 +87,7 @@ public class Parser {
         case DEADLINE:
             try {
                 String taskDescription = taskDetailsParser.getContent(input);
-                String taskDeadline = taskDetailsParser.getDeadlineDate(input);
+                LocalDateTime taskDeadline = taskDetailsParser.getDeadlineDate(input);
                 Deadline d = new Deadline(taskDescription, taskDeadline);
                 commandObj =  new AddCommand(d, taskList);
             } catch (TorchieException e) {
@@ -96,8 +97,8 @@ public class Parser {
         case EVENT:
             try {
                 String taskDescription = taskDetailsParser.getContent(input);
-                String taskEventStart = taskDetailsParser.getEventStart(input);
-                String taskEventEnd = taskDetailsParser.getEventEnd(input);
+                LocalDateTime taskEventStart = taskDetailsParser.getEventStart(input);
+                LocalDateTime taskEventEnd = taskDetailsParser.getEventEnd(input);
                 Event e = new Event(taskDescription, taskEventStart, taskEventEnd);
                 commandObj = new AddCommand(e, taskList);
             } catch (TorchieException e) {

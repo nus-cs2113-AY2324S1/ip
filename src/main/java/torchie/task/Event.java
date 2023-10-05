@@ -1,34 +1,42 @@
 package torchie.task;
 
-public class Event extends Task{
-    protected String startTime;
-    protected String endTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String startTime, String endTime) {
+public class Event extends Task{
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
+    private final String DATE_TIME_FORMAT = "MMM d yyyy, HH:mm";
+
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public String formatOutput(LocalDateTime d) {
+        return d.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
     }
 
     @Override
     public String toString() {
-        return ("[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")");
+        return ("[E]" + super.toString() + " (from: " + formatOutput(startTime) + " to: " + formatOutput(endTime) + ")");
     }
 
     @Override

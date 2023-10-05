@@ -4,6 +4,7 @@ public class InvalidIndexException extends TorchieException{
 
     @Override
     public void showExceptionMessage() {
-        System.out.println("Invalid command! Make sure the command (first word) is valid");
+        System.out.println("Make sure task number is present AND valid");
+
     }
 }
