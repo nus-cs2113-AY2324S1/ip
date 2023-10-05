@@ -1,23 +1,32 @@
 package torchie.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    protected String deadline;
-    public Deadline(String description, String deadline){
+    private LocalDateTime deadline;
+    private final String DATE_TIME_FORMAT = "MMM d yyyy, HHmm";
+
+    public Deadline(String description, LocalDateTime deadline){
         super(description);
         this.deadline = deadline;
     }
 
-    public String getDeadline() {
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
+    public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
+    }
+
+    public String formatOutput(LocalDateTime d) {
+        return d.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
     }
 
     @Override
     public String toString() {
-        return ("[D]" + super.toString() + " (by: " + deadline + ")");
+        return ("[D]" + super.toString() + " (by: " + formatOutput(deadline) + ")");
     }
 
     @Override

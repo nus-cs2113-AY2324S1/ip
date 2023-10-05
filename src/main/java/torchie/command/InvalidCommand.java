@@ -7,6 +7,6 @@ public class InvalidCommand extends Command{
 
     @Override
     public void handleCommand() {
-        System.out.println("\neeTry again! Make sure command and format of command is correct!");
+        System.out.println("\nTry again! Make sure command and format of command is correct!");
     }
 }

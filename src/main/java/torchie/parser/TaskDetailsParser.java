@@ -1,6 +1,12 @@
 package torchie.parser;
 
-import torchie.exception.*;
+import torchie.exception.InvalidIndexException;
+import torchie.exception.InvalidEventFormatException;
+import torchie.exception.TorchieException;
+import torchie.exception.InvalidDeadlineFormatException;
+import torchie.exception.MissingTaskNameException;
+import torchie.parser.DateTimeParser;
+import java.time.LocalDateTime;
 
 public class TaskDetailsParser {
     public TaskDetailsParser() {
@@ -44,14 +50,19 @@ public class TaskDetailsParser {
         return content;
     }
 
-    public String getDeadlineDate(String s) throws TorchieException {
+    public LocalDateTime getDeadlineDate(String s) throws TorchieException {
         int SIZE_OF_BUFFER = 4;
         int keyWordIndex = s.indexOf('/');
 
+        // if keyword /by is not present
         if (keyWordIndex == -1) {
             throw new InvalidDeadlineFormatException();
         }
-        return s.substring(keyWordIndex + SIZE_OF_BUFFER);
+
+        String deadlineString = s.substring(keyWordIndex + SIZE_OF_BUFFER);
+        DateTimeParser dateTimeParser = new DateTimeParser(deadlineString);
+
+        return dateTimeParser.getDateTimeObject(deadlineString);
     }
 
     public String getEventStart(String s) throws TorchieException {
