@@ -28,7 +28,8 @@ public class DefaultStrings {
     /** String after marking a task. */
     public static final String markedString = splittingLine + "\t Congwats on finishing za tawsk: ";
     /** String after unmarking a task. */
-    public static final String unmarkedString = splittingLine + "\t WHY HAVE YOU FORSAKEN ME";
+    public static final String unmarkedString = splittingLine + "\t WHY HAVE YOU FORSAKEN ME\n" +
+            "\t I mean, I've unmarked this task for you, goshujin-sama: ";
     /** String for unrecognised command error handling. */
     public static final String unrecognisedString = splittingLine + 
             "\t I don\'t understand what you\'re saying, goshujin-sama.\n" + splittingLine;

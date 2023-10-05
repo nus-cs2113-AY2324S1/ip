@@ -11,19 +11,16 @@ public class DateParser {
     public DateParser(String date){
         //split rawdat into date and time
         this.rawdate = date.split(" ");
-        System.out.println(this.rawdate[0] + this.rawdate[1]);
         try{
             this.Time = Integer.parseInt(this.rawdate[1].strip());
             this.date = LocalDate.parse(this.rawdate[0].strip());
         }catch(Exception e){
-            System.out.println("Time not found");
             System.out.println(e.getMessage());
             try{
                 this.Time = 0;
                 this.date = LocalDate.parse(date);
                 }catch(Exception f){
                     System.out.println(f.getMessage());
-                    System.out.println("Date not found");
                     this.date = null;
 
             }
