@@ -67,7 +67,7 @@ public class TaskList {
     }
 
     //method to add deadline tasks
-    public static void createDeadlineTasks(String task, String deadline) {
+//    public static void createDeadlineTasks(String task, String deadline) {
 //        String task;
 //        String deadline;
 //        if (!input.contains("/by")) {
@@ -81,18 +81,18 @@ public class TaskList {
 //            task = parts[0].substring("deadline ".length());
 //            deadline = parts[1];
 //        }
-        //instantiate new deadline object
-        Deadline deadlineTask = new Deadline(task, deadline);
+//        //instantiate new deadline object
+//        Deadline deadlineTask = new Deadline(task, deadline);
         //add to array
-        list.add(deadlineTask);
+//        list.add(deadlineTask);
 //        System.out.println("Got it. I've added this task:");
 //        System.out.println(deadlineTask);
 //        System.out.println("Now you have " + (list.size()) + " tasks in the list.");
 //        System.out.println(line);
-    }
+//    }
 
     //method to add eventTask
-    public static void createEventTasks(String task, String from, String to) {
+//    public static void createEventTasks(String task, String from, String to) {
 //        String task;
 //        String from;
 //        String to;
@@ -108,14 +108,14 @@ public class TaskList {
 //            from = parts[1].substring("from".length());
 //            to = parts[2].substring("to".length());
 //        }
-        //instantiate new event object
-        Event eventTask = new Event(task, from, to);
-        //add to array
-        list.add(eventTask);
+//        //instantiate new event object
+//        Event eventTask = new Event(task, from, to);
+//        //add to array
+//        list.add(eventTask);
 //        System.out.println("Got it. I've added this task:");
 //        System.out.println(eventTask);
 //        System.out.println("Now you have " + (list.size()) + " tasks in the list.");
 //        System.out.println(line);
-    }
+//    }
 
 }

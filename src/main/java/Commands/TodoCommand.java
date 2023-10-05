@@ -11,11 +11,11 @@ import Exceptions.DukeFormatException;
 public class TodoCommand extends Command{
    String task;
 
-   public TodoCommand(String task) throws DukeFormatException {
-        task = this.task;
-       if (task.isEmpty()) {
+   public TodoCommand(String inputTask) throws DukeFormatException {
+       if (inputTask.isEmpty()) {
            throw new DukeFormatException("Task or deadline cannot be empty... Please check your input again~");
        }
+       task = inputTask;
    }
 
     @Override
