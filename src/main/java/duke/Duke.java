@@ -19,7 +19,7 @@ public class Duke {
         // IO file handling
         try {
             // file object with expected file path
-            File dataFile = new File("./data/duke.txt");
+            File dataFile = new File("./duke.txt");
             // attempt file creation, if file already exist, read from file
             if (!dataFile.createNewFile()) {
                 Scanner fileScanner = new Scanner(dataFile);
@@ -238,7 +238,7 @@ public class Duke {
 
         // writing to file
         try {
-            File dataFile = new File("./data/duke.txt");
+            File dataFile = new File("./duke.txt");
             // attempt file creation
             dataFile.createNewFile();
 
