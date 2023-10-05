@@ -11,8 +11,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The Memory Class provides methods for reading from and storing tasks to a file.
+ */
 public class Memory {
 
+    /**
+     * Reads tasks from a specified file and returns them as an ArrayList of Task objects.
+     *
+     * @param filePath The path to the file to read tasks from.
+     * @return An ArrayList of Task objects read from the file.
+     * @throws FileNotFoundException If the specified file is not found.
+     */
     public static ArrayList<Task> readMemory(String filePath) throws FileNotFoundException {
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -50,6 +60,12 @@ public class Memory {
         return tasks;
     }
 
+    /**
+     * Stores a list of Task objects to a specified file.
+     *
+     * @param filePath  The path to the file to store tasks in.
+     * @param taskList  The ArrayList of Task objects to be stored.
+     */
     public static void storeMemory(String filePath, ArrayList<Task> taskList){
         try {
             FileWriter fw = new FileWriter(filePath); //overwrite file

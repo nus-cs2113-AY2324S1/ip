@@ -2,9 +2,19 @@ package luke.actions;
 
 import luke.user.LukeTimeError;
 
+/**
+ * The Parser Class handles the parsing of user input into valid commands.
+ */
 public class Parser{
     //user input from Ui to luke command to Command
 
+    /**
+     * Parses the user's full command and returns an appropriate Command object.
+     *
+     * @param fullCommand The full user input command.
+     * @return A Command object corresponding to the parsed command.
+     * @throws LukeTimeError If an error specific to the LukeTime application occurs during parsing.
+     */
     public static Command parse(String fullCommand) throws LukeTimeError {
         ActionType theAction;
         String parameters;
