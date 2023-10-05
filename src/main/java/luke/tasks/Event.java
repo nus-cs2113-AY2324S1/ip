@@ -55,10 +55,13 @@ public class Event extends Task {
         endDate = dates.substring(3);
     }
 
+    /*
     @Override
     public String getType() {
         return "event";
     }
+
+     */
 
     @Override
     public String toString() {
@@ -71,7 +74,7 @@ public class Event extends Task {
             isDoneString = "[ ]";
         }
 
-        return "\t[E]" + isDoneString + getDescription() + "(from: " + getStartDate() + "to: " + getEndDate() + ")";
+        return "\t[E]" + isDoneString + " " + getDescription() + "(from: " + getStartDate() + "to: " + getEndDate() + ")";
     }
 
     @Override
@@ -84,6 +87,6 @@ public class Event extends Task {
             isDoneString = "[ ]";
         }
 
-        return "[E]" + isDoneString + " event" + getDescription() + "/from " + getStartDate() + "/to " + getEndDate();
+        return "[E]" + isDoneString + " " + getDescription() + "/from " + getStartDate() + "/to " + getEndDate();
     }
 }

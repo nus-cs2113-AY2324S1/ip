@@ -12,12 +12,10 @@ public class Storage {
     private ArrayList<Task> tasks;
 
     public Storage(String filePath) {
-
-
-        File taskListFile = new File("./src/main/java/luke/files/memory.txt");
+        File taskListFile = new File(filePath);
         if (taskListFile.exists()) {
             try {
-                tasks = Memory.readMemory("./src/main/java/luke/files/memory.txt");
+                tasks = Memory.readMemory(filePath);
                 System.out.println("\n\tMemory retrieval successful!\n");
                 //return tasks;
             } catch (FileNotFoundException e) {
@@ -44,7 +42,7 @@ public class Storage {
     public void store(TaskList tasksToStore) {
         //store in memory.txt
 
-        Memory.storeMemory("./src/main/java/luke/files/memory.txt", tasksToStore.getMainTaskList());
+        Memory.storeMemory("./out/artifacts/ip_jar/memory.txt", tasksToStore.getMainTaskList());
 
         System.out.println("\tBye. Hope to see you again soon!");
     }

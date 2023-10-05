@@ -8,11 +8,12 @@ import luke.files.*;
 import java.util.ArrayList;
 
 public class Luke {
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Luke(String filePath) {
+    public Luke(String filePath) {//i dont get how this works
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -36,17 +37,17 @@ public class Luke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit(); //for bye command
-            } catch (LukeTimeError e) { //from c.execute i think
+            } catch (LukeTimeError e) { //from Parser.parse i think
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
             }
         }
-
     }
 
     public static void main(String[] args) {
-        new Luke("data/tasks.txt").run();
+        new Luke("./out/artifacts/ip_jar/memory.txt").run();
+        //new Luke("data/tasks.txt").run();
         //that was the only line
     }
 }

@@ -38,17 +38,17 @@ public class Parser{
                         break;
 
                     case TODO:
-                        parameters = fullCommand.substring(4);
+                        parameters = fullCommand.substring(5);
                         c = new AddCommand(theAction, parameters);
                         break;
 
                     case DEADLINE:
-                        parameters = fullCommand.substring(8);
+                        parameters = fullCommand.substring(9);
                         c = new AddCommand(theAction, parameters);
                         break;
 
                     case EVENT:
-                        parameters = fullCommand.substring(5);
+                        parameters = fullCommand.substring(6);
                         c = new AddCommand(theAction, parameters);
                         break;
 

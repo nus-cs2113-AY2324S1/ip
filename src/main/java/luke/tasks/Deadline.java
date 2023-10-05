@@ -34,10 +34,12 @@ public class Deadline extends Task {
         date = dateString.substring(spaceCut + 1);
     }
 
-    @Override
+    /*@Override
     public String getType() {
         return "deadline";
     }
+
+     */
 
     @Override
     public String toString() {
@@ -50,7 +52,7 @@ public class Deadline extends Task {
             isDoneString = "[ ]";
         }
 
-        return "\t[D]" + isDoneString + getDescription() + "(do by: " + getDate() + ")";
+        return "\t[D]" + isDoneString + " " + getDescription() + "(do by: " + getDate() + ")";
     }
 
     @Override
@@ -63,6 +65,6 @@ public class Deadline extends Task {
             isDoneString = "[ ]";
         }
 
-        return "[D]" + isDoneString + " deadline" + getDescription() + "/by " + getDate();
+        return "[D]" + isDoneString + " " + getDescription() + "/by " + getDate();
     }
 }

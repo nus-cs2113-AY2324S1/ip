@@ -24,9 +24,9 @@ public class Memory {
             String currentLine = s.nextLine();
             System.out.println("\t" + currentLine);
 
-            String taskDetails = currentLine.substring(0,6);
+            String taskDetails = currentLine.substring(0,5);
             //System.out.println(taskDetails);
-            String taskDescription = currentLine.substring(7);
+            String taskDescription = currentLine.substring(6);
             //System.out.println(taskDescription);
             char[] characters = taskDetails.toCharArray();
             try {
@@ -59,7 +59,7 @@ public class Memory {
             FileWriter fw = new FileWriter(filePath); //overwrite file
 
             for (int i = 0; i < taskList.size(); i += 1) {
-                fw.write(taskList.get(i).getType() + taskList.get(i).memoryString() + "\n");
+                fw.write(taskList.get(i).memoryString() + "\n");
             }
 
             fw.close();

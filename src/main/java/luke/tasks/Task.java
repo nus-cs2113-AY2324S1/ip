@@ -20,10 +20,12 @@ public abstract class Task {
     public void setDone(boolean done) {
         isDone = done;
     }
-
+/*
     public String getType() {
         return "task";
     }
+
+ */
 
     /*@Override
     public String toString() {

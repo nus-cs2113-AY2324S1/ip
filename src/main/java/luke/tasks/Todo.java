@@ -10,11 +10,13 @@ public class Todo extends Task {
             throw new IndexOutOfBoundsException();
         }
     }
-
+/*
     @Override
     public String getType() {
         return "todo";
     }
+
+ */
 
     @Override
     public String toString() {
@@ -27,7 +29,7 @@ public class Todo extends Task {
             isDoneString = "[ ]";
         }
 
-        return "\t[T]" + isDoneString + getDescription();
+        return "\t[T]" + isDoneString + " " + getDescription();
     }
 
     @Override
@@ -40,7 +42,7 @@ public class Todo extends Task {
             isDoneString = "[ ]";
         }
 
-        return "[T]" + isDoneString + " todo" + getDescription();
+        return "[T]" + isDoneString + " " + getDescription();
     }
 
 }
