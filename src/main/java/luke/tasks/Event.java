@@ -101,6 +101,6 @@ public class Event extends Task {
             isDoneString = "[ ]";
         }
 
-        return "[E]" + isDoneString + " " + getDescription() + "/from " + getStartDate() + "/to " + getEndDate();
+        return "[E]" + isDoneString + getDescription() + "/from " + getStartDate() + "/to " + getEndDate();
     }
 }
