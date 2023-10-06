@@ -30,8 +30,12 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-         LocalDateTime  time = TimeParser.parseDateTime(this.due);
-         String dueTime = TimeParser.convertDateTimetoString(time);
-        return "[D]" + super.toString() + " (by: " + dueTime + ")";
+        try {
+            LocalDateTime  time = TimeParser.parseDateTime(this.due);
+            String dueTime = TimeParser.convertDateTimetoString(time);
+            return "[D]" + super.toString() + " (by: " + dueTime + ")";
+        } catch (Exception e) {
+            return "[D]" + super.toString() + " (by: " + this.due + ")";
+        }
     }
 }

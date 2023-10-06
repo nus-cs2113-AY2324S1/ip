@@ -32,8 +32,15 @@ public class Event extends Task {
     @Override
     public String toString() {
         //print example: [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-
-        return "[E]" + super.toString() + " (from: " + this.start +  " to: " + this.end + ")";
+        try {
+            LocalDateTime  tmp = TimeParser.parseDateTime(this.start);
+            String startTime = TimeParser.convertDateTimetoString(tmp);
+            tmp = TimeParser.parseDateTime(this.end);
+            String endTime = TimeParser.convertDateTimetoString(tmp);
+            return "[E]" + super.toString() + " (from: " + startTime +  " to: " + endTime + ")";
+        } catch (Exception e) {
+            return "[E]" + super.toString() + " (from: " + this.start +  " to: " + this.end + ")";
+        }
     }
 
 }
