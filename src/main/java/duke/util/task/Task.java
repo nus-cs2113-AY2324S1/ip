@@ -1,4 +1,4 @@
-package main.java.duke.task;
+package main.java.duke.util.task;
 
 // util.Task object implementation
 public class Task {

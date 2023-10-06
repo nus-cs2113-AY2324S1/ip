@@ -1,4 +1,4 @@
-package main.java.duke.task;
+package main.java.duke.util.task;
 
 public class Deadline extends Task{
     private String by;
