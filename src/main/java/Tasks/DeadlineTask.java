@@ -16,6 +16,14 @@ public class DeadlineTask extends Task {
         this.by = this.extractDeadline(description);
     }
 
+    private String deadlineDescription(String description){
+        int byIndex = description.indexOf("/by");
+        if(byIndex != -1){
+            return description.substring(0, byIndex).trim();
+        }
+        return description.trim(); // If "/by" is not found, return the whole description
+    }
+
     /**
      * Extracts the deadline from the task description.
      *
@@ -41,8 +49,11 @@ public class DeadlineTask extends Task {
      *
      * @return A string representation in the format: "[D][TaskDescription] (by: [Deadline])".
      */
+
+    public String getDeadlineDescription(){
+        return deadlineDescription(super.getDescription());
+    }
     public String toString() {
-        String superString = super.toString();
-        return "[D]" + superString + " (by: " + this.by + ")";
+        return "[D]" + "[" + getStatusIcon() + "] " + this.getDeadlineDescription() + " (by: " + this.by + ")";
     }
 }

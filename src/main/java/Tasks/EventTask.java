@@ -19,6 +19,27 @@ public class EventTask extends Task {
     }
 
     /**
+     * Extracts the part of the description before "/from" if "/from" is found,
+     * otherwise, it extracts the part of the description before "/to" if "/to" is found,
+     * or returns the full description if neither "/from" nor "/to" is found.
+     *
+     * @param description The description of the event task.
+     * @return The extracted part of the description based on the conditions.
+     */
+    private String eventDescription(String description) {
+        int fromIndex = description.indexOf("/from");
+        int toIndex = description.indexOf("/to");
+
+        if (fromIndex != -1) {
+            return description.substring(0, fromIndex).trim();
+        } else if (toIndex != -1) {
+            return description.substring(0, toIndex).trim();
+        } else {
+            return description.trim();
+        }
+    }
+
+    /**
      * Extracts the start date from the task description.
      *
      * @param description The description of the event task.
@@ -69,8 +90,12 @@ public class EventTask extends Task {
      *
      * @return A string representation in the format: "[E][TaskDescription] (from: [Start Date] to: [End Date])".
      */
-    public String toString() {
-        String superString = super.toString();
-        return "[E]" + superString + " (from: " + this.from + " to: " + this.to + ")";
+    public String getEventDescription() {
+        return eventDescription(super.getDescription());
     }
+
+    public String toString() {
+        return "[E]" + "[" + getStatusIcon() + "] " + this.getEventDescription() + " (from: " + this.from + " to: " + this.to + ")";
+    }
+
 }
