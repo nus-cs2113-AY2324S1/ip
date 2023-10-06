@@ -8,14 +8,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Handles the loading and saving of tasks from/to a data file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Creates a Storage object with the specified file path.
+     *
+     * @param filePath The path to the data file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // Load tasks from the data file when Matinbot starts
+    /**
+     * Load tasks from the data file when Matinbot starts.
+     *
+     * @return An ArrayList containing the loaded tasks.
+     * @throws DukeException If there is an error loading tasks from the file.
+     */
     public ArrayList<Task> loadTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -35,7 +48,11 @@ public class Storage {
         return tasks;
     }
 
-    // Save tasks to the data file
+    /**
+     * Save tasks to the data file.
+     *
+     * @param tasks The ArrayList of tasks to be saved.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
