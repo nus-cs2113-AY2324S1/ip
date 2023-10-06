@@ -1,0 +1,14 @@
+WRONG COMMAND
+todo todo1
+deadline deadline1 /by 01/01/2000
+todo todo2
+event event1 /from 01/01 /to 10/10
+list
+mark 1
+mark 1
+mark 3
+list
+unmark 1
+unmark 1
+list
+bye
