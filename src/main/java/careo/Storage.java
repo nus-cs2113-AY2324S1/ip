@@ -53,8 +53,12 @@ public class Storage {
 
                     tasks.add(newTask);
                 } catch (Exception e) {
-                    System.out.println("    An error occured. Maybe the file was corrupted.");
-                    System.out.println("    Please quit the program now.");
+                    System.out.println(
+                            "    An error occured. Maybe the file is corrupted."
+                    );
+                    System.out.println(
+                            "    Please quit the program now."
+                    );
                 }
             }
         } catch (IOException e) {
@@ -84,11 +88,13 @@ public class Storage {
                 } else if (task instanceof Event) {
                     Event e = (Event) task;
 
-                    printWriter.println("event|" + task.getDescription() + "|" + e.getFrom() + "" + e.getTo());
+                    printWriter.println("event|" + task.getDescription() + "|"
+                            + e.getFrom() + "" + e.getTo());
                 } else {
                     Deadline d = (Deadline) task;
 
-                    printWriter.println("deadline|" + task.getDescription() + "|" + d.getBy());
+                    printWriter.println("deadline|" + task.getDescription()
+                            + "|" + d.getBy());
                 }
             }
 

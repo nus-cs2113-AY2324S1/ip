@@ -34,11 +34,12 @@ public class TaskList {
     }
 
     /**
-     * Marks or unmarks a task from tasks and prints a confirmation. Handles invalid indexes and
-     * prints a warning in that case.
+     * Marks or unmarks a task from tasks and prints a confirmation.
+     * Handles invalid indexes and prints a warning in that case.
      *
      * @param markOrUnmark Whether the task should be marked or unmarked.
-     * @param taskIdx      Index (zero-based) of the task that should be marked/unmarked in tasks.
+     * @param taskIdx Index (zero-based) of the task that should be marked
+     *                or unmarked in tasks.
      */
     public void markOrUnmarkTask(MarkOrUnmark markOrUnmark, int taskIdx) {
         if (tasks.isEmpty()) {

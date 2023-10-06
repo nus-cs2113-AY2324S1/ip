@@ -49,7 +49,8 @@ public class Ui {
     public void showLoadingError() {
         printHorizontalLine();
         System.out.println("    No file specifying saved tasks was present.");
-        System.out.println("    Creating a new one; you can now start inputting your tasks.");
+        System.out.println(
+                "    Creating a new one; you can start inputting your tasks.");
         printHorizontalLine();
     }
 
@@ -59,7 +60,8 @@ public class Ui {
     public void showInvalidInputError() {
         printHorizontalLine();
         System.out.println("    Invalid input!");
-        System.out.println("    Please make sure that your input is in the proper format and try again");
+        System.out.println("    Please make sure that your input is in " +
+                "the proper format and try again");
         printHorizontalLine();
     }
 
@@ -70,7 +72,8 @@ public class Ui {
      */
     public void showCommandArgumentMissingError(String input) {
         printHorizontalLine();
-        System.out.println("    ☹ OOPS!!! The description of a " + input + " cannot be empty.");
+        System.out.println("    ☹ OOPS!!! The description of a " + input
+                + " cannot be empty.");
         printHorizontalLine();
     }
 
@@ -79,7 +82,8 @@ public class Ui {
      */
     public void showUnrecognizedCommandError() {
         printHorizontalLine();
-        System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println(
+                "    ☹ OOPS!! I'm sorry, but I don't know what that means :-(");
         printHorizontalLine();
     }
 
@@ -101,23 +105,25 @@ public class Ui {
     public void showInvalidTaskIndexError(TaskList tasks) {
         printHorizontalLine();
         System.out.println("    Sorry, the chosen task index is invalid!");
-        System.out.println("    Task index must be between 1 (inclusive) and " + tasks.size() +
-                " (inclusive).");
+        System.out.println("    Task index must be between 1 (inclusive) and "
+                + tasks.size() + " (inclusive).");
         printHorizontalLine();
     }
 
     /**
      * Prints that a mark or unmark operation completed sucessfully.
      *
-     * @param markOrUnmark Whether the operation is a mark or an unmark operation.
+     * @param markOrUnmark Whether the operation is a mark or unmark operation.
      * @param selectedTask Which task is supposed to be (un)selected.
      */
-    public void printSuccessfulMarkOrUnmark(MarkOrUnmark markOrUnmark, Task selectedTask) {
+    public void printSuccessfulMarkOrUnmark(MarkOrUnmark markOrUnmark,
+                                            Task selectedTask) {
         printHorizontalLine();
         if (markOrUnmark == MarkOrUnmark.MARK) {
             System.out.println("    Nice! I've marked this task as done:");
         } else {
-            System.out.println("    OK, I've marked this task as not done yet:");
+            System.out.println(
+                    "    OK, I've marked this task as not done yet:");
         }
         System.out.println("      " + selectedTask);
         printHorizontalLine();
@@ -137,7 +143,8 @@ public class Ui {
         if (tasks.size() == 1) {
             System.out.println("    Now you have 1 task in the list.");
         } else {
-            System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("    Now you have " + tasks.size()
+                    + " tasks in the list.");
         }
 
         printHorizontalLine();
@@ -156,7 +163,8 @@ public class Ui {
         if (tasks.size() == 1) {
             System.out.println("    Now you have 1 task in the list.");
         } else {
-            System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("    Now you have " + tasks.size()
+                    + " tasks in the list.");
         }
         printHorizontalLine();
     }
@@ -186,8 +194,10 @@ public class Ui {
      */
     public void showLoadingFileError() {
         printHorizontalLine();
-        System.out.println("    An error occured when trying to save your TaskList to a file.");
-        System.out.println("    Ensure that your account has write permissions and try again.");
+        System.out.println("    An error occured when trying to save your"
+                + "TaskList to a file.");
+        System.out.println("    Ensure that your account has write " +
+                "permissions and try again.");
         printHorizontalLine();
     }
 }
