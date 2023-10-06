@@ -19,7 +19,7 @@ public class Parser {
      * @param input string input by user
      */
     public static Command parse(String input) {
-        String[] parts = input.split(" ");
+        String[] parts = input.split(" ", 2);
         String command = parts[0].toLowerCase();
 
         try {

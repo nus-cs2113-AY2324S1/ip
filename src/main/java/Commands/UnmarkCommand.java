@@ -1,5 +1,6 @@
 package Commands;
 
+import Exceptions.DukeFormatException;
 import Storage.Storage;
 import static Task.TaskList.list;
 
@@ -17,12 +18,16 @@ public class UnmarkCommand extends Command{
      * @param input index provided by user
      * @throws DukeIndexException if index provided by user is not within range
      */
-    public UnmarkCommand(String input) throws DukeIndexException {
-        int index = Integer.parseInt(input)-1;
-        if (index>=list.size()){
-            throw new DukeIndexException("Invalid list item :<");
-        }else {
-            taskIndex = index;
+    public UnmarkCommand(String input) throws DukeIndexException, DukeFormatException {
+        try {
+            int index = Integer.parseInt(input) - 1;
+            if (index < 0 || index >= list.size()) {
+                throw new DukeIndexException("Invalid list item :<");
+            } else {
+                taskIndex = index;
+            }
+        } catch (NumberFormatException e) {
+            throw new DukeFormatException("Invalid input. Please enter a valid number.");
         }
     }
 

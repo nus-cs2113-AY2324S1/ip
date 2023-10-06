@@ -4,6 +4,7 @@ import static Task.TaskList.list;
 import Storage.Storage;
 
 import Exceptions.DukeIndexException;
+import Exceptions.DukeFormatException;
 import java.io.IOException;
 
 /**
@@ -17,14 +18,20 @@ public class DeleteCommand extends Command{
      * @param input The number of the task to be deleted in the form os String
      * @throws DukeIndexException if the index provided by user is not within range of list
      */
-    public DeleteCommand(String input) throws DukeIndexException {
-        int index = Integer.parseInt(input)-1;
-        if (index>=list.size()){
-            throw new DukeIndexException("Invalid list item :<");
-        }else {
-            taskIndex = index;
+    public DeleteCommand(String input) throws DukeIndexException, DukeFormatException {
+        try {
+            int index = Integer.parseInt(input) - 1;
+            if (index < 0 || index >= list.size()) {
+                throw new DukeIndexException("Invalid list item :<");
+            } else {
+                taskIndex = index;
+            }
+        } catch (NumberFormatException e) {
+            throw new DukeFormatException("Invalid input. Please enter a valid number.");
         }
     }
+
+
 
     /**
      * Deletes intended task from list and updates storage
