@@ -10,6 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Main object for handling file writing and reading with list of tasks.
+ */
 public class FileStorage {
 
     private File dataFile;
@@ -22,6 +25,11 @@ public class FileStorage {
         // file object with expected file path
         dataFile = new File(filePath);
     }
+
+    /**
+     * Method for writing to file with information in the list of tasks.
+     * @param taskList TaskList object reference for getting the information of tasks
+     */
     public void fillFileFromList(TaskList taskList) {
         // writing to file
         try {
@@ -39,6 +47,10 @@ public class FileStorage {
         }
     }
 
+    /**
+     * Method for reading file information and populating the list of tasks.
+     * @param taskList TaskList object reference for storing the information of tasks
+     */
     public void fillListFromFile(TaskList taskList) {
         // IO file handling
         try {
