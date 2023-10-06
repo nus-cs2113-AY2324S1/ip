@@ -22,7 +22,7 @@ public class Storage {
      * Method to save all list items to file recursively
      */
     public static void saveListToFile()  {
-        try (FileWriter fileWriter = new FileWriter("data/botbot.txt")){
+        try (FileWriter fileWriter = new FileWriter("/ip/data/botbot.txt")){
             for (int i = 0; i<TaskList.size(); i++) {
                 fileWriter.write(list.get(i).toString() + "\n");
             }
@@ -82,26 +82,40 @@ public class Storage {
      * @throws DukeException when format of saved file is wrong and hence cannot be loaded
      */
     public static void loadListFromFile() throws IOException, DukeException {
-        File file = new File("data/botbot.txt");
-        if (!file.exists()){
-            try {
-                boolean createdDirectory = file.mkdirs();
-                boolean createdFile = file.createNewFile();
-            } catch (IOException e){
-                System.out.println("Something went wrong: " + e.getMessage());
-            }
-        } else {
-            Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNext()) {
-                String savedTask = fileScanner.nextLine();
-                if (savedTask.charAt(1) == ('T')) {
-                    extractTodo(savedTask);
-                } else if (savedTask.charAt(1) == ('D')) {
-                    extractDeadline(savedTask);
-                } else if (savedTask.charAt(1) == ('E')) {
-                    extractEvent(savedTask);
-                }
+        File directory = new File("/ip/data");
+        File file = new File("/ip/data/botbot.txt");
+
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directory created successfully.");
+            } else {
+                System.out.println("Failed to create directory.");
             }
         }
+
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created successfully.");
+                } else {
+                    System.out.println("Failed to create file.");
+                }
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+
+        Scanner fileScanner = new Scanner(file);
+        while (fileScanner.hasNext()) {
+            String savedTask = fileScanner.nextLine();
+            if (savedTask.charAt(1) == ('T')) {
+                extractTodo(savedTask);
+            } else if (savedTask.charAt(1) == ('D')) {
+                extractDeadline(savedTask);
+            } else if (savedTask.charAt(1) == ('E')) {
+                extractEvent(savedTask);
+            }
+        }
+
     }
 }
