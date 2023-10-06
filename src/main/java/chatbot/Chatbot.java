@@ -26,6 +26,13 @@ public class Chatbot {
         this.taskList = new TaskList();
     }
 
+
+    /**
+     * Runs the main routine of the app
+     *
+     * @author  Jeremy
+     * @since   2023-10-06
+     */
     public void run() throws IOException {
 
         this.ui.showGreetingMessage();

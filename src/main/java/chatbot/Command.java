@@ -130,6 +130,21 @@ public class Command {
                 System.out.println(" Now you have " + String.valueOf(tasks.size()) + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             }
+        } else if (this.commandType.equals("find")) {
+            String searchFor = input.replace("find", "").trim();
+            if (searchFor.isEmpty()) {
+                throw new ChatbotEmptyDescException(" ☹ OOPS!!! The find command needs a string to search for.");
+            }
+            System.out.println("____________________________________________________________");
+            System.out.println(" Here are the matching tasks in your list:");
+
+            for(Task task : tasks) {
+                String desc = task.getDescription();
+                if(desc.contains(searchFor)) {
+                    System.out.println("   " + task);
+                }
+            }
+            System.out.println("____________________________________________________________");
         } else {
             // unknown command
             throw new ChatbotUnknownCommandException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
