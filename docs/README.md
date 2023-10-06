@@ -1,7 +1,5 @@
 # User Guide
-Alice is a **desktop app for managing tasks, optimized for use via a Command Line Interface** (CLI).
-If you can type fast, Alice can get your task management done faster than traditional GUI apps. Alice is capable of
-helping you **keep track of your tasks, deadlines and events.**
+This is a user guide for CS2113 iP by charkty.
 
 ## Table of Contents
 1. [Quick Start](#quick-start)
@@ -20,10 +18,10 @@ helping you **keep track of your tasks, deadlines and events.**
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest ip.jar from [here](https://github.com/charkty/ip/releases/tag/A-Release).
+2. Download the latest `ip.jar` from [here](https://github.com/charkty/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the home folder for your Alice.
-4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar
-   ip.jar command to run the application.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar
+   ip.jar` command to run the application.
 5. Type the command in the command box and press Enter to execute it.
 6. Refer to the [Features](#features) below for details of each command.
 
@@ -70,9 +68,9 @@ Format: `event TASK_DESCRIPTION /from START_TIME /to END_TIME`
 
 - Adds a Task with the description `TASK_DESCRIPTION`, start time `START_TIME`
   and end time `END_TIME` to the task list.
-- The `TASK_DESCRIPTION` should not be empty.
-- The `/from` and `/to` keywords are required.
+- `/from` has to come before `/to`.
 - The `START_TIME` and `END_TIME` should be in the format `dd-MM-yyyy HHmm`.
+
 
 Examples:
 - `event badminton training /from 10-12-2023 1400 /to 10-12-2023 1500` Creates an event task with description "badminton training", from 2-3pm on 10 Dec 2023.
@@ -124,8 +122,7 @@ Finds tasks whose description contains the given keyword.
 Format: `find KEYWORD`
 
 - Finds tasks whose description contains the given `KEYWORD`.
-- The `KEYWORD` should not be empty.
-- The search is case-insensitive. e.g `read` will match `Read`
+- The search is *case-insensitive*. e.g `book` will match `Book`
 - The `KEYWORD` should only be a single word.
 - The search is only for task descriptions, date and time are excluded.
 

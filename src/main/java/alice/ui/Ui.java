@@ -67,7 +67,10 @@ public class Ui {
         printLineDivider();
     }
 
-    public static void printMissingInputError() {
+    /**
+     * Print error message when there are missing or extra things in the user's input
+     */
+    public static void wrongInputError() {
         Ui.printOneTabMessage("You have an extra input OR you are missing an input!\n    CORRECT IT BEFORE THE KNAVE OF HEART COMES!\n");
         printLineDivider();
     }

@@ -86,7 +86,7 @@ public class CommandParser {
                 Command command = handleInput(actionOfInput, userInput);
                 command.handleCommand();
             } catch (IndexOutOfBoundsException e){
-                Ui.printMissingInputError();
+                Ui.wrongInputError();
             } catch (InvalidCommandException e){
                 e.getErrorMessage();
             } catch (InvalidFormatException e) {
