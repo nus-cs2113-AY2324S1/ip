@@ -26,13 +26,14 @@ public class Chatty {
                 ui.printMessage(Ui.LINE);
                 Command c = Parser.parseCommand(fullCommand, tasks);
                 c.execute(tasks, ui, storage);
-                fullCommand = ui.getUserInput();
             } catch (Exception e) {
                 ui.printMessage(e.getMessage());
             } finally {
                 ui.printMessage(Ui.LINE);
             }
+            fullCommand = ui.getUserInput();
         }
+        storage.save(tasks);
     }
 
     public static void main(String[] args) {

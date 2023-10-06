@@ -6,7 +6,6 @@ import Chatty.Ui;
 import Chatty.tasks.Task;
 
 public class markCommand extends Command {
-    String input;
     int index;
     boolean isDone;
 

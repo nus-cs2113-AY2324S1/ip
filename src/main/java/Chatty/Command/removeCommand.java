@@ -6,7 +6,6 @@ import Chatty.Ui;
 import Chatty.tasks.Task;
 
 public class removeCommand extends Command {
-    String input;
     int index;
 
     public removeCommand(String input) {

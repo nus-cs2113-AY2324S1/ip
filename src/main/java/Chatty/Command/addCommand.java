@@ -7,7 +7,6 @@ import Chatty.tasks.*;
 
 public class addCommand extends Command{
 
-    String input;
     char type;
 
     public addCommand (String input, char type){
