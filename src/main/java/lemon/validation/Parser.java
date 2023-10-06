@@ -9,10 +9,18 @@ import java.util.regex.Pattern;
 
 import static lemon.common.Messages.MESSAGE_EMPTY_LIST;
 
+/**
+ * Utility class for handling input validations in the Lemon chatbot.
+ * This class checks the validity of input and retrieves parts of the input according to the needs of each function.
+ * Returns exceptions when encoutered.
+ */
 public class Parser {
-    public Parser() {
-    }
-
+    /**
+     * Identifies command type of user input.
+     *
+     * @param input Input string from user.
+     * @return Type of command.
+     */
     public String commandType(String input) {
         if (input.equals("bye")) {
             return "bye";
@@ -39,6 +47,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a newly created command according to the type of user input.
+     *
+     * @param input Input string from user.
+     * @return New command object.
+     * @throws LemonException If input is invalid or is of an invalid format.
+     */
     public Command parseInput(String input) throws LemonException {
         try {
             String commandType = commandType(input.toLowerCase().trim());
@@ -56,6 +71,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates command according to the type of user input.
+     *
+     * @param commandType Type of user input.
+     * @param input Input string from user.
+     * @param args Arguments passed into the input from user.
+     * @return New command object.
+     * @throws LemonException If exceptions occur while validating input.
+     */
     public Command createCommand(String commandType, String input, String args) throws LemonException {
         switch (commandType) {
         case ByeCommand.COMMAND_WORD:
@@ -87,6 +111,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a task object according to the task data from storage file.
+     * Retrieves information from input to create new task object.
+     *
+     * @param task Task data from storage file.
+     * @return New task object.
+     * @throws LemonException If data in the file is not of the right format.
+     */
     public Task parseFile(String task) throws LemonException {
         try {
             String[] taskStr = task.split(" \\| ");
@@ -113,6 +145,17 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates new task based on the task data from storage file.
+     * Retrieves information from input to create new task object.
+     *
+     * @param taskStr Array of sliced input strings from user.
+     * @param taskType Type of task according to user input.
+     * @param description Description of the task.
+     * @param isDone Completion status of the task.
+     * @return New task object.
+     * @throws LemonException If data in the file is not of the right format.
+     */
     public Task createTask(String[] taskStr, String taskType, String description, boolean isDone) throws LemonException{
         try {
             switch (taskType) {
@@ -135,6 +178,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Matches input format with accepted input format for todo task.
+     * Retrieves information from input to create new command object.
+     *
+     * @param input Input string from user.
+     * @return New TodoCommand object.
+     * @throws LemonException If user input is invalid or of invalid format.
+     */
     private static Command parseTodo(String input) throws LemonException {
         String inputPattern = "todo (.+)";
 
@@ -156,6 +207,14 @@ public class Parser {
         return new TodoCommand(description);
     }
 
+    /**
+     * Matches input format with accepted input format for deadline task.
+     * Retrieves information from input to create new command object.
+     *
+     * @param input Input string from user.
+     * @return New DeadlineCommand object.
+     * @throws LemonException If user input is invalid or of invalid format.
+     */
     private static Command parseDeadline(String input) throws LemonException {
         String inputPattern = "deadline (.+?) /by (.+)";
 
@@ -178,6 +237,14 @@ public class Parser {
         return new DeadlineCommand(description, dateTime);
     }
 
+    /**
+     * Matches input format with accepted input format for event task.
+     * Retrieves information from input to create new command object.
+     *
+     * @param input Input string from user.
+     * @return New EventCommand object.
+     * @throws LemonException If user input is invalid or of invalid format.
+     */
     private static Command parseEvent(String input) throws LemonException {
         String inputPattern = "event (.+?) /from (.+?) /to (.+)";
 
@@ -202,10 +269,19 @@ public class Parser {
         return new EventCommand(description, startDateTime, endDateTime);
     }
 
+    /**
+     * Checks if the arguments passed is a non-integer input for task index.
+     * Subtracts 1 from the taskk index to get a 0-based index.
+     *
+     * @param input Input string from user.
+     * @return Task index.
+     * @throws LemonException If the input from user is non-integer.
+     */
     private static int checkTaskNumberFormat(String input) throws LemonException {
         int taskIndex;
         try{
-            taskIndex = Integer.parseInt(input.trim()) - 1;
+            int INDEX_OFFSET = 1;
+            taskIndex = Integer.parseInt(input.trim()) - INDEX_OFFSET;
         } catch (NumberFormatException e) {
             throw new LemonException("Oopsie! Please enter a valid task number!");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -214,6 +290,14 @@ public class Parser {
         return taskIndex;
     }
 
+    /**
+     * Checks if the task index is within the range of the task list.
+     * Throws an exception if index is out of bounds.
+     *
+     * @param taskIndex Index number of task.
+     * @param tasks List of tasks.
+     * @throws LemonException If task list is empty or if task index is out of bounds of task list.
+     */
     public void checkTaskNumberRange(int taskIndex, TaskList tasks) throws LemonException {
         if (tasks.isEmpty()) {
             throw new LemonException(MESSAGE_EMPTY_LIST);

@@ -1,5 +1,9 @@
 package lemon.common;
 
+/**
+ * Utility class for managing messages displayed to the user.
+ * This class contains static fields for various messages used in the chatbot.
+ */
 public class Messages {
     public static final String LEMON_EMOJI = "◕";
     public static final String LEMON_DIVIDER = "✽\n";
