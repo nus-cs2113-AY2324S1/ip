@@ -1,3 +1,6 @@
+/**
+ * The listCommand class represents a command to list all tasks and its execution
+ */
 package Chatty.Command;
 
 import Chatty.Storage;

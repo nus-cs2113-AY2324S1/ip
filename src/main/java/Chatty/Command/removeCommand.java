@@ -1,3 +1,6 @@
+/**
+ * The removeCommand class represents a command to remove a task and its execution
+ */
 package Chatty.Command;
 
 import Chatty.Storage;

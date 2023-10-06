@@ -1,3 +1,6 @@
+/**
+ * The Ui class handles any input or output of the chatbot
+ */
 package Chatty;
 
 import java.util.Scanner;

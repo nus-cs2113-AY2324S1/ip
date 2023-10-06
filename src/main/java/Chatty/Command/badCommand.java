@@ -1,3 +1,6 @@
+/**
+ * The badCommand class represents a bad input and command and what to do next
+ */
 package Chatty.Command;
 
 import Chatty.Storage;

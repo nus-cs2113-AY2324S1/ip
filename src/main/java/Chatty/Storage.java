@@ -1,3 +1,4 @@
+
 package Chatty;
 
 import Chatty.tasks.*;
@@ -7,14 +8,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * The Storage class handles all the loading and saving of the tasks
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * initializes the Storage class
+     * @param filePath filepath of the storage
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Starts laoding the tasks
+     * @return an ArrayList of type task
+     * @throws IOException
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         //System.out.println(filePath);
@@ -56,6 +68,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves all tasks
+     * @param tasks current list of tasks
+     */
     public void save(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(filePath);

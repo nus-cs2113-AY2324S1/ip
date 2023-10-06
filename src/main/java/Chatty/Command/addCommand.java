@@ -1,3 +1,6 @@
+/**
+ * The addCommmand class represents a command to add and its execution.
+ */
 package Chatty.Command;
 
 import Chatty.Storage;

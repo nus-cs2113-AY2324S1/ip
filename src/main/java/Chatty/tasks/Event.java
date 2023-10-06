@@ -1,3 +1,6 @@
+/**
+ * The Event class represents a task with an event date.
+ */
 package Chatty.tasks;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,7 +24,9 @@ public class Event extends Task {
     public LocalDate getTo() {
         return to;
     }
-
+    /**
+     * Gets the description for the deadline task
+     */
     @Override
     public String getDescription() {
         String formattedFrom = from.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));

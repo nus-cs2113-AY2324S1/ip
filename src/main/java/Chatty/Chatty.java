@@ -1,3 +1,7 @@
+/**
+ * The main class representing the chatbot.
+ */
+
 package Chatty;
 
 import Chatty.Command.*;
