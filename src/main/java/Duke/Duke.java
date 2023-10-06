@@ -62,6 +62,17 @@ public class Duke {
                 }
             }
 
+            // Bot Find task feature (use: find [keyword])
+            else if (text[0].equalsIgnoreCase("find")) {
+                String keyword = text[1];
+                System.out.println("Here are the matching tasks in your list:");
+                for (int i = 0; i < botMemory.size(); i++) {
+                    if (botMemory.get(i).getDescription().contains(keyword)) {
+                        System.out.println(i + 1 + ". " + botMemory.get(i).getDescription());
+                    }
+                }
+            }
+
             // Bot Mark task feature = set task status to done with markTask();
             else if (text[0].equalsIgnoreCase("mark")) {
                 int index = Integer.parseInt(text[1]) - 1;
