@@ -55,8 +55,7 @@ Example:
 #### Basic Rules
 1. Use '/' to split each arguments.
 2. Remember to comply with each format rules for the specific class.
-
-> [!IMPORTANT]  
+  
 > 3. When meet with format problems, please check your input.If you don't know how to write a standard command, just modify the example input.
 #### Classes
 > [String](#String)  
@@ -132,7 +131,6 @@ MMM d, yyyy
 [Bye](#Bye)
 
 #### Todo
-> [!NOTE]  
 > Add a task into the current list with type of `Todo`.
 - Keywords: `todo`
 - Arguments:
@@ -154,7 +152,6 @@ todo Read Books
 ```
 
 #### Deadline
-> [!NOTE]
 > Add a task into the current list with type of `Deadline`.
 - Keywords: `deadline`
 - Arguments:
@@ -177,7 +174,6 @@ deadline Read Books /by 1928-10-1 13:2
 ```
 
 #### Event
-> [!NOTE]
 > Add a task into the current list with type of `Event`.
 - Keywords: `event`
 - Arguments:
@@ -201,7 +197,6 @@ event Read Bookss /from 1925-10-1 13:2 /to 1928-10-1 13:2
 ```
 
 #### List
-> [!NOTE]
 > Show all tasks in the current list.
 - Keywords: `list`
 - Arguments:
@@ -224,7 +219,6 @@ list
 ```
 
 #### Mark
-> [!NOTE]
 > Mark an existing task in the current list as done.
 - Keywords: `mark`
 - Arguments:
@@ -245,7 +239,6 @@ mark 1
 ```
 
 #### Unmark
-> [!NOTE]
 > Mark an existing task in the current list as undone.
 - Keywords: `unmark`
 - Arguments:
@@ -266,7 +259,6 @@ mark 1
 ```
 
 #### Delete
-> [!NOTE]
 > Delete an existing task in the current list.
 - Keywords: `delete`
 - Arguments:
@@ -288,7 +280,6 @@ delete 3
 ```
 
 #### Activated
-> [!NOTE]
 > Search all tasks in the current list with a filter of date.  
 > Those tasks whose type are `Deadline` or `Event` that are still available on the input date will be shown.
 - Keywords: `activated`
@@ -310,7 +301,6 @@ activated 2020-1-1
 ```
 
 #### Find
-> [!NOTE]
 > Find all tasks in the current list with a filter of string.  
 > Those tasks whose description contains the input string will be shown.
 - Keywords: `find`
@@ -333,7 +323,6 @@ find book
 
 
 #### Bye
-> [!NOTE]
 > Terminate the program and automatically save the date locally.
 - Keywords: `bye`
 - Arguments:
