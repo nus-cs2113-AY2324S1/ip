@@ -18,16 +18,20 @@ public class Deadline extends Task {
     public Deadline(String taskDescription) throws LukeException {
         super(taskDescription);
 
-        int slashCut = taskDescription.indexOf("/");
-        if (slashCut <= 0) {
+        int byIndex = taskDescription.indexOf("/by ");
+        if (byIndex == 0) {
             System.out.println("\tThere is a missing task description. Please follow this format:");
+            printGuide();
+            throw new LukeException();
+        } else if (byIndex < 0) {
+            System.out.println("\tThere is a syntax problem. Please follow this format:");
             printGuide();
             throw new LukeException();
         }
 
-        description = taskDescription.substring(0, slashCut);
+        description = taskDescription.substring(0, byIndex);
 
-        setDate(taskDescription.substring(slashCut + 1));
+        setDate(taskDescription.substring(byIndex + 4));
     }
 
     /**
@@ -46,19 +50,12 @@ public class Deadline extends Task {
      * @throws LukeException If there are syntax or formatting errors in the date string.
      */
     public void setDate(String dateString) throws LukeException {
-        String[] words = dateString.split(" ");
-        if (!words[0].equals("by")) {
-            System.out.println("\tThere is a syntax problem. Please follow this format:");
-            printGuide();
-            throw new LukeException();
-        }
-        int spaceCut = dateString.indexOf(" ");
-        if (spaceCut <= 0) {
+        if (dateString.isEmpty()) {
             System.out.println("\tThere is a missing date. Please follow this format:");
             printGuide();
             throw new LukeException();
         }
-        date = dateString.substring(spaceCut + 1);
+        date = dateString;
     }
 
     /**

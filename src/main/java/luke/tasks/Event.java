@@ -19,17 +19,20 @@ public class Event extends Task {
     public Event(String taskDescription) throws LukeException {
         super(taskDescription);
 
-        int slashCut = taskDescription.indexOf("/");
-        if (slashCut <= 0) {
+        int fromIndex = taskDescription.indexOf("/from ");
+        int toIndex = taskDescription.indexOf("/to ");
+        if (fromIndex == 0) {
             System.out.println("\tThere is a missing task description. Please follow this format:");
+            printGuide();
+            throw new LukeException();
+        } else if (fromIndex < 0 || toIndex <= fromIndex) {
+            System.out.println("\tThere is a syntax problem. Please follow this format:");
             printGuide();
             throw new LukeException();
         }
 
-        description = taskDescription.substring(0, slashCut);
-
-        String taskDuration = taskDescription.substring(slashCut + 1);
-        setDates(taskDuration);
+        description = taskDescription.substring(0, fromIndex);
+        setDates(taskDescription.substring(fromIndex + 6, toIndex), taskDescription.substring(toIndex + 4));
     }
 
     /**
@@ -53,37 +56,18 @@ public class Event extends Task {
     /**
      * Parses and sets the start and end dates of the event from the provided date string.
      *
-     * @param dates The date string containing start and end date information.
+     *
      * @throws LukeException If there are syntax or formatting errors in the date string.
      */
-    public void setDates(String dates) throws LukeException {
-        String[] words = dates.split(" ");
-        if (!words[0].equals("from")) {
-            System.out.println("\tThere is a syntax problem. Please follow this format:");
+    public void setDates(String fromDateString, String toDateString) throws LukeException {
+        if (fromDateString.isEmpty() || toDateString.isEmpty()) {
+            System.out.println("\tThere is a missing date. Please follow this format:");
             printGuide();
             throw new LukeException();
         }
 
-        dates = dates.substring(5);
-
-        int slashCut = dates.indexOf("/");
-        if (slashCut <= 0) {
-            System.out.println("\tThere is a syntax problem. Please follow this format:");
-            printGuide();
-            throw new LukeException();
-        }
-
-        startDate = dates.substring(0, slashCut);
-        dates = dates.substring(slashCut + 1);
-
-        words = dates.split(" ");
-        if (!words[0].equals("to")) {
-            System.out.println("\tThere is a syntax problem. Please follow this format:");
-            printGuide();
-            throw new LukeException();
-        }
-
-        endDate = dates.substring(3);
+        startDate = fromDateString;
+        endDate = toDateString;
     }
 
     /**
