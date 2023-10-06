@@ -41,7 +41,6 @@ public class Ui {
         System.out.println(PYTHON_ASCII_ART);
         printHorizontalLine();
         addEmojiAndPrint(Message.MESSAGE_INTRODUCTION);
-        displayTaskCount();
         addEmojiAndPrint(Message.MESSAGE_ASK);
         printHorizontalLine();
     }
