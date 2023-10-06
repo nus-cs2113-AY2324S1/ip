@@ -1,4 +1,24 @@
-# User Guide
+# List Whisper
+
+List Whisper is your ultimate solution for effortless task management. Whether you're organizing your workday, planning personal projects, or just need a simple way to keep track of your to-do list, List Whisper has you covered.
+
+## Setting up List Whisper
+
+Prerequisites: JDK 11
+
+1. Download the jar file
+2. Open command prompt (windows) or terminal (macOS)
+3. Move your directory to the jar file
+4. run ```java -jar ip.jar```
+5. If the setup is correct, you should see something like the below as the output:
+   ```
+   -----------------------------------------------------
+   Hello! I'm ListWhisper
+   What can I do for you?
+   -----------------------------------------------------
+   ```
+   
+##Vocabulary
 
 | Vocabulary          | Description                                       |
 |---------------------|---------------------------------------------------|
@@ -7,11 +27,11 @@
 | deadline       | A task with a deadline |
 | event            | An event with a start and end date and time |
 
-##Important Note
-<mark>Words in UPPER_CASE are the parameters to be supplied by the user.
-e.g. in ```todo TASK_DESCRIPTION```, TASK_DESCRIPTION is a parameter which can be used as add n/assignment</mark>
-
 ## Features 
+
+###<mark>Important Note</mark>
+Words in UPPER_CASE are the parameters to be supplied by the user.
+e.g. in ```todo TASK_DESCRIPTION```, TASK_DESCRIPTION is a parameter which can be used as add n/assignment
 
 ### Listing All Tasks: ```list```
 Shows a list of all persons in the address book.
