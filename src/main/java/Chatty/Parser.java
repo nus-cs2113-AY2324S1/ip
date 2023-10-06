@@ -1,6 +1,7 @@
 package Chatty;
 import Chatty.Command.*;
-import Chatty.Ui;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
     static Ui ui = new Ui();
@@ -12,6 +13,7 @@ public class Parser {
         case "list":
             return new listCommand(input);
         case "mark":
+            System.out.println("mark");
             return new markCommand(input, true);
         case "unmark":
             return new markCommand(input, false);
@@ -59,6 +61,14 @@ public class Parser {
             }
         case "find":
             return new findCommand(input);
+        case "printdate":
+            try {
+                String dateToPrint = input.substring(10).trim(); // Extract the date from user input
+                LocalDate specifiedDate = LocalDate.parse(dateToPrint, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return new printDate(input);
+            } catch (Exception e) {
+                ui.printMessage("☹ OOPS!!! Invalid date.");
+            }
         default:
             return new badCommand(input);
         }
