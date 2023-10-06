@@ -3,22 +3,20 @@ package python.ui;
 import python.exception.PythonException;
 import python.parser.Command;
 import python.parser.Parser;
-import python.task.Deadline;
-import python.task.Event;
-import python.task.TaskList;
-import python.task.Todo;
-import python.task.Task;
+import python.task.*;
 
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Controls the user-chatbot interactions
+ */
 public class Ui {
     private static final Scanner in = new Scanner(System.in);
     final private static String PYTHON_EMOJI = "\uD83D\uDC0D";
     final private static int HORIZONTAL_LINE_LENGTH = 80;
     private String inputLine;
     private String inputCommand;
-
     final private static String PYTHON_ASCII_ART =
             "\t ____        _   _\n" +
                     "\t|  _ \\ _   _| |_| |__   ___  _ __\n" +
@@ -36,6 +34,9 @@ public class Ui {
         System.out.printf("\t%s: %s\n", PYTHON_EMOJI, message);
     }
 
+    /**
+     * Welcomes user with some predefined messages
+     */
     public void welcomeUser() {
         System.out.println(PYTHON_ASCII_ART);
         printHorizontalLine();
@@ -45,24 +46,32 @@ public class Ui {
         printHorizontalLine();
     }
 
-    public void greetGoodBye() {
+    private void greetGoodBye() {
         addEmojiAndPrint(Message.MESSAGE_BYE);
     }
 
-    public void displayTaskCount() {
+    private void displayTaskCount() {
         addEmojiAndPrint("You have " + TaskList.getNumberOfTasks() + " tasks!");
     }
 
-    public void displayTasks(List<Task> tasks) {
+    private void displayTasks(List<Task> tasks) {
         for (int taskNo = 0; taskNo < tasks.size(); taskNo++) {
             System.out.printf("\t\t\t%d. %s\n", taskNo + 1, tasks.get(taskNo));
         }
     }
 
+    /**
+     * Gets the user given raw input
+     */
     public void getUserInput() {
         this.inputLine = in.nextLine();
     }
 
+    /**
+     * Displays the error messages
+     *
+     * @param e The error message
+     */
     public void displayException(Exception e) {
         System.out.println("\tError: " + e.getMessage());
     }
@@ -153,7 +162,6 @@ public class Ui {
         displayTaskCount();
     }
 
-
     private void handleTodoCommand() throws PythonException {
         String todoDescription;
         try {
@@ -171,7 +179,6 @@ public class Ui {
         addEmojiAndPrint(todo.toString());
         displayTaskCount();
     }
-
 
     private void handleDeadlineCommand() throws PythonException {
         String deadlineDetails, deadlineDescription, deadlineBy;
@@ -236,8 +243,9 @@ public class Ui {
 
         List<Task> matchedTasks = TaskList.findTask(keyword);
 
-        if (matchedTasks.isEmpty()) addEmojiAndPrint(Message.MESSAGE_NO_MATCH);
-        else {
+        if (matchedTasks.isEmpty()) {
+            addEmojiAndPrint(Message.MESSAGE_NO_MATCH);
+        } else {
             addEmojiAndPrint(Message.MESSAGE_MATCHES_FOUND);
             displayTasks(matchedTasks);
         }
@@ -250,7 +258,6 @@ public class Ui {
         }
         addEmojiAndPrint(Message.MESSAGE_UNKNOWN_COMMAND);
     }
-
 
     public void executeLine() throws PythonException {
         printHorizontalLine();
