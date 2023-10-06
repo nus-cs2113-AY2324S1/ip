@@ -1,0 +1,6 @@
+todo learn Java
+deadline wrong format
+deadline review PR /by tomorrow
+event team meeting /from Mon 2pm /to 4pm
+list
+bye
