@@ -45,10 +45,10 @@ public class Storage {
      * @param savedTask String of task saved in file
      * @throws DukeException when format of saved task is wrong
      */
-        public static void extractDeadline(String savedTask) throws DukeException {
-        String[] parts = savedTask.split(" \\(by: " );
-        String task = parts[0].substring(8);
-        String deadline = parts[1].substring(0, parts[1].length() -1);
+    public static void extractDeadline(String savedTask) throws DukeException {
+    String[] parts = savedTask.split(" \\(by: " );
+    String task = parts[0].substring(8);
+    String deadline = parts[1].substring(0, parts[1].length() -1);
         if (task.isEmpty() || deadline.isEmpty()) {
             throw new DukeException("Loaded task or deadline is empty... Please check your saved list again~");
         } else {
@@ -61,12 +61,13 @@ public class Storage {
      * extracts event tasks and its time period out of the saved string and adds it to tasklist as task type
      * @param savedTask String of task saved in file
      * @throws DukeException when format of saved task is wrong
-     */    public static void extractEvent(String savedTask) throws DukeException {
-        String[] parts = savedTask.split(" \\(");
-        String task = parts[0].substring(8);
-        String[] timeSplit = parts[1].split(" to: ");
-        String from = timeSplit[0].substring(6);
-        String to = timeSplit[1].substring(0, timeSplit[1].length() - 1);
+     */
+    public static void extractEvent(String savedTask) throws DukeException {
+    String[] parts = savedTask.split(" \\(");
+    String task = parts[0].substring(8);
+    String[] timeSplit = parts[1].split(" to: ");
+    String from = timeSplit[0].substring(6);
+    String to = timeSplit[1].substring(0, timeSplit[1].length() - 1);
         if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new DukeException("Loaded task or time period is empty... Please check your saved list again~");
         } else {
@@ -79,7 +80,8 @@ public class Storage {
      * extracts tasks out of the saved file and adds it to tasklist
      * @throws IOException when file does not exist and new file cannot be created
      * @throws DukeException when format of saved file is wrong and hence cannot be loaded
-     */    public static void loadListFromFile() throws IOException, DukeException {
+     */
+    public static void loadListFromFile() throws IOException, DukeException {
         File file = new File("data/botbot.txt");
         if (!file.exists()){
             try {
