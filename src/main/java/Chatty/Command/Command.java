@@ -1,3 +1,6 @@
+/**
+ * The Command class represents a Command and its execution. It is an abstract type
+ */
 package Chatty.Command;
 
 import Chatty.Storage;

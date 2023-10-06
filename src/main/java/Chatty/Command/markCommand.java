@@ -1,4 +1,7 @@
 package Chatty.Command;
+/**
+ * The markCommand class represents a command to mark a task done or not done and its execution
+ */
 
 import Chatty.Storage;
 import Chatty.TaskList;

@@ -1,3 +1,6 @@
+/**
+ * The TaskList class handles the instantaneous
+ */
 package Chatty;
 import Chatty.tasks.*;
 

@@ -1,3 +1,6 @@
+/**
+ * The Parser class handles all the inputs and decides what to do next
+ */
 package Chatty;
 import Chatty.Command.*;
 import Chatty.Ui;
@@ -5,6 +8,12 @@ import Chatty.Ui;
 public class Parser {
     static Ui ui = new Ui();
 
+    /**
+     * Starts processing the command
+     * @param input input of the user
+     * @param tasks the list of current tasks
+     * @return a command which will be executed later
+     */
     public static Command parseCommand(String input, TaskList tasks) {
         String[] words = input.split(" ");
         String command = words[0].toLowerCase();

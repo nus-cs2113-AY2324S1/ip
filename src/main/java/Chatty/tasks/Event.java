@@ -1,3 +1,6 @@
+/**
+ * The Event class represents a task with an event date.
+ */
 package Chatty.tasks;
 
 public class Event extends Task {
@@ -18,7 +21,9 @@ public class Event extends Task {
     public String getTo() {
         return to;
     }
-
+    /**
+     * Gets the description for the deadline task
+     */
     @Override
     public String getDescription() {
         return "[E][" + getStatusIcon() + "] " + super.getDescription() + " (from: " + from + " to: " + to + ")";
