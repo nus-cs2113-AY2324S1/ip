@@ -6,6 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * The Duke application is a task management bot with features to add, list, mark, unmark, delete, and find tasks.
+ * There are three different types of tasks: Todo, Event, Deadline.
+ * It retrieves from and stores the tasks into a persistent text file botMemory.txt.
+ */
 public class Duke {
     public static void main(String[] args) {        
         final String LOGO = "       _       _        \n"
