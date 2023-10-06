@@ -12,13 +12,13 @@ import java.util.Scanner;
  * Controls the user-chatbot interactions
  */
 public class Ui {
-    private static final Scanner in = new Scanner(System.in);
+    private static final Scanner IN = new Scanner(System.in);
     final private static String PYTHON_EMOJI = "\uD83D\uDC0D";
     final private static int HORIZONTAL_LINE_LENGTH = 80;
     private String inputLine;
     private String inputCommand;
     final private static String PYTHON_ASCII_ART =
-            "\t ____        _   _\n" +
+                    "\t ____        _   _\n" +
                     "\t|  _ \\ _   _| |_| |__   ___  _ __\n" +
                     "\t| |_) | | | | __|  _ \\ / _ \\|  _ \\\n" +
                     "\t|  __/| |_| | |_| | | | (_) | | | |\n" +
@@ -60,26 +60,6 @@ public class Ui {
         }
     }
 
-    /**
-     * Gets the user given raw input
-     */
-    public void getUserInput() {
-        this.inputLine = in.nextLine();
-    }
-
-    /**
-     * Displays the error messages
-     *
-     * @param e The error message
-     */
-    public void displayException(Exception e) {
-        System.out.println("\tError: " + e.getMessage());
-    }
-
-    public void parseLine() {
-        this.inputCommand = Parser.extractCommandFromInputLine(inputLine);
-    }
-
     private void handleByeCommand() {
         greetGoodBye();
     }
@@ -110,6 +90,7 @@ public class Ui {
         }
 
         TaskList.markTask(taskNo);
+
         addEmojiAndPrint(Message.MESSAGE_CONGRATUALTE);
         addEmojiAndPrint(TaskList.getTask(taskNo).toString());
     }
@@ -158,6 +139,7 @@ public class Ui {
 
         addEmojiAndPrint(Message.MESSAGE_DELETE_CONFIRMATION);
         addEmojiAndPrint(TaskList.getTask(taskNo).toString());
+
         TaskList.deleteTask(taskNo);
         displayTaskCount();
     }
@@ -169,11 +151,9 @@ public class Ui {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new PythonException(Message.MESSAGE_DESC_AFTER_COMMAND);
         }
-
         addEmojiAndPrint(Message.MESSAGE_NEW_TODO);
 
         Todo todo = new Todo(todoDescription);
-
         TaskList.addTask(todo);
 
         addEmojiAndPrint(todo.toString());
@@ -257,6 +237,26 @@ public class Ui {
             return;
         }
         addEmojiAndPrint(Message.MESSAGE_UNKNOWN_COMMAND);
+    }
+
+    /**
+     * Gets the user given raw input
+     */
+    public void getUserInput() {
+        this.inputLine = IN.nextLine();
+    }
+
+    /**
+     * Displays the error messages
+     *
+     * @param e The error message
+     */
+    public void displayException(Exception e) {
+        System.out.println("\tError: " + e.getMessage());
+    }
+
+    public void parseLine() {
+        this.inputCommand = Parser.extractCommandFromInputLine(inputLine);
     }
 
     public void executeLine() throws PythonException {

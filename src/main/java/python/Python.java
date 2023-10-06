@@ -5,6 +5,7 @@ import python.ui.Ui;
 
 public class Python {
     static final private Ui ui = new Ui();
+
     public static void main(String[] args) {
         ui.welcomeUser();
         do {
@@ -15,6 +16,6 @@ public class Python {
             } catch (PythonException e) {
                 ui.displayException(e);
             }
-        } while(!ui.isExit());
+        } while (!ui.isExit());
     }
 }
