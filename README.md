@@ -53,4 +53,32 @@ Shows all the tasks in the list.
 
 Format: `list`
 
-### Marking the finished task: `Mark`
+### Marking the finished task: `mark`
+
+Marks the completed task.
+
+Format: `mark INDEX`
+
+- `INDEX` must be a positive integer 1, 2, 3, ...
+
+Examples:
+
+- `mark 3`
+
+### Unmarking the task: `unmark`
+
+Unmarks the uncompleted task.
+
+Format: `unmark INDEX`
+
+- `INDEX` must be a positive integer 1, 2, 3, ...
+
+Examples:
+
+- `unmark 2`
+
+### Terminating the program: `bye`
+
+Terminates the program.
+
+Format: `bye`
