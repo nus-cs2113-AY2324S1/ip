@@ -9,7 +9,6 @@ import luke.user.Ui;
  * It extends the Command class and includes specific behavior for deleting a task.
  */
 public class DeleteCommand extends Command {
-
     /**
      * Constructs a DeleteCommand with the specified action type and parameters.
      *
@@ -18,6 +17,14 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(ActionType theAction, String parameters) {
         super(theAction, parameters);
+    }
+
+    public void printIntegerGuide(TaskList tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("\tNo tasks in task list. Please add a task before using " + theAction + ".");
+        } else {
+            System.out.println("\tPlease input an integer from 1 to " + tasks.size() + ".");
+        }
     }
 
     /**
@@ -34,8 +41,12 @@ public class DeleteCommand extends Command {
             System.out.println("\tNoted. I've removed this task:\n" + tasks.get(taskNumber));
             tasks.removeTask(taskNumber);
             System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
+            return;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tOOPS!!! Your arguments for " + theAction + " exceeds your task list.");
+            System.out.println("\t☹ OOPS!!! Your argument for " + theAction + " exceeds your task list.");
+        } catch (NumberFormatException e) {
+            System.out.println("\t☹ OOPS!!! Your argument for " + theAction + " need to be an integer.");
         }
+        printIntegerGuide(tasks);
     }
 }

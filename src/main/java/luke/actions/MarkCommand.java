@@ -14,6 +14,7 @@ import static luke.actions.ActionType.UNMARK;
 public class MarkCommand extends Command {
     private boolean isDone;
 
+
     /**
      * Constructs a MarkCommand with the specified action type and parameters.
      *
@@ -31,6 +32,14 @@ public class MarkCommand extends Command {
         }
     }
 
+    public void printIntegerGuide(TaskList tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("\tNo tasks in task list. Please add a task before using " + theAction + ".");
+        } else {
+            System.out.println("\tPlease input an integer from 1 to " + tasks.size() + ".");
+        }
+    }
+
     /**
      * Executes the MarkCommand to mark or unmark a task as done in the task list.
      *
@@ -40,14 +49,16 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        int taskNumber = Integer.parseInt(parameters) - 1;
-
         try {
+            int taskNumber = Integer.parseInt(parameters) - 1;
             tasks.get(taskNumber).setDone(isDone);
             System.out.println(tasks.get(taskNumber));
+            return;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tOOPS!!! Your arguments for " + theAction + " exceeds your task list.");
+            System.out.println("\t☹ OOPS!!! Your argument for " + theAction + " exceeds your task list.");
+        } catch (NumberFormatException e) {
+            System.out.println("\t☹ OOPS!!! Your argument for " + theAction + " need to be an integer.");
         }
-
+        printIntegerGuide(tasks);
     }
 }
