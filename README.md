@@ -14,19 +14,22 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
+
+```
 ____________________________________________________________
  Hello! I'm TUM
  What can I do for you?
 ____________________________________________________________
-   ```
+
+```
 ## Quick Start
 1. Ensure you have Java 11 installed in your Computer.
 2. Download the latest IP.jar from here.
 3. Copy the file to the folder you want to use as the home folder for your Tum ChatBot.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar IP.jar command to run the application.
    In a few seconds, it should show that:
-![Screenshot of the display in terminal](https://github.com/Haoyuli2002/ip/assets/139958049/cade8150-21a1-43be-8d82-6e59374f4c7f))
+
+![Screenshot of the display in terminal](https://github.com/Haoyuli2002/ip/assets/139958049/cade8150-21a1-43be-8d82-6e59374f4c7f)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
 Some example commands you can try:
