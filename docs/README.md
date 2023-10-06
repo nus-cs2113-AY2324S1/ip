@@ -55,8 +55,7 @@ Example:
 #### Basic Rules
 1. Use '/' to split each arguments.
 2. Remember to comply with each format rules for the specific class.
-  
-> 3. When meet with format problems, please check your input.If you don't know how to write a standard command, just modify the example input.
+3. When meet with format problems, please check your input.If you don't know how to write a standard command, just modify the example input.
 #### Classes
 > [String](#String)  
 [DateTime](#DateTime)  
@@ -131,7 +130,7 @@ MMM d, yyyy
 [Bye](#Bye)
 
 #### Todo
-> Add a task into the current list with type of `Todo`.
+> Add a task into the current list with type of `Todo`.  
 - Keywords: `todo`
 - Arguments:
     - Length: 1
@@ -152,7 +151,7 @@ todo Read Books
 ```
 
 #### Deadline
-> Add a task into the current list with type of `Deadline`.
+> Add a task into the current list with type of `Deadline`.  
 - Keywords: `deadline`
 - Arguments:
     - Length: 2
@@ -174,7 +173,7 @@ deadline Read Books /by 1928-10-1 13:2
 ```
 
 #### Event
-> Add a task into the current list with type of `Event`.
+> Add a task into the current list with type of `Event`.  
 - Keywords: `event`
 - Arguments:
     - Length: 3
@@ -197,7 +196,7 @@ event Read Bookss /from 1925-10-1 13:2 /to 1928-10-1 13:2
 ```
 
 #### List
-> Show all tasks in the current list.
+> Show all tasks in the current list.  
 - Keywords: `list`
 - Arguments:
     - Length: 0
@@ -219,7 +218,7 @@ list
 ```
 
 #### Mark
-> Mark an existing task in the current list as done.
+> Mark an existing task in the current list as done.  
 - Keywords: `mark`
 - Arguments:
     - Length: 1
@@ -239,7 +238,7 @@ mark 1
 ```
 
 #### Unmark
-> Mark an existing task in the current list as undone.
+> Mark an existing task in the current list as undone.  
 - Keywords: `unmark`
 - Arguments:
     - Length: 1
@@ -259,7 +258,7 @@ mark 1
 ```
 
 #### Delete
-> Delete an existing task in the current list.
+> Delete an existing task in the current list.  
 - Keywords: `delete`
 - Arguments:
     - Length: 1
@@ -281,7 +280,7 @@ delete 3
 
 #### Activated
 > Search all tasks in the current list with a filter of date.  
-> Those tasks whose type are `Deadline` or `Event` that are still available on the input date will be shown.
+> Those tasks whose type are `Deadline` or `Event` that are still available on the input date will be shown.  
 - Keywords: `activated`
 - Arguments:
     - Length: 1
@@ -302,7 +301,7 @@ activated 2020-1-1
 
 #### Find
 > Find all tasks in the current list with a filter of string.  
-> Those tasks whose description contains the input string will be shown.
+> Those tasks whose description contains the input string will be shown.  
 - Keywords: `find`
 - Arguments:
     - Length: 1
@@ -323,7 +322,7 @@ find book
 
 
 #### Bye
-> Terminate the program and automatically save the date locally.
+> Terminate the program and automatically save the date locally.  
 - Keywords: `bye`
 - Arguments:
     - Length: 0
