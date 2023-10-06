@@ -13,9 +13,13 @@ public class ListCommand extends Command{
      */
     @Override
     public void execute(){
-        for (int i = 0; i < TaskList.size(); i++) {
-            System.out.print((i + 1) + ". ");
-            System.out.println(list.get(i));
+        if (TaskList.size() == 0){
+            System.out.print("Bop! You have no tasks...");
+        } else {
+            for (int i = 0; i < TaskList.size(); i++) {
+                System.out.print((i + 1) + ". ");
+                System.out.println(list.get(i));
+            }
         }
     }
 }
