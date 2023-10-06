@@ -6,6 +6,7 @@ import static Task.TaskList.list;
 
 import java.io.IOException;
 import Exceptions.DukeFormatException;
+import Task.Todo;
 
 /**
  * Represent an intent to create a todo task
@@ -31,9 +32,10 @@ public class TodoCommand extends Command{
      */
     @Override
     public void execute() throws IOException {
-        TaskList.createTodoTasks(task);
+        Todo todoTask = new Todo(task);
+        list.add(todoTask);
         System.out.println("Got it. I've added this task:");
-        System.out.println(task);
+        System.out.println(todoTask);
         System.out.println("Now you have " + (list.size()) + " tasks in the list.");
         Storage.saveListToFile();
     }

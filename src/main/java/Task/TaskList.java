@@ -68,16 +68,16 @@ public class TaskList {
 
 
     //method to add todo tasks
-    public static void createTodoTasks(String task) {
-        //instantiate new todo object
-        Todo todoTask = new Todo(task);
-        //add to array
-        list.add(todoTask);
-//        System.out.println("Got it. I've added this task:");
+//    public static void createTodoTasks(String task) {
+//        //instantiate new todo object
+//        Todo todoTask = new Todo(task);
+//        //add to array
+//        list.add(todoTask);
+////        System.out.println("Got it. I've added this task:");
 //        System.out.println(todoTask);
 //        System.out.println("Now you have " + (list.size()) + " tasks in the list.");
 //        System.out.println(line);
-    }
+//    }
 
     //method to add deadline tasks
 //    public static void createDeadlineTasks(String task, String deadline) {
