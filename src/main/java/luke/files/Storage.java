@@ -12,35 +12,44 @@ import java.util.ArrayList;
  * The Storage Class handles the reading and writing of task data from/to a file.
  */
 public class Storage {
+    protected String filePath;
+    protected String folderPath;
     private ArrayList<Task> tasks;
 
     /**
      * Constructs a Storage object with the specified file path. If the file exists,
      * it retrieves tasks from the file. If the file doesn't exist, it creates a new file.
-     *
-     * @param filePath The path to the file where task data is stored.
      */
-    public Storage(String filePath) {
-        File taskListFile = new File(filePath);
-        if (taskListFile.exists()) {
-            try {
-                System.out.println("\n\tRetrieving memory...\n");
-                tasks = Memory.readMemory(filePath);
-                System.out.println("\n\tMemory retrieval successful!\n");
-            } catch (FileNotFoundException e) {
-                System.out.println("\n\tNo existing memory. (1)\n");
-            }
+    public Storage(String folderPath) {
+        this.folderPath = folderPath;
+        filePath = folderPath + "/memory.txt";
+
+        createDirectory();
+        createFile();
+    }
+
+    public void createDirectory () {
+        File d = new File(folderPath);
+        if (d.mkdir()) {
+            System.out.println("Directory has been successfully created!");
         } else {
-            try {
-                if (taskListFile.createNewFile()) {
-                    System.out.println("\n\tNo existing memory. Creating new memory...\n");
-                }
-            } catch (IOException e) {
-                System.out.println("\n\tIOException.\n");
-            } catch (SecurityException e) {
-                System.out.println("\n\tSecurityException.\n");
-            }
+            System.out.println("Directory cannot be created. Directory may already exist.");
         }
+        System.out.println("Full path: " + d.getAbsolutePath());
+    }
+
+    public void createFile () {
+        File f = new File(filePath);
+        try {
+            if (f.createNewFile()) {
+                System.out.println("New memory file has been successfully created!");
+            } else {
+                System.out.println("New memory file cannot be created. Memory file may already exist.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred." + e.getMessage());
+        }
+        System.out.println("Full path: " + f.getAbsolutePath());
     }
 
     /**
@@ -59,7 +68,7 @@ public class Storage {
      */
     public void store(TaskList tasksToStore) {
         //store in memory.txt
-        Memory.storeMemory("./out/artifacts/ip_jar/memory.txt", tasksToStore.getMainTaskList());
+        Memory.storeMemory(filePath, tasksToStore.getMainTaskList());
 
         System.out.println("\tBye. Hope to see you again soon!");
     }

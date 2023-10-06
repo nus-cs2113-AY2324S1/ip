@@ -10,6 +10,7 @@ import luke.files.*;
  * It manages the user interface, task storage, and task list.
  */
 public class Luke {
+    public static final String folderPath = "data";
 
     private Storage storage;
     private TaskList tasks;
@@ -17,13 +18,10 @@ public class Luke {
 
     /**
      * Constructs a Luke object.
-     *
-     * @param filePath The file path to the storage file.
-     *                 The storage file contains task data that will be loaded into the application.
      */
-    public Luke(String filePath) {
+    public Luke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(folderPath);
         try {
             tasks = new TaskList(storage.load());
         } catch (LukeTimeError e) {
@@ -66,8 +64,18 @@ public class Luke {
      * @param args The command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Luke("./out/artifacts/ip_jar/memory.txt").run();
-        //new Luke("data/tasks.txt").run();
+        /*
+        String home = System.getProperty("user.home");
+        java.nio.file.Path path = java.nio.file.Paths.get(home, "out", "artifacts", "ip_jar", "memory.txt");
+        boolean directoryExists = java.nio.file.Files.exists(path);
+
+        new Luke(path).run();
+
+         */
+
+        //new Luke("./out/artifacts/ip_jar/memory.txt").run();
+
+        new Luke().run();
     }
 }
 

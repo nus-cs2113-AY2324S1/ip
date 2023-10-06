@@ -18,3 +18,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 /src/main/java/META-INF
 /src/main/java/luke/files/memory.txt
+/data/memory.txt
