@@ -2,6 +2,7 @@ package torchie.parser;
 
 import torchie.exception.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TaskDetailsParser {
@@ -87,7 +88,15 @@ public class TaskDetailsParser {
         }
 
         // correct format of deadline: yyyy-mm-ddTHH:mm
-        String deadlineString = s.substring(keyWordIndex + SIZE_OF_BUFFER);
+        String deadlineString = null;
+        try {
+            deadlineString = s.substring(keyWordIndex + SIZE_OF_BUFFER);
+        } catch (Exception e) {
+            // if keyword /by present but contains no value, default to 1 day deadline
+            System.out.println("No deadline set, defaulting to 1 day later");
+            deadlineString = LocalDateTime.now().plusDays(1).toString();
+
+        }
 
         return dateTimeParser.getDateTimeObject(deadlineString);
     }
