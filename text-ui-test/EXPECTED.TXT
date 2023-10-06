@@ -9,87 +9,127 @@ I can help you create an agenda to manage your tasks.
 What is your name?
 How can I help you?
 ==============================
-Mr. NoBody:
+Mr. Nobody:
+Doli:
+Refer to the user guide for help: https://danielpappa.github.io/ip/
+==============================
+Mr. Nobody:
 Doli:
 Got it! I've added the following task to your agenda:
 	[T] [ ] daniel pappalardo: answer cs2113 tutorial questions
 Now you have a total of 1 tasks in your agenda.
 ==============================
-Mr. NoBody:
+Mr. Nobody:
 Doli:
 Got it! I've added the following task to your agenda:
 	[D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
 Now you have a total of 2 tasks in your agenda.
 ==============================
-Mr. NoBody:
+Mr. Nobody:
 Doli:
 Got it! I've added the following task to your agenda:
-	[E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
+	[E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Nov 10 2021)
 Now you have a total of 3 tasks in your agenda.
 ==============================
-Mr. NoBody:
+Mr. Nobody:
 Doli:
 Here is an overview of your agenda:
    1. [T] [ ] daniel pappalardo: answer cs2113 tutorial questions
    2. [D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
-   3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
+   3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Nov 10 2021)
 
 ==============================
-Mr. NoBody:
+Mr. Nobody:
 Doli:
 I've successfully marked task 1 as done.
 Would you like to mark/unmark something else?
 ==============================
-Mr. NoBody:
+Mr. Nobody:
+Doli:
+I've successfully marked task 2 as done.
+Would you like to mark/unmark something else?
+==============================
+Mr. Nobody:
+Doli:
+Here is an overview of your agenda:
+   1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
+   2. [D] [X] weekly cs2113 quiz  (by: Oct 09 2023)
+   3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Nov 10 2021)
+
+==============================
+Mr. Nobody:
+Doli:
+I've unmarked task 2. You better get it done soon!
+Would you like to mark/unmark something else?
+==============================
+Mr. Nobody:
 Doli:
 Here is an overview of your agenda:
    1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
    2. [D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
-   3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
+   3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Nov 10 2021)
 
 ==============================
-Mr. NoBody:
+Mr. Nobody:
 Input of a todo cannot be blank!
 ==============================
-Mr. NoBody:
-Time or description missing for deadline
+Mr. Nobody:
+There is something amiss in your deadline date, please try again
 ==============================
-Mr. NoBody:
+Mr. Nobody:
+There is something amiss in your deadline date, please try again
+==============================
+Mr. Nobody:
 Start-time, end-time or description missing for event
 ==============================
-Mr. NoBody:
+Mr. Nobody:
 Doli:
 Here is an overview of your agenda:
    1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
    2. [D] [ ] weekly cs2113 quiz  (by: Oct 09 2023)
-   3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
+   3. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Nov 10 2021)
 
 ==============================
-Mr. NoBody:
+Mr. Nobody:
 Doli:
 Got it! I've deleted task 2
 ==============================
-Mr. NoBody:
+Mr. Nobody:
 Doli:
 Here is an overview of your agenda:
    1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
-   2. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Dec 09 2021)
+   2. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Nov 10 2021)
 
 ==============================
-Mr. NoBody:
+Mr. Nobody:
+Doli:
+Here is an overview of your agenda:
+   1. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Nov 10 2021)
+
+==============================
+Mr. Nobody:
 Doli:
 Here are the tasks matching your input keyword:
    1. [T] [X] daniel pappalardo: answer cs2113 tutorial questions
 
 ==============================
-Mr. NoBody:
+Mr. Nobody:
+Doli:
+Here's an overview of tasks that were due and past events:
+   1. [E] [ ] cs2113 lecture  (from: Nov 09 2023, to: Nov 10 2021)
+
+==============================
+Mr. Nobody:
 Doli:
 Got it! I've deleted all tasks. Your agenda is now empty.
 ==============================
-Mr. NoBody:
+Mr. Nobody:
 Doli:
 Here is an overview of your agenda:
 
 ==============================
-Mr. NoBody:
+Mr. Nobody:
+Doli:
+Alright, I hope I was able to help you out.
 ==============================
+Thank you for your patience, hope to see you soon! Bye!
