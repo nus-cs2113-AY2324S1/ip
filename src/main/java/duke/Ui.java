@@ -53,13 +53,6 @@ public class Ui {
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
                 String taskInfo = (i + 1) + ". " + task.toString();
-
-//                if (task instanceof Deadline) {
-//                    taskInfo += " (by: " + ((Deadline) task).getBy() + ")";
-//                } else if (task instanceof Event) {
-//                    taskInfo += " (from: " + ((Event) task).getFrom() + " to: " + ((Event) task).getTo() + ")";
-//                }
-
                 System.out.println(taskInfo);
             }
         }
@@ -87,7 +80,9 @@ public class Ui {
 
     // Display a task deleted message
     public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this task:\n" + task.toString());
+        if (task != null) {
+            System.out.println("Noted. I've removed this task:\n" + task.toString());
+        }
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 }

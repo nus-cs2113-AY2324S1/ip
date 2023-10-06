@@ -26,7 +26,7 @@ public class Task implements Serializable{
     }
 
     public String getTaskType() {
-        return "Task";
+        return "T";
     }
 
     // Convert a task to a string format for saving
@@ -60,8 +60,8 @@ public class Task implements Serializable{
                 }
                 return event;
             }
-        } else {
-            Task task = new Task(description);
+        } else if (taskType.equals("T")) {
+            Task task = new Todo(description);
             if (isDone) {
                 task.markAsDone();
             }
