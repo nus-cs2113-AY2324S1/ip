@@ -1,29 +1,84 @@
-# User Guide
+# Nupjuk User Guide
 
-## Features 
+Nupjuk is a desktop app for schedule management.
 
-### Feature-ABC
+It uses Command Line Interface.
 
-Description of the feature.
+Your tasks(todo, deadline, event) are added in a list.
 
-### Feature-XYZ
+Updates in list are automatically saved in `nupjuk.txt`.
 
-Description of the feature.
+## Features
 
-## Usage
+### Adding a task: `todo`
 
-### `Keyword` - Describe action
+Adds a task to the list.
 
-Describe the action and its outcome.
+Format: `todo DESCRIPTION`
 
-Example of usage: 
+> Tip: `DESCRIPTION` can contains multiple words
 
-`keyword (optional arguments)`
+Examples: 
 
-Expected outcome:
+- `todo borrow book`
 
-Description of the outcome.
+### Adding a task with deadline: `deadline`
 
-```
-expected output
-```
+Adds a task with deadline to the list.
+
+Format: `deadline DESCRIPTION /by TIME`
+
+> Tip: `TIME` should be in the format: `dd-MM-yyyy HHmm`
+
+Examples:
+
+- `deadline return book /by 09-10-2023 1800`
+
+
+### Adding a task with start and end: `event`
+
+Adds a task with start and end time to the list.
+
+Format: `event DESCRIPTION /from START /to END
+
+> Tip: `START` and `END` should be in the format: `dd-MM-yyyy HHmm`
+
+Examples:
+
+- `event CS2113 Project /from 23-09-2023 1200 /to 12-11-2023 2359`
+
+### Showing the list of tasks: `list`
+
+Shows all the tasks in the list.
+
+Format: `list`
+
+### Marking the finished task: `mark`
+
+Marks the completed task.
+
+Format: `mark INDEX`
+
+- `INDEX` must be a positive integer 1, 2, 3, ...
+
+Examples:
+
+- `mark 3`
+
+### Unmarking the task: `unmark`
+
+Unmarks the uncompleted task.
+
+Format: `unmark INDEX`
+
+- `INDEX` must be a positive integer 1, 2, 3, ...
+
+Examples:
+
+- `unmark 2`
+
+### Terminating the program: `bye`
+
+Terminates the program.
+
+Format: `bye`
