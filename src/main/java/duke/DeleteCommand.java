@@ -2,11 +2,11 @@ package duke;
 
 public class DeleteCommand implements Command {
     private int taskIndex;
-    private Ui ui;  // Add this field to store the Ui object
+    private Ui ui;
 
-    public DeleteCommand(int taskIndex, Ui ui) {  // Constructor that accepts Ui
+    public DeleteCommand(int taskIndex, Ui ui) {
         this.taskIndex = taskIndex;
-        this.ui = ui;  // Set the Ui object
+        this.ui = ui;
     }
 
     @Override
@@ -14,7 +14,6 @@ public class DeleteCommand implements Command {
         if (taskIndex >= 0 && taskIndex < tasks.getTaskCount()) {
             Task removedTask = tasks.deleteTask(taskIndex);
             ui.showTaskDeleted(removedTask, tasks.getTaskCount());  // Pass Ui object to showTaskDeleted
-            storage.saveTasks(tasks.getTasks());
         } else {
             ui.showError("Invalid task number!");
         }

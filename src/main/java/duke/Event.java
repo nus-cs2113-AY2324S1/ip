@@ -14,12 +14,10 @@ public class Event extends Task {
         return "Event";
     }
 
-    // Getter method for 'from' date
     public String getFrom() {
         return from;
     }
 
-    // Getter method for 'to' date
     public String getTo() {
         return to;
     }

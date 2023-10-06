@@ -10,7 +10,6 @@ public class Ui {
         scanner = new Scanner(System.in);
     }
 
-    // Display a welcome message
     public void showWelcome() {
         String LINE = "__________________________________________\n";
         System.out.println(LINE
@@ -19,17 +18,14 @@ public class Ui {
                 + LINE);
     }
 
-    // Display an error message
     public void showError(String message) {
         System.out.println(message);
     }
 
-    // Display a loading error message
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
     }
 
-    // Display a line divider
     public void showLine() {
         System.out.println("__________________________________________");
     }
@@ -39,7 +35,6 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    // Display a farewell message
     public void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
@@ -58,8 +53,6 @@ public class Ui {
         }
     }
 
-
-    // Display a task added message
     public void showTaskAdded(Task task, int taskCount) {
         System.out.println("Got it. I've added this task:\n"
                 + task.toString()
@@ -68,17 +61,14 @@ public class Ui {
                 + " tasks in the list.");
     }
 
-    // Display a task marked as done message
     public void showTaskMarkedDone(Task task) {
         System.out.println("Nice! I've marked this task as done:\n" + task.toString());
     }
 
-    // Display a task marked as undone message
     public void showTaskMarkedUndone(Task task) {
         System.out.println("OK, I've marked this task as not done yet:\n" + task.toString());
     }
 
-    // Display a task deleted message
     public void showTaskDeleted(Task task, int taskCount) {
         if (task != null) {
             System.out.println("Noted. I've removed this task:\n" + task.toString());

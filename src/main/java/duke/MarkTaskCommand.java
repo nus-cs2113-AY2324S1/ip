@@ -20,10 +20,10 @@ public class MarkTaskCommand implements Command {
 
     @Override
     public boolean isExit() {
-        return false; // Marking a task as done doesn't trigger program exit
+        return false;
     }
 
-    // Helper method to check if the task index is valid
+    // Checks if the task index is valid
     private boolean isValidTaskIndex(int index, TaskList tasks) {
         return index >= 0 && index < tasks.getTaskCount();
     }

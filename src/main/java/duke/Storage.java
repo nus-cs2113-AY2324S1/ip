@@ -15,7 +15,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    // Load tasks from the data file when the chatbot starts
+    // Load tasks from the data file when Matinbot starts
     public ArrayList<Task> loadTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {

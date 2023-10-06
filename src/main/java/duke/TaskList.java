@@ -57,7 +57,7 @@ public class TaskList {
         if (isValidIndex(index)) {
             return tasks.get(index);
         } else {
-            return null; // Or throw an exception if you prefer
+            return null;
         }
     }
 

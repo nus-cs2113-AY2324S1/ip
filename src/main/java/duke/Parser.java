@@ -32,15 +32,14 @@ public class Parser {
         try {
             String[] words = userInput.split(" ");
 
-            // Check if the user input has the correct format (e.g., "mark 2")
+            // Checks if the user input has the correct format
             if (words.length < 2) {
                 throw new DukeException("☹ OOPS!!! Please specify a task number to mark as done.");
             }
 
-            // Parse the task index (subtract 1 because user input is 1-based, but ArrayList is 0-based)
+            // Parse the task index
             int taskIndex = Integer.parseInt(words[1]) - 1;
 
-            // Return a new MarkTaskCommand with the parsed task index
             return new MarkTaskCommand(taskIndex);
         } catch (NumberFormatException e) {
             // Handle the case where the task index is not a valid number
@@ -48,7 +47,6 @@ public class Parser {
         }
     }
 
-    // Parser.java
     private static Command parseUnmarkTask(String userInput, Ui ui) throws DukeException {
         try {
             String[] words = userInput.split(" ");
@@ -66,7 +64,6 @@ public class Parser {
 
     private static Command parseAddTodoTask(String userInput) throws DukeException {
         // Implement parsing for adding a todo task
-        // Example: "todo Buy groceries"
         String description = userInput.replaceFirst("todo", "").trim();
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -76,7 +73,6 @@ public class Parser {
 
     private static Command parseAddDeadlineTask(String userInput) throws DukeException {
         // Implement parsing for adding a deadline task
-        // Example: "deadline Finish report /by 2023-09-30"
         String[] parts = userInput.replaceFirst("deadline", "").trim().split("/by");
         if (parts.length != 2) {
             throw new DukeException("☹ OOPS!!! The deadline task must include '/by' to specify the date.");
@@ -91,7 +87,6 @@ public class Parser {
 
     private static Command parseAddEventTask(String userInput) throws DukeException {
         // Implement parsing for adding an event task
-        // Example: "event Birthday party /from 2023-09-15 /to 2023-09-16"
         String[] parts = userInput.replaceFirst("event", "").trim().split("/from");
         if (parts.length != 2 || !parts[1].contains("/to")) {
             throw new DukeException("☹ OOPS!!! The event task must include '/from' and '/to' to specify the date range.");
@@ -109,7 +104,6 @@ public class Parser {
 
     private static Command parseDeleteTask(String userInput, Ui ui) throws DukeException {
         // Implement parsing for deleting a task
-        // Example: "delete 2"
         try {
             String[] words = userInput.split(" ");
             if (words.length < 2) {
