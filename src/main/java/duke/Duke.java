@@ -11,13 +11,17 @@ public class Duke {
     private FileStorage fileStorage;
     private TaskList taskList;
 
-    private void run() {
+    public Duke() {
         taskList = new TaskList();
-        FileStorage.fillListFromFile(taskList);
+        fileStorage = new FileStorage("./duke.txt");
+    }
+
+    public void run() {
+        fileStorage.fillListFromFile(taskList);
         UIHandler.startMessage();
         Parser.parse(taskList);
         UIHandler.endMessage();
-        FileStorage.fillFileFromList(taskList);
+        fileStorage.fillFileFromList(taskList);
     }
 
     public static void main(String[] args) {

@@ -11,15 +11,25 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileStorage {
-    public static void fillFileFromList(TaskList taskList) {
+
+    private File dataFile;
+    private FileWriter fileWriter;
+    private Scanner fileScanner;
+    private String filePath;
+
+    public FileStorage (String filePath) {
+        this.filePath = filePath;
+        // file object with expected file path
+        dataFile = new File(filePath);
+    }
+    public void fillFileFromList(TaskList taskList) {
         // writing to file
         try {
-            File dataFile = new File("./duke.txt");
             // attempt file creation
             dataFile.createNewFile();
 
             // add all tasks to file
-            FileWriter fileWriter = new FileWriter(dataFile);
+            fileWriter = new FileWriter(dataFile);
             for(Task task : taskList.getTasks()) {
                 fileWriter.write(task.toStringFile() + System.lineSeparator());
             }
@@ -29,14 +39,12 @@ public class FileStorage {
         }
     }
 
-    public static void fillListFromFile(TaskList taskList) {
+    public void fillListFromFile(TaskList taskList) {
         // IO file handling
         try {
-            // file object with expected file path
-            File dataFile = new File("./duke.txt");
             // attempt file creation, if file already exist, read from file
             if (!dataFile.createNewFile()) {
-                Scanner fileScanner = new Scanner(dataFile);
+                fileScanner = new Scanner(dataFile);
                 while (fileScanner.hasNext()) {
                     String line = fileScanner.nextLine();
                     String[] taskData = line.split("\\|");
