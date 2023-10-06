@@ -2,6 +2,10 @@ package BotBuddy;
 
 import java.util.Scanner;
 
+/**
+ * The Ui class contains methods to print messages to the user and get input from the user
+ *
+ */
 public class Ui {
     public void printUnderscores() {
         System.out.println("____________________________________________________________");
