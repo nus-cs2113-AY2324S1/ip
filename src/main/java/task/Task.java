@@ -43,10 +43,20 @@ public class Task {
     //return a new list after delete the target object
     public static Task[] updatedTaskList(int indexOfDelete){
         Task[] newList = new  Task[100];
-        int numOfCopy = Duke.getTaskList().length - indexOfDelete - 1;
-        System.arraycopy(Duke.getTaskList(), 0, newList, 0, indexOfDelete);
-        System.arraycopy(Duke.getTaskList(), indexOfDelete + 1, newList, indexOfDelete, numOfCopy);
+        int numOfCopy = Duke.list.length - indexOfDelete - 1;
+        System.arraycopy(Duke.list, 0, newList, 0, indexOfDelete);
+        System.arraycopy(Duke.list, indexOfDelete + 1, newList, indexOfDelete, numOfCopy);
         return newList;
+    }
+
+    //This method will return all tasks inside the list
+    public static String getConcatenateTasks() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < Duke.taskCount; i++) {
+            String taskAppend = (i +1) + ". " +  Duke.list[i].toString();
+            stringBuilder.append(taskAppend).append("\n");
+        }
+        return stringBuilder.toString();
     }
 
     @Override

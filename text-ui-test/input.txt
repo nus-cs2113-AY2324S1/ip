@@ -1,0 +1,8 @@
+todo read book
+todo play piano
+mark 2
+deadline return book /by Friday
+event java lesson /from Friday 4pm /to 6pm
+unmark 4
+list
+bye
