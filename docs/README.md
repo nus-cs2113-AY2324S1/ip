@@ -1,5 +1,5 @@
 # User Guide
-This is a user guide for CS2113 iP by charkty.
+This is a CS2113 iP user guide by charkty (Charlyn Kwan).
 
 ## Table of Contents
 1. [Quick Start](#quick-start)
