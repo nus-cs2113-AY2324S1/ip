@@ -53,6 +53,14 @@ public class Memory {
                         newTask = new Todo("error");
                         break;
                 }
+                switch (characters[4]) {
+                    case 'X':
+                        newTask.setDone(true);
+                        break;
+                    case ' ':
+                        newTask.setDone(false);
+                        break;
+                }
                 tasks.add(newTask);
             } catch (LukeException e) {
                 System.out.println("\t☹ An error occurred." + e.getMessage());
