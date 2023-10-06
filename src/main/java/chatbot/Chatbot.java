@@ -17,29 +17,31 @@ public class Chatbot {
     private Storage storage;
     private Parser parser;
     private Ui ui;
+    private TaskList taskList;
 
     public Chatbot() {
         this.ui = new Ui();
         this.storage = new Storage("./tasklist.txt");
         this.parser = new Parser();
+        this.taskList = new TaskList();
     }
 
     public void run() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<Task>(100);
-        this.ui.showGreetingMessage();;
+
+        this.ui.showGreetingMessage();
 
         try {
-            ArrayList<String> lines = storage.parseFile(tasks);
+            ArrayList<String> lines = storage.parseFile(this.taskList.getTaskList());
             for(String line : lines) {
                 Command c = this.parser.parseCommand(line);
-                c.execute(tasks, false);
+                c.execute(this.taskList.getTaskList(), false);
             }
 
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
             while(!input.equals("bye")) {
                 Command c = this.parser.parseCommand(input);
-                c.execute(tasks, true);
+                c.execute(this.taskList.getTaskList(), true);
                 input = in.nextLine();
             }
         } catch(ChatbotUnknownCommandException e) {
