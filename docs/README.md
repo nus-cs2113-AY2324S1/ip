@@ -36,8 +36,8 @@ New todo task added, so there will be a confirmation message.
 
 ```
     Got it. I've added this task:
-	[T][ ] read book
-	Now you have 1 tasks in the list.
+    [T][ ] read book
+    Now you have 1 tasks in the list.
 ```
 
 ### `deadline` - Add deadline
@@ -58,8 +58,8 @@ New deadline task added, so there will be a confirmation message.
 
 ```
     Got it. I've added this task:
-	[D][ ] return book (do by: next saturday)
-	Now you have 2 tasks in the list.
+    [D][ ] return book (do by: next saturday)
+    Now you have 2 tasks in the list.
 ```
 
 ### `event` - Add event
