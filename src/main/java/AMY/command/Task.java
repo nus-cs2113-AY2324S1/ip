@@ -44,27 +44,22 @@ public class Task {
         if (taskType.equals("T")) {
             task = new Todo(description);
         } else if (taskType.equals("D")) {
-            // Extract the deadline information (e.g., "June 6th")
             String by = parts[3].trim();
             task = new Deadline(description, by);
         } else if (taskType.equals("E")) {
-            // Extract the event information (e.g., "Aug 6th 2-4pm")
             String fromTo = parts[3].trim();
             String[] dateTimeParts = fromTo.split("\\|");
             String from = dateTimeParts[0].trim();
             String to = dateTimeParts[1].trim();
             task = new Event(description, from, to);
         } else {
-            // Handle unknown task types (optional)
             task = null;
         }
-
         if (task != null) {
             if (status.equals("1")) {
                 task.markAsDone();
             }
         }
-
         return task;
     }
 

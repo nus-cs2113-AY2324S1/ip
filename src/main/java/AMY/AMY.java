@@ -17,24 +17,23 @@ import AMY.command.Deadline;
 import AMY.command.Event;
 import AMY.command.Task;
 import AMY.command.Todo;
-import AMY.command.Delete;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 public class AMY {
     public static final String BOT_NAME = "AMY";
+    private static final String FILE_PATH = "./data/AMY.txt";
     public static final String LINE = "____________________________________________________________";
     public static ArrayList<Task> taskList = new ArrayList<>();
-    public static int numberOfTasks;
     public static Scanner scanner = new Scanner(System.in);
+    public static int numberOfTasks;
 
-
-    // Draws a line
+    // Draw a line to separate commands after given inputs
     public static void drawLine() {
         System.out.println(LINE);
     }
 
-    // Writes a welcome message
+    // Write a welcome message to welcome user when the program starts
     public static void welcomeMessage() {
         drawLine();
         String logo = "        \n"
@@ -50,16 +49,13 @@ public class AMY {
         drawLine();
     }
 
-    // Writes a bye message
+    // Write a bye message for the user when the program ends
     public static void byMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         drawLine();
     }
 
-    // File path for storing tasks
-    private static final String FILE_PATH = "./data/AMY.txt";
-
-    // Save tasks to a file
+    // Save tasks to a file to load later when command is entered
     public static void saveTasksToFile() {
         try {
             FileWriter writer = new FileWriter(FILE_PATH);
@@ -72,7 +68,7 @@ public class AMY {
         }
     }
 
-    // Load tasks from a file
+    // Load tasks from a file to show saved tasks when the program starts
     public static void loadTasksFromFile() {
         try {
             File file = new File(FILE_PATH);
@@ -99,16 +95,15 @@ public class AMY {
         }
     }
 
-    // Add a task to the list
+    // Add a task to the list when an todo command is entered
     public static void addToList(Task task) {
-        //taskList[numberOfTasks] = task;
         taskList.add(task);
         System.out.println("Got it. I've added this task: ");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskList.size() + " tasks in the list");
     }
 
-    // List all tasks if the user enters "list"
+    // List all tasks when "list" command is entered
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
@@ -116,7 +111,7 @@ public class AMY {
         }
     }
 
-    // Mark task as done if the user enters "mark"
+    // Mark task as done when "mark" command is entered
     public static void markTaskAsDone(int taskIndex) {
         if (taskIndex >= 1 && taskIndex <= taskList.size()) {
             Task task = taskList.get(taskIndex - 1);
@@ -128,7 +123,7 @@ public class AMY {
         }
     }
 
-    // Unmark task as done if the user enters "unmark"
+    // Unmark task as done when "unmark" command is entered
     public static void unmarkTask(int taskIndex) {
         if (taskIndex >= 1 && taskIndex <= taskList.size()) {
             Task task = taskList.get(taskIndex - 1);
@@ -140,7 +135,7 @@ public class AMY {
         }
     }
 
-    // Delete a task from the list
+    // Delete a task from the list when "delete" command is entered
     public static void deleteTask(int taskIndex) {
         if (taskIndex >= 1 && taskIndex <= taskList.size()) {
             Task removedTask = taskList.remove(taskIndex - 1);
@@ -152,6 +147,7 @@ public class AMY {
         }
     }
 
+    // Throw exceptions when exceptions are encountered to avoid an error
     public static void manageException(String userInput) throws EmptyInput, EmptyToDoException,
             EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException, EmptyEventException,
             EmptyDeleteException {
@@ -183,6 +179,7 @@ public class AMY {
         }
     }
 
+    // Manage input when input is given to follow order
     public static void manageInput() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
