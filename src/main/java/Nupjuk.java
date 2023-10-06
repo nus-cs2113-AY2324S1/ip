@@ -1,8 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
-import java.util.ArrayList;
 
-public class Duke {
+public class Nupjuk {
 
     /* for file output */
     static PrintWriter pw;
@@ -13,7 +12,7 @@ public class Duke {
 
     private static Ui ui;
 
-    public Duke(String filePath){
+    public Nupjuk(String filePath){
         ui = new Ui();
         storage = new Storage(filePath);
 
@@ -25,6 +24,11 @@ public class Duke {
         }
     }
 
+    /**
+     * runs the program until user says "Bye"
+     *
+     * @throws IOException if problem in input and parsing
+     */
     public void run() throws IOException{
         Scanner input = new Scanner(System.in);
 
@@ -39,6 +43,6 @@ public class Duke {
     }
 
     public static void main(String[] args) throws IOException{
-        new Duke("./nupjuk.txt").run();
+        new Nupjuk("./nupjuk.txt").run();
     }
 }

@@ -8,18 +8,27 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/* Storage Class that read & save txt file*/
-/* If no file exist, create new one*/
+/**
+ * Read & save txt file
+ * If no file exist, create new one
+ */
+
 public class Storage {
 
+    // path for save and load txt
     protected String path;
 
     public Storage(String path){
         this.path = path;
     }
 
-    /* method for save tasks to disk */
-    public void saveTask(TaskList tasks, int tasks_size) throws IOException {
+    /**
+     * Save tasks to disk
+     *
+     * @param tasks the list of todos / deadlines / events
+     * @throws IOException when problems in format
+     */
+    public void saveTask(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter("./nupjuk.txt");
         for(int i=0;i<tasks.getSize();i++){
             Task task = tasks.getTask(i);
@@ -29,7 +38,12 @@ public class Storage {
         fw.close();
     }
 
-    /* Automatically load tasks from disk */
+    /**
+     * Automatically load tasks from disk
+     *
+     * @return list of todos / deadlines / events
+     * @throws FileNotFoundException when there is no file in given path
+     */
     public ArrayList<Task> loadTask() throws FileNotFoundException {
         ArrayList <Task> tasks = new ArrayList<>();
 

@@ -8,6 +8,8 @@ public class Todo extends Task{
         super(description);
     }
 
-    //override
-    public String getTypeIcon(){ return "T"; }
+    @Override
+    public String getTypeIcon(){
+        return "T";
+    }
 }

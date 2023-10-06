@@ -1,8 +1,11 @@
 import java.util.ArrayList;
+
+/**
+ * List of tasks
+ * Based on ArrayList
+ */
 public class TaskList {
     protected ArrayList<Task> tasks;
-
-
 
     public TaskList(){
         this.tasks = new ArrayList<>();

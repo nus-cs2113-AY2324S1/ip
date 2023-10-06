@@ -1,13 +1,13 @@
-/**
- *  Deadline class
- *  extends Task class
- *  tasks with deadline
- */
+
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ *  Deadline class
+ *  tasks with deadline
+ */
 public class Deadline extends Task{
     protected LocalDateTime deadline;
 
@@ -16,12 +16,16 @@ public class Deadline extends Task{
         this.deadline = deadline;
     }
 
-    //override
+    @Override
     public String getTypeIcon(){
         return "D";
     }
 
-    //override
+    /**
+     * Make description with datetimeformat
+     * @return description in deadline format
+     */
+    @Override
     public String getDescription(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
         // delete "(by:" and ")"
