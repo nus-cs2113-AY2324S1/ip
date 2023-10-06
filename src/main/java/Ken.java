@@ -1,11 +1,21 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Ken initializes its components, including the user interface, storage for task data, and the task list.
+ * It loads tasks from a file upon startup and
+ * provides a run loop to process user commands until the "bye" command is entered.
+ */
 public class Ken {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructs a Ken object with the specified file path.
+     *
+     * @param filePath The path to the file where task data is stored.
+     */
     public Ken(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -15,12 +25,22 @@ public class Ken {
         storage.loadTasks(taskList);
     }
 
-
+    /**
+     * The main method to start the Ken chatbot.
+     *
+     * @throws KenException If there is an exception during chatbot initialization or execution.
+     */
     public static void main(String[] args) throws KenException {
         Ken ken = new Ken("ken.txt");
         ken.run();
     }
 
+    /**
+     * Starts the chatbot's main run loop. It continuously prompts the user for input and
+     * processes commands until the "bye" command is entered.
+     *
+     * @throws KenException If there is an exception during command processing.
+     */
     public void run() throws KenException {
         Ui.printLine();
         Ui.printWelcomeMessage();
@@ -54,6 +74,7 @@ public class Ken {
         scanner.close();
     }
 }
+
 
 class KenException extends Exception {
     public KenException(String message) {
