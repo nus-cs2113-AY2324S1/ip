@@ -9,6 +9,8 @@ import Exceptions.DukeException;
 import Task.Deadline;
 import Task.Event;
 import Task.TaskList;
+import Task.Todo;
+
 import static Task.TaskList.list;
 
 /**
@@ -34,17 +36,19 @@ public class Storage {
      * @param savedTask String of task saved in file
      */
     public static void extractTodo(String savedTask){
-        TaskList.createTodoTasks(savedTask.substring(8));
+        Todo todoTask = new Todo(savedTask.substring(8));
+        list.add(todoTask);
     }
 
     /**
      * extracts deadline tasks and its deadline out of the saved string and adds it to tasklist as task type
      * @param savedTask String of task saved in file
      * @throws DukeException when format of saved task is wrong
-     */    public static void extractDeadline(String savedTask) throws DukeException {
+     */
+        public static void extractDeadline(String savedTask) throws DukeException {
         String[] parts = savedTask.split(" \\(by: " );
         String task = parts[0].substring(8);
-        String deadline = parts[1].substring(0, parts[1].length() - 1);
+        String deadline = parts[1].substring(0, parts[1].length() -1);
         if (task.isEmpty() || deadline.isEmpty()) {
             throw new DukeException("Loaded task or deadline is empty... Please check your saved list again~");
         } else {
@@ -92,11 +96,11 @@ public class Storage {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {
                 String savedTask = fileScanner.nextLine();
-                if (savedTask.contains("T")) {
+                if (savedTask.charAt(1) == ('T')) {
                     extractTodo(savedTask);
-                } else if (savedTask.contains("D")) {
+                } else if (savedTask.charAt(1) == ('D')) {
                     extractDeadline(savedTask);
-                } else if (savedTask.contains("E")) {
+                } else if (savedTask.charAt(1) == ('E')) {
                     extractEvent(savedTask);
                 }
             }
