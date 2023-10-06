@@ -26,7 +26,7 @@ public class EventCommand extends Command{
             throw new DukeFormatException("Uhoh... Please check your format and include '/from' and '/to'~");
         } else {
             String[] parts = input.split(" /");
-            if (parts[0].length() <= "event ".length()) {
+            if (parts[0].length() < "event ".length()) {
                 throw new DukeFormatException("Event cannot be empty :< Please provide a valid event description.");
             }
             task = parts[0].substring("event ".length());

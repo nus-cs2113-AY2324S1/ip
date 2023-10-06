@@ -25,11 +25,11 @@ public class DeadlineCommand extends Command{
             throw new DukeFormatException("Ohno... Please check your format and include '/by'~");
         } else {
             String[] parts = input.split(" /by ");
-            if (parts[0].length() <= "deadline ".length()) {
+            if (parts[0].length() < "deadline ".length()) {
                 throw new DukeFormatException("Task cannot be empty :< Please provide a valid event description.");
             }
             task = parts[0].substring("deadline ".length());
-            if (parts.length != 2 || task.isEmpty() || parts[1].isEmpty()) {
+            if (parts.length != 2 || parts[1].isEmpty()) {
                 throw new DukeFormatException("Task or deadline cannot be empty... Please check your input again~");
             }
             deadline = parts[1];
