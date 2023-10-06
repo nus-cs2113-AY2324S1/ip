@@ -1,5 +1,8 @@
 package careo;
 
+/**
+ * The main class from which deadline, event and todo inherit.
+ */
 public class Task {
     /** Textual description of the task */
     protected String description;

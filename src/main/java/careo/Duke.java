@@ -4,7 +4,9 @@ package careo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Represents the main instance encapsulating all the parts of Careo.
+ */
 public class Duke {
     /** Central storage used for persistence of tasks */
     private Storage storage;
@@ -29,7 +31,7 @@ public class Duke {
             tasks = new TaskList(storage.load(), ui);
         } catch (StorageLoadException e) {
             ui.showLoadingError();
-            tasks = new TaskList(new ArrayList<Task>(), ui);
+            tasks = new TaskList(new ArrayList<>(), ui);
         }
 
         parser = new Parser(ui, tasks);

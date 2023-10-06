@@ -1,5 +1,8 @@
 package careo;
 
+/**
+ * Represents a certain kind of task that happens over a span of time.
+ */
 public class Event extends Task {
     /** When the event starts */
     protected String from;

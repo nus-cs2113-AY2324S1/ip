@@ -3,6 +3,9 @@ package careo;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Responsible for executing the proper business logic triggered by user input.
+ */
 public class Parser {
     /** UI that is responsible for user input and output */
     private Ui ui;

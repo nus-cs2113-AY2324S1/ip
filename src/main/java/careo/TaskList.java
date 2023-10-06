@@ -2,6 +2,9 @@ package careo;
 
 import java.util.ArrayList;
 
+/**
+ * Responsible for performing actions on the stored tasks.
+ */
 public class TaskList {
     /** UI that is responsible for user input and output */
     private Ui ui;

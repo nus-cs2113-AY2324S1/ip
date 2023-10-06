@@ -2,6 +2,9 @@ package careo;
 
 import java.util.ArrayList;
 
+/**
+ * Resposnsible for displaying output to the user.
+ */
 public class Ui {
     /**
      * Prints a line of dashes indented by four spaces.

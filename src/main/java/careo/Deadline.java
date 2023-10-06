@@ -1,5 +1,8 @@
 package careo;
 
+/**
+ * Represents a certain kind of task due at a certain date.
+ */
 public class Deadline extends Task {
     /** By when the task must be completed */
     protected String by;

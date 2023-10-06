@@ -8,6 +8,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles making the saved tasks persistent.
+ */
 public class Storage {
     /** Where the persistence file (relative path) is stored */
     private String filePath;
@@ -89,7 +92,7 @@ public class Storage {
                     Event e = (Event) task;
 
                     printWriter.println("event|" + task.getDescription() + "|"
-                            + e.getFrom() + "" + e.getTo());
+                            + e.getFrom() + "|" + e.getTo());
                 } else {
                     Deadline d = (Deadline) task;
 

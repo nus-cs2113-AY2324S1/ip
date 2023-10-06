@@ -1,6 +1,8 @@
 package careo;
 
-
+/**
+ * A special kind of task that doesn't have any additional fields.
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);
