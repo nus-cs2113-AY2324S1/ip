@@ -46,6 +46,8 @@ public class Parser {
             case "todo":
                 words = new String[]{input.trim()};
                 break;
+            case "delete":
+                break;
             case "bye":
                 break;
             case "list":
@@ -58,9 +60,9 @@ public class Parser {
                 // Handle the default case, if needed
                 break;
         }
-
         return words;  // Return the array
     }
+
 
 }
 

@@ -52,9 +52,6 @@ public class Task {
      */
     public void setDone() {
         this.isDone = true;
-        System.out.println("_____________________________________________________");
-        System.out.println("Nice! I've marked this task as done:\n\t  " + this);
-        System.out.println("_____________________________________________________");
     }
 
     /**
@@ -114,7 +111,7 @@ public class Task {
     public void printDeleteTask() {
         System.out.println("_____________________________________________________");
         int num_tasks = getNumTasks() - 1;
-        System.out.print("Noted. I have removed this task:\n  " + this + "\nNow you have " + (num_tasks));
+        System.out.print("Noted. I have removed this task:\n  " + this + "\nNow you have " + (getNumTasks() - 1));
         if (num_tasks > 1) {
             System.out.println(" tasks in the list.");
         } else {

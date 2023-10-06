@@ -9,7 +9,7 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public void showWelcomeMessage() {
-        System.out.println("Hey! I'm Dukey, your virtual assistant!\nWhat can I do for you?\n");
+        System.out.println("Hey! I'm Dukey, your virtual assistant!\nWhat can I do for you?");
     }
 
     /**

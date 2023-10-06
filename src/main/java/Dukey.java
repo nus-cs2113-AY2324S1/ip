@@ -7,7 +7,7 @@ public class Dukey {
     protected Storage storage;
     protected TaskList tasks;
     protected Ui ui;
-    protected String filePath = "docs/dukey.txt";
+    protected String filePath = "data/dukey.txt";
 
     public Dukey(String filePath) {
         ui = new Ui();
@@ -26,6 +26,7 @@ public class Dukey {
         ui.showWelcomeMessage();
         Scanner in = new Scanner(System.in);
         String line;
+        storage.checkDirectoryExists("data");
         storage.checkFileExists(filePath);
         while (true) {
             line = in.nextLine();
@@ -40,6 +41,7 @@ public class Dukey {
                     break;
                 case "mark":
                     TaskList.markTask(line, tasks.tasks);
+                    storage.markTaskInFile(Integer.parseInt(input[1].trim()) - 1, filePath);
                     break;
                 case "unmark":
                     TaskList.unmarkTask(line, tasks.tasks);
@@ -61,6 +63,7 @@ public class Dukey {
                     break;
                 case "delete":
                     TaskList.deleteTask(line, tasks.tasks);
+                    storage.deleteLineFromFile(Integer.parseInt(input[1].trim()) - 1, filePath);
                     break;
                 case "find":
                     storage.searchKeyword(line, tasks.tasks);
@@ -80,7 +83,7 @@ public class Dukey {
     }
     public static void main(String[] args) {
         try {
-            new Dukey("docs/dukey.txt").run();
+            new Dukey("data/dukey.txt").run();
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
