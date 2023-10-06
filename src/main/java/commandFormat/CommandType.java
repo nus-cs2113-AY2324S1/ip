@@ -7,8 +7,7 @@ public class CommandType {
 
     public static Command parseCommand(String input) throws DukeException {
 
-        String cmd = CommandFormat.formattedCommand(input);
-        String[] commandSplits = cmd.split(" ");
+        String[] commandSplits = input.split(" ");
         Command command;
 
         switch (commandSplits[0]) {
@@ -16,13 +15,13 @@ public class CommandType {
             command = new ListCommand();
             break;
         case "todo":
-            command = new TodoCommand(cmd);
+            command = new TodoCommand(input);
             break;
         case "deadline":
-            command = new DeadlineCommand(cmd);
+            command = new DeadlineCommand(input);
             break;
         case "event":
-            command = new EventCommand(cmd);
+            command = new EventCommand(input);
             break;
         case "mark":
             command = new MarkCommand(commandSplits[1]);

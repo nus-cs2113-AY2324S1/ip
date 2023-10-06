@@ -1,6 +1,10 @@
 package command;
 
-import message.text;
+import message.Text;
+
+import java.io.IOException;
+import fileIO.FileIO;
+
 
 public class ByeCommand extends Command {
 
@@ -10,6 +14,9 @@ public class ByeCommand extends Command {
 
     @Override
     public void executeCommand() {
-        text.printByeMessage();
+
+            Text.printByeMessage();
+            FileIO.backupTaskFile();
+
     }
 }

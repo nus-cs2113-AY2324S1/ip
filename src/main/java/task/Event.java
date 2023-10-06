@@ -1,6 +1,9 @@
 package task;
 
+import commandFormat.TimeParser;
 import exception.DukeException;
+
+import java.time.LocalDateTime;
 
 public class Event extends Task {
     protected String start, end;
@@ -16,11 +19,12 @@ public class Event extends Task {
         if (!(userCommand.contains("/from")) || !(userCommand.contains("/to"))){
             throw new DukeException("Oh, no! There is no '/from' or '/to' ");
         }
-        String[] eventSplit = userCommand.split("/");
-        int spaceIndex = eventSplit[0].indexOf(" ");
-        String eventTask = eventSplit[0].substring(spaceIndex + 1).trim();
-        String start = eventSplit[1].trim().substring(5); // Remove "/from " prefix
-        String end = eventSplit[2].trim().substring(3); // Remove "/to " prefix
+        userCommand = userCommand.substring(6);  //remove "event"
+        int indexOfFrom = userCommand.indexOf("/from");
+        int indexOfTo = userCommand.indexOf("/to");
+        String start = userCommand.substring(indexOfFrom + 6, indexOfTo).trim();
+        String end = userCommand.substring(indexOfTo + 4).trim();
+        String eventTask = userCommand.substring(0, indexOfFrom).trim();
         return new Event(eventTask, start, end);
     }
 
@@ -28,6 +32,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         //print example: [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+
         return "[E]" + super.toString() + " (from: " + this.start +  " to: " + this.end + ")";
     }
 

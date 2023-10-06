@@ -2,7 +2,7 @@ package command;
 
 import duke.Duke;
 import exception.DukeException;
-import message.text;
+import message.Text;
 import task.Todo;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class TodoCommand extends AddCommand{
     public void executeCommand(){
         try {
             Duke.list[Duke.taskCount] = Todo.newTodoTask(this.command);
-            text.createTaskSuccessMsg();
+            Text.createTaskSuccessMsg();
         } catch (DukeException e) {
             e.incorrectFormatException("todo");
         } catch (IOException io){

@@ -5,7 +5,7 @@ import command.Command;
 import commandFormat.CommandFormat;
 import commandFormat.CommandType;
 import task.*;
-import message.text;
+import message.Text;
 
 import exception.DukeException;
 import java.io.FileNotFoundException;
@@ -21,8 +21,8 @@ public class Duke {
     public static int taskCount = 0;
     public static Task[] list = new Task[100];
 
-    public static void main(String[] args) throws IOException{
-        text.printWelcomeMessage();
+    public static void main(String[] args) throws IOException, DukeException {
+        Text.printWelcomeMessage();
         Scanner keyboard = new Scanner(System.in);
         FileIO.outputFileInitialization();
         executeCommand(keyboard);
@@ -32,7 +32,6 @@ public class Duke {
         boolean isExit = false;
 
         while (!isExit) {
-            int taskNo;
             String cmd = keyboard.nextLine();
             cmd = CommandFormat.formattedCommand(cmd);
             String[] commandSplits = cmd.split(" ");
@@ -44,9 +43,6 @@ public class Duke {
                 Command command = CommandType.parseCommand(cmd);
                 command.executeCommand();
                 isExit = command.isExit();
-             //   case "save":
-             //       backupTaskFile();
-             //       break;
             } catch (NumberFormatException nfe) {
                 System.out.println("Hey, please input your command with the correct task number.");
             } catch (NullPointerException npe){

@@ -2,7 +2,7 @@ package command;
 
 import duke.Duke;
 import exception.DukeException;
-import message.text;
+import message.Text;
 import task.Event;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class EventCommand extends AddCommand {
     public void executeCommand(){
         try {
             Duke.list[Duke.taskCount] = Event.newEventTask(this.command);
-            text.createTaskSuccessMsg();
+            Text.createTaskSuccessMsg();
         } catch (DukeException e) {
             e.incorrectFormatException("event");
         } catch (IOException io){

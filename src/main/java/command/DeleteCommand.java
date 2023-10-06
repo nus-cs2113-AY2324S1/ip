@@ -1,7 +1,7 @@
 package command;
 
 import duke.Duke;
-import message.text;
+import message.Text;
 import task.Task;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class DeleteCommand extends Command{
             System.out.println("Oh, No! invalid index! You don't have that task. Please try again.");
             return;
         }
-        text.deleteTaskSuccessMsg(deleteIndex);
+        Text.deleteTaskSuccessMsg(deleteIndex);
         Duke.list = Task.updatedTaskList(deleteIndex - 1);
         overwriteToFile("data/taskList.txt", Task.getConcatenateTasks());
     }

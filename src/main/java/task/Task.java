@@ -28,6 +28,10 @@ public class Task {
         }
     }
 
+    public void restoreIsDone(){
+        this.isDone = true;
+    }
+
     public void setNotDone(int taskNo, int taskCount, Task[] list) {
         if ( (taskNo > taskCount ) || (taskNo <1) ){
             System.out.println("Oops! You don't have any task in this position.");

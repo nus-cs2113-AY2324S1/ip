@@ -1,6 +1,10 @@
 package task;
 
+import commandFormat.TimeParser;
 import exception.DukeException;
+
+import java.sql.Time;
+import java.time.LocalDateTime;
 
 public class Deadline extends Task {
 
@@ -16,16 +20,18 @@ public class Deadline extends Task {
         if (!(userCommand.contains("/by"))){
             throw new DukeException("Oh, no! I cannot detect the keyword '/by' ");
         }
+        userCommand = userCommand.substring(9);
+        int indexOfBy = userCommand.indexOf("/by");
+        String ddlTask = userCommand.substring(0, indexOfBy).trim();
+        String due = userCommand.substring(indexOfBy + 4);
 
-        String[] ddlSplit = userCommand.split("/");
-        int spaceIndex = ddlSplit[0].indexOf(" ");
-        String ddlTask = ddlSplit[0].substring(spaceIndex + 1).trim();
-
-        return new Deadline(ddlTask, ddlSplit[1].substring(3));
+        return new Deadline(ddlTask, due);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.due + ")";
+         LocalDateTime  time = TimeParser.parseDateTime(this.due);
+         String dueTime = TimeParser.convertDateTimetoString(time);
+        return "[D]" + super.toString() + " (by: " + dueTime + ")";
     }
 }

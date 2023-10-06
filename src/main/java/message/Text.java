@@ -8,7 +8,7 @@ import java.util.Scanner;
 import static duke.Duke.list;
 import static duke.Duke.taskCount;
 
-public class text {
+public class Text {
 
     public static void printWelcomeMessage() {
         System.out.println("Hello! I'm Oriento.");
@@ -46,12 +46,6 @@ public class text {
         }
         printFileContents("data/taskList.txt");
 
-        // This is to print the whole task message directly
-        /*
-        for (int i = 0; i < count; i++) {
-            //example 1.[T][X] read book
-            System.out.println((i + 1) + "." + list[i]);
-        }*/
     }
 
     public static void createTaskSuccessMsg() throws IOException{
@@ -60,6 +54,11 @@ public class text {
         taskCount++;
         System.out.println("Now you have " + taskCount + " tasks in the list.");
 
+        String taskAppend = taskCount + ". " +  list[taskCount - 1].toString() + "\n";
+        writeToFile("data/taskList.txt", taskAppend);
+    }
+
+    public static void restoreTaskIntoFile() throws IOException {
         String taskAppend = taskCount + ". " +  list[taskCount - 1].toString() + "\n";
         writeToFile("data/taskList.txt", taskAppend);
     }
