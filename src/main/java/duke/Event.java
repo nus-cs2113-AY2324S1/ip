@@ -14,9 +14,26 @@ public class Event extends Task {
         return "Event";
     }
 
+    // Getter method for 'from' date
+    public String getFrom() {
+        return from;
+    }
+
+    // Getter method for 'to' date
+    public String getTo() {
+        return to;
+    }
+
+    @Override
+    public String toFileString() {
+        String doneStatus = isDone ? "1" : "0";
+        return "E | " + doneStatus + " | " + description + " | " + from + "-" + to;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
+
 

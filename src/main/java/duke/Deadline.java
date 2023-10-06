@@ -12,6 +12,17 @@ public class Deadline extends Task {
         return "Deadline";
     }
 
+    // Getter method for 'by' date
+    public String getBy() {
+        return by;
+    }
+
+    @Override
+    public String toFileString() {
+        String doneStatus = isDone ? "1" : "0";
+        return "D | " + doneStatus + " | " + description + " | " + by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

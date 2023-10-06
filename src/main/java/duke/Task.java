@@ -35,18 +35,40 @@ public class Task implements Serializable{
         return getTaskType() + " | " + doneStatus + " | " + description;
     }
 
-    // Create a method to parse a string into a Task object
-    public static Task fromFileString(String fileString) {
+    public static Task fromFileString(String fileString) throws DukeException {
         String[] parts = fileString.split(" \\| ");
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
-        Task task = new Task(description);
-        if (isDone) {
-            task.markAsDone();
+        if (taskType.equals("D")) {
+            if (parts.length >= 4) {
+                String by = parts[3];
+                Deadline deadline = new Deadline(description, by);
+                if (isDone) {
+                    deadline.markAsDone();
+                }
+                return deadline;
+            }
+        } else if (taskType.equals("E")) {
+            if (parts.length >= 5) {
+                String from = parts[3];
+                String to = parts[4];
+                Event event = new Event(description, from, to);
+                if (isDone) {
+                    event.markAsDone();
+                }
+                return event;
+            }
+        } else {
+            Task task = new Task(description);
+            if (isDone) {
+                task.markAsDone();
+            }
+            return task;
         }
-        return task;
+
+        throw new DukeException("Incomplete data for a task");
     }
 
     @Override
