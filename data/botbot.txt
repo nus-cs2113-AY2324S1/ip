@@ -1,4 +1,3 @@
-[T] [ ] po
 [D] [ ] dfg (by: dfg)
 [T] [ ] poooooo
 [E] [ ] sd (from:  sd to:  sd)
@@ -6,3 +5,10 @@
 [E] [ ] df (from:  se to:  sf)
 [T] [ ] null
 [T] [ ] d
+[T] [ ] tasktask
+[D] [ ] sidfdjdndfsnkfv (by: dfg)
+[E] [ ] NDP Parade (from:  9th August 1300 to:  9th August 1600)
+[T] [ ] sing a song
+[D] [ ]  df (by: dd)
+[T] [ ] ddd
+[T] [ ] fry egg

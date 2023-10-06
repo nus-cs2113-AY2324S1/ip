@@ -52,9 +52,7 @@ public class Storage {
         if (task.isEmpty() || deadline.isEmpty()) {
             throw new DukeException("Loaded task or deadline is empty... Please check your saved list again~");
         } else {
-            //instantiate new deadline object
             Deadline deadlineTask = new Deadline(task, deadline);
-            //add to array
             list.add(deadlineTask);
         }
     }
@@ -72,9 +70,7 @@ public class Storage {
         if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new DukeException("Loaded task or time period is empty... Please check your saved list again~");
         } else {
-            //instantiate new event object
             Event eventTask = new Event(task, from, to);
-            //add to array
             list.add(eventTask);
         }
     }

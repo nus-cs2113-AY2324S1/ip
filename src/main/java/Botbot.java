@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-//Import packages and classes
 import Commands.Command;
 import Commands.ByeCommand;
 import Task.TaskList;
@@ -25,7 +24,6 @@ public class Botbot {
         //load file
         Storage.loadListFromFile();
 
-        //create new scanner object
         Scanner scanner = new Scanner(System.in);
         Command command;
 
