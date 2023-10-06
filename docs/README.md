@@ -33,7 +33,6 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 ### Task Creation
 
 Create 3 types of Tasks:
-<details>
 
 1. Todo: Tasks which are not time sensitive.
    
@@ -51,16 +50,13 @@ Create 3 types of Tasks:
 
    Example: <br> `event project meeting /from Mon 2pm /to 4pm`
 
-</details>
 
 ### Task Viewing
 
 Lists all the task in the task list.
 
 Format: `list`
-<details>
 
-<summary>Usage Example</summary>
 
     list    
     ____________________________________________________________
@@ -68,16 +64,13 @@ Format: `list`
      1.[T][ ] borrow book
      2.[D][ ] return book (by: Sunday)
     ____________________________________________________________
-</details>
+
 
 ### Task Marking
 
 Keep track of Task completion.
 1. '[X]' Indicates Tasks that are completed, using mark command.
 2. '[ ]' Indicates Tasks that are not completed, using unmark command.
-<details>
-
-<summary>Mark Task</summary>
 
 Format: `mark {task index}`
 
@@ -89,11 +82,6 @@ Example:
        [D][X] return book (by: Sunday)
     ____________________________________________________________
 
-</details>
-
-<details>
-
-<summary>Unmark Task</summary>
 
 Format: `unmark {task index}`
 
@@ -105,7 +93,6 @@ Example:
        [D][ ] return book (by: Sunday)
     ____________________________________________________________
 
-</details>
 
 ### Task Saving
 Store and retrieve your tasks into a dedicated save file.
@@ -119,9 +106,6 @@ Store and retrieve your tasks into a dedicated save file.
 Search for keyword using the Find function.
 
 Format: `find {keyword}`
-<details>
-
-  <summary>Usage Example</summary>
 
     find book
     ____________________________________________________________
@@ -130,17 +114,12 @@ Format: `find {keyword}`
      2.[D][ ] return book (by: Sunday)
     ____________________________________________________________
 
-</details>
 
 ### Task Deletion
 
 Remove stored Tasks using the Delete function.
 
 Format: `delete {task index}`
-
-<details>
-
-<summary>Usage Example</summary>
 
     delete 2
     ____________________________________________________________
@@ -149,7 +128,6 @@ Format: `delete {task index}`
      Now you have 1 tasks in the list.
     ____________________________________________________________
 
-</details>
 
 ### End Program
 Terminates the chatbot program.
