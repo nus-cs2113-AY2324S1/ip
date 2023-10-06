@@ -8,7 +8,10 @@ import task.Todo;
 import java.io.IOException;
 
 public class TodoCommand extends AddCommand{
-
+    /**
+     *
+     * @param todoCmd represents thw whole original user command starts from "todo“
+     */
     public TodoCommand(String todoCmd){
         super(todoCmd);
     }

@@ -2,20 +2,29 @@ package commandFormat;
 
 
 public class CommandFormat {
-
+    /**
+     * transform to smaller letter, removing leading and ending space, and contract any consecutive space
+     * @param cmd user command
+     * @return updated command
+     */
     public static String formattedCommand(String cmd){
-        cmd = cmd.trim().toLowerCase(); //small letter and remove front and back space
-        cmd = cmd.replaceAll("\\s+", " ");   //remove if consecutive space
+        cmd = cmd.trim().toLowerCase();
+        cmd = cmd.replaceAll("\\s+", " ");
 
         return cmd;
     }
 
+    /**
+     * gives exception when taskNum is not number, or containing non-numerical value
+     */
     public static int getTaskNo(String taskNum) {
-        //exception: taskNum is not number, or containing non-numerical value
         return Integer.parseInt(taskNum);
     }
 
-    //To tackle cases of invalid input like 'todo', 'event', etc.
+    /**
+     * use to tackle valid starting input like "todo", "event", "list",
+     * but lacking in index or having extra index
+     */
     public static boolean missingOrExtraTaskDescription(String[] cmd){
         if (cmd.length == 1){
             if(cmd[0].equals("todo") || cmd[0].equals("event") || cmd[0].equals("deadline")

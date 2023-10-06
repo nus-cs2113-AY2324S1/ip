@@ -9,6 +9,9 @@ import static duke.Duke.list;
 import static duke.Duke.taskCount;
 
 public class Text {
+    /**
+     * this class contains all user
+     */
 
     public static void printWelcomeMessage() {
         System.out.println("Hello! I'm Oriento.");

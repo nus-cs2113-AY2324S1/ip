@@ -9,24 +9,29 @@ import message.Text;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.*;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 
 public class FileIO {
-
+    /**
+     * This method check if target repository and input,output files is found
+     * if not, create the file for users
+     * if error occurs in restoring data, e.g. the saved content contains invalid contents,
+     * clear All the data and starts with a empty file
+     * @throws IOException once cannot access file or file not found
+     * @throws DukeException from method restoreSavedData
+     */
     public static void outputFileInitialization() throws IOException, DukeException {
         checkAndCreateDataFolder();
         checkAndCreateFile("data\\taskList.txt");
         checkAndCreateFile("data/backup_taskList.txt");
-        clearData(); //if the output file in not empty
+        clearData();
         restoreSavedData("data/backup_taskList.txt");
     }
 
@@ -48,10 +53,10 @@ public class FileIO {
         }
     }
 
+    /**
+     * save the file when exit the program
+     */
     public static void backupTaskFile() {
-       // Path sourcePath = Paths.get("data/taskList.txt");
-        //Path targetPath = Paths.get("data/backup_taskList.txt");
-      //  Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING); //if file not exist, create one;
         try {
             File src = new File("data\\taskList.txt");
             File dst = new File("data\\backup_taskList.txt");
@@ -79,9 +84,15 @@ public class FileIO {
         fw.close();
     }
 
-    private static void restoreOneTask(Scanner key) throws IOException, DukeException, IndexOutOfBoundsException,
+    /**
+     *
+     * this method aims to restore all saved data from backup file once start the program
+     * it implements by forming old user command for creating tasks,
+     * and generate the task list using the command one by one
+     */
+    private static void restoreOneTask(Scanner keyboard) throws IOException, DukeException, IndexOutOfBoundsException,
             InvalidTimeException {
-        String line = key.nextLine();
+        String line = keyboard.nextLine();
         line = removeNumberAndDot(line).trim();  //each line looks like [T][ ] Description
         boolean isDone = line.charAt(4) == 'X';
         String description = line.substring(7);
@@ -124,6 +135,10 @@ public class FileIO {
         }
     }
 
+    /**
+     *
+     * helper function to generate the old user input based on saved file
+     */
     private static String getEventCmd(String description) throws IndexOutOfBoundsException{
         int indexOfFrom = description.indexOf("(from");
         int indexOfTo = description.indexOf("to:");
@@ -134,10 +149,12 @@ public class FileIO {
     }
 
     private static String removeNumberAndDot(String input) {
-        // Replace the number and dot at the beginning of the line with an empty string
         return input.replaceFirst("^\\d+\\.\\s*", "");
     }
 
+    /**
+     * helper function to extract deadline task descriptions from user input
+     */
     private static String ddlExtract(String description) {
         int startIndex = description.indexOf("(by: ") + 5;
         int endIndex = description.indexOf(")");

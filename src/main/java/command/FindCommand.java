@@ -10,6 +10,10 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
+    /**
+     * the find method implement by comparing all the task descriptions with the keyword
+     * @return string containing all lines of results found
+     */
     private String findResult() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < Duke.taskCount; i++) {

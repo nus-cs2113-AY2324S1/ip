@@ -12,11 +12,18 @@ public class MarkCommand extends Command {
 
     private String index;
 
+    /**
+     *
+     * @param index points to the target task
+     */
     public MarkCommand(String index) {
         super(false);
         this.index = index;
     }
 
+    /**
+     * overwriteFile update the whole saved file with updated content, i.e. one task marked
+     */
     @Override
     public void executeCommand(){
         try {

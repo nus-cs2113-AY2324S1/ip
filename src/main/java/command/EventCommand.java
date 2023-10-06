@@ -14,6 +14,9 @@ public class EventCommand extends AddCommand {
         super(eventTask);
     }
 
+    /**
+     *  eventTask represent the whole original user command starts from "event"
+     */
     @Override
     public void executeCommand(){
         try {

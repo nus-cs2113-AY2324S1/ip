@@ -33,11 +33,7 @@ public class DukeException extends Exception {
             System.out.println("Example: event project meeting /from Mon 2pm /to 4pm");
             break;
 
-        case "delete":
-            break;
-
         default:
-            //for case without correct start and empty command
             System.out.println("Please start with the supported task types: 'todo', 'deadline', 'event'. ");
         }
 

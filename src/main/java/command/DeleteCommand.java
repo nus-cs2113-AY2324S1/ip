@@ -19,6 +19,10 @@ public class DeleteCommand extends Command{
         this.index = index;
     }
 
+    /**
+     * delete command uses to delete a task at particular index i, i>0
+     * @throws IOException raises error if fail to delete task from current file
+     */
     @Override
     public void executeCommand() throws IOException {
         try {
@@ -29,6 +33,10 @@ public class DeleteCommand extends Command{
         }
     }
 
+    /**
+     *
+     * the taskCount is updated in the method deleteTaskSuccessMsg
+     */
     private static void deleteTask(int deleteIndex) throws IOException{
         if (deleteIndex <= 0 || deleteIndex> Duke.taskCount){
             System.out.println("Oh, No! invalid index! You don't have that task. Please try again.");

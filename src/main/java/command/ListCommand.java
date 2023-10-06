@@ -10,6 +10,9 @@ public class ListCommand extends Command {
         super(false);
     }
 
+    /**
+     * list out all the tasks by print out all content in the saved file
+     */
     @Override
     public void executeCommand() {
         try {

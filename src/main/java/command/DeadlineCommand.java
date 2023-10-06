@@ -9,7 +9,10 @@ import task.Deadline;
 import java.io.IOException;
 
 public class DeadlineCommand extends AddCommand {
-
+    /**
+     *
+     * @param ddlCmd deadline command represents the original command starts from "deadline"
+     */
     public DeadlineCommand(String ddlCmd){
         super(ddlCmd);
     }

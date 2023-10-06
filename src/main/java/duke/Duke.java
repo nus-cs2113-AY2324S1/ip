@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.util.Scanner;
 import fileIO.FileIO;
 
-
+/**
+ * Starting point of program
+ */
 public class Duke {
 
     public static int taskCount = 0;
