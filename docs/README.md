@@ -31,7 +31,7 @@ Example: todo read book
 ```
 ===================================================
 Got it. I've added this task:
-[T][ ] read book
+[T][ ]read book
 Now you have 1 task(s) in the list.
 ===================================================
 ```
@@ -67,12 +67,12 @@ Adds a task [of type: _event_] to the task list.
 
 Format: `event DESCRIPTION from TIME to TIME`
 
-Example: event go to school from 12 to 6
+Example: event go to school from 12pm to 6pm
 
 ```
 ===================================================
 Got it. I've added this task:
-[E][ ] go to school (from: 12 to: 6)
+[E][ ]go to school (from: 12pm to: 6pm)
 Now you have 4 task(s) in the list.
 ===================================================
 ```
@@ -85,10 +85,10 @@ Format: `list`
 ```
 ===================================================
 Here are the tasks in your list:
-1. [T][ ] read book
+1. [T][ ]read book
 2. [D][ ]return book (by: Oct 25 2023)
 3. [D][ ]return book (by: Oct 25 2023 1800)
-4. [E][ ] go to school (from: 12 to: 6)
+4. [E][ ]go to school (from: 12pm to: 6pm)
 ===================================================
 ```
 ### <span style="color: green"> Marking a task: `mark` </span>
@@ -104,7 +104,7 @@ Example: mark 1
 ```
 ===================================================
 Nice! I've marked this task as done:
-[T][X] read book
+[T][X]read book
 ===================================================
 ```
 ### <span style="color: green"> Unmarking a task: `unmark` </span>
@@ -120,7 +120,7 @@ Example: unmark 1
 ```
 ===================================================
 OK, I've marked this task as not done yet:
-[T][ ] read book
+[T][ ]read book
 ===================================================
 ```
 ### <span style="color: green"> Deleting a task: `delete` </span>
@@ -149,7 +149,7 @@ Example: find book
 ```
 ===================================================
 Here are the matching tasks in your list:
-[T][ ] read book
+[T][ ]read book
 [D][ ]return book (by: Oct 25 2023 1800)
 ===================================================
 ```
