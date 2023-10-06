@@ -204,7 +204,7 @@ public class TaskList {
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("No existing file, creating new");
+            System.out.println("No existing file, creating new file");
         } catch (JSONException e) {
             System.out.println("New User, creating new to do list");
         }

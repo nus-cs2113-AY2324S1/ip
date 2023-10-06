@@ -29,7 +29,7 @@ public class Utils {
      */
     public static void handleStringIndexOutOfBoundsException(StringIndexOutOfBoundsException e){
         Utils.printDivider();
-        System.out.println("OOPS!!! The description of a " + e.getMessage() + " cannot be empty.");
+        System.out.println("OOPS!!! The description of a " + e.getMessage() + " cannot be empty. :-(");
         Utils.printDivider();
     }
 
@@ -47,7 +47,7 @@ public class Utils {
      */
     public static void handleArrayIndexOutOfBoundsException(){
         Utils.printDivider();
-        System.out.println("OOPS!!! Please Input in the correct format!");
+        System.out.println("OOPS!!! Please Input in the correct format! :-(");
         Utils.printDivider();
     }
 }
