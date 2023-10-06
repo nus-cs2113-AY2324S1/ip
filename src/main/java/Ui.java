@@ -103,7 +103,7 @@ public class Ui {
             }
 
             try {
-                tasks.getTask(mark_idx).doMark();
+                tasks.getTask(mark_idx).unMark();
             } catch (IndexOutOfBoundsException e){
                 printLine("☹ OOPS!!! Task number is out of List!");
                 System.out.println("    ____________________________________________________________\n");
