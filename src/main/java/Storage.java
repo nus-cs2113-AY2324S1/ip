@@ -4,6 +4,7 @@ import Tasks.Task;
 import Tasks.Todo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -149,5 +150,31 @@ public class Storage {
         }
         Ui.printLine();
     }
+
+    // go to a specific line in the file
+    protected void deleteLine(int index, String filePath) throws IOException {
+        File inputFile = new File(filePath);
+        File tempFile = new File("temp.txt"); // Create a temporary file
+
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        int count = 0;
+        String currentLine;
+        while ((currentLine = reader.readLine()) != null) {
+            count++;
+            if (count != index) {
+                writer.write(currentLine + System.getProperty("line.separator"));
+            }
+        }
+
+        writer.close();
+        reader.close();
+
+        tempFile.renameTo(inputFile); // Rename the temporary file to the original file
+    }
+
+
+}
 
 }
