@@ -1,27 +1,32 @@
 package Chatty.tasks;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
 
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.to = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
-    public String getFrom() {
+    public LocalDate getFrom() {
         return from;
     }
 
-    public String getTo() {
+    public LocalDate getTo() {
         return to;
     }
 
     @Override
     public String getDescription() {
-        return "[E][" + getStatusIcon() + "] " + super.getDescription() + " (from: " + from + " to: " + to + ")";
+        String formattedFrom = from.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        String formattedTo = to.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        return "[E][" + getStatusIcon() + "] " + super.getDescription() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 
     @Override

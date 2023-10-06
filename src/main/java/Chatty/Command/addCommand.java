@@ -5,9 +5,10 @@ import Chatty.TaskList;
 import Chatty.Ui;
 import Chatty.tasks.*;
 
-public class addCommand extends Command{
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    String input;
+public class addCommand extends Command{
     char type;
 
     public addCommand (String input, char type){
@@ -23,23 +24,27 @@ public class addCommand extends Command{
             tasks.addTask(new Todo(todoDescription));
             ui.printMessage("Got it. I've added this task:");
             ui.printMessage("[T][ ] " + todoDescription);
-            break;
+            return;
         case 'D':
             int byIndex = input.indexOf("/by");
             String deadlineDescription = input.substring(9, byIndex).trim();
             String by = input.substring(byIndex + 3).trim();
-            tasks.addTask(new Deadline(deadlineDescription, by));
+            Deadline deadline = new Deadline(deadlineDescription, by);
+            tasks.addTask(deadline);
             ui.printMessage("Got it. I've added this task:");
-            ui.printMessage("[D][ ] " + deadlineDescription + " (by: " + by + ")");
+            ui.printMessage(deadline.getDescription());
+            return;
         case 'E':
             int fromIndex = input.indexOf("/from");
             int toIndex = input.indexOf("/to");
             String eventDescription = input.substring(6, fromIndex).trim();
             String from = input.substring(fromIndex + 5, toIndex).trim();
             String to = input.substring(toIndex + 3).trim();
-            tasks.addTask(new Event(eventDescription, from, to));
+            Event event = new Event(eventDescription, from, to);
+            tasks.addTask(event);
             ui.printMessage("Got it. I've added this task:");
-            ui.printMessage("[E][ ] " + eventDescription + " (from: " + from + " to: " + to + ")");
+            ui.printMessage(event.getDescription());
+            return;
         }
     }
 

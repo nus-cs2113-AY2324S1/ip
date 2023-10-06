@@ -5,18 +5,15 @@ import Chatty.TaskList;
 import Chatty.Ui;
 
 public class listCommand extends Command{
-    String input;
 
     public listCommand(String input){
         super(input);
     }
 
     public void execute (TaskList tasks, Ui ui, Storage storage) {
-        ui.printMessage(Ui.LINE);
         ui.printMessage("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             ui.printMessage((i + 1) + ". " + tasks.get(i).getDescription());
         }
-        ui.printMessage(Ui.LINE);
     }
 }
