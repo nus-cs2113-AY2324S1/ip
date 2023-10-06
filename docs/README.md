@@ -1,5 +1,16 @@
 # User Guide
 
+| Vocabulary          | Description                                       |
+|---------------------|---------------------------------------------------|
+| task                | An item representing a specific activity or work to be completed. A task can be a todo, deadline or an event. |
+| todo       | A task with no deadline |
+| deadline       | A task with a deadline |
+| event            | An event with a start and end date and time |
+
+
+<mark>Words in UPPER_CASE are the parameters to be supplied by the user.
+e.g. in ```todo TASK_DESCRIPTION```, TASK_DESCRIPTION is a parameter which can be used as add n/assignment</mark>
+
 ## Features 
 
 ### Listing All Tasks: ```list```
