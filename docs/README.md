@@ -1,5 +1,9 @@
 # Chatbot: RIAS
-serving you, the one and only master! <3
+Serving you, the one and only master! 
+<br/>
+<br/>
+Chatbot: RIAS is a CLI program to keep track of your existing
+task while sending you ascii arts or emotes! :heart:
 ```
  _____  _____           _____     ______
 |  __ \|_   _|   /\    / ____|   / ___  \ 
@@ -9,8 +13,10 @@ serving you, the one and only master! <3
 |_|  \_\_____/_/    \_\_____/    \_____ / 
 ```
 ## Summary
-Chatbot: RIAS is a CLI program to keep track of your existing
-task while sending you ascii arts or emotes!:heart:
+You can keep track of their tasks by adding todos, events and deadlines into
+their task list. You could use additional tools such as mark and find to manage 
+your tasks!
+
 ## Content
 * [Quick Start](#quick-start)
 * [Features](#core-features)
@@ -31,7 +37,8 @@ task while sending you ascii arts or emotes!:heart:
 - Download the latest `chatbot.jar` from the releases
 - Run the following command: `java -jar chatbot.jar` in the same directory as the `chatbot.jar` file
 - Note replace `chatbot.jar` with the name of the latest release
-## Features [:arrow_up_small:](#Content)
+
+## Features
 > Note:
 > - Items in triangle brackets `<>` are placeholders, replace the whole 
 string, including `<>` with your item
@@ -42,7 +49,7 @@ string, including `<>` with your item
 ### Core Features
 | Commands                               | Description                                                                       |
 |----------------------------------------|-----------------------------------------------------------------------------------|
-| `help`                                 | Display all the commands for the program                                          | 
+| `help`                                 | Display all the commands for the program                                          |
 | `todo <name>`                          | Add a todo task to the task list                                                  |
 | `event <name> /from <start> /to <end>` | Add an event task to the task list with the given `<start>` time and `<end>` time |
 | `deadline <name> /by <end>`            | Add a deadline task to the task list with the given `<end>` time                  |
@@ -52,11 +59,13 @@ string, including `<>` with your item
 | `delete <index>`                       | Delete the task at `<index>`                                                      |
 | `find <string>`                        | Find a `<string>` in the task list and print out all related task(s)              |
 | `bye`                                  | Exit the program                                                                  |
+
 ### Side Features
 | Commands       | Description                    |
 |----------------|--------------------------------|
 | `ascii <bool>` | Turn on/off ascii art printing |
-## Usage [:arrow_up_small:](#Content)
+
+## Usage
 
 ### `help` - Get all the commands
 
@@ -83,6 +92,7 @@ Add a event task to the list: `event <name> /from <start> /to <end>`
 |---------------------------------------------|-----------------------------------------------------------|
 | `event watch movie /from 1pm /to 3pm`       | `added: [E][ ] watch movie (from: 1pm to: 3pm)`           |
 | `event exam /from 1/11/2023 /to 30/11/2023` | `added: [E][ ] exam  (from: Nov 01 2023 to: Nov 30 2023)` |
+
 ### `deadline` - Add a deadline
 
 Add a deadline task to the list: `deadline <name> /by <end>`
