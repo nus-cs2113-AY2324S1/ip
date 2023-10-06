@@ -28,6 +28,9 @@ event OOP Lecture
 event OOP Lecture /from 12pm
 event OOP Lecture /from /to 2pm
 event OOP Lecture /from 12pm /to 2pm
+find book
+find
+find exam
 list
 unmark 3
 unmark 4

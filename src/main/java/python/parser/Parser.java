@@ -13,6 +13,10 @@ public class Parser {
         return Integer.parseInt(inputLine.split(" ")[1]);
     }
 
+    public static String extractKeywordFromInputLine(String inputLine) {
+        return inputLine.split(" ")[1];
+    }
+
     public static String extractTodoDescFromInputLine(String inputLine) {
         return inputLine.split(" ", 2)[1];
     }
