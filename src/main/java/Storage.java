@@ -54,6 +54,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the specified directory exists, and creates it if it doesn't.
+     *
+     * @param directoryPath The path of the directory to be checked and created if necessary.
+     */
     protected void checkDirectoryExists(String directoryPath) {
         File directory = new File(directoryPath);
         // Check if the directory exists, and create it if it doesn't
@@ -173,6 +178,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Searches for tasks containing a specified keyword and prints the results.
+     *
+     * @param line   The user input containing the keyword search command.
+     * @param tasks  The list of tasks to be searched.
+     */
     protected void searchKeyword(String line, ArrayList<Task> tasks) {
         ArrayList<Task> searchResults = new ArrayList<>();
         String keyword = line.substring(4);
@@ -188,7 +199,13 @@ public class Storage {
         Ui.printLine();
     }
 
-    // go to a specific line in the file
+    /**
+     * Deletes a specific line from a file.
+     *
+     * @param index     The line number to be deleted.
+     * @param filePath  The path of the file to perform the deletion.
+     * @throws IOException If an I/O error occurs while deleting the line.
+     */
     protected void deleteLineFromFile(int index, String filePath) throws IOException {
         File inputFile = new File(filePath);
         File tempFile = new File("tempFile.txt");
@@ -212,6 +229,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Marks a task as done in the file by updating its status.
+     *
+     * @param index     The index of the task to be marked as done.
+     * @param filePath  The path of the file containing the task list.
+     * @throws IOException If an I/O error occurs while marking the task.
+     */
     public void markTaskInFile(int index, String filePath) throws IOException {
         File inputFile = new File(filePath);
         File tempFile = new File("temp.txt");

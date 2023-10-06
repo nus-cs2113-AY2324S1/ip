@@ -28,19 +28,8 @@ public class TaskList {
      * @param tasks The list of tasks.
      */
     public static void addTodo(String words, ArrayList<Task> tasks) {
- /*       String[] words = line.split(" ");
-        String description = "";
-        try {
-            for (int i = 1; i < words.length; i++) {
-                description += words[i] + " ";
-            } */
             tasks.add(new Todo(words));
             tasks.get(tasks.size() - 1).printNewTask();
-     /*   } catch(IndexOutOfBoundsException e) {
-            Ui.printLine();
-            System.out.println(DukeyException.todoDescriptionError());
-            Ui.printLine();
-        } */
     }
 
     /**
@@ -53,7 +42,6 @@ public class TaskList {
         try {
             String[] words = line.split(" ");
             int index  = Integer.parseInt(words[1]) - 1;
-            Task delete = tasks.get(index);
             tasks.get(index).printDeleteTask();
             tasks.remove(index);
         }
