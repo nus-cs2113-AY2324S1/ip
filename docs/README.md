@@ -30,6 +30,7 @@ task while sending you ascii arts or emotes!:heart:
 ## Quick Start
 - Download the latest `chatbot.jar` from the releases
 - Run the following command: `java -jar chatbot.jar` in the same directory as the `chatbot.jar` file
+- Note replace `chatbot.jar` with the name of the latest release
 ## Features [:arrow_up_small:](#Content)
 > Note:
 > - Items in triangle brackets `<>` are placeholders, replace the whole 
