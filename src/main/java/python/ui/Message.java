@@ -5,6 +5,7 @@ public class Message {
     final static String MESSAGE_ASK = "What can I do for you?";
     final static String MESSAGE_BYE = "Bye. See you again when you run the program again!";
     final static String MESSAGE_INT_AFTER_COMMAND = "Command must be followed by an integer (task id)!";
+    final static String MESSAGE_KEYWORD_AFTER_COMMAND = "Command must be followed by a keyword!";
     final static String MESSAGE_DESC_AFTER_COMMAND = "Command must be followed by a task description!!";
     final static String MESSAGE_TIME_AFTER_FROM_CLAUSE =
             "Command must have /from clause followed by time it starts!";
@@ -25,4 +26,6 @@ public class Message {
     final static String MESSAGE_NEW_TODO = "New Todo! You have added this todo:";
     final static String MESSAGE_NEW_DEADLINE = "New Deadline! You have added this deadline:";
     final static String MESSAGE_NEW_EVENT = "New Event! You have added this event:";
+    final static String MESSAGE_NO_MATCH = "No matching tasks found!";
+    final static String MESSAGE_MATCHES_FOUND = "Here are the matching tasks:";
 }

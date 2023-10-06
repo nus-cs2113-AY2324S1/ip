@@ -7,7 +7,9 @@ import python.task.Deadline;
 import python.task.Event;
 import python.task.TaskList;
 import python.task.Todo;
+import python.task.Task;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -51,9 +53,9 @@ public class Ui {
         addEmojiAndPrint("You have " + TaskList.getNumberOfTasks() + " tasks!");
     }
 
-    public void displayTasks() {
-        for (int taskNo = 0; taskNo < TaskList.getNumberOfTasks(); taskNo++) {
-            System.out.printf("\t\t\t%d. %s\n", taskNo + 1, TaskList.getTask(taskNo));
+    public void displayTasks(List<Task> tasks) {
+        for (int taskNo = 0; taskNo < tasks.size(); taskNo++) {
+            System.out.printf("\t\t\t%d. %s\n", taskNo + 1, tasks.get(taskNo));
         }
     }
 
@@ -75,7 +77,7 @@ public class Ui {
 
     private void handleListCommand() {
         displayTaskCount();
-        displayTasks();
+        displayTasks(TaskList.getTasks());
     }
 
     private void handleMarkCommand() throws PythonException {
@@ -224,6 +226,23 @@ public class Ui {
         displayTaskCount();
     }
 
+    private void handleFindCommand() throws PythonException {
+        String keyword;
+        try {
+            keyword = Parser.extractKeywordFromInputLine(inputLine);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new PythonException(Message.MESSAGE_KEYWORD_AFTER_COMMAND);
+        }
+
+        List<Task> matchedTasks = TaskList.findTask(keyword);
+
+        if (matchedTasks.isEmpty()) addEmojiAndPrint(Message.MESSAGE_NO_MATCH);
+        else {
+            addEmojiAndPrint(Message.MESSAGE_MATCHES_FOUND);
+            displayTasks(matchedTasks);
+        }
+    }
+
     private void handleUnknownCommand() throws PythonException {
         if (inputLine.isEmpty()) {
             addEmojiAndPrint(Message.MESSAGE_EMPTY_COMMAND_JOKE);
@@ -259,6 +278,9 @@ public class Ui {
             break;
         case Command.COMMAND_EVENT:
             handleEventCommand();
+            break;
+        case Command.COMMAND_FIND:
+            handleFindCommand();
             break;
         default:
             handleUnknownCommand();
