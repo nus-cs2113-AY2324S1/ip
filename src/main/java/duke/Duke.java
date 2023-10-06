@@ -13,7 +13,7 @@ public class Duke {
     /**
      * The main the start and runs the duke program
      *
-     * @param args Th command-line inputs
+     * @param args The command-line inputs
      */
     public static void main(String[] args) {
         Ui.intro(); //prints the intro

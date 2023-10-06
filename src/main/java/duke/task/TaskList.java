@@ -125,7 +125,7 @@ public class TaskList {
 
         int counter = 1;
         for (Task task : list) {
-            if (task.getTaskName().contains(taskName)) {
+            if (task.getTaskName().toLowerCase().contains(taskName.toLowerCase())) {
                 System.out.println(" " + counter + "." + task.toString());
                 counter++;
             }
