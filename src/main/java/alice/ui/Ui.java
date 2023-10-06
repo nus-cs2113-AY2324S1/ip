@@ -50,7 +50,7 @@ public class Ui {
     }
 
     /**
-     * Print loading error message
+     * Print error message when there is a loading problem
      */
     public static void printLoadingError() {
         printOneTabMessage("There is a loading error!");
