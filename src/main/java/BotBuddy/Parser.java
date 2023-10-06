@@ -9,7 +9,7 @@ public class Parser {
      * Parses the user input into command and parameters.
      *
      * @param userInput User input.
-     * @return Array with command in index 0 and parameters in index 1 if it exists
+     * @return Array with command in index 0 and parameters in index 1 if it exists.
      */
     public String[] parseInput(String userInput) {
         String[] inputArr = userInput.split(" ", 2);
