@@ -26,10 +26,13 @@ public class EventCommand extends Command{
             throw new DukeFormatException("Uhoh... Please check your format and include '/from' and '/to'~");
         } else {
             String[] parts = input.split(" /");
+            if (parts[0].length() <= "event ".length()) {
+                throw new DukeFormatException("Event cannot be empty :< Please provide a valid event description.");
+            }
             task = parts[0].substring("event ".length());
             //check if task, to, from are null
-            if (parts.length != 3 || task.isEmpty() || parts[1].equals("from") || parts[2].equals("to")) {
-                throw new DukeFormatException("Task.Task, from or to cannot be empty... Please check your input again~");
+            if (parts.length != 3 || parts[1].equals("from") || parts[2].equals("to")) {
+                throw new DukeFormatException("From or to cannot be empty... Please check your input again~");
             }
             from = parts[1].substring("from".length());
             to = parts[2].substring("to".length());
