@@ -26,26 +26,49 @@ public class Ui {
         System.out.println("       *****   ");
     }
 
+    /**
+     * For printing a line divider to separate commands
+     */
     public static void printLineDivider() {
         System.out.println("\n____________________________________________________________\n");
     }
 
+    /**
+     * Print a message with 4 spaces in front
+     * @param message to be printed
+     */
     public static void printOneTabMessage(String message) {
         System.out.println(TAB_SPACE + message);
     }
 
+    /**
+     * Print a message with 8 spaces in front
+     * @param message
+     */
     public static void printTwoTabMessage(String message) {
         System.out.println(TAB_SPACE + TAB_SPACE + message);
     }
 
+    /**
+     * Print loading error message
+     */
     public static void printLoadingError() {
         printOneTabMessage("There is a loading error!");
         printLineDivider();
     }
 
+    /**
+     * Print error message
+     * @param errorMessage message to be printed
+     */
     public static void printError(String errorMessage) {
-        printOneTabMessage("There is an error!");
+        printOneTabMessage("Alice is malfunctioning, there has been an error..........");
         printOneTabMessage(errorMessage);
+        printLineDivider();
+    }
+
+    public static void printMissingInputError() {
+        Ui.printOneTabMessage("You have an extra input OR you are missing an input!\n    CORRECT IT BEFORE THE KNAVE OF HEART COMES!\n");
         printLineDivider();
     }
 }

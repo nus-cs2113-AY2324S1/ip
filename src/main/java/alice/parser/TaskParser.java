@@ -21,21 +21,24 @@ public class TaskParser{
     }
 
     /**
-     * Create a new deadline task in the correct format,
-     * then, calls addTask to add deadline task to alice.tasks array
+     * Creates a Deadline task object
+     *
      * @return Deadline object
-     * @throws InvalidFormatException
+     * @throws InvalidFormatException the format of the user input is wrong
      */
     public Task newDeadline() throws InvalidFormatException, InvalidDateTimeException {
-        final int LENGTH_OF_COMMAND = 9; //length of "deadline "
+        if (!userInput.contains("/by")) {
+            throw new InvalidFormatException();
+        }
 
-        String[] inputArray = getUserInput().split(" /");
+        String[] inputArray = getUserInput().split(" /by");
         if (inputArray.length == 1) {
             throw new InvalidFormatException();
         }
 
-        String description = inputArray[0].substring(LENGTH_OF_COMMAND);
-        String date = inputArray[1];
+        final int LENGTH_OF_COMMAND = 9; //length of "deadline "
+        String description = inputArray[0].substring(LENGTH_OF_COMMAND).trim();
+        String date = inputArray[1].strip();
         LocalDateTime formattedDateTime = DateTimeParser.formatDateTime(date);
 
         return new Deadline(description, formattedDateTime);
@@ -43,28 +46,33 @@ public class TaskParser{
 
 
     /**
-     * Create a new event task in the correct format,
-     * then, calls addTask to add event task to alice.tasks array
+     * Creates an Event task object
+     *
      * @return Event object
-     * @throws InvalidFormatException
+     * @throws InvalidFormatException the format of the user input is wrong
      */
     public Task newEvent() throws InvalidFormatException, InvalidDateTimeException {
-        final int LENGTH_OF_COMMAND = 6; //length of "event "
-
-        String[] inputArray = getUserInput().split(" /");
-        if (inputArray.length < 3) {
+        if (!userInput.contains("/from") || !userInput.contains("/to")) {
             throw new InvalidFormatException();
         }
 
-        String description = inputArray[0].substring(LENGTH_OF_COMMAND);
-        String start = inputArray[1].strip();
-        String end = inputArray[2].strip();
+        final int LENGTH_OF_COMMAND = 6; //length of "event "
+        String description = getUserInput().split(" /from")[0].substring(LENGTH_OF_COMMAND).trim();
+        String start = getUserInput().split(" /from")[1].split(" /to")[0].trim();
+        String end = getUserInput().split(" /to")[1].trim();
+
         LocalDateTime formattedStart = DateTimeParser.formatDateTime(start);
         LocalDateTime formattedEnd = DateTimeParser.formatDateTime(end);
 
         return new Event(description, formattedStart, formattedEnd);
     }
 
+    /**
+     * Creates a Todo task object
+     *
+     * @return the Todo object
+     * @throws InvalidFormatException the format of the user input is wrong
+     */
     public Task newTodo() throws InvalidFormatException {
         if (userInput.split(" ").length < 2) {
             throw new InvalidFormatException();
@@ -76,12 +84,11 @@ public class TaskParser{
     }
 
     /**
-     * Types of input
-     * Deadline: (eg. deadline return book /by Sunday)
-     * Event: (eg. event project meeting /from Mon 2pm /to 4pm)
-     * @return
-     * @throws InvalidFormatException
-     * @throws InvalidCommandException
+     * Creates a task object corresponding to the action command in the input
+     *
+     * @return Taks object
+     * @throws InvalidFormatException the format of the input is invalid
+     * @throws InvalidCommandException the command of the input is invalid
      */
     public Task createTask() throws InvalidFormatException, InvalidCommandException, InvalidDateTimeException {
         switch (actionCommand) {

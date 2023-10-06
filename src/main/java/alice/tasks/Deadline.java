@@ -14,10 +14,6 @@ public class Deadline extends Task {
         return deadline;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
-
     @Override
     public String toString() {
         String typeOfTask = "[D]";
@@ -26,6 +22,11 @@ public class Deadline extends Task {
         return typeOfTask + statusOfTask + task;
     }
 
+    /**
+     * Encodes the deadline task into a string to be stored in the text file
+     *
+     * @return string in the format to be stored in text file
+     */
     @Override
     public String encode() {
         String encodeDeadline = getDeadline().format(DateTimeParser.getFormatter());

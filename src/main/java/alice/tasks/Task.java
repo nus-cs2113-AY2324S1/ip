@@ -57,11 +57,16 @@ public class Task {
         return statusOfTask + getDescription();
     }
 
+    /**
+     * Encodes the symbol and description of task into a string to be stored in the text file
+     *
+     * @return string in the format to be stored in text file
+     */
     public String encode() {
         String isDoneSymbol = "0"; //default is unmarked
         if (isDone) {
             isDoneSymbol = "1";
         }
-        return isDoneSymbol + SEPARATOR +getDescription();
+        return String.format("%s | %s", isDoneSymbol, getDescription());
     }
 }

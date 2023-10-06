@@ -10,9 +10,10 @@ public class FindParser {
     }
 
     /**
-     * Process user input to get keyword that user wants to find.
-     * @return keyword
-     * @throws InvalidFormatException
+     * Process user input to get keyword that user wants to find
+     *
+     * @return keyword the word user is searching for in tasks
+     * @throws InvalidFormatException the format of search input is wrong
      */
     public String getKeyword() throws InvalidFormatException {
         String[] userInputArray = userInput.split(" ");

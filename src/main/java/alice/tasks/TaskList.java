@@ -28,7 +28,7 @@ public class TaskList {
     }
 
     /**
-     * List all alice tasks that have been added by user.
+     * List all tasks that have been added by user
      */
     public void listTasks() {
         int taskCount = 0;
@@ -44,8 +44,9 @@ public class TaskList {
     }
 
     /**
-     * Add a new task to alice.tasks array
-     * @param newTask is a class
+     * Add a new task to TaskList object
+     *
+     * @param newTask the new Task object to be added
      */
     public void addTask(Task newTask) {
         this.tasks.add(newTask);
@@ -55,10 +56,15 @@ public class TaskList {
 
         Ui.printOneTabMessage("Gotcha! I have added the following task:");
         Ui.printTwoTabMessage(newTaskDescription);
-        Ui.printOneTabMessage("Total no. of alice.tasks: " + totalNumberOfTasks + " --- YOU'VE GOT THIS!\n");
+        Ui.printOneTabMessage("Total no. of alice.tasks: " + totalNumberOfTasks + " --- YOU'VE GOT THIS!");
         Ui.printLineDivider();
     }
 
+    /**
+     * Delete specific task from TaskList object
+     *
+     * @param taskIndex the index of the task item in the ArrayList
+     */
     public void deleteTask(int taskIndex) {
         String taskDescription = this.tasks.get(taskIndex).toString();
 
@@ -74,7 +80,8 @@ public class TaskList {
 
     /**
      * Print tasks that consist of keyword.
-     * @param keyword
+     *
+     * @param keyword the word that user is searching for
      */
     public void printFilteredTasks(String keyword) {
         int taskNumber = 0;
@@ -90,7 +97,7 @@ public class TaskList {
             boolean keywordIsFound = false;
             String[] wordsInDescription = description.split(" ");
             for (String word : wordsInDescription) {
-                word.toLowerCase();
+                word = word.toLowerCase();
                 if (keyword.equals(word)) {
                     keywordIsFound = true;
                     haveFilteredTask = true;

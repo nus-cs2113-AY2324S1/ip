@@ -17,6 +17,14 @@ public class DateTimeParser {
     public static DateTimeFormatter getFormatter() {
         return FORMATTER;
     }
+
+    /**
+     * Formats user's input for date and time into the correct format
+     *
+     * @param input the user's date and time input
+     * @return the formatted date and time
+     * @throws InvalidDateTimeException the date and time input by the user is invalid
+     */
     public static LocalDateTime formatDateTime(String input) throws InvalidDateTimeException {
         LocalDateTime formattedInput;
         try {
