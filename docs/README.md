@@ -19,7 +19,15 @@ Chatty is a CLI chatbot designed to help you manage your daily tasks and deadlin
 ## Quick Start
 1. Ensure you have Java 11 or above installed on your computer.
    - [How to Check Your Java Version](https://www.java.com/en/download/help/version_manual.html)
-2. Upon successful launch of the chatbot, it would display:
+2. Move the downloaded Chatty v.X.jar file into a folder on its own.
+3. To run Chatty, simply open `terminal` or `command prompt` and type the following:
+```
+   java -jar {filename}.jar
+```
+where {filename} includes the path to Chatty.jar.
+
+
+4. Upon successful launch of the chatbot, it would display:
 ```
 ____________________________________________________________
 Hello! I'm Chatty!
