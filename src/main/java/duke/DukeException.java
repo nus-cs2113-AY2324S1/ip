@@ -19,6 +19,7 @@ public class DukeException {
     }
 
     /**
+     * Method to check the input for any illegal commands or arguements.
      * @param size size of the taskList to check for out of bounds value.
      */
     public void checkInput(int size){
@@ -79,6 +80,7 @@ public class DukeException {
 
 
     /**
+     * Method to print custom error as required.
      * @param message Message to be output.
      */
     public void customError(String message){

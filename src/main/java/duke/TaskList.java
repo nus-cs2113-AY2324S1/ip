@@ -12,6 +12,7 @@ public class TaskList {
     private final Ui ui = new Ui();
 
     /**
+     * Method to add task object to the taskList.
      * @param task Task object to add to the taskList
      */
     public void add(Task task){
@@ -20,6 +21,7 @@ public class TaskList {
     }
 
     /**
+     * Method to delete a task object from the task list given its index.
      * @param taskCount Index of Task object to be deleted from the Task list.
      */
     public void deleteTask(int taskCount){
@@ -45,6 +47,7 @@ public class TaskList {
     }
 
     /**
+     * Method to create the respective task object based on the user input.
      * @param userInput User input string to be assigned to the respective subclasses based on the
      *                  task type command by the user.
      */
@@ -67,6 +70,7 @@ public class TaskList {
     }
 
     /**
+     * Method to mark the task as done or not done based on its index.
      * @param taskCount Index of task object to mark/unmark.
      * @param isMark boolean to diffentiate between marking and unmarking.
      */
@@ -87,6 +91,7 @@ public class TaskList {
     }
 
     /**
+     * Method to output acknowledgement of adding the task to the tasklist.
      * @param task Task object added to be reflected in the callback message.
      */
     private void addTaskCallback(Task task){
@@ -100,6 +105,7 @@ public class TaskList {
     }
 
     /**
+     * Method to output acknowledgement of deleting a task from the tasklist.
      * @param task Task object added to be reflected in the callback message.
      */
     private void deleteTaskCallback(Task task){
@@ -113,6 +119,7 @@ public class TaskList {
     }
 
     /**
+     * Method to get the current size of the taskList.
      * @return Size of the taskList.
      */
     public int getSize(){

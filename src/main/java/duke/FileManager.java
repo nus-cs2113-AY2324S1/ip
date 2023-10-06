@@ -22,6 +22,7 @@ public class FileManager {
     }
 
     /**
+     * Method to read the tasks cached in a txt file and assign them to a respective object.
      * @return taskList that is populated with data from the task objects as written in the text file
      */
     public ArrayList<Task> read(){
@@ -58,6 +59,7 @@ public class FileManager {
     }
 
     /**
+     * Method to write all of the tasks in the task list to the writer object.
      * @param text text to write to the text file
      */
     public void write(String text){
@@ -71,6 +73,7 @@ public class FileManager {
     }
 
     /**
+     * Method to save the data in the writer object to the txt file.
      * @param taskList the populated task list to be written to the file.
      */
     public void save(ArrayList<duke.Task> taskList){

@@ -62,6 +62,7 @@ public class Ui {
     }
 
     /**
+     * Method to output the given text.
      * @param text User input text that will be echoed back into the output.
      */
     public void echo(String text){

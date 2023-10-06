@@ -14,6 +14,7 @@ public class Event extends Task{
     }
 
     /**
+     * Methof to get the description from the user input.
      * @param userInput String containing the entire user input.
      * @param read Boolean flag to differentiate whether it is being read from the txt file or
      *             from the taskList.
@@ -28,6 +29,7 @@ public class Event extends Task{
     }
 
     /**
+     * Method to get the from timing from the user input.
      * @param userInput String containing the entire user input.
      * @param read Boolean flag to differentiate whether it is being read from the txt file or
      *             from the taskList.
@@ -43,6 +45,7 @@ public class Event extends Task{
     }
 
     /**
+     * Method to get the to timing from the user input.
      * @param userInput String containing the entire user input.
      * @param read Boolean flag to differentiate whether it is being read from the txt file or
      *             from the taskList.

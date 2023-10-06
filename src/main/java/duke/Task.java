@@ -18,6 +18,7 @@ public class Task {
     }
 
     /**
+     * Getter method to get the status icon.
      * @return Checkmark based on whether the task is completed or not as a string.
      */
     public String getStatusIcon(){
@@ -28,6 +29,7 @@ public class Task {
     }
 
     /**
+     * Getter method to get the task type icon.
      * @return Task type icon as a string.
      */
     public String getTaskTypeIcon(){
@@ -64,6 +66,7 @@ public class Task {
     }
 
     /**
+     * Method to return the formatted string of the task object and its attributes.
      * @return String of all the task's features as a string so it can be written
      *         to a text file
      */

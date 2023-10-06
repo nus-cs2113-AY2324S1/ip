@@ -19,6 +19,7 @@ public class Parser extends DukeException{
     }
 
     /**
+     * Method to parse the user input.
      * @throws IOException if an I/O error occurs during parsing.
      */
     public void parseInput() throws IOException {

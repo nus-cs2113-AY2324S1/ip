@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class ToDo extends Task{
 
     /**
+     * Subclass Constructor
      * @param userInput String containing the entire user input.
      * @param read Boolean flag to differentiate whether it is being read from the txt file or
      *             from the taskList.
@@ -18,6 +19,7 @@ public class ToDo extends Task{
     }
 
     /**
+     * Method to get the formatted description from the text file.
      * @param userInput String containing the entire user input.
      * @param read Boolean flag to differentiate whether it is being read from the txt file or
      *             from the taskList.

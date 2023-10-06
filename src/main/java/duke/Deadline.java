@@ -14,6 +14,7 @@ public class Deadline extends Task {
     }
 
     /**
+     * Method to get the description from the user input.
      * @param userInput String containing the entire user input.
      * @param read Boolean flag to differentiate whether it is being read from the txt file or
      *             from the taskList.
@@ -30,6 +31,7 @@ public class Deadline extends Task {
     }
 
     /**
+     * method to get the deadline from the user input.
      * @param userInput String containing the entire user input.
      * @param read Boolean flag to differentiate whether it is being read from the txt file or
      *             from the taskList.
