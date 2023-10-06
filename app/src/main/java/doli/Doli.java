@@ -1,4 +1,4 @@
-package doli.chatbot;
+package doli;
 
 import doli.gui.Ui;
 import doli.commands.Command;
