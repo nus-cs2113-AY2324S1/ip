@@ -23,7 +23,7 @@ public abstract class Ui {
     }
 
     /**
-     * Return the input from the user.
+     * Returns the input from the user.
      *
      * @return The input from the user in CLI.
      */

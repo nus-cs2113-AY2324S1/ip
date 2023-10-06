@@ -14,7 +14,7 @@ public abstract class TaskList {
     private static final ArrayList<Task> list = new ArrayList<>();
 
     /**
-     * Getter for the list.
+     * Gets for the list.
      *
      * @return the list.
      */
