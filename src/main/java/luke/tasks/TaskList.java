@@ -19,7 +19,7 @@ public class TaskList{
      * @throws LukeTimeError If an error specific to the LukeTime application occurs during initialization.
      */
 
-    public TaskList(ArrayList<Task> thetasks) throws LukeTimeError {
+    public TaskList(ArrayList<Task> thetasks) throws LukeTimeError, NullPointerException {
         mainTaskList = new ArrayList<Task>();
         numberOfTasks = 0;
         for (Task item: thetasks) {
@@ -31,7 +31,8 @@ public class TaskList{
      * Constructs an empty TaskList object.
      */
     public TaskList() {
-
+        mainTaskList = new ArrayList<Task>();
+        numberOfTasks = 0;
     }
 
     /**

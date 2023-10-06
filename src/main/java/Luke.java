@@ -29,6 +29,9 @@ public class Luke {
         } catch (LukeTimeError e) {
             ui.showLoadingError();
             tasks = new TaskList();
+        } catch (NullPointerException e) {
+            //ui.showNoMemoryError();
+            tasks = new TaskList();
         }
     }
 

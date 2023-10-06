@@ -28,16 +28,17 @@ public class Storage {
                 tasks = Memory.readMemory(filePath);
                 System.out.println("\n\tMemory retrieval successful!\n");
             } catch (FileNotFoundException e) {
-                System.out.println("\tNo existing memory. (1)");
+                System.out.println("\n\tNo existing memory. (1)\n");
             }
         } else {
             try {
-                taskListFile.createNewFile();
-                System.out.println("\tNo existing memory.");
+                if (taskListFile.createNewFile()) {
+                    System.out.println("\n\tNo existing memory. Creating new memory...\n");
+                }
             } catch (IOException e) {
-                System.out.println("\tIOException.");
+                System.out.println("\n\tIOException.\n");
             } catch (SecurityException e) {
-                System.out.println("\tSecurityException.");
+                System.out.println("\n\tSecurityException.\n");
             }
         }
     }

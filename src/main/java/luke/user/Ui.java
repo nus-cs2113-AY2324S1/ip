@@ -50,7 +50,14 @@ public class Ui {
      * Displays an error message for loading issues.
      */
     public void showLoadingError() {
-        System.out.println("Loading Error... (pls change)");
+        System.out.println("\tError in loading memory.");
+    }
+
+    /**
+     * Displays an error message for loading issues.
+     */
+    public void showNoMemoryError() {
+        System.out.println("\tNo memory is loaded.");
     }
 
     /**
