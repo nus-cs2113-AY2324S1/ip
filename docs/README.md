@@ -189,6 +189,7 @@ bye
 ```
 
 ## Command Summary
+
 | Action       | Format, Examples                                                                                                                  |
 |--------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | Add todo     | `todo TASK_DESCRIPTION`<br>example: `todo Cook lunch`                                                                            |
@@ -201,6 +202,8 @@ bye
 | Find         | `find KEYWORD`<br>example: `find quiz`                                                                                           |
 | Help         | `help`<br>example: `help`                                                                                                       |
 | Exit         | `bye`<br>example: `bye`                                                                                                         |
-                                                                                                     |
+
+
+
 
 
