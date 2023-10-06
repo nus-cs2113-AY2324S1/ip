@@ -1,8 +1,14 @@
 package BotBuddy;
 
+/**
+ * Abstract class that represents tasks.
+ *
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+
+    /** Number of tasks in the task list */
     private static int noOfTasks = 0;
 
     public Task(String description) {

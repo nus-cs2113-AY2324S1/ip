@@ -7,10 +7,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage file that stores application data.
+ */
 public class Storage {
     String filePath;
     String directoryName;
 
+    /**
+     * Checks if the storage file exists, and creates one if it does not.
+     *
+     * @param filePath the relative file path of the storage file.
+     * @param directoryName the name of the directory in which the storage file is located.
+     * @param ui Ui object to print response to user.
+     * @throws IOException If IO errors occur.
+     */
     public Storage(String filePath, String directoryName, Ui ui) throws IOException {
         this.filePath = filePath;
         this.directoryName = directoryName;
@@ -26,7 +37,14 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> load() throws FileNotFoundException, BotBuddyException{
+    /**
+     * Loads tasks from the storage file into the task list.
+     *
+     * @return Task list.
+     * @throws FileNotFoundException If storage file does not exist.
+     * @throws BotBuddyException If storage file is corrupted.
+     */
+    public ArrayList<Task> load() throws FileNotFoundException, BotBuddyException {
         ArrayList<Task> taskArrayList = new ArrayList<>();
 
         File taskFile = new File(filePath);
@@ -79,10 +97,22 @@ public class Storage {
         return taskArrayList;
     }
 
+    /**
+     * Adds a todo from the storage file into the task list.
+     *
+     * @param parameters Details of the todo.
+     * @param tasks Task list.
+     */
     public static void addTodoFromFile(String parameters, ArrayList<Task> tasks) {
         tasks.add(new Todo(parameters));
     }
 
+    /**
+     * Adds an event from the storage file into the task list.
+     *
+     * @param parameters Details of the event.
+     * @param tasks Task list.
+     */
     public static void addEventFromFile(String parameters, ArrayList<Task> tasks) {
         String[] eventDetails = parameters.split("/from");
         String eventName = eventDetails[0].trim();
@@ -92,6 +122,12 @@ public class Storage {
         tasks.add(new Event(eventName, eventFrom, eventTo));
     }
 
+    /**
+     * Adds a deadline from the storage file into the task list.
+     *
+     * @param parameters Details of the deadline.
+     * @param tasks Task list.
+     */
     public static void addDeadlineFromFile(String parameters, ArrayList<Task> tasks) {
         String[] deadlineDetails = parameters.split("/by");
         String deadlineName = deadlineDetails[0].trim();
@@ -99,11 +135,23 @@ public class Storage {
         tasks.add(new Deadline(deadlineName, deadlineBy));
     }
 
-    public static void markTaskFromFile(String parameters, ArrayList<Task> tasks) {
-        int taskToMark = Integer.parseInt(parameters) - 1;
-        tasks.get(taskToMark).markAsDone();
+    /**
+     * Marks a task in the task list as done if it is marked as done in the storage file.
+     *
+     * @param taskToMark Task number to mark as done.
+     * @param tasks Task list.
+     */
+    public static void markTaskFromFile(String taskToMark, ArrayList<Task> tasks) {
+        int taskIndex = Integer.parseInt(taskToMark) - 1;
+        tasks.get(taskIndex).markAsDone();
     }
 
+    /**
+     * Stores data from the task list into the storage file.
+     *
+     * @param taskArrayList Task list.
+     * @throws IOException If there are errors writing to the storage file.
+     */
     public void store(ArrayList<Task> taskArrayList) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         StringBuilder taskData = new StringBuilder();

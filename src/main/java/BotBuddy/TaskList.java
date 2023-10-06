@@ -1,7 +1,9 @@
 package BotBuddy;
 
 import java.util.ArrayList;
-
+/**
+ * Represents a task list.
+ */
 public class TaskList {
     private ArrayList<Task> taskArrayList;
 
@@ -9,18 +11,24 @@ public class TaskList {
         this.taskArrayList = taskArrayList;
     }
 
-    public TaskList() {
-        this.taskArrayList = new ArrayList<>();
-    }
-
     public ArrayList<Task> getTaskArrayList() {
         return taskArrayList;
     }
 
-    public void addTodoToTaskList(String parameters) {
-        taskArrayList.add(new Todo(parameters));
+    /**
+     * Adds a todo to the task list.
+     *
+     * @param description Description of the todo.
+     */
+    public void addTodoToTaskList(String description) {
+        taskArrayList.add(new Todo(description));
     }
 
+    /**
+     * Adds an event to the task list.
+     *
+     * @param eventDetails Array with event description, event from, and event to in indexes 0, 1, 2 respectively.
+     */
     public void addEventToTaskList(String[] eventDetails) {
         String eventName = eventDetails[0];
         String eventFrom = eventDetails[1];
@@ -28,38 +36,65 @@ public class TaskList {
         taskArrayList.add(new Event(eventName, eventFrom, eventTo));
     }
 
+    /**
+     * Adds a deadline to the task list.
+     *
+     * @param deadlineDetails Array with deadline description and due date in indexes 0 and 1 respectively.
+     */
     public void addDeadlineToTaskList(String[] deadlineDetails) {
         String deadlineName = deadlineDetails[0];
         String deadlineBy = deadlineDetails[1];
         taskArrayList.add(new Deadline(deadlineName, deadlineBy));
     }
 
+    /**
+     * Prints tasks in the task list.
+     */
     public void listTasksInTaskList(int noOfTasks) {
         for (int i = 0; i < noOfTasks; i++) {
             System.out.println(i + 1 + ". " + taskArrayList.get(i));
         }
     }
 
-    public void markTaskInTaskList(int taskToMark) {
-        taskArrayList.get(taskToMark).markAsDone();
+    /**
+     * Marks a task as done in the task list.
+     *
+     * @param taskIndex Task index to mark as done.
+     */
+    public void markTaskInTaskList(int taskIndex) {
+        taskArrayList.get(taskIndex).markAsDone();
     }
 
-    public void unmarkTaskInTaskList(int taskToUnmark) {
-        taskArrayList.get(taskToUnmark).markAsUndone();
+    /**
+     * Unmarks a task as done in the task list.
+     *
+     * @param taskIndex Task index to unmark as done.
+     */
+    public void unmarkTaskInTaskList(int taskIndex) {
+        taskArrayList.get(taskIndex).markAsUndone();
     }
 
-    public void removeTaskFromTaskList(int taskToDelete) {
-        taskArrayList.remove(taskToDelete);
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param taskIndex Task index to delete.
+     */
+    public void removeTaskFromTaskList(int taskIndex) {
+        taskArrayList.remove(taskIndex);
     }
 
-    public void findTasksInTaskList(String parameters, int noOfTasks) {
+    /**
+     * Searches for tasks in the task list.
+     *
+     * @param searchString String to search for amongst tasks.
+     * @param noOfTasks Number of tasks in the task list.
+     */
+    public void findTasksInTaskList(String searchString, int noOfTasks) {
         for (int i = 0; i < noOfTasks; i++) {
             String currentTask = String.valueOf(taskArrayList.get(i));
-            if (currentTask.contains(parameters)) {
+            if (currentTask.contains(searchString)) {
                 System.out.println(i + 1 + ". " + taskArrayList.get(i));
             }
         }
     }
-
-
 }

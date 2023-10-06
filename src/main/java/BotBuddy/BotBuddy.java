@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The BotBuddy class represents the main application class for the BotBuddy program.
+ */
 public class BotBuddy {
 
     private Storage storage;
@@ -14,6 +17,12 @@ public class BotBuddy {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Initializes the required objects and loads data from the storage file.
+     *
+     * @param filePath the relative file path of the storage file.
+     * @param directoryName the name of the directory in which the storage file is located.
+     */
     public BotBuddy(String filePath, String directoryName) {
         ui = new Ui();
         parser = new Parser();
@@ -43,6 +52,9 @@ public class BotBuddy {
         new BotBuddy("data/taskfile.txt", "data").run();
     }
 
+    /**
+     * Runs the program until the bye command is given.
+     */
     public void run() {
         ui.printWelcomeMsg();
         String command = "";
@@ -113,32 +125,50 @@ public class BotBuddy {
         } while (!command.equals("bye"));
     }
 
-    public void addTodo(String parameters) {
+    /**
+     * Adds a todo and prints confirmation to the user.
+     *
+     * @param description Description of the todo.
+     */
+    public void addTodo(String description) {
         int noOfTasks = Task.getNoOfTasks();
-        tasks.addTodoToTaskList(parameters);
+        tasks.addTodoToTaskList(description);
         ui.printToUser("Got it, I've added this task:"
                 + System.lineSeparator()
                 + tasks.getTaskArrayList().get(noOfTasks));
     }
 
-    public void addEvent(String parameters) {
+    /**
+     * Adds an event and prints confirmation to the user.
+     *
+     * @param unparsedEventDetails String containing description, from date, and to date of event.
+     */
+    public void addEvent(String unparsedEventDetails) {
         int noOfTasks = Task.getNoOfTasks();
-        String[] eventDetails = parser.parseEventDetails(parameters);
+        String[] eventDetails = parser.parseEventDetails(unparsedEventDetails);
         tasks.addEventToTaskList(eventDetails);
         ui.printToUser("Got it, I've added this task:"
                 + System.lineSeparator()
                 + tasks.getTaskArrayList().get(noOfTasks));
     }
 
-    public void addDeadline(String parameters) {
+    /**
+     * Adds a deadline and prints confirmation to the user.
+     *
+     * @param unparsedDeadlineDetails String containing description and by date of deadline.
+     */
+    public void addDeadline(String unparsedDeadlineDetails) {
         int noOfTasks = Task.getNoOfTasks();
-        String[] deadlineDetails = parser.parseDeadlineDetails(parameters);
+        String[] deadlineDetails = parser.parseDeadlineDetails(unparsedDeadlineDetails);
         tasks.addDeadlineToTaskList(deadlineDetails);
         ui.printToUser("Got it, I've added this task:"
                 + System.lineSeparator()
                 + tasks.getTaskArrayList().get(noOfTasks));
     }
 
+    /**
+     * Checks if there are tasks in the task list and prints them to the user if they exist.
+     */
     public void listTasks() {
         int noOfTasks = Task.getNoOfTasks();
         if (noOfTasks == 0) {
@@ -150,41 +180,64 @@ public class BotBuddy {
         ui.printUnderscores();
     }
 
-    public void markTask(String parameters) {
-        int taskToMark = Integer.parseInt(parameters) - 1;
-        tasks.markTaskInTaskList(taskToMark);
+    /**
+     * Marks a task as done and prints confirmation to the user.
+     *
+     * @param taskToMark Task number to mark as done.
+     */
+    public void markTask(String taskToMark) {
+        int taskIndex = Integer.parseInt(taskToMark) - 1;
+        tasks.markTaskInTaskList(taskIndex);
         ui.printToUser("I've marked this task as done:"
                 + System.lineSeparator()
-                + tasks.getTaskArrayList().get(taskToMark));
+                + tasks.getTaskArrayList().get(taskIndex));
     }
 
-    public void unmarkTask(String parameters) {
-        int taskToUnmark = Integer.parseInt(parameters) - 1;
-        tasks.unmarkTaskInTaskList(taskToUnmark);
+    /**
+     * Unmarks a task as done and prints confirmation to the user.
+     *
+     * @param taskToUnmark Task number to unmark as done.
+     */
+    public void unmarkTask(String taskToUnmark) {
+        int taskIndex = Integer.parseInt(taskToUnmark) - 1;
+        tasks.unmarkTaskInTaskList(taskIndex);
         ui.printToUser("I've unmarked this task:"
                 + System.lineSeparator()
-                + tasks.getTaskArrayList().get(taskToUnmark));
+                + tasks.getTaskArrayList().get(taskIndex));
     }
 
-    public void deleteTask(String parameters) {
-        int taskToDelete = Integer.parseInt(parameters) - 1;
-        String tempMessage = String.valueOf(tasks.getTaskArrayList().get(taskToDelete));
+    /**
+     * Deletes a task and prints confirmation to the user.
+     *
+     * @param taskToDelete Task number to delete.
+     */
+    public void deleteTask(String taskToDelete) {
+        int taskIndex = Integer.parseInt(taskToDelete) - 1;
+        String tempMessage = String.valueOf(tasks.getTaskArrayList().get(taskIndex));
         int noOfTasks = Task.getNoOfTasks();
-        tasks.removeTaskFromTaskList(taskToDelete);
+        tasks.removeTaskFromTaskList(taskIndex);
         Task.setNoOfTasks(noOfTasks - 1);
         ui.printToUser("I've deleted this task:"
                 + System.lineSeparator()
                 + tempMessage);
     }
 
-    public void findTask(String parameters) {
+    /**
+     * Searches for tasks and prints them to the user.
+     *
+     * @param searchString String to search for amongst tasks.
+     */
+    public void findTask(String searchString) {
         int noOfTasks = Task.getNoOfTasks();
-        ui.printToUser("Here are the found tasks for '" + parameters + "':");
+        ui.printToUser("Here are the found tasks for '" + searchString + "':");
         ui.printUnderscores();
-        tasks.findTasksInTaskList(parameters, noOfTasks);
+        tasks.findTasksInTaskList(searchString, noOfTasks);
         ui.printUnderscores();
     }
 
+    /**
+     * Prints the exit message.
+     */
     public void exitProgram() {
         ui.printExitMsg();
     }

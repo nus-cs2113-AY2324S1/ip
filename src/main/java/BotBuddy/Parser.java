@@ -1,19 +1,28 @@
 package BotBuddy;
 
+/**
+ * Represents a parser object that parses various user inputs.
+ *
+ */
 public class Parser {
+    /**
+     * Parses the user input into command and parameters.
+     *
+     * @param userInput User input.
+     * @return Array with command in index 0 and parameters in index 1 if it exists
+     */
     public String[] parseInput(String userInput) {
         String[] inputArr = userInput.split(" ", 2);
-        String command = "";
-        String parameters = "";
-        command = inputArr[0];
-        if (inputArr.length == 2) {
-            parameters = inputArr[1];
-        } else {
-            parameters = "";
-        }
         return inputArr;
     }
 
+    /**
+     * Validates the user input based on the command and parameters given.
+     *
+     * @param command Command given.
+     * @param parameters Parameters given.
+     * @throws BotBuddyException If invalid input is found.
+     */
     public void validateInput(String command, String parameters) throws BotBuddyException {
         switch (command) {
         case "todo":
@@ -96,6 +105,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses event details.
+     *
+     * @param parameters String containing all the event details.
+     * @return Array with event description, event from, and event to in indexes 0, 1, 2 respectively.
+     */
     public String[] parseEventDetails(String parameters) {
         String[] eventDetails = parameters.split("/from");
         String eventName = eventDetails[0].trim();
@@ -107,6 +122,12 @@ public class Parser {
         return parsedEventDetails;
     }
 
+    /**
+     * Parses deadline details.
+     *
+     * @param parameters String containing all the deadline details.
+     * @return Array with deadline description and due date in indexes 0 and 1 respectively.
+     */
     public String[] parseDeadlineDetails(String parameters) {
         String[] deadlineDetails = parameters.split("/by");
         String deadlineName = deadlineDetails[0].trim();
