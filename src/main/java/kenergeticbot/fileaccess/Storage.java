@@ -5,6 +5,7 @@ import kenergeticbot.task.Deadline;
 import kenergeticbot.task.Event;
 import kenergeticbot.task.Task;
 import kenergeticbot.task.Todo;
+import kenergeticbot.ui.TextUi;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,62 +22,65 @@ public class Storage {
     protected String filePath;
     public static final String folderPath = "data";
 
-    public Storage(String filePath) {
+    public Storage(String filePath, TextUi ui) {
         this.filePath = filePath;
-        initializeStorage();
+        initializeStorage(ui);
     }
 
     /**
      * Checks if the storage file exists, creates the file if not
+     * @param ui The TextUI object created to handle I/O with the user
      * @throws IOException if the file exists but unable to access
      */
-    public void initializeStorage() {
+    public void initializeStorage(TextUi ui) {
         File f = new File(filePath);
-        checkFolderExist();
+        checkFolderExist(ui);
         try {
             if (f.createNewFile()) {
-                System.out.println("File created: " + f.getName());
+                ui.showToUser("File created: " + f.getName());
             } else {
-                System.out.println("File already exists.");
+                ui.showToUser("File already exists.");
             }
         } catch (IOException e) {
-            System.out.println("An error occurred." + e.getMessage());
+            ui.showToUser("An error occurred." + e.getMessage());
         }
-        System.out.println("full path: " + f.getAbsolutePath());
+        ui.showToUser("Save file is at: " + f.getAbsolutePath());
     }
 
     /**
      * Checks if the storage folder to store the storage file exists, creates the folder if not
+     * @param ui The TextUI object created to handle I/O with the user
      */
-    public void checkFolderExist() {
+    public void checkFolderExist(TextUi ui) {
         File f = new File(folderPath);
         if (f.mkdir()) {
-            System.out.println("Directory is created");
+            ui.showToUser("Directory is created");
         } else {
-            System.out.println("Directory cannot be created");
+            ui.showToUser("Directory already exist");
         }
-        System.out.println("full path: " + f.getAbsolutePath());
     }
 
     /**
      * Loads the storage data file into a TaskList object.
      * Calls readFromFile method
+     * @param taskList The arraylist object created that stores current tasks
      * @throws FileNotFoundException if unable to locate storage file using pathfile
      */
-    public void loadPreviousList(TaskList taskList) {
+    public void loadPreviousList(TaskList taskList, TextUi ui) {
         try {
-            System.out.println("Loading previous list");
-            readFromFile(filePath, taskList);
+            readFromFile(filePath, taskList, ui);
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred." + e.getMessage());
+            ui.showToUser(e.getMessage());
         }
     }
 
     /**
      * Access the storage data file to create the appropriate Task object
      * Creates a scanner to scan the storage data file, parses the text to determine respective Task type, isDone status and description
+     * @param filePath The location of the data storage file
+     * @param taskList The arraylist object created that stores current tasks
      */
-    public void readFromFile(String filePath, TaskList taskList) throws FileNotFoundException {
+    public void readFromFile(String filePath, TaskList taskList, TextUi ui) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         if (f.length() == 0) {
             return;
@@ -96,21 +100,21 @@ public class Storage {
 
             switch (taskType) {
                 case "T" :
-                    Task previousTodo = new Todo(taskDescription, checkMark(taskMark));
-                    taskList.add(previousTodo);
-                    System.out.println("adding:" + previousTodo);
+                    Task previousTodo = new Todo(taskDescription, isMark(taskMark));
+                    taskList.addTask(previousTodo);
+                    ui.showToUser("adding:" + previousTodo);
                     break;
                 case "D" :
                     String taskDeadline = taskVariables[3];
-                    Task previousDeadline = new Deadline(taskDescription, taskDeadline, checkMark(taskMark));
-                    taskList.add(previousDeadline);
-                    System.out.println("adding:" + previousDeadline);
+                    Task previousDeadline = new Deadline(taskDescription, taskDeadline, isMark(taskMark));
+                    taskList.addTask(previousDeadline);
+                    ui.showToUser("adding:" + previousDeadline);
                     break;
                 case "E" :
                     String taskEventDateTime = taskVariables[3];
-                    Task previousEvent = new Event(taskDescription, taskEventDateTime, checkMark(taskMark));
-                    taskList.add(previousEvent);
-                    System.out.println("adding:" + previousEvent);
+                    Task previousEvent = new Event(taskDescription, taskEventDateTime, isMark(taskMark));
+                    taskList.addTask(previousEvent);
+                    ui.showToUser("adding:" + previousEvent);
                     break;
                 default :
                     throw new IllegalStateException("Unexpected value: " + taskType);
@@ -119,7 +123,7 @@ public class Storage {
         try {
             new FileWriter(filePath, false).close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            ui.showToUser(e.getMessage());
         }
     }
 
@@ -127,42 +131,49 @@ public class Storage {
      * Writes a String into a data file for storage.
      * If data file does not exist, the method creates data file
      * If data file already exist, the method edits the data file
+     * @param textToAdd The intended data to be stored into the data file
      * @throws IOException if the file exists but unable to access
      */
-    public void writeToFile(String textToAdd) {
+    public void writeToFile(String textToAdd, TextUi ui) {
         File f = new File(filePath);
-        if (f.length() == 0) {
+        if (f.length() == 0) { //if file is empty
             try {
-                FileWriter myWriter = new FileWriter(filePath);
-                myWriter.write(textToAdd);
-                myWriter.close();
-                System.out.println("Successfully wrote to the file.");
+                FileWriter saveFileWriter = new FileWriter(filePath);
+                saveFileWriter.write(textToAdd);
+                saveFileWriter.close();
+                ui.showToUser("Successfully wrote to the file.");
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                ui.showToUser(e.getMessage());
             }
-        } else {
+        } else { //if file is not empty
             try {
-                FileWriter myWriter = new FileWriter(filePath, true);
-                myWriter.write(textToAdd);
-                myWriter.close();
-                System.out.println("Successfully wrote to the file.");
+                FileWriter saveFileWriter = new FileWriter(filePath, true);
+                saveFileWriter.write(textToAdd);
+                saveFileWriter.close();
+                ui.showToUser("Successfully wrote to the file.");
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                ui.showToUser(e.getMessage());
             }
         }
     }
 
     /**
-     * Saves the TaskList object into a data file for storage.
+     * Saves the TaskList object into a data file for storage, iterating through the list.
      */
-    public void saveList(TaskList taskList) {
+    public void saveList(TaskList taskList, TextUi ui) {
         for (int i = 0; i < taskList.getSize(); i++) {
             System.out.println(taskList.getTask(i));
-            writeToFile(taskList.getTask(i).printTaskToSave());
+            writeToFile(taskList.getTask(i).printTaskToSave(), ui);
         }
     }
 
-    public boolean checkMark(String item) {
-        return item.equals("1");
+    /**
+     * Checks if the string has the task marked as done or not done
+     * @param stringInput The String that stores the done status of the task
+     * @return True is task is done, False if not done
+     */
+    public boolean isMark(String stringInput) {
+        boolean isDone = stringInput.equals("1");
+        return isDone;
     }
 }

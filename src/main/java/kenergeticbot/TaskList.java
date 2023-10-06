@@ -17,11 +17,11 @@ public class TaskList {
     public Task getTask(int taskID) {
         return taskList.get(taskID);
     }
-    public void remove(int taskID) {
+    public void removeTask(int taskID) {
         taskList.remove(taskID);
     }
 
-    public void add(Task task) {
+    public void addTask(Task task) {
         taskList.add(task);
     }
 }

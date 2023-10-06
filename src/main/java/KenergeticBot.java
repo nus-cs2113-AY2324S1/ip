@@ -24,8 +24,8 @@ public class KenergeticBot {
      * Sets up the required objects, loads up the data from the storage file, and prints the welcome message.
      */
     private void start(String filePath, TaskList taskList, TextUi ui) {
-        this.storage = new Storage(filePath);
-        storage.loadPreviousList(taskList);
+        this.storage = new Storage(filePath, ui);
+        storage.loadPreviousList(taskList, ui);
         ui.printGreetingMessage();
     }
 
@@ -45,7 +45,7 @@ public class KenergeticBot {
             Command c = Parser.parseCommand(taskList, item);
             c.execute(taskList, ui);
         } while (!ExitCommand.isExit());
-        storage.saveList(taskList);
+        storage.saveList(taskList, ui);
     }
 
     /** Prints the Goodbye message and exits. */

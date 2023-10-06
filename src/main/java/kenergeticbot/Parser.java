@@ -20,6 +20,7 @@ public class Parser{
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
+     * @param taskList The arraylist object created that stores current tasks
      * @return the command based on the user input
      * @throws KenergeticBotException if input does not match any known command
      */
@@ -37,7 +38,7 @@ public class Parser{
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case FindCommand.COMMAND_WORD:
-            return prepareFind(taskList, userInput);
+            return prepareFind(userInput);
         default:
             try{
                 return new AddCommand(userInput);
@@ -51,6 +52,7 @@ public class Parser{
      * Parses arguments in the context of the mark task command.
      *
      * @param userInput full command args string
+     * @param taskList The arraylist object created that stores current tasks
      * @return the prepared command
      */
     private static Command prepareMark(TaskList taskList, String userInput) {
@@ -70,6 +72,7 @@ public class Parser{
      * Parses arguments in the context of the unmark task command.
      *
      * @param userInput full command args string
+     * @param taskList The arraylist object created that stores current tasks
      * @return the prepared command
      */
     private static Command prepareUnmark(TaskList taskList, String userInput) {
@@ -89,6 +92,7 @@ public class Parser{
      * Parses arguments in the context of the delete task command.
      *
      * @param userInput full command args string
+     * @param taskList The arraylist object created that stores current tasks
      * @return the prepared command
      */
     private static Command prepareDelete(TaskList taskList, String userInput) {
@@ -110,9 +114,9 @@ public class Parser{
      * @param userInput full command args string
      * @return the prepared command
      */
-    private static Command prepareFind(TaskList taskList, String userInput) {
+    private static Command prepareFind(String userInput) {
         try {
-            final String listKeyword = parseArgsAsDisplayedKeyword(taskList, userInput, "find");
+            final String listKeyword = parseArgsAsDisplayedKeyword(userInput, "find");
             return new FindCommand(listKeyword);
         } catch (KenergeticBotException e) {
             return new IncorrectCommand(e.getMessage());
@@ -127,6 +131,8 @@ public class Parser{
      * Parses the given arguments string to identify task index number.
      *
      * @param userInput arguments string to parse as index number
+     * @param command expected String name of the command called
+     * @param taskList The arraylist object created that stores current tasks
      * @return the parsed index number
      * @throws ParseException if no region of the args string could be found for the index
      * @throws NumberFormatException the args string region is not a valid number
@@ -146,11 +152,12 @@ public class Parser{
      * Parses the given arguments string to identify task keyword.
      *
      * @param userInput arguments string to parse as keyword
+     * @param command expected String name of command to be called
      * @return the parsed keyword
-     * @throws ParseException if no region of the args string could be found for the index
-     * @throws NumberFormatException the args string region is not a valid number
+     * @throws ParseException if the keyword is not in an expected format
+     * @throws KenergeticBotException if no keyword is found
      */
-    private static String parseArgsAsDisplayedKeyword(TaskList taskList, String userInput, String command) throws ParseException, NumberFormatException, KenergeticBotException {
+    private static String parseArgsAsDisplayedKeyword(String userInput, String command) throws ParseException, KenergeticBotException {
         String keywordString = userInput.replace(command, "").trim();
         if (keywordString.isEmpty()) {
             throw new KenergeticBotException(COMMAND_TYPO_NO_KEYWORD);

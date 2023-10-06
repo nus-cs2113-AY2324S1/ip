@@ -3,6 +3,8 @@ package kenergeticbot.command;
 import kenergeticbot.TaskList;
 import kenergeticbot.ui.TextUi;
 
+import static kenergeticbot.common.Messages.SEPARATING_LINE;
+
 /**
  * Deletes a task identified using it's last displayed index from the task list.
  */
@@ -20,7 +22,8 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, TextUi ui) {
         ui.printDeleteTaskMessage(taskList, listIndex);
-        taskList.remove(listIndex - 1);
+        taskList.removeTask(listIndex - 1);
+        ui.showToUser(SEPARATING_LINE);
     }
 
 }
