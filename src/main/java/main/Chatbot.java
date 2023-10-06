@@ -13,7 +13,7 @@ public class Chatbot {
         System.out.println(AsciiArt.getArt("picture"));
         System.out.println("Welcome back goshujin-sama, what can I do for you?");
         System.out.println();
-        ResponseProcessor processor = new ResponseProcessor();
+        Parser processor = new Parser();
         LoadData.load(processor);
         waitForResponse(processor);
         StoreData.store(processor);
@@ -25,7 +25,7 @@ public class Chatbot {
      *
      * @param processor The main processor of the code
      */
-    public static void waitForResponse(ResponseProcessor processor) {
+    public static void waitForResponse(Parser processor) {
         Scanner scanner = new Scanner(System.in);
         String response;
         do {

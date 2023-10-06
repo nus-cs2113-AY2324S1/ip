@@ -1,6 +1,6 @@
 package data;
 
-import main.ResponseProcessor;
+import main.Parser;
 import task.Deadline;
 import task.Event;
 import task.Todo;
@@ -15,7 +15,7 @@ import java.nio.file.Paths;
  * Represents a load data function to load task list from a savefile.txt
  */
 public class LoadData {
-    public static void load(ResponseProcessor processor) {
+    public static void load(Parser processor) {
 
         String directory = System.getProperty("user.dir");
         Path path = Paths.get(directory + "/savefile.txt");

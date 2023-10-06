@@ -1,7 +1,7 @@
 package commands;
 
 import ascii.AsciiArt;
-import main.ResponseProcessor;
+import main.Parser;
 import task.Deadline;
 /**
  * Represents a deadline Command to add a new deadline task to the task list
@@ -9,7 +9,7 @@ import task.Deadline;
 public class DeadlineCommand extends Command {
 
     @Override
-    public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {
+    public void execute(String statement, Parser processor) throws IllegalArgumentException {
         int indexBy = getIndex(statement,"/by ");
         String description = statement.substring(0, indexBy);
         String by = processDate(statement.substring(indexBy + 4));

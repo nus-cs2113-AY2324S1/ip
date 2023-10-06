@@ -1,14 +1,14 @@
 package commands;
 
 import ascii.AsciiArt;
-import main.ResponseProcessor;
+import main.Parser;
 import task.Task;
 /**
  * Represents a list Command to list out the tasks in the task list
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {
+    public void execute(String statement, Parser processor) throws IllegalArgumentException {
         if (!statement.isEmpty()){
             throw new IllegalArgumentException ("uwu dont write anything after 'list' " + AsciiArt.getArt("cry"));
         }

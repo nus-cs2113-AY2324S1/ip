@@ -1,14 +1,14 @@
 package commands;
 
 import ascii.AsciiArt;
-import main.ResponseProcessor;
+import main.Parser;
 import task.Event;
 /**
  * Represents a deadline Command to add a new event task to the task list
  */
 public class EventCommand extends Command {
     @Override
-    public void execute(String statement, ResponseProcessor processor) throws IllegalArgumentException {
+    public void execute(String statement, Parser processor) throws IllegalArgumentException {
         int indexFrom = getIndex(statement, "/from ");
         int indexTo = getIndex(statement, "/to ");
         String description = statement.substring(0, indexFrom);

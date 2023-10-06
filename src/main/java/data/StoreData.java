@@ -1,5 +1,5 @@
 package data;
-import main.ResponseProcessor;
+import main.Parser;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,7 +11,7 @@ import java.nio.file.Paths;
  * Represents a store data function to store the task list to a savefile.txt
  */
 public class StoreData {
-    public static void store(ResponseProcessor processor) {
+    public static void store(Parser processor) {
         String directory = System.getProperty("user.dir");
         Path path = Paths.get(directory + "/savefile.txt");
         File file = path.toFile();

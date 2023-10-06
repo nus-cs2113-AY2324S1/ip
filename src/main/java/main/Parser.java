@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * The main processor of the code to check which command to initiate
  */
-public class ResponseProcessor {
+public class Parser {
     public List<Task> taskList = new ArrayList<>();
     public HashMap<String, Command> commandProcessor = new HashMap<>() {{
         put("mark", new MarkCommand());
