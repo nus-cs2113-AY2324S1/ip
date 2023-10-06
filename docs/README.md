@@ -134,7 +134,7 @@ Format of usage:
 
 Example of usage:
 
-`unark 1`
+`unmark 1`
 
 Expected outcome:
 

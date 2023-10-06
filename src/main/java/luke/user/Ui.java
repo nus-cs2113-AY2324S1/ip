@@ -10,6 +10,23 @@ public class Ui {
     public String echo;
     public Scanner userInput;
 
+    private String logo = "\t _           _        \n"
+            + "\t| |    _   _| | _____ \n"
+            + "\t| |   | | | | |/ / _ \\\n"
+            + "\t| |___| |_| |   <  __/\n"
+            + "\t|_____|\\__,_|_|\\_\\___|\n";
+
+    private String userGuide = "\n\tQuick guide to using Luke...\n" +
+            "\t\tlist\n" +
+            "\t\ttodo <description>\n" +
+            "\t\tdeadline <description> /by <date>\n" +
+            "\t\tevent <description> /from <start date> /to <end date>\n" +
+            "\t\tmark <task number>\n" +
+            "\t\tunmark <task_number>\n" +
+            "\t\tdelete <task number>\n" +
+            "\t\tfind <keyword>\n" +
+            "\t\tbye\n";
+
     /**
      * Constructs a Ui object and initializes the user input scanner.
      */
@@ -28,14 +45,11 @@ public class Ui {
      * Displays a welcome message with a logo when the application starts.
      */
     public void showWelcome() {
-        String logo = "\t _           _        \n"
-                + "\t| |    _   _| | _____ \n"
-                + "\t| |   | | | | |/ / _ \\\n"
-                + "\t| |___| |_| |   <  __/\n"
-                + "\t|_____|\\__,_|_|\\_\\___|\n";
-
         System.out.println("\t" + "Hello! I'm\n" + logo);
         System.out.println("\tWhat can I do for you?");
+
+        System.out.print(userGuide);
+        showLine();
     }
 
     /**
