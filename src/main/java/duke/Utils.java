@@ -5,7 +5,7 @@ package duke;
  */
 public class Utils {
     /**
-     * Print out whatever is inputted and a divider
+     * Print out whatever is inputted and a divider.
      *
      * @param input The message required to be printed
      */
@@ -16,7 +16,7 @@ public class Utils {
     }
 
     /**
-     * Prints out a divider line
+     * Prints out a divider line.
      */
     public static void  printDivider(){
         System.out.println("___________________________________\n");
@@ -25,7 +25,7 @@ public class Utils {
     /**
      * Handles a case when there are string index issues and prints an error message with dividers
      *
-     * @param e String index exception issue
+     * @param e String index exception issue.
      */
     public static void handleStringIndexOutOfBoundsException(StringIndexOutOfBoundsException e){
         Utils.printDivider();
