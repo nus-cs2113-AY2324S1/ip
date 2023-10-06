@@ -1,10 +1,41 @@
+import exception.DukeException;
+
+import utils.*;
+
 public class Duke {
+    private final String FILE_PATH = "./data/list.txt";
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
+
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage(FILE_PATH);
+        parser = new Parser();
+        tasks = new TaskList(storage.loadSave());
+    }
+
+    /*
+     * Runs the CLI Interface
+     */
+    private void run() {
+        boolean isExit = false;
+
+        while(!isExit) {
+            String in = ui.readCommand();
+            try {
+                parser.parseAndExecute(in, tasks, ui, storage);
+                isExit = parser.isExit(in);
+            } catch (DukeException e) {
+                ui.echo(e.getErrorMessage());
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        Duke bot = new Duke();
+        bot.run();
     }
 }

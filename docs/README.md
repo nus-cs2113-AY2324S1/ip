@@ -1,29 +1,35 @@
-# User Guide
+# Mark Bot User Guide
 
 ## Features 
 
-### Feature-ABC
+### Add Task
 
-Description of the feature.
+- Todo
+  - input: todo {taskName}
+- Deadline
+  - input: deadline {taskName} /by {due date}
+- Event
+  - input: event {taskName} /from {from date} /to {to date}
 
-### Feature-XYZ
+Note: dates can be inputted as yyyy-MM-dd and it will be autoformatted when printing the list
 
-Description of the feature.
+### Print List
+- Print entire list
+  - input: list
+- Filter list by keyword
+  - input: find {keyword}
+- Filter list by date
+  - input: due by {keyword}
 
-## Usage
+### Mark Tasks
+- Mark task
+  - input: mark {index}
+  - marks the task #index as complete
+- Unmark task
+  - input: unmark {index} 
+  - unmarks the task #index as uncomplete
 
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
+### Delete Tasks
+- Delete task
+  - delete {index}
+  - deletes the task #index
