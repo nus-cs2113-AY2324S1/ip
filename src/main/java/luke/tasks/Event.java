@@ -1,5 +1,5 @@
 package luke.tasks;
-import luke.user.LukeTimeError;
+import luke.user.LukeException;
 
 /**
  * The Event class represents a task of type "Event" in the LukeTime application.
@@ -14,16 +14,16 @@ public class Event extends Task {
      * Constructs an Event task with the specified task description, start date, and end date.
      *
      * @param taskDescription The description of the event task including start and end dates.
-     * @throws LukeTimeError If there are syntax or formatting errors in the task description.
+     * @throws LukeException If there are syntax or formatting errors in the task description.
      */
-    public Event(String taskDescription) throws LukeTimeError {
+    public Event(String taskDescription) throws LukeException {
         super(taskDescription);
 
         int slashCut = taskDescription.indexOf("/");
         if (slashCut <= 0) {
             System.out.println("\tThere is a missing task description. Please follow this format:");
             printGuide();
-            throw new LukeTimeError();
+            throw new LukeException();
         }
 
         description = taskDescription.substring(0, slashCut);
@@ -54,14 +54,14 @@ public class Event extends Task {
      * Parses and sets the start and end dates of the event from the provided date string.
      *
      * @param dates The date string containing start and end date information.
-     * @throws LukeTimeError If there are syntax or formatting errors in the date string.
+     * @throws LukeException If there are syntax or formatting errors in the date string.
      */
-    public void setDates(String dates) throws LukeTimeError {
+    public void setDates(String dates) throws LukeException {
         String[] words = dates.split(" ");
         if (!words[0].equals("from")) {
             System.out.println("\tThere is a syntax problem. Please follow this format:");
             printGuide();
-            throw new LukeTimeError();
+            throw new LukeException();
         }
 
         dates = dates.substring(5);
@@ -70,7 +70,7 @@ public class Event extends Task {
         if (slashCut <= 0) {
             System.out.println("\tThere is a syntax problem. Please follow this format:");
             printGuide();
-            throw new LukeTimeError();
+            throw new LukeException();
         }
 
         startDate = dates.substring(0, slashCut);
@@ -80,7 +80,7 @@ public class Event extends Task {
         if (!words[0].equals("to")) {
             System.out.println("\tThere is a syntax problem. Please follow this format:");
             printGuide();
-            throw new LukeTimeError();
+            throw new LukeException();
         }
 
         endDate = dates.substring(3);

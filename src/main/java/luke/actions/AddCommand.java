@@ -2,7 +2,7 @@ package luke.actions;
 
 import luke.files.Storage;
 import luke.tasks.*;
-import luke.user.LukeTimeError;
+import luke.user.LukeException;
 import luke.user.Ui;
 
 import static luke.actions.ActionType.*;
@@ -22,9 +22,9 @@ public class AddCommand extends Command {
      *
      * @param theAction   The action type (TODO, DEADLINE, EVENT).
      * @param parameters  The parameters provided with the command (task description or task details).
-     * @throws LukeTimeError If there are missing or invalid arguments for creating the task.
+     * @throws LukeException If there are missing or invalid arguments for creating the task.
      */
-    public AddCommand(ActionType theAction, String parameters) throws LukeTimeError {
+    public AddCommand(ActionType theAction, String parameters) throws LukeException {
 
         super(theAction, parameters);
         if (theAction == TODO) {
@@ -33,17 +33,17 @@ public class AddCommand extends Command {
         if (theAction == DEADLINE) {
             try {
                 latestTask = new Deadline(parameters);
-            } catch (LukeTimeError e) {
+            } catch (LukeException e) {
                 System.out.println("\tOOPS!!! You have missing/invalid arguments for deadline. No changes have been made.");
-                throw new LukeTimeError();
+                throw new LukeException();
             }
         }
         if (theAction == EVENT) {
             try {
                 latestTask = new Event(parameters);
-            } catch (LukeTimeError e) {
+            } catch (LukeException e) {
                 System.out.println("\tOOPS!!! You have missing/invalid arguments for event. No changes have been made.");
-                throw new LukeTimeError();
+                throw new LukeException();
             }
         }
 

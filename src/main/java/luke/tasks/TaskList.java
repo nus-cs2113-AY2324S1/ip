@@ -1,7 +1,7 @@
 package luke.tasks;
 
 import java.util.ArrayList;
-import luke.user.LukeTimeError;
+import luke.user.LukeException;
 
 /**
  * The TaskList Class contains a list of tasks and provides operations to manage tasks.
@@ -16,10 +16,10 @@ public class TaskList{
      * Constructs a TaskList object from an existing ArrayList of tasks.
      *
      * @param thetasks An ArrayList of Task objects to initialize the task list with.
-     * @throws LukeTimeError If an error specific to the LukeTime application occurs during initialization.
+     * @throws LukeException If an error specific to the LukeTime application occurs during initialization.
      */
 
-    public TaskList(ArrayList<Task> thetasks) throws LukeTimeError, NullPointerException {
+    public TaskList(ArrayList<Task> thetasks) throws LukeException, NullPointerException {
         mainTaskList = new ArrayList<Task>();
         numberOfTasks = 0;
         for (Task item: thetasks) {

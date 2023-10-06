@@ -1,6 +1,6 @@
 package luke.actions;
 
-import luke.user.LukeTimeError;
+import luke.user.LukeException;
 
 /**
  * The Parser Class handles the parsing of user input into valid commands.
@@ -13,9 +13,9 @@ public class Parser{
      *
      * @param fullCommand The full user input command.
      * @return A Command object corresponding to the parsed command.
-     * @throws LukeTimeError If an error specific to the LukeTime application occurs during parsing.
+     * @throws LukeException If an error specific to the LukeTime application occurs during parsing.
      */
-    public static Command parse(String fullCommand) throws LukeTimeError {
+    public static Command parse(String fullCommand) throws LukeException {
         ActionType theAction;
         String parameters;
 
@@ -52,7 +52,7 @@ public class Parser{
                         parameters = fullCommand.substring(9);
                         try {
                             c = new AddCommand(theAction, parameters);
-                        } catch (LukeTimeError e) {
+                        } catch (LukeException e) {
                             c = new DoNothingCommand(ActionType.LIST, parameters);
                         }
                         break;
@@ -61,7 +61,7 @@ public class Parser{
                         parameters = fullCommand.substring(6);
                         try {
                             c = new AddCommand(theAction, parameters);
-                        } catch (LukeTimeError e) {
+                        } catch (LukeException e) {
                             c = new DoNothingCommand(ActionType.LIST, parameters);
                         }
                         break;

@@ -1,6 +1,6 @@
 package luke.files;
 
-import luke.user.LukeTimeError;
+import luke.user.LukeException;
 import luke.tasks.*;
 
 import java.io.File;
@@ -54,7 +54,7 @@ public class Memory {
                         break;
                 }
                 tasks.add(newTask);
-            } catch (LukeTimeError e) {
+            } catch (LukeException e) {
                 System.out.println("\tsomethings wrong");
             }
         }

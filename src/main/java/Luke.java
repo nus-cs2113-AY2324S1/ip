@@ -1,6 +1,6 @@
 
 import luke.actions.*;
-import luke.user.LukeTimeError;
+import luke.user.LukeException;
 import luke.user.Ui;
 import luke.tasks.*;
 import luke.files.*;
@@ -24,7 +24,7 @@ public class Luke {
         storage = new Storage(folderPath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (LukeTimeError e) {
+        } catch (LukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         } catch (NullPointerException e) {
@@ -50,7 +50,7 @@ public class Luke {
                 c.execute(tasks, ui, storage);
                 //tasks has ArrayList<Task> mainTaskList, ui has String echo, storage has ArrayList<Task> tasks
                 isExit = c.isExit(); //for bye command
-            } catch (LukeTimeError e) { //from Parser.parse i think
+            } catch (LukeException e) { //from Parser.parse i think
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

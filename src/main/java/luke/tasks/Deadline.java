@@ -1,5 +1,5 @@
 package luke.tasks;
-import luke.user.LukeTimeError;
+import luke.user.LukeException;
 
 /**
  * The Deadline Class represents a task of type "Deadline" in the LukeTime application.
@@ -13,16 +13,16 @@ public class Deadline extends Task {
      * Constructs a Deadline task with the specified task description and deadline date.
      *
      * @param taskDescription The description of the deadline task including the deadline date.
-     * @throws LukeTimeError If there are syntax or formatting errors in the task description.
+     * @throws LukeException If there are syntax or formatting errors in the task description.
      */
-    public Deadline(String taskDescription) throws LukeTimeError {
+    public Deadline(String taskDescription) throws LukeException {
         super(taskDescription);
 
         int slashCut = taskDescription.indexOf("/");
         if (slashCut <= 0) {
             System.out.println("\tThere is a missing task description. Please follow this format:");
             printGuide();
-            throw new LukeTimeError();
+            throw new LukeException();
         }
 
         description = taskDescription.substring(0, slashCut);
@@ -43,20 +43,20 @@ public class Deadline extends Task {
      * Parses and sets the deadline date of the deadline task from the provided date string.
      *
      * @param dateString The date string containing the deadline date information.
-     * @throws LukeTimeError If there are syntax or formatting errors in the date string.
+     * @throws LukeException If there are syntax or formatting errors in the date string.
      */
-    public void setDate(String dateString) throws LukeTimeError {
+    public void setDate(String dateString) throws LukeException {
         String[] words = dateString.split(" ");
         if (!words[0].equals("by")) {
             System.out.println("\tThere is a syntax problem. Please follow this format:");
             printGuide();
-            throw new LukeTimeError();
+            throw new LukeException();
         }
         int spaceCut = dateString.indexOf(" ");
         if (spaceCut <= 0) {
             System.out.println("\tThere is a missing date. Please follow this format:");
             printGuide();
-            throw new LukeTimeError();
+            throw new LukeException();
         }
         date = dateString.substring(spaceCut + 1);
     }
