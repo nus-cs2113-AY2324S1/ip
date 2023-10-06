@@ -28,7 +28,7 @@ public class Luke {
             ui.showLoadingError();
             tasks = new TaskList();
         } catch (NullPointerException e) {
-            //ui.showNoMemoryError();
+            //ui.showNoMemoryFileError();
             tasks = new TaskList();
         }
     }
@@ -51,7 +51,7 @@ public class Luke {
                 //tasks has ArrayList<Task> mainTaskList, ui has String echo, storage has ArrayList<Task> tasks
                 isExit = c.isExit(); //for bye command
             } catch (LukeException e) { //from Parser.parse i think
-                ui.showError(e.getMessage());
+                ui.showError("\t☹ An error occurred." + e.getMessage());
             } finally {
                 ui.showLine();
             }

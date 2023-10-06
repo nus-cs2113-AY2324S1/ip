@@ -64,6 +64,13 @@ public class TaskList{
         return numberOfTasks;
     }
 
+    public boolean isEmpty() {
+        if (numberOfTasks <= 0) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Retrieves a task from the task list by its index.
      *

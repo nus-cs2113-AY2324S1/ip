@@ -49,13 +49,13 @@ public class Memory {
                     case 'E':
                         newTask = new Event(taskDescription);
                         break;
-                    default:
+                    default: //memory.txt is corrupted/in the wrong format
                         newTask = new Todo("error");
                         break;
                 }
                 tasks.add(newTask);
             } catch (LukeException e) {
-                System.out.println("\tsomethings wrong");
+                System.out.println("\t☹ An error occurred." + e.getMessage());
             }
         }
         System.out.println("\tMemory retrieval successful!\n");
@@ -81,7 +81,7 @@ public class Memory {
             System.out.println("\tMemory Stored Safely!");
 
         } catch (IOException e) {
-            System.out.println("\tIO Exception: fail to store memory");
+            System.out.println(("\t☹ An error occurred." + e.getMessage()));
         }
 
     }

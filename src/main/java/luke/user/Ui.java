@@ -56,7 +56,7 @@ public class Ui {
     /**
      * Displays an error message for loading issues.
      */
-    public void showNoMemoryError() {
+    public void showNoMemoryFileError() {
         System.out.println("\tNo memory is loaded.");
     }
 

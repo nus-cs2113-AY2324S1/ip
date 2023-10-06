@@ -82,11 +82,11 @@ public class Parser{
                         break;
                 }
             } catch (IndexOutOfBoundsException e) { //empty for MARK, UNMARK, TO DO description, DEADLINE description, EVENT description
-                System.out.println("\tOOPS!!! You have missing arguments for " + words[0] + ". No changes have been made.");
+                System.out.println("\t☹ OOPS!!! You have missing arguments for " + words[0] + ". No changes have been made.");
                 c = new DoNothingCommand(ActionType.LIST, "");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
+            System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             c = new DoNothingCommand(ActionType.LIST, "");
         }
         return c;

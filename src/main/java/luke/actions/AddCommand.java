@@ -34,7 +34,7 @@ public class AddCommand extends Command {
             try {
                 latestTask = new Deadline(parameters);
             } catch (LukeException e) {
-                System.out.println("\tOOPS!!! You have missing/invalid arguments for deadline. No changes have been made.");
+                System.out.println("\t☹ OOPS!!! You have missing/invalid arguments for deadline. No changes have been made.");
                 throw new LukeException();
             }
         }
@@ -42,7 +42,7 @@ public class AddCommand extends Command {
             try {
                 latestTask = new Event(parameters);
             } catch (LukeException e) {
-                System.out.println("\tOOPS!!! You have missing/invalid arguments for event. No changes have been made.");
+                System.out.println("\t☹ OOPS!!! You have missing/invalid arguments for event. No changes have been made.");
                 throw new LukeException();
             }
         }
@@ -58,8 +58,6 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        //ui has String echo, storage has ArrayList<Task> tasks, tasks has ArrayList<Task> mainTaskList;
-
         tasks.addTask(latestTask);
 
         System.out.println("\tGot it. I've added this task:" + "\n" + tasks.get(tasks.size() - 1));

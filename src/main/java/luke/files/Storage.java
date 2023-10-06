@@ -27,7 +27,6 @@ public class Storage {
         System.out.println();
         createDirectory();
         createFile();
-        //tasks = Memory.readMemory(filePath);
     }
 
     public void createDirectory () {
@@ -49,7 +48,7 @@ public class Storage {
                 System.out.println("\tNew memory file cannot be created. Memory file may already exist.");
             }
         } catch (IOException e) {
-            System.out.println("\tAn error occurred." + e.getMessage());
+            System.out.println("\t☹ An error occurred." + e.getMessage());
         }
         System.out.println("\tFull path: " + f.getAbsolutePath());
     }
@@ -64,7 +63,7 @@ public class Storage {
             tasks = Memory.readMemory(filePath);
             return tasks;
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred." + e.getMessage());
+            System.out.println("\t☹ An error occurred." + e.getMessage());
         }
         return null;
     }
