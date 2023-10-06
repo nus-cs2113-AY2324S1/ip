@@ -32,10 +32,10 @@ public class Storage {
         //System.out.println(filePath);
         File file = new File(filePath);
         if (!file.exists()){
-            System.out.println("Making new file...");
-            boolean isFileCreated = file.createNewFile();
-            //System.out.println("New file made." + file.getAbsolutePath());
-            return tasks;
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Create parent directories if needed
+                file.createNewFile();
+            }
         }
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
