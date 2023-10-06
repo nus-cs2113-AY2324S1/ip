@@ -97,8 +97,8 @@ Marks a task as done.
 Format: `mark INDEX`
 
 - Marks the task at the specified `INDEX` by displaying status icon as 'X'.
-- The index refers to the index number shown in the displayed task list.
-- The index must be a positive integer 1,2,3,...
+- The `INDEX` refers to the index number shown in the displayed task list.
+- The `INDEX` must be a positive integer 1,2,3,...
 
 Example: mark 1
 ```
@@ -113,8 +113,8 @@ Marks a task as undone.
 Format: `unmark INDEX`
 
 - Unmarks the task at the specified `INDEX` by displaying status icon as ' '.
-- The index refers to the index number shown in the displayed task list.
-- The index must be a positive integer 1,2,3,...
+- The `INDEX` refers to the index number shown in the displayed task list.
+- The `INDEX` must be a positive integer 1,2,3,...
 
 Example: unmark 1
 ```
@@ -129,8 +129,8 @@ Deletes the specified task from the task list.
 Format: `delete INDEX`
 
 - Deletes the task at the specified `INDEX`.
-- The index refers to the index number shown in the displayed task list.
-- The index must be a positive integer 1,2,3,...
+- The `INDEX` refers to the index number shown in the displayed task list.
+- The `INDEX` must be a positive integer 1,2,3,...
 
 Example: delete 2
 ```
