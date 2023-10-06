@@ -8,11 +8,10 @@ import main.java.duke.util.task.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileStorage {
-    public static void fillFileFromList(ArrayList<Task> tasks) {
+    public static void fillFileFromList(TaskList taskList) {
         // writing to file
         try {
             File dataFile = new File("./duke.txt");
@@ -21,7 +20,7 @@ public class FileStorage {
 
             // add all tasks to file
             FileWriter fileWriter = new FileWriter(dataFile);
-            for(Task task : tasks) {
+            for(Task task : taskList.getTasks()) {
                 fileWriter.write(task.toStringFile() + System.lineSeparator());
             }
             fileWriter.close();
@@ -30,7 +29,7 @@ public class FileStorage {
         }
     }
 
-    public static void fillListFromFile(ArrayList<Task> tasks) {
+    public static void fillListFromFile(TaskList taskList) {
         // IO file handling
         try {
             // file object with expected file path
@@ -43,17 +42,17 @@ public class FileStorage {
                     String[] taskData = line.split("\\|");
                     switch (taskData[0]) {
                     case "T":
-                        tasks.add(new Todo(taskData[2]));
+                        taskList.addTodo(taskData[2]);
                         break;
                     case "E":
-                        tasks.add(new Event(taskData[2], taskData[3], taskData[4]));
+                        taskList.addEvent(taskData[2], taskData[3], taskData[4]);
                         break;
                     case "D":
-                        tasks.add(new Deadline(taskData[2], taskData[3]));
+                        taskList.addDeadline(taskData[2], taskData[3]);
                         break;
                     }
                     if (Integer.parseInt(taskData[1]) == 1) {
-                        tasks.get(tasks.size() - 1).setMarked(true);
+                        taskList.markTask(taskList.size() - 1);
                     }
                 }
             }

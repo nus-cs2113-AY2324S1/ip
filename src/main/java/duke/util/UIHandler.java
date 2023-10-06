@@ -2,8 +2,6 @@ package main.java.duke.util;
 
 import main.java.duke.util.task.Task;
 
-import java.util.ArrayList;
-
 public class UIHandler {
     public static void endMessage() {
         // program exit statement
@@ -27,31 +25,31 @@ public class UIHandler {
         System.out.println(removedTask);
     }
 
-    public static void printTaskAddedMessage(Task task, ArrayList<Task> tasks) {
+    public static void printTaskAddedMessage(Task task, TaskList taskList) {
         System.out.println("I've added this task to your list:");
         System.out.println(task);
-        System.out.println("You now have " + tasks.size() + " task(s) in your list. :]");
+        System.out.println("You now have " + taskList.size() + " task(s) in your list. :]");
     }
 
-    public static void printUnmarkedMessage(int selectedItem, ArrayList<Task> tasks) {
+    public static void printUnmarkedMessage(int selectedItem, TaskList taskList) {
         System.out.println("Task " + selectedItem + " unmarked!\n" +
-                tasks.get(selectedItem - 1));
+                taskList.get(selectedItem - 1));
     }
 
     public static void integerErrorMessage() {
         System.out.println("Invalid integer input! :(");
     }
 
-    public static void printMarkedMessage(int selectedItem, ArrayList<Task> tasks) {
+    public static void printMarkedMessage(int selectedItem, TaskList taskList) {
         System.out.println("Task " + selectedItem + " marked!\n" +
-                tasks.get(selectedItem - 1));
+                taskList.get(selectedItem - 1));
     }
 
-    public static void printTasks(ArrayList<Task> tasks) {
+    public static void printTasks(TaskList taskList) {
         System.out.println("Here are the item(s) in your list. :)");
         // print out tasks and number each task
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i));
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(i + 1 + ". " + taskList.get(i));
         }
     }
 

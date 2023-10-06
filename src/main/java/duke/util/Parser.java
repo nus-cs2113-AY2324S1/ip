@@ -5,12 +5,11 @@ import main.java.duke.util.task.Event;
 import main.java.duke.util.task.Task;
 import main.java.duke.util.task.Todo;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Parser {
-    public static void parse(ArrayList<Task> tasks) {
+    public static void parse(TaskList taskList) {
         // Scanner object for getting user input from the terminal
         Scanner scanner = new Scanner(System.in);
 
@@ -24,14 +23,14 @@ public class Parser {
             // if 'list' command is given, list out all tasks
             if (userCommand.equals("list")) {
                 // if list is empty, print 'no item' message instead of tasks
-                if (tasks.isEmpty()) {
+                if (taskList.isEmpty()) {
                     try {
                         throw new DukeException("Empty List");
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
                     }
                 } else {
-                    UIHandler.printTasks(tasks);
+                    UIHandler.printTasks(taskList);
                 }
             }
             // if "mark" command is given, mark the corresponding task in tasks
@@ -39,8 +38,8 @@ public class Parser {
                 try {
                     // split userInput into command and integer
                     int selectedItem = Integer.parseInt(userWords[1]);
-                    TaskList.markTask(tasks, selectedItem);
-                    UIHandler.printMarkedMessage(selectedItem, tasks);
+                    taskList.markTask(selectedItem);
+                    UIHandler.printMarkedMessage(selectedItem, taskList);
                 }catch (Exception e) {
                     UIHandler.integerErrorMessage();
                 }
@@ -50,8 +49,8 @@ public class Parser {
                 try {
                     // split userInput into command and integer
                     int selectedItem = Integer.parseInt(userWords[1]);
-                    TaskList.unmarkTask(tasks, selectedItem);
-                    UIHandler.printUnmarkedMessage(selectedItem, tasks);
+                    taskList.unmarkTask(selectedItem);
+                    UIHandler.printUnmarkedMessage(selectedItem, taskList);
                 }catch (Exception e) {
                     UIHandler.integerErrorMessage();
                 }
@@ -66,8 +65,8 @@ public class Parser {
                     // store information of todo: Name
                     String[] todoNameWords = Arrays.copyOfRange(userWords, 1, userWords.length);
                     String todoName = String.join(" ", todoNameWords);
-                    Todo todo = TaskList.addTodo(todoName, tasks);
-                    UIHandler.printTaskAddedMessage(todo, tasks);
+                    Todo todo = taskList.addTodo(todoName);
+                    UIHandler.printTaskAddedMessage(todo, taskList);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -102,8 +101,8 @@ public class Parser {
                     String eventName = String.join(" ", eventNameWords);
                     String eventFrom = String.join(" ", eventFromWords);
                     String eventTo = String.join(" ", eventToWords);
-                    Event event = TaskList.addEvent(eventName, eventFrom, eventTo, tasks);
-                    UIHandler.printTaskAddedMessage(event, tasks);
+                    Event event = taskList.addEvent(eventName, eventFrom, eventTo);
+                    UIHandler.printTaskAddedMessage(event, taskList);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -130,8 +129,8 @@ public class Parser {
                     String[] deadlineByWords = Arrays.copyOfRange(userWords, splitIndex + 1, userWords.length);
                     String deadlineName = String.join(" ", deadlineNameWords);
                     String deadlineBy = String.join(" ", deadlineByWords);
-                    Deadline deadline = TaskList.addDeadline(deadlineName, deadlineBy, tasks);
-                    UIHandler.printTaskAddedMessage(deadline, tasks);
+                    Deadline deadline = taskList.addDeadline(deadlineName, deadlineBy);
+                    UIHandler.printTaskAddedMessage(deadline, taskList);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -141,7 +140,7 @@ public class Parser {
                 try {
                     // split userInput into command and integer
                     int selectedItem = Integer.parseInt(userWords[1]);
-                    Task removedTask = TaskList.removeTask(tasks, selectedItem);
+                    Task removedTask = taskList.removeTask(selectedItem);
                     UIHandler.printTaskDeleted(selectedItem, removedTask);
                 }catch (Exception e) {
                     UIHandler.integerErrorMessage();

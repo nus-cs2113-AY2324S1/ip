@@ -9,19 +9,18 @@ public class Duke {
 
     private UIHandler uiHandler;
     private FileStorage fileStorage;
-    private Parser parser;
     private TaskList taskList;
 
-    private static void run() {
-        ArrayList<Task> tasks = TaskList.emptyList();
-        FileStorage.fillListFromFile(tasks);
+    private void run() {
+        taskList = new TaskList();
+        FileStorage.fillListFromFile(taskList);
         UIHandler.startMessage();
-        Parser.parse(tasks);
+        Parser.parse(taskList);
         UIHandler.endMessage();
-        FileStorage.fillFileFromList(tasks);
+        FileStorage.fillFileFromList(taskList);
     }
 
     public static void main(String[] args) {
-        run();
+        new Duke().run();
     }
 }
