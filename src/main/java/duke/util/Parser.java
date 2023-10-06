@@ -9,7 +9,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Main class for handling user inputs and processing user commands to achieve
+ * intended functionalities.
+ */
 public class Parser {
+
+    /**
+     * Main code for handling user input. Valid commands are 'bye', 'list'
+     * 'mark', 'unmark', 'todo', 'event','deadline', 'delete' and 'find'.
+     *
+     * @param taskList TaskList object as reference for processing the tasks based on user command.
+     * @param uiHandler UIHandler object as reference for creating UI messages
+     */
     public static void parse(TaskList taskList, UIHandler uiHandler) {
         // Scanner object for getting user input from the terminal
         Scanner scanner = new Scanner(System.in);
