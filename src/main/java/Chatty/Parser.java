@@ -59,6 +59,8 @@ public class Parser {
             } else {
                 ui.printMessage("☹ OOPS!!! Invalid task number to delete.");
             }
+        case "find":
+            return new findCommand(input);
         case "printdate":
             try {
                 String dateToPrint = input.substring(10).trim(); // Extract the date from user input
