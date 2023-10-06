@@ -31,4 +31,8 @@ public abstract class Task {
     public String saveFormat() {
         return "";
     }
+    public boolean containsKeyword(String keyword) {
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
 }
