@@ -4,7 +4,11 @@
 
 ### Task List
 
-Luke keeps a list of all the todo, deadlines and events.
+Luke keeps a task list of all the todo, deadlines and events.
+
+### Mark as Completed/Incomplete
+
+You can mark tasks as completed or incompleted.
 
 ### Store Memory
 
@@ -17,6 +21,10 @@ The next time Luke is opened, all tasks in the txt file is loaded back into Luke
 ### `todo` - Add todo
 
 Add new task (todo) to your list.
+
+Format of usage:
+
+`todo DESCRIPTION`
 
 Example of usage:
 
@@ -36,6 +44,10 @@ New todo task added, so there will be a confirmation message.
 
 Add new task (deadline) to your list.
 
+Format of usage:
+
+`deadline DESCRIPTION /by DATE`
+
 Example of usage:
 
 `deadline return book /by next saturday`
@@ -54,6 +66,10 @@ New deadline task added, so there will be a confirmation message.
 
 Add new task (event) to your list.
 
+Format of usage:
+
+`event DESCRIPTION /from STARTDATE /to ENDDATE`
+
 Example of usage:
 
 `event reading club session /from friday 4 /to 6pm`
@@ -70,7 +86,7 @@ New event task added, so there will be a confirmation message.
 
 ### `list` - Lists all tasks
 
-Lists all tasks including their type (todo, deadline, event), their task description and whether they have been completed.
+Lists all tasks in the task list.
 
 Example of usage: 
 
@@ -78,7 +94,7 @@ Example of usage:
 
 Expected outcome:
 
-This will display all your tasks, including their status (completed or not).
+This will display all your tasks, including their type (todo, deadline, event), their task description and their status (completed or not).
 
 ```
     Here are the tasks in your list:
@@ -90,6 +106,10 @@ This will display all your tasks, including their status (completed or not).
 ### `mark` - Mark a task as completed
 
 Mark a task as completed using the "mark" command followed by the task number.
+
+Format of usage:
+
+`mark INDEX`
 
 Example of usage:
 
@@ -108,9 +128,13 @@ This will mark the task with index 1 as completed.
 
 Mark a task as incomplete using the "unmark" command followed by the task number.
 
+Format of usage:
+
+`unmark INDEX`
+
 Example of usage:
 
-`mark 1`
+`unark 1`
 
 Expected outcome:
 
@@ -125,6 +149,10 @@ This will mark the task with index 1 as incomplete.
 ### `find` - Find user's input in tasks descriptions
 
 Show the corresponding tasks.
+
+Format of usage:
+
+`find KEYWORD`
 
 Example of usage:
 
@@ -142,7 +170,11 @@ List of tasks that have descriptions matching the user's input.
 
 ### `delete` - Remove a task from the task list
 
-To delete a task from your list, use the "delete" command followed by the task number:
+To delete a task from your list, use the "delete" command followed by the task number.
+
+Format of usage:
+
+`delete INDEX`
 
 Example of usage:
 
