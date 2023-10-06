@@ -86,7 +86,7 @@ public class TaskList {
     /**
      * Deletes a task with the given index in the list.
      *
-     * @param input The selected index.
+     * @param index The selected index.
      */
     public void deleteTask(int index) {
         Task removedTask = tasks.remove(index);
