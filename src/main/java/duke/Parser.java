@@ -23,6 +23,8 @@ public class Parser {
                 return parseAddEventTask(userInput);
             case "delete":
                 return parseDeleteTask(userInput, ui);
+            case "find":
+                return parseFindTask(userInput);
             default:
                 throw new UnknownCommandException();
         }
@@ -60,7 +62,14 @@ public class Parser {
         }
     }
 
-
+    private static Command parseFindTask(String userInput) throws DukeException {
+        // Implement parsing for finding tasks by keyword
+        String keyword = userInput.replaceFirst("find", "").trim();
+        if (keyword.isEmpty()) {
+            throw new DukeException("☹ OOPS!!! Please specify a keyword to find tasks.");
+        }
+        return new FindTaskCommand(keyword);
+    }
 
     private static Command parseAddTodoTask(String userInput) throws DukeException {
         // Implement parsing for adding a todo task
