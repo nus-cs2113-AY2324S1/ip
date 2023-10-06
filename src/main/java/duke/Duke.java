@@ -14,13 +14,14 @@ public class Duke {
     public Duke() {
         taskList = new TaskList();
         fileStorage = new FileStorage("./duke.txt");
+        uiHandler = new UIHandler();
     }
 
     public void run() {
         fileStorage.fillListFromFile(taskList);
-        UIHandler.startMessage();
-        Parser.parse(taskList);
-        UIHandler.endMessage();
+        uiHandler.startMessage();
+        Parser.parse(taskList, uiHandler);
+        uiHandler.endMessage();
         fileStorage.fillFileFromList(taskList);
     }
 

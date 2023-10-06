@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Parser {
-    public static void parse(TaskList taskList) {
+    public static void parse(TaskList taskList, UIHandler uiHandler) {
         // Scanner object for getting user input from the terminal
         Scanner scanner = new Scanner(System.in);
 
@@ -30,7 +30,7 @@ public class Parser {
                         System.out.println(e.getMessage());
                     }
                 } else {
-                    UIHandler.printTasks(taskList);
+                    uiHandler.printTasks(taskList);
                 }
             }
             // if "mark" command is given, mark the corresponding task in tasks
@@ -39,9 +39,9 @@ public class Parser {
                     // split userInput into command and integer
                     int selectedItem = Integer.parseInt(userWords[1]);
                     taskList.markTask(selectedItem);
-                    UIHandler.printMarkedMessage(selectedItem, taskList);
+                    uiHandler.printMarkedMessage(selectedItem, taskList);
                 }catch (Exception e) {
-                    UIHandler.integerErrorMessage();
+                    uiHandler.integerErrorMessage();
                 }
             }
             // if "unmark" command is given, unmark the corresponding task in tasks
@@ -50,9 +50,9 @@ public class Parser {
                     // split userInput into command and integer
                     int selectedItem = Integer.parseInt(userWords[1]);
                     taskList.unmarkTask(selectedItem);
-                    UIHandler.printUnmarkedMessage(selectedItem, taskList);
+                    uiHandler.printUnmarkedMessage(selectedItem, taskList);
                 }catch (Exception e) {
-                    UIHandler.integerErrorMessage();
+                    uiHandler.integerErrorMessage();
                 }
             }
             // if "todo" command is given
@@ -66,7 +66,7 @@ public class Parser {
                     String[] todoNameWords = Arrays.copyOfRange(userWords, 1, userWords.length);
                     String todoName = String.join(" ", todoNameWords);
                     Todo todo = taskList.addTodo(todoName);
-                    UIHandler.printTaskAddedMessage(todo, taskList);
+                    uiHandler.printTaskAddedMessage(todo, taskList);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -102,7 +102,7 @@ public class Parser {
                     String eventFrom = String.join(" ", eventFromWords);
                     String eventTo = String.join(" ", eventToWords);
                     Event event = taskList.addEvent(eventName, eventFrom, eventTo);
-                    UIHandler.printTaskAddedMessage(event, taskList);
+                    uiHandler.printTaskAddedMessage(event, taskList);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -130,7 +130,7 @@ public class Parser {
                     String deadlineName = String.join(" ", deadlineNameWords);
                     String deadlineBy = String.join(" ", deadlineByWords);
                     Deadline deadline = taskList.addDeadline(deadlineName, deadlineBy);
-                    UIHandler.printTaskAddedMessage(deadline, taskList);
+                    uiHandler.printTaskAddedMessage(deadline, taskList);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -141,18 +141,18 @@ public class Parser {
                     // split userInput into command and integer
                     int selectedItem = Integer.parseInt(userWords[1]);
                     Task removedTask = taskList.removeTask(selectedItem);
-                    UIHandler.printTaskDeleted(selectedItem, removedTask);
+                    uiHandler.printTaskDeleted(selectedItem, removedTask);
                 }catch (Exception e) {
-                    UIHandler.integerErrorMessage();
+                    uiHandler.integerErrorMessage();
                 }
 
             }
             // if not unique command, prompt user again
             else {
-                UIHandler.printInvalidCommandMessage();
+                uiHandler.printInvalidCommandMessage();
             }
 
-            UIHandler.continueMessage();
+            uiHandler.continueMessage();
             userInput = scanner.nextLine();
             userWords = userInput.split(" ");
             userCommand = userWords[0];
