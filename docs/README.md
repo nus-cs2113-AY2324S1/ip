@@ -44,6 +44,51 @@ Exits the program.
 
 ## Usage
 
+### `help` - Display help
+
+Describes functions of the commands and their syntax format.
+
+Format: `help`
+
+Example of usage:
+
+`help`
+
+Expected outcome:
+
+Displays a list of available commands and their syntax format.
+
+```
+Here is the format of valid commands!
+
+	List all tasks:
+		list
+
+	Add todo task:
+		todo <task>
+
+	Add deadline task:
+		deadline <task> /by <date/time>
+
+	Add event task:
+		event <task> /from <starting date/time> /to <ending date/time>
+
+	Mark task as done:
+		mark <task number>
+
+	Mark task as not done:
+		unmark <task number>
+
+	Find task by keyword:
+		find <keyword>
+
+	Delete task:
+		delete <task number>
+
+	Exit program:
+		bye
+```
+
 ### `list` - Display all tasks
 
 Lists all tasks in the task list.
