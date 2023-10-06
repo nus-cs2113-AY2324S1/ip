@@ -29,15 +29,14 @@ public class Deadline extends Task {
      * @return formatted date string in format "MMMM d yyyy" and optionally "HHmm".
      */
     public String getLocalDate(String date) {
-        if (date.matches("[A-Za-z]{3} \\d{1,2} \\d{4} HHMM") || date.matches("[A-Za-z]{3} \\d{1,2} \\d{4}")) {
-            // Date is already in "MMM d yyyy HHMM or MMM d yyyy" format, return as is
+        if (date.matches("[A-Za-z]{3} \\d{2} \\d{4} \\d{4}") || date.matches("[A-Za-z]{3} \\d{1,2} \\d{4}")) {
+            // Date is already in "MMM d yyyy HHMM or MMM d yyyy" format, return as it is
             return date;
         } else if (date.matches("\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{2} [APap][Mm]")) {
-            // Date is in "d/M/yyyy h:mm a" format, convert to "MMM d yyyy h:mm a"
+            // Date is in "d/M/yyyy h:mm a" format, convert to "MMM d yyyy HHmm"
             LocalDateTime localDateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("d/M/yyyy h:mm a"));
             return localDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
-        }
-        else {
+        } else {
             LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("d/M/yyyy"));
             return localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         }

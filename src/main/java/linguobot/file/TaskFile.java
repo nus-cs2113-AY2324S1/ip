@@ -103,6 +103,7 @@ public class TaskFile{
             }
 
             String taskType = parts[0];
+            boolean isDone = parts[1].equals("1");
             Task task = null;
 
             switch (taskType) {
@@ -130,6 +131,9 @@ public class TaskFile{
             }
 
             if (task != null) {
+                if (isDone) {
+                    task.markAsDone();
+                }
                 tasks.add(task);
             }
         }

@@ -5,7 +5,6 @@ import linguobot.task.Event;
 import linguobot.task.Task;
 import linguobot.task.Todo;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import static linguobot.file.TaskFile.saveTaskListToFile;
@@ -60,6 +59,9 @@ public class CommandResponse {
     public static void markTaskAsDone(ArrayList<Task> taskList, String userInput) {
         try {
             int MARK_START_INDEX = 5;
+            if (userInput.length() <= MARK_START_INDEX) {
+                throw new LinguoBotException("Invalid input format. Please provide a task index to mark.");
+            }
             int taskIndex = Integer.parseInt(userInput.substring(MARK_START_INDEX)) - 1;
             if (taskIndex >= 0 && taskIndex < taskList.size()) {
                 if (taskList.get(taskIndex).getStatusIcon().equals("X")) {
@@ -90,6 +92,9 @@ public class CommandResponse {
     public static void markTaskAsUndone(ArrayList<Task> taskList, String userInput) {
         try {
             int UNMARK_START_INDEX = 7;
+            if (userInput.length() <= UNMARK_START_INDEX) {
+                throw new LinguoBotException("Invalid input format. Please provide a task index to unmark.");
+            }
             int taskIndex = Integer.parseInt(userInput.substring(UNMARK_START_INDEX)) - 1;
             if (taskIndex >= 0 && taskIndex < taskList.size() && taskList.get(taskIndex) != null) {
                 if (taskList.get(taskIndex).getStatusIcon().equals(" ")) {
@@ -119,6 +124,9 @@ public class CommandResponse {
     public static void deleteTask(ArrayList<Task> taskList, String userInput) {
         try {
             int DELETE_START_INDEX = 7;
+            if (userInput.length() <= DELETE_START_INDEX) {
+                throw new LinguoBotException("Invalid input format. Please provide a task index to delete.");
+            }
             int taskIndex = Integer.parseInt(userInput.substring(DELETE_START_INDEX)) - 1;
             if (taskIndex >= 0 && taskIndex < taskList.size()) {
                 printLine();
@@ -129,6 +137,9 @@ public class CommandResponse {
                 taskList.remove(taskIndex);
                 saveTaskListToFile(taskList);
             } else {
+                if (taskList.isEmpty()) {
+                    throw new LinguoBotException("Task list is empty.");
+                }
                 throw new LinguoBotException("Invalid task index. Please provide valid task index" + " < " + (taskList.size() + 1) + " to delete task.");
             }
         } catch (LinguoBotException e) {
@@ -148,7 +159,7 @@ public class CommandResponse {
                 if (userInput.substring(4).isEmpty()) {
                     throw new LinguoBotException("Todo description cannot be empty.");
                 }
-                taskList.add(new Todo(userInput.substring(4)));
+                taskList.add(new Todo(userInput.substring(4).trim()));
             } else if (userInput.startsWith("deadline")) {
                 int indexBy = userInput.indexOf("by");
                 if (userInput.substring(8).isEmpty()) {
@@ -173,7 +184,7 @@ public class CommandResponse {
                 if (indexFrom == -1 || indexTo == -1) {
                     throw new LinguoBotException("Invalid input. Please include both 'from' and 'to' for events.");
                 }
-                taskList.add(new Event(userInput.substring(5, indexFrom - 1), userInput.substring(indexFrom + 4, indexTo),
+                taskList.add(new Event(userInput.substring(5, indexFrom - 1).trim(), userInput.substring(indexFrom + 4, indexTo),
                         userInput.substring(indexTo + 2)));
             } else {
                 throw new LinguoBotException("☹ OOPS!!! I'm sorry, but I don't know what that means. " +

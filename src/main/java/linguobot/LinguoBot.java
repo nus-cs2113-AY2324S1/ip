@@ -50,9 +50,9 @@ public class LinguoBot {
                 CommandResponse.markTaskAsDone(taskList, userInput);
             } else if (userInput.startsWith("unmark")) {
                 CommandResponse.markTaskAsUndone(taskList, userInput);
-            } else if (userInput.contains("delete")) {
+            } else if (userInput.startsWith("delete")) {
                 CommandResponse.deleteTask(taskList, userInput);
-            } else if (userInput.contains("bye")) {
+            } else if (userInput.startsWith("bye")) {
                 CommandResponse.displayGoodbyeMessage();
                 break;
             } else {
