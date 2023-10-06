@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import luke.user.LukeException;
 
 /**
- * The TaskList Class contains a list of tasks and provides operations to manage tasks.
+ * The TaskList Class contains the task list and provides methods to manage and retrieve tasks from the task list.
  */
 public class TaskList{
-    //contains the task list e.g., it has operations to add/delete tasks in the list
 
     private ArrayList<Task> mainTaskList;
     public int numberOfTasks;
@@ -15,14 +14,14 @@ public class TaskList{
     /**
      * Constructs a TaskList object from an existing ArrayList of tasks.
      *
-     * @param thetasks An ArrayList of Task objects to initialize the task list with.
+     * @param tasklist An ArrayList of Task objects to initialize the task list with.
      * @throws LukeException If an error specific to the LukeTime application occurs during initialization.
      */
 
-    public TaskList(ArrayList<Task> thetasks) throws LukeException, NullPointerException {
+    public TaskList(ArrayList<Task> tasklist) throws LukeException, NullPointerException {
         mainTaskList = new ArrayList<Task>();
         numberOfTasks = 0;
-        for (Task item: thetasks) {
+        for (Task item: tasklist) {
             addTask(item);
         }
     }
@@ -64,6 +63,11 @@ public class TaskList{
         return numberOfTasks;
     }
 
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return true if the task list is empty, false otherwise.
+     */
     public boolean isEmpty() {
         if (numberOfTasks <= 0) {
             return true;

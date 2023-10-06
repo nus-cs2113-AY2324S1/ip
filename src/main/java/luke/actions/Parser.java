@@ -6,7 +6,6 @@ import luke.user.LukeException;
  * The Parser Class handles the parsing of user input into valid commands.
  */
 public class Parser{
-    //user input from Ui to luke command to Command
 
     /**
      * Parses the user's full command and returns an appropriate Command object.

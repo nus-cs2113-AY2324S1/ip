@@ -2,7 +2,7 @@ package luke.tasks;
 import luke.user.LukeException;
 
 /**
- * The Deadline Class represents a task of type "Deadline" in the LukeTime application.
+ * The Deadline Class represents a task of type "Deadline" in the Luke application.
  * It extends the Task class and includes specific behavior for deadline tasks.
  */
 public class Deadline extends Task {
@@ -43,6 +43,8 @@ public class Deadline extends Task {
         return date;
     }
 
+
+
     /**
      * Parses and sets the deadline date of the deadline task from the provided date string.
      *
@@ -73,15 +75,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String isDoneString;
-
-        if (isDone()) {
-            isDoneString = "[X]";
-        } else {
-            isDoneString = "[ ]";
-        }
-
-        return "\t[D]" + isDoneString + " " + getDescription() + "(do by: " + getDate() + ")";
+        return "\t[D]" + getIsDone() + " " + getDescription() + "(do by: " + getDate() + ")";
     }
 
     /**
@@ -91,14 +85,6 @@ public class Deadline extends Task {
      */
     @Override
     public String memoryString() {
-        String isDoneString;
-
-        if (isDone()) {
-            isDoneString = "[X]";
-        } else {
-            isDoneString = "[ ]";
-        }
-
-        return "[D]" + isDoneString + " " + getDescription() + "/by " + getDate();
+        return "[D]" + getIsDone() + " " + getDescription() + "/by " + getDate();
     }
 }

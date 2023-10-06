@@ -5,7 +5,6 @@ package luke.tasks;
  * It extends the Task class and includes specific behavior for todo tasks.
  */
 public class Todo extends Task {
-    //protected boolean isDone;
     protected String todoGuide = "\ttodo <description>";
 
     /**
@@ -38,16 +37,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        //super.toString();
-        String isDoneString;
-
-        if (isDone()) {
-            isDoneString = "[X]";
-        } else {
-            isDoneString = "[ ]";
-        }
-
-        return "\t[T]" + isDoneString + " " + getDescription();
+        return "\t[T]" + getIsDone() + " " + getDescription();
     }
 
     /**
@@ -57,14 +47,6 @@ public class Todo extends Task {
      */
     @Override
     public String memoryString() {
-        String isDoneString;
-
-        if (isDone()) {
-            isDoneString = "[X]";
-        } else {
-            isDoneString = "[ ]";
-        }
-
-        return "[T]" + isDoneString + " " + getDescription();
+        return "[T]" + getIsDone() + " " + getDescription();
     }
 }

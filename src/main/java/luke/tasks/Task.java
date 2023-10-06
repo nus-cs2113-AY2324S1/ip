@@ -1,8 +1,8 @@
 package luke.tasks;
 
 /**
- * The Task Class represents a generic task in the LukeTime application.
- * It serves as the base class for various types of tasks and provides common task attributes and methods.
+ * The Task Class represents an abstract class in the Luke application.
+ * It serves as the base class for different types of tasks and provides common task attributes and methods.
  */
 public abstract class Task {
     protected String description;
@@ -37,6 +37,19 @@ public abstract class Task {
     }
 
     /**
+     * Gets a string representation of the task's completion status.
+     *
+     * @return "[X]" if the task is done, "[ ]" if it's not done.
+     */
+    public String getIsDone() {
+        if (isDone()) {
+            return "[X]";
+        } else {
+            return "[ ]";
+        }
+    }
+
+    /**
      * Sets the completion status of the task and displays a corresponding message.
      *
      * @param done true if the task is done, false otherwise.
@@ -63,14 +76,6 @@ public abstract class Task {
      * @return A string representation of the task for memory storage.
      */
     public String memoryString() {
-        String isDoneString;
-
-        if (isDone()) {
-            isDoneString = "[X]";
-        } else {
-            isDoneString = "[ ]";
-        }
-
-        return "[T]" + isDoneString + " task" + getDescription();
+        return "[T]" + getIsDone() + " task" + getDescription();
     }
 }

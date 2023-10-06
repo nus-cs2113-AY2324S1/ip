@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * The Storage Class handles the reading and writing of task data from/to a file.
+ * The Storage Class handles the reading from and writing task data to a file.
  */
 public class Storage {
     protected String filePath;
@@ -18,7 +18,9 @@ public class Storage {
 
     /**
      * Constructs a Storage object with the specified file path. If the file exists,
-     * it retrieves tasks from the file. If the file doesn't exist, it creates a new file.
+     * it retrieves tasks from the file. If the file does not exist, it creates a new file.
+     *
+     * @param folderPath The path to the folder where the memory file is located.
      */
     public Storage(String folderPath) {
         this.folderPath = folderPath;
@@ -29,6 +31,9 @@ public class Storage {
         createFile();
     }
 
+    /**
+     * Creates a directory at the specified folder path if it does not already exist.
+     */
     public void createDirectory () {
         File d = new File(folderPath);
         if (d.mkdir()) {
@@ -39,6 +44,9 @@ public class Storage {
         //System.out.println("\tFull path: " + d.getAbsolutePath());
     }
 
+    /**
+     * Creates a memory file at the specified file path if it does not already exist.
+     */
     public void createFile () {
         File f = new File(filePath);
         try {

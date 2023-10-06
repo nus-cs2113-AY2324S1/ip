@@ -6,7 +6,6 @@ import java.util.Scanner;
  * The Ui Class is responsible for user interaction, including reading user input and displaying messages.
  */
 public class Ui {
-    //directly interact with user (read in (to Parser)/print)
     public String echo;
     public Scanner userInput;
 

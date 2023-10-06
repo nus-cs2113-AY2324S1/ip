@@ -14,7 +14,6 @@ import static luke.actions.ActionType.UNMARK;
 public class MarkCommand extends Command {
     private boolean isDone;
 
-
     /**
      * Constructs a MarkCommand with the specified action type and parameters.
      *
@@ -32,6 +31,11 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Prints a guide to provide user instructions for giving a DeleteCommand.
+     *
+     * @param tasks The task list to check if it is empty for a more specific user guide.
+     */
     public void printIntegerGuide(TaskList tasks) {
         if (tasks.isEmpty()) {
             System.out.println("\tNo tasks in task list. Please add a task before using " + theAction + ".");
@@ -41,7 +45,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Executes the MarkCommand to mark or unmark a task as done in the task list.
+     * Executes the MarkCommand to mark or unmark a task as done in the task list when given valid arguments.
      *
      * @param tasks    The task list where the task should be marked or unmarked.
      * @param ui       The user interface for displaying messages.

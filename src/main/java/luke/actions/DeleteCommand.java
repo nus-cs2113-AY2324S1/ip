@@ -9,6 +9,7 @@ import luke.user.Ui;
  * It extends the Command class and includes specific behavior for deleting a task.
  */
 public class DeleteCommand extends Command {
+
     /**
      * Constructs a DeleteCommand with the specified action type and parameters.
      *
@@ -19,6 +20,11 @@ public class DeleteCommand extends Command {
         super(theAction, parameters);
     }
 
+    /**
+     * Prints a guide to provide user instructions for giving a DeleteCommand.
+     *
+     * @param tasks The task list to check if it is empty for a more specific user guide.
+     */
     public void printIntegerGuide(TaskList tasks) {
         if (tasks.isEmpty()) {
             System.out.println("\tNo tasks in task list. Please add a task before using " + theAction + ".");
@@ -28,7 +34,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the DeleteCommand to remove a task from the task list.
+     * Executes the DeleteCommand to remove a task from the task list when given valid arguments.
      *
      * @param tasks    The task list from which the task will be deleted.
      * @param ui       The user interface for displaying messages.

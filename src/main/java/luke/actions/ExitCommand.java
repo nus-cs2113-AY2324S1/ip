@@ -30,8 +30,8 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IllegalArgumentException{
-        storage.store(tasks);
+        storage.store(tasks); // Store the task list
         setIsExit(true);
-        ui.closeUi();
+        ui.closeUi(); // Close the user interface
     }
 }

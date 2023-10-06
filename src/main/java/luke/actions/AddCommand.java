@@ -12,6 +12,7 @@ import static luke.actions.ActionType.*;
  * It extends the Command class and includes specific behavior for adding different types of tasks.
  */
 public class AddCommand extends Command {
+
     /**
      * The latest task created as a result of the add command.
      */

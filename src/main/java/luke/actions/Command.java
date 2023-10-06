@@ -5,8 +5,8 @@ import luke.tasks.*;
 import luke.user.Ui;
 
 /**
- * The Command class represents a generic command in the LukeTime application.
- * It serves as the base class for specific command types, such as AddCommand, ListCommand, etc.
+ * The Command class represents an abstract command in the Luke application.
+ * It serves as the base class for more specific command types.
  */
 public abstract class Command {
 
@@ -44,7 +44,7 @@ public abstract class Command {
      * @param storage  The storage for saving task changes (not used in all commands).
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        //do nothing? should not be executed
+        System.out.println("Error. This line should not be reached.");
     }
 
     /**

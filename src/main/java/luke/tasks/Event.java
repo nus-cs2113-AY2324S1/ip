@@ -2,7 +2,7 @@ package luke.tasks;
 import luke.user.LukeException;
 
 /**
- * The Event class represents a task of type "Event" in the LukeTime application.
+ * The Event class represents a task of type "Event" in the Luke application.
  * It extends the Task class and includes specific behavior for event tasks.
  */
 public class Event extends Task {
@@ -56,7 +56,8 @@ public class Event extends Task {
     /**
      * Parses and sets the start and end dates of the event from the provided date string.
      *
-     *
+     * @param fromDateString The start date string.
+     * @param toDateString   The end date string.
      * @throws LukeException If there are syntax or formatting errors in the date string.
      */
     public void setDates(String fromDateString, String toDateString) throws LukeException {
@@ -85,16 +86,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        //super.toString();
-        String isDoneString;
-
-        if (isDone()) {
-            isDoneString = "[X]";
-        } else {
-            isDoneString = "[ ]";
-        }
-
-        return "\t[E]" + isDoneString + " " + getDescription() + "(from: " + getStartDate() + "to: " + getEndDate() + ")";
+        return "\t[E]" + getIsDone() + " " + getDescription() + "(from: " + getStartDate() + "to: " + getEndDate() + ")";
     }
 
     /**
@@ -104,14 +96,6 @@ public class Event extends Task {
      */
     @Override
     public String memoryString() {
-        String isDoneString;
-
-        if (isDone()) {
-            isDoneString = "[X]";
-        } else {
-            isDoneString = "[ ]";
-        }
-
-        return "[E]" + isDoneString + " " + getDescription() + "/from " + getStartDate() + "/to " + getEndDate();
+        return "[E]" + getIsDone() + " " + getDescription() + "/from " + getStartDate() + "/to " + getEndDate();
     }
 }

@@ -7,7 +7,8 @@ import luke.files.*;
 
 /**
  * The Luke Class represents the main application class for Luke, a task management application.
- * It manages the user interface, task storage, and task list.
+ * It initializes the user interface, task storage and task list.
+ * It runs the application loop, managing the user interface, task storage, and task list.
  */
 public class Luke {
     public static final String folderPath = "data";
@@ -50,7 +51,7 @@ public class Luke {
                 c.execute(tasks, ui, storage);
                 //tasks has ArrayList<Task> mainTaskList, ui has String echo, storage has ArrayList<Task> tasks
                 isExit = c.isExit(); //for bye command
-            } catch (LukeException e) { //from Parser.parse i think
+            } catch (LukeException e) { //from Parser.parse
                 ui.showError("\t☹ An error occurred." + e.getMessage());
             } finally {
                 ui.showLine();
@@ -64,17 +65,6 @@ public class Luke {
      * @param args The command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        /*
-        String home = System.getProperty("user.home");
-        java.nio.file.Path path = java.nio.file.Paths.get(home, "out", "artifacts", "ip_jar", "memory.txt");
-        boolean directoryExists = java.nio.file.Files.exists(path);
-
-        new Luke(path).run();
-
-         */
-
-        //new Luke("./out/artifacts/ip_jar/memory.txt").run();
-
         new Luke().run();
     }
 }
