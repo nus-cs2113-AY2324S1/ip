@@ -5,7 +5,6 @@ import python.ui.Ui;
 
 public class Python {
     static final private Ui ui = new Ui();
-
     public static void main(String[] args) {
         ui.welcomeUser();
         do {

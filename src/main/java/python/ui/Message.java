@@ -1,5 +1,8 @@
 package python.ui;
 
+/**
+ * Defines string literals for the chatbot responses.
+ */
 public class Message {
     final static String MESSAGE_INTRODUCTION = "Hello! I am a Java Bot Python!";
     final static String MESSAGE_ASK = "What can I do for you?";
