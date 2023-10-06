@@ -31,6 +31,15 @@ public class TaskList {
         return tasks.get(i);
     }
 
+    public ArrayList<Integer> find(String taskName) {
+        ArrayList<Integer> foundTasksIndex = new ArrayList<Integer>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getName().equals(taskName))
+                foundTasksIndex.add(i);
+        }
+        return foundTasksIndex;
+    }
+
     public Task removeTask(int selectedItem) {
         // check if integer given is in range of number of tasks
         Task removedTask = tasks.remove(selectedItem - 1);
@@ -64,4 +73,5 @@ public class TaskList {
         // check if integer given is in range of number of tasks
         tasks.get(selectedItem - 1).setMarked(true);
     }
+
 }
