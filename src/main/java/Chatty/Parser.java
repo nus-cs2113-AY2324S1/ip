@@ -3,7 +3,8 @@
  */
 package Chatty;
 import Chatty.Command.*;
-import Chatty.Ui;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
     static Ui ui = new Ui();
@@ -21,6 +22,7 @@ public class Parser {
         case "list":
             return new listCommand(input);
         case "mark":
+            System.out.println("mark");
             return new markCommand(input, true);
         case "unmark":
             return new markCommand(input, false);
@@ -30,7 +32,6 @@ public class Parser {
             } else {
                 ui.printMessage(Ui.LINE + "\n☹ OOPS!!! The description of a todo cannot be empty.");
             }
-            break;
         case "deadline":
             int byIndex = input.indexOf("/by");
             if (byIndex != -1 && input.length() > 9 && byIndex != 9) {
@@ -45,7 +46,6 @@ public class Parser {
                 ui.printMessage(Ui.LINE + "\n☹ OOPS!!! Unknown Error adding a deadline. Try Again.");
                 ui.printMessage("E.g. deadline homework /by 20 Aug");
             }
-            break;
         case "event":
             int fromIndex = input.indexOf("/from");
             int toIndex = input.indexOf("/to");
@@ -61,7 +61,6 @@ public class Parser {
                 System.out.println(Ui.LINE + "\n☹ OOPS!!! Unknown Error adding an event. Try Again.");
                 ui.printMessage("E.g. event project meeting /from 20 Aug 4pm /to 6pm");
             }
-            break;
         case "delete":
             int index = Integer.parseInt(input.substring(7)) - 1;
             if (index >= 0 && index < tasks.size()) {
@@ -69,10 +68,18 @@ public class Parser {
             } else {
                 ui.printMessage("☹ OOPS!!! Invalid task number to delete.");
             }
-            break;
+        case "find":
+            return new findCommand(input);
+        case "printdate":
+            try {
+                String dateToPrint = input.substring(10).trim(); // Extract the date from user input
+                LocalDate specifiedDate = LocalDate.parse(dateToPrint, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return new printDate(input);
+            } catch (Exception e) {
+                ui.printMessage("☹ OOPS!!! Invalid date.");
+            }
         default:
             return new badCommand(input);
         }
-        return new badCommand(input);
     }
 }

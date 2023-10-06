@@ -8,6 +8,7 @@ import Chatty.TaskList;
 import Chatty.Ui;
 
 public class listCommand extends Command{
+
     public listCommand(String input){
         super(input);
     }

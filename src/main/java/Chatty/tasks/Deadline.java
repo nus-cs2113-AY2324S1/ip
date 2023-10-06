@@ -2,21 +2,23 @@
  * The Deadline class represents a task with a deadline date.
  */
 package Chatty.tasks;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private String by;
+    private LocalDate by;
 
     /**
      * * Initializes a new Deadline object with the given description and deadline date.
     */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
     /**
      * Gets the by date for the deadline task
      */
-    public String getBy() {
+    public LocalDate getBy() {
         return by;
     }
     /**
@@ -24,7 +26,8 @@ public class Deadline extends Task {
      */
     @Override
     public String getDescription() {
-        return "[D][" + getStatusIcon() + "] " + super.getDescription() + " (by: " + by + ")";
+        String formattedDate = by.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        return "[D][" + getStatusIcon() + "] " + super.getDescription() + " (by: " + formattedDate + ")";
     }
     /**
      * returns the format in which it is saved
