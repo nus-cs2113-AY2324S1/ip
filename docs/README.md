@@ -51,6 +51,20 @@ Example: deadline CS2113 IP /by 06 Oct
 
 3. To mark a task as done, use: mark <task_number>
 
+### Find
+
+**Description:** The "find" feature allows you to search for tasks containing a specific keyword.
+
+#### Usage
+
+1. To find tasks containing a keyword, use the following command:find <keyword>
+Example: find CS2113
+Expected outcome:
+Here are the matching tasks in your list:
+
+[T][ ] Study CS2113
+[D][X] 2113 IP (by: 06 Oct)
+
 ## Task Management Guidelines
 
 - Ensure you follow the format for adding tasks (e.g., `/from` and `/to` for Event tasks, `/by` for Deadline tasks).
