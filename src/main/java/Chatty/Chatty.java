@@ -38,6 +38,7 @@ public class Chatty {
             fullCommand = ui.getUserInput();
         }
         storage.save(tasks);
+        ui.printGoodbyeMessage();
     }
 
     public static void main(String[] args) {

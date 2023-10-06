@@ -74,7 +74,7 @@ public class Parser {
             break;
         case "find":
             return new findCommand(input);
-        case "printdate":
+        case "showdate":
             try {
                 String dateToPrint = input.substring(10).trim(); // Extract the date from user input
                 LocalDate specifiedDate = LocalDate.parse(dateToPrint, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
