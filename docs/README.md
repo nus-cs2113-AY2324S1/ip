@@ -12,20 +12,20 @@ serving you, the one and only master! <3
 Chatbot: RIAS is a CLI program to keep track of your existing
 task while sending you ascii arts or emotes!:heart:
 ## Content
-* [Quick Start](#Quick-start-)
-* [Features](#Features-)
-* [Usage](#Usage-)
-  * [Get help: `help`](#Get-help-help-)
-  * [Add a todo: `todo`](#todo-Add-a-todo-)
-  * [Add a event: `event`](#event-Add-a-event-)
-  * [Add a deadline: `deadline`](#deadline-Add-a-deadline-)
-  * [List tasks: `list`](#list-List-all-task-)
-  * [Mark tasks: `mark`](#mark-Mark-task-)
-  * [Unmark tasks: `unmark`](#unmark-Unmark-task-)
-  * [Delete a listing: `delete`](#delete-Delete-a-task-)
-  * [Find by search parameter: `find`](#find-Find-string-)
-  * [Exiting the program : `bye`](#bye-Exiting-the-program-)
-  * [Turn on/off ascii: `ascii`](#ascii-Turn-on/off-ascii-)
+* [Quick Start](#quick-start)
+* [Features](#core-features)
+* [Usage](#usage--arrowupsmall-)
+  * [Get help: `help`](#help---get-all-the-commands)
+  * [Add a todo: `todo`](#todo---add-a-todo-)
+  * [Add a event: `event`](#event---add-a-event)
+  * [Add a deadline: `deadline`](#deadline---add-a-deadline)
+  * [List tasks: `list`](#list---list-all-tasks)
+  * [Mark tasks: `mark`](#mark---mark-tasks)
+  * [Unmark tasks: `unmark`](#unmark---unmark-tasks)
+  * [Delete a listing: `delete`](#delete---deleting-a-task)
+  * [Find by search parameter: `find`](#find---find-string)
+  * [Exiting the program : `bye`](#bye---exiting-the-program)
+  * [Turn on/off ascii: `ascii`](#ascii---turn-onoff-ascii-art)
 
 ## Quick Start
 - Download the latest `chatbot.jar` from the releases
@@ -41,20 +41,30 @@ string, including `<>` with your item
 ### Core Features
 | Commands                               | Description                                                                       |
 |----------------------------------------|-----------------------------------------------------------------------------------|
+| `help`                                 | Display all the commands for the program                                          | 
 | `todo <name>`                          | Add a todo task to the task list                                                  |
 | `event <name> /from <start> /to <end>` | Add an event task to the task list with the given `<start>` time and `<end>` time |
 | `deadline <name> /by <end>`            | Add a deadline task to the task list with the given `<end>` time                  |
 | `list`                                 | Print out the whole task list                                                     |
 | `mark <index>`                         | Mark the task at `<index>` as complete                                            |
 | `unmark <index>`                       | Mark the task at `<index>` as incomplete                                          |
-| `find <string>`                        | Find a `<string>` in the task list and print out all related task(s)              |
 | `delete <index>`                       | Delete the task at `<index>`                                                      |
+| `find <string>`                        | Find a `<string>` in the task list and print out all related task(s)              |
 | `bye`                                  | Exit the program                                                                  |
 ### Side Features
 | Commands       | Description                    |
 |----------------|--------------------------------|
 | `ascii <bool>` | Turn on/off ascii art printing |
 ## Usage [:arrow_up_small:](#Content)
+
+### `help` - Get all the commands
+
+Get all the available commands: `help`
+
+| Example | Outcome                     |
+|---------|-----------------------------|
+| `help`  | `<Commands> <Descriptions>` |
+
 
 ### `todo` - Add a todo 
 
@@ -104,6 +114,14 @@ Mark task of given index as incomplete
 | Example    | Outcome                                               |
 |------------|-------------------------------------------------------|
 | `unmark 1` | `1. [E][ ] exam  (from: Nov 01 2023 to: Nov 30 2023)` | 
+
+### `delete` - Deleting a task
+
+Exit the application
+
+| Example    | Outcome                                                                         |
+|------------|---------------------------------------------------------------------------------|
+| `delete 1` | `I have removed this task: 1. [E][ ] exam  (from: Nov 01 2023 to: Nov 30 2023)` | 
 
 ### `find` - Find string
 

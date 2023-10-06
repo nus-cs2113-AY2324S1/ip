@@ -17,6 +17,7 @@ public class HelpCommand extends Command {
         }
         System.out.println("| Commands                             | Description                                                                       |\n" +
                 "|--------------------------------------|-----------------------------------------------------------------------------------|\n" +
+                "| `help`                               | Display all the commands for the program                                          |\n" +
                 "| todo <name>                          | Add a todo task to the task list                                                  |\n" +
                 "| event <name> /from <start> /to <end> | Add an event task to the task list with the given `<start>` time and `<end>` time |\n" +
                 "| deadline <name> /by <end>            | Add a deadline task to the task list with the given `<end>` time                  |\n" +
