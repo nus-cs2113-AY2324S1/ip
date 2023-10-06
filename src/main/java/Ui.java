@@ -79,7 +79,7 @@ public class Ui {
             } catch (IndexOutOfBoundsException e){
                 printLine("☹ OOPS!!! Task number is out of List!");
                 System.out.println("    ____________________________________________________________\n");
-                return true;
+                return false;
             }
             printLine("Nice! I've marked this task as done:");
             printLine(" [" + tasks.getTask(mark_idx).getStatusIcon() + "] " + tasks.getTask(mark_idx).getDescription());
