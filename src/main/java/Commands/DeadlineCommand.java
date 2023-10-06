@@ -25,7 +25,7 @@ public class DeadlineCommand extends Command{
             throw new DukeFormatException("Ohno... Please check your format and include '/by'~");
         } else {
             String[] parts = input.split(" /by ");
-            task = parts[0].substring("deadline".length());
+            task = parts[0].substring("deadline ".length());
             //check if task or deadline are null
             if (parts.length != 2 || task.isEmpty() || parts[1].isEmpty()) {
                 throw new DukeFormatException("Task or deadline cannot be empty... Please check your input again~");
