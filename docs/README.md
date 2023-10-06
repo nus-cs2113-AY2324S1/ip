@@ -36,9 +36,6 @@ ____________________________________________________________
 ```
 
 ## Features | [Return to contents](#Contents)
-> Note:
-> - Items in square brackets `[]` are optional arguments.
-> - Items with `...` after them can be used multiple times.
 
 ### Add a Task: `todo`, `deadline`, `event`
 Adds a new task to your list. You can create three types of tasks:
