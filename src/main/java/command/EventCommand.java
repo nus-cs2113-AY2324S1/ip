@@ -2,6 +2,7 @@ package command;
 
 import duke.Duke;
 import exception.DukeException;
+import exception.InvalidTimeException;
 import message.Text;
 import task.Event;
 
@@ -22,6 +23,8 @@ public class EventCommand extends AddCommand {
             e.incorrectFormatException("event");
         } catch (IOException io){
             System.out.println("OMG! Something went wrong! Please check if the source files are available.");
+        } catch (InvalidTimeException d){
+            System.out.println("Please check your period again.");
         }
     }
 

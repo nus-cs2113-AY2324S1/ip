@@ -2,6 +2,7 @@ package fileIO;
 
 import duke.Duke;
 import exception.DukeException;
+import exception.InvalidTimeException;
 import task.Todo;
 import message.Text;
 
@@ -78,7 +79,8 @@ public class FileIO {
         fw.close();
     }
 
-    private static void restoreOneTask(Scanner key) throws IOException, DukeException, IndexOutOfBoundsException{
+    private static void restoreOneTask(Scanner key) throws IOException, DukeException, IndexOutOfBoundsException,
+            InvalidTimeException {
         String line = key.nextLine();
         line = removeNumberAndDot(line).trim();  //each line looks like [T][ ] Description
         boolean isDone = line.charAt(4) == 'X';
@@ -149,7 +151,7 @@ public class FileIO {
             while (scan.hasNext()) {
                 restoreOneTask(scan);
             }
-        } catch (IndexOutOfBoundsException ofb) {
+        } catch (IndexOutOfBoundsException | InvalidTimeException ofb) {
             System.out.println("Failed to load the saved file. Please check if your backup is in the correct format.");
             System.out.println("We will start with a new empty file.");
             clearData();

@@ -4,6 +4,7 @@ package duke;
 import command.Command;
 import commandFormat.CommandFormat;
 import commandFormat.CommandType;
+
 import task.*;
 import message.Text;
 
@@ -12,7 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.util.Scanner;
-
 import fileIO.FileIO;
 
 

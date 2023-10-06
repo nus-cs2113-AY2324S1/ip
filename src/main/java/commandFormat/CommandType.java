@@ -23,6 +23,9 @@ public class CommandType {
         case "event":
             command = new EventCommand(input);
             break;
+        case "find":
+            command = new FindCommand(commandSplits[1]);
+            break;
         case "mark":
             command = new MarkCommand(commandSplits[1]);
             break;
