@@ -121,7 +121,7 @@ MMM d, yyyy
 ### Valid Keywords and Arguments:
 
 > [Todo](#Todo)  
-[Deadline](#Deadline) 
+[Deadline](#Deadline)  
 [Event](#Event)  
 [List](#List)  
 [Mark](#Mark)  
