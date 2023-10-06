@@ -1,7 +1,12 @@
 list
-todo This chat0pt.commands.Task
-deadline NewTask /by 3 Jan
-event work /from 3pm /to 5pm
+todo complete tutorial
+deadline assignment1 /by 2023-10-06 1900
 list
-mark 2
+mark 1
+unmark 2
+event test /from 3pm /to 5pm
 list
+delete 2
+list
+find test
+bye
