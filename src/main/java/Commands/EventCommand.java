@@ -30,7 +30,6 @@ public class EventCommand extends Command{
                 throw new DukeFormatException("Event cannot be empty :< Please provide a valid event description.");
             }
             task = parts[0].substring("event ".length());
-            //check if task, to, from are null
             if (parts.length != 3 || parts[1].equals("from") || parts[2].equals("to")) {
                 throw new DukeFormatException("From or to cannot be empty... Please check your input again~");
             }
