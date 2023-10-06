@@ -166,7 +166,8 @@ public class Ui {
         if(descDueDate[0].isEmpty() || descDueDate[1].isEmpty()) {
             throw new FrankException("Brough you forgot to fill in something!");
         }
-        descDueDate[1] = descDueDate[1] + ", " + daysBetween + " days from now!";
+        System.out.println("Deadline is due " + daysBetween + " days from now!");
+        // descDueDate[1] = descDueDate[1] + ", " + daysBetween + " days from now!";
         return descDueDate;
     }
 
