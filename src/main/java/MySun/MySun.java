@@ -29,13 +29,26 @@ public class MySun {
      */
     public MySun(String filePath) throws IOException {
         ui = new Ui();
+
+        File file = new File(filePath);
+
+        // Check if the directory for the file exists, if not, create it
+        File directory = file.getParentFile();
+        if (!directory.exists()) {
+            boolean created = directory.mkdirs();
+            if (!created) {
+                Ui.showLine();
+                System.out.println("Failed to create directory: " + directory.getAbsolutePath());
+                Ui.showLine();
+            }
+        }
+
         storage = new Storage(filePath);
+
         try {
             tasks = new TaskList(storage.readDataFromFile());
         } catch (FileNotFoundException e) {
             Ui.showReadDataError();
-            File file = new File(filePath);
-            file.getParentFile().mkdirs();
             file.createNewFile();
             tasks = new TaskList(storage.readDataFromFile());
         }
