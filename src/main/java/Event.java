@@ -17,12 +17,16 @@ public class Event extends Task{
         this.to = to;
     }
 
-    //override
+    @Override
     public String getTypeIcon(){
         return "E";
     }
 
-    //override
+    /**
+     * Make description with datetimeformat
+     * @return description in event format
+     */
+    @Override
     public String getDescription(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
         return String.format("%s (from: %s to: %s)", description, from.format(formatter), to.format(formatter));

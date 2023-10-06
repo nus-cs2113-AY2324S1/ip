@@ -15,11 +15,13 @@ public class Task{
         return (isDone ? "X" : " ");
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
-    public String getTypeIcon() { return " "; }
+    public String getTypeIcon(){
+        return " ";
+    }
 
     public void doMark(){
         isDone = true;

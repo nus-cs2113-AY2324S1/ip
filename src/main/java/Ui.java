@@ -5,11 +5,13 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
+/**
+ * Shows the User Interface
+ * Print things in specific format
+ */
+
 public class Ui {
-
-
-
-
     public Ui(){
         System.out.println("    ____________________________________________________________");
         printLine("Hello! I'm Nupjuk");
@@ -17,11 +19,26 @@ public class Ui {
         System.out.println("    ____________________________________________________________\n");
     }
 
-    /* print a line starts with four spaces */
+    /**
+     * print a line starts with four spaces
+     * @param s String to print out
+     */
     public void printLine(String s){
         System.out.println("     " + s);
     }
 
+
+    /**
+     * run the user-input commmand
+     * If user inputs "bye", returns true to terminate infinite loop of run() function
+     * Otherwise, returns false
+     *
+     * @param cmd command string that user inputted
+     * @param tasks List of Todos/Deadlines/Events
+     * @param storage Where to save and load
+     * @return terminates or not
+     * @throws IOException if problem in input and parsing
+     */
     public boolean runCommand(String cmd, TaskList tasks, Storage storage) throws IOException {
         Scanner input = new Scanner(System.in);
 
@@ -67,7 +84,7 @@ public class Ui {
             printLine("Nice! I've marked this task as done:");
             printLine(" [" + tasks.getTask(mark_idx).getStatusIcon() + "] " + tasks.getTask(mark_idx).getDescription());
             System.out.println("    ____________________________________________________________\n");
-            storage.saveTask(tasks, tasks.getSize());
+            storage.saveTask(tasks);
 
         } else if(tokens[0].equals("unmark")){
 
@@ -96,7 +113,7 @@ public class Ui {
             printLine("OK, I've marked this task as not done yet:");
             printLine(" [" + tasks.getTask(mark_idx).getStatusIcon() + "] " + tasks.getTask(mark_idx).getDescription());
             System.out.println("    ____________________________________________________________\n");
-            storage.saveTask(tasks, tasks.getSize());
+            storage.saveTask(tasks);
         } else if(tokens[0].equals("todo")) {
 
             try{
@@ -116,7 +133,7 @@ public class Ui {
                     todo.getTypeIcon(), todo.getStatusIcon(), todo.getDescription()));
             printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
             System.out.println("    ____________________________________________________________\n");
-            storage.saveTask(tasks, tasks.getSize());
+            storage.saveTask(tasks);
 
         } else if(tokens[0].equals("deadline")){
             // error handling
@@ -163,7 +180,7 @@ public class Ui {
                     deadline.getTypeIcon(), deadline.getStatusIcon(), deadline.getDescription()));
             printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
             System.out.println("    ____________________________________________________________\n");
-            storage.saveTask(tasks, tasks.getSize());
+            storage.saveTask(tasks);
         } else if(tokens[0].equals("event")){
             // error handling
             try{
@@ -210,7 +227,7 @@ public class Ui {
                     event.getTypeIcon(), event.getStatusIcon(), event.getDescription()));
             printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
             System.out.println("    ____________________________________________________________\n");
-            storage.saveTask(tasks, tasks.getSize());
+            storage.saveTask(tasks);
         } else if(tokens[0].equals("delete")){
 
             int del_idx;
@@ -242,7 +259,7 @@ public class Ui {
             printLine(" [" + del_task.getStatusIcon() + "] " + del_task.getDescription());
             printLine(String.format("now you have %d tasks in the list", tasks.getSize()));
             System.out.println("    ____________________________________________________________\n");
-            storage.saveTask(tasks, tasks.getSize());
+            storage.saveTask(tasks);
         } else if(tokens[0].equals("find")){
             int foundTasks = 0;
             for(int i=0;i<tasks.getSize();i++){
@@ -269,6 +286,10 @@ public class Ui {
         return false;
     }
 
+
+    /**
+     * Prints a termination message.
+     */
     public void exitProg(){
         // exit the program
         System.out.println("      Bye. Hope to see you again soon!");
