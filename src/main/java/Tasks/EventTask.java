@@ -51,10 +51,14 @@ public class EventTask extends Task {
             int toIndex = description.indexOf("/to");
             if (toIndex != -1 && toIndex > fromIndex) {
                 return description.substring(fromIndex + 5, toIndex).trim();
+            } else {
+                // If there is "/from" but no "/to," return the portion after "/from."
+                return description.substring(fromIndex + 5).trim();
             }
         }
         return "No Start Date";
     }
+
 
     /**
      * Extracts the end date from the task description.
