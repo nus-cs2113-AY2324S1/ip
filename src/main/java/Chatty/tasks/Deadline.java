@@ -15,8 +15,10 @@ public class Deadline extends Task {
         super(description);
         this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
+
     /**
-     * Gets the by date for the deadline task
+     * gets 'by' date
+     * @return by date
      */
     public LocalDate getBy() {
         return by;

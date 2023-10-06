@@ -13,7 +13,6 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
-
     /**
      * marks item done
      */
@@ -54,6 +53,11 @@ public abstract class Task {
     public String saveFormat() {
         return "";
     }
+
+    /**
+     * @param keyword keyword(s) you are looking for
+     * @return a boolean value if the task contains the keyword
+     */
     public boolean containsKeyword(String keyword) {
         return description.toLowerCase().contains(keyword.toLowerCase());
     }

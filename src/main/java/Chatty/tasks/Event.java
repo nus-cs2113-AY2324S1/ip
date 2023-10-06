@@ -17,10 +17,18 @@ public class Event extends Task {
         this.to = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
+    /**
+     * gets 'from' date
+     * @return from date
+     */
     public LocalDate getFrom() {
         return from;
     }
 
+    /**
+     * gets 'to' date
+     * @return to date
+     */
     public LocalDate getTo() {
         return to;
     }
