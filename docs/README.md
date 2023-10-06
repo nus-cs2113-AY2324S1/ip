@@ -19,7 +19,7 @@ are user provided arguments.
 
 You can add different types of tasks to your list:
 
-Format to add different types of tasks
+Format to add different types of tasks:
 - **ToDo**: `todo` "TaskName"
 ```
 todo CS2113 Homework
@@ -129,7 +129,7 @@ ___________________________________
 
 You can search for tasks containing specific keywords in their descriptions.
 
-Just input `find` "Keyword" to find tasks that contains the keyword you are searching for
+Just input `find` "Keyword" to find tasks that contains the keyword you are searching for.
 
 ```
 find Homework
@@ -143,9 +143,9 @@ ___________________________________
 
 ### Exiting the Chat-bot
 
-You can exit the chat-bot after finishing the actions that you desire
+You can exit the chat-bot after finishing the actions that you desire.
 
-Just input `bye` to end the chatbot
+Just input `bye` to end the chat-bot.
 
 ```
 bye
