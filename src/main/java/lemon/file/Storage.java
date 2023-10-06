@@ -13,16 +13,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Utility class for handling storage operations in the Lemon chatbot.
+ * This class manages the reading and writing of task data to and from a file.
+ */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
-    public Storage() {
-    }
-
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath Path of file that stores the task data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads task data from the file specified in the constructor.
+     * Reads and validates the task data and adds them to a task list.
+     * Creates a new file at the specified file path if the file is not found at the specified path.
+     *
+     * @return A new task list with task data from the file.
+     * @throws LemonException If file is not found and if there is error related to the IO.
+     */
     public ArrayList<Task> load() throws LemonException{
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -58,6 +72,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves task data to the file specified in the constructor.
+     * Reads task data from the task list and writes them to the file.
+     *
+     * @param tasks List of tasks to read task data from
+     */
     public void save(ArrayList<Task> tasks) {
         File file = new File(filePath);
         try {
