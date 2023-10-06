@@ -42,7 +42,7 @@ Format: `todo TASK_DESCRIPTION`
 - The `TASK_DESCRIPTION` should not be empty.
 
 Examples:
-- `todo hang laundry`
+- `todo keep laundry`
 - `todo Mark assignments`
 
 ### Adding a deadline task: `deadline`
