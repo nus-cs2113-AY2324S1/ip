@@ -1,4 +1,5 @@
 # User Guide
+The Chatbot name is very intuitive - Chatbot.
 
 ## Features 
 
