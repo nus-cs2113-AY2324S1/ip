@@ -7,7 +7,7 @@
 | deadline       | A task with a deadline |
 | event            | An event with a start and end date and time |
 
-
+##Important Note
 <mark>Words in UPPER_CASE are the parameters to be supplied by the user.
 e.g. in ```todo TASK_DESCRIPTION```, TASK_DESCRIPTION is a parameter which can be used as add n/assignment</mark>
 
@@ -16,6 +16,15 @@ e.g. in ```todo TASK_DESCRIPTION```, TASK_DESCRIPTION is a parameter which can b
 ### Listing All Tasks: ```list```
 Shows a list of all persons in the address book.
 Format: ```list```
+Example:
+```
+    list
+    -----------------------------------------------------------
+    Here are the tasks in your list:
+    1.[T][X] read book
+    2.[D][X] return book (by: June 6th)
+    ------------------------------------------------------------
+```
 
 ### Adding Todo
 Adds a new todo task in your list.
@@ -44,7 +53,6 @@ Format: ```delete TASK_INDEX```
 ### Find Task
 Find tasks with matching keywords in your list.
 Format: ```find KEY_WORD```
-
 Example:
 ```
     find book
