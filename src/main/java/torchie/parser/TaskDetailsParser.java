@@ -16,12 +16,13 @@ public class TaskDetailsParser {
      * Get index of task to perform command on the task
      *
      * @param s user input string that contains the index of task we want to perform a command to
+     * @param length size of our task list
      * @return String index of task
      *
      * @throws InvalidIndexException index out of bounds
      *
      */
-    public String getIndex(String s) throws InvalidIndexException {
+    public String getIndex(String s, int length) throws InvalidIndexException {
         // split sentence into 2 parts, first word and everything else
         String[] words = s.split(" ", 2);
 
@@ -30,14 +31,17 @@ public class TaskDetailsParser {
         }
 
         // making sure content stops before the key characters such as /
-        String content = words[1];
+        String index = words[1];
 
-        if (content.indexOf('/') != -1) {
-            int keyWordIndex = content.indexOf('/');
-            content = content.substring(0, keyWordIndex - 1);
+        if (index.indexOf('/') != -1) {
+            int keyWordIndex = index.indexOf('/');
+            index = index.substring(0, keyWordIndex - 1);
+        } else if (Integer.parseInt(index) < 1 || Integer.parseInt(index) > length) {
+            // index is negative or out of bounds
+            throw new InvalidIndexException();
         }
 
-        return content;
+        return index;
     }
 
     /**

@@ -69,7 +69,7 @@ public class Parser {
         case MARK:
         case UNMARK:
             try {
-                String itemNum_str = taskDetailsParser.getIndex(input);
+                String itemNum_str = taskDetailsParser.getIndex(input, taskList.getSize());
                 int itemNum = Integer.parseInt(itemNum_str) - 1;
                 commandObj = new SetStatusCommand(command, taskList, itemNum);
             } catch (InvalidIndexException e) {
@@ -111,7 +111,7 @@ public class Parser {
             break;
         case DELETE:
             try {
-                String itemNum_str = taskDetailsParser.getIndex(input);
+                String itemNum_str = taskDetailsParser.getIndex(input, taskList.getSize());
                 int itemNum = Integer.parseInt(itemNum_str) - 1;
                 commandObj = new DeleteCommand(taskList, itemNum);
             } catch (InvalidIndexException e) {
