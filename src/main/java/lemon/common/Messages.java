@@ -5,9 +5,9 @@ package lemon.common;
  * This class contains static fields for various messages used in the chatbot.
  */
 public class Messages {
-    public static final String LEMON_EMOJI = "◕";
-    public static final String LEMON_DIVIDER = "✽\n";
-    public static final String LEMON_START_AND_END = "◕ ◕ ◕\n";
+    public static final String LEMON_EMOJI = "(>_<)/";
+    public static final String LEMON_DIVIDER = "*\n";
+    public static final String LEMON_START_AND_END = "\n* ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ *\n";
     public static final String LEMON_LOGO = "                      .--:::.                      \n"
             + "                .:-----::::.:-.                    \n"
             + "            .----:::::::::..:=:                    \n"
