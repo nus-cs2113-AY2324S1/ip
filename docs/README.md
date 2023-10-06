@@ -190,20 +190,15 @@ bye
 
 ## Command Summary
 
-| Action       | Format, Examples                                                                                                                  |
-|--------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| Add todo     | `todo TASK_DESCRIPTION`<br>example: `todo Cook lunch`                                                                            |
-| Add deadline | `deadline TASK_DESCRIPTION /by TASK_DEADLINE`<br>example: `deadline Submit ST2334 quiz /by 2023-10-04`                           |
-| Add event    | `event EVENT_DESCRIPTION /from START_OF_EVENT /to END_OF_EVENT`<br>example: `event Rugby competition /from 2023-10-14 /to 2023-10-15`|
-| List         | `list`<br>example: `list`                                                                                                         |
-| Mark task    | `mark TASK_INDEX`<br>example: `mark 1`                                                                                           |
-| Unmark task  | `unmark TASK_INDEX`<br>example: `unmark 1`                                                                                       |
-| Delete task  | `delete TASK_INDEX`<br>example: `delete 1`                                                                                       |
-| Find         | `find KEYWORD`<br>example: `find quiz`                                                                                           |
-| Help         | `help`<br>example: `help`                                                                                                       |
-| Exit         | `bye`<br>example: `bye`                                                                                                         |
-
-
-
-
-
+| Action       | Format, Examples                                              |
+|--------------|---------------------------------------------------------------|
+| Add todo     | `todo TASK_DESCRIPTION`<br>Example: `todo Cook lunch`         |
+| Add deadline | `deadline TASK_DESCRIPTION /by TASK_DEADLINE`<br>Example: `deadline Submit ST2334 quiz /by 2023-10-04` |
+| Add event    | `event EVENT_DESCRIPTION /from START_OF_EVENT /to END_OF_EVENT`<br>Example: `event Rugby competition /from 2023-10-14 /to 2023-10-15`|
+| List         | `list`<br>Example: `list`                                      |
+| Mark task    | `mark TASK_INDEX`<br>Example: `mark 1`                          |
+| Unmark task  | `unmark TASK_INDEX`<br>Example: `unmark 1`                      |
+| Delete task  | `delete TASK_INDEX`<br>Example: `delete 1`                      |
+| Find         | `find KEYWORD`<br>Example: `find quiz`                          |
+| Help         | `help`<br>Example: `help`                                      |
+| Exit         | `bye`<br>Example: `bye`                                        |
