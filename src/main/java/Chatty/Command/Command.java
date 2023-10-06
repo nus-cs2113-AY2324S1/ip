@@ -1,5 +1,5 @@
 /**
- * The Command class represents a Command and its execution. It is an abstract type
+ * The Command class represents a Command and its execution.
  */
 package Chatty.Command;
 
@@ -7,7 +7,7 @@ import Chatty.Storage;
 import Chatty.TaskList;
 import Chatty.Ui;
 
-public abstract class Command {
+public class Command {
 
     String input;
 

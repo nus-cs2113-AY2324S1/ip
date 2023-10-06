@@ -16,8 +16,6 @@ public class badCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printMessage(Ui.LINE);
         ui.printMessage("Unknown command. Please try again or type \"help\"");
-        ui.printMessage(Ui.LINE);
     }
 }

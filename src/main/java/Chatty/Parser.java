@@ -22,7 +22,7 @@ public class Parser {
         case "list":
             return new listCommand(input);
         case "mark":
-            System.out.println("mark");
+            //System.out.println("mark");
             return new markCommand(input, true);
         case "unmark":
             return new markCommand(input, false);
@@ -32,35 +32,38 @@ public class Parser {
             } else {
                 ui.printMessage(Ui.LINE + "\n☹ OOPS!!! The description of a todo cannot be empty.");
             }
+            break;
         case "deadline":
             int byIndex = input.indexOf("/by");
             if (byIndex != -1 && input.length() > 9 && byIndex != 9) {
                 return new addCommand(input, 'D');
             } else if (byIndex == -1) {
-                ui.printMessage(Ui.LINE + "\n☹ OOPS!!! Invalid Deadline format. Please use /by to specify a deadline.");
-                ui.printMessage("E.g. deadline homework /by 20 Aug");
+                ui.printMessage("☹ OOPS!!! Invalid Deadline format. Please use /by to specify a deadline.");
+                ui.printMessage("E.g. deadline homework /by 2023-10-06");
             } else if (byIndex == 9 || input.length() <= 9) {
-                ui.printMessage(Ui.LINE + "\n☹ OOPS!!! Description of Deadline task needed!");
-                ui.printMessage("E.g. deadline homework /by 20 Aug");
+                ui.printMessage("☹ OOPS!!! Description of Deadline task needed!");
+                ui.printMessage("E.g. deadline homework /by 2023-10-06");
             } else {
-                ui.printMessage(Ui.LINE + "\n☹ OOPS!!! Unknown Error adding a deadline. Try Again.");
-                ui.printMessage("E.g. deadline homework /by 20 Aug");
+                ui.printMessage("☹ OOPS!!! Unknown Error adding a deadline. Try Again.");
+                ui.printMessage("E.g. deadline homework /by 2023-10-06");
             }
+            break;
         case "event":
             int fromIndex = input.indexOf("/from");
             int toIndex = input.indexOf("/to");
             if (fromIndex != -1 && toIndex != -1 && input.length() > 6 && fromIndex != 6 && toIndex != fromIndex + 6) {
                 return new addCommand(input, 'E');
             } else if (fromIndex == -1 || toIndex == -1 || toIndex == fromIndex + 6) {
-                ui.printMessage(Ui.LINE + "\n☹ OOPS!!! Invalid Event format. Please use /from to specify the start of an event and /to to specify the end.");
-                ui.printMessage("E.g. event project meeting /from 20 Aug 4pm /to 6pm");
+                ui.printMessage("☹ OOPS!!! Invalid Event format. Please use /from to specify the start of an event and /to to specify the end.");
+                ui.printMessage("E.g. event project meeting /from 2023-10-06 4pm /to 2023-10-07");
             } else if (input.length() <= 6 || fromIndex == 6) {
-                System.out.println(Ui.LINE + "\n☹ OOPS!!! Description of Event task needed!");
-                ui.printMessage("E.g. event project meeting /from 20 Aug 4pm /to 6pm");
+                ui.printMessage("☹ OOPS!!! Description of Event task needed!");
+                ui.printMessage("E.g. event project meeting /from 2023-10-06 4pm /to 2023-10-07");
             } else {
-                System.out.println(Ui.LINE + "\n☹ OOPS!!! Unknown Error adding an event. Try Again.");
-                ui.printMessage("E.g. event project meeting /from 20 Aug 4pm /to 6pm");
+                ui.printMessage("☹ OOPS!!! Unknown Error adding an event. Try Again.");
+                ui.printMessage("E.g. event project meeting /from 2023-10-06 4pm /to 2023-10-07");
             }
+            break;
         case "delete":
             int index = Integer.parseInt(input.substring(7)) - 1;
             if (index >= 0 && index < tasks.size()) {
@@ -68,6 +71,7 @@ public class Parser {
             } else {
                 ui.printMessage("☹ OOPS!!! Invalid task number to delete.");
             }
+            break;
         case "find":
             return new findCommand(input);
         case "printdate":
@@ -78,8 +82,10 @@ public class Parser {
             } catch (Exception e) {
                 ui.printMessage("☹ OOPS!!! Invalid date.");
             }
+            break;
         default:
             return new badCommand(input);
         }
+        return new Command(input);
     }
 }
