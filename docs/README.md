@@ -21,6 +21,7 @@ You can add different types of tasks to your list:
 
 Format to add different types of tasks:
 - **ToDo**: `todo` "TaskName"
+
 ```
 todo CS2113 Homework
 ___________________________________
@@ -32,6 +33,7 @@ ___________________________________
 ```
 
 - **Deadline**: `deadline` "TaskName" /from "DueDate"
+
 ```
 deadline read book /by Friday 2359
 ___________________________________
@@ -42,7 +44,9 @@ Now you have 2 tasks in the list.
 ___________________________________
 ```
 
+
 - **Event**: `event` "TaskName" /from "StartTime" /to "EndTime"
+
 ```
 event CS2113 Lecture /from Friday 1200 /to Friday 1600
 ___________________________________
@@ -75,6 +79,7 @@ Here are the tasks in your list:
 ___________________________________
 ```
 
+
 ### Marking Tasks as Done
 
 You can mark tasks as done to keep track of your progress.
@@ -92,10 +97,12 @@ Nice! I've marked this task as done:
 ___________________________________
 ```
 
+
 ### Unmarking Tasks as Undone
 You can mark tasks as done to keep track of your progress.
 
 Just input `unmark` "IndexNumber of task" to unmark the task that you wish to be marked as incomplete.
+
 ```
 unmark 1
 ___________________________________
@@ -107,11 +114,13 @@ OK, I've marked this task as not done yet:
 ___________________________________
 ```
 
+
 ### Deleting Tasks
 
 You can delete tasks that are no longer needed.
 
 Just input `delete` "IndexNumber of task" to delete the task you wish to be deleted.
+
 ```
 delete 2
 ___________________________________
@@ -124,6 +133,7 @@ ___________________________________
 
 ___________________________________
 ```
+
 
 ### Finding Tasks
 
@@ -140,6 +150,7 @@ Here are the matching tasks in your list:
  1.[T][ ] CS2113 Homework
 ___________________________________
 ```
+
 
 ### Exiting the Chat-bot
 
