@@ -44,7 +44,6 @@ public abstract class Command {
      * @param storage  The storage for saving task changes (not used in all commands).
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("Error. This line should not be reached.");
     }
 
     /**
