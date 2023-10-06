@@ -18,6 +18,13 @@ public class FileManager {
     private String dataDirectory;
     private String filePath;
 
+    /**
+     * Constructor for the File Manager object.
+     * <p>
+     * Creates a File object according to the relative path /data/alice.txt to store the data
+     * <p>
+     * Initializes a /data/ folder and alice.txt if it does not exist
+     */
     public FileManager() {
         this.dataDirectory = "./data/";
         this.fileName = "alice.txt";
@@ -38,6 +45,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Saves the current tasks in the TaskList object into /data/alice.txt text file
+     *
+     * @param tasks the TaskList containing all tasks from user
+     */
     public void save(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -51,6 +63,13 @@ public class FileManager {
         }
     }
 
+    /**
+     * Retrieves all tasks saved in /data/alice.txt if directory and file exists,
+     * decodes the tasks and stores them in a TaskList object
+     *
+     * @return ArrayList of tasks corresponding to the tasks stored in the text file
+     * @throws FileNotFoundException the file cannot be found error
+     */
     public ArrayList<Task> retrieve() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -71,6 +90,12 @@ public class FileManager {
         return tasks;
     }
 
+    /**
+     * Converts the stored string in the text file into a task object
+     *
+     * @param input the stored string in the text file
+     * @return Task object corresponding to the text file line
+     */
     public Task decode(String input) {
         Task task = null;
 

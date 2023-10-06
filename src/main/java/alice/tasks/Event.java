@@ -41,8 +41,15 @@ public class Event extends Task {
         return typeOfTask + statusOfTask + task;
     }
 
+    /**
+     * Encodes the event task into a string to be stored in the text file
+     *
+     * @return string in the format to be stored in text file
+     */
     @Override
     public String encode() {
-        return String.format("Event | %s | %s | %s", super.encode(), getStart(), getEnd());
+        String encodeStart = getStart().format(DateTimeParser.getFormatter());
+        String encodeEnd = getEnd().format(DateTimeParser.getFormatter());
+        return String.format("Event | %s | %s | %s", super.encode(), encodeStart, encodeEnd);
     }
 }

@@ -1,4 +1,0 @@
-Todo | 1 | eat bread
-Deadline | 0 | homework | 16-10-2020 1111
-Event | 0 | badminton | 2020-10-21T23:00 | 2020-10-22T01:00
-Deadline | 0 | homework | 16-10-2020 1111
