@@ -16,6 +16,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * extreact start and end from userCommand first
+     * then test if the input is valid
+     * if failed to parse input, assume the user is true
+     * @InvalidTimeException caught in EventCommand class
+     */
     public static Event newEventTask(String userCommand) throws DukeException, InvalidTimeException {
         //command format: event project meeting /from Mon 2pm /to 4pm
         if (!(userCommand.contains("/from")) || !(userCommand.contains("/to"))){
@@ -48,10 +54,12 @@ public class Event extends Task {
         }
     }
 
-
+    /**
+     * print example: [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+     * @return string containing event task information
+     */
     @Override
     public String toString() {
-        //print example: [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
         try {
             LocalDateTime  tmp = TimeParser.parseDateTime(this.start);
             String startTime = TimeParser.convertDateTimetoString(tmp);

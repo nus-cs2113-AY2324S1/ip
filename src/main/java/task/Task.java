@@ -44,7 +44,11 @@ public class Task {
         }
     }
 
-    //return a new list after delete the target object
+    /**
+     * only use to update list array once an objected is deleted and removed
+     * @param indexOfDelete target index
+     * @return a new list object array
+     */
     public static Task[] updatedTaskList(int indexOfDelete){
         Task[] newList = new  Task[100];
         int numOfCopy = Duke.list.length - indexOfDelete - 1;
@@ -53,7 +57,10 @@ public class Task {
         return newList;
     }
 
-    //This method will return all tasks inside the list
+    /**
+     *
+     * @return string contains all task data
+     */
     public static String getConcatenateTasks() {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < Duke.taskCount; i++) {

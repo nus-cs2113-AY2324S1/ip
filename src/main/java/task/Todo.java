@@ -16,7 +16,10 @@ public class Todo extends Task {
         return new Todo(todoSplit[1]);
     }
 
-
+    /**
+     * print example: [T][ ] read book
+     * @return string contains todo task information
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString() ;

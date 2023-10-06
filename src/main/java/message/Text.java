@@ -10,7 +10,7 @@ import static duke.Duke.taskCount;
 
 public class Text {
     /**
-     * this class contains all user
+     * this class contains all user interacting messages
      */
 
     public static void printWelcomeMessage() {

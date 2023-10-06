@@ -46,6 +46,11 @@ public class Deadline extends Task {
         return new Deadline(ddlTask, due);
     }
 
+    /**
+     * print example: [D][ ] return book (by: Friday)
+     * if failed to parse input time, assume user input is valid
+     * @return string of task message
+     */
     @Override
     public String toString() {
         try {
