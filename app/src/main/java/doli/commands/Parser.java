@@ -80,6 +80,34 @@ public class Parser {
             return false;
         }
     }
+    /**
+     * Checks whether the input String contains a valid month.
+     *
+     * @param date of type String.
+     * @return true if the String contains a valid month.
+     */
+    public static boolean containsAValidMonth(String date) {
+        int month = Integer.parseInt(date.trim().split("-")[1]);
+        if (month < 13) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /**
+     * Checks whether the input String contains a valid day.
+     *
+     * @param date of type String.
+     * @return true if the String contains a valid day.
+     */
+    public static boolean containsAValidDay(String date) {
+        int day = Integer.parseInt(date.trim().split("-")[2]);
+        if (day < 32) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Checks whether the input date is actually a valid date, meaning of format "yyyy-MM-dd".
@@ -93,7 +121,8 @@ public class Parser {
                 && date.indexOf('-') == 4 && date.lastIndexOf('-') == 7
                 && isANumber(date.trim().split("-")[0])
                 && isANumber(date.trim().split("-")[1])
-                && isANumber(date.trim().split("-")[2])) {
+                && isANumber(date.trim().split("-")[2])
+                && containsAValidDay(date) && containsAValidMonth(date)) {
             dateIsValid = true;
         } else {
             dateIsValid = false;
@@ -119,7 +148,7 @@ public class Parser {
             break;
         case DEADLINE_COMMAND:
             if (details.length < NR_DEADLINE_ARGS || !checkForValidDate(details[1])) {
-                throw new DoliExceptions("Time or description missing for deadline");
+                throw new DoliExceptions("There is something amiss in your deadline date, please try again");
             }
             break;
         case EVENT_COMMAND:
