@@ -102,6 +102,6 @@ public class Deadline extends Task {
             isDoneString = "[ ]";
         }
 
-        return "[D]" + isDoneString + getDescription() + "/by " + getDate();
+        return "[D]" + isDoneString + " " + getDescription() + "/by " + getDate();
     }
 }

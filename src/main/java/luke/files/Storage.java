@@ -24,32 +24,34 @@ public class Storage {
         this.folderPath = folderPath;
         filePath = folderPath + "/memory.txt";
 
+        System.out.println();
         createDirectory();
         createFile();
+        //tasks = Memory.readMemory(filePath);
     }
 
     public void createDirectory () {
         File d = new File(folderPath);
         if (d.mkdir()) {
-            System.out.println("Directory has been successfully created!");
+            System.out.println("\tDirectory has been successfully created!");
         } else {
-            System.out.println("Directory cannot be created. Directory may already exist.");
+            System.out.println("\tDirectory cannot be created. Directory may already exist.");
         }
-        System.out.println("Full path: " + d.getAbsolutePath());
+        //System.out.println("\tFull path: " + d.getAbsolutePath());
     }
 
     public void createFile () {
         File f = new File(filePath);
         try {
             if (f.createNewFile()) {
-                System.out.println("New memory file has been successfully created!");
+                System.out.println("\tNew memory file has been successfully created!");
             } else {
-                System.out.println("New memory file cannot be created. Memory file may already exist.");
+                System.out.println("\tNew memory file cannot be created. Memory file may already exist.");
             }
         } catch (IOException e) {
-            System.out.println("An error occurred." + e.getMessage());
+            System.out.println("\tAn error occurred." + e.getMessage());
         }
-        System.out.println("Full path: " + f.getAbsolutePath());
+        System.out.println("\tFull path: " + f.getAbsolutePath());
     }
 
     /**
@@ -58,7 +60,13 @@ public class Storage {
      * @return An ArrayList of Task objects loaded from the file.
      */
     public ArrayList<Task> load() {
-        return tasks;
+        try {
+            tasks = Memory.readMemory(filePath);
+            return tasks;
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred." + e.getMessage());
+        }
+        return null;
     }
 
     /**

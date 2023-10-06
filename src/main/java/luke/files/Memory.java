@@ -24,6 +24,7 @@ public class Memory {
      * @throws FileNotFoundException If the specified file is not found.
      */
     public static ArrayList<Task> readMemory(String filePath) throws FileNotFoundException {
+        System.out.println("\n\tRetrieving memory...");
 
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -34,7 +35,7 @@ public class Memory {
             System.out.println("\t" + currentLine);
 
             String taskDetails = currentLine.substring(0,5);
-            String taskDescription = currentLine.substring(6);
+            String taskDescription = currentLine.substring(7);
             char[] characters = taskDetails.toCharArray();
             try {
                 Task newTask;
@@ -57,6 +58,7 @@ public class Memory {
                 System.out.println("\tsomethings wrong");
             }
         }
+        System.out.println("\tMemory retrieval successful!\n");
         return tasks;
     }
 
