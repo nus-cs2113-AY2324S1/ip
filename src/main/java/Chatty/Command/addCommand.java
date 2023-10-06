@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class addCommand extends Command{
+  
     char type;
 
     public addCommand (String input, char type){

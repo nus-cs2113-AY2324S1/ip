@@ -56,11 +56,11 @@ public class Storage {
         return tasks;
     }
 
-    public void save(ArrayList<Task> tasks) {
+    public void save(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(filePath);
-            for (Task task : tasks) {
-                writer.write(task.saveFormat() + "\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                writer.write(tasks.get(i).saveFormat() + "\n");
             }
             writer.close();
         } catch (IOException e) {

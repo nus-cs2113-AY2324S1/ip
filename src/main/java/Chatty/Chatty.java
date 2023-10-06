@@ -33,6 +33,7 @@ public class Chatty {
             }
             fullCommand = ui.getUserInput();
         }
+        storage.save(tasks);
     }
 
     public static void main(String[] args) {
