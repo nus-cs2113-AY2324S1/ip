@@ -2,6 +2,8 @@ package main.java.duke.util;
 
 import main.java.duke.util.task.Task;
 
+import java.util.ArrayList;
+
 public class UIHandler {
 
     public void endMessage() {
@@ -47,7 +49,7 @@ public class UIHandler {
     }
 
     public void printTasks(TaskList taskList) {
-        System.out.println("Here are the item(s) in your list. :)");
+        System.out.println("Here are the task(s) in your list. :)");
         // print out tasks and number each task
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println(i + 1 + ". " + taskList.get(i));
@@ -67,6 +69,15 @@ public class UIHandler {
         // introduction and initial prompt for user input
         System.out.print("Hello! My name is:\n" + name + "\n\n" +
                 "What can I do for you today? :)\n" + ">>");
+    }
+
+    public void printFoundTasks(ArrayList<Integer> foundTasksIndex, TaskList taskList) {
+        System.out.println("Here are the task(s) we found in your list. :)");
+        // print out tasks and number each task
+        for (int i = 0; i < taskList.size(); i++) {
+            if (foundTasksIndex.contains(i))
+                System.out.println(i + 1 + ". " + taskList.getTasks().get(i));
+        }
     }
 
     // private function to print a stream of underscores for partitioning robot conversation

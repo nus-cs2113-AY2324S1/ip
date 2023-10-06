@@ -5,6 +5,7 @@ import main.java.duke.util.task.Event;
 import main.java.duke.util.task.Task;
 import main.java.duke.util.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -40,7 +41,7 @@ public class Parser {
                     int selectedItem = Integer.parseInt(userWords[1]);
                     taskList.markTask(selectedItem);
                     uiHandler.printMarkedMessage(selectedItem, taskList);
-                }catch (Exception e) {
+                } catch (Exception e) {
                     uiHandler.integerErrorMessage();
                 }
             }
@@ -51,7 +52,7 @@ public class Parser {
                     int selectedItem = Integer.parseInt(userWords[1]);
                     taskList.unmarkTask(selectedItem);
                     uiHandler.printUnmarkedMessage(selectedItem, taskList);
-                }catch (Exception e) {
+                } catch (Exception e) {
                     uiHandler.integerErrorMessage();
                 }
             }
@@ -76,11 +77,10 @@ public class Parser {
                 // find the index of "/from" and "/to" to separate the information
                 int fromSplitIndex = 0;
                 int toSplitIndex = 0;
-                for(int i = 1; i < userWords.length; i++) {
+                for (int i = 1; i < userWords.length; i++) {
                     if (userWords[i].equals("/from")) {
                         fromSplitIndex = i;
-                    }
-                    else if (userWords[i].equals("/to")) {
+                    } else if (userWords[i].equals("/to")) {
                         toSplitIndex = i;
                         break;
                     }
@@ -111,7 +111,7 @@ public class Parser {
             else if (userCommand.equals("deadline")) {
                 // find the index of "/by" to separate the information
                 int splitIndex = 0;
-                for(int i = 1; i < userWords.length; i++) {
+                for (int i = 1; i < userWords.length; i++) {
                     if (userWords[i].equals("/by")) {
                         splitIndex = i;
                         break;
@@ -142,10 +142,20 @@ public class Parser {
                     int selectedItem = Integer.parseInt(userWords[1]);
                     Task removedTask = taskList.removeTask(selectedItem);
                     uiHandler.printTaskDeleted(selectedItem, removedTask);
-                }catch (Exception e) {
+                } catch (Exception e) {
                     uiHandler.integerErrorMessage();
                 }
-
+            }
+            // if "find" command is given, find the corresponding task(s) in the list with the same name
+            else if (userCommand.equals("find")) {
+                try {
+                    String[] taskNameWords = Arrays.copyOfRange(userWords, 1, userWords.length);
+                    String taskName = String.join(" ", taskNameWords);
+                    ArrayList<Integer> foundTasksIndex = taskList.find(taskName);
+                    uiHandler.printFoundTasks(foundTasksIndex, taskList);
+                } catch (Exception e) {
+                    uiHandler.integerErrorMessage();
+                }
             }
             // if not unique command, prompt user again
             else {
