@@ -10,7 +10,8 @@ import java.util.Scanner;
 public class Chatbot {
     public static void main(String[] args) {
         System.out.println("Hello I'm Rias-chan!");
-        System.out.println(AsciiArt.getArt("picture"));
+        System.out.println(AsciiArt.word);
+        System.out.println(AsciiArt.picture);
         System.out.println("Welcome back goshujin-sama, what can I do for you?");
         System.out.println();
         Parser processor = new Parser();
@@ -31,9 +32,9 @@ public class Chatbot {
         do {
             response = scanner.nextLine();
             if (!"bye".equalsIgnoreCase(response)) {
-                System.out.println(AsciiArt.getArt("line"));
+                System.out.println(AsciiArt.line);
                 processor.process(response);
-                System.out.println(AsciiArt.getArt("line"));
+                System.out.println(AsciiArt.line);
             }
         } while (!"bye".equalsIgnoreCase(response));
 
