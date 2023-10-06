@@ -132,7 +132,7 @@ MMM d, yyyy
 [Bye](#Bye)
 
 #### Todo
-> [!NOTE]
+> [!NOTE]  
 > Add a task into the current list with type of `Todo`.
 - Keywords: `todo`
 - Arguments:
