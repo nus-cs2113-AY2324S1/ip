@@ -20,10 +20,10 @@ your tasks!
 ## Content
 * [Quick Start](#quick-start)
 * [Features](#core-features)
-* [Usage](#usage--arrowupsmall-)
+* [Usage](#usage)
   * [Get help: `help`](#help---get-all-the-commands)
   * [Add a todo: `todo`](#todo---add-a-todo-)
-  * [Add a event: `event`](#event---add-a-event)
+  * [Add a event: `event`](#event---add-an-event)
   * [Add a deadline: `deadline`](#deadline---add-a-deadline)
   * [List tasks: `list`](#list---list-all-tasks)
   * [Mark tasks: `mark`](#mark---mark-tasks)
@@ -84,9 +84,9 @@ Add a todo task to the list: `todo <name>`
 |------------------|-----------------------------|
 | `todo buy bread` | `added: [T][ ] buy bread`   |
 
-### `event` - Add a event
+### `event` - Add an event
 
-Add a event task to the list: `event <name> /from <start> /to <end>`
+Add an event task to the list: `event <name> /from <start> /to <end>`
 
 | Example                                     | Outcome                                                   |
 |---------------------------------------------|-----------------------------------------------------------|
