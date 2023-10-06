@@ -51,10 +51,9 @@ public class CommandParser {
      *
      * @param userInput The user's input command.
      * @param taskList The task list to which the command should be applied.
-     * @param storage The storage object for saving the task list.
      * @throws KenException If there's an issue with the user's command or task handling.
      */
-    public static void processUserCommand(String userInput, TaskList taskList, Storage storage) throws KenException {
+    public static void processUserCommand(String userInput, TaskList taskList) throws KenException {
         String[] parts = userInput.split(" ", 2);
 
         if (parts.length != 2) {
@@ -65,13 +64,13 @@ public class CommandParser {
 
             if (taskType.equalsIgnoreCase(COMMAND_TODO) || taskType.equalsIgnoreCase(COMMAND_DEADLINE) || taskType.equalsIgnoreCase(COMMAND_EVENT)) {
                 TaskList.handleAddTask(taskType, taskDescription, taskList);
-                storage.saveTasks(taskList); // Save tasks after adding
+                Storage.saveTasks(taskList); // Save tasks after adding
             } else if (taskType.equalsIgnoreCase(COMMAND_DELETE)) {
                 TaskList.handleDeleteTask(taskDescription, taskList);
-                storage.saveTasks(taskList); // Save tasks after deleting
+                Storage.saveTasks(taskList); // Save tasks after deleting
             } else if (taskType.equalsIgnoreCase(COMMAND_MARK)) {
                 TaskList.handleMarkTask(taskDescription, taskList);
-                storage.saveTasks(taskList); // Save tasks after marking
+                Storage.saveTasks(taskList); // Save tasks after marking
             } else {
                 throw new KenException("Hmm, what's that? Please use 'todo,' 'deadline,' 'event,' 'delete [number],' or 'mark [number].'");
             }

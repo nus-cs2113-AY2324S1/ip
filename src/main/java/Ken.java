@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -30,14 +29,13 @@ public class Ken {
      * The main method to start the Ken chatbot.
      *
      * @param args The command-line arguments (not used).
-     * @throws KenException If there is an exception during chatbot initialization or execution.
      */
-    public static void main(String[] args) throws KenException {
+    public static void main(String[] args) {
         Ken ken = new Ken("ken.txt");
         ken.run();
     }
 
-    public void run() throws KenException {
+    public void run() {
         Ui.printLine();
         Ui.printWelcomeMessage();
         Ui.printLine();
@@ -55,7 +53,7 @@ public class Ken {
                 break;
             } else {
                 try {
-                    CommandParser.processUserCommand(userInput, taskList, storage);
+                    CommandParser.processUserCommand(userInput, taskList);
                 } catch (KenException e) {
                     if (userInput.equalsIgnoreCase(CommandParser.COMMAND_LIST)) {
                         TaskList.listTasks(taskList);
@@ -70,33 +68,4 @@ public class Ken {
         scanner.close();
     }
 }
-
-class KenException extends Exception {
-    public KenException(String message) {
-        super(message);
-    }
-}
-
-
-class InvalidCommandException extends KenException {
-    public InvalidCommandException(String message) {
-        super(message);
-    }
-}
-
-class EmptyDescriptionException extends KenException {
-    public EmptyDescriptionException(String message) {
-        super(message);
-    }
-}
-
-class TaskNotFoundException extends KenException {
-    public TaskNotFoundException(String message) {
-        super(message);
-    }
-}
-
-
-
-
 
