@@ -19,7 +19,7 @@ public class ListCommand extends Command {
             ui.displayEmptyList();
         } else {
             ArrayList<Task> taskList = tasks.getTasks();
-            ui.displayList(taskList);
+            ui.displayTaskList(taskList);
         }
     }
 

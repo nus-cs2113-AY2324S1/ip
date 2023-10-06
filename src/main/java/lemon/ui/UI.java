@@ -54,12 +54,16 @@ public class UI {
     }
 
     public void displayList(ArrayList<Task> tasks) {
-        displayMessage(MESSAGE_DISPLAY_LIST);
         int taskSerialNo = 1;
         for (Task task : tasks) {
             System.out.println(taskSerialNo + ". " + task.toString());
             taskSerialNo++;
         }
+    }
+
+    public void displayTaskList(ArrayList<Task> tasks) {
+        displayMessage(MESSAGE_DISPLAY_LIST);
+        displayList(tasks);
     }
 
     public void displayAddedTask(Task task, TaskList tasks) {
@@ -84,6 +88,15 @@ public class UI {
         System.out.println("\t" + task.toString());
     }
 
+    public void displayFoundList(ArrayList<Task> tasks) {
+        displayMessage(MESSAGE_FOUND_TASK);
+        displayList(tasks);
+    }
+
+    public void displayUnfoundTask() {
+        displayMessage(MESSAGE_UNFOUND_TASK);
+    }
+
     public void displayHelp() {
         displayMessage(
                 HELP_MESSAGE,
@@ -93,6 +106,7 @@ public class UI {
                 HELP_EVENT_MESSAGE, COMMAND_EVENT_FORMAT,
                 HELP_MARK_MESSAGE, COMMAND_MARK_FORMAT,
                 HELP_UNMARK_MESSAGE, COMMAND_UNMARK_FORMAT,
+                HELP_FIND_MESSAGE, COMMAND_FIND_FORMAT,
                 HELP_DELETE_MESSAGE, COMMAND_DELETE_FORMAT,
                 HELP_BYE_MESSAGE, COMMAND_BYE_FORMAT
         );

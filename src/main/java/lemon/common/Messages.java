@@ -47,6 +47,8 @@ public class Messages {
     public static final String MESSAGE_DELETED_TASK = "Got it! This task has been squeezed out of your basket:";
     public static final String MESSAGE_MARKED_TASK = "Great job! This task is now juiced:";
     public static final String MESSAGE_UNMARKED_TASK = "No problem! This task is back into the basket:";
+    public static final String MESSAGE_FOUND_TASK = "On it! Here are the tasks you are looking for:";
+    public static final String MESSAGE_UNFOUND_TASK = "Hmmm! The task you are looking for is not in your basket!";
 
     public static final String COMMAND_LIST_FORMAT = DOUBLE_TAB + "list" + LINE_SEPARATOR;
     public static final String COMMAND_TODO_FORMAT = DOUBLE_TAB + "todo <task>" + LINE_SEPARATOR;
@@ -56,6 +58,7 @@ public class Messages {
             "/to <ending date/time>" + LINE_SEPARATOR;
     public static final String COMMAND_MARK_FORMAT = DOUBLE_TAB + "mark <task number>" + LINE_SEPARATOR;
     public static final String COMMAND_UNMARK_FORMAT = DOUBLE_TAB + "unmark <task number>" + LINE_SEPARATOR;
+    public static final String COMMAND_FIND_FORMAT = DOUBLE_TAB + "find <keyword>" + LINE_SEPARATOR;
     public static final String COMMAND_DELETE_FORMAT = DOUBLE_TAB + "delete <task number>" + LINE_SEPARATOR;
     public static final String COMMAND_BYE_FORMAT = DOUBLE_TAB + "bye";
 
@@ -66,6 +69,7 @@ public class Messages {
     public static final String HELP_EVENT_MESSAGE = TAB + "Add event task:";
     public static final String HELP_MARK_MESSAGE = TAB + "Mark task as done:";
     public static final String HELP_UNMARK_MESSAGE = TAB + "Mark task as not done:";
+    public static final String HELP_FIND_MESSAGE = TAB + "Find task by keyword:";
     public static final String HELP_DELETE_MESSAGE = TAB + "Delete task:";
     public static final String HELP_BYE_MESSAGE = TAB + "Exit program:";
 }

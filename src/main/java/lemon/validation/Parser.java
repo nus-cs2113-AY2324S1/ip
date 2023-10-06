@@ -30,6 +30,8 @@ public class Parser {
             return "mark";
         } else if (input.matches("unmark\\b.*")) {
             return "unmark";
+        } else if (input.matches("find\\b.*")) {
+            return "find";
         } else if (input.equals("help")) {
             return "help";
         } else {
@@ -75,6 +77,9 @@ public class Parser {
         case UnmarkCommand.COMMAND_WORD:
             int unmarkIndex = checkTaskNumberFormat(args);
             return new UnmarkCommand(unmarkIndex);
+        case FindCommand.COMMAND_WORD:
+            String keyword = args.trim();
+            return new FindCommand(keyword);
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
         default:
