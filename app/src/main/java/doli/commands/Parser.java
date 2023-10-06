@@ -1,6 +1,7 @@
 package doli.commands;
 
 import doli.exceptions.DoliExceptions;
+
 /**
  * <h3>Parser class</h3>
  * The parser class takes a user input and extracts the necessary
@@ -27,7 +28,7 @@ public class Parser {
     private static final int NR_DEADLINE_ARGS = 2;
 
     /**
-     * Constructs an empty object of type Parser
+     * Constructs an empty object of type Parser.
      */
     public Parser() {
     }
@@ -35,8 +36,9 @@ public class Parser {
     /**
      * Splits the input String into an array of length 2 containing the
      * command keyword eventually alongside with some specific details.
-     * @param input of type String which represents the user input
-     * @return an array of two strings, the command keyword and some details
+     *
+     * @param input of type String which represents the user input.
+     * @return an array of two strings, the command keyword and some details.
      */
     private static String[] splitCommandAndDetails(String input) {
         String[] commandAndDetails = input.toLowerCase().split(" ", 2);
@@ -50,9 +52,10 @@ public class Parser {
     /**
      * Creates a new object of type command with the user input command and details
      * after checking validity of inputs and splitting the input into its sub-parts.
-     * @param input of type String which represents the user input
-     * @return a new object of type Command
-     * @throws DoliExceptions in case the input is not valid
+     *
+     * @param input of type String which represents the user input.
+     * @return a new object of type Command.
+     * @throws DoliExceptions in case the input is not valid.
      */
     public static Command parseInputIntoCommand(String input) throws DoliExceptions {
         final String command = splitCommandAndDetails(input)[0];
@@ -64,9 +67,10 @@ public class Parser {
     }
 
     /**
-     * Checks whether the input String can be converted i.e. parsed into a number
-     * @param date of type String
-     * @return true if the String can be parsed into an Integer
+     * Checks whether the input String can be converted i.e. parsed into a number.
+     *
+     * @param date of type String.
+     * @return true if the String can be parsed into an Integer.
      */
     public static boolean isANumber(String date) {
         try {
@@ -78,9 +82,10 @@ public class Parser {
     }
 
     /**
-     * Checks whether the input date is actually a valid date, meaning of format "yyyy-MM-dd"
-     * @param date of type String must be of format "yyyy-MM-dd" for the method to return true
-     * @return true if the date's format is valid and false otherwise
+     * Checks whether the input date is actually a valid date, meaning of format "yyyy-MM-dd".
+     *
+     * @param date of type String must be of format "yyyy-MM-dd" for the method to return true.
+     * @return true if the date's format is valid and false otherwise.
      */
     public static boolean checkForValidDate(String date) {
         boolean dateIsValid;
@@ -100,9 +105,10 @@ public class Parser {
      * Checks for the validity of the user input in terms of the amount of
      * details specified in each scenario. It checks the following commands: todo,
      * deadline, event, mark, unmark, delete, overview and find.
-     * @param command of type String specifying the command keyword contained in the user input
-     * @param details an array of type String containing eventual details of the input exceeding the command keyword
-     * @throws DoliExceptions in case the proper amount of details required by the command is not met
+     *
+     * @param command of type String specifying the command keyword contained in the user input.
+     * @param details an array of type String containing eventual details of the input exceeding the command keyword.
+     * @throws DoliExceptions in case the proper amount of details required by the command is not met.
      */
     public static void checkForValidInput(String command, String[] details) throws DoliExceptions {
         switch (command) {

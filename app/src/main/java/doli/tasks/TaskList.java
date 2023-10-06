@@ -21,7 +21,8 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Constructs an object of type TaskList with a specifiable agenda.
-     * @param taskList an ArrayList of Tasks which will form the core of the TaskList
+     *
+     * @param taskList an ArrayList of Tasks which will form the core of the TaskList.
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
@@ -36,7 +37,8 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Removes a task from the TaskList.
-     * @param numberOfTaskToDelete of type int specifying the index of the task to be deleted (starting from 0)
+     *
+     * @param numberOfTaskToDelete of type int specifying the index of the task to be deleted (starting from 0).
      */
     public void deleteTask(int numberOfTaskToDelete) {
         taskList.remove(numberOfTaskToDelete - 1);
@@ -51,24 +53,27 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Adds a specific task to the TaskList.
-     * @param taskToAdd of type Task to be added to the agenda
+     *
+     * @param taskToAdd of type Task to be added to the agenda.
      */
     public void addTask(Task taskToAdd) {
         taskList.add(taskToAdd);
     }
 
     /**
-     * Returns the number of Tasks contained withing the TaskList.
-     * @return the size of the agenda
+     * Gets the number of Tasks contained withing the TaskList.
+     *
+     * @return the size of the agenda.
      */
     public int getSize() {
         return taskList.size();
     }
 
     /**
-     * Returns a specific task contained within the agenda.
-     * @param numberOfTaskToGet of type int referring to the index of the task to retrieve
-     * @return the requested task
+     * Gets a specific task contained within the agenda.
+     *
+     * @param numberOfTaskToGet of type int referring to the index of the task to retrieve.
+     * @return the requested task.
      */
     public Task getTask(int numberOfTaskToGet) {
         return taskList.get(numberOfTaskToGet - 1);
@@ -76,7 +81,8 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Allows for iteration across the elements of the TaskList.
-     * @return an iteration throughout the Tasks contained within the agenda
+     *
+     * @return an iteration throughout the Tasks contained within the agenda.
      */
     @Override
     public Iterator<Task> iterator() {
@@ -85,7 +91,8 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Allows to treat the TaskList as a stream and perform quick and efficient actions upon it.
-     * @return a Stream of Tasks
+     *
+     * @return a Stream of Tasks.
      */
     public Stream<Task> stream() {
         return taskList.stream();
@@ -94,7 +101,8 @@ public class TaskList implements Iterable<Task> {
     /**
      * Overrides a general object's method toString() in order to allow a more specialized String representation.
      * In this case it will e.g. loop over the entries of the agenda and concatenate them effectively using line breaks.
-     * @return a String comprising a neat overview of the agenda
+     *
+     * @return a String comprising a neat overview of the agenda.
      */
     @Override
     public String toString() {

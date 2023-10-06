@@ -15,16 +15,20 @@ import java.time.format.DateTimeFormatter;
  * @since 2023-11-03
  */
 public class Event extends Task {
+    /** Date indicating the start date of the event */
     protected LocalDate startTime;
+    /** Date indicating the end time of the event */
     protected LocalDate endTime;
+    /** Error message in case the parsing of the date was unsuccessful */
     protected final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /**
      * Constructs an object of type Event and calls its superclass'constructor.
      * It contains a description of the event and two variables for the timing.
-     * @param description of type String referring to details about the event
-     * @param startTimeInput of type String ("yyyy-MM-dd") to be parsed into type LocalDate for further use
-     * @param endTimeInput of type String ("yyyy-MM-dd") to be parsed into type LocalDate for further use
+     *
+     * @param description of type String referring to details about the event.
+     * @param startTimeInput of type String ("yyyy-MM-dd") to be parsed into type LocalDate for further use.
+     * @param endTimeInput of type String ("yyyy-MM-dd") to be parsed into type LocalDate for further use.
      */
     public Event(String description, String startTimeInput, String endTimeInput) {
         super(description);
@@ -37,24 +41,27 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the starting date of the event
-     * @return start date of type LocalDate
+     * Gets the starting date of the event.
+     *
+     * @return start date of type LocalDate.
      */
     public LocalDate getStartTime() {
         return startTime;
     }
 
     /**
-     * Returns the ending date of the event
-     * @return end date of type LocalDate
+     * Gets the ending date of the event.
+     *
+     * @return end date of type LocalDate.
      */
     public LocalDate getEndTime() {
         return endTime;
     }
 
     /**
-     * Returns the interval between the starting and ending dates of the event
-     * @return time interval of types LocalDate
+     * Gets the interval between the starting and ending dates of the event.
+     *
+     * @return time interval of types LocalDate.
      */
     public String getTime() {
         String timeInterval = startTime + " - " + endTime;
@@ -62,8 +69,7 @@ public class Event extends Task {
     }
 
     /**
-     * Sets the starting date of the event
-     * @return newly set start date of type LocalDate
+     * Sets the starting date of the event.
      */
     public void setStartTime(String startTime) {
         try {
@@ -74,8 +80,7 @@ public class Event extends Task {
     }
 
     /**
-     * Sets the ending date of the event
-     * @return newly set end date of type LocalDate
+     * Sets the ending date of the event.
      */
     public void setEndTime(String endTime) {
         try {
@@ -86,8 +91,7 @@ public class Event extends Task {
     }
 
     /**
-     * Sets both the starting and ending dates of the event
-     * @return newly set start and end dates of type LocalDate
+     * Sets both the starting and ending dates of the event.
      */
     public void setTime(String startTime, String endTime) {
         try {
@@ -98,15 +102,17 @@ public class Event extends Task {
         }
     }
     /**
-     * Changes the boolean variable isDone of the task
-     * @param done of type boolean
+     * Changes the boolean variable isDone of the task.
+     *
+     * @param isDone of type boolean.
      */
-    public void setDone(boolean done) {
-        this.isDone = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
     /**
-     * Returns whether an event task was completed/is over or not
-     * @return boolean variable explaining whether the event is over/has been completed or not
+     * Returns whether an event task was completed/is over or not.
+     *
+     * @return boolean variable explaining whether the event is over/has been completed or not.
      */
     public boolean isDone() {
         return isDone;
@@ -114,7 +120,8 @@ public class Event extends Task {
     /**
      * Overrides the superclass' method .toString() allowing for
      * a tailored use incorporating details of the task such as its type and whether it is done or not.
-     * @return a String summarising the event's details
+     *
+     * @return a String summarising the event's details.
      */
     @Override
     public String toString() {

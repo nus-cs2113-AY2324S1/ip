@@ -11,11 +11,11 @@ package doli.exceptions;
  * @version 1.0
  * @since 2023-11-03
  */
-
 public class DoliExceptions extends Exception {
     /**
      * Constructs an object of type DoliExceptions.
-     * @param str of type String to be passed to the super class
+     *
+     * @param str of type String to be passed to the super class.
      */
     public DoliExceptions(String str) {
         super(str);
