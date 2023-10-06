@@ -18,7 +18,7 @@ Prerequisites: JDK 11
    -----------------------------------------------------
    ```
    
-##Vocabulary
+## Vocabulary
 
 | Vocabulary          | Description                                       |
 |---------------------|---------------------------------------------------|
@@ -29,7 +29,7 @@ Prerequisites: JDK 11
 
 ## Features 
 
-###<mark>Important Note</mark>
+### <mark>Important Note</mark>
 Words in UPPER_CASE are the parameters to be supplied by the user.
 e.g. in ```todo TASK_DESCRIPTION```, TASK_DESCRIPTION is a parameter which can be used as add n/assignment
 
