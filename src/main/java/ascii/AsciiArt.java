@@ -7,7 +7,7 @@ public class AsciiArt {
         put("sad", "(T_T)");
         put("uwu", "(´UwU`)");
         put("good", "d(*^_^*)b");
-        put("okay", "(=^・^=)");
+        put("okay", "(=^.^=)");
         put("kiss", "(*^3^)/~<3");
         put("cry", "(:_;)");
         put("depress", "(.>m<.)");
