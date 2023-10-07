@@ -56,7 +56,6 @@ Adds a new `ToDo` task to the task list.
 ❗**Invalid Todo error**
 
       Invalid format. Description cannot be empty for todo sir.
-<br/>
 
 ### Add Deadline Task
 Adds a new `Deadline` task to the task list.
@@ -76,8 +75,7 @@ Adds a new `Deadline` task to the task list.
 
 ❗**Invalid Deadline error**
 
-      Invalid format. Use: deadline <description> /by <time> sir
-<br/>
+      Invalid format. Use: deadline <description> /by <time> sir.
 
 ### Add Event Task
 Adds a new `Event` task to the task list.
@@ -98,7 +96,6 @@ Adds a new `Event` task to the task list.
 ❗**Invalid Event error**
 
      Invalid format. Use: event <description> /from <start_time> /to <end_time> sir
-<br/>
 
 ### List Tasks
 Lists all tasks in the task list.
