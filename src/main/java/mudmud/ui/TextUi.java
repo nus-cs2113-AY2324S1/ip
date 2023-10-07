@@ -162,6 +162,9 @@ public class TextUi {
      */
     public String getInput() {
         Scanner in = new Scanner(System.in);
-        return in.nextLine();
+        if (in.hasNextLine()) {
+            return in.nextLine();
+        }
+        return "";
     }
 }
