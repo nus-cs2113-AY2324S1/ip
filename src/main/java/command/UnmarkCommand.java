@@ -1,6 +1,6 @@
 package command;
 
-import duke.Duke;
+import Oriento.Oriento;
 import task.Task;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class UnmarkCommand extends Command{
     public void executeCommand() {
         try {
             int taskNo = getTaskNo(this.index);
-            Duke.list[taskNo - 1].setNotDone(taskNo, Duke.taskCount, Duke.list);
+            Oriento.list[taskNo - 1].setNotDone(taskNo, Oriento.taskCount, Oriento.list);
             overwriteToFile("data/taskList.txt", Task.getConcatenateTasks());
         } catch (NumberFormatException nfe) {
             System.out.println("Hey, please input your command with the correct task number.");

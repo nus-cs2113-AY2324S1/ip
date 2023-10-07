@@ -1,11 +1,11 @@
 package exception;
 
-public class DukeException extends Exception {
+public class OrientoException extends Exception {
 
-    public DukeException() {
+    public OrientoException() {
     }
 
-    public DukeException(String message) {
+    public OrientoException(String message) {
         super(message);
     }
 

@@ -1,10 +1,9 @@
 package task;
 
 import commandFormat.TimeParser;
-import exception.DukeException;
+import exception.OrientoException;
 import exception.InvalidTimeException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -21,15 +20,20 @@ public class Deadline extends Task {
      *
      * @param userCommand  Whole userInput start from "deadline"
      * @return Deadline object
-     * @throws DukeException  Raises exception if invalid due time while able to parse the input time
+     * @throws OrientoException  Raises exception if invalid due time while able to parse the input time
      *                        If failed to parse the time, just assume valid input
      */
-    public static Deadline newDdl(String userCommand) throws DukeException, InvalidTimeException {
+    public static Deadline newDdl(String userCommand) throws OrientoException, InvalidTimeException {
         // command format: deadline return book /by Sunday
         if (!(userCommand.contains("/by"))){
-            throw new DukeException("Oh, no! I cannot detect the keyword '/by' ");
+            throw new OrientoException("Oh, no! I cannot detect the keyword '/by' ");
         }
-        userCommand = userCommand.substring(9);
+        userCommand = userCommand.substring(9);  //remove "deadline"
+
+        if(userCommand.startsWith("/by")){
+            throw new OrientoException("Cannot find deadline description. Please try again.");
+        }
+
         int indexOfBy = userCommand.indexOf("/by");
         String ddlTask = userCommand.substring(0, indexOfBy).trim();
         String due = userCommand.substring(indexOfBy + 4);
@@ -45,6 +49,7 @@ public class Deadline extends Task {
         }
         return new Deadline(ddlTask, due);
     }
+
 
     /**
      * print example: [D][ ] return book (by: Friday)

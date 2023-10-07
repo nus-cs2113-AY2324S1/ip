@@ -1,6 +1,6 @@
 package command;
 
-import duke.Duke;
+import Oriento.Oriento;
 import message.Text;
 import task.Task;
 
@@ -38,12 +38,12 @@ public class DeleteCommand extends Command{
      * the taskCount is updated in the method deleteTaskSuccessMsg
      */
     private static void deleteTask(int deleteIndex) throws IOException{
-        if (deleteIndex <= 0 || deleteIndex> Duke.taskCount){
+        if (deleteIndex <= 0 || deleteIndex> Oriento.taskCount){
             System.out.println("Oh, No! invalid index! You don't have that task. Please try again.");
             return;
         }
         Text.deleteTaskSuccessMsg(deleteIndex);
-        Duke.list = Task.updatedTaskList(deleteIndex - 1);
+        Oriento.list = Task.updatedTaskList(deleteIndex - 1);
         overwriteToFile("data/taskList.txt", Task.getConcatenateTasks());
     }
 

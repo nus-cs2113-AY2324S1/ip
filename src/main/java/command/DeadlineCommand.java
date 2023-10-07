@@ -1,7 +1,7 @@
 package command;
 
-import duke.Duke;
-import exception.DukeException;
+import Oriento.Oriento;
+import exception.OrientoException;
 import exception.InvalidTimeException;
 import message.Text;
 import task.Deadline;
@@ -20,9 +20,9 @@ public class DeadlineCommand extends AddCommand {
     @Override
     public void executeCommand(){
         try {
-            Duke.list[Duke.taskCount] = Deadline.newDdl(this.command);
+            Oriento.list[Oriento.taskCount] = Deadline.newDdl(this.command);
             Text.createTaskSuccessMsg();
-        } catch (DukeException e) {
+        } catch (OrientoException e) {
             e.incorrectFormatException("deadline");
         } catch (IOException io){
             System.out.println("OMG! Something went wrong! Please check if the source files are available.");

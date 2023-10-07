@@ -1,11 +1,11 @@
 package commandFormat;
 
 import command.*;
-import exception.DukeException;
+import exception.OrientoException;
 
 public class CommandType {
 
-    public static Command parseCommand(String input) throws DukeException {
+    public static Command parseCommand(String input) throws OrientoException {
 
         String[] commandSplits = input.split(" ");
         Command command;
@@ -38,8 +38,11 @@ public class CommandType {
         case "bye":
             command = new ByeCommand();
             break;
+        case "help":
+            command = new HelpCommand();
+            break;
         default:
-            throw new DukeException();
+            throw new OrientoException();
         }
 
         return command;

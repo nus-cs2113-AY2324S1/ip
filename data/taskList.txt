@@ -1,3 +1,5 @@
-1. [T][ ] read book
-2. [T][ ] read book 2
-3. [D][ ] read book (by: friday)
+1. [T][ ] 1
+2. [T][ ] 2
+3. [T][ ] 1
+4. [E][ ] okkk (from: mon to: /ood))
+5. [D][ ] asw (by: mon)

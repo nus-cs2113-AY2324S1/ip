@@ -1,7 +1,7 @@
 package command;
 
-import duke.Duke;
-import exception.DukeException;
+import Oriento.Oriento;
+import exception.OrientoException;
 import message.Text;
 import task.Todo;
 
@@ -19,9 +19,9 @@ public class TodoCommand extends AddCommand{
     @Override
     public void executeCommand(){
         try {
-            Duke.list[Duke.taskCount] = Todo.newTodoTask(this.command);
+            Oriento.list[Oriento.taskCount] = Todo.newTodoTask(this.command);
             Text.createTaskSuccessMsg();
-        } catch (DukeException e) {
+        } catch (OrientoException e) {
             e.incorrectFormatException("todo");
         } catch (IOException io){
             System.out.println("OMG! Something went wrong! Please check if the source files are available.");

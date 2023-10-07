@@ -1,8 +1,9 @@
 package fileIO;
 
-import duke.Duke;
-import exception.DukeException;
+import Oriento.Oriento;
+import exception.OrientoException;
 import exception.InvalidTimeException;
+import task.Task;
 import task.Todo;
 import message.Text;
 
@@ -25,9 +26,9 @@ public class FileIO {
      * if error occurs in restoring data, e.g. the saved content contains invalid contents,
      * clear All the data and starts with a empty file
      * @throws IOException once cannot access file or file not found
-     * @throws DukeException from method restoreSavedData
+     * @throws OrientoException from method restoreSavedData
      */
-    public static void outputFileInitialization() throws IOException, DukeException {
+    public static void outputFileInitialization() throws IOException, OrientoException {
         checkAndCreateDataFolder();
         checkAndCreateFile("data\\taskList.txt");
         checkAndCreateFile("data/backup_taskList.txt");
@@ -58,17 +59,11 @@ public class FileIO {
      */
     public static void backupTaskFile() {
         try {
-            File src = new File("data\\taskList.txt");
-            File dst = new File("data\\backup_taskList.txt");
-            copyFile(src, dst);
-            System.out.println("Great! I have saved the current tasks.");
+            String currentContent = Task.getConcatenateTasks();
+            overwriteToFile("data\\backup_taskList.txt", currentContent);
         } catch (IOException e) {
             System.out.println("Oh No! I cannot save the file. Please check if the backup file is available.");
         }
-    }
-
-    private static void copyFile(File source, File dest) throws IOException {
-        Files.copy(source.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
     private static void clearData() throws IOException {
@@ -76,6 +71,9 @@ public class FileIO {
         if (Files.size(clearFile) != 0) {
             Files.write(clearFile, new byte[0], StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
         }
+        Task[] emptylist = new Task[100];
+        Oriento.list = emptylist;
+        Oriento.taskCount = 0;
     }
 
     public static void overwriteToFile(String filePath, String taskAppend) throws IOException {
@@ -90,34 +88,35 @@ public class FileIO {
      * it implements by forming old user command for creating tasks,
      * and generate the task list using the command one by one
      */
-    private static void restoreOneTask(Scanner keyboard) throws IOException, DukeException, IndexOutOfBoundsException,
+    private static void restoreOneTask(Scanner keyboard) throws IOException, OrientoException, IndexOutOfBoundsException,
             InvalidTimeException {
         String line = keyboard.nextLine();
         line = removeNumberAndDot(line).trim();  //each line looks like [T][ ] Description
         boolean isDone = line.charAt(4) == 'X';
-        String description = line.substring(7);
+        String description = line.substring(7);  //remove brackets [T][ ]
 
         switch (line.charAt(1)) {
         case 'T':
-            String todoCmd = "todo " + "description";
-            Duke.list[Duke.taskCount] = Todo.newTodoTask(todoCmd);
+            String todoCmd = "todo " + description;
+            Oriento.list[Oriento.taskCount] = Todo.newTodoTask(todoCmd);
             if (isDone){
-                Duke.list[Duke.taskCount].restoreIsDone();
+                Oriento.list[Oriento.taskCount].restoreIsDone();
             }
-            Duke.taskCount++;
+            Oriento.taskCount++;
             Text.restoreTaskIntoFile();
             break;
 
         case 'D':
             //3.[D][ ] return book (by: Friday)
+            //asw (by: mon)
             String due = ddlExtract(description);
-            String ddltask = description.substring(0, description.indexOf("(by: ") - 2);
+            String ddltask = description.substring(0, description.indexOf("(by: ")).trim();
             String ddlCmd = "deadline " + ddltask + " /by " + due;
-            Duke.list[Duke.taskCount] = task.Deadline.newDdl(ddlCmd);
+            Oriento.list[Oriento.taskCount] = task.Deadline.newDdl(ddlCmd);
             if (isDone){
-                Duke.list[Duke.taskCount].restoreIsDone();
+                Oriento.list[Oriento.taskCount].restoreIsDone();
             }
-            Duke.taskCount++;
+            Oriento.taskCount++;
             Text.restoreTaskIntoFile();
             break;
 
@@ -125,11 +124,11 @@ public class FileIO {
             //4.[E][ ] java lesson (from: Friday 4pm to: 6pm)
             //event java lesson /from Friday 4pm /to 6pm
             String eventCmd = getEventCmd(description);
-            Duke.list[Duke.taskCount] = task.Deadline.newDdl(eventCmd);
+            Oriento.list[Oriento.taskCount] = task.Event.newEventTask(eventCmd);
             if (isDone){
-                Duke.list[Duke.taskCount].restoreIsDone();
+                Oriento.list[Oriento.taskCount].restoreIsDone();
             }
-            Duke.taskCount++;
+            Oriento.taskCount++;
             Text.restoreTaskIntoFile();
             break;
         }
@@ -154,6 +153,7 @@ public class FileIO {
 
     /**
      * helper function to extract deadline task descriptions from user input
+     * expected input format: 5. [D][ ] asw (by: mon)
      */
     private static String ddlExtract(String description) {
         int startIndex = description.indexOf("(by: ") + 5;
@@ -161,7 +161,7 @@ public class FileIO {
         return description.substring(startIndex, endIndex);
     }
 
-    public static void restoreSavedData(String DATA_PATH) throws IOException, DukeException, IndexOutOfBoundsException{
+    public static void restoreSavedData(String DATA_PATH) throws IOException, OrientoException, IndexOutOfBoundsException{
         try {
             File file = new File(DATA_PATH);
             Scanner scan = new Scanner(file);

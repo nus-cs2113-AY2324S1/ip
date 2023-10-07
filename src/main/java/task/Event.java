@@ -1,7 +1,7 @@
 package task;
 
 import commandFormat.TimeParser;
-import exception.DukeException;
+import exception.OrientoException;
 import exception.InvalidTimeException;
 
 import java.time.LocalDateTime;
@@ -22,12 +22,17 @@ public class Event extends Task {
      * if failed to parse input, assume the user is true
      * @InvalidTimeException caught in EventCommand class
      */
-    public static Event newEventTask(String userCommand) throws DukeException, InvalidTimeException {
+    public static Event newEventTask(String userCommand) throws OrientoException, InvalidTimeException {
         //command format: event project meeting /from Mon 2pm /to 4pm
         if (!(userCommand.contains("/from")) || !(userCommand.contains("/to"))){
-            throw new DukeException("Oh, no! There is no '/from' or '/to' ");
+            throw new OrientoException("Oh, no! There is no '/from' or '/to' ");
         }
         userCommand = userCommand.substring(6);  //remove "event"
+
+        if(userCommand.startsWith("/from")){
+            throw new OrientoException("Cannot find event description. Please try again.");
+        }
+
         int indexOfFrom = userCommand.indexOf("/from");
         int indexOfTo = userCommand.indexOf("/to");
         String start = userCommand.substring(indexOfFrom + 6, indexOfTo).trim();
@@ -40,14 +45,14 @@ public class Event extends Task {
 
     private static void testTimeInput(String startTime, String endTime) throws InvalidTimeException {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime start = TimeParser.parseDateTime(startTime);
-        LocalDateTime end = TimeParser.parseDateTime(endTime);
         try{
+            LocalDateTime start = TimeParser.parseDateTime(startTime);
+            LocalDateTime end = TimeParser.parseDateTime(endTime);
             if(end.isBefore(now)){
-                new InvalidTimeException("The event is ended. Please check the end time again.");
+                throw new InvalidTimeException("The event is ended. Please check the end time again.");
             }
             if(end.isBefore(start)){
-                new InvalidTimeException("End time is early than start time.");
+                throw new InvalidTimeException("End time is early than start time.");
             }
         } catch(DateTimeParseException d) {
             /* do nothing */

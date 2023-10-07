@@ -1,4 +1,4 @@
-package duke;
+package Oriento;
 
 
 import command.Command;
@@ -8,7 +8,7 @@ import commandFormat.CommandType;
 import task.*;
 import message.Text;
 
-import exception.DukeException;
+import exception.OrientoException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -18,12 +18,12 @@ import fileIO.FileIO;
 /**
  * Starting point of program
  */
-public class Duke {
+public class Oriento {
 
     public static int taskCount = 0;
     public static Task[] list = new Task[100];
 
-    public static void main(String[] args) throws IOException, DukeException {
+    public static void main(String[] args) throws IOException, OrientoException {
         Text.printWelcomeMessage();
         Scanner keyboard = new Scanner(System.in);
         FileIO.outputFileInitialization();
@@ -45,11 +45,12 @@ public class Duke {
                 Command command = CommandType.parseCommand(cmd);
                 command.executeCommand();
                 isExit = command.isExit();
+                Text.printdottedline();
             } catch (NumberFormatException nfe) {
                 System.out.println("Hey, please input your command with the correct task number.");
             } catch (NullPointerException npe){
                 System.out.println("Your target task doesn't exist. Please input a correct task.");
-            } catch (DukeException e){
+            } catch (OrientoException e){
                 e.incorrectFormatException(commandSplits[0]);
             } catch (FileNotFoundException fnf){
                 System.out.println("Sorry, I cannot find the task source. Please check the task file.");
