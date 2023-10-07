@@ -50,6 +50,7 @@ Example:
   
 ## Mark a task as done `mark`
 Mark a task on the task list as done.
+
 Format: `mark TASK_NUMBER`.
 
 Example:
@@ -74,6 +75,7 @@ Example:
 
 ## Find the tasks that matches a certain keyword `find`
 Find the tasks that matches a certain keyword .
+
 Format: `find KEYWORD`.
 
 Example:
