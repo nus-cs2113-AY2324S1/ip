@@ -1,5 +1,7 @@
-1. [T][ ] 1
-2. [T][ ] 2
-3. [T][ ] 1
-4. [E][ ] okkk (from: mon to: /ood))
-5. [D][ ] asw (by: mon)
+1. [T][ ] 2
+2. [T][ ] 1
+3. [E][ ] okkk (from: mon to: /ood)
+4. [T][ ] 1
+5. [T][ ] 1
+6. [T][ ] 2
+7. [E][ ] ioss (from: monday to: tue)

@@ -45,6 +45,7 @@ public class Oriento {
                 Command command = CommandType.parseCommand(cmd);
                 command.executeCommand();
                 isExit = command.isExit();
+                FileIO.backupTaskFile();
                 Text.printdottedline();
             } catch (NumberFormatException nfe) {
                 System.out.println("Hey, please input your command with the correct task number.");

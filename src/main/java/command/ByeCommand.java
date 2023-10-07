@@ -17,6 +17,5 @@ public class ByeCommand extends Command {
     @Override
     public void executeCommand() {
             Text.printByeMessage();
-            FileIO.backupTaskFile();
     }
 }

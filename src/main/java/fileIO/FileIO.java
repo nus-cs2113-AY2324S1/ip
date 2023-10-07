@@ -15,7 +15,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 
@@ -28,12 +27,18 @@ public class FileIO {
      * @throws IOException once cannot access file or file not found
      * @throws OrientoException from method restoreSavedData
      */
-    public static void outputFileInitialization() throws IOException, OrientoException {
+    public static void outputFileInitialization() throws IOException {
         checkAndCreateDataFolder();
         checkAndCreateFile("data\\taskList.txt");
         checkAndCreateFile("data/backup_taskList.txt");
         clearData();
-        restoreSavedData("data/backup_taskList.txt");
+        try{
+            restoreSavedData("data/backup_taskList.txt");
+        } catch (Exception e){
+            System.out.println("Failed to load the saved file. Please check if your backup is in the correct format.");
+            System.out.println("We will start with a new empty file.");
+            clearData();
+        }
     }
 
     private static void checkAndCreateFile(String path) throws IOException {
@@ -88,50 +93,46 @@ public class FileIO {
      * it implements by forming old user command for creating tasks,
      * and generate the task list using the command one by one
      */
-    private static void restoreOneTask(Scanner keyboard) throws IOException, OrientoException, IndexOutOfBoundsException,
-            InvalidTimeException {
+    private static void restoreOneTask(Scanner keyboard) throws IndexOutOfBoundsException,
+            InvalidTimeException, OrientoException, IOException {
         String line = keyboard.nextLine();
         line = removeNumberAndDot(line).trim();  //each line looks like [T][ ] Description
         boolean isDone = line.charAt(4) == 'X';
         String description = line.substring(7);  //remove brackets [T][ ]
+            switch (line.charAt(1)) {
+            case 'T':
+                String todoCmd = "todo " + description;
+                Oriento.list[Oriento.taskCount] = Todo.newTodoTask(todoCmd);
+                if (isDone){
+                    Oriento.list[Oriento.taskCount].restoreIsDone();
+                }
+                Oriento.taskCount++;
+                Text.restoreTaskIntoFile();
+                break;
 
-        switch (line.charAt(1)) {
-        case 'T':
-            String todoCmd = "todo " + description;
-            Oriento.list[Oriento.taskCount] = Todo.newTodoTask(todoCmd);
-            if (isDone){
-                Oriento.list[Oriento.taskCount].restoreIsDone();
-            }
-            Oriento.taskCount++;
-            Text.restoreTaskIntoFile();
-            break;
+            case 'D':
+                //3.[D][ ] return book (by: Friday)
+                String due = ddlExtract(description);
+                String ddltask = description.substring(0, description.indexOf("(by: ")).trim();
+                String ddlCmd = "deadline " + ddltask + " /by " + due;
+                Oriento.list[Oriento.taskCount] = task.Deadline.newDdl(ddlCmd);
+                if (isDone){
+                    Oriento.list[Oriento.taskCount].restoreIsDone();
+                }
+                Oriento.taskCount++;
+                Text.restoreTaskIntoFile();
+                break;
 
-        case 'D':
-            //3.[D][ ] return book (by: Friday)
-            //asw (by: mon)
-            String due = ddlExtract(description);
-            String ddltask = description.substring(0, description.indexOf("(by: ")).trim();
-            String ddlCmd = "deadline " + ddltask + " /by " + due;
-            Oriento.list[Oriento.taskCount] = task.Deadline.newDdl(ddlCmd);
-            if (isDone){
-                Oriento.list[Oriento.taskCount].restoreIsDone();
+            case 'E':
+                String eventCmd = getEventCmd(description);
+                Oriento.list[Oriento.taskCount] = task.Event.newEventTask(eventCmd);
+                if (isDone){
+                    Oriento.list[Oriento.taskCount].restoreIsDone();
+                }
+                Oriento.taskCount++;
+                Text.restoreTaskIntoFile();
+                break;
             }
-            Oriento.taskCount++;
-            Text.restoreTaskIntoFile();
-            break;
-
-        case 'E':
-            //4.[E][ ] java lesson (from: Friday 4pm to: 6pm)
-            //event java lesson /from Friday 4pm /to 6pm
-            String eventCmd = getEventCmd(description);
-            Oriento.list[Oriento.taskCount] = task.Event.newEventTask(eventCmd);
-            if (isDone){
-                Oriento.list[Oriento.taskCount].restoreIsDone();
-            }
-            Oriento.taskCount++;
-            Text.restoreTaskIntoFile();
-            break;
-        }
     }
 
     /**
@@ -141,8 +142,9 @@ public class FileIO {
     private static String getEventCmd(String description) throws IndexOutOfBoundsException{
         int indexOfFrom = description.indexOf("(from");
         int indexOfTo = description.indexOf("to:");
+        int indexOfEnd = description.indexOf(")");
         String start = description.substring(indexOfFrom + 7, indexOfTo).trim();
-        String end = description.substring(indexOfTo + 4);
+        String end = description.substring(indexOfTo + 4, indexOfEnd);
         String eventTask = description.substring(0, indexOfFrom);
         return  "event " + eventTask + " /from " + start + " /to " + end;
     }
