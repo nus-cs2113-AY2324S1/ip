@@ -161,6 +161,8 @@ public class Storage {
                                 + System.lineSeparator(), true);
                     }
                     break;
+                default:
+                    break;
                 }
             }
 
