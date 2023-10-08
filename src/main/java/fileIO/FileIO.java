@@ -29,7 +29,7 @@ public class FileIO {
      */
     public static void outputFileInitialization() throws IOException {
         checkAndCreateDataFolder();
-        checkAndCreateFile("data\\taskList.txt");
+        checkAndCreateFile("data/taskList.txt");
         checkAndCreateFile("data/backup_taskList.txt");
         clearData();
         try{
@@ -65,7 +65,7 @@ public class FileIO {
     public static void backupTaskFile() {
         try {
             String currentContent = Task.getConcatenateTasks();
-            overwriteToFile("data\\backup_taskList.txt", currentContent);
+            overwriteToFile("data/backup_taskList.txt", currentContent);
         } catch (IOException e) {
             System.out.println("Oh No! I cannot save the file. Please check if the backup file is available.");
         }
