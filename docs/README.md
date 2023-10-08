@@ -67,6 +67,7 @@ Example: `mark 1`
 Example of outcome:
 
     Task is marked as done
+
 ```
 ____________________________________________________________
  Nice! I've marked this task as done:
@@ -86,6 +87,7 @@ Example: `unmark 1`
 Example of outcome:
 
     Task is unmarked
+
 ```
 ____________________________________________________________
  OK, I've marked this task as not done yet:
@@ -104,6 +106,7 @@ Example: `todo borrow book`
 Example of outcome:
 
     Todo is added
+
 ```
     ____________________________________________________________
      Got it. I've added this task:
@@ -142,7 +145,7 @@ Example: `event project meeting /from Mon 2pm /to 4pm`
 
 Example of outcome:
 
-    Task is marked as done
+    Event is added
 
 ```
     ____________________________________________________________
@@ -180,7 +183,7 @@ Example: `find book`
 
 Example of outcome:
 
-    Book is found
+    book is found
 
 ```
 ____________________________________________________________
