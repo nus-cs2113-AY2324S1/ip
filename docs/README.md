@@ -92,68 +92,71 @@ Shows the help page.
 Format: `help`
 
 ```
-   ____________________________________________________________
-   help
-   ____________________________________________________________
-   No worries, I'm here to help!
-   ____________________________________________________________
-   
-   
-   ---------------------------HELP PAGE----------------------------
-   
-   1. To add a todo, type "todo + {description}"
-      Example: todo borrow book
-       ____________________________________________________________
-      Got it. I've added this task:
-      [T][ ] borrow book
-      Now you have 5 tasks in the list.
-       ____________________________________________________________
-   
-   2. To list out all the tasks, type "list"
-      Example: list
-       ____________________________________________________________
-      Here are the tasks in your list:
-      1.[T][X] read book
-      2.[D][ ] return book (by: June 6th)
-      3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-      4.[T][X] join sports club
-      5.[T][ ] borrow book
-       ____________________________________________________________
-   
-   3. To add a deadline, type "deadline + {description} + /by + {date time}"
-      Example: deadline return book /by Sunday
-       ____________________________________________________________
-      Got it. I've added this task:
-      [D][ ] return book (by: 2023-09-23 18:00)
-      Now you have 6 tasks in the list.
-       ____________________________________________________________
-   
-   4. To add an event, type "deadline + {description} + /from + {date time} + /to {date time}"
-      Example: event project meeting /from Mon 2pm /to 4pm
-       ____________________________________________________________
-      Got it. I've added this task:
-      [E][ ] project meeting (from: 2023-09-23 18:00 to: 2023-09-23 19:00)
-      Now you have 7 tasks in the list.
-       ____________________________________________________________
-   
-   5. {date time} should be written in this format:
-       ____________________________________________________________
-      Date: dd/mm/yyyy OR yyyy-mm-dd
-      Example: 09/11/2023 OR 2023-11-09
-      NOTE: There should be a spacing between the date and time
-      Time: HHmm OR HH:mm in 24-Hr format
-      Example: 1800 OR 18:00
-       ____________________________________________________________
-   
-   6. To delete a task, type "delete + {task number}"
-      Example: delete 1
-       ____________________________________________________________
-      Noted. I've removed this task:
-      [E][ ] project meeting (from: Mon 2pm to: 4pm)
-      Now you have 6 tasks in the list.
-       ____________________________________________________________
-   
-   -------------------------HELP PAGE END--------------------------
+____________________________________________________________
+help
+____________________________________________________________
+No worries, I'm here to help!
+____________________________________________________________
+
+
+---------------------------HELP PAGE----------------------------
+
+1.  To add a todo, type "todo + {description}"
+     Example: todo borrow book
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][ ] borrow book
+     Now you have 5 tasks in the list.
+    ____________________________________________________________
+
+
+2.  To list out all the tasks, type "list"
+     Example: list
+    ____________________________________________________________
+     Here are the tasks in your list:
+     1.[T][X] read book
+     2.[T][X] join sports club
+     3.[T][ ] borrow book
+    ____________________________________________________________
+
+
+3.  To add a deadline, type "deadline + {description} + /by + {date time}"
+     Example: deadline return book /by 2023/09/23 1800
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][ ] return book (by: 2023-09-23 18:00)
+     Now you have 4 tasks in the list.
+    ____________________________________________________________
+
+
+4.  To add an event, type "deadline + {description} + /from + {date time} + /to {date time}"
+     Example: event project meeting /from 2023-09-23 1800 /to 2023-09-23 1900
+    ____________________________________________________________
+     Got it. I've added this task:
+       [E][ ] project meeting (from: 2023-09-23 18:00 to: 2023-09-23 19:00)
+     Now you have 5 tasks in the list.
+    ____________________________________________________________
+
+
+5.  {date time} should be written in this format:
+    ____________________________________________________________
+     Date: dd/mm/yyyy OR yyyy-mm-dd
+      - Example: 09/11/2023 OR 2023-11-09
+     Time: HHmm OR HH:mm in 24-Hr format
+      - Example: 1800 OR 18:00
+     NOTE: There should be a spacing between the date and time
+    ____________________________________________________________
+
+
+6.  To delete a task, type "delete + {task number}"
+     Example: delete 5
+    ____________________________________________________________
+     Noted. I've removed this task:
+       [E][ ] project meeting (from: 2023-09-23 18:00 to: 2023-09-23 19:00)
+     Now you have 4 tasks in the list.
+    ____________________________________________________________
+
+-------------------------HELP PAGE END--------------------------
 ```
 [back_to_top](https://woodenclock.github.io/ip/)
 
