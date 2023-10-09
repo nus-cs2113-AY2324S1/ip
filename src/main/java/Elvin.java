@@ -81,7 +81,7 @@ public class Elvin {
                 }
             } else if(parsedInput.get(0).equals("find")) {
                 TaskList temp = tasks.find(parsedInput.get(1));
-                ui.printList(temp);
+                ui.printFoundTasks(temp);
             }
         }
         scanner.close();
