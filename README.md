@@ -1,24 +1,43 @@
-# Duke project template
+# Project Herbert
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+```
+ __   __  _______  ______    _______  _______  ______    _______ 
+|  | |  ||       ||    _ |  |  _    ||       ||    _ |  |       |
+|  |_|  ||    ___||   | ||  | |_|   ||    ___||   | ||  |_     _|
+|       ||   |___ |   |_||_ |       ||   |___ |   |_||_   |   |  
+|       ||    ___||    __  ||  _   | |    ___||    __  |  |   |  
+|   _   ||   |___ |   |  | || |_|   ||   |___ |   |  | |  |   |  
+|__| |__||_______||___|  |_||_______||_______||___|  |_|  |___|  
+```
 
-## Setting up in Intellij
+Welcome to Herbert, the newest and friendliest AI assistant on the market.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Getting started
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. Download the `.jar` file from the latest release and move it to a folder of your choice.
+2. In your terminal, navigate to the folder containing the `.jar` file.
+3. Run `java -jar ip.jar`.
+
+
+## Commands
+
+Visit our [user guide](https://antrikshdhand.github.io/ip) for a full explanation of each command!
+
+| Command  | Usage                                                     |
+|----------|-----------------------------------------------------------|
+| list     | `list`                                                    |
+| mark     | `mark <task number>`                                      |
+| unmark   | `unmark <task number>`                                    |
+| delete   | `delete <task number>`                                    |
+| todo     | `todo <description>`                                      |
+| deadline | `deadline <description> /by <YYYY-MM-DD>`                 |
+| event    | `event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD>` |
+| find     | `find <search query>`                                     |
+| help     | `help`                                                    |
+| bye      | `bye`                                                     |
+
+## Contact
+
+Antriksh Dhand – `A0278458J` – `e1139698@u.nus.edu`
+
+Project link: https://github.com/antrikshdhand/ip
