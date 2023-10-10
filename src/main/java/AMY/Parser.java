@@ -7,6 +7,7 @@ import AMY.Exceptions.EmptyInput;
 import AMY.Exceptions.EmptyMarkException;
 import AMY.Exceptions.EmptyToDoException;
 import AMY.Exceptions.EmptyUnmarkException;
+import AMY.Exceptions.EmptyFindException;
 
 import AMY.command.Deadline;
 import AMY.command.Event;
@@ -35,7 +36,7 @@ public class Parser {
      */
     public static void manageException(String userInput) throws EmptyInput, EmptyToDoException,
             EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException, EmptyEventException,
-            EmptyDeleteException {
+            EmptyDeleteException, EmptyFindException {
 
         Scanner input = new Scanner(userInput);
         String command;
@@ -61,6 +62,9 @@ public class Parser {
         }
         if (command.equals("delete") && !input.hasNext()) {
             throw new EmptyDeleteException();
+        }
+        if (command.equals("find") && !input.hasNext()) {
+            throw new EmptyFindException();
         }
     }
 
@@ -126,6 +130,8 @@ public class Parser {
                 System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
             } catch (EmptyDeleteException exception) {
                 System.out.println("☹ OOPS!!! The description of an delete cannot be empty.");
+            } catch (EmptyFindException exception){
+                System.out.println("☹ OOPS!!! The description of an find cannot be empty.");
             }
             drawLine();
         }
