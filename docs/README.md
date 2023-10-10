@@ -1,29 +1,82 @@
-# User Guide
-
+# Wenny Task Manager User Guide
+Wenny is your friendly task manager that helps you keep track of your endless numbers of to do tasks, deadlines and events.  
 ## Features 
+Notes about the command format:
+1. Words in UPPER_CASE are the parameters to be supplied by the user.
+e.g. in todo DESCRIPTION, DESCRIPTION is a parameter which can be used as `todo Homework`.
 
-### Feature-ABC
+2. Extraneous parameters for commands that do not take in parameters (such as list and bye) will be ignored.
+e.g. if the command specifies `list 123`, it will be interpreted as list.
 
-Description of the feature.
+## List current tasks `list`
 
-### Feature-XYZ
+List all current tasks.
 
-Description of the feature.
+Format: `list`
 
-## Usage
+## Exit the program `bye`
 
-### `Keyword` - Describe action
+Exit the program.
 
-Describe the action and its outcome.
+Format: `bye`
 
-Example of usage: 
+## Add a to-do task `todo`
 
-`keyword (optional arguments)`
+Add to-do task into the list.
 
-Expected outcome:
+Format: `list DESCRIPTION`
 
-Description of the outcome.
+Example:
+- `todo complete week 7 tasks`
+- `todo sleep`
 
-```
-expected output
-```
+
+## Add a deadline task `deadline`
+Add a task with a deadline.
+
+Format: `deadline DESCRIPTION /by DEADLINE`
+
+Example:
+- `deadline complete week 8 tasks /by 12 Oct`.
+
+
+## Add an event task `event`
+Add an event into the task list.
+
+Format: `event DESCRIPTION /from START_TIME /to END_TIME`.
+
+Example:
+- `event IA interview /from 7 Oct 2pm /to 7 Oct 4pm`.
+  
+## Mark a task as done `mark`
+Mark a task on the task list as done.
+
+Format: `mark TASK_NUMBER`.
+
+Example:
+- `mark 1`
+
+## Mark a task as undone `unmark`
+Mark a task on the task list as undone.
+
+Format: `unmark TASK_NUMBER`.
+
+Example:
+- `unmark 1`.
+
+
+## Delete a task `delete`
+Delete a task from the task list.
+
+Format: `delete TASK_NUMBER`.
+
+Example:
+- `delete 1`.
+
+## Find the tasks that matches a certain keyword `find`
+Find the tasks that matches a certain keyword .
+
+Format: `find KEYWORD`.
+
+Example:
+- `find John`.
