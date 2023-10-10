@@ -285,7 +285,7 @@ Format: `find`
 Example: `find book`
 
 **Note**:
-Do note that the search is case-sensitive
+Do note that the search is case-sensitive.
 
 ```
    ____________________________________________________________
