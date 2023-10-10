@@ -6,6 +6,9 @@ import fredbot.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represent a class for executing delete task command
+ */
 public class DeleteCommand extends Command {
     private int index;
 

@@ -7,6 +7,9 @@ import fredbot.task.Task;
 
 import java.io.IOException;
 
+/**
+ * Represent a class for executing add task command
+ */
 public class AddCommand extends Command {
     private Task task = null;
 

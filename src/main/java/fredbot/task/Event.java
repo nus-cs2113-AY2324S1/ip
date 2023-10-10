@@ -3,6 +3,9 @@ package fredbot.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represent a class for event tasks
+ */
 public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;

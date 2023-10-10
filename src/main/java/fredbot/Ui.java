@@ -5,6 +5,10 @@ import fredbot.task.Task;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * Represent a class for printing to standard output on terminal
+ * and reading input
+ */
 public class Ui {
     public static final String INDENT = "    ";
     public static final String DIVIDER = "    ____________________________________________________________\n";

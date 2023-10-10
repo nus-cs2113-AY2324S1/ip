@@ -16,6 +16,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represent the class that is the main logic for the FredBot application
+ */
 public class FredBot {
     public static final String TASK_FILE_PATH = "./data/tasks.txt";
     public static final String WRITE_FILE_ERROR_MESSAGE = "Could not write to file. Exiting Application...";

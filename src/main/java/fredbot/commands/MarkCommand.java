@@ -6,6 +6,9 @@ import fredbot.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represent a class for executing mark task command
+ */
 public class MarkCommand extends Command{
     private int index;
     private boolean mark = false;

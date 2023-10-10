@@ -3,6 +3,9 @@ package fredbot.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represent a class for deadline tasks
+ */
 public class Deadline extends Task {
     protected LocalDate by;
     public Deadline(String description, LocalDate by) {

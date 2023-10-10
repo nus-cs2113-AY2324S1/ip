@@ -4,6 +4,10 @@ import fredbot.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represent a class that reference a list of task object
+ * used by the user of FredBot
+ */
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
 

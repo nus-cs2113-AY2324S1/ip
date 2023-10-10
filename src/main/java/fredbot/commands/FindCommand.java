@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represent a class for executing find task command
+ */
 public class FindCommand extends Command {
     private final String queryString;
 

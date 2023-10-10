@@ -10,6 +10,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
+/**
+ * Represent a class for interacting with files on disk
+ */
 public class Storage {
     private File dataFile;
 
