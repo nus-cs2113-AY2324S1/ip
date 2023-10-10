@@ -12,8 +12,8 @@ public class Ui {
     }
 
     /**
+     *  Display the bot name at the top
      *  Write a welcome message to welcome user when the program starts
-     *  Display bot name at the top
      */
     public static void welcomeMessage() {
         drawLine();

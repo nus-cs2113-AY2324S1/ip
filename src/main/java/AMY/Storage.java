@@ -49,7 +49,7 @@ public class Storage {
 
     /**
      * Save tasks to a file to load later when command is entered
-     * Save to given file path
+     * Save the tasks to the given file path
      */
     public static void saveTasksToFile() {
         try {

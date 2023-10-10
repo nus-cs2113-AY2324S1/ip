@@ -3,7 +3,7 @@ package AMY;
 public class AMY {
 
     /**
-     *  Runs the whole program when prompted
+     *  Runs the whole program when prompted by the main
      */
     public static void run() {
         Ui.welcomeMessage();
