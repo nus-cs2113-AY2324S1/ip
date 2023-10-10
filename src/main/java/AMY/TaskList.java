@@ -58,4 +58,19 @@ public class TaskList {
             System.out.println("Invalid task index. Please try again.");
         }
     }
+
+    // Find tasks containing a specific keyword
+    public static void findTasks(String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        int count = 0;
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.println((++count) + ". " + task);
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("No matching tasks found.");
+        }
+    }
 }

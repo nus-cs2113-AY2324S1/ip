@@ -94,7 +94,10 @@ public class Parser {
                 } else if (userInput.startsWith("delete")) {
                     int taskIndex = Integer.parseInt(userInput.substring(7).trim());
                     TaskList.deleteTask(taskIndex);
-                } else {
+                } else if (userInput.startsWith("find")) {
+                    String keyword = userInput.substring(5).trim();
+                    TaskList.findTasks(keyword);
+                }else {
                     System.out.println("Invalid command. Please try again.");
                 }
             } catch (EmptyInput exception) {
