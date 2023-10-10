@@ -1,4 +1,4 @@
 package AMY.Exceptions;
 
-public class EmptyUnmarkException extends Exception{
+public class EmptyUnmarkException extends Exception {
 }

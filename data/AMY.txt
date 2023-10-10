@@ -1,3 +1,2 @@
-T | 0 | hello
 T | 0 | bye
-T | 0 | helloo
+T | 1 | helloo
