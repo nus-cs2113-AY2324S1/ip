@@ -22,7 +22,17 @@ public class Parser {
         System.out.println(LINE);
     }
 
-    // Throw exceptions when exceptions are encountered to avoid an error
+    /**
+     * Throw exceptions when exceptions are encountered to avoid an error
+     * @param userInput the user input
+     * @throws EmptyInput when the input is empty, the exception is thrown
+     * @throws EmptyToDoException when the todo command is empty, the exception is thrown
+     * @throws EmptyMarkException when the mark is command empty, the exception is thrown
+     * @throws EmptyUnmarkException when the unmark command is empty, the exception is thrown
+     * @throws EmptyDeadlineException when the deadline command is empty, the exception is thrown
+     * @throws EmptyEventException when the event command is empty, the exception is thrown
+     * @throws EmptyDeleteException when the delete command is empty, the exception is thrown
+     */
     public static void manageException(String userInput) throws EmptyInput, EmptyToDoException,
             EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException, EmptyEventException,
             EmptyDeleteException {
@@ -54,7 +64,9 @@ public class Parser {
         }
     }
 
-    // Manage input when input is given to follow order
+    /**
+     * Manage input when input is given to follow order
+     */
     public static void manageInput() {
         Scanner scanner = new Scanner(System.in);
         while (true) {

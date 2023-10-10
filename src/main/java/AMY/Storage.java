@@ -16,7 +16,11 @@ public class Storage {
         FILE_PATH = filePath;
     }
 
-    // Load tasks from a file to show saved tasks when the program starts
+    /**
+     * Load tasks from a file to show saved tasks when the program starts
+     * Take no parameter
+     * Load from given file path
+     */
     public static void loadTasksFromFile() {
         try {
             File file = new File(FILE_PATH);
@@ -43,7 +47,10 @@ public class Storage {
         }
     }
 
-    // Save tasks to a file to load later when command is entered
+    /**
+     * Save tasks to a file to load later when command is entered
+     * Save to given file path
+     */
     public static void saveTasksToFile() {
         try {
             FileWriter writer = new FileWriter(FILE_PATH);

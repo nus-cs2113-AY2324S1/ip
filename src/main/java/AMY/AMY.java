@@ -2,6 +2,9 @@ package AMY;
 
 public class AMY {
 
+    /**
+     *  Runs the whole program when prompted
+     */
     public static void run() {
         Ui.welcomeMessage();
         Storage.loadTasksFromFile();

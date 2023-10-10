@@ -11,7 +11,10 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    // Write a welcome message to welcome user when the program starts
+    /**
+     *  Write a welcome message to welcome user when the program starts
+     *  Display bot name at the top
+     */
     public static void welcomeMessage() {
         drawLine();
         String logo = "        \n"
