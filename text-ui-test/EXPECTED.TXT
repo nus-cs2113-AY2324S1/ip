@@ -1,7 +1,27 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm
+ _           _
+| |    _   _| | _____
+| |   | | | | |/ / _ \
+| |___| |_| |   <  __/
+|_____|\__,_|_|\_\___|
 
+What can I do for you?
+Got it. I've added this task:
+[T][ ] Liow Enqi Janelle Answer CS2113 tutorial questions
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+[D][ ] weekly CS2113 quiz (do by: Monday 9pm)
+Now you have 2 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] Liow Enqi Janelle Answer CS2113 tutorial questions
+2.[D][ ] weekly CS2113 quiz (do by: Monday 9pm)
+Got it. I've added this task:
+[E][ ] CS2113 lecture (from: Friday 4 to: 6pm)
+Now you have 3 tasks in the list.
+Woohoo! You have accomplished:
+[T][X] Liow Enqi Janelle Answer CS2113 tutorial questions
+Here are the tasks in your list:
+1.[T][X] Liow Enqi Janelle Answer CS2113 tutorial questions
+2.[D][ ] weekly CS2113 quiz (do by: Monday 9pm)
+3.[E][ ] CS2113 lecture (from: Friday 4 to: 6pm)
+Bye. Hope to see you again soon!
