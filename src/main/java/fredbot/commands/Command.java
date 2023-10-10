@@ -6,6 +6,10 @@ import fredbot.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a generic Command that has a generic execute function and a boolean to represent whether to
+ * exit FredBot
+ */
 public abstract class Command {
     private boolean isExit = false;
 

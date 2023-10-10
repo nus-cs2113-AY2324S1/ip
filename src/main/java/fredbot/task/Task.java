@@ -1,5 +1,9 @@
 package fredbot.task;
 
+/**
+ * Represents an Abstract task that can be used as a parent class for
+ * deadliine, event and todo type class
+ */
 public abstract class Task {
     private String taskDesc;
     private boolean isDone;
