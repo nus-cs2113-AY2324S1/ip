@@ -9,7 +9,7 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileNotFoundException;
-public class FileSave {
+public class Storage {
 
 	static ArrayList<Task> fileTasksArray = new ArrayList<>(100);
 	static Path dirPath = Paths.get("./storage");
@@ -67,10 +67,10 @@ public class FileSave {
 				String keyword = parts[0];
 				keyword = keyword.toUpperCase();
 
-				switch (keyword){
-				case("D"):
+				switch (keyword) {
+				case ("D"):
 					String isMarked = parts[1];
-					if (!Objects.equals(isMarked, "X")){
+					if (!Objects.equals(isMarked, "X")) {
 						//The X should be a space
 
 						String desc = parts[2];
@@ -87,9 +87,9 @@ public class FileSave {
 					}
 
 					break;
-				case("T"):
+				case ("T"):
 					isMarked = parts[1];
-					if (!Objects.equals(isMarked, "X")){
+					if (!Objects.equals(isMarked, "X")) {
 						//The X should be a space
 						String desc = parts[2];
 						Todo todo = new Todo(desc);
@@ -102,9 +102,9 @@ public class FileSave {
 						fileTasksArray.add(todo);
 					}
 					break;
-				case("E"):
+				case ("E"):
 					isMarked = parts[1];
-					if (!Objects.equals(isMarked, "X")){
+					if (!Objects.equals(isMarked, "X")) {
 						//The X should be a space
 
 						String desc = parts[2];
@@ -125,13 +125,13 @@ public class FileSave {
 					//Default case is the case where its not a specific kind of task added
 					isMarked = parts[0];
 					//System.out.println(isMarked);
-					if (!Objects.equals(isMarked, "X")){
+					if (!Objects.equals(isMarked, "X")) {
 						//System.out.println(parts[2]);
 
 						Task newTask = new Task(parts[2]);
 						//System.out.println(newTask.getFileReadableString() + "TASK NAME");
 						fileTasksArray.add(newTask);
-					} else{
+					} else {
 						Task newTask = new Task(parts[2]);
 						newTask.isDone = true;
 						fileTasksArray.add(newTask);
@@ -140,6 +140,8 @@ public class FileSave {
 				}
 
 			}
+
+
 		} catch (IOException e) {
 			System.out.println("Error reading file");
 		}
@@ -166,6 +168,23 @@ public class FileSave {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	public static void saveFile() {
+		try {
+			Storage.printFileContents();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		int numOfTasks = 0;
+		for (Task task : TasksList.tasksToBeSaved) {
+			try {
+				Storage.writeToFile(task.getFileReadableString() + System.lineSeparator());
+			} catch (IOException e) {
+				System.out.println(e);
+			}
+		}
+	}
+
 
 	public static void removeEntryAtIndex(int index) throws IOException {
 		List<String> lines = new ArrayList<>();
@@ -194,5 +213,4 @@ public class FileSave {
 			}
 		}
 	}
-
 }
