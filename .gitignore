@@ -1,3 +1,5 @@
+*.class
+
 # IDEA files
 /.idea/
 /out/
@@ -6,6 +8,7 @@
 # Gradle build files
 /.gradle/
 /build/
+/data/
 src/main/resources/docs/
 
 # MacOS custom attributes files created by Finder
