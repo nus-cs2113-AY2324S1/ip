@@ -13,4 +13,9 @@ public class Event extends Task{
 	public String getDescription() {
 		return "[E]" + super.getDescription()  + " " + start + "-" + end ;
 	}
+
+	@Override
+	public String getFileReadableString(){
+		return "E" + super.getFileReadableString()  + "/" + start + "/" + end ;
+	}
 }

@@ -19,6 +19,14 @@ public class Task {
 		return "[" + getStatusIcon() + "] " + description;
 	}
 
+	public String getFileDescriptionStatus(){
+		return "/" + getStatusIcon() + "/" + description;
+	}
+	public String getFileReadableString(){
+		//This is in place of the normal getDescription that is returned with the List command
+		return "/" + getStatusIcon() + "/" + description;
+	}
+
 
 
 
