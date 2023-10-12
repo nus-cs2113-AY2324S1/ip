@@ -40,6 +40,7 @@ public class Storage {
 	public static void loadFileObjects() throws IOException {
 		// Check for file's existence, and return if it doesn't exist
 		if (!Files.exists(dirPath)) {
+			System.out.println("Dir does not exist. Creating a new one...");
 			try {
 				Files.createDirectories(dirPath);
 			} catch (IOException e) {
@@ -58,6 +59,7 @@ public class Storage {
 				return;
 			}
 		}
+
 		try (Scanner s = new Scanner(filePath)) {
 			while (s.hasNext()) {
 				String entry = s.nextLine();

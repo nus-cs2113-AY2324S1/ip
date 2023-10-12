@@ -6,7 +6,8 @@ public class TasksList {
 
 	static ArrayList<Task> tasks = new ArrayList<>(100);
 
-	static ArrayList<String> commandNames = new ArrayList<>(Arrays.asList("list", "mark", "unmark","delete","deadline","event","todo"));
+
+	static ArrayList<String> commandNames = new ArrayList<>(Arrays.asList("list", "mark", "unmark","delete","deadline","event","todo", "find"));
 
 	static ArrayList<Task> tasksToBeSaved = new ArrayList<>(100);
 
@@ -160,6 +161,9 @@ public class TasksList {
 				System.out.println("An error occurred while adding the todo.");
 			}
 			break;
+		case("find"):
+			searchAndDisplayTasks(parts[1]);
+			break;
 
 		case("bye"):
 			exitProgram = true;
@@ -173,6 +177,18 @@ public class TasksList {
 			break;
 		}
 
+	}
 
+	public static void searchAndDisplayTasks(String keyword) {
+		System.out.println("____________________________________________________________");
+		System.out.println("Here are the matching tasks in your list:");
+
+		int count = 1;
+		for (Task task : tasks) {
+			if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+				System.out.println(count + "." + task.getDescription());
+				count++;
+			}
+		}
 	}
 }
