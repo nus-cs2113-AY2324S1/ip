@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import static java.lang.System.in;
 
+/**
+ * Ui class in charge of printing out user facing messages.
+ * All messages are stored as constant
+ */
 public class Ui {
     private final Scanner scanner;
     public static final String HELLO_MESSAGE = "Hello! I'm ListWhisper";
@@ -25,7 +29,10 @@ public class Ui {
         this.scanner = new Scanner(in);
     }
 
-    //print message when add todo, event or deadline is called
+    /**
+     * Print message when add todo, event or deadline is called
+     * @param taskList taskList for current user
+     */
     public static void printAddMessage(TaskList taskList) {
         showLine();
         System.out.println(MESSAGE_ADDED_THIS_TASK);
@@ -34,7 +41,12 @@ public class Ui {
         showLine();
     }
 
-    //print message when delete is called
+    /**
+     * Print message when delete command is requested
+     *
+     * @param taskList taskList for current user
+     * @param task deleted task
+     */
     public static void printDeleteMessage(TaskList taskList, Task task) {
         showLine();
         System.out.println(MESSAGE_REMOVE_THIS_TASK);
@@ -43,7 +55,11 @@ public class Ui {
         showLine();
     }
 
-    //print message when unmark is called
+    /**
+     * Print message when unmark is called
+     *
+     * @param task task unmarked
+     */
     public static void printUnmarkMessage(Task task) {
         showLine();
         System.out.println(MESSAGE_MARK_AS_NOT_DONE);
@@ -51,6 +67,11 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Print message when mark is called
+     *
+     * @param task task marked
+     */
     //print message when mark is called
     public static void printMarkMessage(Task task) {
         showLine();
@@ -59,7 +80,11 @@ public class Ui {
         showLine();
     }
 
-    //print message when list command is called
+    /**
+     * Print message when list command is called
+     *
+     * @param taskList taskList of current user
+     */
     public static void printListMessage(TaskList taskList) {
         showLine();
         System.out.println(MESSAGE_TASKS_IN_YOUR_LIST);
@@ -67,14 +92,19 @@ public class Ui {
         showLine();
     }
 
-    //print goodbye message when exit is called
+    /**
+     * Print goodbye message when exit is called
+     */
     public static void printByeMessage() {
         showLine();
         System.out.println(MESSAGE_BYE);
         showLine();
     }
 
-    //print list of matching tasks when find is called
+    /**
+     * Print list of matching tasks when find is called
+     * @param matchingTasks an array list of matching tasks
+     */
     public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
         System.out.println(MATCHING_TASKS);
         for (int i = 1; i <= matchingTasks.size(); i++) {
@@ -82,7 +112,9 @@ public class Ui {
         }
     }
 
-    //print hello message when the app starts
+    /**
+     * Print hello message when the app starts
+     */
     public static void showWelcome() {
         showLine();
         System.out.println(HELLO_MESSAGE);
@@ -90,17 +122,28 @@ public class Ui {
         showLine();
     }
 
-    //show error message
+    /**
+     * Print error message
+     *
+     * @param e exception
+     */
     public static void showError(Exception e) {
         System.out.println(e);
     }
 
-    //print a line-separator
+    /**
+     * Print a line-separator
+     *
+     */
     public static void showLine() {
         System.out.println("-----------------------------------------------------");
     }
 
-    //read user command from command line input
+    /**
+     * read user command from command line input
+     *
+     * @return user command
+     */
     public String getUserCommand() {
         return scanner.nextLine();
     }

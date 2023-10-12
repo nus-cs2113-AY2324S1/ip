@@ -1,5 +1,9 @@
 package task;
 
+/**
+ * Represents a general task.
+ * It can be specified as todo, deadline or event
+ */
 public abstract class Task {
     private final String description;
     private boolean isDone;
@@ -19,6 +23,12 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Overrides the toString() from Object class
+     *
+     * returns a string in the format of T [x] description,
+     * it will be overridden in other classes as their formats are different
+     */
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder("[");
@@ -33,7 +43,12 @@ public abstract class Task {
         return output.append(this.description).toString();
     }
 
-    // format task to input format to be saved in storage
+    /**
+     * Format task to input format to be saved in storage
+     *
+     * returns a string in the format of TaskType true description
+     * It will be overridden in other classes as their formats are different
+     */
     public String formatAsInput() {
         return this.type + " " + this.isDone + " " + this.description;
     }

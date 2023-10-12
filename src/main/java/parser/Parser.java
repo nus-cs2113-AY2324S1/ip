@@ -8,10 +8,21 @@ import task.TaskList;
 import task.TaskType;
 import ui.Ui;
 
+/**
+ * Parse everything received from the users on terminal
+ * into a format that can be interpreted by other core classes
+ */
 public class Parser {
 
-    // parse the full command and carry out and create different commands
-    //      according to the user input
+    /**
+     * Parse the full command and carry out and create different commands
+     * according to user input
+     *
+     * @param fullCommand the entire line of user input
+     * @return the command requested by the user
+     * @throws Exception if the task description if in the wrong format
+     * or user input invalid command
+     */
     public Command parse(String fullCommand) throws Exception {
         String[] inputStrings = splitInput(fullCommand);
         String commandType = inputStrings[0];
@@ -57,6 +68,12 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Parse data from the data file and add the tasks into taskList accordingly
+     *
+     * @param taskList the taskList of the user
+     * @param fullCommand the entire line of text from data file
+     */
     public void parseLoadingData(TaskList taskList, String fullCommand) {
         String[] inputStrings = splitInput(fullCommand);
         String command = inputStrings[0];
@@ -85,7 +102,13 @@ public class Parser {
         }
     }
 
-    // split input into event description, start time and end time
+    /**
+     * Split input into event description, start time and end time
+     *
+     * @param descriptions
+     * @return
+     * @throws DescriptionFormatException
+     */
     private String[] splitInputIntoEventFormat(String descriptions) throws DescriptionFormatException {
         String[] descriptionAndStartEndTime = descriptions.split("/");
 
@@ -99,7 +122,14 @@ public class Parser {
         return descriptionAndStartEndTime;
     }
 
-    // split input into deadline description and the date/time of the deadline
+    /**
+     * Split input into deadline description and the date/time of the deadline
+     *
+     * @param descriptions the user input without the command
+     * @return an array of strings with strings[0] bring the deadline description and strings[1]
+     *          being the due date/time
+     * @throws DescriptionFormatException if the length of the array of strings is < 2
+     */
     private String[] splitInputIntoDeadlineFormat(String descriptions) throws DescriptionFormatException {
         String[] descriptionAndBy = descriptions.split("/by");
 
@@ -112,7 +142,13 @@ public class Parser {
         return descriptionAndBy;
     }
 
-    // get task id from the full command for mark, unmark and delete
+    /**
+     * Split the input into command and task id
+     *
+     * @param input the entire line of user input
+     * @return the task id
+     * @throws DescriptionFormatException when the length array of strings == 1
+     */
     private int getTaskId(String input) throws DescriptionFormatException {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 1) {
@@ -123,7 +159,13 @@ public class Parser {
         return Integer.parseInt(splitInput[1]) - 1;
     }
 
-    //split the input and get the keyword for find
+    /**
+     * Split the input and get the keyword for find
+     *
+     * @param description the user input without the command
+     * @return the keyword
+     * @throws DescriptionFormatException when the description is empty
+     */
     private String getKeyWord(String description) throws DescriptionFormatException {
         if (description.isEmpty()) {
             throw new DescriptionFormatException(
@@ -133,7 +175,13 @@ public class Parser {
         return description;
     }
 
-    // get task description for todo
+    /**
+     * Get task description for todo
+     *
+     * @param descriptions the user input without the command
+     * @return the task description
+     * @throws DescriptionFormatException when the description is empty
+     */
     private String getTaskDescription(String descriptions) throws DescriptionFormatException{
         if (descriptions.isEmpty()) {
             throw new DescriptionFormatException(
@@ -143,7 +191,12 @@ public class Parser {
         return descriptions;
     }
 
-    //split input into action and full description
+    /**
+     * Split input into action and full description
+     *
+     * @param line the entire user input
+     * @return an array of strings
+     */
     private static String[] splitInput(String line) {
         return line.split(" ", 3);
     }
