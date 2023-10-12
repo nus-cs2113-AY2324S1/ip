@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
+//UI captures user input and talks to the TasksList class to interpret command.
 public class Ui {
 
 	private final Scanner scanner;

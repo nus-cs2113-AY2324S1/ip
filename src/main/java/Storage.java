@@ -9,12 +9,25 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileNotFoundException;
+
+/**
+ * Storage saves and loads previous trials using a text file.
+ * @author Isaiah Cerven
+ * @version 1.0
+ */
 public class Storage {
 
+	//fileTasksArray stores all tasks that are to be loaded
 	static ArrayList<Task> fileTasksArray = new ArrayList<>(100);
 	static Path dirPath = Paths.get("./storage");
 	static Path filePath = dirPath.resolve("tasks.txt");
 
+	/**
+	 * A get function to allow Duke to view the stored Task objects
+	 *
+	 * @return ArrayList<Task>
+	 * @throws IOException
+	 */
 	public static ArrayList<Task> getFileTasksArray() throws IOException {
 		if (fileTasksArray.isEmpty()) {
 			loadFileObjects();
@@ -22,6 +35,10 @@ public class Storage {
 		return fileTasksArray;
 	}
 
+	/**
+	 * Prints all text file contents
+	 * @throws IOException
+	 */
 	public static void printFileContents() throws IOException {
 		// Create directory and file if they don't exist
 		if (!Files.exists(dirPath)) {
@@ -37,40 +54,34 @@ public class Storage {
 		}
 	}
 
-	public static void loadFileObjects() throws IOException {
-		// Check for file's existence, and return if it doesn't exist
-		if (!Files.exists(dirPath)) {
-			System.out.println("Dir does not exist. Creating a new one...");
-			try {
-				Files.createDirectories(dirPath);
-			} catch (IOException e) {
-				System.out.println("Error creating directory: " + e.getMessage());
-				return;
-			}
-		}
+	/**
+	 * Checks text file for different Tasks objects and loads them.
+	 * Each Task Starts with the Task letter, with their parameters separated by a '/'
+	 * Non denoted Task is the exception and isnt marked.
+	 * @throws IOException
+	 */
 
-		// Ensure the file exists before reading. If not, create it.
-		if (!Files.exists(filePath)) {
-			System.out.println("File does not exist. Creating a new one...");
-			try {
-				Files.createFile(filePath);
-			} catch (IOException e) {
-				System.out.println("Error creating file: " + e.getMessage());
-				return;
-			}
-		}
+
+	public static void loadFileObjects() throws IOException {
+		// Check for file's existence, and create one if it doesn't exist
+		checkFileExists();
 
 		try (Scanner s = new Scanner(filePath)) {
 			while (s.hasNext()) {
+				//entry is the task on each line.
 				String entry = s.nextLine();
 
+				//Separate the Tasks into components.
 				String[] parts = entry.split("/");
 
+				//Get the first word as keyword.
 				String keyword = parts[0];
 				keyword = keyword.toUpperCase();
 
+
 				switch (keyword) {
 				case ("D"):
+					//Is marked, is if a task is finished and is shown in the txt file as 'X'
 					String isMarked = parts[1];
 					if (!Objects.equals(isMarked, "X")) {
 						//The X should be a space
@@ -149,7 +160,35 @@ public class Storage {
 		}
 	}
 
-	//Only writes once Savefile is called in Duke
+	/**
+	 * Default check to see if text file data/tasks.txt exists. If not create it.
+	 */
+	private static void checkFileExists(){
+		if (!Files.exists(dirPath)) {
+			System.out.println("Dir does not exist. Creating a new one...");
+			try {
+				Files.createDirectories(dirPath);
+			} catch (IOException e) {
+				System.out.println("Error creating directory: " + e.getMessage());
+				return;
+			}
+		}
+
+		// Ensure the file exists before reading. If not, create it.
+		if (!Files.exists(filePath)) {
+			System.out.println("File does not exist. Creating a new one...");
+			try {
+				Files.createFile(filePath);
+			} catch (IOException e) {
+				System.out.println("Error creating file: " + e.getMessage());
+				return;
+			}
+		}
+	}
+
+
+
+	//Called with Save file. Appends latest task to text file.
 	public static void writeToFile(String textToAdd) throws IOException {
 		// Ensure the directory exists
 		if (!Files.exists(dirPath)) {
@@ -160,6 +199,7 @@ public class Storage {
 		}
 	}
 
+	//Clears Text file
 	public static void clearFile() throws IOException {
 		if (!Files.exists(dirPath)) {
 			Files.createDirectories(dirPath);
@@ -171,6 +211,7 @@ public class Storage {
 		}
 	}
 
+	//Saves tasks from this run to text file.
 	public static void saveFile() {
 		try {
 			Storage.printFileContents();
@@ -187,7 +228,7 @@ public class Storage {
 		}
 	}
 
-
+	//Use for removing different tasks from text file.
 	public static void removeEntryAtIndex(int index) throws IOException {
 		List<String> lines = new ArrayList<>();
 

@@ -2,6 +2,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Contains a list of all commands to instantiate different tasks.
+ * UI directly uses this to input tasks.
+ * @author Isaiah Cerven
+ * @version 1.0
+ */
 public class TasksList {
 
 	static ArrayList<Task> tasks = new ArrayList<>(100);
@@ -22,34 +28,17 @@ public class TasksList {
 		}
 	}
 
-	public static void setCommandNames(ArrayList<String> commandNames) {
-		TasksList.commandNames = commandNames;
-	}
-
-	public static void setTasksToBeSaved(ArrayList<Task> tasksToBeSaved) {
-		TasksList.tasksToBeSaved = tasksToBeSaved;
-	}
-
-	public static void setExitProgram(boolean exitProgram) {
-		TasksList.exitProgram = exitProgram;
-	}
 
 	public static ArrayList<Task> getTasks() {
 		return tasks;
 	}
 
-	public static ArrayList<String> getCommandNames() {
-		return commandNames;
-	}
-
-	public static ArrayList<Task> getTasksToBeSaved() {
-		return tasksToBeSaved;
-	}
-
+	//Sets a variable to false if program can be exited
 	public static boolean isExitProgram() {
 		return exitProgram;
 	}
 
+	//Prints all commands
 	public static void showCommands(){
 		System.out.println("Here is a list of commands you can use: ");
 		for (String command: commandNames){
@@ -57,7 +46,10 @@ public class TasksList {
 		}
 	}
 
-
+	/**
+	 * Handles parsing UI commands and creating tasks from them
+	 * @param input
+	 */
 	public static void chooseCommand(String input) {
 
 		//checkInput(input);
@@ -179,8 +171,11 @@ public class TasksList {
 
 	}
 
+	/**
+	 * Use for find case. Finds specific tasks with keyword
+	 * @param keyword
+	 */
 	public static void searchAndDisplayTasks(String keyword) {
-		System.out.println("____________________________________________________________");
 		System.out.println("Here are the matching tasks in your list:");
 
 		int count = 1;

@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
 //Refactoring methods is helpful for transforming
+
+/**
+ * Main class of program. Creates UI, Storage and Task objects and runs program.
+ */
 public class Duke {
 
     private Ui ui;
@@ -31,9 +35,6 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         new Duke().run();
-
-
-
 
     }
 }

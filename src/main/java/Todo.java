@@ -1,3 +1,8 @@
+/**
+ * Todo is an extension of the Task object. Use to make task and due date.
+ * @author Isaiah Cerven
+ * @version 1.0
+ */
 public class Todo extends Task{
 	protected String by;
 
