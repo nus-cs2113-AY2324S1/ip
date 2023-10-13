@@ -1,24 +1,19 @@
-# Duke project template
+# List Whisper
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+List Whisper is your ultimate solution for effortless task management. Whether you're organizing your workday, planning personal projects, or just need a simple way to keep track of your to-do list, List Whisper has you covered.
 
-## Setting up in Intellij
+## Setting up List Whisper
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Prerequisites: JDK 11
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+1. Download the jar file
+2. Open command prompt (windows) or terminal (macOS)
+3. Move your directory to the jar file
+4. run ```java -jar ip.jar```
+5. If the setup is correct, you should see something like the below as the output:
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   -----------------------------------------------------
+   Hello! I'm ListWhisper
+   What can I do for you?
+   -----------------------------------------------------
    ```
