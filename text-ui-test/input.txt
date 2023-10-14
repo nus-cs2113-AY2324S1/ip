@@ -1,0 +1,18 @@
+todo read book
+deadline return book /by 2019-06-13
+event project meeting /from 2022-08-06 13:00 /to 2022-08-06 12:00
+event project meeting /from 2022-08-06 13:00 /to 2022-08-06 14:00
+mark 1
+unmark 0
+blah
+list
+delete 1
+todo join Book club
+delete
+mark
+todo borrow book
+find book
+deadline apply to Harvard /by 2023-12-06 23:59
+deadline organize present for birthday party /by 2023-08-08 14:00
+todo
+bye
