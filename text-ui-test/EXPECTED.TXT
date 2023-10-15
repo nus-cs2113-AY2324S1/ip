@@ -5,3 +5,14 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Hello! I'm Duke
+What can I do for you?
+Got it. I've added this task:
+[D][ ] sdad  ( sad)
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+[T][ ] asdsad
+Now you have 2 tasks in the list.
+Here are the tasks in your list:
+1. [D][ ] sdad  ( sad)
+2. [T][ ] asdsad
