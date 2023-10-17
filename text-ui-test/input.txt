@@ -1,0 +1,61 @@
+bye no
+list no
+list
+todo
+todo read/book
+todo read book
+deadline
+deadline /by
+deadline /by June 6th
+deadline return book
+deadline return book /by
+deadline return/book /by June 6th
+deadline return book /by June/6th
+deadline return book /by June 6th
+event
+event /to
+event /to 4pm
+event /from
+event /from Aug 6th 2pm
+event /from /to
+event /from Aug 6th 2pm /to
+event /from Aug 6th 2pm /to 4pm
+event project meeting
+event project meeting /to
+event project meeting /to 4pm
+event project meeting /from
+event project meeting /from Aug 6th 2pm
+event project meeting /from /to
+event project meeting /from Aug 6th 2pm /to
+event project/meeting /from Aug 6th 2pm /to 4pm
+event project meeting /from Aug/6th/2pm /to 4pm
+event project meeting /from Aug 6th 2pm /to 4pm/
+event project meeting /from Aug 6th 2pm /to 4pm
+mark
+mark 0
+mark hi
+mark 4
+mark 1
+mark 3
+list
+unmark
+unmark hi
+unmark 0
+unmark 4
+unmark 3
+list
+todo delete this
+list
+delete
+delete hi
+delete 0
+delete 5
+delete 4
+list
+find
+find bo/ok
+find book
+deadline dtTest /by 2023-09-21 16:24
+event dtTest /from 09-22 /to 09-23
+list
+bye
