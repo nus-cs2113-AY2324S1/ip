@@ -1,0 +1,8 @@
+todo dance
+deadline sing /by Sunday 2359
+event party /from Friday 2000 /to Saturday 0200
+list
+mark 2
+list
+deadline CS2113 assignment /from 0600
+bye
