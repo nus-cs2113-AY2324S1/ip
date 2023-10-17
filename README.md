@@ -1,24 +1,20 @@
-# Duke project template
+# Duke Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to Duke, your personal task manager chatbot! Duke is a Java-based project designed to help you efficiently manage your tasks. Whether it's to-do lists, deadlines, or events, Duke has got you covered.
 
-## Setting up in Intellij
+## Getting Started
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+To start using Duke, follow these simple steps:
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Download the Latest Release: Navigate to the Releases section of this repository and download the latest ip.jar file. \
+Run Duke: Open your terminal or command prompt, and run the following command: 
+```
+java -jar ip.jar
+```
+This will launch Duke, and you can start managing your tasks right away!
+
+## User Guide
+
+For detailed instructions on using Duke and its features, please refer to the User Guide located in the docs directory.
+
+Enjoy using Duke to stay organized and boost your productivity! If you encounter any issues or have suggestions for improvement, feel free to open an issue. Your feedback is highly appreciated.
