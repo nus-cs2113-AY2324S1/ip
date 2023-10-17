@@ -1,0 +1,19 @@
+ascii false
+abc
+list abc
+list
+mark 1
+unmark 1
+todo
+deadline
+event
+todo buy bread
+deadline eat bread /by tomorrow
+event watch next episode of eminence in the shadows /from 1am /to 4am
+mark 1
+mark 2
+list
+unmark 2
+mark 3
+list
+bye

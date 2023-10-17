@@ -1,7 +1,52 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello I'm Rias-chan!
+Welcome back goshujin-sama, what can I do for you?
+
+ascii art is now false!
+
+I don't understand masta! Type a command uwu!
+
+uwu dont write anything after 'list'
+
+uwu masta task list is empty
+
+That is not a valid number masta!
+
+That is not a valid number masta!
+
+uwu master please put in a task description!
+
+You need /by in you command uwu!
+
+You need /from in you command uwu!
+
+added: [T][ ] buy bread
+Now you have 1 tasks in the list masta
+
+added: [D][ ] eat bread  (by:  tomorrow)
+Now you have 2 tasks in the list masta
+
+added: [E][ ] watch next episode of eminence in the shadows  (from:  1am  to:  4am)
+Now you have 3 tasks in the list masta
+
+Nicu! I have marked this as done master!
+[T][X] buy bread
+
+Nicu! I have marked this as done master!
+[D][X] eat bread  (by:  tomorrow)
+
+1. [T][X] buy bread
+2. [D][X] eat bread  (by:  tomorrow)
+3. [E][ ] watch next episode of eminence in the shadows  (from:  1am  to:  4am)
+
+Okay master! I have marked this task as not done!
+[D][ ] eat bread  (by:  tomorrow)
+
+Nicu! I have marked this as done master!
+[E][X] watch next episode of eminence in the shadows  (from:  1am  to:  4am)
+
+1. [T][X] buy bread
+2. [D][ ] eat bread  (by:  tomorrow)
+3. [E][X] watch next episode of eminence in the shadows  (from:  1am  to:  4am)
+
+Bye masta!
 
