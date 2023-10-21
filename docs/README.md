@@ -8,19 +8,21 @@ For each type command, a specific command format is required. Please go to the f
 e.g. "todo description" means to start with keyword todo and follows by the content
 
 
-Both capital letter and small letter are acceptable. But consecutive white space will be eliminated automatically.
+Both `capital letter` and `small letter` are acceptable. But consecutive white space will be eliminated automatically.
 
 ### Feature-XYZ
 
 Description of the feature.
 
-## Usage
+## Command Type
 
-### `Keyword` - Describe action
+### `Todo` - Adding a todo command
 
-Describe the action and its outcome.
+A todo tasks is a general task that doesn't need any time requirement.
 
-Example of usage: 
+Format: todo Descrption
+
+Example of usage: todo read book
 
 `keyword (optional arguments)`
 
