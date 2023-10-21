@@ -47,73 +47,88 @@ Some example commands you can try:
 ## Features
 
 ### Adding a task: todo/deadline/event
-Add a task to your TaskList. We have 3 kinds of tasks available: todo, deadline, event
-Format: todo DESCRIPTION_OF_TODO
-Format: deadline DESCRIPTION_OF_DEADLINE /by DEADLINE
-Format: event DESCRIPTION_OF_EVENT /from START_TIME /to END_TIME
+- Add a task to your TaskList. We have 3 kinds of tasks available: todo, deadline, event
 
-Examples:
-todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+- Format: todo DESCRIPTION_OF_TODO
+
+- Format: deadline DESCRIPTION_OF_DEADLINE /by DEADLINE
+
+- Format: event DESCRIPTION_OF_EVENT /from START_TIME /to END_TIME
+
+- Examples:
+ 
+· todo borrow book
+
+· deadline return book /by Sunday
+
+· event project meeting /from Mon 2pm /to 4pm
 
 ### Listing all tasks:
-Shows a list of all tasks that have been stored in the task list
-Format: list
+- Shows a list of all tasks that have been stored in the task list
 
-### Editing the status of a task : mark or unmark
-Set the status of a task based on a given index to "DONE" by using "mark" or
-Set the status of a task based on a given index to "NOT_DONE" by using "unmark"
+- Format: list
 
-Format: mark INDEX
-Format: unmark INDEX
+### Editing the status of a task: mark or unmark
+- Set the status of a task based on a given index to "DONE" by using "mark" or
 
-Examples:
-mark 1
-unmark 2
+- Set the status of a task based on a given index to "NOT_DONE" by using "unmark"
+
+- Format: mark INDEX
+
+- Format: unmark INDEX
+
+- Examples:
+
+· mark 1
+
+· unmark 2
 
 ### Finding all relative tasks by keywords: find
-Search for all the tasks in the task list that contain the keyword given by the user
+- Search for all the tasks in the task list that contain the keyword given by the user
 
-Format: find DESCRIPTION
-Examples:
-find book
+- Format: find DESCRIPTION
+
+- Examples:
+
+· find book
 
 ### Deleting a task: delete
-Deletes the specified task from the task list based on the index
-Format: delete INDEX
+- Deletes the specified task from the task list based on the index
 
-Deletes the person at the specified INDEX.
-The index refers to the index number shown in the displayed person list.
-The index must be a positive integer 1, 2, 3, …​
-Examples:
+- Format: delete INDEX
 
-delete 2: deletes the 2nd person in the address book.
-find Betsy followed by delete 1 deletes the 1st person in the results of the find command.
+- Deletes the person at the specified INDEX.
+
+- The index refers to the index number shown in the displayed person list.
+
+- The index must be a positive integer 1, 2, 3, …​
+
+- Examples:
+
+· delete 2: deletes the 2nd person in the address book.
 
 ### Clearing all entries: clear
-Clears all entries from the address book.
+- Clears all entries from the address book.
 
-Format: clear
+- Format: clear
 
 ### Exiting the program: bye
-Exits the program.
+- Exits the program.
 
-Format: bye
+- Format: bye
 
 ### Command summary
-Action	  Format,                                                            Examples
-todo      todo DESCRIPTION                                                   todo return book
-deadline  deadline DESCRIPTION /by DEADLINE                                  deadline return book /by Sunday
-event     event DESCRIPTION_OF_EVENT /from START_TIME /to END_TIME           event project meeting /from Mon 2pm /to 4pm
-delete	  delete INDEX                                                       delete 3
-mark	  mark INDEX                                                         mark 2
-unmark	  unmark INDEX                                                       unmark 2
-Find	  find KEYWORD                                                       find book
-List	  list
-Clear     clear
-Help	  help
 
+| Action | Format | Examples |
+| :---         |     :---:      |          ---: |
+| todo   | todo DESCRIPTION        | todo return book    |
+| deadline   | deadline DESCRIPTION /by DEADLINE         | deadline return book /by Sunday     |
+| event   | event DESCRIPTION_OF_EVENT /from START_TIME /to END_TIME | event project meeting /from Mon 2pm /to 4pm  |
+| delete   | delete INDEX           | deadline return book /by Sunday     |
+| mark   | mark INDEX  | mark 2 |
+| find   | find KEYWORD   | find book  |
+| Clear   | clear       | clear     |
+| Help   | help       | help     |
 
 
 
