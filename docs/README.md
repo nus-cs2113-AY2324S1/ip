@@ -107,7 +107,7 @@ Now you have 3 tasks in the list.
    Example: Find read book
 
 ### Limitations on the functions
-Note that each functions may limit its usage
+Note that each functions may limit its usage. And these could possibly be supported in the future.
 1. Find function could only look for a task content. Search by time is  `NOT` supported yet
 2. Delete, mark, and unmark function can only control one targte task at each time of execution
 3. Don't use list with index as it is not yet supported
