@@ -74,6 +74,11 @@ Now you have 3 tasks in the list.
 
   - **List**: View all the existing tasks created
   - **Mark**: Mark an existing task as finished
+  - **Unmark**: Change a finished task to unfinished
+  - **Delete**: Remove an existing task, regardless of its finish statue
+  - **Find**: Look for a specific task
+  - **Bye**: Exit the program
+  - **Help**: Look for hints of using the app
 
 ### `List` - To view all the existing tasks
 
