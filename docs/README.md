@@ -1,6 +1,6 @@
 # User Guide for Oriento
 
-Oriento is a desktop application designed to help you manage your tasks and guide your life in the right direction. It is optimized for use through Command Line Interface(CLI). If you can type face, it would run faster than a traditional GUI app.
+Oriento is a desktop application designed to help you manage your tasks and guide your life in the right direction. It is optimized for use through Command Line Interface(CLI). If you can type fast, it would run faster than a traditional GUI app.
 
 ## Quick Start
 
