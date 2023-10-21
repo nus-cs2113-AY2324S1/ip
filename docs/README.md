@@ -83,10 +83,16 @@ Now you have 3 tasks in the list.
 ### Format of the above funationalities
   Please follows either format for the input
 
-1. Withoud index: `list`, `help`, `bye` for the corresponding function.
+1. Withoud index: `list`, `help`, `bye` for the corresponding function
+   
 2. With index:
+   
      Format: `Action Index`
-     Example: mark 1, unmark 1,
+   
+     Example: mark 1, unmark 1
+   
 3. Find function:
-   \nFormat: `Find Keyword`
-   \nExample: Find read
+
+   Format: `Find Keyword`
+   
+   Example: Find read
