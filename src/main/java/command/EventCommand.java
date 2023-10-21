@@ -1,7 +1,7 @@
 package command;
 
-import duke.Duke;
-import exception.DukeException;
+import Oriento.Oriento;
+import exception.OrientoException;
 import exception.InvalidTimeException;
 import message.Text;
 import task.Event;
@@ -14,17 +14,24 @@ public class EventCommand extends AddCommand {
         super(eventTask);
     }
 
+    /**
+     *  eventTask represent the whole raw user command starts from "event"
+     *  Exception could occur in the following cases:
+     *  1. Input event command is with wrong format
+     *  2. Failed to write into the output file
+     *  3. Inappropriate period is detected, e.g. event period pass already
+     */
     @Override
     public void executeCommand(){
         try {
-            Duke.list[Duke.taskCount] = Event.newEventTask(this.command);
+            Oriento.list[Oriento.taskCount] = Event.newEventTask(this.command);
             Text.createTaskSuccessMsg();
-        } catch (DukeException e) {
+        } catch (OrientoException e) {
             e.incorrectFormatException("event");
         } catch (IOException io){
             System.out.println("OMG! Something went wrong! Please check if the source files are available.");
         } catch (InvalidTimeException d){
-            System.out.println("Please check your period again.");
+            System.out.println(d.getMessage());
         }
     }
 

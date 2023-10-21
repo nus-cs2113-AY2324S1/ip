@@ -10,6 +10,10 @@ public class ListCommand extends Command {
         super(false);
     }
 
+    /**
+     * list out all the tasks by print out all content in the saved file
+     * raises exception if failed to access or locate the output file
+     */
     @Override
     public void executeCommand() {
         try {

@@ -5,26 +5,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static duke.Duke.list;
-import static duke.Duke.taskCount;
+import static Oriento.Oriento.list;
+import static Oriento.Oriento.taskCount;
 
 public class Text {
+    /**
+     * this class contains all user interacting messages
+     */
 
     public static void printWelcomeMessage() {
         System.out.println("Hello! I'm Oriento.");
         System.out.println("What can I help you?");
-        System.out.println("⣿⣿⣿⠟⠛⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⢋⣩⣉⢻⣿\n" +
-                "⣿⣿⣿⠀⣿⣶⣕⣈⠹⠿⠿⠿⠿⠟⠛⣛⢋⣰⠣⣿⣿⠀⣿⣿\n" +
-                "⣿⣿⣿⡀⣿⣿⣿⣧⢻⣿⣶⣷⣿⣿⣿⣿⣿⣿⠿⠶⡝⠀⣿⣿\n" +
-                "⣿⣿⣿⣷⠘⣿⣿⣿⢏⣿⣿⣋⣀⣈⣻⣿⣿⣷⣤⣤⣿⡐⢿⣿\n" +
-                "⣿⣿⣿⣿⣆⢩⣝⣫⣾⣿⣿⣿⣿⡟⠿⠿⠦⠀⠸⠿⣻⣿⡄⢻⣿\n" +
-                "⣿⣿⣿⣿⣿⡄⢻⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣾⣿⣿⣿⣿⠇⣼⣿\n" +
-                "⣿⣿⣿⣿⣿⣿⡄⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⣰⣿\n" +
-                "⣿⣿⣿⣿⣿⣿⠇⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢀⣿⣿\n" +
-                "⣿⣿⣿⣿⣿⠏⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿\n" +
-                "⣿⣿⣿⣿⠟⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿\n" +
-                "⣿⣿⣿⠋⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⣿⣿\n" +
-                "⣿⣿⠋⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿\n");
+    }
+
+    public static void printHelpMessage() {
+        System.out.println("Sorry I do not tell you use how to give commands. Please see the following hints.");
+        System.out.println("Hint1: To create a task, please start with 'todo', 'event', 'deadline'.");
+        System.out.println("Hint2: To modify task statue, please start with 'mark' or 'unmark'.");
+        System.out.println("please use 'list' to look for your task list, or 'delete' to remove a task.");
+        System.out.println("You may use 'find' to search for your task.");
     }
 
     public static void printByeMessage(){
@@ -39,6 +38,10 @@ public class Text {
         }
     }
 
+    /**
+     * Instead of printing from current list, this method print the content from a output file
+     * @throws IOException if failed to access file
+     */
     public static void printList() throws IOException{
         if (taskCount == 0){
             System.out.println("You don't have any tasks now. Do you want to add a new task?");
@@ -48,6 +51,10 @@ public class Text {
 
     }
 
+    /**
+     * write into output file every time new task is created successfully
+     * @throws IOException if failed to access tasks
+     */
     public static void createTaskSuccessMsg() throws IOException{
         System.out.println("Got it. I've added this task:");
         System.out.println(list[taskCount]);
@@ -69,11 +76,20 @@ public class Text {
         fw.close();
     }
 
+    /**
+     * tell the user the task is deleted successfully
+     * decrement the taskCount by 1
+     * @param deleteIndex index of the deleted task
+     */
     public static void deleteTaskSuccessMsg(int deleteIndex) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(list[deleteIndex - 1]);
         taskCount--;
         System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public static void printdottedline() {
+        System.out.println("================================================");
     }
 
 }

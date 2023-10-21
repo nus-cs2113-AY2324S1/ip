@@ -1,6 +1,6 @@
 package task;
 
-import exception.DukeException;
+import exception.OrientoException;
 
 public class Todo extends Task {
 
@@ -8,15 +8,18 @@ public class Todo extends Task {
         super(description);
     }
 
-    public static Todo newTodoTask(String userCommand) throws DukeException {
+    public static Todo newTodoTask(String userCommand) throws OrientoException {
         String[] todoSplit = userCommand.split(" ", 2);
         if ( todoSplit[1].isEmpty() ){
-            throw new DukeException("You got nothing to create. Please try again.");
+            throw new OrientoException("You got nothing to create. Please try again.");
         }
         return new Todo(todoSplit[1]);
     }
 
-
+    /**
+     * print example: [T][ ] read book
+     * @return string contains todo task information
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString() ;

@@ -1,11 +1,11 @@
 package exception;
 
-public class DukeException extends Exception {
+public class OrientoException extends Exception {
 
-    public DukeException() {
+    public OrientoException() {
     }
 
-    public DukeException(String message) {
+    public OrientoException(String message) {
         super(message);
     }
 
@@ -13,6 +13,11 @@ public class DukeException extends Exception {
         System.out.println("Sorry, your command for " + taskType + " task is not in the correct format. Please try again.");
     }
 
+    /**
+     * Use to raises exception when incorrect format is found
+     * tell the users what is correct format for the current input task
+     * @param taskType represents the task type string such as "todo", "deadline", etc.
+     */
     public void incorrectFormatException(String taskType) {
         switch (taskType){
         case "todo":
@@ -33,11 +38,7 @@ public class DukeException extends Exception {
             System.out.println("Example: event project meeting /from Mon 2pm /to 4pm");
             break;
 
-        case "delete":
-            break;
-
         default:
-            //for case without correct start and empty command
             System.out.println("Please start with the supported task types: 'todo', 'deadline', 'event'. ");
         }
 

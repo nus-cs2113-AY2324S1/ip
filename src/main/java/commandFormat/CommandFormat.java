@@ -3,23 +3,36 @@ package commandFormat;
 
 public class CommandFormat {
 
+    /**This method is to transform the user command into 'expected' format for parsing purpose
+     * User Input is transformed to smaller letter,
+     * removed leading and ending space, and contracted any consecutive space
+     * @param cmd user command
+     * @return updated command
+     */
     public static String formattedCommand(String cmd){
-        cmd = cmd.trim().toLowerCase(); //small letter and remove front and back space
-        cmd = cmd.replaceAll("\\s+", " ");   //remove if consecutive space
+        cmd = cmd.trim().toLowerCase();
+        cmd = cmd.replaceAll("\\s+", " ");
 
         return cmd;
     }
 
+    /**
+     * raises exception when taskNum is not number, or containing non-numerical value
+     */
     public static int getTaskNo(String taskNum) {
-        //exception: taskNum is not number, or containing non-numerical value
         return Integer.parseInt(taskNum);
     }
 
-    //To tackle cases of invalid input like 'todo', 'event', etc.
+    /**
+     * use to tackle cases with valid starting input like "todo", "event", "list",
+     * but lacking in index or having extra index/content
+     * e.g. find command should have content while list should not
+     */
     public static boolean missingOrExtraTaskDescription(String[] cmd){
         if (cmd.length == 1){
             if(cmd[0].equals("todo") || cmd[0].equals("event") || cmd[0].equals("deadline")
-                    || cmd[0].equals("mark") || cmd[0].equals("unmark") || cmd[0].equals("delete")){
+                    || cmd[0].equals("mark") || cmd[0].equals("unmark") || cmd[0].equals("delete")
+                    || cmd[0].equals("find")){
                 System.out.println("Please describe your target.");
                 return true;
             }
