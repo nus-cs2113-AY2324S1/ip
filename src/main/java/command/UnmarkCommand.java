@@ -9,11 +9,12 @@ import static commandFormat.CommandFormat.getTaskNo;
 import static fileIO.FileIO.overwriteToFile;
 
 public class UnmarkCommand extends Command{
+
+    private String index;
+
     /**
      * similar to mark
      */
-    private String index;
-
     public UnmarkCommand(String index) {
         super(false);
         this.index = index;

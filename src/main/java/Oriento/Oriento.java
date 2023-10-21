@@ -23,7 +23,7 @@ public class Oriento {
     public static int taskCount = 0;
     public static Task[] list = new Task[100];
 
-    public static void main(String[] args) throws IOException, OrientoException {
+    public static void main(String[] args) throws IOException {
         Text.printWelcomeMessage();
         Scanner keyboard = new Scanner(System.in);
         FileIO.outputFileInitialization();

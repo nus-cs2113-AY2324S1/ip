@@ -34,7 +34,7 @@ public class DeadlineCommand extends AddCommand {
         } catch (IOException io){
             System.out.println("OMG! Something went wrong! Please check if the source files are available.");
         } catch (InvalidTimeException ite){
-            System.out.println("Please check your schedule.");
+            System.out.println("Deadline is over already!");
         }
 
     }

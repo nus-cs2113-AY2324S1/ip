@@ -28,7 +28,8 @@ public class CommandFormat {
     public static boolean missingOrExtraTaskDescription(String[] cmd){
         if (cmd.length == 1){
             if(cmd[0].equals("todo") || cmd[0].equals("event") || cmd[0].equals("deadline")
-                    || cmd[0].equals("mark") || cmd[0].equals("unmark") || cmd[0].equals("delete")){
+                    || cmd[0].equals("mark") || cmd[0].equals("unmark") || cmd[0].equals("delete")
+                    || cmd[0].equals("find")){
                 System.out.println("Please describe your target.");
                 return true;
             }

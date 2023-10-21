@@ -22,7 +22,7 @@ public class Event extends Task {
      * if failed to parse input, assume the user is true
      * @InvalidTimeException caught in EventCommand class
      */
-    public static Event newEventTask(String userCommand) throws OrientoException, InvalidTimeException {
+    public static Event newEventTask(String userCommand) throws OrientoException,InvalidTimeException {
         //command format: event project meeting /from Mon 2pm /to 4pm
         if (!(userCommand.contains("/from")) || !(userCommand.contains("/to"))){
             throw new OrientoException("Oh, no! There is no '/from' or '/to' ");
@@ -52,10 +52,10 @@ public class Event extends Task {
      * 2. end time is over already
      */
     private static void testTimeInput(String startTime, String endTime) throws InvalidTimeException {
-        LocalDateTime now = LocalDateTime.now();
         try{
             LocalDateTime start = TimeParser.parseDateTime(startTime);
             LocalDateTime end = TimeParser.parseDateTime(endTime);
+            LocalDateTime now = LocalDateTime.now();
             if(end.isBefore(now)){
                 throw new InvalidTimeException("The event is ended. Please check the end time again.");
             }

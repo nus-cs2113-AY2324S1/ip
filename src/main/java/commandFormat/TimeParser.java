@@ -12,7 +12,7 @@ public class TimeParser {
      * @return LocalDataTIme object
      */
     public static LocalDateTime parseDateTime(String input) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy Hmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return LocalDateTime.parse(input, formatter);
     }
 

@@ -31,7 +31,7 @@ public class EventCommand extends AddCommand {
         } catch (IOException io){
             System.out.println("OMG! Something went wrong! Please check if the source files are available.");
         } catch (InvalidTimeException d){
-            System.out.println("Please check your period again.");
+            System.out.println(d.getMessage());
         }
     }
 
