@@ -81,18 +81,29 @@ Now you have 3 tasks in the list.
   - **Help**: Look for hints of using the app
 
 ### Format of the above funationalities
-  Please follows either format for the input
+  Please follows either format for the input, where index refers to the task number of a task, which can be found after list out the tasks
 
 1. Withoud index: `list`, `help`, `bye` for the corresponding function
    
 2. With index:
    
-     Format: `Action Index`
+    Format: `Action Index`
    
-     Example: mark 1, unmark 1
+    Example: mark 1
+
+    Expected outcome:
+
+    ```
+        Nice! I've marked this task as done:
+    [X] read book
+    ```
    
 3. Find function:
 
    Format: `Find Keyword`
    
    Example: Find read
+
+### Counter Example
+Note that the following case is not yet supported
+1. Try to 
