@@ -1,5 +1,6 @@
 package bob.commands;
 
+import bob.BobException;
 import bob.tasklist.TaskList;
 
 /**
@@ -16,7 +17,11 @@ public class FindCommand extends Command {
      *
      * @param line Keyword to look for in task list.
      */
-    public FindCommand(String line) {
+    public FindCommand(String line) throws BobException {
+        if (line.isEmpty()) {
+            throw new BobException("No keyword specified.");
+        }
+
         keyword = line;
     }
 
