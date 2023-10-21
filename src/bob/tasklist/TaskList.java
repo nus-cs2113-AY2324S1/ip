@@ -80,37 +80,13 @@ public class TaskList {
     }
 
     /**
-     * Handler for creating a new Deadline.
+     * Handler for adding a new deadline to the list of tasks.
      *
-     * @param line containing description and deadline, with the deadline in the form
-     *             {@code /by deadline}.
-     * @return new Deadline.
-     * @throws BobException when description is empty or when deadline is unspecified.
+     * @param deadline Deadline to add into list of tasks.
+     * @return Message indicating that deadline has been added.
      */
-    public String handleCreateDeadline(String line) throws BobException {
-        int byIdx = line.indexOf("/by");
-        if (byIdx == -1) {
-            throw new BobException("The /by of a deadline must be specified");
-        }
-
-        // Extract task description and deadline from user input
-        if (byIdx == 0) {
-            throw new BobException("The description of a deadline cannot be empty");
-        }
-
-        String description = line.substring(0,byIdx-1);
-        if (description.trim().length() == 0) {
-            throw new BobException("The description of a deadline cannot be empty");
-        }
-
-        int deadlineIdx = byIdx+ "/by ".length();
-        if (deadlineIdx >= line.length()) {
-            throw new BobException("The /by of a deadline cannot be empty");
-        }
-
-        LocalDate deadline = LocalDate.parse(line.substring(deadlineIdx));
-
-        taskItems.add(new Deadline(description, deadline));
+    public String handleCreateDeadline(Deadline deadline) {
+        taskItems.add(deadline);
 
         return taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size());
     }

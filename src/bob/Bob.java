@@ -1,9 +1,11 @@
 package bob;
 
+import bob.deadline.Deadline;
 import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.tasklist.TaskList;
 import bob.ui.Ui;
+import bob.commands.DeadlineCommand;
 
 import java.io.IOException;
 
@@ -73,9 +75,11 @@ public class Bob {
                     result = String.valueOf(e);
                 }
                 break;
-            case "deadline":
+            case DeadlineCommand.COMMAND_WORD:
                 try {
-                    result = tasks.handleCreateDeadline(arguments);
+                    //result = tasks.handleCreateDeadline(arguments);
+                    DeadlineCommand deadline = new DeadlineCommand(arguments);
+                    result = deadline.execute(tasks);
                 } catch (BobException e) {
                     result = String.valueOf(e);
                 }
