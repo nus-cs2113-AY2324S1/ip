@@ -88,5 +88,5 @@ Now you have 3 tasks in the list.
      Format: `Action Index`
      Example: mark 1, unmark 1,
 3. Find function:
-     Format: `Find Keyword`
-     Example: Find read
+   \nFormat: `Find Keyword`
+   \nExample: Find read
