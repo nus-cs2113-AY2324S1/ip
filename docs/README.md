@@ -6,7 +6,7 @@ Oriento is a desktop application designed to help you manage your tasks and guid
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-2. Download the latest `ip.jar` from https://github.com/J-Y-Yan/ip/releases.
+2. Download the latest `ip.jar` from here(https://github.com/J-Y-Yan/ip/releases).
 
 3. Copy the file to the folder you want to use as the *home folder* for Oriento.
 
