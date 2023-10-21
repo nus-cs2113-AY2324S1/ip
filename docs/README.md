@@ -70,7 +70,7 @@ Now you have 3 tasks in the list.
 ```
 
 ## Control Task List
-  Refers to the following as some alternative methods:
+  Refers to the following as some alternative methods to use the app:
 
   - **List**: View all the existing tasks created
   - **Mark**: Mark an existing task as finished
@@ -80,12 +80,13 @@ Now you have 3 tasks in the list.
   - **Bye**: Exit the program
   - **Help**: Look for hints of using the app
 
-### `List` - To view all the existing tasks
+### Format of the above funationalities
+  Please follows either format for the input
 
-Format: `list` 
-
-### `Mark` - To mark a task as finish
-
-Release all the tasks inside a list
-
-Format: `list` 
+1. Withoud index: `list`, `help`, `bye` for the corresponding function.
+2. With index:
+   Format: `Action Index`
+   Example: mark 1, unmark 1,
+3. Find function:
+   Format: `Find Keyword`
+   Example: Find read
