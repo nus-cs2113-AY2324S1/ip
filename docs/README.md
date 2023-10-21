@@ -81,9 +81,9 @@ Now you have 3 tasks in the list.
 ### Format of the above funationalities
   Please follows either format for the input, where index refers to the task number of a task, which can be found after list out the tasks
 
-1. **Withoud index**: `list`, `help`, `bye` for the corresponding function
+### 1. `Without Index` : `list`, `help`, `bye` for the corresponding function
    
-2. **With index**:  
+### 2. `With index` - Control a target task: 
    
     Format: `Action Index`
    
@@ -98,7 +98,7 @@ Now you have 3 tasks in the list.
 
     More examples: unmark 2, delete 10
    
-3. **Find function**:
+### 3. `Find` - look for a task:
 
    Format: `Find Content`
    
