@@ -17,7 +17,7 @@
   2. Date-Time format: DD/MM/YYYY HHMM. e.g. 21/10/2023 1730
 
      
-  Note that apart from above format, the current version of app will treat any time     input as valid time. e.g. Friday, Birthday of Ethan, etc. Please make wise use of     the time input.
+  Note that apart from the above formats, the current version of app will treat any     time input as valid time. e.g. Friday, Birthday of Ethan, etc. Please make wise use   of the time input.
 
 ### Feature-XYZ
 
