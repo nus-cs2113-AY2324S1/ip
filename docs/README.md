@@ -109,4 +109,4 @@ Note that each functions may limit its usage. And these could possibly be suppor
 1. Find function could only look for a task content. Search by time is  `NOT` supported yet
 2. Delete, mark, and unmark function can only control one targte task at each time of execution
 3. Don't use list with index as it is not yet supported
-4. Current only Date Time format is supported. Date format is not allowed. But you can use it as a general time format.
+4. Current only Date Time format is supported. Date format is not allowed. But you can use it as a general time format. However, general time format `Does NOT` support time validating function.
