@@ -6,7 +6,8 @@ import exception.OrientoException;
 public class CommandType {
 
     /**
-     *
+     * The parseCommand will parse the user input and generate a respective command object
+     * e.g. if the user command aims to add a todo task, it should return a todo command
      * @param input represents raw user command
      * @return Command object of correct type
      * @throws OrientoException if input is in none of the expected cases

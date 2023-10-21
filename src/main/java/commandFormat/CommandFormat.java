@@ -2,8 +2,10 @@ package commandFormat;
 
 
 public class CommandFormat {
-    /**
-     * transform to smaller letter, removing leading and ending space, and contract any consecutive space
+
+    /**This method is to transform the user command into 'expected' format for parsing purpose
+     * User Input is transformed to smaller letter,
+     * removed leading and ending space, and contracted any consecutive space
      * @param cmd user command
      * @return updated command
      */
@@ -23,7 +25,8 @@ public class CommandFormat {
 
     /**
      * use to tackle cases with valid starting input like "todo", "event", "list",
-     * but lacking in index or having extra index
+     * but lacking in index or having extra index/content
+     * e.g. find command should have content while list should not
      */
     public static boolean missingOrExtraTaskDescription(String[] cmd){
         if (cmd.length == 1){

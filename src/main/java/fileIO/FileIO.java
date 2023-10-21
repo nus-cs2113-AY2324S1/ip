@@ -182,6 +182,13 @@ public class FileIO {
         return description.substring(startIndex, endIndex);
     }
 
+    /**
+     * This method will restore the saved data, but scanner the old data,
+     * and simple generate a new taskList again with the saved data
+     * @param DATA_PATH path of backUp file
+     * @throws IOException if failed to access files
+     * Exception is generated when creating a task using the saved data
+     */
     public static void restoreSavedData(String DATA_PATH) throws IOException, OrientoException, IndexOutOfBoundsException{
         try {
             File file = new File(DATA_PATH);

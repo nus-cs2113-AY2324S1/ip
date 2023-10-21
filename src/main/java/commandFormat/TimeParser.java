@@ -6,8 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class TimeParser {
+
     /**
-     *
+     * This changes a string of time into a dataTIme object
+     * It only supports string with format of DDMMYYYY HHMM format
      * @param input time string
      * @return LocalDataTIme object
      */
@@ -17,7 +19,7 @@ public class TimeParser {
     }
 
     /**
-     *
+     * This method can transform a dataTime object into a string information of dateTime
      * @param dateTime object of LocalDateTime
      * @return converted string
      */

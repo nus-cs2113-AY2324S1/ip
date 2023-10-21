@@ -67,8 +67,8 @@ public class Task {
     }
 
     /**
-     *
-     * @return string contains all task data
+     * This method will only read the global taskList
+     * @return string contains all task data inside the global taskList
      */
     public static String getConcatenateTasks() {
         StringBuilder stringBuilder = new StringBuilder();

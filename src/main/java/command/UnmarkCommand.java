@@ -23,6 +23,7 @@ public class UnmarkCommand extends Command{
     /**
      * change the task statue to unfinished
      * only applicable to finished task
+     * It gives error message when wrong index is used or the output file cannot be found
      */
     @Override
     public void executeCommand() {
