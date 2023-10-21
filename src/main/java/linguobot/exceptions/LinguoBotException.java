@@ -1,4 +1,4 @@
-package linguobot.command;
+package linguobot.exceptions;
 /**
  * The <code>LinguoBotException</code> class represents a custom exception used in the LinguoBot application.
  * It extends the standard Java `Exception` class and is used to handle specific application-related exceptions.

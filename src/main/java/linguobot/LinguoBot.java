@@ -1,11 +1,10 @@
 package linguobot;
 
-import linguobot.task.Task;
-import linguobot.command.CommandResponse;
-import linguobot.file.TaskFile;
-
-import java.util.Scanner;
-import java.util.ArrayList;
+import linguobot.command.Command;
+import linguobot.command.Exit;
+import linguobot.exceptions.LinguoBotException;
+import linguobot.parser.Parser;
+import linguobot.task.TaskList;
 
 /**
  * The <code>LinguoBot</code> class represents a simple command-line task management application.
@@ -14,50 +13,38 @@ import java.util.ArrayList;
  * to a file.
  */
 public class LinguoBot {
-    private TaskFile taskFile;
-    private ArrayList<Task> taskList;
-    private Scanner in;
+    private final Input input = new Input();
+    private final TaskList taskList = new TaskList();
+    private final Parser parser = new Parser(taskList);
 
     /**
-     * Constructs a new <code>LinguoBot</code> instance. It initializes the task list based on tasks
-     * stored in the task file and sets up the input scanner.
-     */
-    public LinguoBot() {
-        taskFile = new TaskFile("./data/tasks.txt");
-        taskList = taskFile.loadTasksFromFile();
-        in = new Scanner(System.in);
-    }
-
-    public static void main(String[] args) {
-        LinguoBot linguoBot = new LinguoBot();
-        linguoBot.run();
-    }
-
-    /**
-     * Runs the main loop of the <code>LinguoBot</code> application, allowing users to interact
-     * with tasks through various commands.
+     * Main entry-point for the application.
      */
     public void run() {
-        CommandResponse.displayWelcomeMessage();
-        TaskFile.printFile();
-        while (true) {
-            String userInput = in.nextLine();
-            if (userInput.equals("list")) {
-                CommandResponse.printTaskList(taskList);
-            }else if (userInput.startsWith("find")) {
-                CommandResponse.findTask(taskList, userInput);
-            } else if (userInput.startsWith("mark")) {
-                CommandResponse.markTaskAsDone(taskList, userInput);
-            } else if (userInput.startsWith("unmark")) {
-                CommandResponse.markTaskAsUndone(taskList, userInput);
-            } else if (userInput.startsWith("delete")) {
-                CommandResponse.deleteTask(taskList, userInput);
-            } else if (userInput.startsWith("bye")) {
-                CommandResponse.displayGoodbyeMessage();
-                break;
-            } else {
-                CommandResponse.addTask(taskList, userInput);
+        String logo =
+                " __    _                 _____     _   \n" +
+                "|  |  |_|___ ___ _ _ ___| __  |___| |_ \n" +
+                "|  |__| |   | . | | | . | __ -| . |  _|\n" +
+                "|_____|_|_|_|_  |___|___|_____|___|_|  \n" +
+                "            |___|                      ";
+
+        String[] welcomeMessage = {"Hello I'm", logo, "What can I do for you?"};
+        Ui.printMultipleText(welcomeMessage);
+
+        Command command = null;
+        while (!(command instanceof Exit)) {
+            String inputString = input.getInputString();
+            try {
+                command = parser.parse(inputString);
+                command.execute();
+            } catch (LinguoBotException e) {
+                Ui.printMultipleText(new String[]{
+                        e.getMessage()
+                });
             }
         }
+    }
+    public static void main(String[] args) {
+        new LinguoBot().run();
     }
 }

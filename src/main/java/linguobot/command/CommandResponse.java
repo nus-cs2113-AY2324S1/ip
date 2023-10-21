@@ -1,5 +1,6 @@
 package linguobot.command;
 
+import linguobot.exceptions.LinguoBotException;
 import linguobot.task.Deadline;
 import linguobot.task.Event;
 import linguobot.task.Task;
