@@ -1,5 +1,7 @@
 package bob;
 
+import bob.commands.*;
+import bob.event.Event;
 import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.tasklist.TaskList;
@@ -57,37 +59,39 @@ public class Bob {
             ui.printLine();
 
             switch (command) {
-            case "list":
-                result = tasks.handleGetList();
+            case ListCommand.COMMAND_WORD:
+                result = new ListCommand().execute(tasks);
                 break;
-            case "mark":
-                result = tasks.markItem(arguments);
+            case MarkCommand.COMMAND_WORD:
+                result = new MarkCommand(arguments).execute(tasks);
                 break;
-            case "unmark":
-                result = tasks.unmarkItem(arguments);
+            case UnmarkCommand.COMMAND_WORD:
+                result = new UnmarkCommand(arguments).execute(tasks);
                 break;
-            case "todo":
+            case TodoCommand.COMMAND_WORD:
                 try {
-                    result = tasks.handleCreateTodo(arguments);
+                    result = new TodoCommand(arguments).execute(tasks);
                 } catch (BobException e) {
                     result = String.valueOf(e);
                 }
                 break;
-            case "deadline":
+            case DeadlineCommand.COMMAND_WORD:
                 try {
-                    result = tasks.handleCreateDeadline(arguments);
+                    //result = tasks.handleCreateDeadline(arguments);
+                    DeadlineCommand deadline = new DeadlineCommand(arguments);
+                    result = deadline.execute(tasks);
                 } catch (BobException e) {
                     result = String.valueOf(e);
                 }
                 break;
-            case "event":
-                result = tasks.handleCreateEvent(arguments);
+            case EventCommand.COMMAND_WORD:
+                result = new EventCommand(arguments).execute(tasks);
                 break;
-            case "find":
-                result = tasks.handleFindTask(arguments);
+            case FindCommand.COMMAND_WORD:
+                result = new FindCommand(arguments).execute(tasks);
                 break;
-            case "delete":
-                result = tasks.handleDeleteTask(arguments);
+                case DeleteCommand.COMMAND_WORD:
+                result = new DeleteCommand(arguments).execute(tasks);
                 break;
             default:
                 result = "I don't know that command";

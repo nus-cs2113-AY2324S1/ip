@@ -32,11 +32,11 @@ public class TaskList {
      * Marks item in task as complete. Returns message confirming that task has been
      * marked as complete.
      *
-     * @param line index of task to be marked as complete as a String.
+     * @param markIdx index of task to be marked as complete.
      * @return formatted message declaring that the task has been marked as complete.
      */
-    public String markItem(String line) {
-        int markIdx = Integer.parseInt(line) - 1;
+    public String markItem(int markIdx) {
+
         taskItems.get(markIdx).setIsDone(true);
 
         return String.format("Nice! I've marked this task as done: \n\t  "
@@ -47,11 +47,10 @@ public class TaskList {
      * Marks item as incomplete. Returns message confirming that task has been marked as
      * incomplete.
      *
-     * @param line index of task to be marked as incomplete as a String.
+     * @param markIdx index of task to be marked as incomplete as a String.
      * @return formatted message declaring that the task has been marked as incomplete.
      */
-    public String unmarkItem(String line) {
-        int markIdx = Integer.parseInt(line) - 1;
+    public String unmarkItem(int markIdx) {
         taskItems.get(markIdx).setIsDone(false);
 
         return String.format("Nice! I've marked this task as undone: \n\t  " +
@@ -61,56 +60,23 @@ public class TaskList {
     /**
      * Handler for creating a new Todo.
      *
-     * @param description description of todo.
-     * @return new Todo.
-     * @throws BobException when description of todo is empty.
+     * @param Todo todo to add.
+     * @return Message declaring that todo has been added.
      */
-    public String handleCreateTodo(String description) throws BobException {
-        if (description.isEmpty()) {
-            throw new BobException("The description of a todo cannot be empty");
-        }
-
-        if (description.trim().length() == 0) {
-            throw new BobException("The description of a todo cannot be empty");
-        }
-
-        taskItems.add(new Todo(description));
+    public String handleCreateTodo(Todo todo) {
+        taskItems.add(todo);
 
         return taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size());
     }
 
     /**
-     * Handler for creating a new Deadline.
+     * Handler for adding a new deadline to the list of tasks.
      *
-     * @param line containing description and deadline, with the deadline in the form
-     *             {@code /by deadline}.
-     * @return new Deadline.
-     * @throws BobException when description is empty or when deadline is unspecified.
+     * @param deadline Deadline to add into list of tasks.
+     * @return Message indicating that deadline has been added.
      */
-    public String handleCreateDeadline(String line) throws BobException {
-        int byIdx = line.indexOf("/by");
-        if (byIdx == -1) {
-            throw new BobException("The /by of a deadline must be specified");
-        }
-
-        // Extract task description and deadline from user input
-        if (byIdx == 0) {
-            throw new BobException("The description of a deadline cannot be empty");
-        }
-
-        String description = line.substring(0,byIdx-1);
-        if (description.trim().length() == 0) {
-            throw new BobException("The description of a deadline cannot be empty");
-        }
-
-        int deadlineIdx = byIdx+ "/by ".length();
-        if (deadlineIdx >= line.length()) {
-            throw new BobException("The /by of a deadline cannot be empty");
-        }
-
-        LocalDate deadline = LocalDate.parse(line.substring(deadlineIdx));
-
-        taskItems.add(new Deadline(description, deadline));
+    public String handleCreateDeadline(Deadline deadline) {
+        taskItems.add(deadline);
 
         return taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size());
     }
@@ -118,20 +84,11 @@ public class TaskList {
     /**
      * Handler for creating a new event.
      *
-     * @param line containing a description, and the start and end times of the deadline in
-     *             the form {@code /from start /to end}.
-     * @return new Event.
+     * @param event Event to add into list of tasks.
+     * @return Message indicating that event has been added.
      */
-    public String handleCreateEvent(String line) {
-        int fromIdx = line.indexOf("/from");
-        int toIdx = line.indexOf("/to");
-
-        // Extract task description, start time and end time from user input
-        String description = line.substring(0, fromIdx-1);
-        String start = line.substring(fromIdx+ "/from ".length(), toIdx-1);
-        String end = line.substring(toIdx+ "/to ".length());
-
-        taskItems.add(new Event(description, start, end));
+    public String handleCreateEvent(Event event) {
+        taskItems.add(event);
 
         return taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size());
     }
@@ -139,12 +96,10 @@ public class TaskList {
     /**
      * Handler for deleting a task.
      *
-     * @param line index of task to delete as a String.
+     * @param deleteIdx index of task to delete.
      * @return message confirming task has been deleted.
      */
-    public String handleDeleteTask(String line) {
-        int deleteIdx = Integer.parseInt(line) - 1;
-
+    public String handleDeleteTask(int deleteIdx) {
         String deleteMessage = taskItems.get(deleteIdx).getTaskDeleted(taskItems.size()-1);
         taskItems.remove(deleteIdx);
 
