@@ -90,6 +90,10 @@ public class TaskList {
         return formatted.toString();
     }
 
+    public int size() {
+        return tasks.size();
+    }
+
     /**
      * Returns a serialized version of all tasks
      * in TaskList for saving into the .txt file.

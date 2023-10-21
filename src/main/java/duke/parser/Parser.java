@@ -29,6 +29,9 @@ public class Parser {
         if (divider == -1) {
             throw new DukeException("Sorry! Not sure what you mean");
         }
+        if (divider == line.length() - 1) {
+            throw new DukeException("Please enter a non-empty parameter value");
+        }
 
 
         if (line.startsWith("todo")){
@@ -43,7 +46,7 @@ public class Parser {
 
         if (line.contains("mark") || line.startsWith("delete")) {
             int idx = Integer.parseInt(line.substring(divider + 1)) - 1;
-            if (idx < 0 || tasks.get(idx) == null) {
+            if (idx < 0 || idx >= tasks.size()) {
                 throw new DukeException("Sorry! That's not a valid task");
             }
 
@@ -82,7 +85,7 @@ public class Parser {
 
         int startDescription = line.indexOf(" ");
         int endOfDescription = line.indexOf(" /");
-        if (startDescription == -1 || endOfDescription == -1) {
+        if (startDescription == endOfDescription || startDescription == -1 || endOfDescription == -1) {
             throw new DukeException("Sorry! Not sure what you mean");
         }
         fieldToValue.put("description", line.substring(startDescription + 1, endOfDescription));

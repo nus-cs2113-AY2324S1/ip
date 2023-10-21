@@ -47,7 +47,7 @@ public class Duke {
                 String result = parser.executeCommand(userInput, tasks);
                 storage.saveTasks(tasks);
                 return result;
-            } catch (DukeException e) {
+            } catch (Exception e) {
                 return e.getMessage();
             }
         }
