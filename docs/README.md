@@ -16,9 +16,6 @@
   Note that apart from the above formats, the current version of app will treat any time input as valid time.
   e.g. Friday, Birthday of Ethan, etc. Please make wise use of the time input.
 
-### Feature-XYZ
-
-Description of the feature.
 
 ## Command Type
 
