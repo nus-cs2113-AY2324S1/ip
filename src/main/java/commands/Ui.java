@@ -1,5 +1,8 @@
 package commands;
 
+/**
+ * The `Ui` class is responsible for user interface-related operations, such as displaying messages.
+ */
 public class Ui {
 
     /**
@@ -25,6 +28,12 @@ public class Ui {
         System.out.println(lineBreak + "Bye. Hope to see you again soon!\n");
     }
 
+
+    /**
+     * Displays an error message to the user.
+     *
+     * @param errorMessage The error message to be displayed.
+     */
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
     }

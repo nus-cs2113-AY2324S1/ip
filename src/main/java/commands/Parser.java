@@ -2,6 +2,10 @@ package commands;
 
 import java.util.Objects;
 
+/**
+ * The `Parser` class is responsible for parsing user input and validating it for various commands in the Duke application.
+ * It performs input validation for different commands, such as "mark," "unmark," "todo," "find," "delete," and timed tasks like "event" and "deadline."
+ */
 public class Parser {
 
     private static Ui ui;

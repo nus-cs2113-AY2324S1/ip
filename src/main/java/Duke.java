@@ -52,15 +52,6 @@ public class Duke {
                     break;
                 }
 
-                case "help": {
-                    System.out.println("Welcome to your to do list!. Here are the commands");
-                    System.out.println("To add Deadlines, type in 'deadline <task name> /<deadline>");
-                    System.out.println("example: 'deadline do 2113 assignment /tuesday 2pm");
-                    System.out.println("To add Events, type in 'event <event name> /<event start time> /<event end time>");
-                    System.out.println("example: 'deadline do 2113 assignment /tuesday 2pm/4pm");
-                    break;
-                }
-
                 case "delete": {
                     int index = Integer.parseInt(words[1]);
                     Task item = tasks.get(index - 1);
@@ -157,10 +148,7 @@ public class Duke {
 
                 }
                 default: {
-                    Task currTask = new Task(userInput);
-                    tasks.add(currTask);
-                    storage.addToFile("T|0|" + userInput);
-                    System.out.println("added: " + userInput);
+                    System.out.println("Invalid input, valid task adding commands are: event, deadline and todo");
                     break;
                 }
                 }

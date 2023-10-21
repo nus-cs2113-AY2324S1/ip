@@ -2,8 +2,12 @@ package commands;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The `Storage` class handles the storage and retrieval of task data from a specified text file.
+ */
 public class Storage {
 
     private final String dukeDataFile;
@@ -18,30 +22,34 @@ public class Storage {
     }
 
     /**
-     * Adds a new task to the data file and increments the task list size.
+     * This method takes in the path of a txt file and adds 'textToAdd' to the last line
+     * of the file
      *
-     * <p>This method appends the specified textToAdd to the end of the data file, creating
-     * a new task entry. It uses a {@code FileWriter} to write the text efficiently, adds a
-     * newline character before writing the new entry, and then closes the writer. After adding
-     * the task, it increments the task list size.
-     * </p>
-     *
-     * @param textToAdd The text representing the new task to be added to the data file.
-     * @throws IOException If there is an error while writing to the data file.
+     * @param textToAdd String to be added to the end of the txt file
      */
-    public void addToFile(String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(this.dukeDataFile, true);
-        // Create a BufferedWriter for efficient writing
-        BufferedWriter bufferedWriter = new BufferedWriter(fw);
-        BufferedReader reader = new BufferedReader(new FileReader(this.dukeDataFile));
-        //we only append newline if the file is not empty
-        if (reader.readLine() != null) {
+    public void addToFile(String textToAdd) {
+        try {
+            // Create a FileWriter object with the specified file path in append mode (true).
+            FileWriter fileWriter = new FileWriter(this.dukeDataFile, true);
+
+            // Create a BufferedWriter to efficiently write text.
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            // Write the text to the file.
+            bufferedWriter.write(textToAdd);
+
+            // Write a newline character to separate lines.
             bufferedWriter.newLine();
+
+            // Close the BufferedWriter to release resources.
+            bufferedWriter.close();
+
+            this.taskListSize += 1;
+
+            //System.out.println("Text added to the file successfully.");
+        } catch (IOException e) {
+            System.out.println("An IOException occurred: " + e.getMessage());
         }
-        bufferedWriter.write(textToAdd);
-        bufferedWriter.close();
-        fw.close();
-        this.taskListSize += 1;
     }
 
     /**
@@ -88,54 +96,46 @@ public class Storage {
     }
 
     /**
-     * Removes a specific line from the file denoted by `dukeDataFile` without creating a new file.
+     * Takes in the location of a txt file and deletes the specified line from the file
      *
-     * @param lineToRemove The line number to be removed (1-based index).
+     * @param lineToDelete line number to delete from txt file
      */
-    public void removeFromFile(int lineToRemove) {
-        ArrayList<String> modifiedLines = new ArrayList<>();
+    public void removeFromFile(int lineToDelete) {
+        try {
+            // Read the existing content of the file into memory.
+            FileReader fileReader = new FileReader(this.dukeDataFile);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.dukeDataFile))) {
-            String currentLine;
-            int lineNumber = 0;
-
-            while ((currentLine = reader.readLine()) != null) {
-                lineNumber++;
-
-                if (lineNumber == lineToRemove) {
-                    // Skip the line to remove
-                    continue;
-                }
-
-                modifiedLines.add(currentLine);
+            List<String> fileContent = new ArrayList<>();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                fileContent.add(line);
             }
-        } catch (IOException e) {
-            System.err.println("Error reading the file: " + e.getMessage());
-            return;
-        }
-        this.taskListSize -= 1;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.dukeDataFile))) {
-            int oldTaskListSize = this.taskListSize + 1;
-            int lineNumber = 0;
-            // Write the modified lines back to the original file
-            for (String line : modifiedLines) {
-                lineNumber++;
-                writer.write(line);
-                if (lineNumber != this.taskListSize ) {
-                    if(lineToRemove == oldTaskListSize  && lineNumber + 1 == lineToRemove){
-                        continue;
-                    }else{
-                        writer.newLine(); // Add a new line after writing
-                    }
-                }
+            this.taskListSize -= 1;
+
+            // Close the BufferedReader to release resources.
+            bufferedReader.close();
+
+            // Remove the specified line from the list.
+            fileContent.remove(lineToDelete - 1);
+
+            // Write the modified content back to the file.
+            FileWriter fileWriter = new FileWriter(this.dukeDataFile);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (String contentLine : fileContent) {
+                bufferedWriter.write(contentLine);
+                bufferedWriter.newLine(); // Add a newline character after each line.
             }
-            System.out.println("Line removed successfully.");
+
+            // Close the BufferedWriter to release resources.
+            bufferedWriter.close();
+
         } catch (IOException e) {
-            System.err.println("Error writing to the file: " + e.getMessage());
+            System.out.println("An IOException occurred: " + e.getMessage());
         }
     }
-
 
     /**
      * Reads task data from a file and returns an ArrayList of tasks.
@@ -201,3 +201,5 @@ public class Storage {
     }
 
 }
+
+

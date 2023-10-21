@@ -1,24 +1,28 @@
 package commands;
+
 import java.util.ArrayList;
 
+/**
+ * The `TaskList` class represents a list of tasks managed by the Duke application.
+ */
 public class TaskList {
     ArrayList<Task> tasks;
 
-    public TaskList(ArrayList<Task> tasksList){
+    public TaskList(ArrayList<Task> tasksList) {
         this.tasks = tasksList;
     }
 
     /**
      * Retrieves the task based on its index
      */
-    public Task get(int index){
+    public Task get(int index) {
         return tasks.get(index);
     }
 
     /**
      * Deletes the task based on its index
      */
-    public void delete(int index){
+    public void delete(int index) {
         tasks.remove(index);
     }
 
@@ -31,7 +35,7 @@ public class TaskList {
      *
      * @param task The {@code Task} object to be added to the task manager.
      */
-    public void add(Task task){
+    public void add(Task task) {
         tasks.add(task);
     }
 
@@ -44,17 +48,16 @@ public class TaskList {
      *
      * @return An {@code ArrayList} of {@code Task} objects representing all the tasks.
      */
-    public ArrayList<Task> getAllTasks(){
+    public ArrayList<Task> getAllTasks() {
         return tasks;
     }
 
     /**
      * Returns the number of tasks
      */
-    public int size(){
+    public int size() {
         return tasks.size();
     }
-
 
 
     /**
@@ -64,7 +67,7 @@ public class TaskList {
     public void printList() {
         System.out.println("Here are the tasks in your list:");
         int count = 1;
-        for(Task task: tasks){
+        for (Task task : tasks) {
             System.out.println(
                     count + "." + "[" + task.getType() + "]" + "[" + task.getStatusIcon() + "]" + task);
             count += 1;

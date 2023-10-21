@@ -1,5 +1,8 @@
 package commands;
 
+/**
+ * The `Task` class represents a general task with a description and a completion status.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
