@@ -90,8 +90,8 @@ public class Bob {
             case FindCommand.COMMAND_WORD:
                 result = new FindCommand(arguments).execute(tasks);
                 break;
-            case "delete":
-                result = tasks.handleDeleteTask(arguments);
+                case DeleteCommand.COMMAND_WORD:
+                result = new DeleteCommand(arguments).execute(tasks);
                 break;
             default:
                 result = "I don't know that command";

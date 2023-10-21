@@ -101,9 +101,7 @@ public class TaskList {
      * @param line index of task to delete as a String.
      * @return message confirming task has been deleted.
      */
-    public String handleDeleteTask(String line) {
-        int deleteIdx = Integer.parseInt(line) - 1;
-
+    public String handleDeleteTask(int deleteIdx) {
         String deleteMessage = taskItems.get(deleteIdx).getTaskDeleted(taskItems.size()-1);
         taskItems.remove(deleteIdx);
 
