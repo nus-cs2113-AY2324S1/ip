@@ -1,9 +1,9 @@
-package duke;
+package bob;
 
-import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
+import bob.parser.Parser;
+import bob.storage.Storage;
+import bob.tasklist.TaskList;
+import bob.ui.Ui;
 
 import java.io.IOException;
 
