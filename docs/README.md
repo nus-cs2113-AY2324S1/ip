@@ -20,7 +20,7 @@ Description of the feature.
 
 ### `Todo` - Adding a todo command
 
-A todo tasks is a general task that doesn't need any time requirement.
+A todo task is a general task that doesn't need any time requirement.
 
 Format: todo Descrption
 
@@ -29,5 +29,7 @@ Example: todo read book
 Expected outcome:
 
 ```
-expected output
+Got it. I've added this task:
+[T][ ] read book
+Now you have 1 tasks in the list.
 ```
