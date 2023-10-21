@@ -1,6 +1,6 @@
 package bob.tasklist;
 
-import bob.DukeException;
+import bob.BobException;
 import bob.deadline.Deadline;
 import bob.event.Event;
 import bob.task.Task;
@@ -63,15 +63,15 @@ public class TaskList {
      *
      * @param description description of todo.
      * @return new Todo.
-     * @throws DukeException when description of todo is empty.
+     * @throws BobException when description of todo is empty.
      */
-    public String handleCreateTodo(String description) throws DukeException {
+    public String handleCreateTodo(String description) throws BobException {
         if (description.isEmpty()) {
-            throw new DukeException("The description of a todo cannot be empty");
+            throw new BobException("The description of a todo cannot be empty");
         }
 
         if (description.trim().length() == 0) {
-            throw new DukeException("The description of a todo cannot be empty");
+            throw new BobException("The description of a todo cannot be empty");
         }
 
         taskItems.add(new Todo(description));
@@ -85,27 +85,27 @@ public class TaskList {
      * @param line containing description and deadline, with the deadline in the form
      *             {@code /by deadline}.
      * @return new Deadline.
-     * @throws DukeException when description is empty or when deadline is unspecified.
+     * @throws BobException when description is empty or when deadline is unspecified.
      */
-    public String handleCreateDeadline(String line) throws DukeException {
+    public String handleCreateDeadline(String line) throws BobException {
         int byIdx = line.indexOf("/by");
         if (byIdx == -1) {
-            throw new DukeException("The /by of a deadline must be specified");
+            throw new BobException("The /by of a deadline must be specified");
         }
 
         // Extract task description and deadline from user input
         if (byIdx == 0) {
-            throw new DukeException("The description of a deadline cannot be empty");
+            throw new BobException("The description of a deadline cannot be empty");
         }
 
         String description = line.substring(0,byIdx-1);
         if (description.trim().length() == 0) {
-            throw new DukeException("The description of a deadline cannot be empty");
+            throw new BobException("The description of a deadline cannot be empty");
         }
 
         int deadlineIdx = byIdx+ "/by ".length();
         if (deadlineIdx >= line.length()) {
-            throw new DukeException("The /by of a deadline cannot be empty");
+            throw new BobException("The /by of a deadline cannot be empty");
         }
 
         LocalDate deadline = LocalDate.parse(line.substring(deadlineIdx));

@@ -34,7 +34,7 @@ public class Bob {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (BobException e) {
             ui.printLoadingError();
             tasks = new TaskList();
         }
@@ -69,14 +69,14 @@ public class Bob {
             case "todo":
                 try {
                     result = tasks.handleCreateTodo(arguments);
-                } catch (DukeException e) {
+                } catch (BobException e) {
                     result = String.valueOf(e);
                 }
                 break;
             case "deadline":
                 try {
                     result = tasks.handleCreateDeadline(arguments);
-                } catch (DukeException e) {
+                } catch (BobException e) {
                     result = String.valueOf(e);
                 }
                 break;
