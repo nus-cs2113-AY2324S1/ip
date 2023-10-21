@@ -24,13 +24,9 @@ A todo tasks is a general task that doesn't need any time requirement.
 
 Format: todo Descrption
 
-Example of usage: todo read book
-
-`keyword (optional arguments)`
+Example: todo read book
 
 Expected outcome:
-
-Description of the outcome.
 
 ```
 expected output
