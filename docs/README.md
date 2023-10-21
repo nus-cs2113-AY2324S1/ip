@@ -94,8 +94,8 @@ Now you have 3 tasks in the list.
     Expected outcome:
 
     ```
-        Nice! I've marked this task as done:
-    [X] read book
+      Nice! I've marked this task as done:
+      [X] read book
     ```
    
 3. Find function:
