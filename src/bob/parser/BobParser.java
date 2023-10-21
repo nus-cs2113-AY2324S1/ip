@@ -32,7 +32,7 @@ public class BobParser {
         }
 
         String commandWord = matcher.group("commandWord");
-        String arguments = matcher.group("arguments");
+        String arguments = matcher.group("arguments").trim();
 
         switch (commandWord) {
         case ListCommand.COMMAND_WORD:
@@ -44,7 +44,7 @@ public class BobParser {
         case TodoCommand.COMMAND_WORD:
             return new TodoCommand(arguments);
         case DeadlineCommand.COMMAND_WORD:
-            return new DeadlineCommand(arguments);
+            return new DeadlineCommandParser().parse(arguments);
         case EventCommand.COMMAND_WORD:
             return new EventCommand(arguments);
         case FindCommand.COMMAND_WORD:
