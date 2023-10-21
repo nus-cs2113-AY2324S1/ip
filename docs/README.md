@@ -68,3 +68,19 @@ Got it. I've added this task:
 [E][ ] read book (from: 10月 20 2023 12:00 下午 to: 10月 27 2023 11:59 下午)
 Now you have 3 tasks in the list.
 ```
+
+## Control Task List
+  Refers to the following as some alternative methods:
+
+  - **List**: View all the existing tasks created
+  - **Mark**: Mark an existing task as finished
+
+### `List` - To view all the existing tasks
+
+Format: `list` 
+
+### `Mark` - To mark a task as finish
+
+Release all the tasks inside a list
+
+Format: `list` 
