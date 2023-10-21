@@ -10,10 +10,10 @@
 
 - Both `CAPITAL LETTER` and `small letter` are acceptable. But consecutive white space will be eliminated automatically.
 
-- Tasks such as dealine and event task would required time limit. Please use the following `time format`:
+- Tasks such as dealine and event task would required time limit. Please use only `Date Time`:
   1. Date-Time format: `DD/MM/YYYY HHMM`. e.g. 21/10/2023 1730
   2. if the `time is not specified`, please use 2359 by default.
-  Note that apart from the above formats, the current version of app will treat any time input as valid time.
+  General Time: Note that apart from the above formats, the current version of app will treat `any time input` as valid time.
   e.g. Friday, Birthday of Ethan, etc. Please make wise use of the time input.
 
 
@@ -108,3 +108,4 @@ Note that each functions may limit its usage. And these could possibly be suppor
 1. Find function could only look for a task content. Search by time is  `NOT` supported yet
 2. Delete, mark, and unmark function can only control one targte task at each time of execution
 3. Don't use list with index as it is not yet supported
+4. Current only Date Time format is supported. Date format is not allowed. But you can use it as a general time format.
