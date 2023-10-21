@@ -38,9 +38,9 @@ public class BobParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
         case MarkCommand.COMMAND_WORD:
-            return new MarkCommand(arguments);
+            return new MarkCommandParser().parse(arguments);
         case UnmarkCommand.COMMAND_WORD:
-            return new UnmarkCommand(arguments);
+            return new UnmarkCommandParser().parse(arguments);
         case TodoCommand.COMMAND_WORD:
             return new TodoCommandParser().parse(arguments);
         case DeadlineCommand.COMMAND_WORD:
