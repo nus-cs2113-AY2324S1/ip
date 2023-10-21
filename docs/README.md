@@ -85,7 +85,7 @@ Now you have 3 tasks in the list.
 
 1. Withoud index: `list`, `help`, `bye` for the corresponding function
    
-2. With index:
+2. With index:  
    
     Format: `Action Index`
    
@@ -97,13 +97,17 @@ Now you have 3 tasks in the list.
       Nice! I've marked this task as done:
       [X] read book
     ```
+
+    More examples: unmark 2, delete 10
    
 3. Find function:
 
-   Format: `Find Keyword`
+   Format: `Find Content`
    
-   Example: Find read
+   Example: Find read book
 
-### Counter Example
-Note that the following case is not yet supported
-1. Try to 
+### Limitations on the functions
+Note that each functions may limit its usage
+1. Find function could only look for a task content. Search by time is  `NOT` supported yet
+2. Delete, mark, and unmark function can only control one targte task at each time of execution
+3. Don't use list with index as it is not yet supported
