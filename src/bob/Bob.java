@@ -87,8 +87,8 @@ public class Bob {
             case EventCommand.COMMAND_WORD:
                 result = new EventCommand(arguments).execute(tasks);
                 break;
-            case "find":
-                result = tasks.handleFindTask(arguments);
+            case FindCommand.COMMAND_WORD:
+                result = new FindCommand(arguments).execute(tasks);
                 break;
             case "delete":
                 result = tasks.handleDeleteTask(arguments);
