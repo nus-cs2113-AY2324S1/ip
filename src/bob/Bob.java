@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Duke task manager.
  */
-public class Duke {
+public class Bob {
 
     private Storage storage;
     private TaskList tasks;
@@ -19,7 +19,7 @@ public class Duke {
     /**
      * Initializes Duke with a default save file ./data/duke.txt.
      */
-    public Duke() {
+    public Bob() {
         this("./data/duke.txt");
     }
 
@@ -29,7 +29,7 @@ public class Duke {
      *
      * @param filePath path to an existing Duke savefile.
      */
-    public Duke(String filePath) {
+    public Bob(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -41,7 +41,7 @@ public class Duke {
     }
 
     /**
-     * Runs Duke. Reads in user input and processes commands until "bye" command is received.
+     * Runs Bob. Reads in user input and processes commands until "bye" command is received.
      */
     public void run() {
         String command, arguments;
@@ -115,6 +115,6 @@ public class Duke {
      * Creates and starts running a new instance of Duke.
      */
     public static void main(String[] args) {
-        new Duke().run();
+        new Bob().run();
     }
 }
