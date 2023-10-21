@@ -59,12 +59,12 @@ A event task refers to task over a specific period
 
 Format: `event Description /from Date Time /to Date Time`
 
-Example: event read book /from 20/10/2022 1200 /to 27/10/2022 2359
+Example: event read book /from 20/10/2023 1200 /to 27/10/2023 2359
 
-Expected outcome:
+Expected outcome (In Chinese):
 
 ```
 Got it. I've added this task:
-[T][ ] read book
-Now you have 1 tasks in the list.
+[E][ ] read book (from: 10月 20 2023 12:00 下午 to: 10月 27 2023 11:59 下午)
+Now you have 3 tasks in the list.
 ```
