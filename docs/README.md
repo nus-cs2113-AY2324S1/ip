@@ -12,7 +12,7 @@
 
 - Both `CAPITAL LETTER` and `small letter` are acceptable. But consecutive white space will be eliminated automatically.
 
-- Tasks such as dealine and event task would required time limit. Please input the time in the following format:
+- Tasks such as dealine and event task would required time limit. Please use the following `time format`:
   1. Date format: `DD/MM/YYYY`. e.g. 21/10/2023
   2. Date-Time format: `DD/MM/YYYY HHMM`. e.g. 21/10/2023 1730
 
