@@ -89,16 +89,8 @@ public class TaskList {
      *             the form {@code /from start /to end}.
      * @return new Event.
      */
-    public String handleCreateEvent(String line) {
-        int fromIdx = line.indexOf("/from");
-        int toIdx = line.indexOf("/to");
-
-        // Extract task description, start time and end time from user input
-        String description = line.substring(0, fromIdx-1);
-        String start = line.substring(fromIdx+ "/from ".length(), toIdx-1);
-        String end = line.substring(toIdx+ "/to ".length());
-
-        taskItems.add(new Event(description, start, end));
+    public String handleCreateEvent(Event event) {
+        taskItems.add(event);
 
         return taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size());
     }

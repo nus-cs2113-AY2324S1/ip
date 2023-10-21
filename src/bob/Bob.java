@@ -1,6 +1,7 @@
 package bob;
 
 import bob.commands.*;
+import bob.event.Event;
 import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.tasklist.TaskList;
@@ -83,8 +84,8 @@ public class Bob {
                     result = String.valueOf(e);
                 }
                 break;
-            case "event":
-                result = tasks.handleCreateEvent(arguments);
+            case EventCommand.COMMAND_WORD:
+                result = new EventCommand(arguments).execute(tasks);
                 break;
             case "find":
                 result = tasks.handleFindTask(arguments);
