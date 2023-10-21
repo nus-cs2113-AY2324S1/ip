@@ -1,5 +1,6 @@
 package bob;
 
+import bob.commands.MarkCommand;
 import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.tasklist.TaskList;
@@ -62,8 +63,8 @@ public class Bob {
             case ListCommand.COMMAND_WORD:
                 result = new ListCommand().execute(tasks);
                 break;
-            case "mark":
-                result = tasks.markItem(arguments);
+            case MarkCommand.COMMAND_WORD:
+                result = new MarkCommand(arguments).execute(tasks);
                 break;
             case "unmark":
                 result = tasks.unmarkItem(arguments);

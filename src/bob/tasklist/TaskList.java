@@ -35,8 +35,8 @@ public class TaskList {
      * @param line index of task to be marked as complete as a String.
      * @return formatted message declaring that the task has been marked as complete.
      */
-    public String markItem(String line) {
-        int markIdx = Integer.parseInt(line) - 1;
+    public String markItem(int markIdx) {
+
         taskItems.get(markIdx).setIsDone(true);
 
         return String.format("Nice! I've marked this task as done: \n\t  "
