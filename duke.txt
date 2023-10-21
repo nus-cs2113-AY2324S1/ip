@@ -1,5 +1,2 @@
-T|1|task3
-T|0|task5
-T|1|task6
-E|1|urdad |monday|tuesday
+E|0|urdad |monday|tuesday
 E|0|urmom |monday|tuesday
