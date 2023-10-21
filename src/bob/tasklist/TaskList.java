@@ -64,16 +64,8 @@ public class TaskList {
      * @return new Todo.
      * @throws BobException when description of todo is empty.
      */
-    public String handleCreateTodo(String description) throws BobException {
-        if (description.isEmpty()) {
-            throw new BobException("The description of a todo cannot be empty");
-        }
-
-        if (description.trim().length() == 0) {
-            throw new BobException("The description of a todo cannot be empty");
-        }
-
-        taskItems.add(new Todo(description));
+    public String handleCreateTodo(Todo todo) {
+        taskItems.add(todo);
 
         return taskItems.get(taskItems.size()-1).getTaskAdded(taskItems.size());
     }

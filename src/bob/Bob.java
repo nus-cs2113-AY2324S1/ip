@@ -1,13 +1,10 @@
 package bob;
 
-import bob.commands.MarkCommand;
-import bob.commands.UnmarkCommand;
+import bob.commands.*;
 import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.tasklist.TaskList;
 import bob.ui.Ui;
-import bob.commands.DeadlineCommand;
-import bob.commands.ListCommand;
 
 import java.io.IOException;
 
@@ -70,9 +67,9 @@ public class Bob {
             case UnmarkCommand.COMMAND_WORD:
                 result = new UnmarkCommand(arguments).execute(tasks);
                 break;
-            case "todo":
+            case TodoCommand.COMMAND_WORD:
                 try {
-                    result = tasks.handleCreateTodo(arguments);
+                    result = new TodoCommand(arguments).execute(tasks);
                 } catch (BobException e) {
                     result = String.valueOf(e);
                 }
