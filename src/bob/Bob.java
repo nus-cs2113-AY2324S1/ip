@@ -1,11 +1,11 @@
 package bob;
 
-import bob.deadline.Deadline;
 import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.tasklist.TaskList;
 import bob.ui.Ui;
 import bob.commands.DeadlineCommand;
+import bob.commands.ListCommand;
 
 import java.io.IOException;
 
@@ -59,8 +59,8 @@ public class Bob {
             ui.printLine();
 
             switch (command) {
-            case "list":
-                result = tasks.handleGetList();
+            case ListCommand.COMMAND_WORD:
+                result = new ListCommand().execute(tasks);
                 break;
             case "mark":
                 result = tasks.markItem(arguments);
