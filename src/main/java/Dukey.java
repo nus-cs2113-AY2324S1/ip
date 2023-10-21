@@ -2,7 +2,6 @@ import Tasks.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
-
 public class Dukey {
     protected Storage storage;
     protected TaskList tasks;
@@ -40,26 +39,50 @@ public class Dukey {
                     TaskList.printTaskList(tasks.tasks);
                     break;
                 case "mark":
-                    TaskList.markTask(line, tasks.tasks);
-                    storage.markTaskInFile(Integer.parseInt(input[1].trim()) - 1, filePath);
+                    try {
+                        TaskList.markTask(line, tasks.tasks);
+                        storage.markTaskInFile(Integer.parseInt(input[1].trim()) - 1, filePath);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("if statement");
+                    }
                     break;
                 case "unmark":
                     TaskList.unmarkTask(line, tasks.tasks);
                     break;
                 case "deadline":
-                    String[] deadline = Parser.parseCommandInput(command, input[1]);
-                    TaskList.addDeadline(deadline[0], deadline[1], tasks.tasks);
+                    try {
+                        String[] deadline = Parser.parseCommandInput(command, input[1]);
+                        TaskList.addDeadline(deadline[0], deadline[1], tasks.tasks);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(dukey.DukeyException.EmptyInputError());
+                    }
                     storage.taskArrayToFile(filePath, tasks.tasks);
                     break;
                 case "event":
-                    String[] event = Parser.parseCommandInput(command, input[1]);
-                    TaskList.addEvent(event[0], event[1], event[2], tasks.tasks);
-                    storage.taskArrayToFile(filePath, tasks.tasks);
+                    try {
+                        String[] event = Parser.parseCommandInput(command, input[1]);
+                        TaskList.addEvent(event[0], event[1], event[2], tasks.tasks);
+                        storage.taskArrayToFile(filePath, tasks.tasks);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(dukey.DukeyException.EmptyInputError());
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("if statement");
+                        System.out.println(dukey.DukeyException.EmptyInputError());
+                    }
                     break;
                 case "todo":
-                    String[] todo = Parser.parseCommandInput(command, input[1]);
-                    TaskList.addTodo(todo[0], tasks.tasks);
-                    storage.taskArrayToFile(filePath, tasks.tasks);
+                    try {
+                        String[] todo = Parser.parseCommandInput(command, input[1]);
+                        if (Parser.checkIfInputIsEmpty(input[1])) {
+                            System.out.println(dukey.DukeyException.EmptyInputError());
+                            System.out.println("if statement");
+                            break;
+                        }
+                        TaskList.addTodo(todo[0], tasks.tasks);
+                        storage.taskArrayToFile(filePath, tasks.tasks);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(dukey.DukeyException.EmptyInputError());
+                    }
                     break;
                 case "delete":
                     TaskList.deleteTask(line, tasks.tasks);

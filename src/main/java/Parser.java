@@ -63,6 +63,9 @@ public class Parser {
         return words;  // Return the array
     }
 
+    public static boolean checkIfInputIsEmpty(String input) {
+        return input == null || input.trim().isEmpty();
+    }
 
 }
 
