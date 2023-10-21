@@ -1,5 +1,6 @@
 package bob.commands;
 
+import bob.BobException;
 import bob.tasklist.TaskList;
 
 /**
@@ -13,6 +14,6 @@ public abstract class Command {
      * @param taskList List of tasks upon which command will execute on.
      * @return Feedback from executed command.
      */
-    public abstract String execute(TaskList taskList);
+    public abstract String execute(TaskList taskList) throws BobException;
 
 }

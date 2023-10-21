@@ -1,5 +1,6 @@
 package bob.commands;
 
+import bob.BobException;
 import bob.tasklist.TaskList;
 
 /**
@@ -25,7 +26,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList) {
+    public String execute(TaskList taskList) throws BobException {
         return taskList.handleDeleteTask(deleteIdx);
     }
 }

@@ -1,5 +1,6 @@
 package bob.commands;
 
+import bob.BobException;
 import bob.tasklist.TaskList;
 
 /**
@@ -20,12 +21,8 @@ public class MarkCommand extends Command {
         this.markIdx = markIdx;
     }
 
-    public MarkCommand(String line) {
-        this.markIdx = Integer.parseInt(line) - 1;
-    }
-
     @Override
-    public String execute(TaskList taskList) {
+    public String execute(TaskList taskList) throws BobException {
         return taskList.markItem(markIdx);
     }
 }

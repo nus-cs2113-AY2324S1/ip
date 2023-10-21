@@ -35,9 +35,12 @@ public class TaskList {
      * @param markIdx index of task to be marked as complete.
      * @return formatted message declaring that the task has been marked as complete.
      */
-    public String markItem(int markIdx) {
-
-        taskItems.get(markIdx).setIsDone(true);
+    public String markItem(int markIdx) throws BobException {
+        try {
+            taskItems.get(markIdx).setIsDone(true);
+        } catch (IndexOutOfBoundsException e) {
+            throw new BobException("Index outside acceptable realm.");
+        }
 
         return String.format("Nice! I've marked this task as done: \n\t  "
                 + taskItems.get(markIdx).getTask());
@@ -50,8 +53,12 @@ public class TaskList {
      * @param markIdx index of task to be marked as incomplete as a String.
      * @return formatted message declaring that the task has been marked as incomplete.
      */
-    public String unmarkItem(int markIdx) {
-        taskItems.get(markIdx).setIsDone(false);
+    public String unmarkItem(int markIdx) throws BobException {
+        try {
+            taskItems.get(markIdx).setIsDone(false);
+        } catch (IndexOutOfBoundsException e) {
+            throw new BobException("Index outside acceptable realm.");
+        }
 
         return String.format("Nice! I've marked this task as undone: \n\t  " +
                 taskItems.get(markIdx).getTask());
@@ -99,11 +106,14 @@ public class TaskList {
      * @param deleteIdx index of task to delete.
      * @return message confirming task has been deleted.
      */
-    public String handleDeleteTask(int deleteIdx) {
-        String deleteMessage = taskItems.get(deleteIdx).getTaskDeleted(taskItems.size()-1);
-        taskItems.remove(deleteIdx);
-
-        return deleteMessage;
+    public String handleDeleteTask(int deleteIdx) throws BobException {
+        try {
+            String deleteMessage = taskItems.get(deleteIdx).getTaskDeleted(taskItems.size()-1);
+            taskItems.remove(deleteIdx);
+            return deleteMessage;
+        } catch (IndexOutOfBoundsException e) {
+            throw new BobException("Index outside acceptable realm.");
+        }
     }
 
     /**

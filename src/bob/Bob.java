@@ -1,8 +1,7 @@
 package bob;
 
 import bob.commands.*;
-import bob.event.Event;
-import bob.parser.Parser;
+import bob.parser.BobParser;
 import bob.storage.Storage;
 import bob.tasklist.TaskList;
 import bob.ui.Ui;
@@ -46,58 +45,22 @@ public class Bob {
      * Runs Bob. Reads in user input and processes commands until "bye" command is received.
      */
     public void run() {
-        String command, arguments;
+        // String command, arguments;
         String result;
 
         ui.printWelcome();
 
         do {
-            String[] line = new Parser().parseCommand(ui.getCommand());
-            command = line[0];
-            arguments = line[1].trim();
+            try {
+                Command command = new BobParser().parseCommand(ui.getCommand());
+                result = command.execute(tasks);
+            } catch (BobException e) {
+                result = String.valueOf(e);
+            }
 
             ui.printLine();
 
-            switch (command) {
-            case ListCommand.COMMAND_WORD:
-                result = new ListCommand().execute(tasks);
-                break;
-            case MarkCommand.COMMAND_WORD:
-                result = new MarkCommand(arguments).execute(tasks);
-                break;
-            case UnmarkCommand.COMMAND_WORD:
-                result = new UnmarkCommand(arguments).execute(tasks);
-                break;
-            case TodoCommand.COMMAND_WORD:
-                try {
-                    result = new TodoCommand(arguments).execute(tasks);
-                } catch (BobException e) {
-                    result = String.valueOf(e);
-                }
-                break;
-            case DeadlineCommand.COMMAND_WORD:
-                try {
-                    //result = tasks.handleCreateDeadline(arguments);
-                    DeadlineCommand deadline = new DeadlineCommand(arguments);
-                    result = deadline.execute(tasks);
-                } catch (BobException e) {
-                    result = String.valueOf(e);
-                }
-                break;
-            case EventCommand.COMMAND_WORD:
-                result = new EventCommand(arguments).execute(tasks);
-                break;
-            case FindCommand.COMMAND_WORD:
-                result = new FindCommand(arguments).execute(tasks);
-                break;
-                case DeleteCommand.COMMAND_WORD:
-                result = new DeleteCommand(arguments).execute(tasks);
-                break;
-            default:
-                result = "I don't know that command";
-            }
-
-            if (command.equals("bye")) {
+            if (result.equals("bye")) {
                 break;
             }
 

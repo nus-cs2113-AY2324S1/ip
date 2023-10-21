@@ -1,7 +1,5 @@
 package bob.commands;
 
-import bob.BobException;
-import bob.deadline.Deadline;
 import bob.tasklist.TaskList;
 import bob.todo.Todo;
 
@@ -21,18 +19,6 @@ public class TodoCommand extends Command {
      */
     public TodoCommand(Todo todo) {
         newTodo = todo;
-    }
-
-    public TodoCommand(String line) throws BobException {
-        if (line.isEmpty()) {
-            throw new BobException("The description of a todo cannot be empty");
-        }
-
-        if (line.trim().isEmpty()) {
-            throw new BobException("The description of a todo cannot be empty");
-        }
-
-        newTodo = new Todo(line);
     }
 
     @Override
