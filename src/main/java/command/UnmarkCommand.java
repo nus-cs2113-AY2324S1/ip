@@ -19,6 +19,10 @@ public class UnmarkCommand extends Command{
         this.index = index;
     }
 
+    /**
+     * change the task statue to unfinished
+     * only applicable to finished task
+     */
     @Override
     public void executeCommand() {
         try {

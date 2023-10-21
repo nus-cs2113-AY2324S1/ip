@@ -15,7 +15,11 @@ public class EventCommand extends AddCommand {
     }
 
     /**
-     *  eventTask represent the whole original user command starts from "event"
+     *  eventTask represent the whole raw user command starts from "event"
+     *  Exception could occur in the following cases:
+     *  1. Input event command is with wrong format
+     *  2. Failed to write into the output file
+     *  3. Inappropriate period is detected, e.g. event period pass already
      */
     @Override
     public void executeCommand(){

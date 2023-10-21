@@ -9,6 +9,9 @@ public class HelpCommand extends Command {
         super(false);
     }
 
+    /**
+     * use to print help message only
+     */
     @Override
     public void executeCommand() {
         Text.printHelpMessage();

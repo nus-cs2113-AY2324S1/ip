@@ -15,14 +15,14 @@ public class CommandFormat {
     }
 
     /**
-     * gives exception when taskNum is not number, or containing non-numerical value
+     * raises exception when taskNum is not number, or containing non-numerical value
      */
     public static int getTaskNo(String taskNum) {
         return Integer.parseInt(taskNum);
     }
 
     /**
-     * use to tackle valid starting input like "todo", "event", "list",
+     * use to tackle cases with valid starting input like "todo", "event", "list",
      * but lacking in index or having extra index
      */
     public static boolean missingOrExtraTaskDescription(String[] cmd){

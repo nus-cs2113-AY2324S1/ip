@@ -22,7 +22,8 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * overwriteFile update the whole saved file with updated content, i.e. one task marked
+     * overwriteFile update the whole saved file with updated content, i.e. one task has been marked
+     * raises exception if input incorrect number, such as in invalid range; or Failed to access output file
      */
     @Override
     public void executeCommand(){

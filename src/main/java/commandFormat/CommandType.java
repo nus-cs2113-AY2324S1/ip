@@ -5,6 +5,12 @@ import exception.OrientoException;
 
 public class CommandType {
 
+    /**
+     *
+     * @param input represents raw user command
+     * @return Command object of correct type
+     * @throws OrientoException if input is in none of the expected cases
+     */
     public static Command parseCommand(String input) throws OrientoException {
 
         String[] commandSplits = input.split(" ");

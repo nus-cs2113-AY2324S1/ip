@@ -41,6 +41,11 @@ public class FileIO {
         }
     }
 
+    /**
+     *
+     * @param path represents the output file path
+     * @throws IOException only when file is not found and failed to create a new file
+     */
     private static void checkAndCreateFile(String path) throws IOException {
         File f = new File(path);
         if(!f.exists()){
@@ -50,6 +55,9 @@ public class FileIO {
         }
     }
 
+    /**
+     * similar to checkAndCreateFile
+     */
     private static void checkAndCreateDataFolder() throws IOException {
         File folder = new File("data");
         if (!folder.isDirectory()) {
@@ -60,7 +68,7 @@ public class FileIO {
     }
 
     /**
-     * save the file when exit the program
+     * save all the current content to another backup file
      */
     public static void backupTaskFile() {
         try {
@@ -71,6 +79,11 @@ public class FileIO {
         }
     }
 
+    /**
+     * clear all the saved data and set the taskList as an empty list
+     * use when error occurs in restoring data, e.g. containing message in wrong format
+     * @throws IOException if failed to access the file
+     */
     private static void clearData() throws IOException {
         Path clearFile = Paths.get("data/taskList.txt");
         if (Files.size(clearFile) != 0) {
@@ -81,6 +94,12 @@ public class FileIO {
         Oriento.taskCount = 0;
     }
 
+    /**
+     *
+     * @param filePath path of target file
+     * @param taskAppend the content to replace
+     * @throws IOException if failed to access target file
+     */
     public static void overwriteToFile(String filePath, String taskAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(taskAppend);

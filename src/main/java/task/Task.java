@@ -16,6 +16,12 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     *
+     * @param taskNo the index of the target task
+     * @param taskCount total number of existing task in the list
+     * @param list the target taskList (there will only be one list in this application).
+     */
     public void setDone(int taskNo, int taskCount, Task[] list) {
         if ( (taskNo > taskCount ) || (taskNo <1) ){
             System.out.println("Oops! You don't have any task in this positions.");
@@ -32,6 +38,9 @@ public class Task {
         this.isDone = true;
     }
 
+    /**
+     * similar to setDone method
+     */
     public void setNotDone(int taskNo, int taskCount, Task[] list) {
         if ( (taskNo > taskCount ) || (taskNo <1) ){
             System.out.println("Oops! You don't have any task in this position.");

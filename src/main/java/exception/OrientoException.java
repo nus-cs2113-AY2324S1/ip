@@ -13,6 +13,11 @@ public class OrientoException extends Exception {
         System.out.println("Sorry, your command for " + taskType + " task is not in the correct format. Please try again.");
     }
 
+    /**
+     * Use to raises exception when incorrect format is found
+     * tell the users what is correct format for the current input task
+     * @param taskType represents the task type string such as "todo", "deadline", etc.
+     */
     public void incorrectFormatException(String taskType) {
         switch (taskType){
         case "todo":

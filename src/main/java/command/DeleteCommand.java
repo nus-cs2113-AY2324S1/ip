@@ -21,7 +21,7 @@ public class DeleteCommand extends Command{
 
     /**
      * delete command uses to delete a task at particular index i, i>0
-     * @throws IOException raises error if fail to delete task from current file
+     * @throws IOException if failed to access file
      */
     @Override
     public void executeCommand() throws IOException {

@@ -43,6 +43,14 @@ public class Event extends Task {
         return new Event(eventTask, start, end);
     }
 
+    /**
+     * test if the user input period for event is valid
+     * @param startTime the starting time of event
+     * @param endTime the end time of event
+     * @throws InvalidTimeException if the input time is invalid, which could happen in the following cases:
+     * 1. end time occurs before start time
+     * 2. end time is over already
+     */
     private static void testTimeInput(String startTime, String endTime) throws InvalidTimeException {
         LocalDateTime now = LocalDateTime.now();
         try{

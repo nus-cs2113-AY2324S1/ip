@@ -38,6 +38,10 @@ public class Text {
         }
     }
 
+    /**
+     * Instead of printing from current list, this method print the content from a output file
+     * @throws IOException if failed to access file
+     */
     public static void printList() throws IOException{
         if (taskCount == 0){
             System.out.println("You don't have any tasks now. Do you want to add a new task?");
@@ -47,6 +51,10 @@ public class Text {
 
     }
 
+    /**
+     * write into output file every time new task is created successfully
+     * @throws IOException if failed to access tasks
+     */
     public static void createTaskSuccessMsg() throws IOException{
         System.out.println("Got it. I've added this task:");
         System.out.println(list[taskCount]);
@@ -68,6 +76,11 @@ public class Text {
         fw.close();
     }
 
+    /**
+     * tell the user the task is deleted successfully
+     * decrement the taskCount by 1
+     * @param deleteIndex index of the deleted task
+     */
     public static void deleteTaskSuccessMsg(int deleteIndex) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(list[deleteIndex - 1]);

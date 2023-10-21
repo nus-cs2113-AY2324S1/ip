@@ -25,7 +25,10 @@ public class FindCommand extends Command {
         return sb.toString();
     }
 
-
+    /**
+     * The find execution works by simple implementation of
+     * checking if the description of a task contains the target
+     */
     @Override
     public void executeCommand() {
         if(! this.findResult().isEmpty()){

@@ -7,13 +7,17 @@ import fileIO.FileIO;
 
 
 public class ByeCommand extends Command {
+
     /**
-     * only bye message will change isExit field to true
+     * only bye message can change isExit field to true
      */
     public ByeCommand() {
         super(true);
     }
 
+    /**
+     * only print bye message when running bye execution
+     */
     @Override
     public void executeCommand() {
             Text.printByeMessage();

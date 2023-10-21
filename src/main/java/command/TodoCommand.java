@@ -16,6 +16,10 @@ public class TodoCommand extends AddCommand{
         super(todoCmd);
     }
 
+    /**
+     * add a new todo task into the taskList
+     * raises exception if todo command is in incorrect format or the output file cannot be accessed
+     */
     @Override
     public void executeCommand(){
         try {

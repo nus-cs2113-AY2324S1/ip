@@ -1,10 +1,12 @@
 package command;
 
 import java.io.IOException;
+
 /**
  * parent class representing all user instructions
  */
 public abstract class Command {
+
     /**
      * use isExit to keep tract if the user want to quit
      */

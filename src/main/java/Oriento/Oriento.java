@@ -30,6 +30,10 @@ public class Oriento {
         executeCommand(keyboard);
     }
 
+    /**
+     * this method will loop until user type in exit command
+     * @param keyboard represents user input source
+     */
     private static void executeCommand(Scanner keyboard) {
         boolean isExit = false;
 
