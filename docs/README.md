@@ -13,7 +13,8 @@
 - Tasks such as dealine and event task would required time limit. Please use only `Date Time`:
   1. Date-Time format: `DD/MM/YYYY HHMM`. e.g. 21/10/2023 1730
   2. if the `time is not specified`, please use 2359 by default.
-    General Time: Note that apart from the above formats, the current version of app will treat `any time input` as valid time.
+  
+  General Time: Note that apart from the above formats, the current version of app will treat `any time input` as valid time.
   e.g. Friday, Birthday of Ethan, etc. Please make wise use of the time input.
 
 
