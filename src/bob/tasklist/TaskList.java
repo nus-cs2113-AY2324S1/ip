@@ -50,8 +50,7 @@ public class TaskList {
      * @param line index of task to be marked as incomplete as a String.
      * @return formatted message declaring that the task has been marked as incomplete.
      */
-    public String unmarkItem(String line) {
-        int markIdx = Integer.parseInt(line) - 1;
+    public String unmarkItem(int markIdx) {
         taskItems.get(markIdx).setIsDone(false);
 
         return String.format("Nice! I've marked this task as undone: \n\t  " +
