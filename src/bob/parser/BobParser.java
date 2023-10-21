@@ -46,7 +46,7 @@ public class BobParser {
         case DeadlineCommand.COMMAND_WORD:
             return new DeadlineCommandParser().parse(arguments);
         case EventCommand.COMMAND_WORD:
-            return new EventCommand(arguments);
+            return new EventCommandParser().parse(arguments);
         case FindCommand.COMMAND_WORD:
             return new FindCommand(arguments);
         case DeleteCommand.COMMAND_WORD:
