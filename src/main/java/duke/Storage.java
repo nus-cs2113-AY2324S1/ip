@@ -38,7 +38,9 @@ public class Storage {
             try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
                 String line;
                 while ((line = br.readLine()) != null) {
-                    lines.add(getTheTask(line));
+                    if (getTheTask(line) != null) {
+                        lines.add(getTheTask(line));
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -86,10 +88,11 @@ public class Storage {
         } else if (lineInTheFile.contains("[D]")) {
             Deadline deadline = transformInputToDeadline(lineInTheFile);
             return deadline;
-        } else {
+        } else if (lineInTheFile.contains("[E]")){
             Event event = getEvent(lineInTheFile);
             return event;
         }
+        return null;
     }
 
     private static Deadline transformInputToDeadline(String lineInTheFile) {
@@ -102,7 +105,6 @@ public class Storage {
             for (int i = 2; i < allWords.length; i++) {
                 description += allWords[i] + " ";
             }
-            System.out.println(description);
             deadline = new Deadline(description, by.replace("by", "").trim());
             deadline.setDone(true);
         } else {
@@ -116,20 +118,30 @@ public class Storage {
     }
 
     private static Event getEvent(String lineInTheFile) {
-        String[] words = lineInTheFile.split("from: ");
+        String[] words;
+        if (lineInTheFile.contains("from: ")) {
+            words = lineInTheFile.split("from: ");
+        } else {
+            words = lineInTheFile.split("from ");
+        }
         String timeperiod = "from " + words[1].replace(")", "");
         String description = "";
         String[] potentailDescription = words[0].replace("(", "").split(" ");
+        Event event;
         if (lineInTheFile.contains("[X]")) {
             for (int i = 2; i < potentailDescription.length; i++) {
                 description += potentailDescription[i] + " ";
             }
+            event = new Event(description, timeperiod);
+            event.setDone(true);
+            return event;
         } else {
             for (int i = 3; i < potentailDescription.length; i++) {
                 description += potentailDescription[i] + " ";
             }
+            event = new Event(description, timeperiod);
+            event.setDone(false);
+            return event;
         }
-        Event event = new Event(description, timeperiod);
-        return event;
     }
 }

@@ -80,8 +80,23 @@ public class Duke {
                 showList(taskList);
 
             } else if (line.startsWith("mark") || line.startsWith("unmark")) {
+                try {
+                    markTheTask(line, taskList);
+                } catch (NumberFormatException numberFormatException){
+                    System.out.println("Please give me an integer Index of the task");
+                    System.out.println("____________________________________________________________");
+                }
 
-                markTheTask(line, taskList);
+            } else if (line.equals("help")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Here are the valid commands!");
+                showInputFormat();
+                System.out.println("____________________________________________________________");
+            } else if (line.equals("clear")) {
+                taskList = new ArrayList<>();
+                System.out.println("____________________________________________________________");
+                System.out.println("You have successfully deleted all the tasks");
+                System.out.println("____________________________________________________________");
 
             } else {
 
@@ -100,7 +115,7 @@ public class Duke {
                 }
 
             }
-
+            addToFile(taskList);
             line = Ui.getUserInput();
 
         }
@@ -152,7 +167,13 @@ public class Duke {
                 Parser.handleEvent(taskList, line);
                 break;
             case "delete":
-                deleteTask(taskList, Integer.parseInt(words[1]));
+                try {
+                    deleteTask(taskList, Integer.parseInt(words[1]));
+                } catch (NumberFormatException numberFormatException){
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Please give me an integer Index of the task you want to delete");
+                    System.out.println("____________________________________________________________");
+                }
                 break;
             default: {
                 throw new UndefinedTaskException(UNDEFINED_TASKS);
@@ -261,5 +282,18 @@ public class Duke {
         System.out.println("       " + taskList.get(index).toString());
         System.out.println("____________________________________________________________");
 
+    }
+
+
+    private static void showInputFormat() {
+        System.out.println("todo DESCRIPTION");
+        System.out.println("deadline DESCRIPTION /by DEADLINE");
+        System.out.println("event DESCRIPTION_OF_EVENT /from START_TIME /to END_TIME");
+        System.out.println("delete INDEX");
+        System.out.println("mark INDEX");
+        System.out.println("unmark INDEX");
+        System.out.println("list");
+        System.out.println("find KEYWORD");
+        System.out.println("bye");
     }
 }
