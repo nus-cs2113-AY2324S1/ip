@@ -124,7 +124,7 @@ Some example commands you can try:
 | todo   | todo DESCRIPTION        | todo return book    |
 | deadline   | deadline DESCRIPTION /by DEADLINE         | deadline return book /by Sunday     |
 | event   | event DESCRIPTION_OF_EVENT /from START_TIME /to END_TIME | event project meeting /from Mon 2pm /to 4pm  |
-| delete   | delete INDEX           | deadline return book /by Sunday     |
+| delete   | delete INDEX           | delete 3     |
 | mark   | mark INDEX  | mark 2 |
 | find   | find KEYWORD   | find book  |
 | Clear   | clear       | clear     |
