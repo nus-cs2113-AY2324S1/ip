@@ -1,5 +1,19 @@
 # User Guide for Oriento
 
+Oriento is a desktop application designed to help you manage your tasks and guide your life in the right direction. It is optimized for use through Command Line Interface(CLI). If you can type face, it would run faster than a traditional GUI app.
+
+## Quick Start
+
+1. Ensure you have Java `11` or above installed in your Computer.
+
+2. Download the latest `ip.jar` from 
+
+3. Copy the file to the folder you want to use as the *home folder* for Oriento.
+
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar ip.jar` command to run the application.
+   
+5. Use `list` command to see if you have any saved task data
+
 ## Features 
 
 ### Notes about the input command format
