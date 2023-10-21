@@ -42,6 +42,7 @@ Now you have 1 tasks in the list.
 A deadline task typically refers to task with a due time.
 
 Format: `deadline Description /by Date Time`
+
 Example: deadline read book /by 20/10/2022 1200
 
 Expected outcome:
@@ -56,7 +57,7 @@ Now you have 1 tasks in the list.
 
 A event task refers to task over a specific period
 
-Format: `event Description /from Date-Time /to Date-Time`
+Format: `event Description /from Date Time /to Date Time`
 
 Example: event read book /from 20/10/2022 1200 /to 27/10/2022 2359
 
