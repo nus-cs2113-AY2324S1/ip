@@ -13,8 +13,8 @@
 - Both `capital letter` and `small letter` are acceptable. But consecutive white space will be eliminated automatically.
 
 - Some task such as dealine task and event task would required time limit. Please input the time in the following format:
-  1. Date format: DD/MM/YYYY. e.g. 21/10/2023
-  2. Date-Time format: DD/MM/YYYY HHMM. e.g. 21/10/2023 1730
+  1. Date format: `DD/MM/YYYY`. e.g. 21/10/2023
+  2. Date-Time format: `DD/MM/YYYY HHMM`. e.g. 21/10/2023 1730
 
      
   Note that apart from the above formats, the current version of app will treat any     time input as valid time. e.g. Friday, Birthday of Ethan, etc. Please make wise use   of the time input.
