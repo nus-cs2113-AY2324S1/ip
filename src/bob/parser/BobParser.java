@@ -42,7 +42,7 @@ public class BobParser {
         case UnmarkCommand.COMMAND_WORD:
             return new UnmarkCommand(arguments);
         case TodoCommand.COMMAND_WORD:
-            return new TodoCommand(arguments);
+            return new TodoCommandParser().parse(arguments);
         case DeadlineCommand.COMMAND_WORD:
             return new DeadlineCommandParser().parse(arguments);
         case EventCommand.COMMAND_WORD:
