@@ -2,6 +2,9 @@ package bob.commands;
 
 import bob.tasklist.TaskList;
 
+/**
+ * Represents a command that Bob can execute.
+ */
 public abstract class Command {
 
     /**

@@ -2,12 +2,20 @@ package bob.commands;
 
 import bob.tasklist.TaskList;
 
+/**
+ * Marks a task in task list as incomplete.
+ */
 public class UnmarkCommand extends Command {
 
     public static final String COMMAND_WORD = "unmark";
 
     private final int markIdx;
 
+    /**
+     * Creates UnmarkCommand to mark task at {@code markIdx} as incomplete.
+     *
+     * @param markIdx Index of task to mark as incomplete.
+     */
     public UnmarkCommand(int markIdx) {
         this.markIdx = markIdx;
     }

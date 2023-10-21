@@ -32,7 +32,7 @@ public class TaskList {
      * Marks item in task as complete. Returns message confirming that task has been
      * marked as complete.
      *
-     * @param line index of task to be marked as complete as a String.
+     * @param markIdx index of task to be marked as complete.
      * @return formatted message declaring that the task has been marked as complete.
      */
     public String markItem(int markIdx) {
@@ -47,7 +47,7 @@ public class TaskList {
      * Marks item as incomplete. Returns message confirming that task has been marked as
      * incomplete.
      *
-     * @param line index of task to be marked as incomplete as a String.
+     * @param markIdx index of task to be marked as incomplete as a String.
      * @return formatted message declaring that the task has been marked as incomplete.
      */
     public String unmarkItem(int markIdx) {
@@ -60,9 +60,8 @@ public class TaskList {
     /**
      * Handler for creating a new Todo.
      *
-     * @param description description of todo.
-     * @return new Todo.
-     * @throws BobException when description of todo is empty.
+     * @param Todo todo to add.
+     * @return Message declaring that todo has been added.
      */
     public String handleCreateTodo(Todo todo) {
         taskItems.add(todo);
@@ -85,9 +84,8 @@ public class TaskList {
     /**
      * Handler for creating a new event.
      *
-     * @param line containing a description, and the start and end times of the deadline in
-     *             the form {@code /from start /to end}.
-     * @return new Event.
+     * @param event Event to add into list of tasks.
+     * @return Message indicating that event has been added.
      */
     public String handleCreateEvent(Event event) {
         taskItems.add(event);
@@ -98,7 +96,7 @@ public class TaskList {
     /**
      * Handler for deleting a task.
      *
-     * @param line index of task to delete as a String.
+     * @param deleteIdx index of task to delete.
      * @return message confirming task has been deleted.
      */
     public String handleDeleteTask(int deleteIdx) {
