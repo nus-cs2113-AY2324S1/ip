@@ -1,10 +1,10 @@
-package duke.storage;
+package bob.storage;
 
-import duke.DukeException;
-import duke.deadline.Deadline;
-import duke.event.Event;
-import duke.task.Task;
-import duke.todo.Todo;
+import bob.BobException;
+import bob.deadline.Deadline;
+import bob.event.Event;
+import bob.task.Task;
+import bob.todo.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -62,9 +62,9 @@ public class Storage {
      * Loads previously saved tasks from file used for storage.
      *
      * @return ArrayList of tasks from save file.
-     * @throws DukeException if unable to read from file.
+     * @throws BobException if unable to read from file.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws BobException {
         Scanner s;
 
         File taskFile = new File(fileName);
@@ -72,7 +72,7 @@ public class Storage {
         try {
             s = new Scanner(taskFile);
         } catch (IOException e) {
-            throw new DukeException("");
+            throw new BobException("");
         }
 
         String line;

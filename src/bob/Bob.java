@@ -1,16 +1,16 @@
-package duke;
+package bob;
 
-import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
+import bob.parser.Parser;
+import bob.storage.Storage;
+import bob.tasklist.TaskList;
+import bob.ui.Ui;
 
 import java.io.IOException;
 
 /**
  * Duke task manager.
  */
-public class Duke {
+public class Bob {
 
     private Storage storage;
     private TaskList tasks;
@@ -19,7 +19,7 @@ public class Duke {
     /**
      * Initializes Duke with a default save file ./data/duke.txt.
      */
-    public Duke() {
+    public Bob() {
         this("./data/duke.txt");
     }
 
@@ -29,19 +29,19 @@ public class Duke {
      *
      * @param filePath path to an existing Duke savefile.
      */
-    public Duke(String filePath) {
+    public Bob(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (BobException e) {
             ui.printLoadingError();
             tasks = new TaskList();
         }
     }
 
     /**
-     * Runs Duke. Reads in user input and processes commands until "bye" command is received.
+     * Runs Bob. Reads in user input and processes commands until "bye" command is received.
      */
     public void run() {
         String command, arguments;
@@ -69,14 +69,14 @@ public class Duke {
             case "todo":
                 try {
                     result = tasks.handleCreateTodo(arguments);
-                } catch (DukeException e) {
+                } catch (BobException e) {
                     result = String.valueOf(e);
                 }
                 break;
             case "deadline":
                 try {
                     result = tasks.handleCreateDeadline(arguments);
-                } catch (DukeException e) {
+                } catch (BobException e) {
                     result = String.valueOf(e);
                 }
                 break;
@@ -115,6 +115,6 @@ public class Duke {
      * Creates and starts running a new instance of Duke.
      */
     public static void main(String[] args) {
-        new Duke().run();
+        new Bob().run();
     }
 }
