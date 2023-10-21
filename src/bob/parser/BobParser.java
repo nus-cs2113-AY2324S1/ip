@@ -50,7 +50,7 @@ public class BobParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommand(arguments);
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommand(arguments);
+            return new DeleteCommandParser().parse(arguments);
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
         default:
