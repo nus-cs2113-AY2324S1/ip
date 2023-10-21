@@ -43,14 +43,14 @@ A deadline task typically refers to task with a due time.
 
 Format: `deadline Description /by Date Time`
 
-Example: deadline read book /by 20/10/2022 1200
+Example: deadline read book /by 22/10/2023 1200
 
-Expected outcome:
+Expected outcome (In Chinese):
 
 ```
 Got it. I've added this task:
-[T][ ] read book
-Now you have 1 tasks in the list.
+[D][ ] read book (by: 10月 22 2023 12:00 下午)
+Now you have 2 tasks in the list.
 ```
 
 ### `Event` - Adding a event task
