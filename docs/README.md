@@ -31,7 +31,7 @@ Example: todo read book
 ```
 ===================================================
 Got it. I've added this task:
-[T][ ]read book
+[T][ ] read book
 Now you have 1 task(s) in the list.
 ===================================================
 ```
@@ -49,7 +49,7 @@ Examples:
 ```
 ===================================================
 Got it. I've added this task:
-[D][ ]return book (by: Oct 25 2023)
+[D][ ] return book (by: Oct 25 2023)
 Now you have 2 task(s) in the list.
 ===================================================
 ```
@@ -57,7 +57,7 @@ Now you have 2 task(s) in the list.
 ```
 ===================================================
 Got it. I've added this task:
-[D][ ]return book (by: Oct 25 2023 1800)
+[D][ ] return book (by: Oct 25 2023 1800)
 Now you have 3 task(s) in the list.
 ===================================================
 ```
@@ -72,7 +72,7 @@ Example: event go to school from 12pm to 6pm
 ```
 ===================================================
 Got it. I've added this task:
-[E][ ]go to school (from: 12pm to: 6pm)
+[E][ ] go to school (from: 12pm to: 6pm)
 Now you have 4 task(s) in the list.
 ===================================================
 ```
@@ -85,10 +85,10 @@ Format: `list`
 ```
 ===================================================
 Here are the tasks in your list:
-1. [T][ ]read book
-2. [D][ ]return book (by: Oct 25 2023)
-3. [D][ ]return book (by: Oct 25 2023 1800)
-4. [E][ ]go to school (from: 12pm to: 6pm)
+1.[T][ ] read book
+2.[D][ ] return book (by: Oct 25 2023)
+3.[D][ ] return book (by: Oct 25 2023 1800)
+4.[E][ ] go to school (from: 12pm to: 6pm)
 ===================================================
 ```
 ### <span style="color: green"> Marking a task: `mark` </span>
@@ -104,8 +104,9 @@ Example: mark 1
 ```
 ===================================================
 Nice! I've marked this task as done:
-[T][X]read book
+[T][X] read book
 ===================================================
+
 ```
 ### <span style="color: green"> Unmarking a task: `unmark` </span>
 Marks a task as undone.
@@ -120,7 +121,7 @@ Example: unmark 1
 ```
 ===================================================
 OK, I've marked this task as not done yet:
-[T][ ]read book
+[T][ ] read book
 ===================================================
 ```
 ### <span style="color: green"> Deleting a task: `delete` </span>
@@ -136,7 +137,7 @@ Example: delete 2
 ```
 ===================================================
 Noted. I've removed this task:
-[D][ ]return book (by: Oct 25 2023)
+[D][ ] return book (by: Oct 25 2023)
 Now you have 3 task(s) in the list.
 ===================================================
 ```
@@ -149,8 +150,8 @@ Example: find book
 ```
 ===================================================
 Here are the matching tasks in your list:
-[T][ ]read book
-[D][ ]return book (by: Oct 25 2023 1800)
+[T][ ] read book
+[D][ ] return book (by: Oct 25 2023 1800)
 ===================================================
 ```
 
