@@ -20,7 +20,7 @@ Bob provides a command-line tool for managing your tasks. It helps you track the
 
 ## Quick Start
 1. Ensure you have Java `11` or above installed in your computer. 
-2. Download the latest `ip.jar` from [here](https://github.com/lctxct/ip/releases/tag/A-Release).
+2. Download the latest `ip.jar` from [here](https://github.com/lctxct/ip/releases/tag/A-Resubmission).
 3. Copy the file to the folder you want to use as the *home folder* for Bob. 
 4. Open a command terminal, locate the path to the folder you put the jar file in, and `cd` (change directory) into that folder. For example, if your file path is `C:\Users\potato\bob\ip.jar`, the full command will be 
     ```
@@ -43,17 +43,7 @@ Bob provides a command-line tool for managing your tasks. It helps you track the
     What can I do for you?
     ____________________________________________________________
     ```
-    If you encounter the error message "Unable to find file. Defaulting to empty list...", this means that Bob is unable to find a save file at the default path `./data/bob.txt`. To remedy this, you may first type `bye` and press Enter to exit the program, and then execute the following. 
-    
-    For **Windows**: 
-    ```
-    New-Item -ItemType Directory -Path .\data; New-Item -ItemType File -Path .\data\bob.txt
-    ```
-    For **Unix**: 
-    ```
-    mkdir -p ./data && touch ./data/bob.txt
-    ```
-    Restart the program with the same `java -jar ip.jar` command. Note that the error message should no be present. 
+    If you encounter the error message "Unable to find file. Defaulting to empty list...", this means that Bob is unable to find a save file at the default path `./data/bob.txt`. If this happens, Bob will automatically help to create a new save file at `./data/bob.txt`. 
 6. Now that the application is running, here are some sample commands you can try: 
     * [`todo water plants`](#adding-todo-todo): Creates a new todo "water plants". 
     * [`list`](#listing-items-list): List all tasks. 
@@ -124,21 +114,9 @@ Example: `delete 1`
 Exits the program. If the save file `./data/bob.txt` exists, contents of the task list will be written into the save file. View [Saving the data](#saving-the-data) for more information on creating the save file. 
 
 ### Saving the data
-If the save file `.\data\bob.txt` exists, items remaining in the task list will be saved in the save file when the app exits, and will be reloaded the next time Bob is launched. 
+If the save file `.\data\bob.txt` exists, the app will load the items contained within the next time Bob is launched. 
 
-If the save file cannot be found, upon starting up Bob will prepend to the welcome message the following error: "Unable to find file. Defaulting to empty list...". 
-
-To remedy this, you may first type `bye` and press Enter to exit the program, and then execute the following. 
-    
-- For **Windows**: 
-    ```
-    New-Item -ItemType Directory -Path .\data; New-Item -ItemType File -Path .\data\bob.txt
-    ```
-- For **Unix**: 
-    ```
-    mkdir -p ./data && touch ./data/bob.txt
-    ```
-Note that when the program is restarted with the `java -jar ip.jar` command, the error message should no longer be present. 
+If the save file cannot be found, upon starting up Bob will prepend to the welcome message the following error: "Unable to find file. Defaulting to empty list...", before helpfully creating a save file for you!
 
 <br />
 
