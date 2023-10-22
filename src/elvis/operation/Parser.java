@@ -51,7 +51,7 @@ public class Parser {
                 Help.helper();
             } else {
                 Ui.printHorizontalLines();
-                Parser.errorHandler(inputBuffer);      //Checks for any errors and handles them
+                Parser.errorHandler(inputBuffer); //Checks for any errors and handles them
                 Ui.printHorizontalLines();
             }
             TaskList.saver();
@@ -118,35 +118,53 @@ public class Parser {
      */
     public static void errorChecker(String inputBuffer) throws EmptyInputException, EmptyListException,
             EmptyToDoException, EmptyMarkException, EmptyUnmarkException, EmptyDeadlineException,
-            EmptyEventException, EmptyDeleteException, EmptyFindException, UnknownDateTimeFormatException {
+            EmptyEventException, EmptyDeleteException, EmptyFindException, UnknownDateTimeFormatException,
+            UnknownInputException {
 
         Scanner bufferScanner = new Scanner(inputBuffer);   //Scanner for the buffer
-        String firstWord;
+        String[] words = new String[50];
+        int wordCount = 0;
         if (!bufferScanner.hasNext()) {                     //Checks for the case when there is no input
             throw new EmptyInputException();
         } else {
-            firstWord = bufferScanner.next();
+            while (bufferScanner.hasNext()) {
+                words[wordCount] = bufferScanner.next();
+                if (words[wordCount].equals("/to") && words[wordCount-1].equals("/from")) { //Input: "event ... /from/to ..."
+                    throw new UnknownInputException();
+                }
+                wordCount++;
+            }
         }
 
-        if (firstWord.equals("list") && TaskList.isArrayEmpty()) {
+        if (words[0].equals("list") && TaskList.isArrayEmpty()) {
             throw new EmptyListException();
-        }  else if (firstWord.equals("delete") && !bufferScanner.hasNext()) {
+        } else if (words[0].equals("delete") && words[1] == null) {
             throw new EmptyDeleteException();
-        }else if (firstWord.equals("mark") && !bufferScanner.hasNext()) {
+        } else if (words[0].equals("mark") && words[1] == null) {
             throw new EmptyMarkException();
-        } else if (firstWord.equals("unmark") && !bufferScanner.hasNext()) {
+        } else if (words[0].equals("unmark") && words[1] == null) {
             throw new EmptyUnmarkException();
-        } else if (firstWord.equals("find") && !bufferScanner.hasNext()) {
+        } else if (words[0].equals("find") && words[1] == null) {
             throw new EmptyUnmarkException();
-        } else if (firstWord.equals("todo") && !bufferScanner.hasNext()) {
+        } else if (words[0].equals("todo") && words[1] == null) {
             throw new EmptyToDoException();
-        } else if (firstWord.equals("deadline") && !bufferScanner.hasNext()) {
+
+        } else if (words[0].equals("deadline") && words[1] == null) { //Input: "deadline"
             throw new EmptyDeadlineException();
-        }  else if (firstWord.equals("deadline") && !(DateTimeHandler.isDateTimeValid('D', inputBuffer))) {
+        } else if (words[0].equals("deadline") && !inputBuffer.contains("/by")) { //Input: "deadline RANDOM"
+            throw new UnknownInputException();
+        } else if (words[0].equals("deadline") && words[wordCount-1].equals("/by")) { //Input: "deadline ... /by"
+            throw new UnknownInputException();
+        } else if (words[0].equals("deadline") && !(DateTimeHandler.isDateTimeValid('D', inputBuffer))) { //Input: "deadline ... /by RANDOM"
             throw new UnknownDateTimeFormatException();
-        } else if (firstWord.equals("event") && !bufferScanner.hasNext()) {
+
+        } else if (words[0].equals("event") && words[1] == null) { //Input: "event"
             throw new EmptyEventException();
-        } else if (firstWord.equals("event") && !(DateTimeHandler.isDateTimeValid('E', inputBuffer))) {
+        } else if (words[0].equals("event") && (!inputBuffer.contains("/from") || !inputBuffer.contains("/to"))) { //Input: no /from OR /to
+            throw new UnknownInputException();
+        } else if (words[0].equals("event") && words[wordCount-1].equals("/to")) { //Input: "event ... /from ... /to"
+            throw new UnknownInputException();
+        } else if (words[0].equals("event") && !(DateTimeHandler.isDateTimeValid('E', inputBuffer))) { //Input: "event /from randomTime /to randomTime"
             throw new UnknownDateTimeFormatException();
         }
     }

@@ -16,12 +16,6 @@ public class Deadline extends Task {
     private final char taskType = 'D';
 
     /**
-     * Constants to represent the date and time indices.
-     */
-    private final int DATE = 0;
-    private final int TIME = 1;
-
-    /**
      * The deadline time for the task.
      */
     private LocalDateTime dateTime;
