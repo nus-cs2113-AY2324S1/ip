@@ -6,15 +6,15 @@ Elvis is a chatbot for managing todo, deadline, event for use via a Command Line
 - [Features](https://woodenclock.github.io/ip/#features)
     - [Viewing help: `help`](https://woodenclock.github.io/ip/#1-viewing-help--help)
     - [Adding a todo: `todo`](https://woodenclock.github.io/ip/#2-adding-a-todo-todo)
-    - [Adding a deadline: `deadline`](https://woodenclock.github.io/ip/#2-adding-a-deadline-deadline)
-    - [Adding an event: `event`](https://woodenclock.github.io/ip/#3-adding-an-event-event)
-    - [Listing all tasks: `list`](https://woodenclock.github.io/ip/#4-listing-all-tasks-list)
-    - [Finding a task: `find`](https://woodenclock.github.io/ip/#5-finding-a-task-find)
-    - [Deleting a task: `delete`](https://woodenclock.github.io/ip/#6-deleting-a-task-delete)
-    - [Marking a task: `mark`](https://woodenclock.github.io/ip/#7-marking-a-task-mark)
-    - [Unmarking a task: `unmark`](https://woodenclock.github.io/ip/#8-unmarking-a-task-unmark)
-    - [Exiting program: `bye`](https://woodenclock.github.io/ip/#9-exiting-program-bye)
-    - [Saving the Tasklist](https://woodenclock.github.io/ip/#10-saving-the-tasklist)
+    - [Adding a deadline: `deadline`](https://woodenclock.github.io/ip/#3-adding-a-deadline-deadline)
+    - [Adding an event: `event`](https://woodenclock.github.io/ip/#4-adding-an-event-event)
+    - [Listing all tasks: `list`](https://woodenclock.github.io/ip/#5-listing-all-tasks-list)
+    - [Finding a task: `find`](https://woodenclock.github.io/ip/#6-finding-a-task-find)
+    - [Deleting a task: `delete`](https://woodenclock.github.io/ip/#7-deleting-a-task-delete)
+    - [Marking a task: `mark`](https://woodenclock.github.io/ip/#8-marking-a-task-mark)
+    - [Unmarking a task: `unmark`](https://woodenclock.github.io/ip/#9-unmarking-a-task-unmark)
+    - [Exiting program: `bye`](https://woodenclock.github.io/ip/#10-exiting-program-bye)
+    - [Saving the Tasklist](https://woodenclock.github.io/ip/#11-saving-the-tasklist)
 - [Command summary](https://woodenclock.github.io/ip/#command-summary)
 
   
@@ -29,7 +29,7 @@ Elvis is a chatbot for managing todo, deadline, event for use via a Command Line
 
 1. Copy the file to the folder you want to use as the home folder for your Elvis.
 
-1. Open a command terminal, cd into the folder you put the jar file in, and run the following command: `java -jar Elvis.jar`.
+1. Open a command terminal, `cd` into the folder you put the jar file in, and run the following command: `java -jar Elvis.jar`.
   
 ```
              _____                      _____            _____                      _____                      _____          
@@ -283,6 +283,9 @@ Finds all tasks in the Tasklist that matches the keyword.
 Format: `find`
 
 Example: `find book`
+
+**Note**:
+Do note that the search is case-sensitive.
 
 ```
    ____________________________________________________________
