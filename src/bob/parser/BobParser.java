@@ -9,17 +9,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Parses Duke commands.
+ * Parses Bob commands.
  */
 public class BobParser {
 
     /**
-     * Pattern used to parse Duke commands.
+     * Pattern used to parse Bob commands.
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*?)");
 
     /**
-     * Parses Duke command from {@param userInput}. Returns an Array of length 2 in the form
+     * Parses Bob command from {@param userInput}. Returns an Array of length 2 in the form
      * [commandWord, arguments].
      *
      * @param userInput command sent by user.
@@ -54,7 +54,7 @@ public class BobParser {
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
         default:
-            throw new BobException("I don't know that command");
+            throw new BobException("I don't know that command.");
         }
     }
 

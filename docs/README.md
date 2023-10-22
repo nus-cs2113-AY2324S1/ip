@@ -1,6 +1,6 @@
 # User Guide 
 
-Duke provides a command-line tool for managing your tasks. It helps you track the completion status of your todos, deadlines and event, and makes managing your life so much easier! 
+Bob provides a command-line tool for managing your tasks. It helps you track the completion status of your todos, deadlines and event, and makes managing your life so much easier! 
 
 - [Quick Start](#quick-start)
 - [Features](#features)
@@ -21,7 +21,7 @@ Duke provides a command-line tool for managing your tasks. It helps you track th
 ## Quick Start
 1. Ensure you have Java `11` or above installed in your computer. 
 2. Download the latest `ip.jar` from [here](https://github.com/lctxct/ip/releases/tag/A-Release).
-3. Copy the file to the folder you want to use as the *home folder* for Duke. 
+3. Copy the file to the folder you want to use as the *home folder* for Bob. 
 4. Open a command terminal, locate the path to the folder you put the jar file in, and `cd` (change directory) into that folder. For example, if your file path is `C:\Users\potato\bob\ip.jar`, the full command will be 
     ```
     cd C:\Users\potato\bob\ip.jar
@@ -43,7 +43,7 @@ Duke provides a command-line tool for managing your tasks. It helps you track th
     What can I do for you?
     ____________________________________________________________
     ```
-    If you encounter the error message "Unable to find file. Defaulting to empty list...", this means that Duke is unable to find a save file at the default path `./data/bob.txt`. To remedy this, you may first type `bye` and press Enter to exit the program, and then execute the following. 
+    If you encounter the error message "Unable to find file. Defaulting to empty list...", this means that Bob is unable to find a save file at the default path `./data/bob.txt`. To remedy this, you may first type `bye` and press Enter to exit the program, and then execute the following. 
     
     For **Windows**: 
     ```
@@ -124,9 +124,9 @@ Example: `delete 1`
 Exits the program. If the save file `./data/bob.txt` exists, contents of the task list will be written into the save file. View [Saving the data](#saving-the-data) for more information on creating the save file. 
 
 ### Saving the data
-If the save file `.\data\bob.txt` exists, items remaining in the task list will be saved in the save file when the app exits, and will be reloaded the next time Duke is launched. 
+If the save file `.\data\bob.txt` exists, items remaining in the task list will be saved in the save file when the app exits, and will be reloaded the next time Bob is launched. 
 
-If the save file cannot be found, upon starting up Duke will prepend to the welcome message the following error: "Unable to find file. Defaulting to empty list...". 
+If the save file cannot be found, upon starting up Bob will prepend to the welcome message the following error: "Unable to find file. Defaulting to empty list...". 
 
 To remedy this, you may first type `bye` and press Enter to exit the program, and then execute the following. 
     

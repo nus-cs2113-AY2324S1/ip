@@ -68,7 +68,7 @@ public class Ui {
     }
 
     /**
-     * Prints error message for when application is unable to load Duke save file.
+     * Prints error message for when application is unable to load Bob save file.
      */
     public void printLoadingError() {
         println("Unable to find file. Defaulting to empty list...");

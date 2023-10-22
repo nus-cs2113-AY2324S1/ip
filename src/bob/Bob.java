@@ -9,7 +9,7 @@ import bob.ui.Ui;
 import java.io.IOException;
 
 /**
- * Duke task manager.
+ * Bob task manager.
  */
 public class Bob {
 
@@ -18,17 +18,17 @@ public class Bob {
     private Ui ui;
 
     /**
-     * Initializes Duke with a default save file ./data/duke.txt.
+     * Initializes Bob with a default save file ./data/bob.txt.
      */
     public Bob() {
-        this("./data/duke.txt");
+        this("./data/bob.txt");
     }
 
     /**
-     * Initializes Duke. Loads saved tasks from file path provided by filePath if the file
+     * Initializes Bob. Loads saved tasks from file path provided by filePath if the file
      * exists, else creates a new empty list.
      *
-     * @param filePath path to an existing Duke savefile.
+     * @param filePath path to an existing Bob savefile.
      */
     public Bob(String filePath) {
         ui = new Ui();
@@ -79,7 +79,7 @@ public class Bob {
     }
 
     /**
-     * Creates and starts running a new instance of Duke.
+     * Creates and starts running a new instance of Bob.
      */
     public static void main(String[] args) {
         new Bob().run();
