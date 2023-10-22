@@ -2,7 +2,6 @@ package bob.parser;
 
 import bob.BobException;
 import bob.commands.DeleteCommand;
-import bob.commands.MarkCommand;
 
 public class DeleteCommandParser implements Parser<DeleteCommand>{
 

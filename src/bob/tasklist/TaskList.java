@@ -6,7 +6,6 @@ import bob.event.Event;
 import bob.task.Task;
 import bob.todo.Todo;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {

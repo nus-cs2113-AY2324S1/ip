@@ -1,6 +1,5 @@
 package bob.commands;
 
-import bob.BobException;
 import bob.deadline.Deadline;
 import bob.tasklist.TaskList;
 

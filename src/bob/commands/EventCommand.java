@@ -1,9 +1,7 @@
 package bob.commands;
 
-import bob.BobException;
 import bob.event.Event;
 import bob.tasklist.TaskList;
-import bob.todo.Todo;
 
 /**
  * Adds a new event to task list.

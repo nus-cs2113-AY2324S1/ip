@@ -4,8 +4,6 @@ import bob.BobException;
 import bob.commands.EventCommand;
 import bob.event.Event;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
