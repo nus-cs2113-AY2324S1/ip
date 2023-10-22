@@ -5,7 +5,6 @@ import linguobot.task.Task;
 import linguobot.task.TaskList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FindTask extends Command{
     private final String keyword;

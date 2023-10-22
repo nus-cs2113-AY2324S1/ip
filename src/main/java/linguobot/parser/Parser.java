@@ -65,7 +65,7 @@ public class Parser {
 
     private Todo getTodo(String input) throws LinguoBotException {
         int TODO_DESCRIPTION_INDEX = 4;
-        String description = input.substring(TODO_DESCRIPTION_INDEX);
+        String description = input.substring(TODO_DESCRIPTION_INDEX).trim();
         if (description.isEmpty()) {
             throw new LinguoBotException("Todo description cannot be empty!");
         }
@@ -115,13 +115,17 @@ public class Parser {
         if (input.length() <= DELETE_START_INDEX) {
             throw new LinguoBotException("Invalid input format. Please provide a task index to delete.");
         }
-        int deleteTaskIndex = Integer.parseInt(input.substring(DELETE_START_INDEX)) - 1;
-        if (taskList.getNumberOfTasks() == 0) {
-            throw new LinguoBotException("Task list is empty.");
-        } else if (deleteTaskIndex > (taskList.getNumberOfTasks() - 1)) {
-            throw new LinguoBotException("Invalid task index. Please input index ≤ " + (taskList.getNumberOfTasks()) + " to delete task.");
+        try {
+            int deleteTaskIndex = Integer.parseInt(input.substring(DELETE_START_INDEX)) - 1;
+            if (taskList.getNumberOfTasks() == 0) {
+                throw new LinguoBotException("Task list is empty.");
+            } else if (deleteTaskIndex > (taskList.getNumberOfTasks() - 1)) {
+                throw new LinguoBotException("Invalid task index. Please input index ≤ " + (taskList.getNumberOfTasks()) + " to delete task.");
+            }
+            return new DeleteTask(deleteTaskIndex, taskList);
+        } catch (NumberFormatException e) {
+            throw new LinguoBotException("Please input an integer to delete a task.");
         }
-        return new DeleteTask(deleteTaskIndex, taskList);
     }
 
     private Command getMarkTask(String input, TaskList taskList) throws LinguoBotException {
@@ -129,31 +133,40 @@ public class Parser {
         if (input.length() <= MARK_START_INDEX) {
             throw new LinguoBotException("Invalid input format. Please provide a task index to mark.");
         }
-        int markTaskIndex = Integer.parseInt(input.substring(MARK_START_INDEX)) - 1;
-        if (taskList.getNumberOfTasks() == 0) {
-            throw new LinguoBotException("Task list is empty.");
-        } else if (markTaskIndex > (taskList.getNumberOfTasks() - 1)) {
-            throw new LinguoBotException("Invalid task index. Please input index ≤ " + (taskList.getNumberOfTasks()) + " to mark task.");
-        } else if (taskList.getTask(markTaskIndex).getStatusIcon().equals("X")) {
-            throw new LinguoBotException("Task has already been marked.");
-        }
-        return new MarkTask(markTaskIndex, taskList);
+        try {
+            int markTaskIndex = Integer.parseInt(input.substring(MARK_START_INDEX)) - 1;
+            if (taskList.getNumberOfTasks() == 0) {
+                throw new LinguoBotException("Task list is empty.");
+            } else if (markTaskIndex > (taskList.getNumberOfTasks() - 1)) {
+                throw new LinguoBotException("Invalid task index. Please input index ≤ " + (taskList.getNumberOfTasks()) + " to mark task.");
+            } else if (taskList.getTask(markTaskIndex).getStatusIcon().equals("X")) {
+                throw new LinguoBotException("Task has already been marked.");
+            }
+            return new MarkTask(markTaskIndex, taskList);
+        } catch (NumberFormatException e) {
+            throw new LinguoBotException("Please input an integer to mark a task.");
 
+        }
     }
+
     private Command getUnmarkTask(String input, TaskList taskList) throws LinguoBotException {
         int UNMARK_START_INDEX = 7;
         if (input.length() <= UNMARK_START_INDEX) {
             throw new LinguoBotException("Invalid input format. Please provide a task index to unmark.");
         }
-        int unmarkTaskIndex = Integer.parseInt(input.substring(UNMARK_START_INDEX)) - 1;
-        if (taskList.getNumberOfTasks() == 0) {
-            throw new LinguoBotException("Task list is empty.");
-        } else if (unmarkTaskIndex > (taskList.getNumberOfTasks() - 1)) {
-            throw new LinguoBotException("Invalid task index. Please input index ≤ " + (taskList.getNumberOfTasks()) + " to unmark task.");
-        } else if (taskList.getTask(unmarkTaskIndex).getStatusIcon().equals(" ")) {
-            throw new LinguoBotException("Task has not been marked.");
+        try {
+            int unmarkTaskIndex = Integer.parseInt(input.substring(UNMARK_START_INDEX)) - 1;
+            if (taskList.getNumberOfTasks() == 0) {
+                throw new LinguoBotException("Task list is empty.");
+            } else if (unmarkTaskIndex > (taskList.getNumberOfTasks() - 1)) {
+                throw new LinguoBotException("Invalid task index. Please input index ≤ " + (taskList.getNumberOfTasks()) + " to unmark task.");
+            } else if (taskList.getTask(unmarkTaskIndex).getStatusIcon().equals(" ")) {
+                throw new LinguoBotException("Task has not been marked.");
+            }
+            return new UnmarkTask(unmarkTaskIndex, taskList);
+        } catch (NumberFormatException e) {
+            throw new LinguoBotException("Please input an integer to unmark a task.");
         }
-        return new UnmarkTask(unmarkTaskIndex, taskList);
     }
 
     private Command getFindTask(String input, TaskList taskList) throws LinguoBotException {

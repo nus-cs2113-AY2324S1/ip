@@ -3,6 +3,8 @@ package linguobot.command;
 import linguobot.Ui;
 import linguobot.task.TaskList;
 
+import static linguobot.file.TaskFile.saveTaskListToFile;
+
 public class UnmarkTask extends Command {
     private final int unmarkTaskIndex;
     private final TaskList taskList;
@@ -15,6 +17,8 @@ public class UnmarkTask extends Command {
     @Override
     public void execute() {
         taskList.getTask(unmarkTaskIndex).markAsUndone();
-        Ui.printMultipleText(new String[] {"OK, I've marked this task as not done yet:", taskList.getTask(unmarkTaskIndex).toString()});
+        saveTaskListToFile(taskList);
+        Ui.printMultipleText(new String[] {"OK, I've marked this task as not done yet:",
+                taskList.getTask(unmarkTaskIndex).toString()});
     }
 }

@@ -37,16 +37,4 @@ public class Ui {
         }
         printLine();
     }
-
-    /**
-     * Prints the given texts sandwiched by two horizontal lines
-     * @param texts Texts to be printed in a list
-     */
-    public static void printMultipleText(ArrayList<String> texts) {
-        printLine();
-        for (String text : texts) {
-            System.out.println(text);
-        }
-        printLine();
-    }
 }

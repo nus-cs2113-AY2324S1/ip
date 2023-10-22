@@ -3,6 +3,7 @@ package linguobot;
 import linguobot.command.Command;
 import linguobot.command.Exit;
 import linguobot.exceptions.LinguoBotException;
+import linguobot.file.TaskFile;
 import linguobot.parser.Parser;
 import linguobot.task.TaskList;
 
@@ -15,6 +16,7 @@ import linguobot.task.TaskList;
 public class LinguoBot {
     private final Input input = new Input();
     private final TaskList taskList = new TaskList();
+    private final TaskFile taskFile = new TaskFile("./data/tasks.txt", taskList);
     private final Parser parser = new Parser(taskList);
 
     /**
@@ -30,6 +32,9 @@ public class LinguoBot {
 
         String[] welcomeMessage = {"Hello I'm", logo, "What can I do for you?"};
         Ui.printMultipleText(welcomeMessage);
+        // Initialise taskList to contain data in taskFile
+        taskFile.loadTasksIntoTasklist();
+        TaskFile.printFile();
 
         Command command = null;
         while (!(command instanceof Exit)) {
