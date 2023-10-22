@@ -2,7 +2,7 @@ package linguobot;
 
 import java.util.Scanner;
 /**
- * Represents the input from the user
+ * Represents the input from the user in a command-line interface
  */
 public class Input {
     private String inputString;

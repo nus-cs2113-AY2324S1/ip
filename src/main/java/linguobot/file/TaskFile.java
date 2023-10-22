@@ -11,13 +11,17 @@ import java.util.Scanner;
 
 /**
  * The <code>TaskFile</code> class is responsible for managing the storage and retrieval of tasks in a file.
- * It provides methods to create, read, parse, and save tasks to a file, as well as print the tasks
- * stored in the file.
+ * It provides methods to create, read, parse, save tasks to a file, and print the tasks stored in the file.
  */
 public class TaskFile {
     private static File tasks;
     private static TaskList taskList;
 
+    /**
+     * Constructs a TaskFile with the specified filename and taskList.
+     * @param filename The name of the file to store tasks.
+     * @param taskList The taskList associated with the TaskFile.
+     */
     public TaskFile(String filename, TaskList taskList) {
         tasks = new File(filename);
         createFile();
@@ -59,7 +63,10 @@ public class TaskFile {
             Ui.printTextWithoutLine("Something went wrong: " + e.getMessage());
         }
     }
-
+    /**
+     * Loads tasks from the taskFile into the associated taskList.
+     * @return The taskList containing loaded tasks.
+     */
     public TaskList loadTasksIntoTasklist() {
         try (Scanner scanner = new Scanner(tasks)) {
             while (scanner.hasNextLine()) {
@@ -74,6 +81,11 @@ public class TaskFile {
         return taskList;
     }
 
+    /**
+     * Parses a task from a string representation.
+     * @param taskString The string representation of the task.
+     * @return The parsed Task object or null if parsing fails.
+     */
     public Task parseTaskFromString(String taskString) {
         String[] parts = taskString.split("\\s*\\|\\s*");
         if (parts.length < 2) {
@@ -110,7 +122,7 @@ public class TaskFile {
 
     /**
      * Saves the current taskList to the taskFile, overwriting its contents.
-     * @param taskList ArrayList of tasks.
+     * @param taskList The taskList to be saved to the taskFile.
      */
     public static void saveTaskListToFile(TaskList taskList) {
         try{

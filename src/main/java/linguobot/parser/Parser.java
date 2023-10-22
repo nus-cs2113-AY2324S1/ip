@@ -16,6 +16,11 @@ import linguobot.task.Event;
 import linguobot.task.TaskList;
 import linguobot.task.Todo;
 
+/**
+ * The Parser class is responsible for parsing user input and generating corresponding Command objects.
+ * It processes input to create commands for adding tasks, listing tasks, deleting tasks, marking/unmarking tasks,
+ * finding tasks, or exiting the application.
+ */
 public class Parser {
     private static final String ADD_TODO = "todo";
     private static final String ADD_DEADLINE = "deadline";
@@ -29,10 +34,20 @@ public class Parser {
 
     private final TaskList taskList;
 
+    /**
+     * Constructs a Parser with the provided taskList for processing user commands.
+     * @param taskList The taskList used to store tasks.
+     */
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     * @param input User's input.
+     * @return Command object representing the user's command.
+     * @throws LinguoBotException if the input cannot be parsed or contains errors.
+     */
     public Command parse(String input) throws LinguoBotException {
         String command = input.contains(" ") ? input.split(" ")[0] : input;
         switch (command) {

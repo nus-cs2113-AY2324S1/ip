@@ -1,6 +1,9 @@
 package linguobot;
-import java.util.ArrayList;
 
+/**
+ * The <code>Ui</code> class provides utility methods for displaying text in a command-line interface.
+ * It includes methods for printing text with horizontal lines to create a visually appealing output.
+ */
 public class Ui {
 
     public static void printLine() {
