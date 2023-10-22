@@ -1,0 +1,2 @@
+E|0|urdad |monday|tuesday
+E|0|urmom |monday|tuesday

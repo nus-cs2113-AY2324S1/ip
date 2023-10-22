@@ -1,0 +1,4 @@
+T|0|read book
+T|0|join sports club
+T|0|urmother
+T|0|ur father
