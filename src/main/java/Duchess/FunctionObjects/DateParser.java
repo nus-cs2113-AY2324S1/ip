@@ -15,12 +15,10 @@ public class DateParser {
             this.Time = Integer.parseInt(this.rawdate[1].strip());
             this.date = LocalDate.parse(this.rawdate[0].strip());
         }catch(Exception e){
-            System.out.println(e.getMessage());
             try{
                 this.Time = 0;
                 this.date = LocalDate.parse(date);
                 }catch(Exception f){
-                    System.out.println(f.getMessage());
                     this.date = null;
 
             }

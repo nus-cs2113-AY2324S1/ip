@@ -69,21 +69,28 @@ public class CommandHandler {
                 break;
 
             case Constants.markCommand:
-                int taskNumber = Integer.parseInt(commandArray[1]);
-                taskList.markTask(taskNumber);
-                break;
+                try{
+                    int taskNumber = Integer.parseInt(commandArray[1]);
+                    taskList.markTask(taskNumber);
+                    break;
+                } catch (NumberFormatException e){
+                    throw new UnrecognisedCommandError(DefaultStrings.unrecognisedString);
+                }
 
             case Constants.unmarkCommand:
-                taskNumber = Integer.parseInt(commandArray[1]);
-                taskList.unmarkTask(taskNumber);
-                break;
+                try{
+                    int taskNumber = Integer.parseInt(commandArray[1]);
+                    taskList.unmarkTask(taskNumber);
+                    break;
+                } catch (NumberFormatException e){
+                    throw new UnrecognisedCommandError(DefaultStrings.unrecognisedString);
+                }
 
             case Constants.todoCommand:
 
                 try{
                     Task newToDo = stringHandler.processToDoString(command);
                     taskList.addTask(newToDo);
-                    ui.printTask(newToDo);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new IncompleteTaskError(DefaultStrings.emptyToDoString, new ToDo());
                 }
@@ -94,7 +101,6 @@ public class CommandHandler {
                 try{
                     Task newDeadline = stringHandler.processDeadlineString(command);
                     taskList.addTask(newDeadline);
-                    ui.printTask(newDeadline);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new IncompleteTaskError(DefaultStrings.emptyDeadlineString, new Deadline());
                 }
@@ -105,7 +111,6 @@ public class CommandHandler {
                 try{
                     Task newEvent = stringHandler.processEventString(command);
                     taskList.addTask(newEvent);
-                    ui.printTask(newEvent);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new IncompleteTaskError(DefaultStrings.emptyEventString, new Event());
                 }
@@ -113,9 +118,13 @@ public class CommandHandler {
 
 
             case Constants.deleteCommand:
-                taskNumber = Integer.parseInt(commandArray[1]);
-                taskList.deleteTask(taskNumber);
-                break;
+                try{
+                    int taskNumber = Integer.parseInt(commandArray[1]);
+                    taskList.deleteTask(taskNumber);
+                    break;
+                } catch (NumberFormatException e){
+                    throw new UnrecognisedCommandError(DefaultStrings.unrecognisedString);
+                }
 
             case Constants.findCommand:
                 String keyword = commandArray[1];
