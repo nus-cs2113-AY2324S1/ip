@@ -75,6 +75,11 @@ public class Ui {
     }
 
     /**
+     * Prints message to notify reader of creation of "./data/bob.txt".
+     */
+    public void createNewFileMessage() { println("Creating data/bob.txt..."); }
+
+    /**
      * Reads in user input.
      *
      * @return Returns read line of user input.

@@ -72,7 +72,7 @@ public class Storage {
         try {
             s = new Scanner(taskFile);
         } catch (IOException e) {
-            throw new BobException("");
+            throw new BobException("Unable to read from file.");
         }
 
         String line;

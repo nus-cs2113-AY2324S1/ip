@@ -6,6 +6,7 @@ import bob.storage.Storage;
 import bob.tasklist.TaskList;
 import bob.ui.Ui;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -32,12 +33,31 @@ public class Bob {
      */
     public Bob(String filePath) {
         ui = new Ui();
+
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            ui.printLoadingError();
+
+            File directory = file.getParentFile();
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                ui.println(String.valueOf(e));
+            }
+
+            ui.createNewFileMessage();
+        }
+
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (BobException e) {
-            ui.printLoadingError();
-            tasks = new TaskList();
+            ui.println(String.valueOf(e));
         }
     }
 
@@ -83,5 +103,6 @@ public class Bob {
      */
     public static void main(String[] args) {
         new Bob().run();
+
     }
 }
