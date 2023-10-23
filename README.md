@@ -4,7 +4,7 @@
 	This user guide is to guide the user how to use this robot on command line input
 	This robot can identify in 3 different tasks, todo, event and deadline
 	Also it can record and display the tasks user input, modify the status, search task by name and retrieve tasks from the disk.
-2. **Using Duke**
+2. **Using duke**
 	Create a new todo task: enter the command "todo taskName"
 	Create a new deadline task: enter the command "deadline taskName /by dd/MM/yyyy hhmm"
 	Create a new event task: enter the command "event taskName /from dd/MM/yyyy hhmm /to dd/MM/yyyy hhmm"

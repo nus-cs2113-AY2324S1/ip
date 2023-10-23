@@ -81,7 +81,7 @@ Task list data are saved in the hard disk automatically after any command that c
 
 ### FAQ
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Send the Duke.txt inside the JAR file location to another computer's JAR file location for the Duke
+**A**: Send the duke.txt inside the JAR file location to another computer's JAR file location for the duke
 
 
 
