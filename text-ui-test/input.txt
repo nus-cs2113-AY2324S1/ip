@@ -1,0 +1,9 @@
+todo borrow book
+deadline return book by 25/10/2023
+deadline finish assignment by 15/11/2023 11:59 PM
+event go to the library from Monday 2pm to 4pm
+list
+mark 2
+list
+unmark 2
+bye
