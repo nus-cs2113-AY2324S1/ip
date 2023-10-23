@@ -1,0 +1,4 @@
+todo bring bacon
+deadline eat bacon /by francis
+event cook bacon /from neighbour /to a crisp
+bye
