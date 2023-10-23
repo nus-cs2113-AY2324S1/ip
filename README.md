@@ -1,24 +1,71 @@
-# Duke project template
+# Duke Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+[User Guide](#user-guide) | [About Us](#about-us) | [View on GitHub](https://github.com/your-github-link-here)
 
-## Setting up in Intellij
+## User Guide
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+### Introduction
+The Duke Chatbot is a desktop app optimized for managing tasks and events, making use of a Command Line Interface (CLI) whilst offering the benefits of a Graphical User Interface (GUI). If you're a fast typer, our chatbot will help you manage your tasks more efficiently than traditional GUI apps.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+#### Quick Start:
+
+1. Ensure you have Java 11 or above installed on your computer.
+2. Download the latest jar file.
+3. Copy the file to the folder you want to use as the home directory for your Chatbot.
+4. Open a command terminal, navigate to the folder containing the jar file, and run the chatbot using the `java -jar chatbot.jar` command.
+
+#### Features
+
+:information_source: **Notes about the command format:**
+- Commands are not case-sensitive. For instance, `list` and `LIST` will function identically.
+- Parameters that need to be supplied by the user are in UPPER_CASE. For example, in the `find KEYWORD`, KEYWORD is a parameter to be provided, like `find homework`.
+
+#### Commands
+
+- **List**: Shows all tasks.
+    - Format: `list`
+
+- **Mark**: Marks a task as done.
+    - Format: `mark TASK_INDEX`
+    - Example: `mark 2` marks the second task as done.
+
+- **Unmark**: Unmarks a task.
+    - Format: `unmark TASK_INDEX`
+    - Example: `unmark 2` unmarks the second task.
+
+- **Delete**: Deletes a task.
+    - Format: `delete TASK_INDEX`
+    - Example: `delete 2` deletes the second task.
+
+- **Deadline**: Adds a task with a deadline.
+    - Format: `deadline TASK_NAME /by DATE_TIME`
+    - Example: `deadline Submit Homework /by 2023-10-15 1800`
+
+- **Event**: Adds an event.
+    - Format: `event EVENT_NAME /at DATE_TIME`
+    - Example: `event Team Meeting /at 2023-10-20 1400`
+
+- **Todo**: Adds a to-do task.
+    - Format: `todo TASK_NAME`
+    - Example: `todo Read Book`
+
+- **Find**: Searches tasks containing the keyword.
+    - Format: `find KEYWORD`
+    - Example: `find meeting` returns all tasks containing the word 'meeting'.
+
+#### FAQ
+- **Q: How can I backup my tasks?**
+    - A: All tasks are automatically saved in the hard drive after every command that modifies data. To backup, simply copy the saved data file and store it in a safe location.
+
+#### Command Summary
+| Action    | Format, Examples                                                                 |
+|-----------|-----------------------------------------------------------------------------------|
+| List      | `list`                                                                            |
+| Mark      | `mark TASK_INDEX` e.g., `mark 2`                                                  |
+| Unmark    | `unmark TASK_INDEX` e.g., `unmark 2`                                              |
+| Delete    | `delete TASK_INDEX` e.g., `delete 2`                                              |
+| Deadline  | `deadline TASK_NAME /by DATE_TIME` e.g., `deadline Submit Homework /by 2023-10-15`|
+| Event     | `event EVENT_NAME /at DATE_TIME` e.g., `event Team Meeting /at 2023-10-20`        |
+| Todo      | `todo TASK_NAME` e.g., `todo Read Book`                                           |
+| Find      | `find KEYWORD` e.g., `find meeting`                                               |
+
