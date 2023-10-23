@@ -8,18 +8,6 @@ public class Task {
     private String description;
     private boolean done;
     /**
-     * Mark a task as done.
-     */
-    public void markAsDone(){
-        done = true;
-    }
-    /**
-     * Mark a task as not done.
-     */
-    public void markAsNotDone(){
-        done = false;
-    }
-    /**
      * Creates a new task with a blank description,
      * not done status and default task type.
      */
@@ -50,6 +38,18 @@ public class Task {
         this.description = description;
         done = false;
         this.taskType = taskType;
+    }
+    /**
+     * Mark a task as done.
+     */
+    public void markAsDone(){
+        done = true;
+    }
+    /**
+     * Mark a task as not done.
+     */
+    public void markAsNotDone(){
+        done = false;
     }
     /**
      * Checks if a task has been done.

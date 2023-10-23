@@ -1,12 +1,14 @@
 package rene.storage;
 import rene.task.Task;
 import rene.tasklist.TaskList;
+import rene.ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 /**
  * Represents the hard disk storage where
  * task data is stored, read and updated.
@@ -59,46 +61,48 @@ public class Storage {
                     String taskType = taskSubStrings[0].strip();
                     String taskDoneStatus = taskSubStrings[1].strip();
                     String taskDescription = taskSubStrings[2].strip();
-
-                    switch (taskType) {
-                    case "T": tasks.addToTaskList("todo " + taskDescription,
-                            Task.TaskType.TODO, false);
-                        if (taskDoneStatus.equals("done")) {
-                            tasks.markTaskAsDone(taskIndex, false);
-                        }
-                        break;
-                    case "D":
-                        String dueTime = taskSubStrings[3].replace("(by:", "")
-                                .replace(")", "").strip();
-                        tasks.addToTaskList("deadline " + taskDescription + " /by " + dueTime,
-                                Task.TaskType.DEADLINE, false);
-                        if (taskDoneStatus.equals("done")) {
-                            tasks.markTaskAsDone(taskIndex, false);
-                        }
-
-                        break;
-                    case "E":
-                        String[] taskTimings = taskSubStrings[3].strip().split("\\(from:")[1]
-                                .split("to:");
-                        String startTime = taskTimings[0];
-                        String endTime = taskTimings[1].split("\\)")[0];
-                        tasks.addToTaskList("event " + taskDescription + " /from " + startTime
-                                + " /to " + endTime, Task.TaskType.EVENT, false);
-                        if (taskDoneStatus.equals("done")) {
-                            tasks.markTaskAsDone(taskIndex, false);
-                        }
-                        break;
-                    default:
-                        System.out.println(nextTask);
-                        break;
-                    }
-
-
+                    addTaskFromFile(taskType, taskDescription, taskDoneStatus, taskSubStrings, taskIndex,
+                            tasks, nextTask);
                 }
             }
-        }
-        catch(NullPointerException | IOException  invalidFilePath){
+        } catch(NullPointerException | IOException invalidFilePath){
             System.out.println("    " + invalidFilePath.getMessage());
+        }
+    }
+
+    private void addTaskFromFile(String taskType, String taskDescription, String taskDoneStatus,
+                                 String[] taskSubStrings, int taskIndex, TaskList tasks, String nextTask){
+        switch (taskType) {
+        case "[T]": tasks.addToTaskList("todo " + taskDescription,
+                Task.TaskType.TODO, false);
+            if (taskDoneStatus.equals("done")) {
+                tasks.markTaskAsDone(taskIndex, false);
+            }
+            break;
+        case "[D]":
+            String dueTime = taskSubStrings[3].replace("(by:", "")
+                    .replace(")", "").strip();
+            tasks.addToTaskList("deadline " + taskDescription + " /by " + dueTime,
+                    Task.TaskType.DEADLINE, false);
+            if (taskDoneStatus.equals("done")) {
+                tasks.markTaskAsDone(taskIndex, false);
+            }
+
+            break;
+        case "[E]":
+            String[] taskTimings = taskSubStrings[3].strip().split("\\(from:")[1]
+                    .split("to:");
+            String startTime = taskTimings[0];
+            String endTime = taskTimings[1].split("\\)")[0];
+            tasks.addToTaskList("event " + taskDescription + " /from " + startTime
+                    + " /to " + endTime, Task.TaskType.EVENT, false);
+            if (taskDoneStatus.equals("done")) {
+                tasks.markTaskAsDone(taskIndex, false);
+            }
+            break;
+        default:
+            System.out.println(nextTask);
+            break;
         }
     }
     /**
@@ -129,45 +133,13 @@ public class Storage {
             writeToFile(dataFile.getPath(), "Latest Tasks" + System.lineSeparator(), false);
             ArrayList<Task> allTasks = tasks.getAllTasks();
             for (Task task: allTasks) {
-                switch (task.getTaskType()) {
-                case TODO:
-                    if (task.taskIsDone()) {
-                        writeToFile(dataFile.getPath(), "T | done |  " + task.getTaskDescription()
-                                + System.lineSeparator(), true);
-                    } else {
-                        writeToFile(dataFile.getPath(), "T | undone |  " + task.getTaskDescription()
-                                + System.lineSeparator(), true);
-                    }
-                    break;
-                case DEADLINE:
-                    if (task.taskIsDone()) {
-                        writeToFile(dataFile.getPath(), "D | done |  " + task.getTaskDescription()
-                                + " | "  + task.getTaskTiming(true)
-                                + System.lineSeparator(), true);
-                    } else {
-                        writeToFile(dataFile.getPath(), "D | undone |  " + task.getTaskDescription()
-                                + " | "  + task.getTaskTiming(true)
-                                + System.lineSeparator(), true);
-                    }
-                    break;
-                case EVENT:
-                    if (task.taskIsDone()) {
-                        writeToFile(dataFile.getPath(), "E | done |  " + task.getTaskDescription()
-                                + " | "  + task.getTaskTiming(true)
-                                + System.lineSeparator(), true);
-                    } else {
-                        writeToFile(dataFile.getPath(), "E | undone |  " + task.getTaskDescription()
-                                + " | "  + task.getTaskTiming(true)
-                                + System.lineSeparator(), true);
-                    }
-                    break;
-                default:
-                    break;
-                }
+                Task.TaskType taskType = task.getTaskType();
+                writeToFile(dataFile.getPath(), Ui.getTaskSymbol(taskType) + " | "
+                        + Ui.getTaskDoneStatusText(task) + " | " + task.getTaskDescription()
+                        + System.lineSeparator(), true);
             }
 
-        }
-        catch(NullPointerException | IOException invalidFilePath){
+        } catch(NullPointerException | IOException invalidFilePath){
             System.out.println("    " + invalidFilePath.getMessage());
             System.out.println("    ____________________________________________________________");
         }

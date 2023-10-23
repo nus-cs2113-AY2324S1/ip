@@ -5,6 +5,7 @@ import rene.task.ToDo;
 import rene.task.Deadline;
 import rene.task.Event;
 import rene.exception.ReneExceptions;
+import rene.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +17,13 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> allTasks; //array of inputs
-    DateTimeFormatter inputDateTimeFormatter = DateTimeFormatter.ofPattern( "dd-MM-yyyy HH:mm" );
+    private final DateTimeFormatter inputDateTimeFormatter = DateTimeFormatter.ofPattern( "dd-MM-yyyy HH:mm" );
+    /**
+     * Creates a new empty task list.
+     */
+    public TaskList(){
+        allTasks = new ArrayList<>();
+    }
     /**
      * Adds a user-requested task to the current task list.
      * Depending on the type of task to add to the list,
@@ -30,167 +37,179 @@ public class TaskList {
     public void addToTaskList(String input, Task.TaskType taskType, boolean showMessage){
         switch (taskType) {
         case TODO:
-            try {
-                String toDoDescription = input.split("todo")[1].strip();
-                if (toDoDescription.equals("")) {
-                    throw new ReneExceptions("Incomplete Command");
-                }
-                allTasks.add(new ToDo(toDoDescription));
-                if (showMessage) {
-                    System.out.println("    I have added the following task OwO:");
-                    System.out.printf("      [T][] %s\n", viewTaskByIndex(getTaskListSize()));
-                    System.out.println("    Now you have " + getTaskListSize() + " tasks in the list! UWU");
-                }
-                break;
-            } catch (ArrayIndexOutOfBoundsException | ReneExceptions incompleteCommand) {
-                System.out.println("    Ohnus! You did not use give todo a name!");
-                System.out.println("    Pwease format your input as todo [task name]!");
-                return;
-            }
+            addTodoTaskToList(input, showMessage);
+            break;
         case DEADLINE:
-            String deadlineTiming;
-            String deadlineDescription;
-            String[] deadlineDetails;
-            try {
-                deadlineDetails = input.split("deadline")[1].strip().split("/");
-            } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
-                System.out.println("    Ohnus! You did not use give deadline a name!");
-                System.out.println("    Pwease format your input as deadline [task name] /by [time]!");
-                return;
-            }
-
-            try {
-                deadlineDescription = deadlineDetails[0].strip();
-                if (deadlineDescription.equals("")) {
-                    throw new ReneExceptions("Incomplete Deadline Description");
-                }
-                deadlineTiming = deadlineDetails[1].strip().split("by")[1].strip();
-                if (deadlineTiming.equals("")) {
-                    throw new ReneExceptions("Incomplete Due Time");
-                }
-                LocalDateTime  deadlineDateTime = LocalDateTime.parse(deadlineTiming, inputDateTimeFormatter);
-                allTasks.add(new Deadline(deadlineDescription, deadlineDateTime));
-                if (showMessage) {
-                    System.out.println("    I have added the following task OwO:");
-                    System.out.printf("      [D][] %s\n", viewTaskByIndex(getTaskListSize()));
-                    System.out.println("    Now you have " + getTaskListSize() + " tasks in the list! UWU");
-                }
-                break;
-            } catch (IndexOutOfBoundsException incompleteCommand) {
-                System.out.println("    Ohnus! You did not use '/by' to signal due time!");
-                System.out.println("    Pwease format your input as deadline [task name] /by [time]!");
-                return;
-            } catch (DateTimeParseException incorrectTimeFormat){
-                System.out.println("    Ohnus! You did not use give a correct date time for due time!");
-                System.out.println("    Pwease format your deadline as dd-MM-yyyy HH:mm!");
-                return;
-            } catch (ReneExceptions incompleteCommand) {
-                String exceptionMessage = incompleteCommand.getMessage();
-                switch (exceptionMessage) {
-                    case "Incomplete Deadline Description":
-                        System.out.println("    Ohnus! You did not use give deadline a name!");
-                        System.out.println("    Pwease format your input as deadline [task name] /by [time]!");
-                        return;
-                    case "Incomplete Due Time":
-                        System.out.println("    Ohnus! You did not use give deadline a due time!");
-                        System.out.println("    Pwease format your input as deadline [task name] /by [time]!");
-                        return;
-                    default:
-                        return;
-
-                }
-            }
+            addDeadlineTaskToList(input, showMessage);
+            break;
         case EVENT:
-            String eventStartTiming = null;
-            String eventEndTiming = null;
-            String[] eventDetails;
-            String eventDescription = null;
-            LocalDateTime  eventStartDateTime;
-            LocalDateTime  eventEndDateTime;
+            addEventTaskToList(input, showMessage);
+            break;
+        default:
+            break;
+        }
+    }
+    /**
+     * Adds a user-requested todo task to the current task list.
+     *
+     * @param input The full user input from CLI.
+     * @param showMessage If true, program will print response message on CLI after task is added.
+     */
+    private void addTodoTaskToList(String input, boolean showMessage) {
+        try {
+            String toDoDescription = input.split("todo")[1].strip();
+            if (toDoDescription.equals("")) {
+                throw new ReneExceptions("Incomplete Command");
+            }
+            allTasks.add(new ToDo(toDoDescription));
+            if (showMessage) {
+                printTaskAddedMessage(Task.TaskType.TODO);
+            }
+        } catch (ArrayIndexOutOfBoundsException | ReneExceptions incompleteCommand) {
+            System.out.println("    Ohnus! You did not use give todo a name!");
+            System.out.println("    Pwease format your input as todo [task name]!");
+        }
+    }
+    /**
+     * Adds a user-requested deadline task to the current task list.
+     *
+     * @param input The full user input from CLI.
+     * @param showMessage If true, program will print response message on CLI after task is added.
+     */
+    void addDeadlineTaskToList(String input, boolean showMessage) {
+        String deadlineTiming;
+        String deadlineDescription;
+        String[] deadlineDetails;
+        try {
+            deadlineDetails = input.split("deadline")[1].strip().split("/");
+        } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
+            System.out.println("    Ohnus! You did not use give deadline a name!");
+            System.out.println("    Pwease format your input as deadline [task name] /by [time]!");
+            return;
+        }
+        try {
+            deadlineDescription = deadlineDetails[0].strip();
+            if (deadlineDescription.equals("")) {
+                throw new ReneExceptions("Incomplete Deadline Description");
+            }
+            deadlineTiming = deadlineDetails[1].strip().split("by")[1].strip();
+            if (deadlineTiming.equals("")) {
+                throw new ReneExceptions("Incomplete Due Time");
+            }
+            LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineTiming, inputDateTimeFormatter);
+            allTasks.add(new Deadline(deadlineDescription, deadlineDateTime));
+            if (showMessage) {
+                printTaskAddedMessage(Task.TaskType.DEADLINE);
+            }
+        } catch (IndexOutOfBoundsException incompleteCommand) {
+            System.out.println("    Ohnus! You did not use '/by' to signal due time!");
+            System.out.println("    Pwease format your input as deadline [task name] /by [time]!");
+        } catch (DateTimeParseException incorrectTimeFormat){
+            System.out.println("    Ohnus! You did not use give a correct date time for due time!");
+            System.out.println("    Pwease format your deadline as dd-MM-yyyy HH:mm!");
+        } catch (ReneExceptions incompleteCommand) {
+            handleReneExceptionMessage(incompleteCommand);
+        }
+    }
+    /**
+     * Adds a user-requested event task to the current task list.
+     *
+     * @param input The full user input from CLI.
+     * @param showMessage If true, program will print response message on CLI after task is added.
+     */
+    private void addEventTaskToList(String input, boolean showMessage){
+        String eventStartTiming;
+        String eventEndTiming;
+        String[] eventDetails;
+        String eventDescription;
+        LocalDateTime eventStartDateTime;
+        LocalDateTime eventEndDateTime;
 
-            try {
-                eventDetails = input.split("event")[1].strip().split("/");
-            } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
-                System.out.println("    Ohnus! You did not use give event a name!");
-                System.out.println("    Pwease format your input as event [task name] /from [start time] " +
-                                        "/to [end time]!");
-                return;
+        try {
+            eventDetails = input.split("event")[1].strip().split("/");
+        } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
+            System.out.println("    Ohnus! You did not use give event a name!");
+            System.out.println("    Pwease format your input as event [task name] /from [start time] " +
+                    "/to [end time]!");
+            return;
+        }
+        try {
+            eventDescription = eventDetails[0].strip();
+            if (eventDescription.equals("")) {
+                throw new ReneExceptions("Incomplete Event Description");
             }
-            try {
-                eventDescription = eventDetails[0].strip();
-                if (eventDescription.equals("")) {
-                    throw new ReneExceptions("Incomplete Event Description");
-                }
-                eventStartTiming = eventDetails[1].strip().split("from")[1].strip();
-                if (eventStartTiming.equals("")) {
-                    throw new ReneExceptions("Incomplete Start Time");
-                }
-                eventStartDateTime = LocalDateTime.parse(eventStartTiming, inputDateTimeFormatter);
-            } catch (IndexOutOfBoundsException incompleteCommand) {
-                System.out.println("    Ohnus! You did not use '/from' to signal start time!");
-                System.out.println("    Pwease format your input as event [task name] /from [start time] " +
-                                        "/to [end time]!");
-                return;
-            } catch (DateTimeParseException incorrectTimeFormat){
-                System.out.println("    Ohnus! You did not use give a correct date time for start time!");
-                System.out.println("    Pwease format your deadline as dd-MM-yyyy HH:mm !");
-                return;
-            } catch (ReneExceptions incompleteCommand) {
-                String exceptionMessage = incompleteCommand.getMessage();
-                switch (exceptionMessage) {
-                    case "Incomplete Event Description":
-                        System.out.println("    Ohnus! You did not use give event a name!");
-                        System.out.println("    Pwease format your input as event [task name] " +
-                                                "/from [start time] /to [end time]!");
-                        return;
-                    case "Incomplete Start Time":
-                        System.out.println("    Ohnus! You did not use give event a start time!");
-                        System.out.println("    Pwease format your input as event [task name] " +
-                                                "/from [start time] /to [end time]!");
-                        return;
-                    default:
-                        return;
-                }
+            eventStartTiming = eventDetails[1].strip().split("from")[1].strip();
+            if (eventStartTiming.equals("")) {
+                throw new ReneExceptions("Incomplete Start Time");
             }
-            try {
-                eventEndTiming = eventDetails[2].strip().split("to")[1].strip();
-                if (eventEndTiming.equals("")) {
-                    throw new ReneExceptions("Incomplete Start Time");
-                }
-                eventEndDateTime = LocalDateTime .parse(eventEndTiming, inputDateTimeFormatter);
-                if(eventEndDateTime.isBefore(eventStartDateTime)){
-                    throw new ReneExceptions("Invalid end time");
-                }
-                allTasks.add(new Event(eventDescription, eventStartDateTime, eventEndDateTime));
-                if (showMessage) {
-                    System.out.println("    I have added the following task OwO:");
-                    System.out.printf("      [E][] %s\n", viewTaskByIndex(getTaskListSize()));
-                    System.out.println("    Now you have " + getTaskListSize() + " tasks in the list! UWU");
-                }
-            } catch (IndexOutOfBoundsException incompleteCommand) {
-                System.out.println("    Ohnus! You did not use '/to' to signal end time!");
-                System.out.println("    Pwease format your input as event [task name] " +
-                                        "/from [start time] /to [end time]!");
-                return;
-            } catch (DateTimeParseException incorrectTimeFormat){
-                System.out.println("    Ohnus! You did not use give a correct date time for end time!");
-                System.out.println("    Pwease format your deadline as dd-MM-yyyy HH:mm!");
-                return;
-            } catch (ReneExceptions incorrectCommand) {
-                String exceptionMessage = incorrectCommand.getMessage();
-                switch (exceptionMessage) {
-                    case "Invalid end time":
-                        System.out.println("    Your end time cannot be earlier than start time! :<");
-                        return;
-                    case "Incomplete Start Time":
-                        System.out.println("    Ohnus! You did not use give event a start time!");
-                        System.out.println("    Pwease format your input as event [task name] " +
-                                                "/from [start time] /to [end time]!");
-                        return;
-                    default:
-                        return;
-                }
+            eventStartDateTime = LocalDateTime.parse(eventStartTiming, inputDateTimeFormatter);
+        } catch (IndexOutOfBoundsException incompleteCommand) {
+            System.out.println("    Ohnus! You did not use '/from' to signal start time!");
+            System.out.println("    Pwease format your input as event [task name] /from [start time] " +
+                    "/to [end time]!");
+            return;
+        } catch (DateTimeParseException incorrectTimeFormat){
+            System.out.println("    Ohnus! You did not use give a correct date time for start time!");
+            System.out.println("    Pwease format your deadline as dd-MM-yyyy HH:mm !");
+            return;
+        } catch (ReneExceptions incompleteCommand) {
+            handleReneExceptionMessage(incompleteCommand);
+            return;
+        }
+        try {
+            eventEndTiming = eventDetails[2].strip().split("to")[1].strip();
+            if (eventEndTiming.equals("")) {
+                throw new ReneExceptions("Incomplete Start Time");
             }
+            eventEndDateTime = LocalDateTime .parse(eventEndTiming, inputDateTimeFormatter);
+            if(eventEndDateTime.isBefore(eventStartDateTime)){
+                throw new ReneExceptions("Invalid end time");
+            }
+            allTasks.add(new Event(eventDescription, eventStartDateTime, eventEndDateTime));
+            if (showMessage) {
+                printTaskAddedMessage(Task.TaskType.EVENT);
+            }
+        } catch (IndexOutOfBoundsException incompleteCommand) {
+            System.out.println("    Ohnus! You did not use '/to' to signal end time!");
+            System.out.println("    Pwease format your input as event [task name] " +
+                    "/from [start time] /to [end time]!");
+        } catch (DateTimeParseException incorrectTimeFormat){
+            System.out.println("    Ohnus! You did not use give a correct date time for end time!");
+            System.out.println("    Pwease format your deadline as dd-MM-yyyy HH:mm!");
+        } catch (ReneExceptions incorrectCommand) {
+            handleReneExceptionMessage(incorrectCommand);
+        }
+    }
+    /**
+     * Prints the response to different kinds of ReneExceptions thrown.
+     *
+     * @param exception The ReneException being thrown.
+     */
+    private void handleReneExceptionMessage(ReneExceptions exception){
+        String exceptionMessage = exception.getMessage();
+        switch (exceptionMessage) {
+        case "Invalid end time":
+            System.out.println("    Your end time cannot be earlier than start time! :<");
+            break;
+        case "Incomplete Start Time":
+            System.out.println("    Ohnus! You did not use give event a start time!");
+            System.out.println("    Pwease format your input as event [task name] " +
+                    "/from [start time] /to [end time]!");
+            break;
+        case "Incomplete Event Description":
+            System.out.println("    Ohnus! You did not use give event a name!");
+            System.out.println("    Pwease format your input as event [task name] " +
+                    "/from [start time] /to [end time]!");
+            break;
+        case "Incomplete Deadline Description":
+            System.out.println("    Ohnus! You did not use give deadline a name!");
+            System.out.println("    Pwease format your input as deadline [task name] /by [time]!");
+            break;
+        case "Incomplete Due Time":
+            System.out.println("    Ohnus! You did not use give deadline a due time!");
+            System.out.println("    Pwease format your input as deadline [task name] /by [time]!");
+            break;
+        default:
             break;
         }
     }
@@ -203,63 +222,22 @@ public class TaskList {
      */
     public void printTask(Task task, boolean asList){
         int taskIndex = allTasks.indexOf(task);
-        switch(task.getTaskType()) {
-        case TODO:
-            if (task.taskIsDone()) {
-                if(asList){
-                    System.out.printf("    %d: [T][X] %s\n", taskIndex+1, task.getTaskDescription());
-                } else{
-                    System.out.printf("        [T][X] %s\n", task.getTaskDescription());
-                }
-
-            } else {
-                if(asList){
-                    System.out.printf("    %d: [T][] %s\n", taskIndex+1, task.getTaskDescription());
-                } else{
-                    System.out.printf("        [T][] %s\n", task.getTaskDescription());
-                }
-            }
-            break;
-        case DEADLINE:
-            if (task.taskIsDone()) {
-                if (asList) {
-                    System.out.printf("    %d: [D][X] %s %s\n",
-                            taskIndex + 1, task.getTaskDescription(), task.getTaskTiming(false));
-                } else {
-                    System.out.printf("        [D][X] %s %s\n",
-                            task.getTaskDescription(), task.getTaskTiming(false));
-                }
-            }
-            else {
-                if (asList) {
-                    System.out.printf("    %d: [D][] %s %s\n",
-                            taskIndex + 1, task.getTaskDescription(), task.getTaskTiming(false));
-                } else {
-                    System.out.printf("        [D][] %s %s\n",
-                            task.getTaskDescription(), task.getTaskTiming(false));
-                }
-            }
-            break;
-        case EVENT:
-            if (task.taskIsDone()) {
-                if (asList) {
-                    System.out.printf("    %d: [E][X] %s %s\n",
-                            taskIndex+1, task.getTaskDescription(), task.getTaskTiming(false));
-                } else {
-                    System.out.printf("        [E][X] %s %s\n",
-                            task.getTaskDescription(), task.getTaskTiming(false));
-                }
-            } else {
-                if (asList) {
-                    System.out.printf("    %d: [E][] %s %s\n",
-                            taskIndex+1, task.getTaskDescription(), task.getTaskTiming(false));
-                } else {
-                    System.out.printf("        [E][] %s %s\n",
-                            task.getTaskDescription(), task.getTaskTiming(false));
-                }
-            }
-            break;
+        Task.TaskType taskType = task.getTaskType();
+        if(asList){
+            System.out.printf("    %d: " + Ui.getTaskSymbol(taskType) + Ui.getTaskDoneStatusSymbol(task) + " %s\n",
+                    taskIndex+1, task.getTaskDescription());
+        } else{
+            System.out.printf("        " + Ui.getTaskSymbol(taskType) + Ui.getTaskDoneStatusSymbol(task) + " %s\n",
+                    task.getTaskDescription());
         }
+    }
+    /**
+     * Prints the response to the addition of a task in CLI.
+     */
+    public void printTaskAddedMessage(Task.TaskType taskType){
+        System.out.println("    I have added the following task OwO:");
+        System.out.printf("      " + Ui.getTaskSymbol(taskType) + "[] %s\n", viewTaskByIndex(getTaskListSize()));
+        System.out.println("    Now you have " + getTaskListSize() + " tasks in the list! UWU");
     }
     /**
      * Prints all the tasks in the current task list as an indexed list.
@@ -267,8 +245,7 @@ public class TaskList {
     public void printTaskList(){
         if(allTasks.isEmpty()){
             System.out.println("    No tasks found! Time to add some OWO");
-        }
-        else {
+        } else {
             for (Task task : allTasks) {
                 printTask(task, true);
             }
@@ -354,8 +331,7 @@ public class TaskList {
         ArrayList<Task> matchedTasks = new ArrayList<>();
         if(allTasks.isEmpty()){
             System.out.println("    Task list is empty! Time to add some OWO");
-        }
-        else {
+        } else {
             System.out.println("    Here are tasks that matched your search:");
             for (Task task : allTasks) {
                 if(task.getTaskDescription().contains(keyword)){
@@ -377,8 +353,7 @@ public class TaskList {
         ArrayList<Task> matchedTasks = new ArrayList<>();
         if(allTasks.isEmpty()){
             System.out.println("    Task list is empty! Time to add some OWO");
-        }
-        else {
+        } else {
             System.out.println("    Here are tasks that matched your search:");
             for (Task task : allTasks) {
                 if(task.getTaskTiming(true).contains(dateTime)){
@@ -414,14 +389,14 @@ public class TaskList {
             String searchCriteria = searchInfo[0].strip();
             String searchKeyword = searchInfo[1].strip();
             switch (searchCriteria){
-                case "description":
-                    searchListByDescription(searchKeyword);
-                    break;
-                case "time":
-                    searchListByTime(searchKeyword);
-                    break;
-                default:
-                    break;
+            case "description":
+                searchListByDescription(searchKeyword);
+                break;
+            case "time":
+                searchListByTime(searchKeyword);
+                break;
+            default:
+                break;
             }
         } catch (ArrayIndexOutOfBoundsException incompleteCommand) {
             System.out.println("    Ohnus! You did not indicate the keywords you are searching by :<");
@@ -442,10 +417,5 @@ public class TaskList {
     public ArrayList<Task> getAllTasks(){
         return allTasks;
     }
-    /**
-     * Creates a new empty task list.
-     */
-    public TaskList(){
-        allTasks = new ArrayList<>();
-    }
+
 }
