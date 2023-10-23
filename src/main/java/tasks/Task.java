@@ -3,7 +3,7 @@
  * All task class objects can be marked as done or not done yet
  */
 
-package chatbot;
+package tasks;
 
 public class Task{
     protected String description;

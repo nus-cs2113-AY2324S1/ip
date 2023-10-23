@@ -1,4 +1,3 @@
-true| homework | thursday
 true| concert | aer | thurs
-false|go to school
 false| Homework | Friday
+false|event concert |now| thwn

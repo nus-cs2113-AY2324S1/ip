@@ -2,13 +2,13 @@
  * This is the deadline class which contains a description as well as a due date. It inherits from the task class
  */
 
-package chatbot;
+package tasks;
 
 public class Deadline extends Task{
     private String deadline;
-    public Deadline(String description, boolean isDone, String deadline){
-        super(description, isDone);
-        this.deadline = deadline;
+    public Deadline(String[] parts, boolean isDone){
+        super(parts[0], isDone);
+        this.deadline = parts[1];
     }
 
     @Override

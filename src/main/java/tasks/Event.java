@@ -3,16 +3,16 @@
  * It inherits from the task class.
  */
 
-package chatbot;
+package tasks;
 
 public class Event extends Task{
     private String start;
     private String end;
 
-    public Event(String description, boolean isDone, String start, String end){
-        super(description, isDone);
-        this.start = start;
-        this.end = end;
+    public Event(String[] parts, boolean isDone){
+        super(parts[0], isDone);
+        this.start = parts[1];
+        this.end = parts[2];
     }
 
     @Override
