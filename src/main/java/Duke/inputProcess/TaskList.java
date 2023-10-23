@@ -13,12 +13,12 @@
  * @since 2023-09-30
  */
 
-package Duke.inputProcess;
+package duke.inputProcess;
 
-import Duke.Task;
-import Duke.tasks.Deadline;
-import Duke.tasks.Todo;
-import Duke.tasks.Event;
+import duke.Task;
+import duke.tasks.Deadline;
+import duke.tasks.Todo;
+import duke.tasks.Event;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -42,63 +42,15 @@ public class TaskList {
         list.add(new Deadline(deadlineToAdd, deadlineTime));
     }
 
-    public Task get(int index){
+    public Task getByIndex(int index){
         return list.get(index);
     }
 
-    public int size(){
+    public int getSize(){
         return list.size();
     }
 
-
-    public void printList() {
-        for (int i = 0; i < list.size(); ++i) {
-            System.out.print("\t" + (i+1) + ".");
-            System.out.println(list.get(i));
-        }
-    }
-
-    public void unmark(int taskNumToUnmark) {
-        try {
-            list.get(taskNumToUnmark).unmark();
-            System.out.print("\tOK, I've marked this task as not done yet:\n\t\t");
-            System.out.println(list.get(taskNumToUnmark));
-        } catch(NumberFormatException | NullPointerException | IndexOutOfBoundsException e){
-            System.out.println("\tOOPS!!! Need to specify which task want to unmark");
-        }
-    }
-
-    public void mark(int taskNumToMark) {
-        try {
-            list.get(taskNumToMark).markAsDone();
-            System.out.print("\tNice! I've marked this task as done:\n\t\t");
-            System.out.println(list.get(taskNumToMark));
-        } catch(NumberFormatException | NullPointerException | IndexOutOfBoundsException e){
-            System.out.println("\tOOPS!!! Need to specify which task want to mark as done");
-        }
-    }
-
-
-    public void deleteTask(int taskNumToDelete) {
-        System.out.println("\tNoted. I've removed this task:\n\t\t" +
-                list.get(taskNumToDelete));
-        list.remove(taskNumToDelete);
-        System.out.println("\tNow you have " + list.size() + " in the list");
-
-    }
-    public void find(String userInput) {
-        int count = 1;
-        for (Task task : list) {
-            if (task.getDescription().toLowerCase().contains(userInput.toLowerCase())) {
-                if (count == 1){
-                    System.out.println("Here are the matching tasks in your list:");
-                }
-                System.out.println("\t" +count + "."  + task);
-                count++;
-            }
-        }
-        if (count == 1){
-            System.out.println("\tCannot find task with " + userInput);
-        }
+    public ArrayList<Task> getList(){
+        return list;
     }
 }
