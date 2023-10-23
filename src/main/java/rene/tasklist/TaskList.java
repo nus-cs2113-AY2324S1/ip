@@ -225,10 +225,11 @@ public class TaskList {
         Task.TaskType taskType = task.getTaskType();
         if(asList){
             System.out.printf("    %d: " + Ui.getTaskSymbol(taskType) + Ui.getTaskDoneStatusSymbol(task) + " %s\n",
-                    taskIndex+1, task.getTaskDescription());
+                    taskIndex+1, task.getTaskDescription() + " "
+                            + Ui.getTaskTimingIfApplicable(task, true));
         } else{
             System.out.printf("        " + Ui.getTaskSymbol(taskType) + Ui.getTaskDoneStatusSymbol(task) + " %s\n",
-                    task.getTaskDescription());
+                    task.getTaskDescription() + " " + Ui.getTaskTimingIfApplicable(task, true));;
         }
     }
     /**

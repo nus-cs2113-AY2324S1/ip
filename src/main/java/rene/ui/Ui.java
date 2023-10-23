@@ -103,6 +103,19 @@ public class Ui {
         } else {
             return "undone";
         }
+    }   /**
+     * Prints the timing of a task in CLI if it exists.
+     *
+     * @param task The task which details are to be printed.
+     * @param useDefaultTiming Determines if timing is printed using default format
+     */
+    public static String getTaskTimingIfApplicable(Task task, boolean useDefaultTiming){
+        Task.TaskType taskType = task.getTaskType();
+        if(taskType != Task.TaskType.TODO){
+            return  " | "  + task.getTaskTiming(useDefaultTiming);
+        } else {
+            return "";
+        }
     }
     /**
      * Retrieves the CLI input from the user

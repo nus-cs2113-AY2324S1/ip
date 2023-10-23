@@ -135,8 +135,8 @@ public class Storage {
             for (Task task: allTasks) {
                 Task.TaskType taskType = task.getTaskType();
                 writeToFile(dataFile.getPath(), Ui.getTaskSymbol(taskType) + " | "
-                        + Ui.getTaskDoneStatusText(task) + " | " + task.getTaskDescription()
-                        + System.lineSeparator(), true);
+                        + Ui.getTaskDoneStatusText(task) + " | " + task.getTaskDescription() +
+                        Ui.getTaskTimingIfApplicable(task, true) + System.lineSeparator(), true);
             }
 
         } catch(NullPointerException | IOException invalidFilePath){
