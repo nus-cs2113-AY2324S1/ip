@@ -21,14 +21,22 @@ public class Duke {
     }
 
     public void run() throws IOException {
-        storage.loadFileObjects();
+        //Add all previous run tasks
+        Storage.loadFileObjects();
         ArrayList<Task> fileTasks = Storage.getFileTasksArray();
-
         TasksList.getTasks().addAll(fileTasks);
+
+        ui.showWelcome();
         while (!TasksList.isExitProgram()){
-            taskslist.chooseCommand(ui.getUserInput());
+            String input = ui.getUserInput();
+            if (ui.checkUserInput(input)) {
+                taskslist.chooseCommand(input);
+            }
+
         }
         Storage.saveFile();
+
+        //yo
         TasksList.tasksToBeSaved.clear();
         ui.showGoodbye();
     }

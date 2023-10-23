@@ -40,7 +40,7 @@ public class TasksList {
 
 	//Prints all commands
 	public static void showCommands(){
-		System.out.println("Here is a list of commands you can use: ");
+		System.out.print("Here is a list of commands you can use: ");
 		for (String command: commandNames){
 			System.out.println(command);
 		}
@@ -51,7 +51,6 @@ public class TasksList {
 	 * @param input
 	 */
 	public static void chooseCommand(String input) {
-
 		//checkInput(input);
 		String[] getKeyword = input.split(" ");
 
@@ -66,18 +65,28 @@ public class TasksList {
 		case ("list"):
 			int numOfTasks = 0;
 
-			for (Task task : tasks) {
-				numOfTasks++;
-				System.out.println(numOfTasks + ": " + task.getDescription());
+
+			if (!tasks.isEmpty()){
+				for (Task task : tasks) {
+					numOfTasks++;
+					System.out.println(numOfTasks + ": " + task.getDescription());
+				}
+			} else if (parts.length > 1) {
+				System.out.println("No other command is needed besides 'list'");
+			} else {
+				System.out.println("You currently have no tasks.");
 			}
+
 			break;
 		case("help"):
+			System.out.println("Disclaimer: No command entered will result in the input to be ");
+			System.out.println("entered as a task without a deadline. (Clone Assignment) ");
 			showCommands();
 			break;
 		case ("mark"):
-			int markedObjectInt = Integer.parseInt(parts[1]);
-			try {
 
+			try {
+				int markedObjectInt = Integer.parseInt(parts[1]);
 				Task markedTask = tasks.get(markedObjectInt - 1);
 
 				markedTask.isDone = true;
@@ -87,8 +96,8 @@ public class TasksList {
 			}
 			break;
 		case ("unmark"):
-			markedObjectInt = Integer.parseInt(parts[1]);
 			try {
+				int markedObjectInt = Integer.parseInt(parts[1]);
 				Task unmarkedTask = tasks.get(markedObjectInt - 1);
 				unmarkedTask.isDone = false;
 				System.out.println("I unmarked this class as done: " + unmarkedTask.getDescription());
@@ -97,17 +106,20 @@ public class TasksList {
 			}
 			break;
 		case("delete"):
-			int taskToDelete = Integer.parseInt(parts[1]);
-			tasks.get(taskToDelete - 1).isDone = false;
+			if (ensureHasParameters(parts)) {
+				try {
+					int taskToDelete = Integer.parseInt(parts[1]);
+					tasks.get(taskToDelete - 1).isDone = false;
 
-			removeTaskFromFile(taskToDelete - 1);
-			try {
-				Task deleteTask = tasks.get(taskToDelete - 1);
-				tasks.remove(taskToDelete - 1);
+					removeTaskFromFile(taskToDelete - 1);
 
-				System.out.println("I deleted this task this class as done: " + deleteTask.getDescription());
-			} catch (Exception ArrayIndexOutOfBoundsException) {
-				System.out.println("That task doesnt exist");
+					Task deleteTask = tasks.get(taskToDelete - 1);
+					tasks.remove(taskToDelete - 1);
+
+					System.out.println("I deleted this task this class as done: " + deleteTask.getDescription());
+				} catch (Exception ArrayIndexOutOfBoundsException) {
+					System.out.println("That task doesnt exist");
+				}
 			}
 			break;
 		case ("deadline"):
@@ -141,20 +153,25 @@ public class TasksList {
 			}
 			break;
 		case("todo"):
-			try {
-				String desc = input.substring(4).trim();
-				Todo todo = new Todo(desc);
+			if (ensureHasParameters(parts)){
+				try {
+					String desc = input.substring(4).trim();
+					Todo todo = new Todo(desc);
 
+					System.out.println(todo.getDescription());
+					tasks.add(todo);
+					tasksToBeSaved.add(todo);
 
-				tasks.add(todo);
-				tasksToBeSaved.add(todo);
-
-			} catch (Exception e) {
-				System.out.println("An error occurred while adding the todo.");
+				} catch (Exception e) {
+					System.out.println("An error occurred while adding the todo.");
+				}
 			}
+
 			break;
 		case("find"):
-			searchAndDisplayTasks(parts[1]);
+			if (ensureHasParameters(parts)){
+				searchAndDisplayTasks(parts[1]);
+			}
 			break;
 
 		case("bye"):
@@ -186,4 +203,18 @@ public class TasksList {
 			}
 		}
 	}
+
+	/**
+	 * Make sure commands that have more than 1 parameter is handled
+	 * @param parts
+	 * @return
+	 */
+	static private boolean ensureHasParameters(String[] parts){
+		if (!(parts.length >= 2)){
+			System.out.println("Please entered the required parameters for the command");
+			return false;
+		}
+		return true;
+	}
+
 }

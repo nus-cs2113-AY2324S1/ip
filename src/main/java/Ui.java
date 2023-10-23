@@ -12,8 +12,8 @@ public class Ui {
 
 	// Display a welcome message to the user
 	public void showWelcome() {
-		System.out.println("Hello my name is DUKE");
-		System.out.println("What can I do for you today? Enter 'help' for a list of commands");
+		System.out.println("Hello my name is DUKE. I am created by Isaiah Cerven");
+		System.out.println("What can I do for you today? Enter 'help' for a list of commands. Say 'bye' to save tasks and exit");
 	}
 
 	// Display a goodbye message when the user decides to exit
@@ -32,6 +32,15 @@ public class Ui {
 	// Capture and return user input
 	public String getUserInput() {
 		return scanner.nextLine();
+	}
+
+	public boolean checkUserInput(String input){
+
+		if (input.isEmpty()) {
+			System.out.println("Please input a command.");
+			return false;
+		}
+		return true;
 	}
 
 	public void showError(String message) {
