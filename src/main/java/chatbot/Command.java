@@ -6,21 +6,23 @@ public class Command {
     private Storage storage;
     private String commandType;
     private String input;
+    private Ui ui;
     public Command(String commandType, String input) {
         this.storage = new Storage("./tasklist.txt");
         this.commandType = commandType;
         this.input = input;
+        this.ui = new Ui();
     }
+    /**
+     * Execute the command specified by the user
+     *
+     * @author  Jeremy
+     * @since   2023-10-06
+     */
     public void execute(ArrayList<Task> tasks, boolean isUserInput) throws ChatbotUnknownCommandException, ChatbotEmptyDescException {
 
         if (this.commandType.equals("list")) {
-            System.out.println("____________________________________________________________");
-            System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                //System.out.println(" " + (i + 1) + ".[" + tasks[i].getTypeIcon() + "][" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
-                System.out.println(" " + (i + 1) + "." + tasks.get(i));
-            }
-            System.out.println("____________________________________________________________");
+            ui.printList(tasks);
         } else if (this.commandType.equals("mark")) {
             String number = input.replace("mark ", "").trim();
             int markTaskNo = Integer.parseInt(number);
@@ -29,12 +31,8 @@ public class Command {
             }
             if (isUserInput) {
                 storage.saveToFile(input);
-                System.out.println("____________________________________________________________");
-                System.out.println(" Nice! I've marked this task as done:");
-                System.out.println("   [" + tasks.get(markTaskNo - 1).getStatusIcon() + "] " + tasks.get(markTaskNo - 1).getDescription());
-                System.out.println("____________________________________________________________");
+                ui.printMarkResult(tasks, markTaskNo);
             }
-
         } else if (this.commandType.equals("unmark")) {
             String number = input.replace("unmark ", "").trim();
             int unmarkedTaskNo = Integer.parseInt(number);
@@ -43,10 +41,7 @@ public class Command {
             }
             if (isUserInput) {
                 storage.saveToFile(input);
-                System.out.println("____________________________________________________________");
-                System.out.println(" OK, I've marked this task as not done yet:");
-                System.out.println("   [" + tasks.get(unmarkedTaskNo - 1).getStatusIcon() + "] " + tasks.get(unmarkedTaskNo - 1).getDescription());
-                System.out.println("____________________________________________________________");
+                ui.printUnmarkResult(tasks, unmarkedTaskNo);
             }
 
         } else if (this.commandType.equals("todo")) {
@@ -60,11 +55,7 @@ public class Command {
 
             if (isUserInput) {
                 storage.saveToFile(input);
-                System.out.println("____________________________________________________________");
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + task);
-                System.out.println(" Now you have " + String.valueOf(tasks.size()) + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                ui.printTodoResult(tasks, task);
             }
 
         } else if (this.commandType.equals("deadline")) {
@@ -72,20 +63,20 @@ public class Command {
             if (msg.isEmpty()) {
                 throw new ChatbotEmptyDescException(" ☹ OOPS!!! The description of a deadline cannot be empty.");
             }
-
             String byDate = msg.substring(msg.indexOf("/by ") + 4).trim(); // will contain the byDate
+            if (byDate.isEmpty()) {
+                throw new ChatbotEmptyDescException(" ☹ OOPS!!! The /by argument of a deadline cannot be empty.");
+            }
             String desc = msg.substring(0, msg.indexOf("/by")); // will contain the deadline description
+            if (desc.isEmpty()) {
+                throw new ChatbotEmptyDescException(" ☹ OOPS!!! The description of a deadline cannot be empty.");
+            }
 
             Task task = new Deadline(desc, byDate);
             tasks.add(task);
-
             if (isUserInput) {
                 storage.saveToFile(input);
-                System.out.println("____________________________________________________________");
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + task);
-                System.out.println(" Now you have " + String.valueOf(tasks.size()) + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                ui.printDeadlineResult(tasks, task);
             }
 
         } else if (this.commandType.equals("event")) {
@@ -95,20 +86,24 @@ public class Command {
             }
 
             String dateRange = msg.substring(msg.indexOf("/from ") + 6).trim();
+            if (dateRange.isEmpty()) {
+                throw new ChatbotEmptyDescException(" ☹ OOPS!!! The date range of a event cannot be empty.");
+            }
             String fromDate = dateRange.substring(0, dateRange.indexOf("/to ")).trim();
+            if (fromDate.isEmpty()) {
+                throw new ChatbotEmptyDescException(" ☹ OOPS!!! The /from argument cannot be empty.");
+            }
             String toDate = dateRange.substring(dateRange.indexOf("/to ") + 4).trim();
+            if (toDate.isEmpty()) {
+                throw new ChatbotEmptyDescException(" ☹ OOPS!!! The /to argument cannot be empty.");
+            }
             String desc = msg.substring(0, msg.indexOf("/from ")); // will contain the deadline description
 
             Task task = new Event(desc, fromDate, toDate);
             tasks.add(task);
-
             if (isUserInput) {
                 storage.saveToFile(input);
-                System.out.println("____________________________________________________________");
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + task);
-                System.out.println(" Now you have " + String.valueOf(tasks.size()) + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                ui.printEventResult(tasks, task);
             }
 
         } else if (this.commandType.equals("delete")) {
@@ -124,11 +119,7 @@ public class Command {
             tasks.remove(indexToRemove);
             if (isUserInput) {
                 storage.saveToFile(input);
-                System.out.println("____________________________________________________________");
-                System.out.println(" Noted. I've removed this task: ");
-                System.out.println("   " + task);
-                System.out.println(" Now you have " + String.valueOf(tasks.size()) + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                ui.printDeleteResult(tasks, task);
             }
         } else if (this.commandType.equals("find")) {
             String searchFor = input.replace("find", "").trim();
@@ -137,7 +128,6 @@ public class Command {
             }
             System.out.println("____________________________________________________________");
             System.out.println(" Here are the matching tasks in your list:");
-
             for(Task task : tasks) {
                 String desc = task.getDescription();
                 if(desc.contains(searchFor)) {
