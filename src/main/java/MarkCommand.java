@@ -6,7 +6,7 @@ public class MarkCommand {
      * @param taskList        The TaskList in which the task will be marked.
      * @throws KenException If there is an error while handling the task completion.
      */
-    public static void handleMarkTask(String taskDescription, TaskList taskList) throws KenException {
+    public static void MarkTask(String taskDescription, TaskList taskList) throws KenException {
         try {
             int taskIndex = Integer.parseInt(taskDescription.trim()) - 1;
             if (taskIndex >= 0 && taskIndex < taskList.getTaskDescriptions().size()) {
@@ -18,10 +18,10 @@ public class MarkCommand {
                     System.out.println("This task is already marked as done.");
                 }
             } else {
-                throw new TaskNotFoundException("I can't find this task. Please provide a valid task number.");
+                throw new TaskNotFoundException();
             }
         } catch (NumberFormatException e) {
-            throw new TaskNotFoundException("Wrong format!! Please provide the number of the task.");
+            throw new WrongFormatException();
         }
     }
 
@@ -32,7 +32,7 @@ public class MarkCommand {
      * @param taskList        The TaskList in which the task will be unmarked.
      * @throws KenException If there is an error while handling the task unmarking, such as an invalid task number.
      */
-    public static void handleUnmarkTask(String taskDescription, TaskList taskList) throws KenException {
+    public static void UnmarkTask(String taskDescription, TaskList taskList) throws KenException {
         try {
             int taskIndex = Integer.parseInt(taskDescription.trim()) - 1;
             if (taskIndex >= 0 && taskIndex < taskList.getTaskDescriptions().size()) {
@@ -44,11 +44,20 @@ public class MarkCommand {
                     System.out.println("This task is already unmarked.");
                 }
             } else {
-                throw new TaskNotFoundException("I can't find this task. Please provide a valid task number.");
+                throw new TaskNotFoundException();
             }
         } catch (NumberFormatException e) {
-            throw new TaskNotFoundException("Wrong format!! Please provide the number of the task.");
+            throw new WrongFormatException();
         }
     }
 
+    public static void handleMarkTask(String taskDescription, TaskList taskList) throws KenException {
+        MarkTask(taskDescription, taskList);
+        Storage.saveTasks(taskList); // Save tasks after deleting
+    }
+
+    public static void handleUnmarkTask(String taskDescription, TaskList taskList) throws KenException {
+        UnmarkTask(taskDescription, taskList);
+        Storage.saveTasks(taskList); // Save tasks after deleting
+    }
 }

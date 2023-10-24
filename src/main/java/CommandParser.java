@@ -69,30 +69,26 @@ public class CommandParser {
             String taskDescription = parts[1].trim();
 
             if (taskType.equalsIgnoreCase(COMMAND_TODO) || taskType.equalsIgnoreCase(COMMAND_DEADLINE) || taskType.equalsIgnoreCase(COMMAND_EVENT)) {
-                TaskList.handleAddTask(taskType, taskDescription, taskList);
-                Storage.saveTasks(taskList); // Save tasks after adding
+                AddCommand.handleAddTask(taskType, taskDescription, taskList);
             } else if (taskType.equalsIgnoreCase(COMMAND_DELETE)) {
                 DeleteCommand.handleDeleteTask(taskDescription, taskList);
-                Storage.saveTasks(taskList); // Save tasks after deleting
             } else if (taskType.equalsIgnoreCase(COMMAND_MARK)) {
                 MarkCommand.handleMarkTask(taskDescription, taskList);
-                Storage.saveTasks(taskList); // Save tasks after marking
             } else if (taskType.equalsIgnoreCase(COMMAND_UNMARK)) {
-            MarkCommand.handleUnmarkTask(taskDescription, taskList);
-            Storage.saveTasks(taskList); // Save tasks after unmarking
-        }else {
-                throw new KenException("Hmm, what's that? Please use 'todo,' 'deadline,' 'event,' 'delete [number],' or 'mark [number].'");
+                MarkCommand.handleUnmarkTask(taskDescription, taskList);
+        } else {
+                throw new InvalidCommandException();
             }
         }
     }
 
-    private static void handleInvalidCommand(String command) throws InvalidCommandException, EmptyDescriptionException {
+    private static void handleInvalidCommand(String command) throws InvalidCommandException, EmptyDescriptionException, WrongFormatException {
         if (command.equalsIgnoreCase(COMMAND_DELETE)) {
-            throw new InvalidCommandException("Please provide a task number to delete.");
+            throw new WrongFormatException();
         } else if (command.equalsIgnoreCase(COMMAND_TODO) || command.equalsIgnoreCase(COMMAND_DEADLINE) || command.equalsIgnoreCase(COMMAND_EVENT)) {
             throw new EmptyDescriptionException("Hey!! Description cannot be empty for a " + command + " task.");
         } else {
-            throw new InvalidCommandException("Hmm, what's that? Please use 'todo,' 'deadline,' 'event,' 'delete [number],' or 'mark [number].'");
+            throw new InvalidCommandException();
         }
     }
 
