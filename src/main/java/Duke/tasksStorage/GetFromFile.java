@@ -19,7 +19,9 @@ import java.util.Scanner;
  * @since 2023-09-30
  */
 public class GetFromFile {
-    private File file;
+    private final File file;
+    private static final String FILE_CREATION_ERROR = "\tSomething went wrong";
+    private static final String FILE_FORMAT_ERROR = "\tThe file is not in the correct format";
 
     /**
      * Constructs a `GetFromFile` object with the given file path.
@@ -42,7 +44,7 @@ public class GetFromFile {
                 return;
             }
         } catch (IOException e) {
-            System.out.println("Something went wrong");
+            System.out.println(FILE_CREATION_ERROR);
         }
         Scanner s = new Scanner(file); // Create a Scanner using the File as the source
         int lineCount = 0;
@@ -76,7 +78,7 @@ public class GetFromFile {
                 }
                 lineCount++;
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("The file is not in the correct format");
+                System.out.println(FILE_FORMAT_ERROR);
             }
         }
     }

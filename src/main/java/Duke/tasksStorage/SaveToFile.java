@@ -20,7 +20,8 @@ import duke.inputProcess.TaskList;
  */
 
 public class SaveToFile {
-    private String path;
+    private final String path;
+    private static final String IO_ERROR_MESSAGE = "An error occurred while saving tasks to the file.";
 
     /**
      * Constructs a `SaveToFile` object with the given file path.
@@ -38,21 +39,24 @@ public class SaveToFile {
      * @throws IOException If an I/O error occurs during the file writing process.
      */
     public void saveToTextFile(TaskList list) throws IOException {
-        FileWriter fw = new FileWriter(path);
-        for (int i = 0; i < list.getSize(); ++i) {
-            String textToAdd = "";
-            String taskNameToSave = list.getByIndex(i).getDescription();
-            String taskTimeToSave = list.getByIndex(i).getEventTime();
-            String isDoneToSave = list.getByIndex(i).getStatus() ? "1" : "0";
-            if (list.getByIndex(i).getClass() == Todo.class) {
-                textToAdd = "T" + " | " + isDoneToSave + " | " + taskNameToSave + "\n";
-            } else if (list.getByIndex(i).getClass() == Deadline.class) {
-                textToAdd = "D" + " | " + isDoneToSave + " | " + taskNameToSave + " | " + taskTimeToSave + "\n";
-            } else if (list.getByIndex(i).getClass() == Event.class) {
-                textToAdd = "E" + " | " + isDoneToSave + " | " + taskNameToSave + " | " + taskTimeToSave + "\n";
+        try (FileWriter fw = new FileWriter(path)) {
+            for (int i = 0; i < list.getSize(); ++i) {
+                String textToAdd = "";
+                String taskNameToSave = list.getByIndex(i).getDescription();
+                String taskTimeToSave = list.getByIndex(i).getEventTime();
+                String isDoneToSave = list.getByIndex(i).getStatus() ? "1" : "0";
+
+                if (list.getByIndex(i).getClass() == Todo.class) {
+                    textToAdd = "T" + " | " + isDoneToSave + " | " + taskNameToSave + "\n";
+                } else if (list.getByIndex(i).getClass() == Deadline.class) {
+                    textToAdd = "D" + " | " + isDoneToSave + " | " + taskNameToSave + " | " + taskTimeToSave + "\n";
+                } else if (list.getByIndex(i).getClass() == Event.class) {
+                    textToAdd = "E" + " | " + isDoneToSave + " | " + taskNameToSave + " | " + taskTimeToSave + "\n";
+                }
+                fw.write(textToAdd);
             }
-            fw.write(textToAdd);
+        } catch (IOException e) {
+            System.out.println(IO_ERROR_MESSAGE);
         }
-        fw.close();
     }
 }

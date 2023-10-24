@@ -14,6 +14,8 @@ import duke.inputProcess.TaskList;
 public class MarkTask {
     private final String userInput;
     private final TaskList tasks;
+    private static final String MISSING_INDEX_MESSAGE = "OOPS!!! Need to enter the index of the task you want to mark as done";
+    private static final String INDEX_OUT_OF_RANGE_MESSAGE = "OOPS!!! Need to input an index from the list";
 
     /**
      * Constructs a `MarkTask` object with the given user input and task list.
@@ -31,19 +33,15 @@ public class MarkTask {
      * If the input is not a valid integer or the index is out of range, appropriate error messages are displayed.
      */
     public void mark() {
-        int taskNumToMark;
         try {
-            taskNumToMark = Integer.parseInt(userInput) - 1;
-        } catch (NumberFormatException | NullPointerException e) {
-            System.out.println("\tOOPS!!! Need to enter the index of the task you want to mark as done");
-            return;
-        }
-        try {
+            int taskNumToMark = Integer.parseInt(userInput) - 1;
             tasks.getList().get(taskNumToMark).markAsDone();
             System.out.print("\tNice! I've marked this task as done:\n\t\t");
             System.out.println(tasks.getList().get(taskNumToMark));
+        } catch (NumberFormatException | NullPointerException e) {
+            System.out.println("\t" + MISSING_INDEX_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tOOPS!!! Need to input an index from the list");
+            System.out.println("\t" + INDEX_OUT_OF_RANGE_MESSAGE);
         }
     }
 }

@@ -2,6 +2,8 @@ package duke.commands;
 
 import duke.inputProcess.TaskList;
 
+import java.util.ArrayList;
+
 /**
  * The `DeleteTask` class is responsible for deleting tasks from the task list in the Hilary robot.
  * It processes user input, identifies the task to be deleted, and performs the deletion.
@@ -12,8 +14,11 @@ import duke.inputProcess.TaskList;
  * @since 2023-10-24
  */
 public class DeleteTask {
-    private String userInput;
-    private TaskList tasks;
+    private final String userInput;
+    private final TaskList tasks;
+    private static final String MISSING_INDEX_MESSAGE = "OOPS!!! " +
+            "Need to enter the index of the task you want to delete";
+    private static final String INDEX_OUT_OF_RANGE_MESSAGE = "OOPS!!! Need to input an index from the list";
 
     /**
      * Constructs a `DeleteTask` object with the given user input and task list.
@@ -34,17 +39,14 @@ public class DeleteTask {
         int taskNumToDelete;
         try {
             taskNumToDelete = Integer.parseInt(userInput) - 1;
-        } catch (NumberFormatException | NullPointerException e) {
-            System.out.println("\tOOPS!!! Need to enter the index of the task you want to delete");
-            return;
-        }
-        try {
             System.out.println("\tNoted. I've removed this task:\n\t\t" +
                     tasks.getList().get(taskNumToDelete));
             tasks.getList().remove(taskNumToDelete);
             System.out.println("\tNow you have " + tasks.getList().size() + " in the list");
+        } catch (NumberFormatException | NullPointerException e) {
+            System.out.println("\t" + MISSING_INDEX_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tOOPS!!! Need to input an index from the list");
+            System.out.println("\t" + INDEX_OUT_OF_RANGE_MESSAGE);
         }
     }
 }

@@ -5,7 +5,7 @@ import duke.inputProcess.Parser;
 import duke.inputProcess.TaskList;
 
 /**
- * The `Execute` class is responsible for executing various commands based on user input in the Hilary robot.
+ * The `CommandExecutor` class is responsible for executing various commands based on user input in the Hilary robot.
  * It delegates the execution of specific commands to their respective command classes and handles error cases.
  * This class serves as the central controller for processing user commands and interacting with the task list.
  *
@@ -13,21 +13,21 @@ import duke.inputProcess.TaskList;
  * @version Final
  * @since 2023-10-24
  */
-public class Execute {
+public class CommandExecutor {
     String command;
     String userInput;
     Parser parser;
     TaskList tasks;
 
     /**
-     * Constructs an `Execute` object with the specified command, user input, parser, and task list.
+     * Constructs an `CommandExecutor` object with the specified command, user input, parser, and task list.
      *
      * @param command The command to be executed.
      * @param userInput The user input associated with the command.
      * @param parser The parser for processing user input.
      * @param tasks The task list where tasks are managed.
      */
-    public Execute(String command, String userInput, Parser parser, TaskList tasks) {
+    public CommandExecutor(TaskList tasks) {
         this.command = command;
         this.userInput = userInput;
         this.parser = parser;
@@ -37,7 +37,7 @@ public class Execute {
     /**
      * Executes the appropriate action based on the provided command.
      */
-    public void execute() {
+    public void executeCommand(String command, String userInput, Parser parser) {
         switch (command) {
         case "list":
             new PrintList(tasks).print();

@@ -14,6 +14,9 @@ import duke.inputProcess.TaskList;
 public class UnmarkTask {
     private final String userInput;
     private final TaskList tasks;
+    private static final String MISSING_INDEX_MESSAGE = "OOPS!!! Need to enter the index of the task you want to unmark as not done";
+    private static final String INDEX_OUT_OF_RANGE_MESSAGE = "OOPS!!! Need to input an index from the list";
+
 
     /**
      * Constructs an `UnmarkTask` object with the given user input and task list.
@@ -31,19 +34,15 @@ public class UnmarkTask {
      * If the input is not a valid integer or the index is out of range, appropriate error messages are displayed.
      */
     public void unmark() {
-        int taskNumToUnmark;
         try {
-            taskNumToUnmark = Integer.parseInt(userInput) - 1;
-        } catch (NumberFormatException | NullPointerException e) {
-            System.out.println("\tOOPS!!! Need to enter the index of the task you want to unmark as not done");
-            return;
-        }
-        try {
+            int taskNumToUnmark = Integer.parseInt(userInput) - 1;
             tasks.getList().get(taskNumToUnmark).unmark();
             System.out.print("\tOK, I've marked this task as not done yet:\n\t\t");
             System.out.println(tasks.getList().get(taskNumToUnmark));
+        } catch (NumberFormatException | NullPointerException e) {
+            System.out.println("\t" + MISSING_INDEX_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tOOPS!!! Need to input an index from the list");
+            System.out.println("\t" + INDEX_OUT_OF_RANGE_MESSAGE);
         }
     }
 }

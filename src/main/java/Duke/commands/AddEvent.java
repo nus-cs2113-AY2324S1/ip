@@ -18,6 +18,11 @@ import java.time.format.DateTimeParseException;
 public class AddEvent {
     private final Parser parser;
     private final TaskList tasks;
+    private static final String DATE_FORMAT_ERROR_MESSAGE = "The input format for event needs to be " +
+            "\"event eventName /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm\"";
+    private static final String START_TIME_ERROR_MESSAGE = "Start time cannot be later than end time";
+    private static final String MISSING_TIMING_MESSAGE = "OOPS!!! The event timing needs to be separated by \"/from\" and \"/to\"";
+
 
     /**
      * Constructs an `AddEvent` object with `Parser` and `TaskList`.
@@ -38,26 +43,19 @@ public class AddEvent {
      * appropriate error messages are displayed.
      */
     public void addEventTask() {
-        Parser eventParse;
         try {
-            try {
-                // Attempt to parse the event input and add the task to the list
-                eventParse = parser.getEventInput();
-                if (eventParse.getTaskTime2().isBefore(eventParse.getTaskTime1())) {
-                    System.out.println("\tStart time cannot be later than end time");
-                    return;
-                }
-            } catch (DateTimeParseException e) {
-                // Handle invalid date/time format
-                System.out.println("\tThe input format for event needs to be \"event eventName /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm\"");
+            Parser eventParse = parser.getEventInput();
+            if (eventParse.getTaskTime2().isBefore(eventParse.getTaskTime1())) {
+                System.out.println(START_TIME_ERROR_MESSAGE);
                 return;
             }
             tasks.addEvent(parser.getTaskName(), parser.getTaskTime1(), parser.getTaskTime2());
             System.out.println("\tGot it. I've added this task:\n\t\t" + tasks.getByIndex(tasks.getSize() - 1) +
-                    "\n\tNow you have " + tasks.getSize() + " tasks in the list.");
+                    "\n\tNow you have " + tasks.getSize() + " tasks in the list");
+        } catch (DateTimeParseException e) {
+            System.out.println("\t" + DATE_FORMAT_ERROR_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
-            // Handle missing "/from" and "/to" separators in the input
-            System.out.println("\tOOPS!!! The event timing needs to be separated by \"/from\" and \"/to\"");
+            System.out.println("\t" + MISSING_TIMING_MESSAGE);
         }
     }
 }

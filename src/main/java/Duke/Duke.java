@@ -65,7 +65,7 @@ public class Duke {
                     continue;
                 }
             }
-            new Execute(command, userInput, parser, duke.tasks).execute();
+            new CommandExecutor(duke.tasks).executeCommand(command, userInput, parser);
             try {
                 duke.saveTasks.saveToTextFile(duke.tasks);
             } catch (IOException e) {
@@ -74,6 +74,7 @@ public class Duke {
             userInput = duke.in.nextLine();
             parser.newUserInput(userInput);
         }
+        duke.in.close();
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
