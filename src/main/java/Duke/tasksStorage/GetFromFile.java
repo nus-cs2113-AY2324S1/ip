@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import duke.inputProcess.TaskList;
+
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -77,8 +79,8 @@ public class GetFromFile {
                     list.getByIndex(lineCount).markAsDone();
                 }
                 lineCount++;
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println(FILE_FORMAT_ERROR);
+            } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+                System.out.println(FILE_FORMAT_ERROR + "for this line" + textLine);
             }
         }
     }
