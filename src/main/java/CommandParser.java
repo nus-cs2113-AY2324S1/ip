@@ -41,9 +41,15 @@ public class CommandParser {
     public static final String COMMAND_MARK = "mark";
 
     /**
+     * Command keyword for marking a task as done.
+     */
+    public static final String COMMAND_UNMARK = "unmark";
+
+    /**
      * Command keyword for finding tasks by keyword.
      */
     public static final String COMMAND_FIND = "find";
+
 
     /**
      * Processes the user's command, extracts task type and description, and performs
@@ -66,12 +72,15 @@ public class CommandParser {
                 TaskList.handleAddTask(taskType, taskDescription, taskList);
                 Storage.saveTasks(taskList); // Save tasks after adding
             } else if (taskType.equalsIgnoreCase(COMMAND_DELETE)) {
-                TaskList.handleDeleteTask(taskDescription, taskList);
+                DeleteCommand.handleDeleteTask(taskDescription, taskList);
                 Storage.saveTasks(taskList); // Save tasks after deleting
             } else if (taskType.equalsIgnoreCase(COMMAND_MARK)) {
-                TaskList.handleMarkTask(taskDescription, taskList);
+                MarkCommand.handleMarkTask(taskDescription, taskList);
                 Storage.saveTasks(taskList); // Save tasks after marking
-            } else {
+            } else if (taskType.equalsIgnoreCase(COMMAND_UNMARK)) {
+            MarkCommand.handleUnmarkTask(taskDescription, taskList);
+            Storage.saveTasks(taskList); // Save tasks after unmarking
+        }else {
                 throw new KenException("Hmm, what's that? Please use 'todo,' 'deadline,' 'event,' 'delete [number],' or 'mark [number].'");
             }
         }

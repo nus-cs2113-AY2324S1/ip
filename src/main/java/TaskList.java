@@ -84,28 +84,13 @@ public class TaskList {
         return taskDates;
     }
 
-    /**
-     * Lists all the tasks in the task list.
-     *
-     * @param taskList The TaskList to be listed.
-     */
-    public static void listTasks(TaskList taskList) {
-        System.out.println(" Here are the tasks in your list:");
-        int numTasks = taskList.getTaskDescriptions().size(); // Get the number of tasks
-
-        for (int i = 0; i < numTasks; i++) {
-            char doneSymbol = taskList.getTaskDoneStatus().get(i) ? 'X' : ' ';
-            String dateInfo = taskList.getTaskDates().get(i) != null ? taskList.getTaskDates().get(i) : "";
-            System.out.println(" " + (i + 1) + ".[" + taskList.getTaskTypes().get(i) + "][" + doneSymbol + "] " + taskList.getTaskDescriptions().get(i) + dateInfo);
-        }
-    }
 
     /**
      * Handles the addition of a task to the task list.
      *
-     * @param taskType       The type of the task (e.g., "T" for Todo).
+     * @param taskType        The type of the task (e.g., "T" for Todo).
      * @param taskDescription The description of the task.
-     * @param taskList       The TaskList to which the task will be added.
+     * @param taskList        The TaskList to which the task will be added.
      * @throws EmptyDescriptionException If the task description is empty.
      */
     public static void handleAddTask(String taskType, String taskDescription, TaskList taskList) throws EmptyDescriptionException {
@@ -127,57 +112,6 @@ public class TaskList {
         System.out.println(" Now you have " + taskList.getTaskDescriptions().size() + " tasks in the list.");
     }
 
-    /**
-     * Handles the deletion of a task from the task list.
-     *
-     * @param taskDescription The description of the task to be deleted.
-     * @param taskList       The TaskList from which the task will be deleted.
-     * @throws KenException If there is an error while handling the task deletion.
-     */
-    public static void handleDeleteTask(String taskDescription, TaskList taskList) throws KenException {
-        try {
-            int taskIndex = Integer.parseInt(taskDescription.trim()) - 1;
-            if (taskIndex >= 0 && taskIndex < taskList.getTaskDescriptions().size()) {
-                String deletedTaskDescription = taskList.getTaskDescriptions().get(taskIndex);
-
-                System.out.println("Got it. I've removed this task:");
-                System.out.println("   [" + taskList.getTaskTypes().get(taskIndex) + "][ ] " + deletedTaskDescription + (taskList.getTaskDates().get(taskIndex) != null ? taskList.getTaskDates().get(taskIndex) : ""));
-                Storage.deleteTask(taskIndex, taskList);
-                System.out.println("Now you have " + taskList.getTaskDescriptions().size() + " tasks in the list.");
-            } else {
-                throw new TaskNotFoundException("I can't find this task. Please provide a valid task number.");
-            }
-        } catch (NumberFormatException e) {
-            throw new TaskNotFoundException("Wrong format!! Please provide the number of the task.");
-        }
-    }
-
-    /**
-     * Handles the marking of a task as completed in the task list.
-     *
-     * @param taskDescription The description of the task to be marked as completed.
-     * @param taskList       The TaskList in which the task will be marked.
-     * @throws KenException If there is an error while handling the task completion.
-     */
-    public static void handleMarkTask(String taskDescription, TaskList taskList) throws KenException {
-        try {
-            int taskIndex = Integer.parseInt(taskDescription.trim()) - 1;
-            if (taskIndex >= 0 && taskIndex < taskList.getTaskDescriptions().size()) {
-                if (!taskList.getTaskDoneStatus().get(taskIndex)) {
-                    taskList.getTaskDoneStatus().set(taskIndex, true);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(" [X] " + taskList.getTaskDescriptions().get(taskIndex) + (taskList.getTaskDates().get(taskIndex) != null ? taskList.getTaskDates().get(taskIndex) : ""));
-                } else {
-                    System.out.println("This task is already marked as done.");
-                }
-            } else {
-                throw new TaskNotFoundException("I can't find this task. Please provide a valid task number.");
-            }
-        } catch (NumberFormatException e) {
-            throw new TaskNotFoundException("Wrong format!! Please provide the number of the task.");
-        }
-    }
-
 
     /**
      * Converts a task at the specified index into a formatted string.
@@ -185,7 +119,7 @@ public class TaskList {
      * @param index The index of the task to be converted.
      * @return The formatted string representing the task.
      */
-    public String taskToString(int index) {
+    public static String taskToString(int index) {
         String taskType = taskTypes.get(index);
         String doneStatus = taskDoneStatus.get(index) ? "[X]" : "[ ]";
         String description = taskDescriptions.get(index);
@@ -196,7 +130,7 @@ public class TaskList {
                 return doneStatus + " " + description;
             case "D":
                 if (date != null) {
-                    return doneStatus + " " + description +  " (" + date + ")";
+                    return doneStatus + " " + description + " (" + date + ")";
                 } else {
                     return doneStatus + " " + description;
                 }
@@ -217,45 +151,4 @@ public class TaskList {
     }
 
 
-    /**
-     * Finds tasks containing a specified keyword and returns them in a list.
-     *
-     * @param keyword The keyword to search for in task descriptions.
-     * @return A list of matching tasks.
-     */
-    public ArrayList<String> findTasksByKeyword(String keyword) {
-        ArrayList<String> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < taskDescriptions.size(); i++) {
-            String description = taskDescriptions.get(i);
-            if (description.contains(keyword)) {
-                String matchingTask = "[" + taskTypes.get(i) + "]" + taskToString(i);
-                matchingTasks.add((i + 1) + ". " + matchingTask); // Include the task number
-            }
-        }
-        return matchingTasks;
-    }
-
-    /**
-     * Handles the "find" command, searching for tasks with a specified keyword.
-     *
-     * @param userInput The user input string containing the "find" command and keyword.
-     */
-    public void handleFindCommand(String userInput) {
-        String keyword = userInput.substring(CommandParser.COMMAND_FIND.length()).trim();
-        ArrayList<String> matchingTasks = findTasksByKeyword(keyword);
-
-        Ui.printLine();
-        if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
-        } else {
-            System.out.println("Here are the matching tasks in your list:");
-            for (String matchingTask : matchingTasks) {
-                System.out.println(matchingTask);
-            }
-        }
-        Ui.printLine();
-    }
-
-
 }
-

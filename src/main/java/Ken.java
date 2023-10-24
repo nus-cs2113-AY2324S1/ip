@@ -29,13 +29,14 @@ public class Ken {
      * The main method to start the Ken chatbot.
      *
      * @param args The command-line arguments (not used).
+     * @throws KenException If there is an exception during chatbot initialization or execution.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws KenException {
         Ken ken = new Ken("ken.txt");
         ken.run();
     }
 
-    public void run() {
+    public void run() throws KenException {
         Ui.printLine();
         Ui.printWelcomeMessage();
         Ui.printLine();
@@ -47,7 +48,7 @@ public class Ken {
             Ui.printLine();
 
             if (userInput.toLowerCase().startsWith(CommandParser.COMMAND_FIND)) {
-                taskList.handleFindCommand(userInput);
+                FindCommand.handleFindCommand(userInput);
             } else if (userInput.equalsIgnoreCase(CommandParser.COMMAND_BYE)) {
                 Ui.printGoodbyeMessage();
                 break;
@@ -56,7 +57,7 @@ public class Ken {
                     CommandParser.processUserCommand(userInput, taskList);
                 } catch (KenException e) {
                     if (userInput.equalsIgnoreCase(CommandParser.COMMAND_LIST)) {
-                        TaskList.listTasks(taskList);
+                        ListCommand.listTasks(taskList);
                     } else {
                         System.out.println("Error: " + e.getMessage());
                     }
