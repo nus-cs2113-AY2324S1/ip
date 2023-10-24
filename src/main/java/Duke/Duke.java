@@ -43,7 +43,7 @@ public class Duke {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        Duke duke = new Duke("Duke.txt");
+        Duke duke = new Duke("Hilary.txt");
         try {
             duke.getTasks.getFromTextFile(duke.tasks);
         } catch (FileNotFoundException e) {
