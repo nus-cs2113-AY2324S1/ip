@@ -14,6 +14,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by, boolean isDone) {
         super(description);
         this.by = by;
+        this.isDone = isDone;
     }
 
     /**

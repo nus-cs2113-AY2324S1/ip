@@ -69,6 +69,9 @@ public class Storage {
         String description = null;
         String additionalInfo = "";
 
+        String from = null;
+        String to = null;
+
         if (line.startsWith("[T]")) {
             taskType = "T";
             isDone = line.charAt(4) == 'X';
@@ -89,9 +92,11 @@ public class Storage {
             isDone = line.charAt(4) == 'X';
 
             int fromIndex = line.indexOf("(from:");
-            if (fromIndex != -1) {
+            int toIndex = line.indexOf(" to:");
+            if (fromIndex != -1 && toIndex != -1) {
                 description = line.substring(7, fromIndex).trim();
-                additionalInfo = line.substring(fromIndex + 4, line.length() - 1).trim();
+                from = line.substring(fromIndex + 6, toIndex).trim();
+                to = line.substring(toIndex + 4, line.length() - 1).trim();
             } else {
                 System.out.println("Ahnge: Skipped a line due to incorrect Event format: " + line);
                 return null;
@@ -108,7 +113,7 @@ public class Storage {
                     task = new Deadline(description, additionalInfo, isDone);
                     break;
                 case "E":
-                    task = new Event(description, additionalInfo, isDone);
+                    task = new Event(description, from, to, isDone);
                     break;
                 default:
                     // Handle unknown task type

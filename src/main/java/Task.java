@@ -3,7 +3,7 @@
  */
 public class Task {
     private String description;
-    private boolean isDone;
+    public boolean isDone;
 
     /**
      * Creates a new task with the specified description and sets its completion status to false.

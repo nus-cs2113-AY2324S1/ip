@@ -17,11 +17,9 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        this.isDone = isDone;
     }
 
-    public Event(String description, String additionalInfo, boolean isDone) {
-        super(description);
-    }
 
     /**
      * Returns a string representation of the event task, including its type marker ('[E]'),
