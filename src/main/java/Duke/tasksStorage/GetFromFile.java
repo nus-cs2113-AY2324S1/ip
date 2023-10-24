@@ -1,17 +1,4 @@
-/**
- * GetFromFile is a class responsible for reading from text files
- * and fill the task list with the retrieved tasks. it supports reading
- * different types of tasks (Todo, deadlines, events) and their respective statuses.
- * <p>
- * GetFromFile is used to load tasks from a file when the Duke application starts.
- *
- * @author Cheung Ka Yuen
- * @version Final
- * @since 2023-09-30
- */
-
 package duke.tasksStorage;
-
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,23 +7,38 @@ import java.time.LocalDateTime;
 import duke.inputProcess.TaskList;
 import java.util.Scanner;
 
+/**
+ * The `GetFromFile` class is responsible for reading task data from a text file and add into the task list.
+ * It reads the tasks and their details from the file,
+ * including task type, status, description, and time (for event task).
+ */
 public class GetFromFile {
-
     private File file;
 
-    public GetFromFile(String path){
+    /**
+     * Constructs a `GetFromFile` object with the given file path.
+     *
+     * @param path The file path where to read task data.
+     */
+    public GetFromFile(String path) {
         file = new File(path);
     }
 
+    /**
+     * Reads task data from the text file and add to the provided task list.
+     *
+     * @param list The task list to be added with tasks read from the file.
+     * @throws FileNotFoundException If the file is not found.
+     */
     public void getFromTextFile(TaskList list) throws FileNotFoundException {
         try {
-            if(file.createNewFile()) {
+            if (file.createNewFile()) {
                 return;
             }
-        } catch(IOException e){
+        } catch (IOException e) {
             System.out.println("Something went wrong");
         }
-        Scanner s = new Scanner(file); // create a Scanner using the File as the source
+        Scanner s = new Scanner(file); // Create a Scanner using the File as the source
         int lineCount = 0;
         while (s.hasNext()) {
             String textLine = s.nextLine();
@@ -48,7 +50,7 @@ public class GetFromFile {
                 if (!commandFromFile.equals("T")) {
                     timeFromFile = textLine.split(" \\| ")[3];
                 }
-                switch (commandFromFile){
+                switch (commandFromFile) {
                 case "T":
                     list.addTodo(taskFromFile);
                     break;
@@ -61,13 +63,14 @@ public class GetFromFile {
                     list.addEvent(taskFromFile, start, end);
                     break;
                 default:
+                    System.out.println("The format in the file is incorrect from this line " + textLine);
                 }
-                if(isDoneFromFile.equals("1")) {
+                if (isDoneFromFile.equals("1")) {
                     list.getByIndex(lineCount).markAsDone();
                 }
                 lineCount++;
-            } catch(IndexOutOfBoundsException e){
-                System.out.println("The file not in the correct format");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("The file is not in the correct format");
             }
         }
     }

@@ -1,27 +1,37 @@
-/**
- * Todo is a kind of task with no time.
- * It is a subclass of the Task class and includes methods to
- * retrieve and format the Todo task.
- * <p>
- * Todo objects can be created with a description.
- *
- * @author Cheung Ka Yuen
- * @version Final
- * @since 2023-09-30
- */
-
 package duke.tasks;
 
 import duke.Task;
 
+/**
+ * The `Todo` class represents a specific type of task in the Duke application, tasks with no specific date or time.
+ * It extends the `Task` class and includes a description of the task.
+ */
 public class Todo extends Task {
-    public Todo(String description){
+    /**
+     * Constructs a `Todo` task with the given description.
+     *
+     * @param description The description of the todo task.
+     */
+    public Todo(String description) {
         super(description);
     }
+
+    /**
+     * Overrides the `toString` method to provide a formatted representation of the `Todo` task.
+     *
+     * @return A string representation of the `Todo` task, including its description.
+     */
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
-    public String getEventTime(){
+
+    /**
+     * Gets the event time for a `Todo` task, which is empty.
+     *
+     * @return An empty string, as `Todo` tasks do not have a specific event time.
+     */
+    public String getEventTime() {
         return "";
     }
 }
