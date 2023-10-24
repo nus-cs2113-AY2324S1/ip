@@ -20,3 +20,4 @@ unmark 8
 delete 8
 todo borrow book
 deadline aaaa /by Sat
+deadline aaa2 /by

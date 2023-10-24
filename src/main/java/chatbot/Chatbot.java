@@ -27,31 +27,35 @@ public class Chatbot {
      * @since   2023-10-06
      */
     public void run() throws IOException {
-
         this.ui.showGreetingMessage();
 
-        try {
-            ArrayList<String> lines = storage.parseFile(this.taskList.getTaskList());
-            for(String line : lines) {
+        ArrayList<String> lines = storage.parseFile(this.taskList.getTaskList());
+        for(String line : lines) {
+            try {
                 Command c = this.parser.parseCommand(line);
                 c.execute(this.taskList.getTaskList(), false);
+            } catch(ChatbotUnknownCommandException | ChatbotEmptyDescException e) {
+                this.ui.showError(e.getMessage(), true);
+                continue;
+            } catch (Exception e) {
+                this.ui.showError(e.getMessage(), false);
             }
-
-            Scanner in = new Scanner(System.in);
-            String input = in.nextLine();
-            while(!input.equals("bye")) {
-                Command c = this.parser.parseCommand(input);
-                c.execute(this.taskList.getTaskList(), true);
-                input = in.nextLine();
-            }
-        } catch(ChatbotUnknownCommandException e) {
-            this.ui.showError(e.getMessage(), true);
-        } catch(ChatbotEmptyDescException e) {
-            this.ui.showError(e.getMessage(), true);
-        } catch (Exception e) {
-            this.ui.showError(e.getMessage(), false);
         }
 
+        Scanner in = new Scanner(System.in);
+        String input = "";
+        while(!input.equals("bye")) {
+            try{
+                input = in.nextLine();
+                Command c = this.parser.parseCommand(input);
+                c.execute(this.taskList.getTaskList(), true);
+            } catch(ChatbotUnknownCommandException | ChatbotEmptyDescException e) {
+                this.ui.showError(e.getMessage(), true);
+                continue;
+            } catch (Exception e) {
+                this.ui.showError(e.getMessage(), false);
+            }
+        }
         this.ui.showByeMessage();
     }
 
