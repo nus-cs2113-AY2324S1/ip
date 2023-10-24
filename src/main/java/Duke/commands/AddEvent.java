@@ -46,7 +46,7 @@ public class AddEvent {
         try {
             Parser eventParse = parser.getEventInput();
             if (eventParse.getTaskTime2().isBefore(eventParse.getTaskTime1())) {
-                System.out.println(START_TIME_ERROR_MESSAGE);
+                System.out.println("\t" + START_TIME_ERROR_MESSAGE);
                 return;
             }
             tasks.addEvent(parser.getTaskName(), parser.getTaskTime1(), parser.getTaskTime2());
