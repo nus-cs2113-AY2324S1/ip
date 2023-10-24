@@ -1,6 +1,6 @@
 package chatbot;
 
-import java.util.ArrayList;
+import chatbot.command.Command;
 
 public class Parser {
     /**

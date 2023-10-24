@@ -1,4 +1,6 @@
-package chatbot;
+package chatbot.command;
+
+import chatbot.*;
 
 import java.util.ArrayList;
 
@@ -16,6 +18,8 @@ public class Command {
     /**
      * Execute the command specified by the user
      *
+     * @param   tasks       the current list of tasks
+     * @param   isUserInput is the command a user input
      * @author  Jeremy
      * @since   2023-10-06
      */

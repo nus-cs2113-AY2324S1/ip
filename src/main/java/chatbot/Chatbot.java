@@ -1,15 +1,8 @@
 package chatbot;
 
-import chatbot.*;
+import chatbot.command.Command;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -59,7 +52,7 @@ public class Chatbot {
             this.ui.showError(e.getMessage(), false);
         }
 
-        this.ui.showByeMessage();;
+        this.ui.showByeMessage();
     }
 
     public static void main(String[] args) throws Exception {
