@@ -12,7 +12,7 @@ import java.io.IOException;
  * It retrieves from and stores the tasks into a persistent text file botMemory.txt.
  */
 public class Duke {
-    public static void main(String[] args) {        
+    public static void main(String[] args) throws IOException {        
         final String LOGO = "       _       _        \n"
                 + "      | |     | |       \n"
                 + "      | | __ _| | _____ \n"
@@ -33,11 +33,17 @@ public class Duke {
         String botMemoryFilePath = botMemoryFile.getAbsolutePath();
         System.out.println("botMemory file location:" + botMemoryFilePath);
         System.out.println("Does the botMemory file exist?: " + botMemoryFile.exists());
-        
+        if (botMemoryFile.exists() == false) {
+            System.out.println("botMemory file not found, creating now...");
+            botMemoryFile.getParentFile().mkdirs();
+            botMemoryFile.createNewFile();
+            System.out.println("Does the botMemory file exist?: " + botMemoryFile.exists());
+        }
+
         try { 
             loadFileContents(botMemoryFilePath, botMemory); 
         } catch (FileNotFoundException e) { 
-            System.out.println("Error! The botMemory file is not found"); 
+            System.out.println("Error! The botMemory file is not found");
         }
 
         while (true) {
@@ -52,10 +58,15 @@ public class Duke {
                 continue; 
             }
 
-            // Bot Exit Message
+            // Bot Exit Message + Execute writeToFile to save the botMemory
             if (text[0].equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 inputReader.close();
+                try { 
+                    writeToFile(botMemoryFilePath, botMemory); 
+                } catch (IOException e) { 
+                    System.out.println("Something went wrong: " + e.getMessage()); 
+                }
                 break;
             }
 
@@ -157,13 +168,6 @@ public class Duke {
             // Bot default reaction to unknown action
             else {
                 System.out.println("I'm sorry, but I don't know what that means :[");
-            }
-            
-            // Execute writeToFile to save the botMemory after every transaction
-            try { 
-                writeToFile(botMemoryFilePath, botMemory); 
-            } catch (IOException e) { 
-                System.out.println("Something went wrong: " + e.getMessage()); 
             }
         }
     }
