@@ -15,6 +15,13 @@ public class Storage {
     public Storage(String filepath) {
         this.filepath = filepath;
     }
+    /**
+     * Parse the storage file and load the data
+     *
+     * @param   tasks       The current task list
+     * @author  Jeremy
+     * @since   2023-10-06
+     */
     public ArrayList<String> parseFile(ArrayList<Task> tasks) throws IOException {
         Path path = Paths.get(this.filepath);
         ArrayList<String> lines = new ArrayList<>();
@@ -35,6 +42,13 @@ public class Storage {
         }
         return lines;
     }
+    /**
+     * Save input to storage file
+     *
+     * @param   input       The input to be saved
+     * @author  Jeremy
+     * @since   2023-10-06
+     */
     public void saveToFile(String input) {
         String str = input + System.lineSeparator();
         try {

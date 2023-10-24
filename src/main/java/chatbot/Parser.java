@@ -6,6 +6,7 @@ public class Parser {
     /**
      * Parse the command and returns a Command object
      *
+     * @param   input       The input to be parsed
      * @author  Jeremy
      * @since   2023-10-06
      */

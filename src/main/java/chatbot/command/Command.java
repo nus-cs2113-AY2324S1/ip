@@ -24,7 +24,7 @@ public class Command extends AbstractCommand {
      * @since   2023-10-06
      */
     public void execute(ArrayList<Task> tasks, boolean isUserInput) throws ChatbotEmptyDescException {
-
+        return;
     }
 
 }
