@@ -9,3 +9,15 @@ mark 1
 unmark 1
 mark 3
 unmark 3
+mark 5
+delete 1
+todo borrow book
+event /from 23oct /to 23oct go to hall
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+mark 8
+unmark 8
+delete 8
+todo borrow book
+deadline aaaa /by Sat
+deadline aaa2 /by
