@@ -3,8 +3,12 @@ package duke.tasks;
 import duke.Task;
 
 /**
- * The `Todo` class represents a specific type of task in the Duke application, tasks with no specific date or time.
+ * The `Todo` class represents a specific type of task in the Hilary robot, tasks with no specific date or time.
  * It extends the `Task` class and includes a description of the task.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class Todo extends Task {
     /**

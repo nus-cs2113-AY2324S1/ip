@@ -7,8 +7,12 @@ import java.time.format.DateTimeFormatter;
 import static java.util.Locale.US;
 
 /**
- * The `Event` class represents a specific type of task in the Duke robot that with start and end time, events.
+ * The `Event` class represents a specific type of task in the Hilary robot that with start and end time, events.
  * It extends the `Task` class and includes information about the event's start and end times.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class Event extends Task {
     protected LocalDateTime startTime;

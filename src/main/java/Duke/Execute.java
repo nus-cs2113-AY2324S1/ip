@@ -5,8 +5,13 @@ import duke.inputProcess.Parser;
 import duke.inputProcess.TaskList;
 
 /**
- * The `Execute` class is responsible for executing various commands based on user input.
- * It delegates the execution of specific commands to their respective command classes.
+ * The `Execute` class is responsible for executing various commands based on user input in the Hilary robot.
+ * It delegates the execution of specific commands to their respective command classes and handles error cases.
+ * This class serves as the central controller for processing user commands and interacting with the task list.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class Execute {
     String command;

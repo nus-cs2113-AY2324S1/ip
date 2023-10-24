@@ -1,7 +1,18 @@
 package duke;
+
 /**
- * The `Task` class is an abstract class that represents a task in the Duke robot. It serves as the base class
- * for different types of tasks, such as Todos, Deadlines, and Events.
+ * Task is an abstract class representing a generic task in the Hilary robot.
+ * It includes fields and methods for retrieving the task's description and status.
+ * Task objects serve as the base class for specific task types (Todo, Deadline, Event).
+ * Subclasses extend Task to provide additional functionality and formatting.
+ * <p>
+ * Fields:
+ * - description: The description of the task.
+ * - isDone: A boolean variable indicating whether the task is marked as done.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public abstract class Task {
     protected String description;

@@ -9,8 +9,14 @@ import duke.tasksStorage.SaveToFile;
 import duke.tasksStorage.GetFromFile;
 
 /**
- * The `Duke` class is the main class for the Duke robot.
- * It handles user input process, task management, and tasks storage.
+ * The `Duke` class is the main class for the command-line task management robot Hilary.
+ * It handles user input process, task management, and tasks storage, allow user to
+ * add, mark, unmark, delete, and search for tasks. It also supports
+ * different types of tasks such as Todo, Deadline, and Event.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class Duke {
     private final GetFromFile getTasks;
@@ -32,7 +38,7 @@ public class Duke {
     }
 
     /**
-     * The main entry point for the Duke robot.
+     * The main entry point for the Hilary robot.
      *
      * @param args Command-line arguments (not used).
      */

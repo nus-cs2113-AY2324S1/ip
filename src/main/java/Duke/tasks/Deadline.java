@@ -8,8 +8,12 @@ import java.time.format.DateTimeFormatter;
 import static java.util.Locale.US;
 
 /**
- * The `Deadline` class represents a specific type of task in the Duke robot, tasks with a deadline.
+ * The `Deadline` class represents a specific type of task in the Hilary robot, tasks with a deadline.
  * It extends the `Task` class and includes information about the deadline.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class Deadline extends Task {
 

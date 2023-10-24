@@ -3,8 +3,13 @@ package duke.commands;
 import duke.inputProcess.TaskList;
 
 /**
- * The `DeleteTask` class is responsible for deleting tasks from the task list in the Duke robot.
- * It allows users to specify the task to be deleted by its index.
+ * The `DeleteTask` class is responsible for deleting tasks from the task list in the Hilary robot.
+ * It processes user input, identifies the task to be deleted, and performs the deletion.
+ * This class also handles error cases such as invalid input and out-of-bounds task indices.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class DeleteTask {
     private String userInput;

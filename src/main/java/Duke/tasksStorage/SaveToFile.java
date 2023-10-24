@@ -8,10 +8,17 @@ import java.io.IOException;
 import duke.inputProcess.TaskList;
 
 /**
- * The `SaveToFile` class is responsible for saving task data to a text file.
- * It writes the tasks and their details to the file,
- * including task type, status, description, and time (for event task).
+ * SaveToFile is a class responsible for saving tasks from the TaskList into a text file.
+ * It supports saving tasks of different types (Todo, Deadline, Event) along with their
+ * respective statuses to the specified file path.
+ * <p>
+ * SaveToFile is used to persist tasks to a file when the user added new tasks to the Hilary robot.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-09-30
  */
+
 public class SaveToFile {
     private String path;
 

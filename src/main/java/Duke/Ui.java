@@ -5,7 +5,7 @@ package duke;
  */
 public class Ui {
     /**
-     * Displays a greeting message when the Duke robot is launched.
+     * Displays a greeting message when the Hilary robot is launched.
      */
     public static void greeting() {
         System.out.println("Hello! I'm Bot Hilary");
@@ -13,7 +13,7 @@ public class Ui {
     }
 
     /**
-     * Displays a help message providing instructions on how to use the Duke robot.
+     * Displays a help message providing instructions on how to use the Hilary robot.
      */
     public static void help() {
         System.out.println("This is a task management robot. You can add todo tasks, deadline tasks, and event tasks.");

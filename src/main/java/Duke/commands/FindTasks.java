@@ -4,9 +4,13 @@ import duke.Task;
 import duke.inputProcess.TaskList;
 
 /**
- * The `FindTasks` class is responsible for searching and displaying tasks
- * in the task list from Duke robot that match a given keyword.
- * It searches the task list for tasks containing the specified keyword in descriptions.
+ * The `FindTasks` class is responsible for searching for tasks in the Hilary robot's task list based on user input.
+ * It processes user input, searches for tasks that match the keyword, and displays the matching tasks to the user.
+ * This class handles the searching functionality and provides user feedback on the search results.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class FindTasks {
     private final String userInput;

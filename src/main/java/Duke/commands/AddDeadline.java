@@ -6,8 +6,14 @@ import duke.inputProcess.TaskList;
 import java.time.format.DateTimeParseException;
 
 /**
- * The `AddDeadline` class is responsible for adding deadline tasks to the task list in the Duke robot.
- * It parses user input and extracts the necessary information to create a deadline task.
+ * The `AddDeadline` class is responsible for adding deadline tasks to the task list in the Hilary robot.
+ * It parses user input and extracts the necessary information to create a deadline task. This class handles the
+ * processing of user input for adding deadline tasks, including validating the input format, extracting task details,
+ * and adding the task to the task list.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class AddDeadline {
     private Parser parser;

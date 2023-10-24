@@ -3,8 +3,13 @@ package duke.commands;
 import duke.inputProcess.TaskList;
 
 /**
- * The `MarkTask` class is responsible for marking tasks as done in the Duke robot.
- * It allows users to specify the task to be marked as done by its index.
+ * The `MarkTask` class is responsible for marking tasks as done in the Hilary robot's task list.
+ * It processes user input, identifies the task to be marked as done, and updates its status.
+ * This class also handles error cases such as invalid input and out-of-bounds task indices.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class MarkTask {
     private final String userInput;

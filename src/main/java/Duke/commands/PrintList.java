@@ -3,8 +3,13 @@ package duke.commands;
 import duke.inputProcess.TaskList;
 
 /**
- * The `PrintList` class is responsible for printing the list of tasks in the Duke robot.
- * It displays all the tasks in the task list.
+ * The `PrintList` class is responsible for displaying the task list in the Hilary robot.
+ * It retrieves the task list and prints each task to the user, along with the total number of tasks.
+ * This class provides a convenient way for the user to view the contents of their task list.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class PrintList {
     private final TaskList tasks;

@@ -3,8 +3,13 @@ package duke.commands;
 import duke.inputProcess.TaskList;
 
 /**
- * The `AddTodo` class is responsible for adding todo tasks to the task list in the Duke robot.
- * It takes a user-provided task description and adds it to the list as a todo task.
+ * The `AddTodo` class is responsible for adding todo tasks to the task list in the Hilary robot.
+ * It processes user input and extracts the necessary information to create a todo task.
+ * This class handles the processing of user input for adding todo tasks and provides error handling for invalid input.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class AddTodo {
     private final String userInput;

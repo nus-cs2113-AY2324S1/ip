@@ -6,8 +6,14 @@ import duke.inputProcess.TaskList;
 import java.time.format.DateTimeParseException;
 
 /**
- * The `AddEvent` class is responsible for adding event tasks to the task list in the Duke robot.
- * It parses user input and extracts the necessary information to create an event task.
+ * The `AddEvent` class is responsible for adding event tasks to the task list in the Hilary robot.
+ * It parses user input and extracts the necessary information to create an event task. This class handles the
+ * processing of user input for adding event tasks, including validating the input format, extracting task details,
+ * and adding the task to the task list. It ensures that the start time of the event is before the end time.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class AddEvent {
     private final Parser parser;

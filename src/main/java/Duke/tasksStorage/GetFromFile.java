@@ -8,9 +8,15 @@ import duke.inputProcess.TaskList;
 import java.util.Scanner;
 
 /**
- * The `GetFromFile` class is responsible for reading task data from a text file and add into the task list.
- * It reads the tasks and their details from the file,
- * including task type, status, description, and time (for event task).
+ * GetFromFile is a class responsible for reading from text files
+ * and fill the task list with the retrieved tasks. it supports reading
+ * different types of tasks (Todo, deadlines, events) and their respective statuses.
+ * <p>
+ * GetFromFile is used to load tasks from a file when the Hilary robot starts.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-09-30
  */
 public class GetFromFile {
     private File file;

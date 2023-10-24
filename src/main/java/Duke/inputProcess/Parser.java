@@ -6,6 +6,10 @@ import java.time.format.DateTimeFormatter;
 /**
  * The `Parser` class is responsible for processing user input and extracting relevant information.
  * It parses input commands, extracts task names, and converts date and time from strings into `LocalDateTime` objects.
+ *
+ * @author Cheung Ka Yuen
+ * @version Final
+ * @since 2023-10-24
  */
 public class Parser {
     private String taskToAdd;
