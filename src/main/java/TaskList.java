@@ -5,7 +5,6 @@ import java.util.List;
  * The TaskList class manages the task-related data and provides methods to manipulate tasks.
  */
 public class TaskList {
-
     /**
      * A list to store task descriptions.
      */
@@ -84,7 +83,6 @@ public class TaskList {
         return taskDates;
     }
 
-
     /**
      * Converts a task at the specified index into a formatted string.
      *
@@ -121,6 +119,4 @@ public class TaskList {
                 return "Unknown task type: " + taskType;
         }
     }
-
-
 }
