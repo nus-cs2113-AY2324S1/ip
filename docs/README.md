@@ -124,7 +124,7 @@ Format:
 Example of input:
 `find hohoho`
 
-Excpected Outcome:
+Expected Outcome:
 
 "Here are the matching tasks in your list:
 
