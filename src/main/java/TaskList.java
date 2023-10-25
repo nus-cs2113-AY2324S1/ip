@@ -1,8 +1,8 @@
+import Exceptions.DukeyErrorMessages;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
-import dukey.DukeyException;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,9 @@ public class TaskList {
             tasks.remove(index);
             element.printDeleteTask();
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("array out of bounds exception in delete task function");
+            DukeyErrorMessages.deleteEmptyInputError();
+        } catch (IndexOutOfBoundsException e) {
+            DukeyErrorMessages.deleteInvalidTypeError();
         }
     }
 
@@ -94,12 +96,16 @@ public class TaskList {
      * @param tasks The list of tasks.
      */
     public static void markTask(String line, ArrayList<Task> tasks) {
-        String[] words = line.split(" ");
-        int taskNum = Integer.parseInt(words[1]) - 1;
-        tasks.get(taskNum).setDone();
-        Ui.printLine();
-        System.out.println("Nice! I've marked this task as done:\n\t  " + tasks.get(taskNum));
-        Ui.printLine();
+        try {
+            String[] words = line.split(" ");
+            int taskNum = Integer.parseInt(words[1]) - 1;
+            tasks.get(taskNum).setDone();
+            Ui.printLine();
+            System.out.println("Nice! I've marked this task as done:\n\t  " + tasks.get(taskNum));
+            Ui.printLine();
+        } catch (NumberFormatException e) {
+            DukeyErrorMessages.markInvalidError();
+        }
     }
 
     /**
@@ -127,7 +133,7 @@ public class TaskList {
             ArrayList<Task> searchResults = new ArrayList<>();
             String keyword = line.substring(4).trim();
             if (keyword.isEmpty()) {
-                System.out.println("Enter proper formatting message");
+                DukeyErrorMessages.findEmptyInputError();
                 return;
             }
             int count = 0;

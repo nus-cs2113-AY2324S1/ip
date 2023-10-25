@@ -1,10 +1,3 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import dukey.DukeyException;
-
-import java.util.regex.*;
-
 /**
  * The Parser class provides methods for parsing user input and command-specific input.
  */
@@ -60,10 +53,6 @@ public class Parser {
                 break;
         }
         return words;  // Return the array
-    }
-
-    public static boolean checkIfInputIsEmpty(String input) {
-        return input == null || input.trim().isEmpty();
     }
 
 }
