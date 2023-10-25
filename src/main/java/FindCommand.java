@@ -40,5 +40,3 @@ public class FindCommand {
         Ui.printLine();
     }
 }
-
-

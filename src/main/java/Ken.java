@@ -24,7 +24,6 @@ public class Ken {
         storage.loadTasks(taskList);
     }
 
-
     /**
      * The main method to start the Ken chatbot.
      *
@@ -65,8 +64,6 @@ public class Ken {
             }
             Ui.printLine();
         }
-
         scanner.close();
     }
 }
-

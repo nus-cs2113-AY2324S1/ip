@@ -76,7 +76,7 @@ public class CommandParser {
                 MarkCommand.handleMarkTask(taskDescription, taskList);
             } else if (taskType.equalsIgnoreCase(COMMAND_UNMARK)) {
                 MarkCommand.handleUnmarkTask(taskDescription, taskList);
-        } else {
+            } else {
                 throw new InvalidCommandException();
             }
         }

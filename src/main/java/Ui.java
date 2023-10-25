@@ -4,7 +4,6 @@
  * as a horizontal line separator for a cleaner UI presentation.
  */
 public class Ui {
-
     /**
      * Displays the welcome message when the chatbot starts.
      */
@@ -27,8 +26,6 @@ public class Ui {
     public static void printLine() {
         System.out.println(" ____________________________________________________________");
     }
-
-    // Private Helper Method
 
     /**
      * Prints the ASCII art representation of the chatbot's name "KEN."

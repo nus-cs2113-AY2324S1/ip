@@ -19,7 +19,7 @@ public class MarkCommand {
         }
     }
 
-    private static int getTaskIndex(String taskDescription, TaskList taskList) throws KenException {
+    public static int getTaskIndex(String taskDescription, TaskList taskList) throws KenException {
         try {
             int taskIndex = Integer.parseInt(taskDescription.trim()) - 1;
             if (taskIndex >= 0 && taskIndex < taskList.getTaskDescriptions().size()) {
