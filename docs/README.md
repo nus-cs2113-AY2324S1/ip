@@ -131,3 +131,9 @@ Excpected Outcome:
 [T][ ] hohoho
 [T][ ] hohoho
 [E][ ] hohoho (from: 9am to: 5pm)"
+
+
+### Additional Notes For Users 
+
+- Do not input whitespaces before your command 
+- e.g. (  `todo homework` is invalid), (`todo homework` is valid)

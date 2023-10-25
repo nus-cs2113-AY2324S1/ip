@@ -118,9 +118,7 @@ public class Dukey {
                     break;
                 default:
                     if (line.trim().isEmpty()) {
-                        Ui.printLine();
-                        System.out.println("huh");
-                        Ui.printLine();
+                        DukeyErrorMessages.unrecognizedCommandError();
                     } else {
                         DukeyErrorMessages.unrecognizedCommandError();
                     }
