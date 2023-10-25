@@ -1,9 +1,6 @@
 package main.java.duke.util;
 
-import main.java.duke.util.task.Deadline;
-import main.java.duke.util.task.Event;
 import main.java.duke.util.task.Task;
-import main.java.duke.util.task.Todo;
 
 import java.io.File;
 import java.io.FileWriter;

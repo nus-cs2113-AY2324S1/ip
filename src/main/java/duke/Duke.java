@@ -1,9 +1,6 @@
 package main.java.duke;
 
-import main.java.duke.util.task.*;
 import main.java.duke.util.*;
-
-import java.util.ArrayList;
 
 public class Duke {
 
