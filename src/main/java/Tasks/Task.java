@@ -7,9 +7,15 @@ package Tasks;
 public class Task {
     protected String description;
     protected boolean isDone;
-
     protected char type;
     protected static int numTasks = 0;
+
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+        this.type = 'T';
+        numTasks++;
+    }
 
     /**
      * Returns the completion status icon for the task.
@@ -68,12 +74,7 @@ public class Task {
      *
      * @param description The description of the task.
      */
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-        this.type = 'T';
-        numTasks++;
-    }
+
 
     /**
      * Unmarks a completed task and prints a message.
@@ -110,9 +111,9 @@ public class Task {
      */
     public void printDeleteTask() {
         System.out.println("_____________________________________________________");
-        int num_tasks = getNumTasks() - 1;
-        System.out.print("Noted. I have removed this task:\n  " + this + "\nNow you have " + (getNumTasks() - 1));
-        if (num_tasks > 1) {
+        numTasks--;
+        System.out.print("Noted. I have removed this task:\n  " + this + "\nNow you have " + (getNumTasks()));
+        if (numTasks > 1) {
             System.out.println(" tasks in the list.");
         } else {
             System.out.println(" task in the list.");

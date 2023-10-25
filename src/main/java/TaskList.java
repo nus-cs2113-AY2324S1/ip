@@ -7,11 +7,10 @@ import dukey.DukeyException;
 import java.util.ArrayList;
 
 /**
- * The TaskList class manages a list of tasks (add/delete)
+ * The TaskList class manages a list of tasks (add/delete/mark)
  */
 public class TaskList {
     protected ArrayList<Task> tasks;
-
     /**
      * Constructs a TaskList with the given list of tasks.
      *
@@ -41,14 +40,12 @@ public class TaskList {
     public static void deleteTask(String line, ArrayList<Task> tasks) {
         try {
             String[] words = line.split(" ");
-            int index  = Integer.parseInt(words[1]) - 1;
-            tasks.get(index).printDeleteTask();
+            int index  = Integer.parseInt(words[1].trim()) - 1;
+            Task element = tasks.get(index);
             tasks.remove(index);
-        }
-        catch(IndexOutOfBoundsException e) {
-            Ui.printLine();
-            System.out.println(DukeyException.todoDescriptionError());
-            Ui.printLine();
+            element.printDeleteTask();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("array out of bounds exception in delete task function");
         }
     }
 
@@ -118,5 +115,30 @@ public class TaskList {
             System.out.println((index++) + "." + task);
         }
         Ui.printLine();
+    }
+
+    protected static void findKeyword(String line, ArrayList<Task> tasks) {
+            ArrayList<Task> searchResults = new ArrayList<>();
+            String keyword = line.substring(4).trim();
+            if (keyword.isEmpty()) {
+                System.out.println("Enter proper formatting message");
+                return;
+            }
+            int count = 0;
+            for (Task task : tasks) {
+                if (task.getDescription().contains(keyword)) {
+                    searchResults.add(task);
+                    count++;
+                }
+            }
+            if (count == 0) {
+                System.out.println("There are no matching tasks in your list");
+            } else {
+                Ui.outputHeader();
+            }
+            for (Task task : searchResults) {
+                System.out.println(task);
+            }
+            Ui.printLine();
     }
 }

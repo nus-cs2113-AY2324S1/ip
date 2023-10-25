@@ -1,3 +1,3 @@
-1.[T][X] hey
-2.[D][ ] hey (by: when)
-3.[T][X] yo
+1.[T][ ] hey
+3.[T][ ] hohoho
+5.[E][ ] hohoho (from: hey to: jol)

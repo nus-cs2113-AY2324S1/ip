@@ -16,8 +16,7 @@ public class Parser {
      * @return An array containing the words in the input.
      */
     public static String[] parseUserInput(String line) {
-        String[] words = line.split(" ", 2);
-        return words;
+        return line.split(" ", 2);
     }
 
     /**

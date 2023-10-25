@@ -129,7 +129,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs.
      */
     private static void addTodoFromFile(String line, ArrayList<Task> tasks, boolean mark) throws IOException {
-        Task element = new Todo(line.substring(8));
+        Task element = new Todo(line.substring(8).trim());
         if (line.charAt(6) == 'X') {
             element.setDone();
         }
@@ -147,10 +147,10 @@ public class Storage {
      */
     private static void addDeadlineFromFile(String line, ArrayList<Task> tasks, boolean mark) throws IOException {
         int endOfDescriptionIndex = line.indexOf("(by");
-        String description = line.substring(8, endOfDescriptionIndex);
+        String description = line.substring(8, endOfDescriptionIndex).trim();
         int startOfDueIndex = line.indexOf(':');
         int endOfDueIndex = line.indexOf(')');
-        String due = line.substring(startOfDueIndex + 1, endOfDueIndex);
+        String due = line.substring(startOfDueIndex + 1, endOfDueIndex).trim();
         Task element = new Deadline(description, due);
         tasks.add(element);
         if (mark) {
@@ -166,11 +166,11 @@ public class Storage {
      */
     private static void addEventFromFile(String line, ArrayList<Task> tasks, boolean mark) throws IOException {
         int endOfDescriptionIndex = line.indexOf("(from:");
-        String description = line.substring(8, endOfDescriptionIndex);
+        String description = line.substring(8, endOfDescriptionIndex).trim();
         int startOfFromIndex = endOfDescriptionIndex + 7;
         int endOfFromIndex = line.indexOf("to:");
-        String from = line.substring(startOfFromIndex, endOfFromIndex);
-        String to = line.substring(endOfFromIndex + 4, line.indexOf(')'));
+        String from = line.substring(startOfFromIndex, endOfFromIndex).trim();
+        String to = line.substring(endOfFromIndex + 4, line.indexOf(')')).trim();
         Task element = new Event(from, to, description);
         tasks.add(element);
         if (mark) {
@@ -250,6 +250,28 @@ public class Storage {
                     modifiedLine.setCharAt(6, 'X');
                     line = modifiedLine.toString();
                 }
+            writer.write(line + System.lineSeparator());
+        }
+        writer.close();
+        list.close();
+        inputFile.delete();
+        tempFile.renameTo(inputFile);
+    }
+
+    public void unmarkTaskInFile(int index, String filePath) throws IOException {
+        File inputFile = new File(filePath);
+        File tempFile = new File("temp.txt");
+        Scanner list = new Scanner(inputFile);
+        PrintWriter writer = new PrintWriter(new FileWriter(tempFile));
+        int count = -1;
+        while (list.hasNextLine()) {
+            String line = list.nextLine();
+            count++;
+            if (count == index && line.length() >= 6) {
+                StringBuilder modifiedLine = new StringBuilder(line);
+                modifiedLine.setCharAt(6, ' ');
+                line = modifiedLine.toString();
+            }
             writer.write(line + System.lineSeparator());
         }
         writer.close();

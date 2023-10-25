@@ -9,7 +9,7 @@
 
 This command is used to exit the program.
 
-Example of usage:
+Format:
 
 `bye`
 
@@ -20,9 +20,10 @@ Expected outcome: Bye. Hope to see you again soon!
 
 This command is used to list all tasks.
 
-Example of usage:
+Format:
 
 `list`
+
 
 Expected outcome:
 1.[T][ ] homework 
@@ -34,9 +35,10 @@ Expected outcome:
 
 This command is used to mark a task as done.
 
-Example of usage:
+Format:
 
 `mark (task number)`
+
 
 Expected outcome: Nice! I've marked this task as done:
 [T][X] hi
@@ -46,7 +48,7 @@ Expected outcome: Nice! I've marked this task as done:
 
 This command is used to unmark a task (mark it as not done).
 
-Example of usage:
+Format:
 
 `unmark (task number)`
 
@@ -59,9 +61,12 @@ Expected outcome: Nice! I've marked this task as done:
 
 This command is used to add a deadline task.
 
-Example of usage:
+Format:
 
 `deadline (description) /by (due date)`
+
+Example of input :
+`Submit assignment /by 9am`
 
 Expected outcome: [D][ ] Submit assignment (by: 9am)
 
@@ -70,9 +75,12 @@ Expected outcome: [D][ ] Submit assignment (by: 9am)
 
 This command is used to add an event task.
 
-Example of usage:
+Format:
 
 `event (description) /from (start time) /to (end time)`
+
+Example of input :
+`Rohit attends cs2113 lecture /from 4pm /to 6pm`
 
 Expected outcome: [E][ ] Rohit attends cs2113 lecture (from: 4pm to: 6pm)
 
@@ -81,9 +89,12 @@ Expected outcome: [E][ ] Rohit attends cs2113 lecture (from: 4pm to: 6pm)
 
 This command is used to add a todo task.
 
-Example of usage:
+Format:
 
 `todo (description)`
+
+Example of input :
+`todo buy groceries`
 
 Expected outcome: [T][ ] buy groceries
 
@@ -92,7 +103,7 @@ Expected outcome: [T][ ] buy groceries
 
 This command is used to delete a task.
 
-Example of usage:
+Format:
 
 `delete (task number)`
 
@@ -101,3 +112,22 @@ Expected outcome:
 [D][ ] bro (by:tmr)
 Now you have 3 tasks in the list."
 
+### 'find' - Find a task/tasks
+
+This command is used to search for tasks that contain a particular
+keyword in the description.
+
+Format:
+
+`find (task number)`
+
+Example of input:
+`find hohoho`
+
+Excpected Outcome:
+
+"Here are the matching tasks in your list:
+
+[T][ ] hohoho
+[T][ ] hohoho
+[E][ ] hohoho (from: 9am to: 5pm)"

@@ -1,4 +1,6 @@
 import Tasks.*;
+import dukey.DukeyException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
@@ -47,7 +49,12 @@ public class Dukey {
                     }
                     break;
                 case "unmark":
-                    TaskList.unmarkTask(line, tasks.tasks);
+                    try {
+                        TaskList.unmarkTask(line, tasks.tasks);
+                        storage.unmarkTaskInFile(Integer.parseInt(input[1].trim()) - 1, filePath);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("if statement");
+                    }
                     break;
                 case "deadline":
                     try {
@@ -93,11 +100,22 @@ public class Dukey {
                     }
                     break;
                 case "delete":
-                    TaskList.deleteTask(line, tasks.tasks);
-                    storage.deleteLineFromFile(Integer.parseInt(input[1].trim()) - 1, filePath);
+                    try {
+                        TaskList.deleteTask(line, tasks.tasks);
+                        storage.deleteLineFromFile(Integer.parseInt(input[1].trim()) - 1, filePath);
+                    }
+                    catch (ArrayIndexOutOfBoundsException e) {
+                        Ui.printLine();
+                        System.out.println("array out of bounds exception");
+                        Ui.printLine();
+                    } catch (NumberFormatException e) {
+                        Ui.printLine();
+                        System.out.println("please enter an integer after delete function");
+                        Ui.printLine();
+                    }
                     break;
                 case "find":
-                    storage.searchKeyword(line, tasks.tasks);
+                    TaskList.findKeyword(line, tasks.tasks);
                     break;
                 default:
                     if (line.trim().isEmpty()) {
