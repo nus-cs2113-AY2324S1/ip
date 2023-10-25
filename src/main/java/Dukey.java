@@ -1,4 +1,3 @@
-import Commands.ListCommand;
 import Tasks.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -53,36 +52,44 @@ public class Dukey {
                 case "deadline":
                     try {
                         String[] deadline = Parser.parseCommandInput(command, input[1]);
+                        if (deadline[0].trim().isEmpty() || deadline[1].trim().isEmpty()) {
+                            Ui.deadlineEmptyInputError();
+                            break;
+                        }
                         TaskList.addDeadline(deadline[0], deadline[1], tasks.tasks);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(dukey.DukeyException.EmptyInputError());
+                        Ui.deadlineFormatError();
                     }
                     storage.taskArrayToFile(filePath, tasks.tasks);
                     break;
                 case "event":
                     try {
-                        String[] event = Parser.parseCommandInput(command, input[1]);
-                        TaskList.addEvent(event[0], event[1], event[2], tasks.tasks);
+                        String[] events = Parser.parseCommandInput(command, input[1]);
+                        if (events[2].isEmpty() || events[1].isEmpty() || events[0].isEmpty()) {
+                            Ui.eventEmptyInputError();
+                            break;
+                        }
+                        TaskList.addEvent(events[0], events[1], events[2], tasks.tasks);
                         storage.taskArrayToFile(filePath, tasks.tasks);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(dukey.DukeyException.EmptyInputError());
+                        Ui.eventFormatError();
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("if statement");
-                        System.out.println(dukey.DukeyException.EmptyInputError());
+                        Ui.eventFormatError();
                     }
                     break;
                 case "todo":
                     try {
                         String[] todo = Parser.parseCommandInput(command, input[1]);
-                        if (Parser.checkIfInputIsEmpty(input[1])) {
-                            System.out.println(dukey.DukeyException.EmptyInputError());
-                            System.out.println("if statement");
+                        if (input[1].trim().isEmpty()) {
+                            Ui.todoEmptyInputError();
                             break;
                         }
                         TaskList.addTodo(todo[0], tasks.tasks);
                         storage.taskArrayToFile(filePath, tasks.tasks);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println(dukey.DukeyException.EmptyInputError());
+                        Ui.todoFormatError();
                     }
                     break;
                 case "delete":
@@ -98,9 +105,7 @@ public class Dukey {
                         System.out.println(dukey.DukeyException.EmptyInputError());
                         Ui.printLine();
                     } else {
-                        Ui.printLine();
-                        System.out.println(dukey.DukeyException.EmptyInputError());
-                        Ui.printLine();
+                        Ui.unrecognizedCommandError();
                     }
             }
         }

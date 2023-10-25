@@ -30,6 +30,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[" + this.type + "]" + super.toString() + " (by:"+ this.due + ")";
+        return "[" + this.type + "]" + super.toString() + " (by: "+ this.due + ")";
     }
 }

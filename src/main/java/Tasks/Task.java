@@ -80,7 +80,8 @@ public class Task {
      */
     public void unmarkTask() {
         this.isDone = false;
-        System.out.println("Nice! I've marked this task as done:\n\t  " + this);
+        System.out.println("Nice! I've unmarked this task:\n\t  " + this);
+
     }
 
     /**
@@ -97,14 +98,13 @@ public class Task {
      * Prints a number of tasks.
      */
     public void printNewTask() {
-        System.out.print("Got it. I've added this task:\n  " + this + "\nNow you have " + getNumTasks());
+        System.out.print("Got it. I've added this task:\n" + this + "\nNow you have " + getNumTasks());
         if (getNumTasks() > 1) {
             System.out.println(" tasks in the list.");
         } else {
             System.out.println(" task in the list.");
         }
     }
-
     /**
      * Prints the task that is going to be deleted.
      */

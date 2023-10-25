@@ -41,7 +41,7 @@ public class Parser {
                 String from = input.substring(startIndexOfFrom + 5, startIndexOfTo);
                 String to = input.substring(startIndexOfTo + 4);
                 String description = input.substring(0, startIndexOfFrom);
-                words = new String[]{from, to, description};
+                words = new String[]{from.trim(), to.trim(), description.trim()};
                 break;
             case "todo":
                 words = new String[]{input.trim()};
