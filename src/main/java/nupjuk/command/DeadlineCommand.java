@@ -10,7 +10,7 @@ import static nupjuk.Printer.printLine;
 
 /**
  * DeadlineCommand class
- * get commands starts with "Deadline" and execute it
+ * get commands starts with "deadline" and execute it
  */
 
 public class DeadlineCommand {

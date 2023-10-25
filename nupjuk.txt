@@ -1,0 +1,5 @@
+T | 1 | a
+T | 0 | 123
+T | 1 | a bc  de
+E | 0 | abc (from: Dec 12 2023 1200 to: Dec 13 2023 1300)
+D | 0 | to do (by: Dec 12 2023 1200)
