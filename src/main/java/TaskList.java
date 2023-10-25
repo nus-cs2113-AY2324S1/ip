@@ -117,6 +117,12 @@ public class TaskList {
         Ui.printLine();
     }
 
+    /**
+     * Searches for tasks containing a specified keyword and prints the results.
+     *
+     * @param line   The user input containing the keyword search command.
+     * @param tasks  The list of tasks to be searched.
+     */
     protected static void findKeyword(String line, ArrayList<Task> tasks) {
             ArrayList<Task> searchResults = new ArrayList<>();
             String keyword = line.substring(4).trim();

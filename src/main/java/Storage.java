@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -179,27 +180,6 @@ public class Storage {
     }
 
     /**
-     * Searches for tasks containing a specified keyword and prints the results.
-     *
-     * @param line   The user input containing the keyword search command.
-     * @param tasks  The list of tasks to be searched.
-     */
-    protected void searchKeyword(String line, ArrayList<Task> tasks) {
-        ArrayList<Task> searchResults = new ArrayList<>();
-        String keyword = line.substring(4);
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                searchResults.add(task);
-            }
-        }
-        Ui.outputHeader();
-        for (Task task : searchResults) {
-            System.out.println(task);
-        }
-        Ui.printLine();
-    }
-
-    /**
      * Deletes a specific line from a file.
      *
      * @param index     The line number to be deleted.
@@ -211,13 +191,18 @@ public class Storage {
         File tempFile = new File("tempFile.txt");
         Scanner list = new Scanner(inputFile);
         PrintWriter writer = new PrintWriter(new FileWriter(tempFile));
-        int count = 0;
+        // Read all lines into a list
+        List<String> lines = new ArrayList<>();
         while (list.hasNextLine()) {
-            count++;
-            String line = list.nextLine();
-            if (count != index) {
-                writer.println(line);
-            }
+            lines.add(list.nextLine());
+        }
+        // Remove the line at the specified index
+        if (index >= 0 && index < lines.size()) {
+            lines.remove(index);
+        }
+        // Write the modified list back to the file
+        for (String line : lines) {
+            writer.println(line);
         }
         list.close();
         writer.close();
@@ -228,7 +213,6 @@ public class Storage {
             throw new IOException("Could not rename temp file");
         }
     }
-
     /**
      * Marks a task as done in the file by updating its status.
      *
