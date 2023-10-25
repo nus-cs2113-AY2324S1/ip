@@ -41,7 +41,7 @@ Format:
 
 
 Expected outcome: Nice! I've marked this task as done:
-[T][`X`] hi
+[`T`][`X`] hi
 
 
 ### `unmark` - Unmark Task
