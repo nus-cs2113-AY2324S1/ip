@@ -13,11 +13,11 @@ public class FormatChecker {
      * @param s given string that have to be checked if numeric
      * @return parsed integer
      */
-    public static boolean isNumeric(String s){
-        try{
+    public static boolean isNumeric(String s) {
+        try {
             Integer.parseInt(s);
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }
@@ -29,8 +29,8 @@ public class FormatChecker {
      * @param input given string to be checked
      * @throws InputFormatException if nupjuk.command doesn't have enough arguments
      */
-    public static void checkInputFormat(String[] input) throws InputFormatException{
-        if(input.length !=2){
+    public static void checkInputFormat(String[] input) throws InputFormatException {
+        if (input.length != 2) {
             throw new InputFormatException();
         }
     }
@@ -43,8 +43,8 @@ public class FormatChecker {
      * @throws InputFormatException if nupjuk.command is not in deadline format
      */
     /* function for check deadline input format */
-    public static void checkDeadlineFormat(String[] schedules) throws InputFormatException{
-        if(schedules.length !=2 || !schedules[1].trim().startsWith("by")){
+    public static void checkDeadlineFormat(String[] schedules) throws InputFormatException {
+        if (schedules.length != 2 || !schedules[1].trim().startsWith("by")) {
             throw new InputFormatException();
         }
     }
@@ -55,10 +55,10 @@ public class FormatChecker {
      * @param schedules string in event format
      * @throws InputFormatException if nupjuk.command is not in event format
      */
-    public static void checkEventFormat(String[] schedules) throws InputFormatException{
-        if(schedules.length !=3 ||
+    public static void checkEventFormat(String[] schedules) throws InputFormatException {
+        if (schedules.length != 3 ||
                 !schedules[1].trim().startsWith("from") ||
-                !schedules[2].trim().startsWith("to")){
+                !schedules[2].trim().startsWith("to")) {
             throw new InputFormatException();
         }
     }

@@ -1,6 +1,9 @@
 package nupjuk.command;
+
 import nupjuk.*;
+
 import java.io.IOException;
+
 import static nupjuk.Printer.printLine;
 
 /**
@@ -9,9 +12,9 @@ import static nupjuk.Printer.printLine;
  */
 public class TodoCommand {
     public boolean execute(TaskList tasks, String[] tokens, Storage storage) throws IOException {
-        try{
+        try {
             FormatChecker.checkInputFormat(tokens);
-        } catch (InputFormatException e){
+        } catch (InputFormatException e) {
             printLine("☹ OOPS!!! <todo> should be with task description");
             System.out.println("    ____________________________________________________________\n");
             return false;

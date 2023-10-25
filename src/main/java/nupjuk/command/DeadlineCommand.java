@@ -1,5 +1,7 @@
 package nupjuk.command;
+
 import nupjuk.*;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,9 +18,9 @@ import static nupjuk.Printer.printLine;
 public class DeadlineCommand {
     public boolean execute(TaskList tasks, String[] tokens, Storage storage) throws IOException {
         // error handling
-        try{
+        try {
             FormatChecker.checkInputFormat(tokens);
-        } catch (InputFormatException e){
+        } catch (InputFormatException e) {
             printLine("☹ OOPS!!! <deadline> should be with task description and deadline");
             System.out.println("    ____________________________________________________________\n");
             return false;
@@ -28,7 +30,7 @@ public class DeadlineCommand {
         String[] schedules = tokens[1].split("/", 2);
 
         // error handling
-        try{
+        try {
             FormatChecker.checkDeadlineFormat(schedules);
         } catch (InputFormatException e) {
             printLine("☹ OOPS!!! <deadline> needs argument like (work/by time)");
@@ -40,9 +42,9 @@ public class DeadlineCommand {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm", Locale.ENGLISH);
         LocalDateTime date;
         // using datetime format
-        try{
+        try {
             date = LocalDateTime.parse(schedules[1].trim().substring(2).trim(), formatter);
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             printLine("☹ OOPS!!! time must be this form: dd-MM-yyyy hhmm");
             System.out.println("    ____________________________________________________________\n");
             return false;

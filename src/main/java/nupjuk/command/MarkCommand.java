@@ -1,7 +1,10 @@
 package nupjuk.command;
+
 import nupjuk.Storage;
 import nupjuk.TaskList;
+
 import java.io.IOException;
+
 import static nupjuk.Printer.printLine;
 
 /**
@@ -15,7 +18,7 @@ public class MarkCommand {
         int mark_idx;
         try {
             mark_idx = Integer.parseInt(tokens[1]) - 1; // index starts from 0
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             printLine("☹ OOPS!!! <mark> needs one integer parameter!");
             System.out.println("    ____________________________________________________________\n");
             return false;
@@ -27,7 +30,7 @@ public class MarkCommand {
 
         try {
             tasks.getTask(mark_idx).doMark();
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             printLine("☹ OOPS!!! Task number is out of List!");
             System.out.println("    ____________________________________________________________\n");
             return false;

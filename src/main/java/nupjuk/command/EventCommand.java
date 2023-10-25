@@ -1,10 +1,13 @@
 package nupjuk.command;
+
 import nupjuk.*;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
+
 import static nupjuk.Printer.printLine;
 
 /**
@@ -14,9 +17,9 @@ import static nupjuk.Printer.printLine;
 public class EventCommand {
     public boolean execute(TaskList tasks, String[] tokens, Storage storage) throws IOException {
         // error handling
-        try{
+        try {
             FormatChecker.checkInputFormat(tokens);
-        } catch (InputFormatException e){
+        } catch (InputFormatException e) {
             printLine("☹ OOPS!!! <event> should be with task description and start/end time");
             System.out.println("    ____________________________________________________________\n");
             return false;
@@ -26,7 +29,7 @@ public class EventCommand {
         String[] schedules = tokens[1].split("/", 3);
 
         // error handling
-        try{
+        try {
             FormatChecker.checkEventFormat(schedules);
         } catch (InputFormatException e) {
             printLine("☹ OOPS!!! <event> needs input like (work /from start /to end)");
@@ -39,10 +42,10 @@ public class EventCommand {
         LocalDateTime from;
         LocalDateTime to;
         // using datetime format
-        try{
+        try {
             from = LocalDateTime.parse(schedules[1].trim().substring(4).trim(), formatter);
             to = LocalDateTime.parse(schedules[2].trim().substring(2).trim(), formatter);
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             printLine("☹ OOPS!!! time must be this form: dd-MM-yyyy HHmm");
             System.out.println("    ____________________________________________________________\n");
             return false;
