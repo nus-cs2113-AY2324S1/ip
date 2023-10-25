@@ -4,13 +4,11 @@ public class KenException extends Exception {
     }
 }
 
-
 class InvalidCommandException extends KenException {
     public InvalidCommandException() {
         super("Hmm, what's that? Please use 'todo,' 'deadline,' 'event,' 'delete [number],' or 'mark [number].");
     }
 }
-
 
 class TaskNotFoundException extends KenException {
     public TaskNotFoundException() {
@@ -23,7 +21,3 @@ class WrongFormatException extends KenException {
         super("Wrong format!! Please provide the number of the task.");
     }
 }
-
-
-
-
