@@ -9,6 +9,17 @@ Cheezeblokz is an app for management and recording of simple tasks required by t
 > e.g. in add n/NAME, NAME is a parameter which can be used as add n/John Doe.
 > - Parameters must be in the specified order.
 
+- [Features](https://github.com/Cheezeblokz/ip/blob/master/docs/README.md#features)
+  - [Adding a todo: `todo`](https://github.com/Cheezeblokz/ip/blob/master/docs/README.md#adding-a-todo-todo)
+  - [Adding a deadline: `deadline`](https://github.com/Cheezeblokz/ip/blob/master/docs/README.md#adding-a-deadline-deadline)
+  - [Adding an event: `event`](https://github.com/Cheezeblokz/ip/blob/master/docs/README.md#adding-an-event-event)
+  - [Deleting a task: `delete`](https://github.com/Cheezeblokz/ip/blob/master/docs/README.md#deleting-a-task-delete)
+  - [Listing all tasks: `list`](https://github.com/Cheezeblokz/ip/blob/master/docs/README.md#listing-all-tasks-list)
+  - [Marking a task: `mark`](https://github.com/Cheezeblokz/ip/blob/master/docs/README.md#marking-a-task-mark)
+  - [Unmarking a task: `unmark`](https://github.com/Cheezeblokz/ip/blob/master/docs/README.md#unmarking-a-task-unmark)
+  - [Searching for tasks: `find`](https://github.com/Cheezeblokz/ip/blob/master/docs/README.md#searching-for-tasks-find)
+  - [Exiting the program: `bye`](https://github.com/Cheezeblokz/ip/blob/master/docs/README.md#exiting-the-program-bye)
+
 ### Adding a todo: `todo`
 
 Add a todo task to the task list.
