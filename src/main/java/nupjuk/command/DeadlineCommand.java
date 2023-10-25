@@ -9,58 +9,57 @@ import java.util.Locale;
 import static nupjuk.Printer.printLine;
 
 /**
- * EventCommand class
- * get commands starts with "Event" and execute it
+ * DeadlineCommand class
+ * get commands starts with "Deadline" and execute it
  */
-public class EventCommand {
+
+public class DeadlineCommand {
     public boolean execute(TaskList tasks, String[] tokens, Storage storage) throws IOException {
         // error handling
         try{
             FormatChecker.checkInputFormat(tokens);
         } catch (InputFormatException e){
-            printLine("☹ OOPS!!! <event> should be with task description and start/end time");
+            printLine("☹ OOPS!!! <deadline> should be with task description and deadline");
             System.out.println("    ____________________________________________________________\n");
             return false;
         }
 
         // input format: description / deadline
-        String[] schedules = tokens[1].split("/", 3);
+        String[] schedules = tokens[1].split("/", 2);
 
         // error handling
         try{
-            FormatChecker.checkEventFormat(schedules);
+            FormatChecker.checkDeadlineFormat(schedules);
         } catch (InputFormatException e) {
-            printLine("☹ OOPS!!! <event> needs input like (work /from start /to end)");
-            printLine("time must be this form: dd-MM-yyyy HHmm");
+            printLine("☹ OOPS!!! <deadline> needs argument like (work/by time)");
             System.out.println("    ____________________________________________________________\n");
             return false;
         }
 
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm", Locale.ENGLISH);
-        LocalDateTime from;
-        LocalDateTime to;
+        LocalDateTime date;
         // using datetime format
         try{
-            from = LocalDateTime.parse(schedules[1].trim().substring(4).trim(), formatter);
-            to = LocalDateTime.parse(schedules[2].trim().substring(2).trim(), formatter);
+            date = LocalDateTime.parse(schedules[1].trim().substring(2).trim(), formatter);
         } catch (DateTimeParseException e){
-            printLine("☹ OOPS!!! time must be this form: dd-MM-yyyy HHmm");
+            printLine("☹ OOPS!!! time must be this form: dd-MM-yyyy hhmm");
             System.out.println("    ____________________________________________________________\n");
             return false;
         }
+
 
         // make and add to list
         printLine("Got it. I've added this task:");
 
-        Event event = new Event(schedules[0].trim(), from, to);
-        tasks.addTask(event);
+        Deadline deadline = new Deadline(schedules[0].trim(), date);
+        tasks.addTask(deadline);
 
         printLine(String.format("  [%s][%s] %s",
-                event.getTypeIcon(), event.getStatusIcon(), event.getDescription()));
+                deadline.getTypeIcon(), deadline.getStatusIcon(), deadline.getDescription()));
         printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
         System.out.println("    ____________________________________________________________\n");
         storage.saveTask(tasks);
         return false;
     }
 }
-

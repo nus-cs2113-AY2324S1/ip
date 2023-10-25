@@ -1,10 +1,12 @@
 package nupjuk.command;
 import nupjuk.*;
-
 import java.io.IOException;
-
 import static nupjuk.Printer.printLine;
 
+/**
+ * TodoCommand class
+ * get commands starts with "Todo" and execute it
+ */
 public class TodoCommand {
     public boolean execute(TaskList tasks, String[] tokens, Storage storage) throws IOException {
         try{
