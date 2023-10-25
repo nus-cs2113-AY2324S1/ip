@@ -1,11 +1,11 @@
-
+package nupjuk;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
- *  Deadline class
+ *  nupjuk.Deadline class
  *  tasks with deadline
  */
 public class Deadline extends Task{

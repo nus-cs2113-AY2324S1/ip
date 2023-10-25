@@ -1,5 +1,8 @@
+package nupjuk;
+
 import java.io.*;
 import java.util.Scanner;
+import static nupjuk.Printer.printLine;
 
 public class Nupjuk {
 
@@ -20,7 +23,7 @@ public class Nupjuk {
             tasks = new TaskList(storage.loadTask());
         } catch (FileNotFoundException e){
             tasks = new TaskList();
-            ui.printLine ("Creating New File");
+            printLine ("Creating New File");
         }
     }
 

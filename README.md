@@ -1,6 +1,6 @@
-# Nupjuk User Guide
+# nupjuk.Nupjuk User Guide
 
-Nupjuk is a desktop app for schedule management.
+nupjuk.Nupjuk is a desktop app for schedule management.
 
 It uses Command Line Interface.
 

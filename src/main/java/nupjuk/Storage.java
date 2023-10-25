@@ -1,3 +1,5 @@
+package nupjuk;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

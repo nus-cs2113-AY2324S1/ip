@@ -1,9 +1,14 @@
+package nupjuk;
+
+import nupjuk.command.TodoCommand;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import static nupjuk.Printer.printLine;
 
 
 /**
@@ -14,18 +19,12 @@ import java.time.format.DateTimeFormatter;
 public class Ui {
     public Ui(){
         System.out.println("    ____________________________________________________________");
-        printLine("Hello! I'm Nupjuk");
+        printLine("Hello! I'm nupjuk.Nupjuk");
         printLine("What can I do for you?");
         System.out.println("    ____________________________________________________________\n");
     }
 
-    /**
-     * print a line starts with four spaces
-     * @param s String to print out
-     */
-    public void printLine(String s){
-        System.out.println("     " + s);
-    }
+
 
 
     /**
@@ -33,7 +32,7 @@ public class Ui {
      * If user inputs "bye", returns true to terminate infinite loop of run() function
      * Otherwise, returns false
      *
-     * @param cmd command string that user inputted
+     * @param cmd nupjuk.command string that user inputted
      * @param tasks List of Todos/Deadlines/Events
      * @param storage Where to save and load
      * @return terminates or not
@@ -45,7 +44,7 @@ public class Ui {
         String[] tokens = cmd.split(" ", 2);
         System.out.println("    ____________________________________________________________");
         //System.out.println(tokens[0]);
-        if(cmd.equals("bye")){ // bye command
+        if(cmd.equals("bye")){ // bye nupjuk.command
             return true;
         } else if(cmd.equals("list")){
             if(tasks.getSize() == 0){
@@ -115,26 +114,8 @@ public class Ui {
             System.out.println("    ____________________________________________________________\n");
             storage.saveTask(tasks);
         } else if(tokens[0].equals("todo")) {
-
-            try{
-                FormatChecker.checkInputFormat(tokens);
-            } catch (InputFormatException e){
-                printLine("☹ OOPS!!! <todo> should be with task description");
-                System.out.println("    ____________________________________________________________\n");
-                return false;
-            }
-
-            // make and add to list
-            printLine("Got it. I've added this task:");
-            Todo todo = new Todo(tokens[1]);
-            tasks.addTask(todo);
-
-            printLine(String.format("  [%s][%s] %s",
-                    todo.getTypeIcon(), todo.getStatusIcon(), todo.getDescription()));
-            printLine(String.format("Now you have %d tasks in the list.", tasks.getSize()));
-            System.out.println("    ____________________________________________________________\n");
-            storage.saveTask(tasks);
-
+            TodoCommand command = new TodoCommand();
+            return command.execute(tasks, tokens, storage);
         } else if(tokens[0].equals("deadline")){
             // error handling
             try{
@@ -279,8 +260,8 @@ public class Ui {
             }
             System.out.println("    ____________________________________________________________\n");
         } else{
-            // command not matched
-            printLine("☹ Sorry, I cannot understand your command: " + cmd);
+            // nupjuk.command not matched
+            printLine("☹ Sorry, I cannot understand your nupjuk.command: " + cmd);
             System.out.println("    ____________________________________________________________\n");
         }
         return false;

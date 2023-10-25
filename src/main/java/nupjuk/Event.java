@@ -1,9 +1,11 @@
+package nupjuk;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
- *  Event class
+ *  nupjuk.Event class
  *  extends Task class
  *  tasks with start and end time
  */

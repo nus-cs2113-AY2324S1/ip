@@ -1,5 +1,7 @@
+package nupjuk;
+
 /**
- *  Todo class
+ *  nupjuk.Todo class
  *  extends Task class
  *  tasks without any date/time attached to it
  */

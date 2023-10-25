@@ -1,5 +1,7 @@
+package nupjuk;
+
 /**
- * Check format of User command
+ * Check format of User nupjuk.command
  * If there is a problem, throws exceptions
  */
 
@@ -22,10 +24,10 @@ public class FormatChecker {
 
 
     /**
-     * Raise exception if command argument is not enough
+     * Raise exception if nupjuk.command argument is not enough
      *
      * @param input given string to be checked
-     * @throws InputFormatException if command doesn't have enough arguments
+     * @throws InputFormatException if nupjuk.command doesn't have enough arguments
      */
     public static void checkInputFormat(String[] input) throws InputFormatException{
         if(input.length !=2){
@@ -38,7 +40,7 @@ public class FormatChecker {
      * check deadline format
      *
      * @param schedules string in deadline format
-     * @throws InputFormatException if command is not in deadline format
+     * @throws InputFormatException if nupjuk.command is not in deadline format
      */
     /* function for check deadline input format */
     public static void checkDeadlineFormat(String[] schedules) throws InputFormatException{
@@ -51,7 +53,7 @@ public class FormatChecker {
      * check event format
      *
      * @param schedules string in event format
-     * @throws InputFormatException if command is not in event format
+     * @throws InputFormatException if nupjuk.command is not in event format
      */
     public static void checkEventFormat(String[] schedules) throws InputFormatException{
         if(schedules.length !=3 ||
