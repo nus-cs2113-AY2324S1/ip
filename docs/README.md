@@ -112,7 +112,7 @@ Expected outcome:
 [D][ ] bro (by:tmr)
 Now you have 3 tasks in the list."
 
-### 'find' - Find a task/tasks
+### `find` - Find a task/tasks
 
 This command is used to search for tasks that contain a particular
 keyword in the description.
