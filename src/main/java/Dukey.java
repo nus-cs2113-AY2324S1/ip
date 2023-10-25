@@ -1,3 +1,4 @@
+import Commands.ListCommand;
 import Tasks.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class Dukey {
             storage.fileToTaskArray(filePath, array1);
             tasks = new TaskList(array1); // Assigning the TaskList to the class-level variable
         } catch (Exception e) {
-            ui.showLoadingError();
+            Ui.showLoadingError();
             this.tasks = new TaskList(new ArrayList<>());
         }
     }
