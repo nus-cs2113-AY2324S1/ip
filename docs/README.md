@@ -13,6 +13,7 @@ Ken is a CLI chatbot that helps you manage your tasks efficiently. Easily add an
 - Add tasks of different types: Todo, Deadline, Event
 - List all your tasks
 - Mark tasks as done
+- Unmark tasks 
 - Delete tasks
 - Find tasks
 
@@ -100,7 +101,7 @@ Here are the matching tasks in your list:
 ```
 
 
-### `mark` - Searching for tasks by keywords
+### `mark` - Marking tasks as completed
 
 To mark a task as done, use the mark command followed by the task number:
 
@@ -116,3 +117,23 @@ Nice! I've marked this task as done:
 ```
 
 
+### `unmark` - Unmarking tasks as uncompleted
+
+To unmark a previously marked task, use the unmark command followed by the task number:
+
+#### Example of usage :
+
+`unmark 2`
+
+#### Expected outcome:
+
+```
+Nice! I've unmarked this task as done:
+ [ ] lunch from: 2pm to: 4pm
+```
+
+
+### `bye` - Terminating Ken 
+
+When you've finished organizing your tasks, simply enter 
+`bye`
