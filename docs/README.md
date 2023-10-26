@@ -15,6 +15,7 @@ Elvis is a chatbot for managing todo, deadline, event for use via a Command Line
     - [Unmarking a task: `unmark`](https://woodenclock.github.io/ip/#9-unmarking-a-task-unmark)
     - [Exiting program: `bye`](https://woodenclock.github.io/ip/#10-exiting-program-bye)
     - [Saving the Tasklist](https://woodenclock.github.io/ip/#11-saving-the-tasklist)
+- [FAQ](https://woodenclock.github.io/ip/#faq)
 - [Command summary](https://woodenclock.github.io/ip/#command-summary)
 
   
