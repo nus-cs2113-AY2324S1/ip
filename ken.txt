@@ -1,0 +1,2 @@
+D | 1 | ip |  by: friday
+T | 0 | studying for test | null

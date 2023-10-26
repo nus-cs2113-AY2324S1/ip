@@ -1,24 +1,114 @@
-# Duke project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+# User Guide for Ken
 
-## Setting up in Intellij
+```
+K   K  EEEEE   N   N
+K  K   E       NN  N
+KKK    EEEE    N N N
+K  K   E       N  NN
+K   K  EEEEE   N   N
+```
+## Features 
+Ken is a CLI chatbot that helps you manage your tasks efficiently. Easily add and delete tasks, deadline and events, save them, and use Ken to manage them easily. 
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Usage
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### `todo, deadline, event` - Add a Task 
+
+To add a task, use one of the following commands:
+
+- `todo [task description]`: Adds a todo task.
+- `deadline [task description] /by [deadline]`: Adds a deadline task, with when it is due by.
+- `event [task description] /from [start date] /to [end date]`: Adds an event task, with the duration of the event.
+
+#### Example of usage :
+
+`todo activity`
+
+`deadline project /by Friday`
+
+`event lunch /from 2pm /to 4pm`
+
+
+#### Expected outcome: 
+
+```
+Got it. I've added this task:
+   [T][ ] activity
+Now you have 1 tasks in the list.
+```
+```
+Got it. I've added this task:
+[D][ ] project  by: Friday
+Now you have 4 tasks in the list.
+```
+```
+Got it. I've added this task:
+[E][ ] lunch  from: 2pm to: 4pm
+Now you have 5 tasks in the list.
+```
+
+
+### `list` - Viewing all tasks
+
+To view a list of all your tasks and their corresponding information, use this command
+ 
+`list`
+
+#### Expected outcome:
+
+
+```
+Here are the tasks in your list:
+ 1.[T][ ] studying for test
+ 2.[D][ ] project by: Friday
+ 3.[E][ ] lunch from: 2pm to: 4pm
+```
+
+
+### `delete` - Removing tasks
+
+To delete a task, use the delete command followed by the task number:
+ 
+`delete 2`
+
+#### Expected outcome:
+
+
+```
+Got it. I've removed this task:
+   [D][ ] project by: Friday
+Now you have 2 tasks in the list.
+```
+### `find` - Searching for tasks by keywords
+
+To find a particular task and their corresponding information from the list by using any part of description, use this command
+ 
+`find lunch`
+
+#### Expected outcome:
+
+
+```
+Here are the matching tasks in your list:
+2. [E][ ] lunch ( from: 2pm to: 4pm )
+```
+
+
+### `mark` - Searching for tasks by keywords
+
+To mark a task as done, use the mark command followed by the task number:
+
+#### Example of usage :
+
+`mark 2`
+
+#### Expected outcome:
+
+```
+Nice! I've marked this task as done:
+ [X] lunch from: 2pm to: 4pm
+```
+
+
+
