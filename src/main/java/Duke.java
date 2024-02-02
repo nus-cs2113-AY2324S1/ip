@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 public class Duke {
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
@@ -8,7 +9,7 @@ public class Duke {
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
 
-        String[] listOfItems = new String[100];
+        Task[] listOfItems = new Task[100];
 
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Brennan!");
@@ -30,13 +31,46 @@ public class Duke {
 
             else if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < sizeOfAddedItems; i++) {
-                    System.out.println((i + 1) + ". " + listOfItems[i]);
+
+                    System.out.println((i + 1) + ". " + "[" + listOfItems[i].getStatusIcon() + "]" + listOfItems[i].description);
                 }
                 System.out.println("____________________________________________________________");
             }
+
+            else if (Arrays.asList(input.split( " ")).contains("mark")) {
+
+                //Finding the index of the task that the user wants to mark
+                String[] splitInput = input.split(" ");
+                int indexTask = Integer.parseInt(splitInput[1]);
+
+                listOfItems[indexTask - 1].markAsCompleted();
+
+                System.out.println("____________________________________________________________");
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println((indexTask) + ". " + "[" + listOfItems[indexTask-1].getStatusIcon() + "]" + listOfItems[indexTask - 1].description);
+                System.out.println("____________________________________________________________");
+
+            }
+
+            else if (Arrays.asList(input.split( " ")).contains("unmark")) {
+
+                //Finding the index of the task that the user wants to mark
+                String[] splitInput = input.split(" ");
+                int indexTask = Integer.parseInt(splitInput[1]);
+
+                listOfItems[indexTask - 1].markAsNotCompleted();
+
+                System.out.println("____________________________________________________________");
+                System.out.println(" OK, I've marked this task as not done yet:");
+                System.out.println((indexTask) + ". " + "[" + listOfItems[indexTask-1].getStatusIcon() + "]" + listOfItems[indexTask - 1].description);
+                System.out.println("____________________________________________________________");
+
+            }
+
             else {
-                listOfItems[sizeOfAddedItems] = input;
+                listOfItems[sizeOfAddedItems] = new Task(input);
 
                 System.out.println("____________________________________________________________");
                 System.out.println(" added: " + input);
