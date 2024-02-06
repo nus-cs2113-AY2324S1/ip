@@ -1,0 +1,9 @@
+good
+todo read book
+deadline cs2113 coursemology /by Friday 4pm
+event cs2112 lecture /from Friday 4pm /to 6pm
+list
+mark 2
+deadline cs2113 ip /by Thursday 5pm
+list
+bye
